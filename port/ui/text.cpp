@@ -6,17 +6,20 @@
 
 #include <ft2build.h>
 #include FT_FREETYPE_H
+#include FT_ADVANCES_H
 #include FT_MODULE_H
 
 #include <zlib.h>
 
 #include <algorithm>
 #include <cmath>
+#include <cstdio>
 #include <cstring>
 #include <dirent.h>
 #include <fstream>
 #include <functional>
 #include <iterator>
+#include <unordered_set>
 #include <sys/stat.h>
 
 namespace ui
@@ -160,6 +163,20 @@ namespace ui
 			if (has({"cjk", "chinese", "han"}))
 				return "cjk";
 			return {};
+		}
+
+		// Of the fonts that are not CJK ones by name, the order for the rest (Cyrillic, Greek): a
+		// regular style first (SST-Roman, not SST-Bold, which comes first by name and draws a Russian
+		// menu bold and wide), then the other styles, then DynaFont's Chinese fonts (the console's
+		// DFHEI5-SONY), whose Greek and Cyrillic are a CJK font's wide ones
+		int OtherRank(FT_Face face, const std::string& names)
+		{
+			if (names.rfind("df", 0) == 0 && (names.find("hei") != std::string::npos || names.find("kai") != std::string::npos ||
+					names.find("ming") != std::string::npos || names.find("song") != std::string::npos || names.find("gb") != std::string::npos))
+				return 2;
+			const std::string style = Lower(face->style_name ? face->style_name : "");
+			const bool regular = style == "regular" || style == "roman" || style == "book" || style == "normal";
+			return regular && !(face->style_flags & (FT_STYLE_FLAG_BOLD | FT_STYLE_FLAG_ITALIC)) ? 0 : 1;
 		}
 
 		// -- Arabic: its letters' forms, as Unicode's presentation forms B (isolated, final, initial,
@@ -516,11 +533,13 @@ namespace ui
 			std::string path;
 			int index = 0;
 			std::string cjk; // CjkOf
+			int otherRank = 0; // OtherRank
 		};
 		FT_Library library = nullptr;
 		std::vector<Face> faces;
 		std::vector<size_t> cjkOrder, otherOrder; // the faces to try, for a CJK character and for the rest
 		bool opened = false;
+		std::unordered_set<uint64_t> logged; // a font and a block of code points, named in the log once
 
 		~Fallback()
 		{
@@ -550,19 +569,43 @@ namespace ui
 				for (size_t i = 0; i < faces.size(); i++)
 					if (rank(faces[i]) == r)
 						cjkOrder.push_back(i);
-			for (size_t i = 0; i < faces.size(); i++)
-				if (faces[i].cjk.empty())
-					otherOrder.push_back(i);
+			for (int r = 0; r <= 2; r++)
+				for (size_t i = 0; i < faces.size(); i++)
+					if (faces[i].cjk.empty() && faces[i].otherRank == r)
+						otherOrder.push_back(i);
 			for (size_t i : cjkOrder)
 				if (!faces[i].cjk.empty())
 					otherOrder.push_back(i);
 		}
 
-		// Japanese kana go to a Japanese font and Hangul to a Korean one, whatever the language
+		// A font that sets the character's script a whole em a letter, as a CJK font whose name does not
+		// say so sets Greek and Cyrillic (their full-width forms, from its national character set): its
+		// narrow letter (і, ι) as wide as its widest, so a proportional font's wide Ж is not taken for one
+		static bool FullWidth(FT_Face face, char32_t c)
+		{
+			const char32_t probe = (c >= 0x0400 && c <= 0x052f) ? 0x0456 : (c >= 0x0370 && c <= 0x03ff) ? 0x03b9 : c;
+			const FT_UInt index = FT_Get_Char_Index(face, probe);
+			FT_Fixed advance = 0;
+			return index != 0 && FT_Get_Advance(face, index, FT_LOAD_NO_SCALE, &advance) == 0 && advance * 10 >= face->units_per_EM * 9;
+		}
+
+		// Japanese kana go to a Japanese font and Hangul to a Korean one, whatever the language; the
+		// rest to the fonts that set it as a proportional font does before those that set it full-width
 		const std::vector<size_t>& For(char32_t c, std::vector<size_t>& scratch, const std::string& language) const
 		{
 			if (!IsCjk(c))
-				return otherOrder;
+			{
+				scratch.clear();
+				for (size_t i : otherOrder)
+					if (!FullWidth(faces[i].face, c))
+						scratch.push_back(i);
+				if (scratch.size() == otherOrder.size())
+					return otherOrder;
+				for (size_t i : otherOrder)
+					if (FullWidth(faces[i].face, c))
+						scratch.push_back(i);
+				return scratch;
+			}
 			const char* script = (c >= 0x3040 && c <= 0x30ff) ? "ja" : IsHangul(c) ? "ko" : nullptr;
 			if (!script || language == script)
 				return cjkOrder;
@@ -758,7 +801,7 @@ namespace ui
 					FT_Set_Pixel_Sizes(face, 0, m_size);
 					const std::string name = file.substr(file.find_last_of('/') + 1);
 					const std::string family = face->family_name ? face->family_name : "";
-					fallback.faces.push_back({face, file, index, CjkOf(Lower(name + " " + family))});
+					fallback.faces.push_back({face, file, index, CjkOf(Lower(name + " " + family)), OtherRank(face, Lower(name + " " + family))});
 					names += (names.empty() ? "" : ", ") + name + (count > 1 ? "#" + std::to_string(index) : "") +
 						(fallback.faces.back().cjk.empty() ? "" : " (" + fallback.faces.back().cjk + ")");
 				}
@@ -795,6 +838,12 @@ namespace ui
 				continue;
 			glyph.found = true;
 			glyph.advance = face->glyph->advance.x / 64.0f;
+			if (!IsCjk(codepoint) && fallback.logged.insert((uint64_t)i << 32 | (codepoint >> 7)).second)
+			{
+				char line[48];
+				std::snprintf(line, sizeof(line), "U+%04X (%.2f em) from ", codepoint, glyph.advance / m_size);
+				Log(std::string("[ui] text: ") + line + fallback.faces[i].path.substr(fallback.faces[i].path.find_last_of('/') + 1));
+			}
 			if (face->glyph->outline.n_points == 0 || FT_Render_Glyph(face->glyph, FT_RENDER_MODE_NORMAL) != 0 ||
 				FT_Render_Glyph(face->glyph, FT_RENDER_MODE_SDF) != 0)
 				break;
@@ -866,7 +915,8 @@ namespace ui
 			return {};
 		OpenFallback();
 		const Fallback& fallback = *m_fallback;
-		// the most of them, the language's own font first among equals
+		// the most of them, the language's own font first among equals; a letter the font sets
+		// full-width (a CJK font's Cyrillic) counts for less than one it sets as a proportional font does
 		const bool cjk = std::any_of(missing.begin(), missing.end(), IsCjk);
 		const std::vector<size_t>& order = cjk ? fallback.cjkOrder : fallback.otherOrder;
 		size_t best = order.size();
@@ -876,7 +926,8 @@ namespace ui
 			FT_Face face = fallback.faces[order[k]].face;
 			size_t count = 0;
 			for (char32_t c : missing)
-				count += FT_Get_Char_Index(face, c) != 0;
+				if (FT_Get_Char_Index(face, c) != 0)
+					count += IsCjk(c) || !Fallback::FullWidth(face, c) ? 2 : 1;
 			if (count > bestCount)
 			{
 				best = k;
