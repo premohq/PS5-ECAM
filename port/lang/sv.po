@@ -200,7 +200,7 @@ msgstr "Arkivet kunde inte läsas: {0}"
 #. why an archived game could not start; {0} and {1} are sizes, as in 2.4 GB
 #: port/app/game_archives.cpp:713
 msgid "Unpacking the game needs {0} of free space, and {1} is free."
-msgstr "Att packa upp spelet kräver {0} ledigt utrymme, och {1} är ledigt."
+msgstr "Att packa upp spelet kräver {0} ledigt utrymme och {1} är ledigt."
 
 #. why an archived game could not start; {0} is the folder the games unpacked from archives are kept in
 #: port/app/game_archives.cpp:725 port/app/game_archives.cpp:800
@@ -775,7 +775,7 @@ msgstr "Egen form"
 #: port/app/ingame.cpp:186
 #, menu
 msgid "The TV's and the GamePad's pictures, and how they fill the screen."
-msgstr "TV:ns och GamePadens bilder, och hur de fyller skärmen."
+msgstr "TV:ns och GamePadens bilder och hur de fyller skärmen."
 
 #. the 3DS's top and bottom screens
 #: port/app/ingame.cpp:187 port/app/ingame3ds.cpp:475
@@ -1334,7 +1334,7 @@ msgstr "Skärmar och ram"
 #: port/app/ingame3ds.cpp:471
 #, menu
 msgid "The screens' layout, which one is the main one, and the border."
-msgstr "Skärmarnas layout, vilken som är huvudskärm, och ramen."
+msgstr "Skärmarnas layout, vilken som är huvudskärm och ramen."
 
 #: port/app/ingame3ds.cpp:472
 #, menu
@@ -1516,7 +1516,7 @@ msgstr "(tom)"
 #: port/app/ingame3ds.cpp:533
 #, menu
 msgid "Which of this game's five slots to save to or load from. In the game, touchpad click + Square saves to it, and touchpad click + Triangle held loads it."
-msgstr "Vilken av spelets fem platser som du sparar till eller läser in från. I spelet sparar styrplattsklick + Fyrkant till den, och styrplattsklick + Triangel som hålls in läser in från den."
+msgstr "Vilken av spelets fem platser som du sparar till eller läser in från. I spelet sparar styrplattsklick + Fyrkant till den och styrplattsklick + Triangel som hålls in läser in från den."
 
 #: port/app/ingame3ds.cpp:535
 #, menu
@@ -3446,7 +3446,7 @@ msgstr "Finjustera din upplevelse"
 
 #: port/frontend/shell/classic.cpp:566
 msgid "Preferences"
-msgstr "Preferenser"
+msgstr "Inställningar"
 
 #: port/frontend/shell/classic.cpp:599
 msgid "On this console"
