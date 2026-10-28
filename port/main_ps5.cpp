@@ -645,7 +645,7 @@ int main(int argc, char* argv[])
 		if (ps5retro::IsRetro((int)system))
 		{
 			const int index = (int)system;
-			status.noticeRetro[index - 4] = ps5retro::Available(index) ? std::string() : ps5lang::Tr("The selected emulator runtime is missing from this ECAM package.");
+			status.noticeRetro[index - 4] = ps5retro::Available(index, settings.retro[index - 4].retroBackend) ? std::string() : ps5lang::Tr("The selected emulator runtime is missing from this ECAM package.");
 			if (!keepList(system, settings.retro[index - 4].gamesFolder)) ps5retro::StartScan(index, settings.retro[index - 4].gamesFolder);
 			return;
 		}
@@ -787,8 +787,8 @@ int main(int argc, char* argv[])
 		{
 			const auto side = ps5launcher::SideName(choice->system);
 			RememberSide(side);
-			if (game.path.empty()) ps5retro::LaunchLibrary((int)choice->system, error);
-			else ps5retro::Launch((int)choice->system, game.path.string(), error);
+			if (game.path.empty()) ps5retro::LaunchLibrary((int)choice->system, error, settings.retro[(int)choice->system - 4].retroBackend);
+			else ps5retro::Launch((int)choice->system, game.path.string(), error, settings.retro[(int)choice->system - 4].retroBackend);
 			status.launchError = error;
 			settings.side = side;
 			continue;

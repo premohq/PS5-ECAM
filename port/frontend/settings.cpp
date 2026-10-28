@@ -72,6 +72,7 @@ namespace ps5settings
 		// program resolves /data/eden or its legacy /data/ps5cemu/eden wherever ours is)
 		void ReadN3ds(const rapidjson::Value& json, N3ds& n3ds, bool relocate = true)
 		{
+			ReadInt(json, "retroBackend", n3ds.retroBackend, 0, 1);
 			ReadString(json, "gamesFolder", n3ds.gamesFolder);
 			if (relocate)
 				n3ds.gamesFolder = ps5paths::Relocated(n3ds.gamesFolder); // saved before the data moved to a drive (#52)
@@ -147,6 +148,7 @@ namespace ps5settings
 		void WriteN3ds(Writer& writer, const N3ds& n3ds)
 		{
 			writer.StartObject();
+			writer.Key("retroBackend"); writer.Int(n3ds.retroBackend);
 			writer.Key("gamesFolder");
 			writer.String(n3ds.gamesFolder.c_str());
 			writer.Key("resolution");

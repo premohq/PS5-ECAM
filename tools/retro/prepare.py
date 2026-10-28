@@ -16,6 +16,31 @@ def replace(path, before, after):
 
 
 def prepare(source, kind, project):
+    if kind in ('mupen64plus', 'fceumm'):
+        folder = source / 'ps5/coreorbis'
+        shutil.copyfile(project / 'port/retro/runtime/ecam_bridge.h', folder / 'ecam_bridge.h')
+        main = folder / 'main-boot.cpp'
+        replace(main, '#include "OrbisPaths.h"', '#include "OrbisPaths.h"\n#include "ecam_bridge.h"')
+        replace(main, 'int main(int argc, char** argv)\n{', f'int main(int argc, char** argv)\n{{\n    ecam_bridge::Init(argc, argv, "{kind}");')
+        replace(main, 'sceSystemServiceLoadExec("exit", nullptr)', 'sceSystemServiceLoadExec(ecam_bridge::ReturnProgram(), nullptr)')
+        # Existing native teardown runs after one forwarded game, including a failed boot.
+        replace(main, 'if (!again)\n', 'if (!again || (ecam_bridge::request.valid && !ecam_bridge::request.library))\n')
+        if kind == 'mupen64plus':
+            replace(main, 'std::string rom = (argc > 1 && argv[1] && OrbisIsFile(argv[1])) ? argv[1] : "";',
+                    'std::string rom = ecam_bridge::request.valid ? ecam_bridge::request.rom : ((argc > 1 && argv[1] && OrbisIsFile(argv[1])) ? argv[1] : "");')
+            # Bundled runtimes are updated with ECAM only, never through a standalone installer.
+            update = source / 'ps5/frontend/fe_update.cpp'
+            replace(update, 'UpdateOffer CheckForUpdate()\n{', 'UpdateOffer CheckForUpdate()\n{\n    return {}; // ECAM bundle: standalone self-updater disabled.\n')
+        else:
+            replace(main, 'const bool from_command_line = argc > 1 && argv[1] && OrbisIsFile(argv[1]);',
+                    'const bool from_command_line = (ecam_bridge::request.valid && !ecam_bridge::request.library) || (argc > 1 && argv[1] && OrbisIsFile(argv[1]));')
+            replace(main, 'std::string rom = from_command_line ? argv[1] : "";',
+                    'std::string rom = ecam_bridge::request.valid ? ecam_bridge::request.rom : (from_command_line ? argv[1] : "");')
+        # Dedicated ECAM helper ports avoid colliding with running standalone helpers.
+        helper = folder / 'orbis-shims/ProsperoJailbreak.h'
+        port = 9064 if kind == 'mupen64plus' else 9085
+        replace(helper, f'constexpr int kHelperPort = {port};', f'constexpr int kHelperPort = {9136 if kind == "mupen64plus" else 9137}; // ECAM bundle')
+        return
     if kind == 'porpoise':
         folder = source / 'src'
         shutil.copyfile(project / 'port/retro/runtime/ecam_bridge.h', folder / 'ecam_bridge.h')
@@ -62,7 +87,7 @@ def prepare(source, kind, project):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('kind', choices=['porpoise', 'n64', 'nes'])
+    parser.add_argument('kind', choices=['porpoise', 'n64', 'nes', 'mupen64plus', 'fceumm'])
     parser.add_argument('source', type=Path)
     args = parser.parse_args()
     prepare(args.source.resolve(), args.kind, Path(__file__).resolve().parents[2])

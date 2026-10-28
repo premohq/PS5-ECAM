@@ -10,6 +10,7 @@
 //   ds/saves/, ds/states/  melonDS's saves and save states
 //   switch/save/        Eden's games' saves (eden/user/nand/user/save, in /data/ps5cemu whatever the
 //                       data folder), and switch/profiles/ its user profiles (system save 8000000000000010)
+//   retro/<backend>/   Porpoise GC/Wii saves, and separate N64XY/NESYX/Mupen64Plus/FCEUmm saves and states
 //   settings/           ps5cemu.json (the launcher's, each game's own), Cemu's settings.xml, its
 //                       controllerProfiles/ and themes/: a whole backup's, never a game's
 //   backup.json         when, by which version, how many files and bytes

@@ -2,6 +2,9 @@
 // PS5-ECAM: every side's saves to a USB drive and back (saves.h).
 
 #include "saves.h"
+#ifndef PS5ECAM_RETRO_DATA
+#define PS5ECAM_RETRO_DATA "/data"
+#endif
 #include "lang.h"
 #include "paths.h"
 #include "../eden/library.h"
@@ -73,11 +76,22 @@ namespace ps5saves
 		std::vector<Set> Sets()
 		{
 			const std::string root = ps5paths::Root();
+			const std::string retro = PS5ECAM_RETRO_DATA;
 			return {
 				{"wiiu/save", ps5paths::Mlc() + "/usr/save", nullptr},
 				{"3ds/sdmc", ps5paths::Azahar() + "/sdmc/Nintendo 3DS", SdmcSave},
 				{"3ds/nand", ps5paths::Azahar() + "/nand/data", nullptr},
 				{"3ds/states", ps5paths::Azahar() + "/states", nullptr},
+				// Backend names are part of the backup format: never restore one core's states into another.
+				{"retro/porpoise/gc", retro + "/porpoise/saves/User/GC", nullptr},
+				{"retro/porpoise/wii", retro + "/porpoise/saves/User/Wii", nullptr},
+				{"retro/porpoise/states", retro + "/porpoise/states", nullptr},
+				{"retro/n64xy/saves", retro + "/PS5N64/saves", nullptr},
+				{"retro/nesyx/saves", retro + "/PS5NES/saves", nullptr},
+				{"retro/mupen64plus/saves", retro + "/mupen64plus/saves", nullptr},
+				{"retro/mupen64plus/states", retro + "/mupen64plus/states", nullptr},
+				{"retro/fceumm/saves", retro + "/fceumm/saves", nullptr},
+				{"retro/fceumm/states", retro + "/fceumm/states", nullptr},
 				{"ds/saves", ps5paths::MelonDs() + "/saves", nullptr},
 				{"ds/slot2-saves", ps5paths::MelonDs() + "/slot2-saves", nullptr},
 				{"ds/states", ps5paths::MelonDs() + "/states", nullptr},
@@ -106,7 +120,7 @@ namespace ps5saves
 		{
 			// Each system keeps replaced saves on its own filesystem, including Eden on /data
 			// while the launcher and other systems are on a USB drive.
-			for (const std::string& root : {ps5paths::CemuRoot(), ps5paths::Azahar(), ps5paths::MelonDs(), ps5eden::DataFolder(), ps5paths::Root()})
+			for (const std::string& root : {ps5paths::CemuRoot(), ps5paths::Azahar(), ps5paths::MelonDs(), ps5eden::DataFolder(), std::string(PS5ECAM_RETRO_DATA) + "/porpoise", std::string(PS5ECAM_RETRO_DATA) + "/PS5N64", std::string(PS5ECAM_RETRO_DATA) + "/PS5NES", std::string(PS5ECAM_RETRO_DATA) + "/mupen64plus", std::string(PS5ECAM_RETRO_DATA) + "/fceumm", ps5paths::Root()})
 			{
 				const fs::path relative = file.lexically_relative(root);
 				if (!relative.empty() && *relative.begin() != "..")

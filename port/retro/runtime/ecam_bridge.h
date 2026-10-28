@@ -1,4 +1,5 @@
-// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2026 PS5-ECAM contributors. See tools/retro/BRIDGE-LICENSE.txt.
 // Shared by the bundled runtimes. LoadExec may drop argv; consume a bounded request beside them.
 #pragma once
 #include <cstdio>
@@ -24,7 +25,7 @@ namespace ecam_bridge
 				value = arguments[++i];
 			}
 		}
-		r.valid = ((r.library && r.rom.empty()) || (!r.library && !r.rom.empty() && r.rom.front() == '/')) && !r.returnProgram.empty() && r.returnProgram.front() == '/' && r.returnProgram.ends_with("/eboot.bin");
+		r.valid = ((r.library && r.rom.empty()) || (!r.library && !r.rom.empty() && r.rom.front() == '/')) && !r.returnProgram.empty() && r.returnProgram.front() == '/' && r.returnProgram.size() >= 10 && r.returnProgram.compare(r.returnProgram.size() - 10, 10, "/eboot.bin") == 0;
 		for (const auto& value : {r.rom, r.returnProgram})
 			if (value.size() > 4096 || value.find_first_of("\r\n") != std::string::npos || value.find('\0') != std::string::npos) r.valid = false;
 		return r;
@@ -44,7 +45,7 @@ namespace ecam_bridge
 		}
 		if (!in.eof()) return {};
 		auto request = Parse(args);
-		if (request.valid) std::filesystem::remove(path, ec); // never replay an already consumed handoff
+		if (request.valid && (!std::filesystem::remove(path, ec) || ec)) return {}; // refuse replay if consumption failed
 		return request;
 	}
 	inline Request request;
@@ -70,5 +71,6 @@ namespace ecam_bridge
 			if (recorded.valid) { request = std::move(recorded); break; }
 		}
 		if (request.valid && !request.rom.empty()) setenv("PS5ECAM_ROM", request.rom.c_str(), 1);
+		else unsetenv("PS5ECAM_ROM"); // settings-only launches must not inherit a prior forwarded game
 	}
 }

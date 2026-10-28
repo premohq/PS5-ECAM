@@ -86,6 +86,11 @@ jobs:
       - name: Additional emulator integration
         run: bash tools/tests/test-retro.sh
 
+      - name: Additional emulator tools and pinned overlays
+        run: |
+          python3 -B tools/tests/test-retro-tools.py
+          python3 -B tools/tests/test-retro-overlays.py
+
       - name: Additional emulator frontend syntax
         run: |
           clang++-18 -std=c++20 -Wno-deprecated-declarations -DFMT_HEADER_ONLY -DPS5CEMU_VERSION='"dev"' \

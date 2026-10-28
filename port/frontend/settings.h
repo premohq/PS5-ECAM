@@ -23,6 +23,7 @@ namespace ps5settings
 	// buttons, language and the ds... ones)
 	struct N3ds
 	{
+		int retroBackend = 0; // N64/NES: 0 original donor, 1 optional alternative; no save migration.
 		std::string gamesFolder = ps5paths::Azahar() + "/games";
 		int resolution = 6;			  // the internal resolution, times the 3DS's 400x240
 		int layout = 2;				  // the screens' layout (ps5azahar::Layout): the top one large

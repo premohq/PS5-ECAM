@@ -17,6 +17,18 @@
       "repository": "Yahballon/PS5NESX",
       "commit": "58168b79fe0e2cce7d42b8b8109d74a4283a2b41",
       "path": ".deps/PS5NESX"
+    },
+    {
+      "name": "mupen64plus",
+      "repository": "TheRealRetro/mupen64plus-ps5",
+      "commit": "a915117cad9f93d9cda2ec78915366bb29b90883",
+      "path": ".deps/mupen64plus-ps5"
+    },
+    {
+      "name": "fceumm",
+      "repository": "MisterTemaki/fceummPS5",
+      "commit": "0e43fe1d17ce488e0a2eab6fe66a2c7a69a74b99",
+      "path": ".deps/fceummPS5"
     }
   ]
 }

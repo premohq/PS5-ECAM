@@ -15,5 +15,12 @@ namespace ps5retro
 	inline const System* Find(std::string_view key) { for (const auto& s : kSystems) if (s.key == key) return &s; return nullptr; }
 	inline bool IsRetro(int side) { return side >= 4 && side < 8; }
 	inline const System& Of(int side) { return kSystems.at(size_t(side - 4)); }
+	struct Backend { const char* name; const char* runtime; const char* data; };
+	inline Backend BackendFor(int side, int backend = 0)
+	{
+		if (side == 6 && backend == 1) return {"Mupen64Plus (experimental)", "retro/mupen64plus/eboot.bin", "/data/mupen64plus"};
+		if (side == 7 && backend == 1) return {"FCEUmm PS5 (experimental)", "retro/fceumm/eboot.bin", "/data/fceumm"};
+		const auto& s = Of(side); return {s.name, s.runtime, s.data};
+	}
 	bool HasExtension(std::string_view side, std::string name);
 }

@@ -8,6 +8,6 @@ work=$(mktemp -d)
 work=$(cd "$work" && pwd -P)
 trap 'rm -rf "$work"' EXIT
 "${CXX:-c++}" -std=c++20 -Wno-deprecated-declarations -DFMT_HEADER_ONLY -DPS5CEMU_VERSION='"test"' \
-    -DPS5CEMU_DATA="\"$work/data\"" -DPS5CEMU_USB_ROOT="\"$work/mounts\"" -I"$root/port" \
+    -DPS5ECAM_RETRO_DATA="\"$work/retro\"" -DPS5CEMU_DATA="\"$work/data\"" -DPS5CEMU_USB_ROOT="\"$work/mounts\"" -I"$root/port" \
     "$root/tools/tests/test-saves.cpp" "$root/port/app/saves.cpp" "$root/port/eden/save_transfer.cpp" -pthread -o "$work/test-saves"
 "$work/test-saves"

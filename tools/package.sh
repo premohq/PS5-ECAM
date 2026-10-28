@@ -180,7 +180,7 @@ elif ((!check)); then
 fi
 
 # Optional additional systems: only source-built ECAM overlays are staged here.
-for system in porpoise n64 nes; do
+for system in porpoise n64 nes mupen64plus fceumm; do
     runtime="$PS5CEMU_BUILD/retro/$system"
     if [[ -f $runtime/eboot.bin ]]; then
         [[ -f $runtime/ECAM-SOURCE.json ]] || { echo "Missing source provenance: $runtime" >&2; exit 2; }

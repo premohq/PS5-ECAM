@@ -5,6 +5,8 @@ runtimes. It follows the existing Eden process-handoff architecture: the launche
 graphics resources and loads a program inside the ECAM package. No separately installed emulator
 app is required. Existing standalone data folders are used, without moving or converting saves.
 
+See [RETRO-UPGRADES.md](RETRO-UPGRADES.md) for the optional Mupen64Plus/FCEUmm runtimes, artwork/metadata, validation, diagnostics and USB backup upgrades.
+
 Status: implementation submitted for source review. Host tests and source-overlay checks are
 available. A full PS5 cross-build and console launch/return qualification are still outstanding.
 
@@ -30,13 +32,13 @@ rewrite save files. Missing runtimes and inaccessible game roots are reported be
 ### Discovery formats
 
 - GameCube/Wii: ISO, GCM, RVZ, CISO, GCZ, WBFS and WIA; Wii additionally WAD, DOL and ELF.
-- N64: Z64, N64, V64 and ZIP.
-- NES: NES, UNF, UNIF, FDS and ZIP.
+- N64: Z64, N64, V64 and ZIP; ROM additionally requires the optional Mupen64Plus backend.
+- NES: NES, UNF, UNIF, FDS and ZIP; 7z additionally requires the optional FCEUmm backend.
 
 The configured GameCube and Wii roots are separate: the ECAM scanner does not classify the
 contents of compressed disc containers. Point them at separately organized directories to avoid
-mixed lists. No files are reorganized automatically. ZIP validation and selection remain the
-native NES/N64 loader's responsibility. BIOS/system files required by a game remain user-provided.
+mixed lists. No files are reorganized automatically. Archive member selection, decompression and full content validation remain the
+native NES/N64 loader's responsibility; ECAM performs basic format and size preflight checks. BIOS/system files required by a game remain user-provided.
 
 ### Game and settings handoff
 
@@ -53,7 +55,7 @@ to static storage before its allocator is released.
 
 Settings > Emulator settings opens the bundled native frontend with a library-only request.
 That frontend supplies its existing emulator options, controller setup and save-state shortcuts;
-closing it returns to ECAM. The core's settings and save identity algorithms are not changed.
+closing it returns to ECAM. The core's settings and save identity algorithms are not changed. Optional alternative backends keep their own data and state formats.
 ECAM does not offer its Wii U/3DS/DS/Switch save or home-tile actions for these additional systems.
 
 ## Source provenance and licensing
@@ -143,9 +145,7 @@ Host checks do not boot the PS5 runtimes or validate emulated audio/video/contro
 - Existing standalone data is reused directly. There is no automatic migration or save conversion.
   Use copies for qualification; compatibility with an unknown installed standalone version is not
   established by matching its data-folder name.
-- ECAM-specific covers/metadata, detailed play-duration reporting, per-game settings editing and
-  USB save-management UI for the new systems are not included. Native runtime frontends retain
-  their own functionality. New system tiles currently use the shared fallback rendering.
+- Local/donor artwork reuse, offline metadata import and whole-system USB save backup/restore are included in the upgrade. Automatic cover retrieval, detailed play-duration reporting and ECAM-native per-game/state editors remain outstanding. Native runtime frontends retain their own functionality. New system tiles currently use the shared fallback rendering.
 - ECAM's new scanner supports local/USB paths. Native network browsing remains in the bundled
   native frontend; an ECAM NFS/SMB scanner bridge is not implemented.
 - Arbitrary app-install locations outside the bridge's known aliases, nested runtime libc loading,

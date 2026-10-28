@@ -701,7 +701,7 @@ namespace ps5shell
 	void Shell::MakeGame(Game& game, const ps5catalog::Entry& entry)
 	{
 		game.entry = entry;
-		game.boxArt = IsRetro() ? std::string() : IsSwitch() ? SwitchCover(entry.game) : ps5boxart::Path(BoxOf(entry.game), entry.game.gameId);
+		game.boxArt = IsRetro() ? ps5retro::CoverPath(SideIndex(), entry.game) : IsSwitch() ? SwitchCover(entry.game) : ps5boxart::Path(BoxOf(entry.game), entry.game.gameId);
 		game.known = !IsRetro() && ps5gameinfo::Find(BoxOf(entry.game), entry.game.gameId, game.info);
 		// the list names games in English: GameTDB's title finds one whose own name is in the menus'
 		// language (7.7). It has no DS or Switch games yet.
@@ -727,7 +727,7 @@ namespace ps5shell
 
 	void Shell::LoadGames()
 	{
-		if (IsRetro() && ps5retro::Available(SideIndex())) m_status.noticeRetro[SideIndex() - 4] = ps5retro::ScanError(SideIndex());
+		if (IsRetro()) m_status.noticeRetro[SideIndex() - 4] = ps5retro::Available(SideIndex(), m_settings.retro[SideIndex() - 4].retroBackend) ? ps5retro::ScanError(SideIndex()) : Tr("The selected emulator runtime is missing from this ECAM package.");
 		m_scanning = CoreReady() && SystemScanning();
 		// a side not looked through this session (a network share's folder, #75) keeps the list of its last look
 		if (CoreReady() && !m_scanning && !m_status.lastLook[SideIndex()])
@@ -850,7 +850,7 @@ namespace ps5shell
 			}
 			for (Game& game : m_games)
 				if (game.boxArt.empty())
-					game.boxArt = IsRetro() ? std::string() : IsSwitch() ? SwitchCover(game.entry.game) : ps5boxart::Path(BoxOf(game.entry.game), game.entry.game.gameId);
+					game.boxArt = IsRetro() ? ps5retro::CoverPath(SideIndex(), game.entry.game) : IsSwitch() ? SwitchCover(game.entry.game) : ps5boxart::Path(BoxOf(game.entry.game), game.entry.game.gameId);
 		}
 	}
 
@@ -861,7 +861,7 @@ namespace ps5shell
 			// reading a Wii U game's icon mounts the game: one a frame
 			game.iconLooked = true;
 			m_iconLookedThisFrame = true;
-			game.icon = IsRetro() ? std::string() : Is3ds()				? ps5azahar::CoverPath(game.entry.game.titleId) :
+			game.icon = IsRetro() ? ps5retro::CoverPath(SideIndex(), game.entry.game) : Is3ds()				? ps5azahar::CoverPath(game.entry.game.titleId) :
 				IsDs()						? ps5melonds::CoverPath(game.entry.game.titleId) :
 				IsSwitch()					? ps5eden::CoverPath(game.entry.game) :
 				m_status.coreReady			? ps5emu::CoverPath(game.entry.game.titleId) :
