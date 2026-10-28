@@ -85,7 +85,7 @@ sources=(tools/launcher-preview/shell.cpp tools/launcher-preview/console.cpp
     port/ui/canvas.cpp port/ui/feedback.cpp port/ui/gfx.cpp port/ui/images.cpp port/ui/input.cpp port/ui/qr.cpp port/ui/text.cpp port/ui/theme.cpp
     port/ui/vkfn.cpp port/app/catalog.cpp port/app/saves.cpp port/app/reorganize.cpp port/app/gameinfo.cpp port/app/lang.cpp port/app/compatibility.cpp port/app/keyboard.cpp port/frontend/actions.cpp
     port/frontend/settings.cpp port/azahar/library.cpp port/azahar/controls.cpp port/azahar/unavailable.cpp
-    port/melonds/library.cpp port/melonds/unavailable.cpp port/eden/library.cpp port/eden/nx_files.cpp port/eden/controls.cpp port/eden/extras.cpp port/eden/save_transfer.cpp)
+    port/retro/library.cpp port/retro/launch.cpp port/melonds/library.cpp port/melonds/unavailable.cpp port/eden/library.cpp port/eden/nx_files.cpp port/eden/controls.cpp port/eden/extras.cpp port/eden/save_transfer.cpp)
 
 # each source compiled again when it, or a header of the port's, is newer than its object
 newest_header=$(find port tools/launcher-preview -name '*.h' -printf '%T@\n' | sort -n | tail -1)

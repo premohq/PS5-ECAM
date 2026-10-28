@@ -18,6 +18,8 @@
 #include "../../app/lang.h"
 #include "../../app/netfs.h"
 #include "../../app/saves.h"
+#include "../../retro/library.h"
+#include "../../retro/launch.h"
 #include "../../eden/extras.h"
 #include "../../ui/canvas.h"
 #include "../../ui/feedback.h"
@@ -162,12 +164,13 @@ namespace ps5shell
 		bool IsWiiU() const { return m_side == System::WiiU; }
 		bool Is3ds() const { return m_side == System::N3ds; }
 		bool IsDs() const { return m_side == System::Nds; }
+		bool IsRetro() const { return ps5retro::IsRetro((int)m_side); }
 		bool IsSwitch() const { return m_side == System::Switch; }
 		static constexpr int kSides = ps5launcher::kSideCount;
 		static int SideIndex(System side) { return (int)side; } // 0 Wii U, 1 3DS, 2 DS, 3 Switch: its bit in ui.sides, its catalogue
 		int SideIndex() const { return SideIndex(m_side); }
 		// the bar's order (the owner's, 2026-10-22): Wii U, Switch, DS, 3DS; m_barFocus counts in it
-		static constexpr System kBarOrder[kSides] = {System::WiiU, System::Switch, System::Nds, System::N3ds};
+		static constexpr System kBarOrder[kSides] = {System::WiiU, System::Switch, System::Nds, System::N3ds, System::GameCube, System::Wii, System::N64, System::Nes};
 		static int BarIndex(System side)
 		{
 			for (int i = 0; i < kSides; i++)
@@ -191,7 +194,7 @@ namespace ps5shell
 		static const char* SideTitle(System side) { return ps5launcher::SideTitle(side); }
 		static const char* SystemName(System side)
 		{
-			return side == System::N3ds ? "Nintendo 3DS" : side == System::Nds ? "Nintendo DS" : side == System::Switch ? "Nintendo Switch" : "Wii U";
+			return ps5retro::IsRetro((int)side) ? ps5retro::Of((int)side).name : side == System::N3ds ? "Nintendo 3DS" : side == System::Nds ? "Nintendo DS" : side == System::Switch ? "Nintendo Switch" : "Wii U";
 		}
 		ps5catalog::System CatalogSide() const { return (ps5catalog::System)SideIndex(); }
 		static ps5boxart::System BoxSide(System side)
@@ -215,7 +218,7 @@ namespace ps5shell
 		}
 		const std::string& Notice() const
 		{
-			return Is3ds() ? m_status.notice3ds : IsDs() ? m_status.noticeDs : IsSwitch() ? m_status.noticeSwitch : m_status.notice;
+			return IsRetro() ? m_status.noticeRetro[SideIndex() - 4] : Is3ds() ? m_status.notice3ds : IsDs() ? m_status.noticeDs : IsSwitch() ? m_status.noticeSwitch : m_status.notice;
 		}
 		bool SystemScanning() const;
 		// the side's folder looked through again, its list replaced with what is found (also one a network
@@ -224,15 +227,15 @@ namespace ps5shell
 		uint32_t Accent() const { return AccentOf(m_side); }
 		static uint32_t AccentOf(System side)
 		{
-			return side == System::N3ds ? ui::tokens::kN3ds : side == System::Nds ? ui::tokens::kNds : side == System::Switch ? ui::tokens::kNx : ui::tokens::kWiiu;
+			return ps5retro::IsRetro((int)side) ? 0xffbca375 : side == System::N3ds ? ui::tokens::kN3ds : side == System::Nds ? ui::tokens::kNds : side == System::Switch ? ui::tokens::kNx : ui::tokens::kWiiu;
 		}
 		std::string& GamesFolder(System side) { return side == System::WiiU ? m_settings.gamesFolder : Handheld(side).gamesFolder; }
 		const std::string& GamesFolder(System side) const { return side == System::WiiU ? m_settings.gamesFolder : Handheld(side).gamesFolder; }
 		// a handheld side's settings (the 3DS's, the DS's or the Switch's: the same shape)
-		ps5settings::N3ds& Handheld(System side) { return side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds; }
+		ps5settings::N3ds& Handheld(System side) { return ps5retro::IsRetro((int)side) ? m_settings.retro[(int)side - 4] : side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds; }
 		const ps5settings::N3ds& Handheld(System side) const
 		{
-			return side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds;
+			return ps5retro::IsRetro((int)side) ? m_settings.retro[(int)side - 4] : side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds;
 		}
 		uint64_t& LastGame(System side) { return side == System::WiiU ? m_settings.lastGame : Handheld(side).lastGame; }
 		std::vector<uint64_t>& RecentOf(System side) { return side == System::WiiU ? m_settings.recent : Handheld(side).recent; }

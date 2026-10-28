@@ -83,6 +83,16 @@ jobs:
       - name: Backups
         run: bash tools/tests/test-saves.sh
 
+      - name: Additional emulator integration
+        run: bash tools/tests/test-retro.sh
+
+      - name: Additional emulator frontend syntax
+        run: |
+          clang++-18 -std=c++20 -Wno-deprecated-declarations -DFMT_HEADER_ONLY -DPS5CEMU_VERSION='"dev"' \
+            -I.deps/rapidjson/include -Iport -fsyntax-only port/frontend/settings.cpp port/app/catalog.cpp \
+            port/frontend/shell/shell.cpp port/frontend/shell/pages.cpp port/frontend/shell/settings.cpp \
+            port/frontend/shell/library.cpp port/frontend/shell/hub.cpp port/retro/library.cpp port/retro/launch.cpp
+
       - name: Switch standalone features
         run: |
           # the launcher's copies of Eden's readers are Eden's, patches/eden applied (port/eden/standalone)

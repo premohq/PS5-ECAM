@@ -172,6 +172,8 @@ add_library(CemuPS5 STATIC
 	eden/extras.h
 	eden/save_transfer.cpp
 	eden/save_transfer.h
+	retro/launch.cpp
+	retro/library.cpp
 	eden/launch.cpp
 	eden/library.cpp
 	eden/library.h
@@ -293,6 +295,8 @@ set_source_files_properties(
 	azahar/library.cpp
 	azahar/unavailable.cpp
 	eden/controls.cpp
+	retro/launch.cpp
+	retro/library.cpp
 	eden/launch.cpp
 	eden/extras.cpp
 	eden/library.cpp

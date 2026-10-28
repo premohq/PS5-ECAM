@@ -288,6 +288,7 @@ namespace ps5shell
 		}
 		if (waited)
 			ps5log::Line("[launcher] the scan finished {:.0f} ms after the game was chosen", (host.clock() - waitFrom) * 1000);
+		ps5retro::FinishScans();
 		ps5catalog::Save();
 		Frame();
 		// the in-game menus' font for what Lexend lacks: the console's, for this language's words, its
@@ -550,7 +551,7 @@ namespace ps5shell
 
 	bool Shell::SystemScanning() const
 	{
-		return Is3ds()	  ? ps5azahar::Scanning() :
+		return IsRetro() ? ps5retro::Scanning(SideIndex()) : Is3ds()	  ? ps5azahar::Scanning() :
 			IsDs()		  ? ps5melonds::Scanning() :
 			IsSwitch()	  ? ps5eden::Scanning() :
 							m_status.coreReady && ps5emu::Scanning();
@@ -700,8 +701,8 @@ namespace ps5shell
 	void Shell::MakeGame(Game& game, const ps5catalog::Entry& entry)
 	{
 		game.entry = entry;
-		game.boxArt = IsSwitch() ? SwitchCover(entry.game) : ps5boxart::Path(BoxOf(entry.game), entry.game.gameId);
-		game.known = ps5gameinfo::Find(BoxOf(entry.game), entry.game.gameId, game.info);
+		game.boxArt = IsRetro() ? std::string() : IsSwitch() ? SwitchCover(entry.game) : ps5boxart::Path(BoxOf(entry.game), entry.game.gameId);
+		game.known = !IsRetro() && ps5gameinfo::Find(BoxOf(entry.game), entry.game.gameId, game.info);
 		// the list names games in English: GameTDB's title finds one whose own name is in the menus'
 		// language (7.7). It has no DS or Switch games yet.
 		const bool reported = IsWiiU() || Is3ds();
@@ -726,11 +727,12 @@ namespace ps5shell
 
 	void Shell::LoadGames()
 	{
+		if (IsRetro() && ps5retro::Available(SideIndex())) m_status.noticeRetro[SideIndex() - 4] = ps5retro::ScanError(SideIndex());
 		m_scanning = CoreReady() && SystemScanning();
 		// a side not looked through this session (a network share's folder, #75) keeps the list of its last look
 		if (CoreReady() && !m_scanning && !m_status.lastLook[SideIndex()])
 		{
-			ps5catalog::Replace(CatalogSide(), Is3ds() ? ps5azahar::ListGames() : IsDs() ? ps5melonds::ListGames() : IsSwitch() ? ps5eden::ListGames() : ps5emu::ListGames());
+			ps5catalog::Replace(CatalogSide(), IsRetro() ? ps5retro::ListGames(SideIndex()) : Is3ds() ? ps5azahar::ListGames() : IsDs() ? ps5melonds::ListGames() : IsSwitch() ? ps5eden::ListGames() : ps5emu::ListGames());
 			ps5catalog::Migrate(CatalogSide(), RecentOf(m_side));
 			ps5catalog::Save();
 		}
@@ -764,7 +766,9 @@ namespace ps5shell
 	{
 		m_status.lastLook[SideIndex()] = false;
 		const std::string& folder = GamesFolder(m_side);
-		if (Is3ds())
+		if (IsRetro())
+			ps5retro::StartScan(SideIndex(), folder);
+		else if (Is3ds())
 			ps5azahar::StartScan(folder);
 		else if (IsDs())
 			ps5melonds::StartScan(folder);
@@ -846,7 +850,7 @@ namespace ps5shell
 			}
 			for (Game& game : m_games)
 				if (game.boxArt.empty())
-					game.boxArt = IsSwitch() ? SwitchCover(game.entry.game) : ps5boxart::Path(BoxOf(game.entry.game), game.entry.game.gameId);
+					game.boxArt = IsRetro() ? std::string() : IsSwitch() ? SwitchCover(game.entry.game) : ps5boxart::Path(BoxOf(game.entry.game), game.entry.game.gameId);
 		}
 	}
 
@@ -857,7 +861,7 @@ namespace ps5shell
 			// reading a Wii U game's icon mounts the game: one a frame
 			game.iconLooked = true;
 			m_iconLookedThisFrame = true;
-			game.icon = Is3ds()				? ps5azahar::CoverPath(game.entry.game.titleId) :
+			game.icon = IsRetro() ? std::string() : Is3ds()				? ps5azahar::CoverPath(game.entry.game.titleId) :
 				IsDs()						? ps5melonds::CoverPath(game.entry.game.titleId) :
 				IsSwitch()					? ps5eden::CoverPath(game.entry.game) :
 				m_status.coreReady			? ps5emu::CoverPath(game.entry.game.titleId) :
@@ -955,6 +959,7 @@ namespace ps5shell
 
 	void Shell::FetchBoxArt()
 	{
+		if (IsRetro()) return;
 		// the side's covers, from GameTDB's covers of its system (none for a Switch side showing the games' icons)
 		if (IsSwitch() && Handheld(System::Switch).nxCovers == 1)
 			return;
@@ -1027,7 +1032,7 @@ namespace ps5shell
 		ps5catalog::Save();
 		const Box from{760, 240, 400, 560};
 		LaunchGame(game.entry.game,
-			IsDs()		 ? Tr("Starting melonDS") :
+			IsRetro() ? Tr("Starting emulator") : IsDs()		 ? Tr("Starting melonDS") :
 			Is3ds()		 ? Tr("Starting Azahar") :
 			IsSwitch()	 ? Tr("Starting Eden") :
 						   Tr("Starting Cemu"),
@@ -1313,7 +1318,7 @@ namespace ps5shell
 		// on green, the Switch on red (the app's own tiles, tools/render-icons.py), plain colour until the
 		// picture has loaded
 		static const std::string kTiles[kSides] = {ps5paths::Assets() + "/ui/icons/ps5cemu-72.tga", ps5paths::Assets() + "/ui/icons/azahar-72.tga",
-			ps5paths::Assets() + "/ui/icons/melonds-72.tga", ps5paths::Assets() + "/ui/icons/eden-72.tga"};
+			ps5paths::Assets() + "/ui/icons/melonds-72.tga", ps5paths::Assets() + "/ui/icons/eden-72.tga", "", "", "", ""};
 		auto tile = [&](int side, const Box& box, float radius, uint32_t tint) {
 			const ui::Picture& picture = m_images->Get(kTiles[side]);
 			if (picture.texture)
@@ -1801,7 +1806,7 @@ namespace ps5shell
 		const bool own = m_settings.games.count(ps5settings::GameKey(ps5launcher::SideName(m_side), g.entry.game.titleId)) > 0;
 		m_menu.items.push_back({"settings", own ? Tr("Game settings: custom") : Tr("Game settings")});
 		// its own, by account (6.15); a Switch game's too, by its real title ID (not one the library made up)
-		if (g.entry.game.titleId != 0 && (!IsSwitch() || !ps5eden::IsMadeId(g.entry.game.titleId)))
+		if (!IsRetro() && g.entry.game.titleId != 0 && (!IsSwitch() || !ps5eden::IsMadeId(g.entry.game.titleId)))
 			m_menu.items.push_back({"saves", Tr("Saves")});
 		if (IsWiiU() && m_status.coreReady)
 		{
@@ -1819,9 +1824,9 @@ namespace ps5shell
 		m_menu.items.push_back({"favourite", g.entry.favourite ? Tr("Not a favourite") : Tr("Favourite")});
 		// tr: the game menu: a game left out of the Library's list (for demos and clutter), or put back
 		m_menu.items.push_back({"hide", g.entry.hidden ? Tr("Back in the Library") : Tr("Hide from the Library")});
-		if (ps5forwarders::HasTile(g.entry.game.path.string()))
+		if (!IsRetro() && ps5forwarders::HasTile(g.entry.game.path.string()))
 			m_menu.items.push_back({"untile", Tr("Remove from home screen")});
-		else
+		else if (!IsRetro())
 			m_menu.items.push_back({"tile", Tr("Add to home screen")});
 		m_feedback.Play(ui::Cue::Sheet);
 	}

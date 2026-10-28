@@ -254,6 +254,14 @@ namespace ps5shell
 		// the version always in sight, whatever the credits' length in a language
 		pages.push_back({"about", TrC("app", "About"), std::string(Tr("Who made what.")) + " · " + Tr("Version") + " " + ps5update::Readable(PS5CEMU_VERSION),
 			Icon::Info});
+		if (IsRetro())
+		{
+			std::vector<SettingsPage> selected;
+			if (InGameSettings()) return {{"runtime", Tr("Emulator settings"), Tr("Controls, settings and saves are managed by the bundled emulator."), Icon::Info}};
+			selected.push_back({"runtime", Tr("Emulator settings"), Tr("Controls, settings and saves are managed by the bundled emulator."), Icon::Info});
+			for (const auto& page : pages) if (page.id == "files" || page.id == "launcher" || page.id == "playtime" || page.id == "diagnostics" || page.id == "about") selected.push_back(page);
+			return selected;
+		}
 		if (!InGameSettings())
 			return pages;
 		// a game's settings: only the pages with something a game can have its own of (SideRows' rows
@@ -424,6 +432,21 @@ namespace ps5shell
 	std::vector<Row> Shell::SideRows(const std::string& page, const ps5settings::Launcher& settings)
 	{
 		using Kind = Row::Kind;
+		if (IsRetro() && (page == "files" || page == "runtime" || page == "graphics" || page == "system" || page == "screens" || page == "gamesaves"))
+		{
+			std::vector<Row> rows;
+			if (page == "files")
+			{
+				Row folder; folder.id = "folder"; folder.kind = Kind::Link; folder.label = Tr("Games folder"); folder.value = GamesFolder(m_side); folder.description = Tr("Select this system's games folder. Existing games and saves stay in place."); rows.push_back(folder);
+				Row scan; scan.id = "rescan"; scan.kind = Kind::Action; scan.label = Tr("Look for games now"); rows.push_back(scan);
+			}
+			else
+			{
+				Row info; info.id = "retro-library"; info.kind = Kind::Action; info.dimmed = !ps5retro::Available(SideIndex()); info.label = Tr("Open emulator settings and saves");
+				info.description = Tr("The bundled emulator keeps its own settings, controls and save formats. Open its native frontend to change settings. Close that frontend to return to ECAM. Existing standalone data is retained."); rows.push_back(info);
+			}
+			return rows;
+		}
 		const ps5settings::N3ds& hand = m_side == System::Nds ? settings.nds : m_side == System::Switch ? settings.nx : settings.n3ds;
 		std::vector<Row> rows;
 		std::string group; // the › page the rows made now are on (sub)
@@ -1397,6 +1420,11 @@ namespace ps5shell
 			sub("sides", Tr("Sides"), shown, Tr("Which systems the bar shows."),
 				Tr("The sides the bar offers, any mix of the four. A hidden side keeps its games and settings, and they come back when it is "
 				   "turned on again. At least one side stays on."));
+			for (int index = 4; index < 8; index++)
+			{
+				const auto extra = (System)index;
+				toggle((std::string("side-") + ps5launcher::SideName(extra)).c_str(), SideTitle(extra), SideShown(extra), Tr("Show this emulator in the system bar."), Tr("The runtime must be included when packaging ECAM."));
+			}
 			toggle("side-wiiu", Tr("Wii U side"), SideShown(System::WiiU), Tr("Cemu's games, in the bar."),
 				Tr("Whether the bar shows the Wii U side (Cemu). Hidden, its games and settings are kept and come back when it is turned on "
 				   "again. At least one side stays on."));
@@ -1604,7 +1632,7 @@ namespace ps5shell
 		};
 		if (!InGameSettings())
 			return SubPageRows(withExtras(SideRows(page, m_settings)));
-		if (page == "gamesaves")
+		if (page == "gamesaves" && !IsRetro())
 			return GameSaveRows();
 		// a game's: its rows only, each its own value or the side's (Default), and the › rows they are behind
 		const std::string side = ps5launcher::SideName(m_side);
@@ -1844,11 +1872,11 @@ namespace ps5shell
 			const char* side;
 			uint32_t minutes;
 		};
-		const char* sides[4] = {"Wii U", "3DS", "DS", "Switch"};
+		const char* sides[8] = {"Wii U", "3DS", "DS", "Switch", "GameCube", "Wii", "N64", "NES"};
 		std::vector<Played> games;
 		std::string text;
 		uint64_t all = 0;
-		for (int side = 0; side < 4; side++)
+		for (int side = 0; side < 8; side++)
 		{
 			uint64_t minutes = 0;
 			int played = 0;
@@ -2079,9 +2107,9 @@ namespace ps5shell
 				return false;
 			}
 			const bool on = !row.on;
-			if (id == "side-wiiu" || id == "side-3ds" || id == "side-ds" || id == "side-switch")
+			if (id.rfind("side-", 0) == 0)
 			{
-				const int bit = id == "side-wiiu" ? 1 : id == "side-3ds" ? 2 : id == "side-ds" ? 4 : 8;
+				const int bit = 1 << (int)ps5launcher::SideNamed(id.substr(5));
 				const int sides = on ? settings.ui.sides | bit : settings.ui.sides & ~bit;
 				if (sides == 0)
 				{
@@ -2259,7 +2287,7 @@ namespace ps5shell
 			ApplyTheme();
 			m_feedback.SetLight(Accent());
 		}
-		if (id == "side-wiiu" || id == "side-3ds" || id == "side-ds" || id == "side-switch")
+		if (id.rfind("side-", 0) == 0)
 			SidesChanged();
 		if (id == "filters")
 		{
@@ -2539,6 +2567,11 @@ namespace ps5shell
 				m_savesMessage = error;
 				m_feedback.Play(ui::Cue::Denied);
 			}
+		}
+		else if (id == "retro-library" && IsRetro())
+		{
+			ps5emu::Game game; game.name = std::string(SideTitle(m_side)) + " " + Tr("Settings");
+			LaunchGame(game, Tr("Opening emulator settings"), {760, 240, 400, 560});
 		}
 		else if (id == "folder")
 		{

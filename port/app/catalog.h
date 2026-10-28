@@ -20,6 +20,7 @@ namespace ps5catalog
 		N3ds,
 		Nds,
 		Switch,
+		GameCube, Wii, N64, Nes,
 	};
 
 	struct Entry

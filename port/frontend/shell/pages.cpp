@@ -1085,7 +1085,12 @@ namespace ps5shell
 			const bool here = m_filesSide == m_side;
 			if (here)
 				m_status.lastLook[SideIndex(m_filesSide)] = false; // the new folder's games replace the list
-			if (here && m_filesSide == System::N3ds)
+			if (here && ps5retro::IsRetro((int)m_filesSide))
+			{
+				ps5retro::StartScan((int)m_filesSide, m_browseFolder);
+				m_scanning = true;
+			}
+			else if (here && m_filesSide == System::N3ds)
 			{
 				ps5azahar::StartScan(m_browseFolder);
 				m_scanning = true;
@@ -1276,7 +1281,7 @@ namespace ps5shell
 			auto it = m_folderCounts.find(m_browseFolder);
 			if (it == m_folderCounts.end())
 			{
-				const int games = n3ds ? Count3dsGames(m_browseFolder) : nds ? CountDsGames(m_browseFolder) : nx ? ps5eden::CountGames(m_browseFolder) :
+				const int games = ps5retro::IsRetro((int)m_filesSide) ? -1 : n3ds ? Count3dsGames(m_browseFolder) : nds ? CountDsGames(m_browseFolder) : nx ? ps5eden::CountGames(m_browseFolder) :
 																												 CountGames(m_browseFolder);
 				it = m_folderCounts.emplace(m_browseFolder, games < 0 ? "-1" : std::to_string(games)).first;
 			}

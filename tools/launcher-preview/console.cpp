@@ -868,6 +868,7 @@ namespace ps5emu
 	static uint32_t s_currentAccount = 0x80000001;
 	std::vector<WiiuAccount> ListAccounts() { return s_accounts; }
 	void ReloadAccounts() {}
+	void LoadExecApp(const std::string&, const std::vector<std::string>&, bool, const std::string&) {}
 	void RestartToLibrary() {} // (a restore of the settings starts the app over: the preview goes on)
 	uint32_t CurrentAccount() { return s_currentAccount; }
 	void SetCurrentAccount(uint32_t id) { s_currentAccount = id; }

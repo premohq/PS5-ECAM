@@ -29,6 +29,8 @@
 #include "eden/eden.h"
 #include "eden/library.h"
 #include "frontend/launcher.h"
+#include "retro/library.h"
+#include "retro/launch.h"
 #include "melonds/library.h"
 #include "melonds/melonds.h"
 #include "frontend/settings.h"
@@ -640,6 +642,13 @@ int main(int argc, char* argv[])
 			return;
 		started = system;
 		status.diagnostics.resize(sessionLine);
+		if (ps5retro::IsRetro((int)system))
+		{
+			const int index = (int)system;
+			status.noticeRetro[index - 4] = ps5retro::Available(index) ? std::string() : ps5lang::Tr("The selected emulator runtime is missing from this ECAM package.");
+			if (!keepList(system, settings.retro[index - 4].gamesFolder)) ps5retro::StartScan(index, settings.retro[index - 4].gamesFolder);
+			return;
+		}
 		if (system == ps5launcher::System::N3ds)
 		{
 			ps5log::Line("[main] the 3DS side: Cemu's emulated Wii U is not started");
@@ -742,7 +751,7 @@ int main(int argc, char* argv[])
 		// renderer has always started (by --rom, as a home screen tile's); the same emulator's starts here
 		// again. Should the app not start again, the game starts here all the same
 		// (Artic Base's, from the 3DS on the network, is no game a library lists: it starts here)
-		if (gameRan && choice->system != *gameRan && choice->system != ps5launcher::System::Switch &&
+		if (gameRan && choice->system != *gameRan && choice->system != ps5launcher::System::Switch && !ps5retro::IsRetro((int)choice->system) &&
 			!ps5azahar::IsArtic(game.path.string()))
 		{
 			ps5log::Line("[main] {} is the {} side's, after a {} game here: starting PS5-ECAM over for it", game.name,
@@ -774,6 +783,16 @@ int main(int argc, char* argv[])
 				ps5log::Line("[main] turbo button: {}", turbo);
 		}
 
+		if (ps5retro::IsRetro((int)choice->system))
+		{
+			const auto side = ps5launcher::SideName(choice->system);
+			RememberSide(side);
+			if (game.path.empty()) ps5retro::LaunchLibrary((int)choice->system, error);
+			else ps5retro::Launch((int)choice->system, game.path.string(), error);
+			status.launchError = error;
+			settings.side = side;
+			continue;
+		}
 		if (choice->system == ps5launcher::System::Switch)
 		{
 			// Eden's own program in place of this one: it starts the game at once, with this side's settings

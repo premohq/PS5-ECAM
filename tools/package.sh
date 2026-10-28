@@ -179,6 +179,16 @@ elif ((!check)); then
     [[ ${PS5CEMU_RELEASE:-0} == 1 ]] && exit 2
 fi
 
+# Optional additional systems: only source-built ECAM overlays are staged here.
+for system in porpoise n64 nes; do
+    runtime="$PS5CEMU_BUILD/retro/$system"
+    if [[ -f $runtime/eboot.bin ]]; then
+        [[ -f $runtime/ECAM-SOURCE.json ]] || { echo "Missing source provenance: $runtime" >&2; exit 2; }
+        mkdir -p "$app/retro"
+        cp -a "$runtime" "$app/retro/$system"
+    fi
+done
+
 if ((check)); then
     echo "LINK CHECK ONLY: built without RADV, this folder cannot run on a console." >"$app/NOT-AN-APP.txt"
 fi

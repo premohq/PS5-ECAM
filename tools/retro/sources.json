@@ -1,0 +1,22 @@
+{
+  "sources": [
+    {
+      "name": "porpoise",
+      "repository": "premohq/Porpoise-X",
+      "commit": "2ed1ab5a06995aa198f7bccd4da0f90c3fc29d39",
+      "path": ".deps/Porpoise-X"
+    },
+    {
+      "name": "n64",
+      "repository": "Yahballon/PS5N64X",
+      "commit": "28c55d854f5e451da9ffd5a78c694415accad172",
+      "path": ".deps/PS5N64X"
+    },
+    {
+      "name": "nes",
+      "repository": "Yahballon/PS5NESX",
+      "commit": "58168b79fe0e2cce7d42b8b8109d74a4283a2b41",
+      "path": ".deps/PS5NESX"
+    }
+  ]
+}

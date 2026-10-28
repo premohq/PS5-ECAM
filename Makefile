@@ -14,7 +14,10 @@ APP := build/app/PPSA99360
 JOBS ?= $(shell nproc)
 export JOBS
 
-.PHONY: help deps deps-status radv azahar melonds eden build check package release clean distclean test-contribution
+.PHONY: retro test-retro help deps deps-status radv azahar melonds eden build check package release clean distclean test-contribution
+
+test-retro: ## Host verification for the additional system integration
+	bash tools/tests/test-retro.sh
 
 test-contribution: ## Host checks for standalone integrations, transfers, Slot-2 and capture (no console)
 	python3 -B tools/tests/test-performance.py
@@ -67,6 +70,9 @@ build: deps azahar melonds $(if $(RADV_ARCHIVE),,radv) ## Build PS5-ECAM (Cemu, 
 check: deps azahar melonds ## Build and package everything with a stand-in for RADV, to check the build (not an app)
 	PS5CEMU_LINK_CHECK=1 bash tools/build-cemu.sh
 	bash tools/package.sh --check
+
+retro: ## Build the pinned Porpoise, N64 and NES runtimes (prepared donor toolchains required)
+	python3 tools/build-retro.py porpoise n64 nes
 
 package: build eden ## The app folder: build/app/PPSA99360 (with eden/, the Switch side's program)
 	bash tools/package.sh
