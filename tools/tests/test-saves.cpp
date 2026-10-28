@@ -36,6 +36,9 @@ int main() {
 	Put(retro / "PS5N64/saves/game.srm", "original N64"); Put(retro / "mupen64plus/states/game.st0", "alternative N64 state");
 	Put(retro / "PS5NES/saves/game.srm", "original NES"); Put(retro / "fceumm/saves/NES/game.srm", "alternative NES");
 	Put(retro / "fceumm/roms/NES/game.nes", "not a save");
+	Put(retro / "PS5GBC/saves/color.sav", "GB/GBC battery"); Put(retro / "PS5GBC/states/color.state", "GB/GBC state");
+	Put(retro / "PS5GBA/saves/advance.sav", "GBA battery"); Put(retro / "PS5GBA/states/advance.state", "GBA state");
+	Put(retro / "PS5GBA/games/advance.gba", "excluded ROM");
 	Check(ps5saves::StartBackup(error), "a backup starts");
 	auto status = Wait();
 	Check(status.state == ps5saves::Status::State::Done && !status.settingsRestored, "a backup: done, no settings restored");
@@ -45,6 +48,9 @@ int main() {
 	const fs::path folder = backups.front().folder;
 	Check(Get(folder / "retro/n64xy/saves/game.srm") == "original N64" && Get(folder / "retro/mupen64plus/states/game.st0") == "alternative N64 state", "N64 backend saves and states backed up separately");
 	Check(Get(folder / "retro/nesyx/saves/game.srm") == "original NES" && Get(folder / "retro/fceumm/saves/NES/game.srm") == "alternative NES" && !fs::exists(folder / "retro/fceumm/roms"), "NES backend saves separated and ROMs excluded");
+	Check(Get(folder / "retro/gbc/saves/color.sav") == "GB/GBC battery" && Get(folder / "retro/gbc/states/color.state") == "GB/GBC state", "shared GB/GBC saves and states backed up once");
+	Check(Get(folder / "retro/gba/saves/advance.sav") == "GBA battery" && Get(folder / "retro/gba/states/advance.state") == "GBA state" && !fs::exists(folder / "retro/gba/games"), "GBA backup contains saves and states but no ROMs");
+	Put(retro / "PS5GBA/saves/advance.sav", "newer GBA save");
 	Put(retro / "fceumm/saves/NES/game.srm", "newer save");
 	Check(Get(folder / "settings/ps5cemu.json").find("midnight") != std::string::npos, "ps5cemu.json in it");
 	Check(fs::exists(folder / "settings/controllerProfiles/player1.xml") && fs::exists(folder / "settings/themes/mine.json") &&
@@ -62,6 +68,9 @@ int main() {
 	Check(Get(root / "ps5cemu.json").find("midnight") != std::string::npos, "ps5cemu.json is the backup's again");
 	Check(Get(retro / "fceumm/saves/NES/game.srm") == "alternative NES", "restore returns the correct backend save");
 	bool keptRetro = false; for (const auto& e : fs::recursive_directory_iterator(retro / "fceumm/saves-before")) keptRetro = keptRetro || (e.is_regular_file() && Get(e.path()) == "newer save");
+	Check(Get(retro / "PS5GBA/saves/advance.sav") == "GBA battery", "GBA restore targets original native save folder");
+	bool keptGba = false; for (const auto& e : fs::recursive_directory_iterator(retro / "PS5GBA/saves-before")) keptGba = keptGba || (e.is_regular_file() && Get(e.path()) == "newer GBA save");
+	Check(keptGba, "replaced GBA save retained on native backend filesystem");
 	Check(keptRetro, "replaced backend save retained on its owning filesystem");
 	Check(Get(root / "melonds/saves/Mario.sav") == "save", "a save is the backup's again");
 	bool kept = false;

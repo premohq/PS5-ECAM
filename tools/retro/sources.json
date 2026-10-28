@@ -29,6 +29,18 @@
       "repository": "MisterTemaki/fceummPS5",
       "commit": "0e43fe1d17ce488e0a2eab6fe66a2c7a69a74b99",
       "path": ".deps/fceummPS5"
+    },
+    {
+      "name": "gbc",
+      "repository": "Yahballon/PS5GBCX",
+      "commit": "66188f43df8c5f59f023557011e6fac5028b9b90",
+      "path": ".deps/PS5GBCX"
+    },
+    {
+      "name": "gba",
+      "repository": "Yahballon/PS5GBAX",
+      "commit": "197c62e08cd709299785fa07c8c0addbb844c51d",
+      "path": ".deps/PS5GBAX"
     }
   ]
 }

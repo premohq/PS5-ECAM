@@ -18,7 +18,7 @@ namespace ps5catalog
 {
 	namespace
 	{
-		std::vector<Entry> s_games[8];
+		std::vector<Entry> s_games[11];
 		bool s_loaded = false;
 
 		std::string Path()
@@ -62,8 +62,8 @@ namespace ps5catalog
 		rapidjson::Document json;
 		if (json.Parse(text.str().c_str()).HasParseError() || !json.IsObject())
 			return;
-		const char* sides[8] = {"wiiu", "3ds", "ds", "switch", "gamecube", "wii", "n64", "nes"};
-		for (int side = 0; side < 8; side++)
+		const char* sides[11] = {"wiiu", "3ds", "ds", "switch", "gamecube", "wii", "n64", "nes", "gb", "gbc", "gba"};
+		for (int side = 0; side < 11; side++)
 		{
 			if (!json.HasMember(sides[side]) || !json[sides[side]].IsArray())
 				continue;
@@ -111,8 +111,8 @@ namespace ps5catalog
 		writer.StartObject();
 		writer.Key("version");
 		writer.Int(1);
-		const char* sides[8] = {"wiiu", "3ds", "ds", "switch", "gamecube", "wii", "n64", "nes"};
-		for (int side = 0; side < 8; side++)
+		const char* sides[11] = {"wiiu", "3ds", "ds", "switch", "gamecube", "wii", "n64", "nes", "gb", "gbc", "gba"};
+		for (int side = 0; side < 11; side++)
 		{
 			writer.Key(sides[side]);
 			writer.StartArray();

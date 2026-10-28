@@ -16,6 +16,32 @@ def replace(path, before, after):
 
 
 def prepare(source, kind, project):
+    if kind in ('gbc', 'gba'):
+        folder = source / kind / 'src'
+        shutil.copyfile(project / 'port/retro/runtime/ecam_bridge.h', folder / 'ecam_bridge.h')
+        main = folder / 'main_shelf.cpp'
+        replace(main, '#include "fe_ps5.h"', '#include "fe_ps5.h"\n#include "ecam_bridge.h"')
+        replace(main, 'int main() {', 'int main(int argc, char** argv) {')
+        # Persistent request files need filesystem access before they can be consumed.
+        replace(main, 'const auto access=elevation::request(elevation::Capability::filesystem);',
+                f'const auto access=elevation::request(elevation::Capability::filesystem);\n    ecam_bridge::Init(argc, argv, "{kind}");')
+        replace(main, 'sceSystemServiceLoadExec("exit",nullptr)', 'sceSystemServiceLoadExec(ecam_bridge::ReturnProgram(),nullptr)')
+        frontend = source / 'ps5/frontend/fe_ps5.cpp'
+        anchor = f'{kind}::ShelfRuntime nes_game(paths.top_dir,fonts);'
+        replace(frontend, anchor, anchor + '\n    const char* ecam_rom = std::getenv("PS5ECAM_ROM");\n    const bool ecam_forwarded = ecam_rom && *ecam_rom;\n    if (ecam_forwarded) { if (audio) audio->Stop(); ok = nes_game.Start(ecam_rom, renderer); if (!ok) std::printf("[ecam] Game start failed: %s\\n", nes_game.error.c_str()); }')
+        replace(frontend, 'orbis_web_now_playing("");', 'orbis_web_now_playing("");\n                if (ecam_forwarded) break;')
+        # The standalone binary helper targets a different title. ECAM must supply filesystem access.
+        build = source / kind / 'tools/build_shelf.py'
+        text = build.read_text()
+        marker = "baseline=os.environ.get('PS5" + kind.upper() + "_LAPY_BASELINE')"
+        if marker in text:
+            start = text.index(marker)
+            stop = text.index("licenses=app/'licenses'", start)
+            text = text[:start] + '# ECAM bundle: no standalone-title Lapy binary.\n' + text[stop:]
+        text = text.replace("(out/'filesystem-helper/Lapy-MIT.txt','Lapy-MIT.txt'),", '')
+        build.write_text(text)
+        # UI assets stay embedded and are extracted to the donor's writable native data folder.
+        return
     if kind in ('mupen64plus', 'fceumm'):
         folder = source / 'ps5/coreorbis'
         shutil.copyfile(project / 'port/retro/runtime/ecam_bridge.h', folder / 'ecam_bridge.h')
@@ -87,7 +113,7 @@ def prepare(source, kind, project):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('kind', choices=['porpoise', 'n64', 'nes', 'mupen64plus', 'fceumm'])
+    parser.add_argument('kind', choices=['porpoise', 'n64', 'nes', 'mupen64plus', 'fceumm', 'gbc', 'gba'])
     parser.add_argument('source', type=Path)
     args = parser.parse_args()
     prepare(args.source.resolve(), args.kind, Path(__file__).resolve().parents[2])

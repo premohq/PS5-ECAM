@@ -1430,7 +1430,7 @@ namespace ps5shell
 			sub("sides", Tr("Sides"), shown, Tr("Which systems the bar shows."),
 				Tr("The sides the bar offers, any mix of the four. A hidden side keeps its games and settings, and they come back when it is "
 				   "turned on again. At least one side stays on."));
-			for (int index = 4; index < 8; index++)
+			for (int index = 4; index < kSides; index++)
 			{
 				const auto extra = (System)index;
 				toggle((std::string("side-") + ps5launcher::SideName(extra)).c_str(), SideTitle(extra), SideShown(extra), Tr("Show this emulator in the system bar."), Tr("The runtime must be included when packaging ECAM."));
@@ -1882,11 +1882,11 @@ namespace ps5shell
 			const char* side;
 			uint32_t minutes;
 		};
-		const char* sides[8] = {"Wii U", "3DS", "DS", "Switch", "GameCube", "Wii", "N64", "NES"};
+		const char* sides[kSides] = {"Wii U", "3DS", "DS", "Switch", "GameCube", "Wii", "N64", "NES", "GB", "GBC", "GBA"};
 		std::vector<Played> games;
 		std::string text;
 		uint64_t all = 0;
-		for (int side = 0; side < 8; side++)
+		for (int side = 0; side < kSides; side++)
 		{
 			uint64_t minutes = 0;
 			int played = 0;

@@ -57,7 +57,7 @@ def build(kind, prepare_only=False, reuse_prepared=False):
         package = tree / 'dist' / title
     else:
         run('bash', f'{kind}/tools/build.sh', cwd=tree)
-        title = 'PPSA99206' if kind == 'n64' else 'PPSA99204'
+        title = {'n64': 'PPSA99206', 'nes': 'PPSA99204', 'gbc': 'PPSA99210', 'gba': 'PPSA99209'}[kind]
         package = tree / kind / 'build-shelf/package' / title
     if not (package / 'eboot.bin').is_file():
         raise RuntimeError(f'Runtime build did not produce {package}/eboot.bin')
@@ -85,7 +85,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reuse-prepared', action='store_true', help='Build an existing reviewed source overlay at the pinned revision')
     parser.add_argument('--prepare-only', action='store_true', help='Prepare pinned source overlays without building or installing')
-    parser.add_argument('systems', nargs='+', choices=['porpoise', 'n64', 'nes', 'mupen64plus', 'fceumm'])
+    parser.add_argument('systems', nargs='+', choices=['porpoise', 'n64', 'nes', 'mupen64plus', 'fceumm', 'gbc', 'gba'])
     args = parser.parse_args()
     for kind in args.systems:
         build(kind, args.prepare_only, args.reuse_prepared)

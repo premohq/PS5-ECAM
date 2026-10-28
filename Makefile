@@ -14,7 +14,7 @@ APP := build/app/PPSA99360
 JOBS ?= $(shell nproc)
 export JOBS
 
-.PHONY: retro-upgrades retro test-retro help deps deps-status radv azahar melonds eden build check package release clean distclean test-contribution
+.PHONY: gameboy retro-upgrades retro test-retro help deps deps-status radv azahar melonds eden build check package release clean distclean test-contribution
 
 test-retro: ## Host verification for the additional system integration
 	bash tools/tests/test-retro.sh
@@ -71,6 +71,9 @@ build: deps azahar melonds $(if $(RADV_ARCHIVE),,radv) ## Build PS5-ECAM (Cemu, 
 check: deps azahar melonds ## Build and package everything with a stand-in for RADV, to check the build (not an app)
 	PS5CEMU_LINK_CHECK=1 bash tools/build-cemu.sh
 	bash tools/package.sh --check
+
+gameboy: ## Build source-pinned GB/GBC and GBA runtimes (prepared PS5 dependencies required)
+	python3 tools/build-retro.py gbc gba
 
 retro-upgrades: ## Build optional N64/NES alternative runtimes (prepared toolchains required)
 	python3 tools/build-retro.py mupen64plus fceumm

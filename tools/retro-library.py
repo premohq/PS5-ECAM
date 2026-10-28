@@ -11,7 +11,7 @@ import tempfile
 import xml.etree.ElementTree as ET
 import zlib
 
-EXTENSIONS = {'.nes', '.unf', '.unif', '.fds', '.z64', '.n64', '.v64', '.zip', '.7z', '.rom', '.iso', '.gcm', '.rvz', '.ciso', '.gcz', '.wbfs', '.wia', '.wad', '.dol', '.elf'}
+EXTENSIONS = {'.gb', '.gbc', '.gba', '.nes', '.unf', '.unif', '.fds', '.z64', '.n64', '.v64', '.zip', '.7z', '.rom', '.iso', '.gcm', '.rvz', '.ciso', '.gcz', '.wbfs', '.wia', '.wad', '.dol', '.elf'}
 MAX_INDEX = 8 * 1024 * 1024
 
 

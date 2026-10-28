@@ -20,6 +20,9 @@ namespace ps5retro
 		const auto dot = name.find_last_of('.');
 		if (dot == std::string::npos) return false;
 		const auto ext = name.substr(dot);
+		if (side == "gb") return ext == ".gb";
+		if (side == "gbc") return ext == ".gbc";
+		if (side == "gba") return ext == ".gba" || ext == ".zip" || ext == ".7z";
 		if (side == "nes") return ext == ".nes" || ext == ".unf" || ext == ".unif" || ext == ".fds" || ext == ".zip" || ext == ".7z";
 		if (side == "n64") return ext == ".z64" || ext == ".n64" || ext == ".v64" || ext == ".zip" || ext == ".rom";
 		if (side == "gamecube" || side == "wii")
@@ -85,10 +88,10 @@ namespace ps5retro
 			if (side == 7) folders.push_back(data / "covers" / ((game.path.extension() == ".fds" || game.path.extension() == ".FDS") ? "FDS" : "NES"));
 		}
 		std::vector<std::string> names{stem, game.name};
-		if (side == 6 || side == 7)
+		if (side >= 6)
 		{
 			uint32_t hash = 2166136261u; for (unsigned char c : game.path.string()) { hash ^= c; hash *= 16777619u; }
-			char serial[20]; std::snprintf(serial, sizeof(serial), "%s-%08X", side == 6 ? "N64" : "NES", hash); names.push_back(serial);
+			char serial[20]; std::snprintf(serial, sizeof(serial), "%s-%08X", side == 6 ? "N64" : side == 7 ? "NES" : side == 10 ? "GBA" : "GBC", hash); names.push_back(serial);
 		}
 		for (const auto& folder : folders)
 			for (const auto& name : names)
@@ -111,7 +114,19 @@ namespace ps5retro
 		if (side < 6) { error.clear(); return true; }
 		std::string ext = fs::path(path).extension().string();
 		for (char& c : ext) c = char(std::tolower((unsigned char)c));
-		if (backend == 0 && (ext == ".7z" || ext == ".rom")) { error = "This format requires the optional alternative runtime. Select it under Emulator runtime."; return false; }
+		if (side >= 8)
+		{
+			const uint64_t maximum = (ext == ".zip" || ext == ".7z") ? 64ull * 1024 * 1024 : 32ull * 1024 * 1024;
+			if (size > maximum) { error = "The handheld game exceeds this runtime's file-size limit."; return false; }
+			if (ext == ".gb" || ext == ".gbc" || ext == ".gba")
+			{
+				const uint64_t minimum = side == 10 ? 0xc0 : 0x150;
+				if (size < minimum) { error = "The handheld cartridge header is truncated."; return false; }
+				std::ifstream in(path, std::ios::binary); if (!in) { error = "The handheld game cannot be read."; return false; }
+				error.clear(); return true; // The native mGBA loader validates complete cartridge contents.
+			}
+		}
+		if (side < 8 && backend == 0 && (ext == ".7z" || ext == ".rom")) { error = "This format requires the optional alternative runtime. Select it under Emulator runtime."; return false; }
 		const uint64_t limit = side == 6 ? (backend == 1 ? 252ull : 64ull) * 1024 * 1024 : 64ull * 1024 * 1024;
 		if (size > limit && ext != ".zip" && ext != ".7z") { error = "The ROM exceeds this backend's supported size limit."; return false; }
 		unsigned char h[16]{}; std::ifstream in(path, std::ios::binary); in.read(reinterpret_cast<char*>(h), sizeof(h));
@@ -188,7 +203,7 @@ namespace ps5retro
 	namespace
 	{
 		struct State { std::thread worker; std::atomic_bool scanning{false}; std::mutex mutex; std::vector<ps5emu::Game> games; std::string error; ~State() { if (worker.joinable()) worker.join(); } };
-		State states[4];
+		State states[7];
 		State& StateFor(int side) { return states[size_t(side - 4)]; }
 	}
 	void StartScan(int side, const std::string& folder)

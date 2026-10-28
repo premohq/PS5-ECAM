@@ -86,6 +86,10 @@ namespace ps5saves
 				{"retro/porpoise/gc", retro + "/porpoise/saves/User/GC", nullptr},
 				{"retro/porpoise/wii", retro + "/porpoise/saves/User/Wii", nullptr},
 				{"retro/porpoise/states", retro + "/porpoise/states", nullptr},
+				{"retro/gbc/saves", retro + "/PS5GBC/saves", nullptr},
+				{"retro/gbc/states", retro + "/PS5GBC/states", nullptr},
+				{"retro/gba/saves", retro + "/PS5GBA/saves", nullptr},
+				{"retro/gba/states", retro + "/PS5GBA/states", nullptr},
 				{"retro/n64xy/saves", retro + "/PS5N64/saves", nullptr},
 				{"retro/nesyx/saves", retro + "/PS5NES/saves", nullptr},
 				{"retro/mupen64plus/saves", retro + "/mupen64plus/saves", nullptr},
@@ -120,7 +124,7 @@ namespace ps5saves
 		{
 			// Each system keeps replaced saves on its own filesystem, including Eden on /data
 			// while the launcher and other systems are on a USB drive.
-			for (const std::string& root : {ps5paths::CemuRoot(), ps5paths::Azahar(), ps5paths::MelonDs(), ps5eden::DataFolder(), std::string(PS5ECAM_RETRO_DATA) + "/porpoise", std::string(PS5ECAM_RETRO_DATA) + "/PS5N64", std::string(PS5ECAM_RETRO_DATA) + "/PS5NES", std::string(PS5ECAM_RETRO_DATA) + "/mupen64plus", std::string(PS5ECAM_RETRO_DATA) + "/fceumm", ps5paths::Root()})
+			for (const std::string& root : {ps5paths::CemuRoot(), ps5paths::Azahar(), ps5paths::MelonDs(), ps5eden::DataFolder(), std::string(PS5ECAM_RETRO_DATA) + "/porpoise", std::string(PS5ECAM_RETRO_DATA) + "/PS5N64", std::string(PS5ECAM_RETRO_DATA) + "/PS5NES", std::string(PS5ECAM_RETRO_DATA) + "/mupen64plus", std::string(PS5ECAM_RETRO_DATA) + "/fceumm", std::string(PS5ECAM_RETRO_DATA) + "/PS5GBC", std::string(PS5ECAM_RETRO_DATA) + "/PS5GBA", ps5paths::Root()})
 			{
 				const fs::path relative = file.lexically_relative(root);
 				if (!relative.empty() && *relative.begin() != "..")

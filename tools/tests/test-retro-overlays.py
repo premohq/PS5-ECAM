@@ -28,10 +28,12 @@ def paths_for(kind):
     return [f'{kind}/src/main_shelf.cpp', 'ps5/frontend/fe_ps5.cpp', f'{kind}/tools/build_shelf.py']
 
 
-def check(sources=None):
+def check(sources=None, systems=None):
     pins = json.loads((ROOT / 'tools/retro/sources.json').read_text())['sources']
     for pin in pins:
         kind = pin['name']
+        if systems and kind not in systems:
+            continue
         paths = paths_for(kind)
         if sources:
             donor = sources / Path(pin['path']).name
@@ -71,6 +73,10 @@ def check(sources=None):
                 assert '_LAPY_BASELINE' not in (target / paths[2]).read_text()
                 frontend = (target / paths[1]).read_text()
                 assert 'ok = nes_game.Start(ecam_rom, renderer)' in frontend and 'if (ecam_forwarded) break;' in frontend
+                if kind in ('gbc', 'gba'):
+                    assert main.index('ecam_bridge::Init') > main.index('elevation::request')
+                    assert 'sceSystemServiceLoadExec(ecam_bridge::ReturnProgram(),nullptr)' in main
+                    assert 'Lapy-MIT.txt' not in (target / paths[2]).read_text()
             if sources:
                 assert originals == {path: (donor / path).read_bytes() for path in paths}
         print(f'PASS {kind}: exact pinned overlay, idempotence, launch/return anchors, untouched donor source')
@@ -78,6 +84,7 @@ def check(sources=None):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('sources', nargs='?', type=Path, help='Directory containing all five donor checkouts')
+    parser.add_argument('sources', nargs='?', type=Path, help='Directory containing the pinned donor checkouts')
+    parser.add_argument("--systems", nargs="+", choices=[p["name"] for p in json.loads((ROOT / "tools/retro/sources.json").read_text())["sources"]])
     args = parser.parse_args()
-    check(args.sources.resolve() if args.sources else None)
+    check(args.sources.resolve() if args.sources else None, args.systems)
