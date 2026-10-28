@@ -6,6 +6,7 @@ PS5CEMU-HAR until 5.0.0, so the builds before it have that name.
 
 | Version | Download | Built from |
 |---|---|---|
+| 5.1.0 | [PS5-ECAM-v5.1.0.zip](PS5-ECAM-v5.1.0.zip) | [v5.1.0](https://github.com/premohq/PS5-ECAM/releases/tag/v5.1.0) |
 | 5.0.1 | [PS5-ECAM-v5.0.1.zip](PS5-ECAM-v5.0.1.zip) | [v5.0.1](https://github.com/premohq/PS5-ECAM/releases/tag/v5.0.1) |
 | 5.0.0 | [PS5-ECAM-v5.0.0.zip](PS5-ECAM-v5.0.0.zip) | [v5.0.0](https://github.com/premohq/PS5-ECAM/releases/tag/v5.0.0) |
 | 4.0.1 | [PS5CEMU-HAR-v4.0.1.zip](PS5CEMU-HAR-v4.0.1.zip) | [v4.0.1](https://github.com/premohq/PS5CEMU-HAR/releases/tag/v4.0.1) |
@@ -17,6 +18,6 @@ PS5CEMU-HAR until 5.0.0, so the builds before it have that name.
 | 2.0.0 B | [PS5CEMU-HAR-v2.0.0b.zip](PS5CEMU-HAR-v2.0.0b.zip) | [v2.0.0b](https://github.com/premohq/PS5CEMU-HAR/releases/tag/v2.0.0b) |
 | 2.0.0 | [PS5CEMU-HAR-v2.0.0.zip](PS5CEMU-HAR-v2.0.0.zip) | [v2.0.0](https://github.com/premohq/PS5CEMU-HAR/releases/tag/v2.0.0) |
 
-`SHA256SUMS` has each file's checksum. `PS5CEMU-HAR-v5.0.1.zip` is the same file as `PS5-ECAM-v5.0.1.zip`
-(and the 5.0.0 pair the same), under the name the app's updater looks for up to 4.0.1, so those installs
+`SHA256SUMS` has each file's checksum. `PS5CEMU-HAR-v5.1.0.zip` is the same file as `PS5-ECAM-v5.1.0.zip`
+(and the 5.0.1 and 5.0.0 pairs the same), under the name the app's updater looks for up to 4.0.1, so those installs
 update from inside the app.
