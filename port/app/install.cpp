@@ -2,10 +2,11 @@
 // PS5Cemu: installing games, updates and DLC into the MLC for the launcher (emulator.h).
 //
 // As Cemu's "Install game title, update or DLC" (src/gui/wxgui/GameUpdateWindow.cpp, ParseUpdate
-// and ThreadWork): the title in a folder with code, content and meta is copied to its place in the
-// MLC (usr/title/0005000e/... for an update, 0005000c/... for DLC), and what was there is kept
-// aside until the copy is complete, then dropped, or put back when it is cancelled or fails. This
-// file keeps Cemu's MPL-2.0 licence.
+// and ThreadWork): the title in a folder with code, content and meta is copied beside its place in
+// the MLC (usr/title/0005000e/xxxxxxxx.partial for an update, 0005000c/... for DLC), and only a
+// complete copy takes the place of what was there. Cemu lists only folders named as title IDs, so a
+// copy cut short (a cancel, a failure, the app closed with the PS button) is never a title it
+// starts. This file keeps Cemu's MPL-2.0 licence.
 
 #include "emulator.h"
 #include "lang.h"
@@ -22,11 +23,15 @@
 
 #include <algorithm>
 #include <atomic>
+#include <cerrno>
 #include <cstdio>
+#include <cstring>
+#include <fcntl.h>
 #include <fstream>
 #include <mutex>
 #include <set>
 #include <thread>
+#include <unistd.h>
 
 namespace ps5emu
 {
@@ -95,45 +100,61 @@ namespace ps5emu
 			return fmt::format("{:.1f} GB", bytes / 1e9);
 		}
 
-		// A file in pieces, so the progress moves within the large .app files and a cancel is quick.
-		bool CopyInPieces(const fs::path& from, const fs::path& to, std::vector<char>& buffer)
+		// A file in pieces, so the progress moves within the large .app files and a cancel is quick. A
+		// piece is one read and one write of the system's: the console's C library reads and writes an
+		// unbuffered FILE a character (or BUFSIZ) at a time, whatever fread and fwrite are asked for,
+		// which held every install at 0% for hours (#96). why: the system's reason, when it fails.
+		bool CopyInPieces(const fs::path& from, const fs::path& to, std::vector<char>& buffer, std::string& why)
 		{
-			std::FILE* in = std::fopen(_pathToUtf8(from).c_str(), "rb");
-			if (!in)
-				return false;
-			std::FILE* out = std::fopen(_pathToUtf8(to).c_str(), "wb");
-			if (!out)
+			const int in = open(_pathToUtf8(from).c_str(), O_RDONLY);
+			if (in < 0)
 			{
-				std::fclose(in);
+				why = std::strerror(errno);
 				return false;
 			}
-			// the C library's own buffers off: the pieces are large already
-			std::setvbuf(in, nullptr, _IONBF, 0);
-			std::setvbuf(out, nullptr, _IONBF, 0);
+			const int out = open(_pathToUtf8(to).c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			if (out < 0)
+			{
+				why = std::strerror(errno);
+				close(in);
+				return false;
+			}
 			bool ok = true;
-			for (;;)
+			while (ok && !s_cancel)
 			{
-				if (s_cancel)
+				const ssize_t got = read(in, buffer.data(), buffer.size());
+				if (got < 0 && errno == EINTR)
+					continue;
+				if (got < 0)
 				{
+					why = std::strerror(errno);
 					ok = false;
-					break;
 				}
-				const size_t read = std::fread(buffer.data(), 1, buffer.size(), in);
-				if (read == 0)
+				if (got <= 0)
+					break;
+				for (ssize_t written = 0; ok && written < got;)
 				{
-					ok = !std::ferror(in);
-					break;
+					const ssize_t put = write(out, buffer.data() + written, (size_t)(got - written));
+					if (put < 0 && errno == EINTR)
+						continue;
+					if (put <= 0)
+					{
+						why = std::strerror(put < 0 ? errno : ENOSPC);
+						ok = false;
+					}
+					else
+						written += put;
 				}
-				if (std::fwrite(buffer.data(), 1, read, out) != read)
-				{
-					ok = false;
-					break;
-				}
-				AddCopied(read);
+				if (ok)
+					AddCopied((uint64_t)got);
 			}
-			std::fclose(in);
-			ok = std::fclose(out) == 0 && ok;
-			return ok;
+			close(in);
+			if (close(out) != 0 && ok)
+			{
+				why = std::strerror(errno);
+				ok = false;
+			}
+			return ok && !s_cancel;
 		}
 
 		// How many files are copied at once: an update or DLC is thousands of small files, each of which
@@ -166,15 +187,26 @@ namespace ps5emu
 				for (auto it = fs::recursive_directory_iterator(source / part, ec); !ec && it != fs::recursive_directory_iterator() && !s_cancel;
 					 it.increment(ec))
 				{
+					// an entry's errors apart from the walk's: one size not read used to end the walk, and the
+					// files found until then were installed as if they were all of it
+					std::error_code entryEc;
 					const fs::path relative = it->path().lexically_relative(source);
-					if (it->is_directory(ec))
+					if (it->is_directory(entryEc))
 						folders.push_back(relative);
-					else if (it->is_regular_file(ec))
+					else if (it->is_regular_file(entryEc))
 					{
-						const uint64_t size = it->file_size(ec);
-						files.push_back({relative, ec ? 0 : size});
-						total += ec ? 0 : size;
+						const uint64_t size = it->file_size(entryEc);
+						files.push_back({relative, entryEc ? 0 : size});
+						total += entryEc ? 0 : size;
 					}
+				}
+				// a folder not read through is not installed in part
+				if (ec)
+				{
+					const std::string failure = fmt::format("{} could not be read through: {}", part, ec.message());
+					ps5log::Line("[install] {}: {}", title, failure);
+					SetStatus(InstallStatus::State::Failed, failure);
+					return;
 				}
 			}
 			// a cancel while the folder was read: nothing has changed yet
@@ -201,20 +233,16 @@ namespace ps5emu
 				return;
 			}
 
-			// what is installed there now waits aside until the copy is complete
-			fs::path backup;
-			if (fs::exists(target, ec))
-			{
-				backup = target;
-				backup.replace_extension(".backup");
-				DropLater(backup); // an earlier install's, left by a stop the app did not live through
-				fs::rename(target, backup, ec);
-				if (ec)
-				{
-					SetStatus(InstallStatus::State::Failed, ps5lang::TrF("What is installed there now could not be moved aside: {0}", ec.message()));
-					return;
-				}
-			}
+			// the copy goes beside the title's place (xxxxxxxx.partial) and takes it only when complete
+			fs::path staging = target, backup = target;
+			staging.replace_extension(".partial");
+			backup.replace_extension(".backup");
+			DropLater(staging); // an earlier install's, left by a stop the app did not live through
+			// what an earlier version set aside while it copied into the title's place: back where that
+			// copy is not there, else dropped, as this one replaces both
+			if (!fs::exists(target, ec))
+				fs::rename(backup, target, ec);
+			DropLater(backup);
 
 			const uint64_t started = sceKernelGetProcessTime();
 			std::string failure;
@@ -222,19 +250,22 @@ namespace ps5emu
 			{
 				if (s_cancel)
 					break;
-				fs::create_directories(target / folder, ec);
+				fs::create_directories(staging / folder, ec);
 			}
+			ps5log::Line("[install] {}: {} folders made in {} ms, {} MB to copy", title, folders.size(), (sceKernelGetProcessTime() - started) / 1000,
+				total / 1000000);
 			std::atomic<size_t> next{0};
 			std::mutex failureMutex;
 			auto copier = [&] {
 				std::vector<char> buffer(kPiece);
+				std::string why;
 				for (size_t i = next++; i < files.size() && !s_cancel; i = next++)
 				{
-					if (!CopyInPieces(source / files[i].relative, target / files[i].relative, buffer) && !s_cancel)
+					if (!CopyInPieces(source / files[i].relative, staging / files[i].relative, buffer, why) && !s_cancel)
 					{
 						std::lock_guard lock(failureMutex);
 						if (failure.empty())
-							failure = "A file could not be copied: " + _pathToUtf8(files[i].relative);
+							failure = fmt::format("A file could not be copied: {} ({})", _pathToUtf8(files[i].relative), why);
 						s_cancel = true; // the others stop too
 					}
 				}
@@ -249,16 +280,35 @@ namespace ps5emu
 
 			if (cancelled || !failure.empty())
 			{
-				// the partial copy out of the way at once, and what was there back in its place
-				DropLater(target);
-				if (!backup.empty())
-					fs::rename(backup, target, ec);
+				// the partial copy out of the way at once; what was installed never moved
+				DropLater(staging);
 				ps5log::Line("[install] {}: {}", title, cancelled ? "cancelled" : failure);
 				SetStatus(cancelled ? InstallStatus::State::Cancelled : InstallStatus::State::Failed, failure);
 				return;
 			}
-			if (!backup.empty())
-				DropLater(backup);
+			// the complete copy in the title's place: what was there aside, then dropped
+			if (fs::exists(target, ec))
+			{
+				fs::rename(target, backup, ec);
+				if (ec)
+				{
+					ps5log::Line("[install] {}: {} could not be moved aside: {}", title, _pathToUtf8(target), ec.message());
+					SetStatus(InstallStatus::State::Failed, ps5lang::TrF("What is installed there now could not be moved aside: {0}", ec.message()));
+					DropLater(staging);
+					return;
+				}
+			}
+			fs::rename(staging, target, ec);
+			if (ec)
+			{
+				failure = fmt::format("The copy could not take its place: {}", ec.message());
+				fs::rename(backup, target, ec); // what was there, back
+				DropLater(staging);
+				ps5log::Line("[install] {}: {}", title, failure);
+				SetStatus(InstallStatus::State::Failed, failure);
+				return;
+			}
+			DropLater(backup);
 			const uint64_t ms = std::max<uint64_t>(1, (sceKernelGetProcessTime() - started) / 1000);
 			ps5log::Line("[install] {} installed in {}: {} files, {} MB in {:.1f} s ({} MB/s)", title, _pathToUtf8(target), files.size(), total / 1000000,
 				ms / 1000.0, total / 1000 / ms);

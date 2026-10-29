@@ -7,11 +7,14 @@
 #include <algorithm>
 #include <atomic>
 #include <cctype>
+#include <cerrno>
 #include <cstdio>
+#include <fcntl.h>
 #include <filesystem>
 #include <fstream>
 #include <mutex>
 #include <thread>
+#include <unistd.h>
 
 namespace fs = std::filesystem;
 
@@ -133,30 +136,42 @@ namespace ps5mods
 			s_status.message = message;
 		}
 
-		// One file, in large pieces: each write to /data costs the console a while
+		// One file, in large pieces: each write to /data costs the console a while. A piece is one read
+		// and one write of the system's: the console's C library reads and writes an unbuffered FILE a
+		// character (or BUFSIZ) at a time, whatever fread and fwrite are asked for (#96)
 		bool CopyFile(const fs::path& from, const fs::path& to, std::vector<char>& buffer)
 		{
-			FILE* in = std::fopen(from.c_str(), "rb");
-			if (!in)
+			const int in = open(from.c_str(), O_RDONLY);
+			if (in < 0)
 				return false;
-			FILE* out = std::fopen(to.c_str(), "wb");
-			if (!out)
+			const int out = open(to.c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
+			if (out < 0)
 			{
-				std::fclose(in);
+				close(in);
 				return false;
 			}
-			std::setvbuf(in, nullptr, _IONBF, 0);
-			std::setvbuf(out, nullptr, _IONBF, 0);
 			bool ok = true;
-			for (size_t read; ok && !s_stop && (read = std::fread(buffer.data(), 1, buffer.size(), in)) > 0;)
+			while (ok && !s_stop)
 			{
-				ok = std::fwrite(buffer.data(), 1, read, out) == read;
+				const ssize_t got = read(in, buffer.data(), buffer.size());
+				if (got < 0 && errno == EINTR)
+					continue;
+				ok = got >= 0;
+				if (got <= 0)
+					break;
+				for (ssize_t written = 0; ok && written < got;)
+				{
+					const ssize_t put = write(out, buffer.data() + written, (size_t)(got - written));
+					if (put < 0 && errno == EINTR)
+						continue;
+					ok = put > 0;
+					written += ok ? put : 0;
+				}
 				std::lock_guard lock(s_mutex);
-				s_status.copied += read;
+				s_status.copied += (uint64_t)got;
 			}
-			ok = ok && !s_stop && !std::ferror(in);
-			std::fclose(in);
-			return std::fclose(out) == 0 && ok;
+			close(in);
+			return close(out) == 0 && ok && !s_stop;
 		}
 
 		// The rules.txt of a mod that came without one: its files take the game's place, nothing more
