@@ -52,8 +52,9 @@ namespace ps5ingame3ds
 	// Which console the game is, whose rows the menu shows
 	enum class Console
 	{
-		N3ds, // Azahar's
-		Nds,  // melonDS's
+		N3ds,  // Azahar's
+		Nds,   // melonDS's
+		Retro, // a libretro core's (port/libretro): one screen, the DS's rows that apply to it, no cheats
 	};
 	// tr: how the DS's screens are scaled to the TV: the filters' names
 	constexpr const char* kScreenFilters[] = {ps5lang::TrMark("Sharp"), ps5lang::TrMark("Smooth"), ps5lang::TrMark("Square pixels")};
@@ -83,8 +84,10 @@ namespace ps5ingame3ds
 		uint64_t generation;
 	};
 
-	// When the game starts: its name and title ID, the settings it starts with, and its console.
-	void Start(const std::string& name, uint64_t titleId, const Settings& settings, Console console = Console::N3ds);
+	// When the game starts: its name and title ID, the settings it starts with, and its console (a
+	// libretro core's: its system's name, for the menu's badge).
+	void Start(const std::string& name, uint64_t titleId, const Settings& settings, Console console = Console::N3ds,
+		const std::string& system = "");
 	// The menu's top, once: GameTDB's facts on a line ("Nintendo  /  2015"), and the TGA of the
 	// game's box art or icon (empty: none).
 	void SetGame(const std::string& details, const std::string& coverPath);

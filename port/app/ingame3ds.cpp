@@ -56,11 +56,12 @@ namespace ps5ingame3ds
 		std::string s_coverPath; // the game's box art, or its icon
 		uint64_t s_titleId = 0;
 		Console s_console = Console::N3ds;
+		std::string s_system; // a libretro core's system ("NES"), for the badge
 
-		// the side's colours: the 3DS's sand, the DS's green
+		// the side's colours: the 3DS's sand, the DS's green, the other systems' blue
 		const ps5menu::Palette& Colours()
 		{
-			return s_console == Console::Nds ? ps5menu::kGreen : ps5menu::kGold;
+			return s_console == Console::Nds ? ps5menu::kGreen : s_console == Console::Retro ? ps5menu::kBlue : ps5menu::kGold;
 		}
 		double s_fps = 0, s_speed = 0;
 		std::string s_breakdown;
@@ -469,9 +470,16 @@ namespace ps5ingame3ds
 			}
 			const int resolution = std::clamp(settings.resolution, 1, 10);
 			const bool ds = s_console == Console::Nds;
+			const bool single = s_console == Console::Retro; // one screen: the DS's rows that apply to it
 			const char* filter = kScreenFilters[std::clamp(settings.screenFilter, 0, kScreenFilterCount - 1)];
 			std::vector<Row> rows;
 			const std::string on = Tr("On"), off = Tr("Off");
+			if (single)
+				rows.push_back({"screens", Tr("Screen and border"), BorderName(settings.border), false, Tr("The border around the screen."), {
+					{"border", Tr("Border"), BorderName(settings.border), true, Tr("Artwork around the screen, never over it.")},
+				}});
+			else
+			{
 			rows.push_back({"screens", Tr("Screens and border"), fmt::format("{} \u00b7 {}", LayoutName(settings.layout), BorderName(settings.border)), false,
 				Tr("The screens' layout, which one is the main one, and the border."), {
 				{"layout", Tr("Layout"), LayoutName(settings.layout), true,
@@ -497,7 +505,16 @@ namespace ps5ingame3ds
 			rows.back().rows.insert(rows.back().rows.begin() + 4,
 				{"hiddentouch", Tr("Touch without the bottom screen"), settings.hiddenTouch ? on : off, true,
 					Tr("With the top screen alone, the touchpad still touches the bottom screen, its cursor over the top one (Star Fox 64 3D).")});
-			if (ds)
+			}
+			if (single)
+				rows.push_back({"graphics", Tr("Graphics"), Tr(filter), false, Tr("The screen filter and the performance overlay."), {
+					{"dsfilter", Tr("Screen filter"), Tr(filter), true,
+						Tr("How the game's picture is scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them together; "
+						   "Square pixels takes the nearest, uneven at most sizes.")},
+					{"performance", Tr("Performance overlay"), settings.performance ? on : off, true,
+						Tr("The frame rate and the emulation's speed, in the top left corner.")},
+				}});
+			else if (ds)
 				rows.push_back({"graphics", Tr("Graphics"), Tr(filter), false, Tr("The screen filter and the performance overlay."), {
 					{"dsfilter", Tr("Screen filter"), Tr(filter), true,
 						Tr("How the DS's 256 x 192 screens are scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them "
@@ -524,7 +541,7 @@ namespace ps5ingame3ds
 				Tr("Above 100% hurries through slow scenes; None runs as fast as the PS5 can. For this game only.")};
 			// the same word on the category as on its row
 			const std::string speed = settings.speedLimit ? Percent(settings.speedLimit) : std::string(TrC("speed limit", "None"));
-			if (ds)
+			if (ds || single)
 				rows.push_back({"pace", Tr("Speed"), speed, false, Tr("How fast the game may run."), {speedLimit}});
 			else
 			{
@@ -561,7 +578,8 @@ namespace ps5ingame3ds
 			else
 				// tr: how many of the game's cheats are on: {0} of {1}
 				cheatRows.value = TrF("{0} of {1} on", std::count_if(cheats.begin(), cheats.end(), [](const auto& c) { return c.second; }), cheats.size());
-			rows.push_back(cheatRows);
+			if (!single)
+				rows.push_back(cheatRows);
 			if (ds && cheevosShown)
 			{
 				// RetroAchievements (6.16): how many are earned, then each, the earned first
@@ -581,7 +599,7 @@ namespace ps5ingame3ds
 						Tr("RetroAchievements lists a game's achievements once it has a set for it.")});
 				rows.push_back(cheevoRows);
 			}
-			if (!ds)
+			if (!ds && !single)
 			{
 				rows.push_back({"amiibos", Tr("Amiibo"), amiibo, false, Tr("Hold an amiibo dump to the 3DS's reader when the game asks for one."), {
 					{"amiibo", Tr("Amiibo"), amiibo, true,
@@ -593,7 +611,14 @@ namespace ps5ingame3ds
 			}
 			rows.push_back(volume);
 			const std::string ab = settings.aOnCircle ? Tr("A on Circle") : Tr("A on Cross");
-			if (ds)
+			if (single)
+				rows.push_back({"controls", Tr("Controls"), ab, false, Tr("The left stick's deadzone and where A and B are."), {
+					{"deadzone", Tr("Stick deadzone"), Percent(settings.deadzone), true,
+						Tr("How far the left stick moves before it presses the D-pad. Raise it if something drifts when you let go.")},
+					{"ab", Tr("A and B"), ab, true,
+						Tr("A on Circle and B on Cross, where Nintendo puts them, or the other way round, with X and Y swapped to match.")},
+				}});
+			else if (ds)
 				// tr: the DS's lid, closed or open
 				rows.push_back({"controls", Tr("Controls"), settings.lidClosed ? std::string(Tr("Lid closed")) : ab, false,
 					Tr("The lid, the left stick's deadzone and where A and B are. Hold R3 to blow into the microphone."), {
@@ -639,7 +664,8 @@ namespace ps5ingame3ds
 					if (undo)
 						row.rows.push_back(back);
 				}
-			rows.push_back(ps5menu::RemoteRow(ds ? Tr("The touch screen") : Tr("The bottom screen")));
+			if (!single)
+				rows.push_back(ps5menu::RemoteRow(ds ? Tr("The touch screen") : Tr("The bottom screen")));
 			rows.push_back(library);
 			return rows;
 		}
@@ -662,6 +688,8 @@ namespace ps5ingame3ds
 				{"layout", Tr("Screens"), "screens", LayoutName(settings.layout)},
 				// tr: the quick action that puts a gap between the two screens, and its state
 				{"gap", Tr("Screen gap"), "gap", settings.screenGap ? Tr("On") : Tr("Off")}};
+			if (s_console == Console::Retro)
+				tiles.resize(3); // one screen: no layouts, no gap
 			// how the last save or load went, on its tile (Made by another version, Saved slot 1...)
 			for (ps5menu::Tile& tile : tiles)
 				if (!message.empty() && tile.id == s_stateAction)
@@ -809,7 +837,7 @@ namespace ps5ingame3ds
 			const ImVec2 origin{(io.DisplaySize.x - 1920.0f * scale) * 0.5f, (io.DisplaySize.y - 1080.0f * scale) * 0.5f};
 			const Canvas canvas{ImGui::GetForegroundDrawList(), scale, origin, Colours()};
 			ps5menu::Header header;
-			header.system = s_console == Console::Nds ? "DS" : "3DS";
+			header.system = s_console == Console::Nds ? "DS" : s_console == Console::Retro ? s_system : "3DS";
 			// tr: the in-game menu's badge: the game waits behind the menu
 			header.status = Tr("Paused");
 			header.title = name;
@@ -883,12 +911,13 @@ namespace ps5ingame3ds
 		}
 	}
 
-	void Start(const std::string& name, uint64_t titleId, const Settings& settings, Console console)
+	void Start(const std::string& name, uint64_t titleId, const Settings& settings, Console console, const std::string& system)
 	{
 		std::lock_guard lock(s_mutex);
 		s_name = name;
 		s_titleId = titleId;
 		s_console = console;
+		s_system = system;
 		s_settings = settings;
 		s_changed = false;
 	}
