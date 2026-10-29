@@ -195,6 +195,60 @@
       "commit": "22e8762ad7dbd01e18bd8c0e95f86461fdf8aaf4",
       "path": ".deps/ps5-forwarder-format",
       "creates": ".deps/ps5-forwarder-format/src/psfwd.c"
+    },
+    {
+      "name": "libretro-common",
+      "about": "libretro-common (MIT): the helpers a libretro core built for a static frontend leaves to it, one copy for every core (tools/build-libretro.py)",
+      "kind": "git",
+      "url": "https://github.com/libretro/libretro-common.git",
+      "commit": "d9597c359a5ca8399a4e244f816e7e975a92a2aa",
+      "path": ".deps/libretro/libretro-common",
+      "creates": ".deps/libretro/libretro-common/include/libretro.h"
+    },
+    {
+      "name": "libretro-mesen",
+      "about": "Mesen's libretro core (GPL-3.0): the NES and the Famicom Disk System (tools/build-libretro.py)",
+      "kind": "git",
+      "url": "https://github.com/libretro/Mesen.git",
+      "commit": "0102910c39ad1a62bc3f784466f3f67ca9eae335",
+      "path": ".deps/libretro/Mesen",
+      "creates": ".deps/libretro/Mesen/Libretro/libretro.cpp"
+    },
+    {
+      "name": "libretro-mesen-s",
+      "about": "Mesen-S's libretro core (GPL-3.0): the SNES, Satellaview and Sufami Turbo (tools/build-libretro.py)",
+      "kind": "git",
+      "url": "https://github.com/libretro/Mesen-S.git",
+      "commit": "9e4fdeb9b336470bc96beb8765b2e79c86a2da1e",
+      "path": ".deps/libretro/Mesen-S",
+      "creates": ".deps/libretro/Mesen-S/Libretro/libretro.cpp"
+    },
+    {
+      "name": "libretro-mgba",
+      "about": "mGBA's libretro core (MPL-2.0): the Game Boy, the Game Boy Color and the Game Boy Advance (tools/build-libretro.py)",
+      "kind": "git",
+      "url": "https://github.com/libretro/mgba.git",
+      "commit": "7a12d6d4b9acb14c0ae62c9166b6a2f3d08007f6",
+      "path": ".deps/libretro/mgba",
+      "creates": ".deps/libretro/mgba/src/platform/libretro/libretro.c"
+    },
+    {
+      "name": "libretro-beetle-vb",
+      "about": "Beetle VB, Mednafen's Virtual Boy as a libretro core (GPL-2.0-or-later) (tools/build-libretro.py)",
+      "kind": "git",
+      "url": "https://github.com/libretro/beetle-vb-libretro.git",
+      "commit": "d5ae54c8e23b573a3b34e888b2d48a588027e92c",
+      "path": ".deps/libretro/beetle-vb-libretro",
+      "creates": ".deps/libretro/beetle-vb-libretro/libretro.cpp"
+    },
+    {
+      "name": "libretro-pokemini",
+      "about": "PokeMini's libretro core (GPL-3.0-or-later): the Pokémon mini (tools/build-libretro.py)",
+      "kind": "git",
+      "url": "https://github.com/libretro/PokeMini.git",
+      "commit": "132111b76343559860532a1ccc094f93f1ed5650",
+      "path": ".deps/libretro/PokeMini",
+      "creates": ".deps/libretro/PokeMini/libretro/libretro.c"
     }
   ]
 }
