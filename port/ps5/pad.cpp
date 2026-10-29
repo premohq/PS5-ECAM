@@ -71,6 +71,7 @@ namespace ps5pad
 			uint64_t clickedAt = 0, tapUntil = 0;
 			bool chordUsed = false, touched = false;
 			uint64_t loadAt = 0; // Triangle pressed with the click, for the load state shortcut: when (0: none)
+			uint64_t filteredAt = 0; // the last sample FilterShortcuts saw (KeepShortcuts)
 		};
 
 		std::mutex s_mutex;
@@ -277,6 +278,7 @@ namespace ps5pad
 		Slot& slot = s_slots[std::clamp(player, 0, kMaxPlayers - 1)];
 		const uint32_t previous = slot.lastButtons;
 		slot.lastButtons = buttons;
+		slot.filteredAt = now;
 		auto pressed = [&](uint32_t mask) { return (buttons & mask) && !(previous & mask); };
 		Filtered result{buttons & ~kTouchPad, false};
 		if (buttons & kTouchPad)
@@ -333,6 +335,21 @@ namespace ps5pad
 			result.touch = false;
 		}
 		return result;
+	}
+
+	void KeepShortcuts(int player)
+	{
+		constexpr uint64_t kQuietUs = 100000; // a game reads its controllers every frame or two
+		if (player < 0 || player >= kMaxPlayers)
+			return;
+		{
+			std::lock_guard lock(s_mutex);
+			if (sceKernelGetProcessTime() - s_slots[player].filteredAt < kQuietUs)
+				return;
+		}
+		Data data;
+		if (Read(player, data))
+			FilterShortcuts(player, data.buttons);
 	}
 
 	Shortcut TakeShortcut()

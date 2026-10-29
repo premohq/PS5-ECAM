@@ -119,6 +119,10 @@ namespace ps5pad
 	// the click is, from the same moment, or as a tap on the release of a shorter one; a shortcut's
 	// click presses nothing.
 	Filtered FilterShortcuts(int player, uint32_t buttons);
+	// FilterShortcuts for a player's controller when nothing has fed it through for a moment: Cemu
+	// reads a Pro Controller, a Classic Controller or a Wii Remote only when the game asks for one, so
+	// where a game read only the GamePad, the shortcuts of a player given one were never seen (#93)
+	void KeepShortcuts(int player);
 	// Whether a player's touchpad click is a button rather than a touch of the GamePad's screen (#37)
 	void SetTouchpadButton(int player, bool button);
 	bool TouchpadButton(int player);

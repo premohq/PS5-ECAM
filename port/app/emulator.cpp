@@ -957,6 +957,10 @@ namespace ps5emu
 				for (int i = 0; i < 6; i++)
 					gpuWaitAt[i] = gpuWaits[i];
 			}
+			// the shortcuts of a controller the game is not reading (a Pro Controller where it reads only
+			// the GamePad) too
+			for (int player = 0; player < ps5pad::kMaxPlayers; player++)
+				ps5pad::KeepShortcuts(player);
 			switch (ps5pad::TakeShortcut())
 			{
 			case ps5pad::Shortcut::Menu:
