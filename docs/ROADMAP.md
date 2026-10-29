@@ -146,6 +146,56 @@ checked by reading and compiling. Before a release:
   game that has none, the microphone's three choices (a missing WAV too), touch calibration, and a
   capture with `capture-frames`.
 
+### Every Nintendo system
+
+The owner, 29 October 2026: **PS5-ECAM's scope is every Nintendo system there is an emulator for,
+the obscure ones too, and Nintendo's arcade hardware.** The side switch is a carousel now, so the bar
+takes any number of systems.
+
+**The classic systems already added** (JMUtechnologies, PR #87 and PR #91) are to run on the best
+emulator there is for each, replaced where they do not, maybe as libretro cores. This is the N64, the
+NES, the Game Boy, the Game Boy Color and the Game Boy Advance. Not GameCube and Wii (Dolphin, through
+Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
+
+| System | Runs now (RETRO-INTEGRATION.md, GAMEBOY-INTEGRATION.md) | The best to try |
+|---|---|---|
+| N64 | PS5N64X (ParaLLEl-N64), Mupen64Plus as the other choice | Mupen64Plus-Next with ParaLLEl-RDP and ParaLLEl-RSP, ParaLLEl-N64's successor |
+| NES | PS5NESX (FCEUmm), FCEUmm as the other choice | Mesen, the most accurate; Nestopia UE next |
+| GB, GBC | PS5GBCX (mGBA 0.10.5's GB core) | SameBoy, the most accurate; Gambatte next |
+| GBA | PS5GBAX (mGBA 0.10.5) | mGBA stays, at its newest |
+
+**Still to add**, with the emulators to look at first (to check, each, for what it runs today):
+
+| System | Emulators |
+|---|---|
+| SNES / Super Famicom, with Satellaview and Sufami Turbo | bsnes (the most accurate), Mesen 2, Snes9x for speed |
+| Famicom Disk System | Mesen, which the NES's choice may cover already |
+| Super Game Boy | bsnes; SameBoy's SGB mode |
+| Nintendo 64DD | ares, Mupen64Plus-Next |
+| Virtual Boy | Beetle VB (Mednafen) |
+| Pokémon mini | PokeMini |
+| Game & Watch | MAME's handhelds; the gw-libretro simulator |
+| e-Reader | mGBA, with the GBA |
+| iQue Player, Color TV-Game | MAME, where it runs them |
+| Arcade: Donkey Kong, Donkey Kong Jr., Mario Bros., Popeye, Punch-Out!!, Radar Scope, Sheriff, Space Fever and the rest of Nintendo's own boards | MAME |
+| Arcade: VS. System and VS. UniSystem, PlayChoice-10, Nintendo Super System | Mesen and FCEUmm (VS.), MAME |
+| Arcade: Aleck64 (N64-based), Triforce (GameCube-based) | MAME (Aleck64); Dolphin's Triforce work, if any is current |
+
+- **One libretro frontend for all of them**, rather than a donor app for each: Porpoise already runs
+  Dolphin as a libretro core, so its frontend may host the others' cores (one runtime in
+  `retro/`, the core chosen per system). That is also the way to many small systems at once.
+- Each core measured on the console, speed and accuracy, before it becomes a system's default
+  (performance changes stay off until measured). The one it replaces stays a choice until then.
+- Saves keep working: a core that writes them differently converts them once, the originals kept
+  aside.
+- None of PR #87's and PR #91's runtimes has been built for the PS5 or run on a console yet, so the
+  first step is to build and qualify them, whichever cores they end up with.
+- **Room for more systems in the code:** a system is a `ps5launcher::System` and a place in
+  `kBarOrder` (`frontend/launcher.h`, `shell/shell_internal.h`); arrays sized by the side count
+  (the catalogue's and the settings' lists, `lastLook`, `noticeRetro`) grow with it. Which sides
+  are shown is a bit each in `ui.sides`, read with an upper limit (2047 for 11 sides) that grows too,
+  and an `int` holds 31 of them: past that it needs a wider mask or a list of names.
+
 ### Lighter
 
 - **Eden's `ui/` folder** (about 26 MB, 62 files in 5.0.1's ZIP): **done**, none of it is packaged now.
