@@ -1,0 +1,26 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// PS5-ECAM: the Wii U side's overlays on the frame between (port/cemu/FrameGenPS5.cpp, #94).
+// The frame between is made from the TV's picture alone, as it was before the second screen, the
+// in-game menu, the keyboard and Cemu's notifications went over it. Where those changed a pixel of
+// this frame, the frame between shows this frame's pixel, overlays and all, so they are never made
+// between two frames; everywhere else it keeps its own.
+//
+// tools/render-shaders.sh makes port/cemu/framegen_shaders.h from it.
+#version 450
+#extension GL_EXT_samplerless_texture_functions : require
+
+layout(local_size_x = 8, local_size_y = 8) in;
+
+layout(set = 0, binding = 0) uniform texture2D shown;		 // this frame as shown: the TV's picture and the overlays
+layout(set = 0, binding = 1) uniform texture2D clean;		 // this frame before the overlays
+layout(set = 0, binding = 2, rgba8) uniform image2D between; // the frame between, made from the clean frames
+
+void main()
+{
+	const ivec2 at = ivec2(gl_GlobalInvocationID.xy);
+	if (any(greaterThanEqual(at, imageSize(between))))
+		return;
+	const vec4 overlaid = texelFetch(shown, at, 0);
+	if (any(notEqual(overlaid.rgb, texelFetch(clean, at, 0).rgb)))
+		imageStore(between, at, overlaid);
+}

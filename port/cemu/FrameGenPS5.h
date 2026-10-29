@@ -16,6 +16,11 @@
 // pacing's even frame rate would otherwise hold each for the whole frame's refreshes:
 // PS5Cemu_FrameGenActive). Its network is the app's eden/mihawkgen/network.fgw, the one Eden's own
 // frame generation reads; without it the two frames are blended.
+//
+// The frames it makes the one between from are the TV's pictures alone (#94): CaptureClean copies
+// each as it is drawn, before the second screen, the in-game menu, the keyboard and Cemu's
+// notifications go over it. Wherever those change a pixel of the frame, the frame between shows the
+// frame's own pixel (shaders/overlays.comp), so they are never made between two frames.
 
 #pragma once
 
@@ -39,13 +44,18 @@ namespace ps5framegen
 		bool canWaitIdle = true;
 	};
 
+	// Whether CaptureClean has anything to do this frame (frames are being made between)
+	bool CleanWanted();
+	// Once a frame, when the TV's picture is in swap.image and before the second screen and the overlays
+	// go over it (Cemu's PS5_PostEffects): records its copy, the frame the one between is made from
+	void CaptureClean(const Swap& swap);
 	// Once a real frame, before it is presented: whether the frame between is to be made
 	bool Wanted();
 	// Records this frame's copy into the history and, when the frame before it is there, the frame
 	// between them into swap.image, left in its layout. True: swap.image holds the frame between;
 	// present it, acquire the next image and call RecordReal on it. False: swap.image holds this frame.
 	bool RecordGenerated(const Swap& swap);
-	// Records this frame (kept by RecordGenerated) into image, left in PRESENT_SRC_KHR
+	// Records this frame as shown (kept by RecordGenerated) into image, left in PRESENT_SRC_KHR
 	void RecordReal(VkCommandBuffer commands, VkImage image);
 }
 

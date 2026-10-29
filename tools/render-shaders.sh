@@ -5,8 +5,10 @@
 #
 #   port/ui/shaders/*.vert, *.frag       the UI kit's: port/ui/shaders.h (ui::shaders)
 #   port/melonds/shaders/*.vert, *.frag  the DS's screens on the TV: port/melonds/shaders.h (ps5melonds::shaders)
+#   port/cemu/shaders/*.comp             the Wii U's frame generation: port/cemu/framegen_shaders.h (ps5framegen::shaders)
 
 set -euo pipefail
+shopt -s nullglob # a folder of compute shaders alone, or of the others alone
 root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
@@ -25,7 +27,7 @@ render() {
         echo "namespace $namespace"
         echo "{"
     } >"$out"
-    for shader in "$folder"/*.vert "$folder"/*.frag; do
+    for shader in "$folder"/*.vert "$folder"/*.frag "$folder"/*.comp; do
         name=$(basename "$shader" | tr '.' '_')
         glslangValidator -V --target-env vulkan1.0 --vn "k_$name" -o "$work/$name.h" "$shader" >/dev/null
         # glslang's header, without its comment and with the array in the namespace
@@ -38,3 +40,4 @@ render() {
 
 render "$root/port/ui/shaders" "$root/port/ui/shaders.h" "ui::shaders" "the UI kit's shaders"
 render "$root/port/melonds/shaders" "$root/port/melonds/shaders.h" "ps5melonds::shaders" "the DS's screens' shaders"
+render "$root/port/cemu/shaders" "$root/port/cemu/framegen_shaders.h" "ps5framegen::shaders" "the Wii U's frame generation's shaders"

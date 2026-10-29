@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Thu, 29 Oct 2026 06:30:44 +0000
+Subject: [PATCH] PS5: frame generation's frames, the TV's picture before the
+ overlays (#94)
+
+PS5_PostEffects, after ReShade's preset and before the GamePad's screen and the overlays are drawn,
+gives the TV's picture to the port's frame generation (ps5framegen::CaptureClean), which makes the
+frame between from those pictures alone. It ends the render pass only when ReShade or frame
+generation has something to do, as before.
+---
+ .../HW/Latte/Renderer/Vulkan/VulkanRenderer.cpp     | 13 +++++++++----
+ 1 file changed, 9 insertions(+), 4 deletions(-)
+
+diff --git a/src/Cafe/HW/Latte/Renderer/Vulkan/VulkanRenderer.cpp b/src/Cafe/HW/Latte/Renderer/Vulkan/VulkanRenderer.cpp
+index 34e95d8..1a31179 100644
+--- a/src/Cafe/HW/Latte/Renderer/Vulkan/VulkanRenderer.cpp
++++ b/src/Cafe/HW/Latte/Renderer/Vulkan/VulkanRenderer.cpp
+@@ -3349,17 +3349,22 @@ void VulkanRenderer::SwapBuffer(bool mainWindow)
+ #if defined(CEMU_PS5)
+ // PS5: ReShade's preset (port/cemu/ReShadePS5.h) on the TV's picture, once DrawBackbufferQuad has drawn it
+ // into the swapchain image (in its present layout after the pass) and before the GamePad's screen and
+-// the overlays go over it
++// the overlays go over it; then that picture for frame generation, which makes the frame between from
++// the TV's pictures alone (port/cemu/FrameGenPS5.h, #94)
+ void VulkanRenderer::PS5_PostEffects()
+ {
+-	if (!ps5reshade::Wanted())
++	const bool reshade = ps5reshade::Wanted();
++	if (!reshade && !ps5framegen::CleanWanted())
+ 		return;
+ 	auto& chainInfo = GetChainInfo(true);
+ 	if (chainInfo.swapchainImageIndex == -1 || !chainInfo.hasDefinedSwapchainImage)
+ 		return;
+ 	draw_endRenderPass();
+-	ps5reshade::Apply({m_logicalDevice, m_physicalDevice, getCurrentCommandBuffer(), chainInfo.m_swapchainImages[chainInfo.swapchainImageIndex],
+-		chainInfo.m_surfaceFormat.format, chainInfo.getExtent(), CafeSystem::GetForegroundTitleId()});
++	if (reshade)
++		ps5reshade::Apply({m_logicalDevice, m_physicalDevice, getCurrentCommandBuffer(), chainInfo.m_swapchainImages[chainInfo.swapchainImageIndex],
++			chainInfo.m_surfaceFormat.format, chainInfo.getExtent(), CafeSystem::GetForegroundTitleId()});
++	ps5framegen::CaptureClean({m_logicalDevice, m_physicalDevice, getCurrentCommandBuffer(), chainInfo.m_swapchainImages[chainInfo.swapchainImageIndex],
++		chainInfo.m_surfaceFormat.format, chainInfo.getExtent()});
+ }
+ 
+ void PS5Cemu_PostEffects()

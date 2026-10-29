@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "FrameGenPS5.h"
 #include "framegen.h"
+#include "framegen_shaders.h"
 
 #include <algorithm>
 #include <chrono>
@@ -48,9 +49,22 @@ namespace ps5framegen
 			Image history[2];	  // the last two real frames
 			Image generated;	  // the frame between, written by the compute passes
 			Image encoded;		  // an sRGB swapchain's: the frame between as sRGB values, blitted into it as they are
+			Image shown;		  // this frame as shown, overlays and all, while the history holds its TV picture alone
 			int next = 0;		  // the history image the next real frame goes into
 			int real = 0;		  // the one this frame went into (RecordReal's)
 			bool previous = false; // the other history image holds the frame before
+			bool clean[2]{};	   // whether each history image holds a TV picture alone (CaptureClean's)
+			bool realShown = false; // RecordReal's picture is shown, not the history's
+			// the overlays' pass over the frame between (shaders/overlays.comp, #94): a descriptor set for each
+			// history image as the frame's own
+			VkDescriptorSetLayout overlaysSetLayout = VK_NULL_HANDLE;
+			VkPipelineLayout overlaysLayout = VK_NULL_HANDLE;
+			VkPipeline overlays = VK_NULL_HANDLE;
+			VkDescriptorPool overlaysPool = VK_NULL_HANDLE;
+			VkDescriptorSet overlaysSets[2]{};
+			// CaptureClean's this frame: the swapchain image it copied, and Wanted's for RecordGenerated
+			VkImage captured = VK_NULL_HANDLE;
+			VkImage cleanFrame = VK_NULL_HANDLE;
 			uint32_t slot = 0;
 			// the game's pace
 			std::chrono::steady_clock::time_point last{};
@@ -152,6 +166,24 @@ namespace ps5framegen
 			return true;
 		}
 
+		void FreeOverlays()
+		{
+			FreeImage(s.shown);
+			if (s.overlays)
+				vkDestroyPipeline(s.device, s.overlays, nullptr);
+			if (s.overlaysLayout)
+				vkDestroyPipelineLayout(s.device, s.overlaysLayout, nullptr);
+			if (s.overlaysPool)
+				vkDestroyDescriptorPool(s.device, s.overlaysPool, nullptr); // and its sets
+			if (s.overlaysSetLayout)
+				vkDestroyDescriptorSetLayout(s.device, s.overlaysSetLayout, nullptr);
+			s.overlays = VK_NULL_HANDLE;
+			s.overlaysLayout = VK_NULL_HANDLE;
+			s.overlaysPool = VK_NULL_HANDLE;
+			s.overlaysSetLayout = VK_NULL_HANDLE;
+			s.captured = s.cleanFrame = VK_NULL_HANDLE;
+		}
+
 		void Release()
 		{
 			if (s.context)
@@ -161,8 +193,88 @@ namespace ps5framegen
 				FreeImage(image);
 			FreeImage(s.generated);
 			FreeImage(s.encoded);
+			FreeOverlays();
 			s.network = false;
 			s.previous = false;
+		}
+
+		// The overlays' pass (#94): its pipeline, and a descriptor set for each history image as the frame's
+		// TV picture, with this frame as shown and the frame between. Without it, the frame between is made
+		// from the frames as shown, overlays and all, as before.
+		bool MakeOverlays(VkPhysicalDevice physical, std::string& why)
+		{
+			if (!MakeImage(physical, Unorm(s.format), VK_IMAGE_USAGE_TRANSFER_DST_BIT | VK_IMAGE_USAGE_TRANSFER_SRC_BIT | VK_IMAGE_USAGE_SAMPLED_BIT,
+					s.shown, why))
+				return false;
+			VkDescriptorSetLayoutBinding bindings[3]{};
+			for (uint32_t i = 0; i < 3; i++)
+			{
+				bindings[i].binding = i;
+				bindings[i].descriptorType = i < 2 ? VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE : VK_DESCRIPTOR_TYPE_STORAGE_IMAGE;
+				bindings[i].descriptorCount = 1;
+				bindings[i].stageFlags = VK_SHADER_STAGE_COMPUTE_BIT;
+			}
+			VkDescriptorSetLayoutCreateInfo setLayout{VK_STRUCTURE_TYPE_DESCRIPTOR_SET_LAYOUT_CREATE_INFO};
+			setLayout.bindingCount = 3;
+			setLayout.pBindings = bindings;
+			VkResult result = vkCreateDescriptorSetLayout(s.device, &setLayout, nullptr, &s.overlaysSetLayout);
+			if (result != VK_SUCCESS)
+				return why = fmt::format("vkCreateDescriptorSetLayout: {}", (int)result), false;
+			VkPipelineLayoutCreateInfo layout{VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO};
+			layout.setLayoutCount = 1;
+			layout.pSetLayouts = &s.overlaysSetLayout;
+			if ((result = vkCreatePipelineLayout(s.device, &layout, nullptr, &s.overlaysLayout)) != VK_SUCCESS)
+				return why = fmt::format("vkCreatePipelineLayout: {}", (int)result), false;
+			VkShaderModuleCreateInfo module{VK_STRUCTURE_TYPE_SHADER_MODULE_CREATE_INFO};
+			module.codeSize = sizeof(shaders::k_overlays_comp);
+			module.pCode = shaders::k_overlays_comp;
+			VkShaderModule shader = VK_NULL_HANDLE;
+			if ((result = vkCreateShaderModule(s.device, &module, nullptr, &shader)) != VK_SUCCESS)
+				return why = fmt::format("vkCreateShaderModule: {}", (int)result), false;
+			VkComputePipelineCreateInfo pipeline{VK_STRUCTURE_TYPE_COMPUTE_PIPELINE_CREATE_INFO};
+			pipeline.stage.sType = VK_STRUCTURE_TYPE_PIPELINE_SHADER_STAGE_CREATE_INFO;
+			pipeline.stage.stage = VK_SHADER_STAGE_COMPUTE_BIT;
+			pipeline.stage.module = shader;
+			pipeline.stage.pName = "main";
+			pipeline.layout = s.overlaysLayout;
+			result = vkCreateComputePipelines(s.device, VK_NULL_HANDLE, 1, &pipeline, nullptr, &s.overlays);
+			vkDestroyShaderModule(s.device, shader, nullptr);
+			if (result != VK_SUCCESS)
+			{
+				s.overlays = VK_NULL_HANDLE;
+				return why = fmt::format("vkCreateComputePipelines: {}", (int)result), false;
+			}
+			const VkDescriptorPoolSize sizes[] = {{VK_DESCRIPTOR_TYPE_SAMPLED_IMAGE, 4}, {VK_DESCRIPTOR_TYPE_STORAGE_IMAGE, 2}};
+			VkDescriptorPoolCreateInfo pool{VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO};
+			pool.maxSets = 2;
+			pool.poolSizeCount = 2;
+			pool.pPoolSizes = sizes;
+			if ((result = vkCreateDescriptorPool(s.device, &pool, nullptr, &s.overlaysPool)) != VK_SUCCESS)
+				return why = fmt::format("vkCreateDescriptorPool: {}", (int)result), false;
+			const VkDescriptorSetLayout layouts[2] = {s.overlaysSetLayout, s.overlaysSetLayout};
+			VkDescriptorSetAllocateInfo allocate{VK_STRUCTURE_TYPE_DESCRIPTOR_SET_ALLOCATE_INFO};
+			allocate.descriptorPool = s.overlaysPool;
+			allocate.descriptorSetCount = 2;
+			allocate.pSetLayouts = layouts;
+			if ((result = vkAllocateDescriptorSets(s.device, &allocate, s.overlaysSets)) != VK_SUCCESS)
+				return why = fmt::format("vkAllocateDescriptorSets: {}", (int)result), false;
+			for (int i = 0; i < 2; i++)
+			{
+				const VkDescriptorImageInfo images[3] = {{VK_NULL_HANDLE, s.shown.view, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL},
+					{VK_NULL_HANDLE, s.history[i].view, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL}, {VK_NULL_HANDLE, s.generated.view, VK_IMAGE_LAYOUT_GENERAL}};
+				VkWriteDescriptorSet writes[3]{};
+				for (uint32_t b = 0; b < 3; b++)
+				{
+					writes[b].sType = VK_STRUCTURE_TYPE_WRITE_DESCRIPTOR_SET;
+					writes[b].dstSet = s.overlaysSets[i];
+					writes[b].dstBinding = b;
+					writes[b].descriptorCount = 1;
+					writes[b].descriptorType = bindings[b].descriptorType;
+					writes[b].pImageInfo = &images[b];
+				}
+				vkUpdateDescriptorSets(s.device, 3, writes, 0, nullptr);
+			}
+			return true;
 		}
 
 		// The generator and its images, for this swapchain's format and size (made again when they change)
@@ -215,6 +327,12 @@ namespace ps5framegen
 				s.failed = true;
 				return false;
 			}
+			// the Wii U side's only, where Cemu calls CaptureClean (the 3DS's swap is the one that cannot wait idle)
+			if (swap.canWaitIdle && !MakeOverlays(swap.physical, why))
+			{
+				Log(fmt::format("[framegen] the overlays' pass not made ({}): the frame between is made with the overlays in it", why));
+				FreeOverlays();
+			}
 			// the network, as Eden's frame generation reads it
 			const std::string path = PS5Cemu_FrameGenNetwork();
 			std::vector<char> weights;
@@ -231,8 +349,8 @@ namespace ps5framegen
 				Log(fmt::format("[framegen] the network at {} did not load ({}): the two frames are blended", path, error));
 			else
 				s.network = true;
-			Log(fmt::format("[framegen] ready for {}x{} pictures{}: {}", swap.extent.width, swap.extent.height, s.encoded.image ? " (sRGB)" : "",
-				s.network ? "MihawkGen's network" : "a blend"));
+			Log(fmt::format("[framegen] ready for {}x{} pictures{}: {}{}", swap.extent.width, swap.extent.height, s.encoded.image ? " (sRGB)" : "",
+				s.network ? "MihawkGen's network" : "a blend", s.overlays ? ", the overlays left out" : ""));
 			return true;
 		}
 
@@ -292,8 +410,35 @@ namespace ps5framegen
 		}
 	}
 
+	bool CleanWanted()
+	{
+		return PS5Cemu_FrameGeneration() != 0 && !s.failed && s.active && s.probe == 0 && (!s.context || s.overlays);
+	}
+
+	void CaptureClean(const Swap& swap)
+	{
+		s.captured = VK_NULL_HANDLE;
+		if (!CleanWanted() || !Prepare(swap) || !s.overlays)
+			return;
+		VkCommandBuffer commands = swap.commands;
+		Image& clean = s.history[s.next];
+		// (after the TV's picture is drawn, and before the second screen and the overlays draw over it)
+		Barrier(commands, swap.image, swap.layout, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_ACCESS_MEMORY_WRITE_BIT, VK_ACCESS_TRANSFER_READ_BIT,
+			VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
+		Move(commands, clean, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_ACCESS_TRANSFER_WRITE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
+		Copy(commands, swap.image, clean.image);
+		Move(commands, clean, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_TRANSFER_READ_BIT,
+			VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT);
+		Barrier(commands, swap.image, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, swap.layout, VK_ACCESS_TRANSFER_READ_BIT,
+			VK_ACCESS_MEMORY_READ_BIT | VK_ACCESS_MEMORY_WRITE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_ALL_COMMANDS_BIT);
+		s.captured = swap.image;
+	}
+
 	bool Wanted()
 	{
+		// this frame's TV picture alone, when CaptureClean copied it (each frame's own, never an earlier one's)
+		s.cleanFrame = s.captured;
+		s.captured = VK_NULL_HANDLE;
 		const auto now = std::chrono::steady_clock::now();
 		const double ms = s.last.time_since_epoch().count() ? std::chrono::duration<double, std::milli>(now - s.last).count() : 0.0;
 		s.last = now;
@@ -354,17 +499,25 @@ namespace ps5framegen
 			return false;
 		VkCommandBuffer commands = swap.commands;
 		const int now = s.next, before = 1 - now;
-		// this frame into the history
+		// the TV's picture alone is in the history already (CaptureClean): the frame as shown is kept for
+		// its own picture, the overlays then go over the frame between from it
+		const bool clean = s.overlays && s.cleanFrame == swap.image;
+		s.cleanFrame = VK_NULL_HANDLE;
+		Image& kept = clean ? s.shown : s.history[now];
+		// this frame into the history, or as shown
 		// (after everything before it on the queue: the frame's draws)
 		Barrier(commands, swap.image, swap.layout, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_ACCESS_MEMORY_WRITE_BIT, VK_ACCESS_TRANSFER_READ_BIT,
 			VK_PIPELINE_STAGE_ALL_COMMANDS_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
-		Move(commands, s.history[now], VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_ACCESS_TRANSFER_WRITE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
-		Copy(commands, swap.image, s.history[now].image);
-		Move(commands, s.history[now], VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_TRANSFER_READ_BIT,
+		Move(commands, kept, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, VK_ACCESS_TRANSFER_WRITE_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
+		Copy(commands, swap.image, kept.image);
+		Move(commands, kept, VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL, VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_TRANSFER_READ_BIT,
 			VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT | VK_PIPELINE_STAGE_TRANSFER_BIT);
-		const bool had = s.previous;
+		// a frame between two frames of the same kind only: never from one with the overlays and one without
+		const bool had = s.previous && s.clean[before] == clean;
 		s.previous = true;
+		s.clean[now] = clean;
 		s.real = now;
+		s.realShown = clean;
 		s.next = before;
 		if (!had)
 		{
@@ -381,6 +534,15 @@ namespace ps5framegen
 		pair.t = 0.5f;
 		fg_record_generate(s.context, commands, s.slot, s.network ? FG_METHOD_NEURAL : FG_METHOD_BLEND, &pair, s.generated.view);
 		s.slot = (s.slot + 1) % kSlots;
+		if (clean)
+		{
+			// the second screen and the overlays over it as this frame shows them (shaders/overlays.comp)
+			Barrier(commands, s.generated.image, VK_IMAGE_LAYOUT_GENERAL, VK_IMAGE_LAYOUT_GENERAL, VK_ACCESS_SHADER_WRITE_BIT,
+				VK_ACCESS_SHADER_READ_BIT | VK_ACCESS_SHADER_WRITE_BIT, VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT, VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT);
+			vkCmdBindPipeline(commands, VK_PIPELINE_BIND_POINT_COMPUTE, s.overlays);
+			vkCmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_COMPUTE, s.overlaysLayout, 0, 1, &s.overlaysSets[now], 0, nullptr);
+			vkCmdDispatch(commands, (s.extent.width + 7) / 8, (s.extent.height + 7) / 8, 1);
+		}
 		Barrier(commands, s.generated.image, VK_IMAGE_LAYOUT_GENERAL, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_ACCESS_SHADER_WRITE_BIT,
 			VK_ACCESS_TRANSFER_READ_BIT, VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
 		s.generated.layout = VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL;
@@ -413,7 +575,7 @@ namespace ps5framegen
 
 	void RecordReal(VkCommandBuffer commands, VkImage image)
 	{
-		Image& real = s.history[s.real];
+		Image& real = s.realShown ? s.shown : s.history[s.real];
 		Move(commands, real, VK_IMAGE_LAYOUT_TRANSFER_SRC_OPTIMAL, VK_ACCESS_TRANSFER_READ_BIT, VK_PIPELINE_STAGE_TRANSFER_BIT);
 		// (after the wait for the image, in the submission Cemu made as it acquired it)
 		Barrier(commands, image, VK_IMAGE_LAYOUT_UNDEFINED, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 0, VK_ACCESS_TRANSFER_WRITE_BIT,
