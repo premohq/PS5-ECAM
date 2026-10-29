@@ -363,9 +363,8 @@ namespace ps5settings
 			settings.nds.gamesFolder = ps5paths::MelonDs() + "/games";
 		if (json.HasMember("switch") && json["switch"].IsObject())
 			ReadN3ds(json["switch"], settings.nx, false);
-		const char* retroKeys[] = {"gamecube", "wii", "n64", "nes", "gb", "gbc", "gba"};
-		for (size_t i = 0; i < 7; i++)
-			if (json.HasMember(retroKeys[i]) && json[retroKeys[i]].IsObject()) ReadN3ds(json[retroKeys[i]], settings.retro[i], false);
+		for (size_t i = 0; i < ps5retro::kSystems.size(); i++)
+			if (json.HasMember(ps5retro::kSystems[i].key) && json[ps5retro::kSystems[i].key].IsObject()) ReadN3ds(json[ps5retro::kSystems[i].key], settings.retro[i], false);
 
 		// the Switch's default games folder, saved while Eden's folder was another (/data/ps5cemu/eden,
 		// or /data/eden before it went beside the others on the app's drive): where Eden's folder is now
@@ -420,7 +419,7 @@ namespace ps5settings
 			ReadInt(ui, "holdMs", out.holdMs, 400, 1500);
 			ReadBool(ui, "gamePictures", out.gamePictures);
 			ReadBool(ui, "setupDone", out.setupDone);
-			ReadInt(ui, "sides", out.sides, 1, 2047);
+			ReadInt(ui, "sides", out.sides, 1, (1 << ps5retro::kSideCount) - 1);
 			// sides chosen before the Switch had one (4.0.1 and earlier): it is shown once, as a new side
 			bool switchOffered = false;
 			ReadBool(ui, "switchOffered", switchOffered);
@@ -438,9 +437,9 @@ namespace ps5settings
 			if (out.libraryFilter[1] == 3)
 				out.libraryFilter[1] = 0; // the 4.0.0 beta's DS games, which have a side of their own now
 			// filters: the Wii U's four (Graphic packs on), the handhelds' three; sorts: four on every side
-			auto readSides = [&](const char* key, int (&values)[11], int wiiuMost, int handheldMost) {
+			auto readSides = [&](const char* key, int (&values)[ps5retro::kSideCount], int wiiuMost, int handheldMost) {
 				if (ui.HasMember(key) && ui[key].IsArray())
-					for (rapidjson::SizeType i = 0; i < ui[key].Size() && i < 11; i++)
+					for (rapidjson::SizeType i = 0; i < ui[key].Size() && i < (rapidjson::SizeType)ps5retro::kSideCount; i++)
 						if (ui[key][i].IsInt())
 							values[i] = std::clamp(ui[key][i].GetInt(), 0, i == 0 ? wiiuMost : handheldMost);
 			};
@@ -553,8 +552,7 @@ namespace ps5settings
 		WriteN3ds(writer, settings.nds);
 		writer.Key("switch");
 		WriteN3ds(writer, settings.nx);
-		const char* retroKeys[] = {"gamecube", "wii", "n64", "nes", "gb", "gbc", "gba"};
-		for (size_t i = 0; i < 7; i++) { writer.Key(retroKeys[i]); WriteN3ds(writer, settings.retro[i]); }
+		for (size_t i = 0; i < ps5retro::kSystems.size(); i++) { writer.Key(ps5retro::kSystems[i].key); WriteN3ds(writer, settings.retro[i]); }
 		writer.Key("games");
 		writer.StartObject();
 		for (const auto& [key, values] : settings.games)
@@ -746,11 +744,19 @@ namespace ps5settings
 
 		const N3ds& Handheld(const Launcher& settings, const std::string& side)
 		{
+			// the other sides' own (a side of ps5retro::kSystems')
+			for (size_t i = 0; i < ps5retro::kSystems.size(); i++)
+				if (side == ps5retro::kSystems[i].key)
+					return settings.retro[i];
 			return side == "ds" ? settings.nds : side == "switch" ? settings.nx : settings.n3ds;
 		}
 
 		N3ds& Handheld(Launcher& settings, const std::string& side)
 		{
+			// the other sides' own (a side of ps5retro::kSystems')
+			for (size_t i = 0; i < ps5retro::kSystems.size(); i++)
+				if (side == ps5retro::kSystems[i].key)
+					return settings.retro[i];
 			return side == "ds" ? settings.nds : side == "switch" ? settings.nx : settings.n3ds;
 		}
 	}
@@ -771,8 +777,10 @@ namespace ps5settings
 		static const std::vector<std::string> nx = {"nxResolution", "nxFilter", "nxAstc", "nxFrameGeneration", "nxDocked", "nxSpeedLimit", "volume",
 			"nxAntiAliasing", "nxSharpening", "nxController", "nxOutput", "nxHighRefresh", "nxLanguage", "nxMemory", "nxAsyncShaders", "nxFastGpu",
 			"nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation", "nxBlockList", "nxCompactMemory"};
+		// the other sides' (their in-game menu's, port/libretro)
+		static const std::vector<std::string> retro = {"dsFilter", "border", "volume"};
 		static const std::vector<std::string> none;
-		return side == "wiiu" ? wiiu : side == "3ds" ? n3ds : side == "ds" ? nds : side == "switch" ? nx : none;
+		return side == "wiiu" ? wiiu : side == "3ds" ? n3ds : side == "ds" ? nds : side == "switch" ? nx : ps5retro::Find(side) ? retro : none;
 	}
 
 	bool Value(const Launcher& settings, const std::string& side, const std::string& name, int& value)

@@ -128,7 +128,7 @@ int main(int argc, char* argv[])
 	if (const char* side = std::getenv("PREVIEW_SIDE"))
 		settings.ui.lastSide = side;
 	if (const char* sides = std::getenv("PREVIEW_SIDES"))
-		settings.ui.sides = std::clamp(std::atoi(sides), 1, 2047);
+		settings.ui.sides = std::clamp(std::atoi(sides), 1, (1 << ps5retro::kSideCount) - 1);
 	ps5stream::Configure(settings.remoteScreen); // as main does
 	// the menus' language: PREVIEW_LANGUAGE's code (qps: tools/lang.py pseudo's), else the PS5's, which
 	// PREVIEW_SYSTEM_LANGUAGE gives as the console's number (console.cpp)

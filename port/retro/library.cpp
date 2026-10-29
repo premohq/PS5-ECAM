@@ -24,6 +24,9 @@ namespace ps5retro
 		if (side == "gbc") return ext == ".gbc";
 		if (side == "gba") return ext == ".gba" || ext == ".zip" || ext == ".7z";
 		if (side == "nes") return ext == ".nes" || ext == ".unf" || ext == ".unif" || ext == ".fds" || ext == ".zip" || ext == ".7z";
+		if (side == "snes") return ext == ".sfc" || ext == ".smc" || ext == ".swc" || ext == ".fig" || ext == ".bs" || ext == ".st";
+		if (side == "vb") return ext == ".vb" || ext == ".vboy";
+		if (side == "pokemini") return ext == ".min";
 		if (side == "n64") return ext == ".z64" || ext == ".n64" || ext == ".v64" || ext == ".zip" || ext == ".rom";
 		if (side == "gamecube" || side == "wii")
 			return ext == ".iso" || ext == ".gcm" || ext == ".rvz" || ext == ".ciso" || ext == ".gcz" || ext == ".wbfs" || ext == ".wia" || (side == "wii" && (ext == ".wad" || ext == ".dol" || ext == ".elf"));
@@ -203,8 +206,8 @@ namespace ps5retro
 	namespace
 	{
 		struct State { std::thread worker; std::atomic_bool scanning{false}; std::mutex mutex; std::vector<ps5emu::Game> games; std::string error; ~State() { if (worker.joinable()) worker.join(); } };
-		State states[7];
-		State& StateFor(int side) { return states[size_t(side - 4)]; }
+		State states[kSystems.size()];
+		State& StateFor(int side) { return states[size_t(side - kFirst)]; }
 	}
 	void StartScan(int side, const std::string& folder)
 	{

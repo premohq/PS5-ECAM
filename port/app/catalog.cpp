@@ -3,6 +3,7 @@
 
 #include "catalog.h"
 #include "paths.h"
+#include "../retro/registry.h"
 
 #include <rapidjson/document.h>
 #include <rapidjson/prettywriter.h>
@@ -18,7 +19,14 @@ namespace ps5catalog
 {
 	namespace
 	{
-		std::vector<Entry> s_games[11];
+		std::vector<Entry> s_games[ps5retro::kSideCount];
+
+		// a side's key in the catalogue: the first four's, then ps5retro::kSystems'
+		const char* SideKey(int side)
+		{
+			static const char* const kFirstFour[] = {"wiiu", "3ds", "ds", "switch"};
+			return side < ps5retro::kFirst ? kFirstFour[side] : ps5retro::Of(side).key;
+		}
 		bool s_loaded = false;
 
 		std::string Path()
@@ -62,12 +70,11 @@ namespace ps5catalog
 		rapidjson::Document json;
 		if (json.Parse(text.str().c_str()).HasParseError() || !json.IsObject())
 			return;
-		const char* sides[11] = {"wiiu", "3ds", "ds", "switch", "gamecube", "wii", "n64", "nes", "gb", "gbc", "gba"};
-		for (int side = 0; side < 11; side++)
+		for (int side = 0; side < ps5retro::kSideCount; side++)
 		{
-			if (!json.HasMember(sides[side]) || !json[sides[side]].IsArray())
+			if (!json.HasMember(SideKey(side)) || !json[SideKey(side)].IsArray())
 				continue;
-			for (const auto& item : json[sides[side]].GetArray())
+			for (const auto& item : json[SideKey(side)].GetArray())
 			{
 				if (!item.IsObject())
 					continue;
@@ -111,10 +118,9 @@ namespace ps5catalog
 		writer.StartObject();
 		writer.Key("version");
 		writer.Int(1);
-		const char* sides[11] = {"wiiu", "3ds", "ds", "switch", "gamecube", "wii", "n64", "nes", "gb", "gbc", "gba"};
-		for (int side = 0; side < 11; side++)
+		for (int side = 0; side < ps5retro::kSideCount; side++)
 		{
-			writer.Key(sides[side]);
+			writer.Key(SideKey(side));
 			writer.StartArray();
 			for (const Entry& entry : s_games[side])
 			{

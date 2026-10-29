@@ -6,9 +6,11 @@
 
 #include "../app/emulator.h"
 #include "../app/reorganize.h"
+#include "../retro/registry.h"
 #include "settings.h"
 
 #include <functional>
+#include <iterator>
 #include <optional>
 #include <string>
 #include <vector>
@@ -21,23 +23,34 @@ namespace ps5launcher
 		N3ds,	// Azahar
 		Nds,	// melonDS
 		Switch, // Eden, in a program of its own (eden/eboot.bin: port/eden)
-		GameCube, Wii, N64, Nes, Gb, Gbc, Gba,
+		// the others, in ps5retro::kSystems' order
+		GameCube, Wii, N64, Nes, Gb, Gbc, Gba, Snes, VirtualBoy, PokemonMini,
 	};
 	// the sides, in the bar's order (their numbers)
-	constexpr int kSideCount = 11;
+	constexpr int kSideCount = ps5retro::kSideCount;
+	static_assert((int)System::PokemonMini + 1 == kSideCount, "a ps5retro::kSystems row for each System after the Switch");
 
-	// The side's name in ps5cemu.json ("wiiu", "3ds", "ds", "switch") and the one players read
+	// The side's name in ps5cemu.json ("wiiu", "3ds", "ds", "switch", ps5retro::kSystems' keys) and the one players read
 	inline const char* SideName(System side)
 	{
-		return side == System::Gb ? "gb" : side == System::Gbc ? "gbc" : side == System::Gba ? "gba" : side == System::GameCube ? "gamecube" : side == System::Wii ? "wii" : side == System::N64 ? "n64" : side == System::Nes ? "nes" : side == System::N3ds ? "3ds" : side == System::Nds ? "ds" : side == System::Switch ? "switch" : "wiiu";
+		if (ps5retro::IsRetro((int)side))
+			return ps5retro::Of((int)side).key;
+		return side == System::N3ds ? "3ds" : side == System::Nds ? "ds" : side == System::Switch ? "switch" : "wiiu";
 	}
 	inline System SideNamed(const std::string& name)
 	{
-		return name == "gb" ? System::Gb : name == "gbc" ? System::Gbc : name == "gba" ? System::Gba : name == "gamecube" ? System::GameCube : name == "wii" ? System::Wii : name == "n64" ? System::N64 : name == "nes" ? System::Nes : name == "3ds" ? System::N3ds : name == "ds" ? System::Nds : name == "switch" ? System::Switch : System::WiiU;
+		for (int side = ps5retro::kFirst; side < kSideCount; side++)
+			if (name == ps5retro::Of(side).key)
+				return (System)side;
+		return name == "3ds" ? System::N3ds : name == "ds" ? System::Nds : name == "switch" ? System::Switch : System::WiiU;
 	}
 	inline const char* SideTitle(System side)
 	{
-		return side == System::Gb ? "GB" : side == System::Gbc ? "GBC" : side == System::Gba ? "GBA" : side == System::GameCube ? "GameCube" : side == System::Wii ? "Wii" : side == System::N64 ? "N64" : side == System::Nes ? "NES" : side == System::N3ds ? "3DS" : side == System::Nds ? "DS" : side == System::Switch ? "Switch" : "Wii U";
+		static constexpr const char* kRetroTitles[] = {"GameCube", "Wii", "N64", "NES", "GB", "GBC", "GBA", "SNES", "Virtual Boy", "Pokémon mini"};
+		static_assert(std::size(kRetroTitles) == ps5retro::kSystems.size());
+		if (ps5retro::IsRetro((int)side))
+			return kRetroTitles[(int)side - ps5retro::kFirst];
+		return side == System::N3ds ? "3DS" : side == System::Nds ? "DS" : side == System::Switch ? "Switch" : "Wii U";
 	}
 
 	struct Status
@@ -47,7 +60,7 @@ namespace ps5launcher
 		std::string notice;		 // a problem to show on the Wii U side's Library (empty: none)
 		std::string notice3ds;	 // and on the 3DS side's
 		std::string noticeDs;	 // and on the DS side's
-		std::string noticeRetro[7];
+		std::string noticeRetro[ps5retro::kSystems.size()]; // and on the other sides', in ps5retro::kSystems' order
 		std::string noticeSwitch; // and on the Switch side's
 		std::string launchError; // why the last Wii U game did not start, said once (empty: it did)
 		std::string launchError3ds; // and the last 3DS game
@@ -64,7 +77,7 @@ namespace ps5launcher
 		bool autoLaunchResume = false; // and it goes on from its last quit's state
 		// per side (Wii U, 3DS, DS, Switch): its list is its last look's, its games folder a network share's
 		// that this session has not looked through (Settings > Game files, #75)
-		bool lastLook[11] = {};
+		bool lastLook[kSideCount] = {};
 		// what this start did of a folder for each system (app/reorganize.h): said once, as the launcher starts
 		ps5reorganize::Outcome reorganized;
 	};

@@ -1882,7 +1882,7 @@ namespace ps5shell
 			const char* side;
 			uint32_t minutes;
 		};
-		const char* sides[kSides] = {"Wii U", "3DS", "DS", "Switch", "GameCube", "Wii", "N64", "NES", "GB", "GBC", "GBA"};
+		const char* sides[kSides] = {"Wii U", "3DS", "DS", "Switch", "GameCube", "Wii", "N64", "NES", "GB", "GBC", "GBA", "SNES", "Virtual Boy", "Pokémon mini"};
 		std::vector<Played> games;
 		std::string text;
 		uint64_t all = 0;

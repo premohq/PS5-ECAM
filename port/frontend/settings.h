@@ -11,6 +11,7 @@
 #include <array>
 
 #include "../app/paths.h"
+#include "../retro/registry.h"
 
 #include <cstdint>
 #include <map>
@@ -158,8 +159,8 @@ namespace ps5settings
 		int reorganizeAsked = 0;
 		std::string theme;			 // the launcher's look (ui/theme.h): a built-in theme's id, or user:<file> in themes/; empty: the default
 		bool libraryFilters = false;		 // the Library's filter row (Settings > Launcher); off: every game, as All
-		int libraryFilter[11] = {}; // per side: All, Recently added, Favourites, Graphic packs on (Wii U)
-		int librarySort[11] = {};   // Recently played (the default: the Library is where a side opens), A to Z, Release year, How it runs
+		int libraryFilter[ps5retro::kSideCount] = {}; // per side: All, Recently added, Favourites, Graphic packs on (Wii U)
+		int librarySort[ps5retro::kSideCount] = {}; // Recently played (the default: the Library is where a side opens), A to Z, Release year, How it runs
 	};
 
 	struct Launcher
@@ -311,7 +312,8 @@ namespace ps5settings
 		N3ds n3ds;
 		N3ds nds = DsDefaults();
 		N3ds nx = SwitchDefaults();
-		std::array<N3ds, 7> retro = [] { std::array<N3ds, 7> values{}; const char* folders[] = {"/data/porpoise/games/GameCube", "/data/porpoise/games/Wii", "/data/PS5N64/games", "/data/PS5NES/games", "/data/PS5GBC/games", "/data/PS5GBC/games", "/data/PS5GBA/games"}; for (size_t i = 0; i < 7; i++) values[i].gamesFolder = folders[i]; return values; }();
+		// the other sides', in ps5retro::kSystems' order, each with its default games folder
+		std::array<N3ds, ps5retro::kSystems.size()> retro = [] { std::array<N3ds, ps5retro::kSystems.size()> values{}; for (size_t i = 0; i < values.size(); i++) values[i].gamesFolder = ps5retro::kSystems[i].games; return values; }();
 		// games' own settings, by GameKey: "3ds:0004000000055d00" -> {"resolution": 3}
 		std::map<std::string, GameValues> games;
 		// The launcher's own sound, on both sides (frontend/sound.h): its music ("setup" or "off") and the music's volume in percent, and the menu's sounds.
