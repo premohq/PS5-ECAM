@@ -152,6 +152,26 @@ The owner, 29 October 2026: **PS5-ECAM's scope is every Nintendo system there is
 the obscure ones too, and Nintendo's arcade hardware.** The side switch is a carousel now, so the bar
 takes any number of systems.
 
+**How: libretro cores behind PS5-ECAM's own UI.** One libretro frontend of the app's runs every
+core, and each system looks and works as the others do: its side in the carousel, its library with
+box art, the game menu, the in-game menu (its screens, picture, volume, controls, save states, back
+to the library) and its settings, all PS5-ECAM's. Adding a system is then mostly a core and a
+library entry (its file types, its box art's source, its default folder), so more or less every
+emulator libretro has comes in the same way. What the frontend has to do once, for all of them:
+
+- **The core's calls:** `retro_load_game`, `retro_run` once a frame, the video it hands over
+  (software frames, and a Vulkan context for the cores that render with one: ParaLLEl-RDP for the
+  N64, Dolphin), the audio batches at the core's rate, `retro_get_memory_data` for the save RAM
+  written to the system's saves folder, `retro_serialize` for the in-game menu's save-state slots,
+  and the core options as rows of the system's settings.
+- **The DualSense** mapped to the RetroPad per system, with the touchpad's shortcuts as on the other
+  sides (Touchpad click + Options for the in-game menu).
+- **Where a core lives:** linked into one runtime program started as Eden is (`retro/eboot.bin`,
+  LoadExec, back to the launcher when the game ends), or loaded as a module if the PS5 lets the app
+  load one (the payload SDK has a `dlfcn.c`: to check). A program per few cores is the fallback.
+- **Its own core per system first, the best one** (below), and a second core as a choice where one
+  is faster.
+
 **The classic systems already added** (JMUtechnologies, PR #87 and PR #91) are to run on the best
 emulator there is for each, replaced where they do not, maybe as libretro cores. This is the N64, the
 NES, the Game Boy, the Game Boy Color and the Game Boy Advance. Not GameCube and Wii (Dolphin, through
@@ -181,9 +201,9 @@ Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
 | Arcade: VS. System and VS. UniSystem, PlayChoice-10, Nintendo Super System | Mesen and FCEUmm (VS.), MAME |
 | Arcade: Aleck64 (N64-based), Triforce (GameCube-based) | MAME (Aleck64); Dolphin's Triforce work, if any is current |
 
-- **One libretro frontend for all of them**, rather than a donor app for each: Porpoise already runs
-  Dolphin as a libretro core, so its frontend may host the others' cores (one runtime in
-  `retro/`, the core chosen per system). That is also the way to many small systems at once.
+- **The donor apps give way to the frontend**: PR #87's and PR #91's systems move onto it, one at a
+  time, as their best core runs there. Porpoise already runs Dolphin as a libretro core, so its
+  frontend code is the place to start from (GameCube and Wii stay on Dolphin).
 - Each core measured on the console, speed and accuracy, before it becomes a system's default
   (performance changes stay off until measured). The one it replaces stays a choice until then.
 - Saves keep working: a core that writes them differently converts them once, the originals kept
