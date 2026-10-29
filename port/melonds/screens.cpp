@@ -113,6 +113,7 @@ namespace ps5melonds::screens
 		};
 		Functions vk;
 		const char* s_missing = "";
+		const char* s_who = "ds"; // the boot log's word for who draws (Start)
 
 		bool LoadInstance(VkInstance instance)
 		{
@@ -167,17 +168,20 @@ namespace ps5melonds::screens
 		};
 
 		// What the shaders take (shaders/screens.vert): the quad, the screen's size, the filter, the
-		// screen's picture's quarter turns clockwise
+		// screen's picture's quarter turns clockwise, and the part of its image the screen fills (a
+		// libretro core's picture is in the top left of one kPictureMax square)
 		struct Constants
 		{
 			float rect[4];
 			float size[2];
 			float mode;
 			float rotation;
+			float uvScale[2];
 		};
-		static_assert(sizeof(Constants) == 32);
+		static_assert(sizeof(Constants) == 40);
 
 		constexpr VkDeviceSize kScreenBytes = (VkDeviceSize)kScreenWidth * kScreenHeight * 4;
+		constexpr VkDeviceSize kPictureBytes = (VkDeviceSize)kPictureMax * kPictureMax * 4;
 		constexpr int kSlots = 2;
 
 		struct State
@@ -205,6 +209,8 @@ namespace ps5melonds::screens
 			VkPipeline screenPipeline = VK_NULL_HANDLE;
 			VkPipeline cursorPipeline = VK_NULL_HANDLE;
 			Image screens[2]; // top, bottom
+			Image picture;	  // a libretro core's, kPictureMax square, made with its first frame
+			uint32_t pictureWidth = 0, pictureHeight = 0; // the part of it the last frame filled
 			Slot slots[kSlots];
 			int slot = 0;
 			uint64_t frames = 0;
@@ -238,7 +244,7 @@ namespace ps5melonds::screens
 		bool Fail(std::string& error, const std::string& what, VkResult result = VK_SUCCESS)
 		{
 			error = result == VK_SUCCESS ? what : what + ": " + Describe(result);
-			ps5log::Line("[ds] screens: {}", error);
+			ps5log::Line("[{}] screens: {}", s_who, error);
 			Stop();
 			return false;
 		}
@@ -285,12 +291,12 @@ namespace ps5melonds::screens
 			buffer = {};
 		}
 
-		bool MakeScreen(Image& image)
+		bool MakeScreen(Image& image, uint32_t width = kScreenWidth, uint32_t height = kScreenHeight)
 		{
 			VkImageCreateInfo info{VK_STRUCTURE_TYPE_IMAGE_CREATE_INFO};
 			info.imageType = VK_IMAGE_TYPE_2D;
 			info.format = VK_FORMAT_B8G8R8A8_UNORM; // melonDS's pixels, as they are in memory
-			info.extent = {(uint32_t)kScreenWidth, (uint32_t)kScreenHeight, 1};
+			info.extent = {width, height, 1};
 			info.mipLevels = 1;
 			info.arrayLayers = 1;
 			info.samples = VK_SAMPLE_COUNT_1_BIT;
@@ -388,7 +394,7 @@ namespace ps5melonds::screens
 			vk.GetSwapchainImagesKHR(s.device, s.swapchain, &images, nullptr);
 			s.images.resize(images);
 			vk.GetSwapchainImagesKHR(s.device, s.swapchain, &images, s.images.data());
-			ps5log::Line("[ds] screens: swapchain {}x{}, {} images, format {}", s.width, s.height, images, (int)s.format);
+			ps5log::Line("[{}] screens: swapchain {}x{}, {} images, format {}", s_who, s.width, s.height, images, (int)s.format);
 
 			// the render pass: cleared (black, as Azahar's screens are on), drawn, then shown
 			VkAttachmentDescription attachment{};
@@ -481,9 +487,9 @@ namespace ps5melonds::screens
 			if (result != VK_SUCCESS)
 				return Fail(error, "vkCreateDescriptorSetLayout", result);
 
-			VkDescriptorPoolSize poolSize{VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 2};
+			VkDescriptorPoolSize poolSize{VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER, 3}; // the two screens, a libretro core's picture
 			VkDescriptorPoolCreateInfo poolInfo{VK_STRUCTURE_TYPE_DESCRIPTOR_POOL_CREATE_INFO};
-			poolInfo.maxSets = 2;
+			poolInfo.maxSets = 3;
 			poolInfo.poolSizeCount = 1;
 			poolInfo.pPoolSizes = &poolSize;
 			result = vk.CreateDescriptorPool(s.device, &poolInfo, nullptr, &s.descriptors);
@@ -579,18 +585,22 @@ namespace ps5melonds::screens
 			return true;
 		}
 
-		// A quad on the picture, in clip space, its screen's picture turned rotation quarter turns
-		void Draw(VkCommandBuffer commands, const Rect& rect, float mode, int rotation = 0)
+		// A quad on the picture, in clip space, its screen's picture turned rotation quarter turns; a
+		// screen width x height, in the top left of an image that much larger (uvScale)
+		void Draw(VkCommandBuffer commands, const Rect& rect, float mode, int rotation = 0, float width = kScreenWidth,
+			float height = kScreenHeight, float uvScaleX = 1.0f, float uvScaleY = 1.0f)
 		{
 			Constants constants{};
 			constants.rect[0] = rect.left / s.width * 2.0f - 1.0f;
 			constants.rect[1] = rect.top / s.height * 2.0f - 1.0f;
 			constants.rect[2] = rect.right / s.width * 2.0f - 1.0f;
 			constants.rect[3] = rect.bottom / s.height * 2.0f - 1.0f;
-			constants.size[0] = kScreenWidth;
-			constants.size[1] = kScreenHeight;
+			constants.size[0] = width;
+			constants.size[1] = height;
 			constants.mode = mode;
 			constants.rotation = (float)QuarterTurns(rotation);
+			constants.uvScale[0] = uvScaleX;
+			constants.uvScale[1] = uvScaleY;
 			vk.CmdPushConstants(commands, s.layout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(constants), &constants);
 			vk.CmdDraw(commands, 6, 1, 0, 0);
 		}
@@ -636,6 +646,53 @@ namespace ps5melonds::screens
 			}
 		}
 
+		// A libretro core's picture into the top left of its image, from the staging buffer's room after
+		// the screens'; the image made with the first one
+		bool UploadPicture(Slot& slot, VkCommandBuffer commands, const Frame& frame)
+		{
+			if (!frame.picture || frame.pictureWidth == 0 || frame.pictureHeight == 0)
+				return true;
+			if (!s.picture.image && !MakeScreen(s.picture, kPictureMax, kPictureMax))
+			{
+				ps5log::Line("[{}] screens: the picture's image could not be made", s_who);
+				return false;
+			}
+			const uint32_t width = std::min(frame.pictureWidth, kPictureMax), height = std::min(frame.pictureHeight, kPictureMax);
+			uint8_t* staging = static_cast<uint8_t*>(slot.staging.mapped) + 2 * kScreenBytes;
+			for (uint32_t y = 0; y < height; y++)
+				std::memcpy(staging + (size_t)y * width * 4, frame.picture + (size_t)y * frame.pictureWidth, (size_t)width * 4);
+			Image& image = s.picture;
+			VkImageMemoryBarrier barrier{VK_STRUCTURE_TYPE_IMAGE_MEMORY_BARRIER};
+			barrier.oldLayout = image.filled ? VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL : VK_IMAGE_LAYOUT_UNDEFINED;
+			barrier.newLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+			barrier.srcAccessMask = image.filled ? VK_ACCESS_SHADER_READ_BIT : 0;
+			barrier.dstAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+			barrier.srcQueueFamilyIndex = barrier.dstQueueFamilyIndex = VK_QUEUE_FAMILY_IGNORED;
+			barrier.image = image.image;
+			barrier.subresourceRange = {VK_IMAGE_ASPECT_COLOR_BIT, 0, 1, 0, 1};
+			vk.CmdPipelineBarrier(commands, image.filled ? VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT : VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT,
+				VK_PIPELINE_STAGE_TRANSFER_BIT, 0, 0, nullptr, 0, nullptr, 1, &barrier);
+			VkBufferImageCopy region{};
+			region.bufferOffset = 2 * kScreenBytes;
+			region.imageSubresource = {VK_IMAGE_ASPECT_COLOR_BIT, 0, 0, 1};
+			region.imageExtent = {width, height, 1};
+			vk.CmdCopyBufferToImage(commands, slot.staging.buffer, image.image, VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL, 1, &region);
+			barrier.oldLayout = VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL;
+			barrier.newLayout = VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL;
+			barrier.srcAccessMask = VK_ACCESS_TRANSFER_WRITE_BIT;
+			barrier.dstAccessMask = VK_ACCESS_SHADER_READ_BIT;
+			vk.CmdPipelineBarrier(commands, VK_PIPELINE_STAGE_TRANSFER_BIT, VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT, 0, 0, nullptr, 0, nullptr, 1,
+				&barrier);
+			image.filled = true;
+			s.pictureWidth = width;
+			s.pictureHeight = height;
+			VkMappedMemoryRange range{VK_STRUCTURE_TYPE_MAPPED_MEMORY_RANGE};
+			range.memory = slot.staging.memory;
+			range.size = VK_WHOLE_SIZE;
+			vk.FlushMappedMemoryRanges(s.device, 1, &range);
+			return true;
+		}
+
 		// The in-game menu's frame (app/ingame3ds.h): before the render pass for its uploads, in it to draw
 		void Overlay(VkCommandBuffer commands, bool inside)
 		{
@@ -644,10 +701,11 @@ namespace ps5melonds::screens
 		}
 	}
 
-	bool Start(std::string& error)
+	bool Start(std::string& error, const char* who)
 	{
 		if (s.device)
 			return true;
+		s_who = who;
 		vk.GetInstanceProcAddr = ps5vk::GetInstanceProcAddr();
 		vk.CreateInstance = vk.GetInstanceProcAddr ? (PFN_vkCreateInstance)vk.GetInstanceProcAddr(VK_NULL_HANDLE, "vkCreateInstance") : nullptr;
 		if (!vk.CreateInstance)
@@ -690,7 +748,7 @@ namespace ps5melonds::screens
 		s.surface = ps5vk::CreateDisplaySurface(s.instance, error);
 		if (!s.surface)
 			return Fail(error, error.empty() ? "no display surface" : error);
-		ps5log::Line("[ds] screens: VideoOut surface");
+		ps5log::Line("[{}] screens: VideoOut surface", s_who);
 
 		const float priority = 1.0f;
 		VkDeviceQueueCreateInfo queueInfo{VK_STRUCTURE_TYPE_DEVICE_QUEUE_CREATE_INFO};
@@ -709,7 +767,7 @@ namespace ps5melonds::screens
 		if (!LoadDevice(s.device))
 			return Fail(error, std::string("the device has no ") + s_missing);
 		vk.GetDeviceQueue(s.device, s.queueFamily, 0, &s.queue);
-		ps5log::Line("[ds] screens: device on {}", properties.deviceName);
+		ps5log::Line("[{}] screens: device on {}", s_who, properties.deviceName);
 
 		VkCommandPoolCreateInfo poolInfo{VK_STRUCTURE_TYPE_COMMAND_POOL_CREATE_INFO};
 		poolInfo.flags = VK_COMMAND_POOL_CREATE_RESET_COMMAND_BUFFER_BIT;
@@ -728,7 +786,8 @@ namespace ps5melonds::screens
 			VkSemaphoreCreateInfo semaphore{VK_STRUCTURE_TYPE_SEMAPHORE_CREATE_INFO};
 			if (vk.AllocateCommandBuffers(s.device, &allocate, &slot.commands) != VK_SUCCESS ||
 				vk.CreateFence(s.device, &fence, nullptr, &slot.done) != VK_SUCCESS ||
-				vk.CreateSemaphore(s.device, &semaphore, nullptr, &slot.acquired) != VK_SUCCESS || !MakeBuffer(slot.staging, kScreenBytes * 2))
+				vk.CreateSemaphore(s.device, &semaphore, nullptr, &slot.acquired) != VK_SUCCESS ||
+				!MakeBuffer(slot.staging, kScreenBytes * 2 + (std::string_view(who) == "ds" ? 0 : kPictureBytes)))
 				return Fail(error, "the frames' command buffers");
 		}
 		if (!MakeSwapchain(error) || !MakePipelines(error))
@@ -736,7 +795,7 @@ namespace ps5melonds::screens
 		for (Image& screen : s.screens)
 			if (!MakeScreen(screen))
 				return Fail(error, "the screens' images");
-		ps5log::Line("[ds] screens: ready, {}x{}", s.width, s.height);
+		ps5log::Line("[{}] screens: ready, {}x{}", s_who, s.width, s.height);
 		return true;
 	}
 
@@ -749,14 +808,14 @@ namespace ps5melonds::screens
 		VkResult result = vk.WaitForFences(s.device, 1, &slot.done, VK_TRUE, UINT64_MAX);
 		if (result != VK_SUCCESS)
 		{
-			ps5log::Line("[ds] screens: waiting for a frame: {}", Describe(result));
+			ps5log::Line("[{}] screens: waiting for a frame: {}", s_who, Describe(result));
 			return false;
 		}
 		uint32_t image = 0;
 		result = vk.AcquireNextImageKHR(s.device, s.swapchain, UINT64_MAX, slot.acquired, VK_NULL_HANDLE, &image);
 		if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 		{
-			ps5log::Line("[ds] screens: vkAcquireNextImageKHR: {}", Describe(result));
+			ps5log::Line("[{}] screens: vkAcquireNextImageKHR: {}", s_who, Describe(result));
 			return false;
 		}
 		vk.ResetFences(s.device, 1, &slot.done);
@@ -768,6 +827,11 @@ namespace ps5melonds::screens
 		vk.BeginCommandBuffer(commands, &begin);
 		const uint32_t* const pixels[2] = {frame.top, frame.bottom};
 		Upload(slot, commands, pixels);
+		if (!UploadPicture(slot, commands, frame))
+		{
+			vk.EndCommandBuffer(commands);
+			return false;
+		}
 		Overlay(commands, false);
 
 		VkClearValue clear{};
@@ -792,6 +856,12 @@ namespace ps5melonds::screens
 				vk.CmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, s.layout, 0, 1, &s.screens[i].set, 0, nullptr);
 				Draw(commands, *rects[i], mode, frame.rotation);
 			}
+		if (frame.pictureRect.Shown() && s.picture.filled)
+		{
+			vk.CmdBindDescriptorSets(commands, VK_PIPELINE_BIND_POINT_GRAPHICS, s.layout, 0, 1, &s.picture.set, 0, nullptr);
+			Draw(commands, frame.pictureRect, mode, 0, (float)s.pictureWidth, (float)s.pictureHeight, (float)s.pictureWidth / kPictureMax,
+				(float)s.pictureHeight / kPictureMax);
+		}
 		const Rect& bottom = frame.cursorOnTop ? frame.topRect : frame.bottomRect;
 		if (frame.cursor && bottom.Shown() && s.screens[frame.cursorOnTop ? 0 : 1].filled)
 		{
@@ -825,7 +895,7 @@ namespace ps5melonds::screens
 		result = vk.QueueSubmit(s.queue, 1, &submit, slot.done);
 		if (result != VK_SUCCESS)
 		{
-			ps5log::Line("[ds] screens: vkQueueSubmit: {}", Describe(result));
+			ps5log::Line("[{}] screens: vkQueueSubmit: {}", s_who, Describe(result));
 			return false;
 		}
 		VkPresentInfoKHR present{VK_STRUCTURE_TYPE_PRESENT_INFO_KHR};
@@ -837,11 +907,11 @@ namespace ps5melonds::screens
 		result = vk.QueuePresentKHR(s.queue, &present);
 		if (result != VK_SUCCESS && result != VK_SUBOPTIMAL_KHR)
 		{
-			ps5log::Line("[ds] screens: vkQueuePresentKHR: {}", Describe(result));
+			ps5log::Line("[{}] screens: vkQueuePresentKHR: {}", s_who, Describe(result));
 			return false;
 		}
 		if (first)
-			ps5log::Line("[ds] screens: first frame presented");
+			ps5log::Line("[{}] screens: first frame presented", s_who);
 		s.slot = (s.slot + 1) % kSlots;
 		s.frames++;
 		return true;
@@ -865,6 +935,7 @@ namespace ps5melonds::screens
 			}
 			for (Image& screen : s.screens)
 				FreeScreen(screen);
+			FreeScreen(s.picture);
 			if (s.screenPipeline)
 				vk.DestroyPipeline(s.device, s.screenPipeline, nullptr);
 			if (s.cursorPipeline)
@@ -898,7 +969,7 @@ namespace ps5melonds::screens
 		const bool logged = s.frames > 0;
 		s = State();
 		if (logged)
-			ps5log::Line("[ds] screens: stopped");
+			ps5log::Line("[{}] screens: stopped", s_who);
 	}
 
 	uint32_t Width()

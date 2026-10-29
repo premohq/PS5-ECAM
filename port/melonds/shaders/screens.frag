@@ -1,5 +1,5 @@
 #version 450
-// PS5-ECAM: a DS screen scaled to the TV, as the screen filter asks (port/melonds/screens.cpp),
+// PS5-ECAM: a DS screen (or a libretro core's picture) scaled to the TV, as the screen filter asks (port/melonds/screens.cpp),
 // through a bilinear sampler:
 //  0 sharp: each of the DS's pixels a solid square, its edges blended over one pixel of the TV, so
 //    the squares are even at any scale (11.25x, 5.625x...)
@@ -17,6 +17,8 @@ layout(push_constant) uniform Constants
 	vec4 rect;
 	vec2 size;
 	float mode;
+	float rotation;
+	vec2 uvScale; // the part of the image the screen fills: a libretro core's picture is in the top left of a larger one
 } pc;
 
 layout(location = 0) out vec4 outColour;
@@ -38,5 +40,5 @@ void main()
 	else if (pc.mode > 1.5)
 		texel = floor(texel) + 0.5;
 	// the DS's pixels have no alpha worth reading
-	outColour = vec4(texture(uScreen, texel / pc.size).rgb, 1.0);
+	outColour = vec4(texture(uScreen, texel / pc.size * pc.uvScale).rgb, 1.0);
 }

@@ -76,11 +76,18 @@ namespace ps5melonds::screens
 		bool cursor = false;	   // the touch cursor, over the bottom screen
 		float cursorX = 0, cursorY = 0; // 0 to 1 across it, as the TV shows it
 		bool cursorOnTop = false;  // over the top screen instead: the bottom one is not shown and touched all the same
+		// A libretro core's one picture (port/libretro), in place of the DS's screens: pictureWidth x
+		// pictureHeight of kPictureMax square at most, 32 bits a pixel as the screens'; null: the one shown
+		// last. Shown at pictureRect with the filter, when that is not empty.
+		const uint32_t* picture = nullptr;
+		uint32_t pictureWidth = 0, pictureHeight = 0;
+		Rect pictureRect;
 	};
+	constexpr uint32_t kPictureMax = 1024;
 
 	// The device and the swapchain on VideoOut. False, with the reason, when they cannot be made (what
-	// was made is destroyed again).
-	bool Start(std::string& error);
+	// was made is destroyed again). who: the boot log's word for it ("ds", "retro").
+	bool Start(std::string& error, const char* who = "ds");
 	// Draws a frame and shows it: returns once it is queued, the frame two back done (VideoOut's flips
 	// pace it). False when the device was lost.
 	bool Present(const Frame& frame);
