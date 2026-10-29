@@ -1,0 +1,38 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Thu, 29 Oct 2026 06:00:38 +0000
+Subject: [PATCH] A slot the fault handler promotes no longer counts as the
+ same fault repeating
+
+Every Switch game ended after 6 to 10 minutes with a SIGSEGV on GPUFencingThread (#97, xsfxc's
+analysis). HandleGuestWriteFault counts faults at the same address to tell a real fault from a slot
+to promote, and gives up after 16. It never started the count again after a promotion, so a buffer
+written every frame (the fence thread's download buffer), whose slot the 20 s scan gives back each
+pass while it holds zeroes, faulted at the same address once a pass and the 17th was fatal.
+
+A fault that gives its slot a block of its own (Zero, Shared or Fine to Own) now starts the count
+again. A fault on a slot that is already Own still counts, so a real fault still ends after 16.
+
+Co-authored-by: xsfxc <37791869+xsfxc@users.noreply.github.com>
+---
+ src/guest_memory_service.inc | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/src/guest_memory_service.inc b/src/guest_memory_service.inc
+index 198dbe8..e30307b 100644
+--- a/src/guest_memory_service.inc
++++ b/src/guest_memory_service.inc
+@@ -444,6 +444,13 @@ bool HandleGuestWriteFault(void* fault) noexcept {
+         ok = PromoteShared(*range, slot);
+     }
+     UnlockSlot(*range, slot, ok ? SlotOwn : state);
++    // A slot that got a block of its own is progress, not a repeat: a buffer written every frame
++    // faults at the same address each time a scan gives its slot back (every 20 s), and counting
++    // those ended the game on the 17th pass.
++    if (ok && state != SlotOwn) {
++        last = 0;
++        repeats = 0;
++    }
+     if (!ok) {
+         counters.failures.fetch_add(1, std::memory_order_relaxed);
+         Note("EDEN_CRAM out of memory: a written slot of the guest's memory found no block\n");
