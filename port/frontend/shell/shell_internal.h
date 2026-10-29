@@ -549,6 +549,7 @@ namespace ps5shell
 		ScreenId m_tab = ScreenId::Library;
 		bool m_onBar = false;
 		int m_barFocus = kSides; // the sides (0 to kSides - 1), then the Library and Settings tabs
+		float m_barSlide = -1;	 // the side switch as a carousel: how far its sides have slid (-1: not one)
 		double m_screenAt = -10;  // when the screen was entered (its parts arrive)
 		bool m_done = false;	  // a game is chosen and the launch shown
 		std::optional<ps5launcher::Choice> m_choice;

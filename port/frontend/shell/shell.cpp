@@ -1331,41 +1331,7 @@ namespace ps5shell
 		tile(1, {116, y + 2, 26, 26}, 7, 0xebffffff);
 		tile(2, {88, y + 30, 26, 26}, 7, 0xebffffff);
 		tile(3, {116, y + 30, 26, 26}, 7, 0xebffffff);
-		// the side switch, in the bar's order: Wii U | Switch | DS | 3DS
-		float x = 160;
-		const ui::TextStyle sideStyle = Style({22, ui::Weight::SemiBold, 1.0f});
-		constexpr float kTile = 34;
-		float widths[kSides];
-		float pillWidth = 8;
-		int shown = 0;
-		for (int i = 0; i < kSides; i++)
-		{
-			widths[i] = 12 + kTile + 10 + m_fonts.Width(sideStyle, SideTitle(BarSide(i))) + 20;
-			if (SideShown(BarSide(i)))
-				pillWidth += widths[i] + (shown++ ? 4 : 0);
-		}
-		const Box pill{x, y, pillWidth, h};
-		canvas.Rect(pill, h / 2, Wash(0.06f));
-		canvas.Ring(pill, h / 2, 1.5f, kGlassEdge);
-		float sx = x + 4;
-		for (int i = 0; i < kSides; i++)
-		{
-			const System side = BarSide(i);
-			if (!SideShown(side))
-				continue;
-			const bool on = side == m_side;
-			const uint32_t colour = AccentOf(side);
-			const Box segment{sx, y + 5, widths[i], h - 10};
-			if (on)
-				canvas.Rect(segment, segment.h / 2, ui::SetAlpha(colour, 0.24f));
-			tile(SideIndex(side), {sx + 12, segment.CentreY() - kTile / 2, kTile, kTile}, 9, on ? 0xffffffff : 0x73ffffff);
-			const ui::TextBlock text = m_fonts.Layout(sideStyle, SideTitle(side));
-			canvas.Text(text, sx + 12 + kTile + 10, segment.CentreY() - text.height * 0.5f, on ? kText : Tertiary());
-			if (m_onBar && m_barFocus == i)
-				Focus(segment, segment.h / 2);
-			sx += widths[i] + 4;
-		}
-		// the controllers and the clock, at the right
+		// the controllers and the clock, at the right (first: the side switch has the room they leave)
 		char clock[16] = "";
 		const std::time_t now = std::time(nullptr);
 		std::tm local{};
@@ -1392,22 +1358,104 @@ namespace ps5shell
 			pads = true;
 		}
 		// the tabs, L1 Library Settings R1, just left of them (28 from the controllers, as from the clock)
+		// tr: the launcher's tabs
+		const char* labels[2] = {TrC("tab", "Library"), TrC("tab", "Settings")};
+		bool selected[2];
+		ui::TextStyle styles[2];
+		float tabWidths[2];
+		float total = 36 + 14 + 8 + 36;
+		for (int i = 0; i < 2; i++)
+		{
+			selected[i] = (i == 0 && m_tab == ScreenId::Library) || (i == 1 && m_tab == ScreenId::Settings);
+			styles[i] = Style({26, selected[i] ? ui::Weight::SemiBold : ui::Weight::Medium, 1.0f});
+			tabWidths[i] = m_fonts.Width(styles[i], labels[i]) + 52;
+			total += tabWidths[i] + 6;
+		}
+		const float tabsLeft = tabs ? right - (pads ? 20 : 0) - total : right;
+
+		// the side switch, in the bar's order: Wii U | Switch | DS | 3DS | GameCube | Wii | N64 | NES | GB...
+		float x = 160;
+		const ui::TextStyle sideStyle = Style({22, ui::Weight::SemiBold, 1.0f});
+		constexpr float kTile = 34;
+		float widths[kSides];
+		float pillWidth = 8;
+		int shown = 0;
+		for (int i = 0; i < kSides; i++)
+		{
+			widths[i] = 12 + kTile + 10 + m_fonts.Width(sideStyle, SideTitle(BarSide(i))) + 20;
+			if (SideShown(BarSide(i)))
+				pillWidth += widths[i] + (shown++ ? 4 : 0);
+		}
+		// a carousel where the sides shown do not fit before the tabs: the pill as wide as there is room
+		// for, its sides sliding so that the one in focus (else the one open) is in its middle, and a
+		// chevron at each end, lit while there are more sides beyond it
+		constexpr float kChevron = 34;
+		const float room = tabsLeft - 26 - x;
+		const bool carousel = pillWidth > room && room > 2 * kChevron + 200;
+		const Box pill{x, y, carousel ? room : pillWidth, h};
+		canvas.Rect(pill, h / 2, Wash(0.06f));
+		canvas.Ring(pill, h / 2, 1.5f, kGlassEdge);
+		const Box strip = carousel ? Box{x + kChevron, y, pill.w - 2 * kChevron, h} : pill;
+		float slid = 0;
+		if (carousel)
+		{
+			const int anchor = m_onBar && m_barFocus < kSides ? m_barFocus : BarIndex(m_side);
+			float at = 4, middle = 0;
+			for (int i = 0; i < kSides; i++)
+			{
+				if (!SideShown(BarSide(i)))
+					continue;
+				if (i == anchor)
+					middle = at + widths[i] / 2;
+				at += widths[i] + 4;
+			}
+			const float most = pillWidth - strip.w;
+			const float target = std::clamp(middle - strip.w / 2, 0.0f, most);
+			if (m_barSlide < 0)
+				m_barSlide = target; // the first look: there at once
+			m_barSlide += (target - m_barSlide) * std::min(1.0f, m_dt * (m_settings.ui.reduceMotion ? 60.0f : 14.0f));
+			slid = m_barSlide;
+			canvas.Draw(Icon::ChevronLeft, {x + 8, y + h / 2 - 12, 24, 24}, slid > 1 ? Secondary() : Wash(0.18f));
+			canvas.Draw(Icon::ChevronRight, {pill.Right() - 32, y + h / 2 - 12, 24, 24}, slid < most - 1 ? Secondary() : Wash(0.18f));
+			canvas.PushClip(strip);
+		}
+		else
+			m_barSlide = -1;
+		float sx = strip.x + 4 - slid;
+		Box focused{};
+		bool focusOnSide = false;
+		for (int i = 0; i < kSides; i++)
+		{
+			const System side = BarSide(i);
+			if (!SideShown(side))
+				continue;
+			const Box segment{sx, y + 5, widths[i], h - 10};
+			sx += widths[i] + 4;
+			// one the carousel shows in part fades with what is left of it
+			const float visible = std::min(segment.Right(), strip.Right()) - std::max(segment.x, strip.x);
+			if (carousel && visible <= 0)
+				continue;
+			canvas.PushAlpha(carousel ? std::clamp(visible / segment.w, 0.0f, 1.0f) : 1.0f);
+			const bool on = side == m_side;
+			const uint32_t colour = AccentOf(side);
+			if (on)
+				canvas.Rect(segment, segment.h / 2, ui::SetAlpha(colour, 0.24f));
+			tile(SideIndex(side), {segment.x + 12, segment.CentreY() - kTile / 2, kTile, kTile}, 9, on ? 0xffffffff : 0x73ffffff);
+			const ui::TextBlock text = m_fonts.Layout(sideStyle, SideTitle(side));
+			canvas.Text(text, segment.x + 12 + kTile + 10, segment.CentreY() - text.height * 0.5f, on ? kText : Tertiary());
+			canvas.PopAlpha();
+			if (m_onBar && m_barFocus == i)
+				focused = segment, focusOnSide = true;
+		}
+		if (carousel)
+			canvas.PopClip();
+		// its ring over the others, and out of the carousel's clip
+		if (focusOnSide)
+			Focus(focused, focused.h / 2);
+
 		if (tabs)
 		{
-			// tr: the launcher's tabs
-			const char* labels[2] = {TrC("tab", "Library"), TrC("tab", "Settings")};
-			bool selected[2];
-			ui::TextStyle styles[2];
-			float tabWidths[2];
-			float total = 36 + 14 + 8 + 36;
-			for (int i = 0; i < 2; i++)
-			{
-				selected[i] = (i == 0 && m_tab == ScreenId::Library) || (i == 1 && m_tab == ScreenId::Settings);
-				styles[i] = Style({26, selected[i] ? ui::Weight::SemiBold : ui::Weight::Medium, 1.0f});
-				tabWidths[i] = m_fonts.Width(styles[i], labels[i]) + 52;
-				total += tabWidths[i] + 6;
-			}
-			x = std::max(pill.Right() + 26, right - (pads ? 20 : 0) - total);
+			x = std::max(pill.Right() + 26, tabsLeft);
 			canvas.Draw(Icon::L1, {x, y + 12, 36, 32}, Tertiary());
 			x += 36 + 14;
 			for (int i = 0; i < 2; i++)
