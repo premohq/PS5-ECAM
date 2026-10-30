@@ -214,6 +214,11 @@ says where the app is going and how to fit in.
   and [ProsperoEden](https://github.com/Swordpdf/ProsperoEden), its PS5 port and launcher, by **Sword**
   ([Swordpdf](https://github.com/Swordpdf)), **BlackBearReloaded**, **bawsdeep**, **Rockiu0** and its
   contributors (GPL-3.0-or-later; the Switch side runs it with `patches/eden`)
+- [ES-DE](https://es-de.org) (EmulationStation Desktop Edition) by Leon Styhre and its contributors
+  (MIT), the other frontend, in **Mihawk**'s PS5 port of it from
+  [PS5 RetroArch](https://github.com/mihawk-99/PS5_RetroArch) (GPL-3.0-or-later), with the Alekfull NX
+  theme (fagnerpc's artwork and layouts, anthonycaccese's ES-DE port, CC BY-NC-SA 2.0) and the themes
+  its build ships, each with its own licence; drawn with BlackBearReloaded's PS5 OpenGL SDK and SDL2
 - [eden-nx2](https://git.eden-emu.dev/Takoroka/eden-nx2) by **Takoroka**, Eden with experimental
   support for Switch 2 games (GPL-3.0-or-later), the Switch side's Eden now, and
   [Nightshade](https://github.com/Oliv3rmoon/Nightshade) by **Oliv3rmoon**, whose port of it to the PS5

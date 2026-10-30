@@ -234,6 +234,25 @@ Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
   are shown is a bit each in `ui.sides`, read with an upper limit (2047 for 11 sides) that grows too,
   and an `int` holds 31 of them: past that it needs a wider mask or a list of names.
 
+### EmulationStation, the other frontend
+
+**Started, 30 October 2026, not built yet.** ES-DE as a choice beside the launcher (Settings > Launcher >
+Start in EmulationStation, when the app has it): Mihawk's PS5 port of ES-DE 3.5.0 from PS5 RetroArch
+(`ps5-retroarch` in `tools/deps.json`: his patches/0001 and his PS5 glue), with PS5-ECAM's glue in place of
+RetroArch's (`port/esde/ps5`) and `patches/esde` (ES-DE's scraper where RetroArch's entries are). The
+launcher writes ES-DE's systems and game lists from its library before each start (`port/esde/esde.cpp`),
+and every game ES-DE starts plays here and goes back to it (`port/esde/handoff.h`). Checked on the host:
+the files ES-DE reads (`tools/tests/test-esde.sh`, and against ES-DE's own systems file), the handoff,
+both patches applying to ES-DE 3.5.0, the glue compiling. Next:
+
+- **`make esde` the first time**: `tools/build-esde.sh` builds it over the public PS5 OpenGL SDK 1.0.2
+  (darkxex's copy of BlackBearReloaded's), where Mihawk builds it over his own OpenGL tree: the first
+  build says whether that holds, then a console: the start from the launcher, a game from each kind of
+  side (the Wii U's and the 3DS's in the app, the Switch's and the other sides' programs) and back,
+  L1 at the start, Quit.
+- **Its media from the launcher's covers**, so ES-DE has box art before its scraper runs.
+- **PS5 RetroArch's issue #43** asks for its ES-DE to start PS5-ECAM's games: the same handoff would do.
+
 ### Switch 2
 
 **Started, 30 October 2026: experimental.** The Switch side's Eden is Takoroka's eden-nx2 (Eden master

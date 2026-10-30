@@ -17,6 +17,7 @@
 #include "../../azahar/library.h"
 #include "../../eden/eden.h"
 #include "../../eden/library.h"
+#include "../../esde/esde.h"
 #include "../../melonds/library.h"
 #include "../../ps5/kernel.h"
 #include "../../ps5/log.h"
@@ -1166,6 +1167,8 @@ namespace ps5shell
 		auto give = [&](const std::string& why) {
 			m_status.autoLaunch.clear();
 			ps5log::Line("[launcher] the tile's game did not start: {}", why);
+			if (m_status.autoLaunchFrontend)
+				ps5esde::BackToFrontend(m_settings, why); // EmulationStation's: it says why
 			OpenHelp(Tr("The tile's game could not start"), why);
 		};
 		if (m_side != m_status.autoLaunchSide)

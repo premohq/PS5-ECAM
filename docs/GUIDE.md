@@ -74,6 +74,24 @@ work stops before a game starts.
   sandbox can't. **Remove from home screen**, in the same menu, takes it away again.
 - **Your language:** the menus follow the PS5's language; **Settings > Language** chooses another.
 
+### EmulationStation, the other frontend
+
+An app built with it (`make esde`) can open on **EmulationStation** (ES-DE) instead of the launcher:
+**Settings > Launcher > Start in EmulationStation**. ES-DE is Mihawk's PS5 port of it, from
+[PS5 RetroArch](https://github.com/mihawk-99/PS5_RetroArch), with its menus, themes (Alekfull NX by
+default) and its scraper for box art, screenshots and videos.
+
+- It shows the sides the bar shows, as ES-DE's own systems (so its themes have their art), with the
+  games each side's library lists: open a side once in PS5-ECAM, or **Look for games now**, for its
+  games to be there. Favourites follow whichever of the two you changed last; hidden games stay hidden.
+- Every game plays in PS5-ECAM, with its side's emulator, settings, saves and in-game menu. When it
+  ends, EmulationStation opens again on that game, its play count and time added. A game that cannot
+  start says why there.
+- **Hold L1** as PS5-ECAM starts for this launcher instead, or quit EmulationStation (its menu's
+  **Quit**): PS5-ECAM's own launcher opens, with its Settings.
+- ES-DE's settings, game lists and scraped media are in `/data/ps5cemu/es-de` (on the app's drive, with
+  the rest of its data, when it is there); its interface is in English.
+
 ## Wii U (Cemu)
 
 - Cemu's x64 recompiler, at the PS5's 3840x2160 output, with a choice of upscaling filter (Bicubic

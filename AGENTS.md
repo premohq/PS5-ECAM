@@ -12,7 +12,9 @@ of you:
    for the system, **pinned by commit in `tools/deps.json`**. Do not add standalone homebrew
    programs, personal ports or forks of unknown provenance. Do not build features around the
    programs bundled today (`tools/retro/sources.json`): they are being replaced by the frontend.
-   Porpoise (GameCube, Wii) stays; changes to it belong in `premohq/Porpoise-X`.
+   Porpoise (GameCube, Wii) stays; changes to it belong in `premohq/Porpoise-X`. EmulationStation
+   (`port/esde`) is an optional frontend over the same systems: its games play in PS5-ECAM; never add
+   emulators or features to it alone.
 3. **Start from the newest `PS5-ECAM` branch**: `git fetch origin PS5-ECAM` and rebase before you
    change anything and again before a pull request. Never base work on an old commit. Keep each pull
    request to one topic.

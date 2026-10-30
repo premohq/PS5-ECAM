@@ -416,6 +416,7 @@ namespace ps5settings
 			ReadBool(ui, "highContrast", out.highContrast);
 			ReadBool(ui, "reduceMotion", out.reduceMotion);
 			ReadBool(ui, "libraryFilters", out.libraryFilters);
+			ReadBool(ui, "emulationStation", out.emulationStation);
 			ReadInt(ui, "holdMs", out.holdMs, 400, 1500);
 			ReadBool(ui, "gamePictures", out.gamePictures);
 			ReadBool(ui, "setupDone", out.setupDone);
@@ -621,6 +622,8 @@ namespace ps5settings
 		writer.String(settings.ui.theme.c_str());
 		writer.Key("libraryFilters");
 		writer.Bool(settings.ui.libraryFilters);
+		writer.Key("emulationStation");
+		writer.Bool(settings.ui.emulationStation);
 		writer.Key("libraryFilter");
 		writer.StartArray();
 		for (int filter : settings.ui.libraryFilter)

@@ -23,6 +23,7 @@
 #include "../../eden/library.h"
 #include "../../eden/rooms.h"
 #include "../../eden/save_transfer.h"
+#include "../../esde/esde.h"
 #include "../../melonds/library.h"
 #include "../../melonds/melonds.h"
 #include "../../ps5/privilege.h"
@@ -1455,6 +1456,13 @@ namespace ps5shell
 			toggle("filters", Tr("Library filters"), settings.ui.libraryFilters, Tr("All, Recently added, Favourites: a row over the list."),
 				Tr("A row of filters over the Library's list: All, Recently added (the last 30 days), Favourites and, on the Wii U side, "
 				   "Graphic packs on, each with its count. Off: the list has every game, and Sort and Search are all it needs."));
+			// EmulationStation as the frontend, when the app has it (port/esde/esde.h)
+			if (ps5esde::Available())
+				toggle("emulationstation", Tr("Start in EmulationStation"), settings.ui.emulationStation,
+					Tr("ES-DE's menus and themes over the same games, played here."),
+					Tr("PS5-ECAM opens on EmulationStation (ES-DE) instead of its own launcher: the sides the bar shows, with the games "
+					   "their libraries list, and every game plays here with its settings, saves and in-game menu, then goes back to "
+					   "EmulationStation. Hold L1 as PS5-ECAM starts, or quit EmulationStation, for this launcher."));
 			int hold = 2;
 			for (int i = 0; i < 6; i++)
 				if (kHolds[i] <= settings.ui.holdMs)
@@ -2134,6 +2142,8 @@ namespace ps5shell
 				settings.ui.gamePictures = on;
 			else if (id == "filters")
 				settings.ui.libraryFilters = on;
+			else if (id == "emulationstation")
+				settings.ui.emulationStation = on;
 			else if (id == "lookonshares")
 				settings.lookOnShares = on;
 			else if (id == "menusounds")

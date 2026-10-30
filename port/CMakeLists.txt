@@ -181,6 +181,10 @@ add_library(CemuPS5 STATIC
 	eden/nx_files.h
 	eden/rooms.cpp
 	eden/rooms.h
+	esde/esde.cpp
+	esde/esde.h
+	esde/handoff.h
+	esde/launch.cpp
 	melonds/archive.cpp
 	melonds/archive.h
 	melonds/library.cpp

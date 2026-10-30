@@ -58,6 +58,13 @@ they work. They are **transitional**:
 The Wii U (Cemu), 3DS (Azahar), DS (melonDS) and Switch (Eden) sides are the app's own ports and
 stay as they are.
 
+### EmulationStation, a frontend over the same systems
+
+The app can open on EmulationStation (ES-DE, `port/esde`) instead of its launcher, for people who like
+its menus and themes. It is **a frontend, not another set of emulators**: it lists the launcher's
+libraries and every game it starts plays in PS5-ECAM (`port/esde/handoff.h`). A system or a feature is
+added to the app, and EmulationStation shows it; nothing is added to EmulationStation alone.
+
 ## Working together
 
 - **Start from the newest `PS5-ECAM` branch, and rebase before you open a pull request.** The owner

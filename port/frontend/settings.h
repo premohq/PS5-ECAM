@@ -159,6 +159,9 @@ namespace ps5settings
 		int reorganizeAsked = 0;
 		std::string theme;			 // the launcher's look (ui/theme.h): a built-in theme's id, or user:<file> in themes/; empty: the default
 		bool libraryFilters = false;		 // the Library's filter row (Settings > Launcher); off: every game, as All
+		// the app opens on EmulationStation (ES-DE, port/esde/esde.h) instead of the launcher, when it has
+		// ES-DE; L1 held at the start opens the launcher all the same (Settings > Launcher)
+		bool emulationStation = false;
 		int libraryFilter[ps5retro::kSideCount] = {}; // per side: All, Recently added, Favourites, Graphic packs on (Wii U)
 		int librarySort[ps5retro::kSideCount] = {}; // Recently played (the default: the Library is where a side opens), A to Z, Release year, How it runs
 	};

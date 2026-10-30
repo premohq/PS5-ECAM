@@ -28,6 +28,7 @@
 #include "azahar/library.h"
 #include "eden/eden.h"
 #include "eden/library.h"
+#include "esde/esde.h"
 #include "frontend/launcher.h"
 #include "retro/library.h"
 #include "retro/launch.h"
@@ -199,6 +200,10 @@ namespace
 		std::string rom;
 		bool exitAfterGame = false;
 		bool resume = false;
+		// --frontend es-de: the game is EmulationStation's, which it goes back to (port/esde/esde.h);
+		// --own-launcher: EmulationStation was quit, for this launcher, whatever the frontend is
+		bool frontend = false;
+		bool ownLauncher = false;
 		ps5launcher::System side = ps5launcher::System::WiiU;
 	};
 
@@ -214,7 +219,19 @@ namespace
 				tile.exitAfterGame = true;
 			else if (arg == "--resume")
 				tile.resume = true;
+			else if (arg == "--frontend" && i + 1 < argc && argv[i + 1])
+				tile.frontend = std::string(argv[++i]) == "es-de";
+			else if (arg == "--own-launcher")
+				tile.ownLauncher = true;
 		}
+		// EmulationStation's game (port/esde/esde.h): taken, or started from what it wrote when LoadExec
+		// dropped the arguments it was given
+		if (tile.frontend || tile.rom.empty())
+			if (std::string requested = ps5esde::TakeRequest(); !requested.empty() && tile.rom.empty())
+			{
+				tile.rom = requested;
+				tile.frontend = true;
+			}
 		// the side by the file's type: the DS's, the 3DS's and the Switch's are their own, the rest the Wii
 		// U's (.wua, .wud, .wux, .rpx, a folder)
 		std::string extension = std::filesystem::path(tile.rom).extension().string();
@@ -539,10 +556,13 @@ int main(int argc, char* argv[])
 	status.autoLaunch = tile.rom;
 	status.autoLaunchSide = tile.side;
 	status.autoLaunchResume = tile.resume;
+	status.autoLaunchFrontend = tile.frontend && !tile.rom.empty();
 	status.reorganized = reorganized;
 	// after the game: the library, or for a tile's game (--exit-after-game) the PS5's home screen, as
 	// the in-game menus say (SetExitAfterGame, below)
 	auto afterGame = [&](const char* side) {
+		if (ps5esde::GameFromFrontend())
+			ps5esde::BackToFrontend(ps5settings::Load()); // EmulationStation's game: back to it
 		if (ps5emu::ExitAfterGame())
 			ps5emu::ExitApp();
 		RememberSide(side);
@@ -560,6 +580,8 @@ int main(int argc, char* argv[])
 		ps5log::Line("[main] {} played for {} min", name, minutes);
 	};
 	auto backInProcess = [&](ps5launcher::System system) {
+		if (ps5esde::GameFromFrontend())
+			ps5esde::BackToFrontend(ps5settings::Load()); // EmulationStation's game: back to it
 		if (ps5emu::ExitAfterGame())
 			ps5emu::ExitApp();
 		settings = ps5settings::Load();
@@ -617,6 +639,29 @@ int main(int argc, char* argv[])
 				ps5pad::SetVibrationEnabled(settings.rumble);
 			}
 		}
+
+	// EmulationStation (port/esde/esde.h): the app started over after a game it started (the Wii U's, the
+	// Switch's and the other sides' programs come back so), which goes back to it with why it stopped,
+	// when it did; or the frontend this start opens, unless L1 is held or it was just quit
+	if (privileges.filesystem && tile.rom.empty())
+	{
+		if (ps5esde::GameFromFrontend())
+		{
+			std::string why = status.lastCrash;
+			for (const std::string* error : {&status.launchError, &status.launchError3ds, &status.launchErrorDs, &status.launchErrorSwitch})
+				if (why.empty() && !error->empty())
+					why = *error;
+			ps5esde::BackToFrontend(settings, why);
+		}
+		else if (settings.ui.emulationStation && !tile.ownLauncher && ps5esde::Available())
+		{
+			if (ps5esde::OwnLauncherHeld())
+				ps5log::Line("[main] L1 held: the launcher, not EmulationStation");
+			else
+				ps5esde::Start(settings);
+		}
+		// here when ES-DE did not start: the launcher, as without it
+	}
 
 	// One emulator per session: none starts until a side opens (the side last used, or the chooser's).
 	// Cemu's core (its guest memory, system threads, crash handler, graphic packs and game scan) runs

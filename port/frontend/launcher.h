@@ -75,6 +75,7 @@ namespace ps5launcher
 		std::string autoLaunch;
 		System autoLaunchSide = System::WiiU;
 		bool autoLaunchResume = false; // and it goes on from its last quit's state
+		bool autoLaunchFrontend = false; // and it is EmulationStation's: one that cannot start goes back to it (port/esde/esde.h)
 		// per side (Wii U, 3DS, DS, Switch): its list is its last look's, its games folder a network share's
 		// that this session has not looked through (Settings > Game files, #75)
 		bool lastLook[kSideCount] = {};

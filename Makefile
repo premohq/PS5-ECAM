@@ -14,7 +14,7 @@ APP := build/app/PPSA99360
 JOBS ?= $(shell nproc)
 export JOBS
 
-.PHONY: gameboy retro-upgrades retro test-retro help deps deps-status radv azahar melonds eden build check package release clean distclean test-contribution
+.PHONY: gameboy retro-upgrades retro test-retro help deps deps-status radv azahar melonds eden build check package release clean distclean test-contribution esde
 
 test-retro: ## Host verification for the additional system integration
 	bash tools/tests/test-retro.sh
@@ -64,6 +64,9 @@ melonds: deps ## Build melonDS's core (the DS side's) and its PS5 frontend: buil
 
 eden: deps ## Build ProsperoEdenX, the Switch side's program (Eden), with patches/eden: build/eden
 	bash tools/build-eden.sh
+
+esde: ## Build EmulationStation (ES-DE), the optional other frontend, with PS5-ECAM's glue: build/esde/es-de
+	bash tools/build-esde.sh
 
 build: deps azahar melonds $(if $(RADV_ARCHIVE),,radv) ## Build PS5-ECAM (Cemu, Azahar and melonDS) and link it with RADV: build/cemu/ps5cemu.elf
 	bash tools/build-cemu.sh

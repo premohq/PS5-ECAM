@@ -1,0 +1,46 @@
+diff --git a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
+index 134f446..12b3f5a 100644
+--- a/es-app/src/guis/GuiMenu.cpp
++++ b/es-app/src/guis/GuiMenu.cpp
+@@ -8,10 +8,6 @@
+ //
+ 
+ #include "guis/GuiMenu.h"
+-#ifdef __PROSPERO__
+-#include "GuiFrameGen.h"
+-#include "GuiWebUI.h"
+-#endif
+ 
+ #if defined(_WIN64)
+ // Why this is needed here is anyone's guess but without it the compilation fails.
+@@ -68,15 +64,9 @@ GuiMenu::GuiMenu()
+     const bool isFullUI {UIModeController::getInstance()->isUIModeFull()};
+ 
+     if (isFullUI)
+-#ifdef __PROSPERO__
+-    {
+-        addEntry("FRAME GENERATION", mMenuColorPrimary, true,
+-                 [this] { mWindow->pushGui(new GuiFrameGen()); });
+-        addEntry("WebUI", mMenuColorPrimary, true, [this] { mWindow->pushGui(new GuiWebUI()); });
+-    }
+-#else
++        // PS5-ECAM: ES-DE's own scraper, where PS5 RetroArch has its frame generation and WebUI
++        // (patches/0001); PS5-ECAM's games have their art from ES-DE's scraper here.
+         addEntry(_("SCRAPER"), mMenuColorPrimary, true, [this] { openScraperOptions(); });
+-#endif
+ 
+     if (isFullUI)
+         addEntry(_("UI SETTINGS"), mMenuColorPrimary, true, [this] { openUIOptions(); });
+diff --git a/es-app/src/views/ViewController.cpp b/es-app/src/views/ViewController.cpp
+index f911a41..5bbe973 100644
+--- a/es-app/src/views/ViewController.cpp
++++ b/es-app/src/views/ViewController.cpp
+@@ -552,7 +552,7 @@ void ViewController::goToStart(bool playTransition)
+                 if (status >= 0) {
+                     FileData* source {game->getSourceFileData()};
+                     LOG(LogInfo) << "Back from \"" << source->metadata.get("name") << "\" after "
+-                                 << seconds << " seconds in RetroArch (status " << status << ")";
++                                 << seconds << " seconds in PS5-ECAM (status " << status << ")";
+                     source->metadata.set(
+                         "playcount",
+                         std::to_string(static_cast<long long>(source->metadata.getInt("playcount") + 1)));

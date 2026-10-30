@@ -43,6 +43,13 @@ jobs:
       - name: Switch 2 game folders
         run: bash tools/tests/test-switch2-games.sh
 
+      - name: EmulationStation as the other frontend
+        run: |
+          bash tools/tests/test-esde.sh
+          clang++-18 -std=c++20 -Wno-deprecated-declarations -DFMT_HEADER_ONLY -DPS5CEMU_VERSION='"dev"' \
+            -I.deps/rapidjson/include -I.deps/pugixml-1.15/src -Iport -fsyntax-only port/esde/launch.cpp
+          clang++-18 -std=c++17 -Wall -Wextra -Werror -Iport/esde -fsyntax-only port/esde/ps5/main_ecam.cpp port/esde/ps5/game_ecam.cpp
+
       - name: Switch updates and DLC beside their games
         run: |
           bash tools/tests/test-eden-addons.sh
