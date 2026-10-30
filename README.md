@@ -188,7 +188,9 @@ Bugs still go in [GitHub issues](https://github.com/premohq/PS5-ECAM/issues/new/
 
 ### Contributors
 
-Big thanks to the people who sent code and fixes to PS5-ECAM itself:
+Big thanks to the people who sent code and fixes to PS5-ECAM itself. Want to join them? [CONTRIBUTING.md](CONTRIBUTING.md)
+says where the app is going and how to fit in.
+
 
 - **[dolphin78](https://github.com/dolphin78)**, with a massive shoutout: Artic Setup works on the PS5
   because of him ([#70](https://github.com/premohq/PS5-ECAM/pull/70)). He found and fixed why the 3DS's system update failed and why a
