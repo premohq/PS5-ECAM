@@ -7,7 +7,7 @@ namespace ps5retro
 {
 	std::vector<std::string> LaunchArguments(int side, const std::string& rom, const std::string& returnProgram)
 	{
-		if (!IsRetro(side) || rom.empty() || rom.front() != '/' || rom.find('\0') != std::string::npos || rom.find_first_of("\r\n") != std::string::npos || returnProgram.empty() || returnProgram.find_first_of("\r\n") != std::string::npos || returnProgram.find('\0') != std::string::npos || rom.size() > 4096 || returnProgram.size() > 4096) return {};
+		if (!IsRetro(side) || rom.empty() || rom.front() != '/' || rom.find('\0') != std::string::npos || rom.find_first_of("\r\n") != std::string::npos || returnProgram.empty() || returnProgram.front() != '/' || !returnProgram.ends_with("/eboot.bin") || returnProgram.find_first_of("\r\n") != std::string::npos || returnProgram.find('\0') != std::string::npos || rom.size() > 4096 || returnProgram.size() > 4096) return {};
 		return {"--rom", rom, "--ecam-return", returnProgram};
 	}
 	bool Available(int side, int backend)

@@ -11,3 +11,9 @@ if [[ ${ECAM_TEST_SANITIZE:-0} == 1 ]]; then sanitize=(-fsanitize=address,undefi
  "$root/tools/tests/test-retro.cpp" "$root/port/retro/library.cpp" "$root/port/retro/launch.cpp" \
  "$root/port/frontend/settings.cpp" "$root/port/app/catalog.cpp" -o "$work/test-retro"
 "$work/test-retro" "$work/files"
+# ASan's runtime has to be the first library loaded, so this pass is left out of a sanitized run
+if [[ $(uname -s) == Linux && ${#sanitize[@]} == 0 ]]; then
+    "${CC:-cc}" -shared -fPIC "$root/tools/tests/refuse-lstat.c" -o "$work/refuse-lstat.so" -ldl
+    echo "lstat refused with EPERM, as /data is in an app without a HEN:"
+    REFUSE_LSTAT_UNDER="$work" LD_PRELOAD="$work/refuse-lstat.so" "$work/test-retro" "$work/refused-files"
+fi

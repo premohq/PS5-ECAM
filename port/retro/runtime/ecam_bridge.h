@@ -33,7 +33,11 @@ namespace ecam_bridge
 	inline Request Read(const std::string& path)
 	{
 		std::error_code ec;
-		if (!std::filesystem::is_regular_file(std::filesystem::symlink_status(path, ec)) || ec) return {};
+		auto status = std::filesystem::symlink_status(path, ec);
+		// The same native-mount compatibility rule as ECAM's OwnStatus, kept
+		// self-contained because donors copy this MIT header into their sources.
+		if (ec == std::errc::operation_not_permitted) status = std::filesystem::status(path, ec);
+		if (!std::filesystem::is_regular_file(status) || ec) return {};
 		const auto size = std::filesystem::file_size(path, ec);
 		if (ec || size > 65536) return {};
 		std::ifstream in(path, std::ios::binary);
@@ -45,7 +49,7 @@ namespace ecam_bridge
 		}
 		if (!in.eof()) return {};
 		auto request = Parse(args);
-		if (request.valid && (!std::filesystem::remove(path, ec) || ec)) return {}; // refuse replay if consumption failed
+		if (request.valid && std::remove(path.c_str()) != 0) return {}; // unlink directly: filesystem::remove may lstat first
 		return request;
 	}
 	inline Request request;

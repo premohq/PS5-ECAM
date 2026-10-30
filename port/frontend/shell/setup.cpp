@@ -165,10 +165,37 @@ namespace ps5shell
 		m_checks.push_back(recompilers);
 
 		// each side's games: as its last scan found them, else as its folder holds them
-		for (System side : {System::WiiU, System::N3ds, System::Nds, System::Switch})
+		for (int index = 0; index < kSides; index++)
 		{
+			const System side = (System)index;
 			if (!SideShown(side))
 				continue; // a side the bar does not offer (Settings > Launcher) has nothing to check
+			if (ps5retro::IsRetro(index))
+			{
+				// the other sides': as the first four's, and their emulator in the package
+				const std::string& folder = GamesFolder(side);
+				int count = std::max((int)ps5catalog::Games((ps5catalog::System)index).size(), Handheld(side).gameCount);
+				bool readable = true;
+				if (count <= 0)
+				{
+					std::string error;
+					count = (int)ps5retro::Scan(ps5retro::Of(index).key, folder, error).size();
+					readable = error.empty();
+				}
+				const bool runtime = ps5retro::Available(index, Handheld(side).retroBackend);
+				Check games{std::string(ps5launcher::SideName(side)) + "-games", TrF("{0} games", SystemName(side))};
+				games.action = Tr("Choose a folder");
+				games.state = count > 0 && runtime ? 0 : 1;
+				const std::string where = ShortPath(Place(folder), 44);
+				games.detail = !runtime ? Tr("The selected emulator runtime is missing from this ECAM package.") :
+					count > 0			? TrP(count, "{0} game in {1}", "{0} games in {1}", where) :
+					readable			? TrF("None in {0} yet", where) :
+										  TrF("{0} cannot be read", where);
+				games.aboutTitle = TrF("{0} games", SystemName(side));
+				games.about = TrF("Put this system's supported game files in {0}, or choose a local or USB folder. Subfolders are searched to four levels. GameCube and Wii use separately selected folders.", folder);
+				m_checks.push_back(games);
+				continue;
+			}
 			const bool n3ds = side == System::N3ds, nds = side == System::Nds, nx = side == System::Switch;
 			const std::string& folder = GamesFolder(side);
 			const int catalogued = (int)ps5catalog::Games((ps5catalog::System)SideIndex(side)).size();
@@ -376,7 +403,7 @@ namespace ps5shell
 			}
 			const Check& check = m_checks[m_setupRow];
 			m_feedback.Play(ui::Cue::Select);
-			if (check.id == "wiiu-games" || check.id == "3ds-games" || check.id == "ds-games" || check.id == "switch-games")
+			if (check.id.ends_with("-games"))
 			{
 				m_filesSide = ps5launcher::SideNamed(check.id.substr(0, check.id.find('-')));
 				FilesOpen(0); // back here when it is done

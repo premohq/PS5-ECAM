@@ -31,12 +31,13 @@ rewrite save files. Missing runtimes and inaccessible game roots are reported be
 
 ### Discovery formats
 
-- GameCube/Wii: ISO, GCM, RVZ, CISO, GCZ, WBFS and WIA; Wii additionally WAD, DOL and ELF.
+- GameCube/Wii: ISO, GCM, RVZ, CISO, GCZ and WIA; Wii additionally WBFS, WAD, DOL and ELF. A raw ISO or
+  GCM is listed on the side its disc header names (Wii or GameCube), and refused on the other.
 - N64: Z64, N64, V64 and ZIP; ROM additionally requires the optional Mupen64Plus backend.
 - NES: NES, UNF, UNIF, FDS and ZIP; 7z additionally requires the optional FCEUmm backend.
 
-The configured GameCube and Wii roots are separate: the ECAM scanner does not classify the
-contents of compressed disc containers. Point them at separately organized directories to avoid
+The configured GameCube and Wii roots are separate. The scanner reads a raw disc's header, but not
+the contents of a compressed container (RVZ, CISO, GCZ, WIA): keep those in separate folders to avoid
 mixed lists. No files are reorganized automatically. Archive member selection, decompression and full content validation remain the
 native NES/N64 loader's responsibility; ECAM performs basic format and size preflight checks. BIOS/system files required by a game remain user-provided.
 

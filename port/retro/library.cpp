@@ -1,5 +1,9 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "library.h"
+#include "../app/own_status.h"
+#if defined(__PROSPERO__)
+#include "../ps5/log.h"
+#endif
 #include <algorithm>
 #include <atomic>
 #include <cctype>
@@ -14,6 +18,31 @@
 namespace ps5retro
 {
 	namespace fs = std::filesystem;
+	namespace
+	{
+		std::string Extension(const fs::path& path)
+		{
+			auto ext = path.extension().string();
+			for (char& c : ext) c = char(std::tolower((unsigned char)c));
+			return ext;
+		}
+
+		bool DiscMatches(std::string_view side, const fs::path& path)
+		{
+			if (side != "gamecube" && side != "wii") return true;
+			const auto ext = Extension(path);
+			// Compressed containers need the native disc reader. Inspect only raw ISO/GCM
+			// headers here, without unpacking, renaming or copying the user's discs.
+			if (ext != ".iso" && ext != ".gcm") return true;
+			unsigned char header[0x20]{};
+			std::ifstream in(path, std::ios::binary);
+			if (!in.read(reinterpret_cast<char*>(header), sizeof(header))) return false;
+			const bool wii = header[0x18] == 0x5d && header[0x19] == 0x1c && header[0x1a] == 0x9e && header[0x1b] == 0xa3;
+			const bool gc = header[0x1c] == 0xc2 && header[0x1d] == 0x33 && header[0x1e] == 0x9f && header[0x1f] == 0x3d;
+			return side == "wii" ? wii : gc && !wii;
+		}
+	}
+
 	bool HasExtension(std::string_view side, std::string name)
 	{
 		for (auto& c : name) c = char(std::tolower((unsigned char)c));
@@ -29,7 +58,7 @@ namespace ps5retro
 		if (side == "pokemini") return ext == ".min";
 		if (side == "n64") return ext == ".z64" || ext == ".n64" || ext == ".v64" || ext == ".zip" || ext == ".rom";
 		if (side == "gamecube" || side == "wii")
-			return ext == ".iso" || ext == ".gcm" || ext == ".rvz" || ext == ".ciso" || ext == ".gcz" || ext == ".wbfs" || ext == ".wia" || (side == "wii" && (ext == ".wad" || ext == ".dol" || ext == ".elf"));
+			return ext == ".iso" || ext == ".gcm" || ext == ".rvz" || ext == ".ciso" || ext == ".gcz" || ext == ".wia" || (side == "wii" && (ext == ".wbfs" || ext == ".wad" || ext == ".dol" || ext == ".elf"));
 		return false;
 	}
 
@@ -42,7 +71,7 @@ namespace ps5retro
 			struct Cached { uintmax_t size; fs::file_time_type changed; std::shared_ptr<rapidjson::Document> doc; };
 			static std::mutex mutex; static std::map<std::string, Cached> cache;
 			std::error_code ec;
-			if (!fs::is_regular_file(fs::symlink_status(path, ec)) || ec) return {};
+			if (!fs::is_regular_file(ps5files::OwnStatus(path, ec)) || ec) return {};
 			const auto size = fs::file_size(path, ec); if (ec || size > 8 * 1024 * 1024) return {};
 			const auto changed = fs::last_write_time(path, ec); if (ec) return {};
 			std::lock_guard lock(mutex); const auto key = path.string(); const auto found = cache.find(key);
@@ -103,7 +132,7 @@ namespace ps5retro
 				for (const char* ext : {".png", ".jpg", ".jpeg", ".tga"})
 				{
 					const auto file = folder / (name + ext); std::error_code ec;
-					if (fs::is_regular_file(fs::symlink_status(file, ec)) && !ec && fs::file_size(file, ec) <= 16 * 1024 * 1024 && !ec) return file.string();
+					if (fs::is_regular_file(ps5files::OwnStatus(file, ec)) && !ec && fs::file_size(file, ec) <= 16 * 1024 * 1024 && !ec) return file.string();
 				}
 			}
 		return {};
@@ -114,7 +143,11 @@ namespace ps5retro
 		std::error_code ec;
 		const auto size = fs::file_size(path, ec);
 		if (ec || size == 0) { error = "The game file is empty or cannot be read."; return false; }
-		if (side < 6) { error.clear(); return true; }
+		if (side < 6)
+		{
+			if (!DiscMatches(Of(side).key, path)) { error = "The disc header is unreadable or does not match the selected system."; return false; }
+			error.clear(); return true;
+		}
 		std::string ext = fs::path(path).extension().string();
 		for (char& c : ext) c = char(std::tolower((unsigned char)c));
 		if (side >= 8)
@@ -173,8 +206,8 @@ namespace ps5retro
 			if (++inspected > 100000) { error = "The scan reached its 100000-entry limit."; break; }
 			if (it.depth() >= 4) it.disable_recursion_pending();
 			std::error_code statusError;
-			const auto status = it->symlink_status(statusError);
-			if (statusError || !fs::is_regular_file(status) || !HasExtension(side, it->path().filename().string())) continue;
+			const auto status = ps5files::OwnStatus(it->path(), statusError);
+			if (statusError || !fs::is_regular_file(status) || !HasExtension(side, it->path().filename().string()) || !DiscMatches(side, it->path())) continue;
 			ps5emu::Game game;
 			game.path = it->path(); game.name = game.path.stem().string();
 			game.format = game.path.extension().string().substr(1); for (char& c : game.format) c = char(std::toupper((unsigned char)c));
@@ -186,6 +219,9 @@ namespace ps5retro
 		}
 		if (ec) error = "The games folder could not be fully scanned: " + ec.message();
 		else if (inspected <= 100000) error.clear();
+#if defined(__PROSPERO__)
+		ps5log::Line("[retro] {} scan {}: {} entries, {} games; {}", side, folder, inspected, result.size(), error);
+#endif
 		const auto metadata = Metadata(fs::path(folder) / ".ecam-library.json");
 		if (metadata)
 		{
@@ -203,9 +239,30 @@ namespace ps5retro
 		std::sort(result.begin(), result.end(), [](const auto& a, const auto& b) { return a.name < b.name; });
 		return result;
 	}
+
+	int IdentifySystem(const std::string& path)
+	{
+		const auto ext = Extension(path);
+		if (ext == ".zip" || ext == ".7z" || ext == ".elf") return -1;
+		for (int side = kFirst; side < kSideCount; side++)
+			if (HasExtension(Of(side).key, path) && DiscMatches(Of(side).key, path))
+			{
+				// Compressed GC/Wii containers cannot be assigned by extension alone.
+				if (side < 6 && ext != ".iso" && ext != ".gcm" && ext != ".wbfs" && ext != ".wad" && ext != ".dol") return -1;
+				return side;
+			}
+		return -1;
+	}
+
 	namespace
 	{
-		struct State { std::thread worker; std::atomic_bool scanning{false}; std::mutex mutex; std::vector<ps5emu::Game> games; std::string error; ~State() { if (worker.joinable()) worker.join(); } };
+		struct State
+		{
+			std::thread worker; std::atomic_bool scanning{false}; std::mutex mutex;
+			std::vector<ps5emu::Game> games; std::string error, nextFolder;
+			bool pending = false; // nextFolder asked for while a scan ran
+			~State() { if (worker.joinable()) worker.join(); }
+		};
 		State states[kSystems.size()];
 		State& StateFor(int side) { return states[size_t(side - kFirst)]; }
 	}
@@ -213,14 +270,26 @@ namespace ps5retro
 	{
 		if (!IsRetro(side)) return;
 		auto& state = StateFor(side);
-		if (state.scanning) return;
+		{
+			std::lock_guard lock(state.mutex);
+			if (state.scanning) { state.nextFolder = folder; state.pending = true; return; }
+		}
 		if (state.worker.joinable()) state.worker.join();
 		state.scanning = true;
 		try { state.worker = std::thread([&state, side, folder] {
-			std::string error; std::vector<ps5emu::Game> games;
-			try { games = Scan(Of(side).key, folder, error); } catch (const std::exception& e) { error = e.what(); }
-			{ std::lock_guard lock(state.mutex); state.games = std::move(games); state.error = std::move(error); }
-			state.scanning = false;
+			std::string current = folder;
+			for (;;)
+			{
+				std::string error; std::vector<ps5emu::Game> games;
+				try { games = Scan(Of(side).key, current, error); } catch (const std::exception& e) { error = e.what(); }
+				std::lock_guard lock(state.mutex);
+				if (state.pending)
+				{
+					current = std::move(state.nextFolder); state.pending = false;
+					continue; // another folder was chosen while this one was scanned: only the newest one's games are kept
+				}
+				state.games = std::move(games); state.error = std::move(error); state.scanning = false; return;
+			}
 		}); } catch (...) { state.scanning = false; throw; }
 	}
 	bool Scanning(int side) { return IsRetro(side) && StateFor(side).scanning; }

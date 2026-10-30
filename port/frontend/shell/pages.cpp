@@ -1185,8 +1185,10 @@ namespace ps5shell
 	{
 		const bool install = m_filesMode == 1, cia = m_filesMode == 2;
 		const bool n3ds = m_filesSide == System::N3ds, nds = m_filesSide == System::Nds, nx = m_filesSide == System::Switch;
+		const bool retro = ps5retro::IsRetro((int)m_filesSide);
 		DrawPageHeader(canvas,
 			install || cia ? std::string(SystemName(m_filesSide)) + " · " + Tr("Install") :
+			retro          ? TrF("{0} games", SystemName(m_filesSide)) :
 			n3ds		   ? Tr("3DS games") :
 			nds			   ? Tr("DS games") :
 			nx			   ? Tr("Switch games") :
@@ -1194,6 +1196,7 @@ namespace ps5shell
 			cia ? Tr("Install CIA files") : install ? Tr("Install updates and DLC") : Tr("Choose a folder"),
 			cia		? std::string(Tr("Choose a CIA file: a game, an update or DLC")) :
 			install ? std::string(Tr("Choose a folder with an update, DLC or game (code, content and meta)")) :
+			retro   ? TrF("Choose the folder that holds your {0} games", SystemName(m_filesSide)) :
 			n3ds	? std::string(Tr("Choose the folder that holds your 3DS games")) :
 			nds		? std::string(Tr("Choose the folder that holds your DS games")) :
 			nx		? std::string(Tr("Choose the folder that holds your Switch games")) :
