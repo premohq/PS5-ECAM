@@ -120,6 +120,24 @@ checked by reading and compiling. Before a release:
 
 ### On GitHub
 
+**The open issues on 30 October 2026**, each with what is left:
+
+- **Close now**: **#98** (3DS frame generation "broken": its reporter had turned it off, and says so),
+  **#78** (updates' `Connection: close`: shipped in 5.1.0, as its last comment says).
+- **Close with 5.1.1**: **#93** (`840cbb4`: the touchpad's shortcuts with a Pro Controller. LEGO City
+  Undercover still takes no input with the Pro Controller profile: it reads only the GamePad, so it wants
+  the GamePad profile), **#94** (`4afd4c2`, Cemu patch 0047), **#96** (`b171274`: installs finish;
+  the reporter's logs ask why they took longer than before).
+- **Waiting on a console**: **#97** (`patches/eden` 0020, the repeated-fault count: a run past ten
+  minutes), **#92** (Tears of the Kingdom in the Depths, reported on the Wii U side's form but on the
+  Switch's Eden: its Eden logs).
+- **Answered in code, the rest planned**: **#101** (Switch games on a share: `af8aeb4` says so and stops
+  offering shares; playing them is [N0](#n0)), **#100** (the DS's 3D above its resolution: [D5](#d5)),
+  **#99** (Lossless Scaling on the other sides: [F1](#f1)).
+- **Requests to keep open**: #95 (the second screen's transparency), #88 (DolphinBar), #82 (Dolphin:
+  GameCube and Wii run through Porpoise now, PR #87), #81, #72; #90 (3DS games' errors) waits on its
+  reporter's answer.
+
 - **PR #70** (Artic Setup: Azahar patches 0030 to 0032, fmt's prints to the boot log,
   `symbolize-crash.py --ps5`) and **PR #71** (Cyrillic and Greek from SST-Roman, #69) are already in
   the code: close both, thanking dolphin78.
@@ -628,6 +646,15 @@ Kart DS. The guide lists the DS's wireless as not there.
 The DS's screen filters are Sharp, Smooth and Square pixels. Add an LCD grid, the DS screen's own
 colours, and frame blending for games that flicker sprites to fake transparency, as RetroArch's handheld
 shaders do.
+
+<a id="f1"></a>**F1. Lossless Scaling's frame generation on the other sides** (L, #99)
+The Switch side generates frames with the player's own `Lossless.dll` (#81), else MihawkGen; the 3DS,
+DS and Wii U sides have MihawkGen alone (`port/cemu/FrameGenPS5.cpp`, Cemu patch 0042, Azahar patch
+0033). Eden's LSFG is a module of its own (`video_core/frame_gen/lossless_dll.h`, which reads the DLL's
+shaders, and `renderer_vulkan/present/frame_gen.cpp`, the passes), GPL-3.0 as the app is: built into the
+app once, beside MihawkGen in `FrameGenPS5`, the Vulkan sides would choose it as the Switch does
+(`Lossless.dll` where the Switch side reads it). The request's order: the 3DS first, then the DS (which
+needs D5's Vulkan picture of its screens to have frames to give it), the Wii U last.
 
 <a id="d5"></a>**D5. The DS's 3D above its own resolution** (L, #100)
 Mario Kart DS and the other 3D games drawn at 2x to 4x, chosen as the 3DS side's internal resolution
