@@ -571,6 +571,14 @@ Today it works only while held. An option to press once for on and again for off
 
 Since ProsperoEden's launcher is no longer opened from the app (`1579f25`), these went with it.
 
+<a id="n0"></a>**N0. Games on a network share** (M, #101)
+The other sides play from an SMB or NFS share because their emulators run in the app, whose file
+calls go through `port/ps5/netfs_files.cpp`. Eden is a program of its own, so a `/net/...` game is out
+of its reach: the Switch side's folder picker no longer offers shares, and starting such a game says
+to copy it to the PS5 or a USB drive. To play from a share: link the same netfs layer into Eden's
+program (`headless/ecam.cmake` already builds PS5-ECAM sources into it), or have the launcher copy the
+game to the PS5 before Eden starts, with its progress shown. Either needs a console to try on.
+
 <a id="n1"></a>**N1. Buttons and controllers** (M)
 The Switch side's **Controls** page has only Vibration (`port/frontend/shell/settings.cpp`, the
 `!IsSwitch()` checks). Needed: the button map, A/B on Circle or Cross like the other sides, the

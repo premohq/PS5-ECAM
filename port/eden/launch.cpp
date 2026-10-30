@@ -3,6 +3,7 @@
 #include "ingame.h"
 #include "library.h"
 #include "../app/lang.h"
+#include "../app/netfs.h"
 #include "../app/paths.h"
 #include "../ps5/log.h"
 
@@ -114,6 +115,13 @@ namespace ps5eden
 		if (!Available())
 		{
 			error = ps5lang::Tr("This build has no Switch emulator: eden/eboot.bin is not in the app's folder.");
+			return;
+		}
+		// a network share (/net/...) is the launcher's own: Eden, a program of its own, cannot read it (#101)
+		if (ps5netfs::is_net(game.path.string()))
+		{
+			ps5log::Line("[switch] {} is on a network share, which Eden cannot read: {}", game.name, game.path.string());
+			error = ps5lang::Tr("Eden cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it.");
 			return;
 		}
 		ps5log::Line("[switch] starting {} in Eden ({})", game.name, game.path.string());

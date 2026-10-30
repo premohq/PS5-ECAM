@@ -946,9 +946,11 @@ namespace ps5shell
 		std::vector<std::string> tabs{"/data"};
 		for (const std::string& drive : ConnectedDrives())
 			tabs.push_back(drive);
-		// each network share after the drives (6.14), as /net/<its name>
-		for (const ps5netfs::Share& share : ps5netfs::shares())
-			tabs.push_back(ps5netfs::root_of(share));
+		// each network share after the drives (6.14), as /net/<its name>; not for the Switch side's games,
+		// which Eden, a program of its own, cannot read there (#101)
+		if (m_filesSide != System::Switch)
+			for (const ps5netfs::Share& share : ps5netfs::shares())
+				tabs.push_back(ps5netfs::root_of(share));
 		return tabs;
 	}
 
