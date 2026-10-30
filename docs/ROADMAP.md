@@ -629,6 +629,15 @@ The DS's screen filters are Sharp, Smooth and Square pixels. Add an LCD grid, th
 colours, and frame blending for games that flicker sprites to fake transparency, as RetroArch's handheld
 shaders do.
 
+<a id="d5"></a>**D5. The DS's 3D above its own resolution** (L, #100)
+Mario Kart DS and the other 3D games drawn at 2x to 4x, chosen as the 3DS side's internal resolution
+is (the request asks for that same selector). The DS side draws its 3D with melonDS's software renderer
+(`port/melonds/core.cpp`, `SoftRenderer`), which has the DS's 256x192 alone. melonDS scales its 3D only
+in its OpenGL renderer (`GLRenderer`, its scale factor) or its compute renderer (OpenGL 4.3): either
+needs an OpenGL context on the console beside the screens' Vulkan picture (`port/melonds/screens.cpp`),
+and its frames handed over to it, as Eden's OpenGL build does with the PS5's OpenGL SDK. To measure on a
+console first: the software renderer is what runs everything today.
+
 <a id="t1"></a>**T1. The 3DS camera from a picture** (M) · **Done:** [`f76c8ca`](https://github.com/premohq/PS5-ECAM/commit/f76c8ca)
 Azahar's cameras are set to `blank` (`port/azahar/core.cpp:429`). Azahar can show a still image as the
 camera instead: a picture from USB, or one sent from the phone page ([P1](#p1)), for the QR codes
