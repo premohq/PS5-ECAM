@@ -1,0 +1,970 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Oliv3rmoon <165517657+Oliv3rmoon@users.noreply.github.com>
+Date: Thu, 29 Oct 2026 16:50:44 -0700
+Subject: [PATCH] Eden: build eden-nx2 50fa86bbbc (Eden master with Switch 2
+ support); the patches and derivations follow it
+
+The eleven patches rebase onto it (one include conflict). Derivations follow eden-nx2's
+code where it changed; two are dropped because upstream now does the same: the small-vector
+include (upstream removed FixSmallVectorADL) and GetPseudoDeviceId without control data.
+Solid NCZ games and updates are still read: Eden's new block reader stays behind ours.
+The split GPU thread is stopped with the PS5 worker, reset between sessions, and an exception
+on it ends the session like one on the worker.
+
+(Cherry-picked from Oliv3rmoon/Nightshade 63e4561 for PS5-ECAM: Nightshade's own Eden patches 05 to
+11, its checks and its port log are left out; the guest core's idle wait keeps this fork's
+spin-then-sleep on eden-nx2's atomic flag, and Nightshade's interrupt timing, scheduler retry,
+unmapped access log and NSZ reading, which this fork does not have, stay out.)
+---
+ THIRD_PARTY_NOTICES.md                        |   4 +-
+ UPSTREAM.json                                 |   5 +-
+ docs/BUILDING.md                              |   4 +-
+ headless/CMakeLists.txt                       | 158 ++++++++++++-----
+ headless/native_gpu_thread.inc                |   3 +
+ headless/vulkan_download_batch.inc            |   4 +-
+ headless/vulkan_gc_downloads.inc              |   4 +-
+ tools/build-headless-host.sh                  |  12 +-
+ tools/check-gc-scan.py                        |   4 +-
+ tools/check-native-queue-probe.py             |   2 +-
+ tools/check-tsc-fallback.py                   |   5 +-
+ tools/ci/build-release.sh                     |   2 +-
+ tools/deps.json                               |  13 +-
+ tools/eden-patches/01-fast-file-reads.diff    |  88 ++++-----
+ .../02-cache-storage-title-id.diff            |   2 +-
+ .../eden-patches/03-local-memory-bounds.diff  |   6 +-
+ .../04-cpu-reads-reactive-flushing.diff       |  10 +-
+ tools/prepare-build.sh                        |   4 +-
+ tools/prepare-vulkan-port.py                  | 167 ++++++++++++------
+ 19 files changed, 318 insertions(+), 179 deletions(-)
+
+diff --git a/THIRD_PARTY_NOTICES.md b/THIRD_PARTY_NOTICES.md
+index 470393c..e0e4ba6 100644
+--- a/THIRD_PARTY_NOTICES.md
++++ b/THIRD_PARTY_NOTICES.md
+@@ -10,7 +10,9 @@ builds on the following projects, each under its own license.
+   fetches and pins itself: Dynarmic, Boost, fmt, xbyak, zstd, lz4, Opus, SDL3,
+   simpleini, sirit, SPIRV-Headers, Vulkan-Headers, Vulkan-Utility-Libraries,
+   Vulkan Memory Allocator, ENet, frozen, cpp-httplib, nlohmann/json, and the time
+-  zone data. Each keeps its upstream license.
++  zone data. Each keeps its upstream license. The pinned commit is from Takoroka's
++  **[eden-nx2](https://git.eden-emu.dev/Takoroka/eden-nx2)**, GPL-3.0-or-later: Eden master with
++  experimental support for Switch 2 titles (its `NX2_NOTES.md`; docs/NX2_PORT.md here).
+ - **[FFmpeg](https://ffmpeg.org)**, LGPL-2.1-or-later. Built from Eden's pinned
+   source with only the H.264, VP8 and VP9 decoders.
+ - **[OpenSSL](https://www.openssl.org)**, Apache-2.0, and
+diff --git a/UPSTREAM.json b/UPSTREAM.json
+index 3ef5836..5073512 100644
+--- a/UPSTREAM.json
++++ b/UPSTREAM.json
+@@ -1,7 +1,8 @@
+ {
+-  "eden_commit": "67bada77f8a43a90da2e94e89b8e7da73c256989",
++  "eden_commit": "50fa86bbbc403ad565eb44fcc281f16f77c69e15",
++  "eden_source": "https://git.eden-emu.dev/Takoroka/eden-nx2 (branch eden-nx2), branched from Eden master at 26a03d2473, with Switch 2 support",
+   "archives": {
+-    "eden-67bada77.tar.gz": "d42b6fb492c65eb5e98ab72a786dff01fd64384d073a739b9c9ff475414366ee",
++    "eden-50fa86bb.tar.gz": "54c7b3c5fc6c5eb7fe0c212d7e10f8b8b206f6f0eff3fb758d0922574a295b62",
+     "fmt-12.1.0.tar.gz": "ea7de4299689e12b6dddd392f9896f08fb0777ac7168897a244a6d6085043fea",
+     "xbyak-7.40.1.tar.gz": "2af7aee286b0ce94422b7894de4308d26eba06ef63c1c80a3bd9719b5d798fe2",
+     "libboost1.90-dev_1.90.0-6ubuntu1_amd64.deb": "7b89698c907fd5d33ccd439674fa53803139923822181c87b910579827aca379",
+diff --git a/docs/BUILDING.md b/docs/BUILDING.md
+index bb68b3d..07fce4a 100644
+--- a/docs/BUILDING.md
++++ b/docs/BUILDING.md
+@@ -78,7 +78,9 @@ Downloads are cached in `~/.cache/prosperoeden-deps` (`PROSPEROEDEN_DEPS_CACHE`)
+ 
+ Inside this repository, in `.deps/`:
+ 
+-- **Eden** at commit `67bada77f8a43a90da2e94e89b8e7da73c256989` (GitHub mirror archive), with
++- **Eden** as Takoroka's [eden-nx2](https://git.eden-emu.dev/Takoroka/eden-nx2) (Eden master with
++  experimental Switch 2 support, docs/NX2_PORT.md) at commit
++  `50fa86bbbc403ad565eb44fcc281f16f77c69e15` (the archive git.eden-emu.dev makes of it), with
+   Eden's own hash-pinned packages, which its configure step downloads. The PS5 frontend in
+   `headless/` replaces and derives sources at configure time (`headless/inject.cmake`). This
+   fork also patches a few of Eden's files when `make prepare` extracts them
+diff --git a/headless/CMakeLists.txt b/headless/CMakeLists.txt
+index 0096515..430c047 100644
+--- a/headless/CMakeLists.txt
++++ b/headless/CMakeLists.txt
+@@ -35,22 +35,6 @@ function(write_derived path content)
+     file(WRITE "${path}.in" "${content}")
+     configure_file("${path}.in" "${path}" COPYONLY)
+ endfunction()
+-# Eden's helper that hands a small vector on (FixSmallVectorADL, texture_cache/util.h) has two
+-# forms: the vector itself, or - for a GCC 12 bug with an old Boost - a copy of it on the heap.
+-# Boost's version chooses, and the header reads it without including <boost/version.hpp>: where
+-# nothing else has, the version reads as 0 and the copy is made. That was every draw that follows
+-# a guest write of GPU memory, every texture upload and every buffer copy: 2,300 of the GPU
+-# thread's 3,400 allocations a frame in a large open-world game. With the include, the vector
+-# itself (the bundled Boost is recent).
+-file(READ "${PROJECT_SOURCE_DIR}/src/video_core/texture_cache/util.h" texture_util_header)
+-string(REPLACE "#include <boost/container/small_vector.hpp>"
+-    "#include <boost/container/small_vector.hpp>\n#include <boost/version.hpp>"
+-    texture_util_derived "${texture_util_header}")
+-if(texture_util_derived STREQUAL texture_util_header OR NOT texture_util_header MATCHES "FixSmallVectorADL")
+-    message(FATAL_ERROR "Pinned texture cache util.h layout changed")
+-endif()
+-write_derived("${PORT_BUILD_DIR}/small-vector/video_core/texture_cache/util.h" "${texture_util_derived}")
+-target_include_directories(video_core BEFORE PRIVATE "${PORT_BUILD_DIR}/small-vector")
+ # Each Vulkan pipeline locks its own std::mutex and signals its own std::condition_variable once,
+ # when its build ends, and keeps both while it is cached. On the PS5 those are thread library
+ # objects, of which a process has only so many: a game with thousands of pipelines used them up
+@@ -979,8 +963,26 @@ if(prefetch_at LESS 0)
+ endif()
+ # Guest core idle: count each wait and how long it lasted, and spin on the
+ # interrupt flag for a bounded time before sleeping on the condition variable, because waking a
+-# sleeping host thread puts the host scheduler's latency on the guest's critical path.
+-set(idle_old "void PhysicalCore::Idle() {\n    std::unique_lock lk{m_guard};\n    m_on_interrupt.wait(lk, [this] { return m_is_interrupted; });\n}")
++# sleeping host thread puts the host scheduler's latency on the guest's critical path. eden-nx2's own
++# poll (EDEN_NX2_IDLE_SPIN_US, off unless set) gives way to this one; its flag is a std::atomic<bool>.
++set(idle_old [=[void PhysicalCore::Idle() {
++    // Guest job systems hand work between cores many times per frame; blocking at once adds the
++    // host's thread wake-up latency to every handoff. EDEN_NX2_IDLE_SPIN_US=<n>: poll for that
++    // many microseconds before blocking.
++    static const auto spin = std::chrono::microseconds{[] {
++        const char* text = std::getenv("EDEN_NX2_IDLE_SPIN_US");
++        return text ? std::strtoll(text, nullptr, 10) : 0LL;
++    }()};
++    if (spin.count() > 0) {
++        const auto deadline = std::chrono::steady_clock::now() + spin;
++        while (!m_is_interrupted.load(std::memory_order_acquire) &&
++               std::chrono::steady_clock::now() < deadline) {
++            std::this_thread::yield();
++        }
++    }
++    std::unique_lock lk{m_guard};
++    m_on_interrupt.wait(lk, [this] { return m_is_interrupted.load(); });
++}]=])
+ string(FIND "${physical_core_source}" "${idle_old}" idle_at)
+ if(idle_at LESS 0)
+     message(FATAL_ERROR "Pinned PhysicalCore::Idle changed")
+@@ -988,13 +990,13 @@ endif()
+ string(REPLACE "${idle_old}" [=[void PhysicalCore::Idle() {
+     const long long start = ::Eden::Performance::NowNs();
+     const unsigned spins = ::Eden::Performance::idle_spin_iterations.load(std::memory_order_relaxed);
+-    for (unsigned i = 0; i < spins && !__atomic_load_n(&m_is_interrupted, __ATOMIC_ACQUIRE); ++i)
++    for (unsigned i = 0; i < spins && !m_is_interrupted.load(std::memory_order_acquire); ++i)
+         __builtin_ia32_pause();
+     bool slept;
+     {
+         std::unique_lock lk{m_guard};
+-        slept = !m_is_interrupted;
+-        m_on_interrupt.wait(lk, [this] { return m_is_interrupted; });
++        slept = !m_is_interrupted.load(std::memory_order_relaxed);
++        m_on_interrupt.wait(lk, [this] { return m_is_interrupted.load(std::memory_order_relaxed); });
+     }
+     ::Eden::Performance::CountIdle(m_core_index, ::Eden::Performance::NowNs() - start, slept);
+ }]=] physical_core_source "${physical_core_source}")
+@@ -1033,14 +1035,18 @@ list(REMOVE_ITEM core_sources "core_timing.cpp")
+ list(APPEND core_sources "${PORT_BUILD_DIR}/core_timing.cpp")
+ list(REMOVE_ITEM core_sources "hle/kernel/physical_core.cpp")
+ list(APPEND core_sources "${PORT_BUILD_DIR}/physical_core.cpp")
+-# Guest kernel spin locks spin before blocking (performance.h kernel_spin_iterations).
++# Guest kernel spin locks spin before blocking (performance.h kernel_spin_iterations). eden-nx2's
++# KSpinLock is its own spin-then-wait lock (an atomic word, no std::mutex); it spins a fixed 128
++# pauses, and spins kernel_spin_iterations here, the count measured for these locks on the console.
+ file(READ "${PROJECT_SOURCE_DIR}/src/core/hle/kernel/k_spin_lock.cpp" spin_source)
+-set(spin_old "void KSpinLock::Lock() {\n    m_lock.lock();\n}")
++set(spin_old "    for (int spin = 0; spin < SpinCount; ++spin) {\n        Pause();")
+ string(FIND "${spin_source}" "${spin_old}" spin_at)
+-if(spin_at LESS 0)
++if(spin_at LESS 0 OR NOT spin_source MATCHES "m_state.wait\\(2, std::memory_order_relaxed\\)")
+     message(FATAL_ERROR "Pinned KSpinLock::Lock changed")
+ endif()
+-string(REPLACE "${spin_old}" "void KSpinLock::Lock() {\n    ::Eden::Performance::SpinAcquire(m_lock);\n}" spin_source "${spin_source}")
++string(REPLACE "${spin_old}"
++    "    const int spins = static_cast<int>(::Eden::Performance::kernel_spin_iterations.load(std::memory_order_relaxed));\n    for (int spin = 0; spin < spins; ++spin) {\n        Pause();"
++    spin_source "${spin_source}")
+ write_derived("${PORT_BUILD_DIR}/k_spin_lock.cpp" "#include \"${EDEN_PORT_DIR}/performance.h\"\n${spin_source}")
+ list(REMOVE_ITEM core_sources "hle/kernel/k_spin_lock.cpp")
+ list(APPEND core_sources "${PORT_BUILD_DIR}/k_spin_lock.cpp")
+@@ -1051,12 +1057,13 @@ list(APPEND core_sources "${PORT_BUILD_DIR}/k_spin_lock.cpp")
+ # folder held hundreds of them on top of the game's own (#169). A file closed here is opened again
+ # when it is next read.
+ file(READ "${PROJECT_SOURCE_DIR}/src/core/file_sys/vfs/vfs_real.cpp" vfs_real_source)
+-set(open_files_old "constexpr size_t MaxOpenFiles = 8192;")
++# (eden-nx2 made the cap a function for Windows' C runtime limit; elsewhere it is still 8,192.)
++set(open_files_old "#else\n    return 8192;\n#endif")
+ string(FIND "${vfs_real_source}" "${open_files_old}" open_files_at)
+-if(open_files_at LESS 0)
++if(open_files_at LESS 0 OR NOT vfs_real_source MATCHES "size_t MaxOpenFiles\\(\\) {")
+     message(FATAL_ERROR "Pinned vfs_real.cpp MaxOpenFiles changed")
+ endif()
+-string(REPLACE "${open_files_old}" "constexpr size_t MaxOpenFiles = 512;" vfs_real_source "${vfs_real_source}")
++string(REPLACE "${open_files_old}" "#else\n    return 512;\n#endif" vfs_real_source "${vfs_real_source}")
+ write_derived("${PORT_BUILD_DIR}/vfs_real.cpp" "${vfs_real_source}")
+ list(REMOVE_ITEM core_sources "file_sys/vfs/vfs_real.cpp")
+ list(APPEND core_sources "${PORT_BUILD_DIR}/vfs_real.cpp")
+@@ -1289,19 +1296,6 @@ write_derived("${PORT_BUILD_DIR}/deconstructed_rom_directory.cpp"
+     "#include \"${EDEN_PORT_DIR}/load_address.h\"\n${aslr_source}")
+ list(REMOVE_ITEM core_sources "loader/deconstructed_rom_directory.cpp")
+ list(APPEND core_sources "${PORT_BUILD_DIR}/deconstructed_rom_directory.cpp")
+-# GetPseudoDeviceId read the seed through the control data without checking that there is
+-# any (a game without control data, such as a homebrew NRO): seed 0 then, as for other
+-# NACP fields Eden defaults when the metadata is missing.
+-file(READ "${PROJECT_SOURCE_DIR}/src/core/hle/service/am/service/application_functions.cpp" app_functions_source)
+-set(app_functions_old "    auto const seed = res.first->raw.seed_for_pseudo_device_id;")
+-string(FIND "${app_functions_source}" "${app_functions_old}" app_functions_at)
+-if(app_functions_at LESS 0)
+-    message(FATAL_ERROR "Pinned GetPseudoDeviceId changed")
+-endif()
+-string(REPLACE "${app_functions_old}" "    auto const seed = res.first != nullptr ? res.first->raw.seed_for_pseudo_device_id : u64_le{0};" app_functions_source "${app_functions_source}")
+-write_derived("${PORT_BUILD_DIR}/application_functions.cpp" "${app_functions_source}")
+-list(REMOVE_ITEM core_sources "hle/service/am/service/application_functions.cpp")
+-list(APPEND core_sources "${PORT_BUILD_DIR}/application_functions.cpp")
+ set_property(TARGET core PROPERTY SOURCES "${core_sources}")
+ # Core's NS query service owns this implementation from frontend_common.
+ target_sources(core PRIVATE "${PROJECT_SOURCE_DIR}/src/frontend_common/play_time_manager.cpp")
+@@ -2596,8 +2590,9 @@ if(EDEN_PS5_OPENGL)
+         string(REPLACE "    });\n}" "}" gpu_worker "${gpu_worker}")
+         string(REPLACE "thread.get_stop_token()" "stop_source.get_token()" gpu_worker "${gpu_worker}")
+         string(REPLACE "ThreadManager::~ThreadManager() = default;" "ThreadManager::~ThreadManager() { Stop(); }" gpu_worker "${gpu_worker}")
+-        # Eden's own shutdown of its std::jthread worker: the worker here is a pthread, ended by Stop.
+-        set(worker_shutdown "void ThreadManager::NotifyShutdown() {\n    if (thread.joinable()) {\n        thread.request_stop();\n        thread.join();\n    }\n}")
++        # Eden's own shutdown of its std::jthread worker: the worker here is a pthread, ended by Stop
++        # (which also ends eden-nx2's split GPU thread, native_gpu_thread.inc).
++        set(worker_shutdown "void ThreadManager::NotifyShutdown() {\n    if (thread.joinable()) {\n        thread.request_stop();\n        thread.join();\n    }\n    VideoCommon::GpuSplit::Get().Stop();\n}")
+         string(FIND "${gpu_worker}" "${worker_shutdown}" worker_shutdown_at)
+         if(worker_shutdown_at LESS 0)
+             message(FATAL_ERROR "Pinned GPU worker shutdown changed")
+@@ -2655,6 +2650,72 @@ if(EDEN_PS5_OPENGL)
+         write_derived("${PORT_BUILD_DIR}/gpu_thread.cpp" "${gpu_worker}")
+         list(REMOVE_ITEM video_sources gpu_thread.cpp)
+         list(APPEND video_sources "${PORT_BUILD_DIR}/gpu_thread.cpp")
++        # eden-nx2's split GPU thread (Switch 2 titles, video_core/gpu_split.h): its second thread runs
++        # engine methods, draws and the rasterizer. An exception there (out of graphics memory, a
++        # lost device) would end the app; as on the worker, it is recorded and the session ends with
++        # its message (main.cpp TakeGpuFailure), and the thread goes on taking what the first sends,
++        # so the first is not left waiting for it. The app runs one session after another: Stop
++        # leaves the split as it was before its first start.
++        file(READ "${PROJECT_SOURCE_DIR}/src/video_core/gpu_split.cpp" gpu_split_source)
++        eden_patch(gpu_split_source [=[            const size_t size = Execute(&ring[index]);
++]=] [=[            size_t size;
++            try {
++                size = Execute(&ring[index]);
++            } catch (...) {
++                try {
++                    std::rethrow_exception(std::current_exception());
++                } catch (const std::exception& error) {
++                    ::Eden::Report("GPU back thread", error.what());
++                } catch (...) {
++                    ::Eden::Report("GPU back thread", "Unknown exception");
++                }
++                ::Eden::RecordGpuFailure(std::current_exception());
++                // The entry's length, as Execute gives it.
++                const u64 head = ring[index];
++                switch (static_cast<Kind>(head & 0xf)) {
++                case Kind::Wrap:
++                    size = 0;
++                    break;
++                case Kind::Engine:
++                    size = 2;
++                    break;
++                case Kind::Method:
++                    size = (head & HasSegment) != 0 ? 2 : 1;
++                    break;
++                case Kind::Multi:
++                    size = ((head & HasSegment) != 0 ? 3 : 2) + ((head >> 32) + 1) / 2;
++                    break;
++                case Kind::Call:
++                    size = 2 + static_cast<size_t>((head >> 8) & 0xffffff);
++                    break;
++                default:
++                    size = 1;
++                    break;
++                }
++            }
++]=])
++        eden_patch(gpu_split_source [=[    back_thread.join();
++    active = false;
++}
++]=] [=[    back_thread.join();
++    active = false;
++    front_macros = false;
++    ring.reset();
++    write_position = 0;
++    published_local = 0;
++    consumed_cache = 0;
++    publish_every = PublishEvery;
++    front_engine = nullptr;
++    back_engine = nullptr;
++    published.store(0, std::memory_order_relaxed);
++    consumed.store(0, std::memory_order_relaxed);
++    back_waiting.store(false, std::memory_order_relaxed);
++}
++]=])
++        write_derived("${PORT_BUILD_DIR}/gpu_split.cpp"
++            "#include \"${EDEN_PORT_DIR}/diagnostics.h\"\n#include \"${EDEN_PORT_DIR}/gpu_failure.h\"\n${gpu_split_source}")
++        list(REMOVE_ITEM video_sources gpu_split.cpp)
++        list(APPEND video_sources "${PORT_BUILD_DIR}/gpu_split.cpp")
+     endif()
+     string(PREPEND gpu_source "#include <glad/glad.h>\n")
+     write_derived("${PORT_BUILD_DIR}/include/video_core/gpu_thread.h" "${gpu_thread_header}")
+@@ -2910,9 +2971,16 @@ ${paths_source}")
+     if(tsc_offset LESS 0)
+         message(FATAL_ERROR "Pinned TSC frequency detection changed")
+     endif()
++    # eden-nx2 measures it after that branch when the frequency is 0 (AMD has no leaf 0x15 either);
++    # here also when CPUID gives an implausible one, below 1 GHz.
++    set(nx2_tsc_fallback "    if (caps.invariant_tsc && caps.tsc_frequency == 0) {\n        caps.tsc_frequency = X64::EstimateRDTSCFrequency();\n    }")
++    string(FIND "${features_source}" "${nx2_tsc_fallback}" nx2_tsc_offset)
++    if(nx2_tsc_offset LESS 0)
++        message(FATAL_ERROR "Pinned TSC frequency detection changed")
++    endif()
+     string(REPLACE "${old_tsc_fallback}" "        }" features_source "${features_source}")
+-    string(REPLACE "    if (max_std_fn >= 0x16) {"
+-        "    if (caps.invariant_tsc && caps.tsc_frequency < 1'000'000'000ULL) {\n        caps.tsc_frequency = X64::EstimateRDTSCFrequency();\n    }\n\n    if (max_std_fn >= 0x16) {" features_source "${features_source}")
++    string(REPLACE "${nx2_tsc_fallback}"
++        "    if (caps.invariant_tsc && caps.tsc_frequency < 1'000'000'000ULL) {\n        caps.tsc_frequency = X64::EstimateRDTSCFrequency();\n    }" features_source "${features_source}")
+     write_derived("${PORT_BUILD_DIR}/cpu_features.cpp" "${features_source}")
+     list(REMOVE_ITEM common_sources cpu_features.cpp)
+     list(APPEND common_sources "${PORT_BUILD_DIR}/cpu_features.cpp")
+diff --git a/headless/native_gpu_thread.inc b/headless/native_gpu_thread.inc
+index 315bca9..cd1f777 100644
+--- a/headless/native_gpu_thread.inc
++++ b/headless/native_gpu_thread.inc
+@@ -58,5 +58,8 @@ void ThreadManager::Stop() {
+         if (pthread_join(thread, nullptr)) std::terminate();
+         thread_joinable = false;
+     }
++    // eden-nx2's second GPU thread (Switch 2 titles, video_core/gpu_split.h) runs what the worker
++    // sent it: it ends after the worker, and the next session starts it afresh.
++    VideoCommon::GpuSplit::Get().Stop();
+ }
+ } // namespace VideoCommon::GPUThread
+diff --git a/headless/vulkan_download_batch.inc b/headless/vulkan_download_batch.inc
+index 941f86e..2d856b4 100644
+--- a/headless/vulkan_download_batch.inc
++++ b/headless/vulkan_download_batch.inc
+@@ -11,7 +11,7 @@
+             runtime.Finish();
+             for (auto& [image_id, map] : pending) {
+                 Image& image = slot_images[image_id];
+-                const auto copies = FixSmallVectorADL(FullDownloadCopies(image.info));
++                const auto copies = FullDownloadCopies(image.info);
+                 SwizzleImage(*gpu_memory, image.gpu_addr, image.info, copies, map.mapped_span,
+                              swizzle_data_buffer);
+             }
+@@ -24,7 +24,7 @@
+             if (pending.size() == 16 || bytes > batch_limit - batch_bytes)
+                 finish_batch();
+             auto map = runtime.DownloadStagingBuffer(bytes);
+-            const auto copies = FixSmallVectorADL(FullDownloadCopies(image.info));
++            const auto copies = FullDownloadCopies(image.info);
+             image.DownloadMemory(map, copies);
+             pending.emplace_back(image_id, std::move(map));
+             // Oversized images retain the original one-image allocation/wait.
+diff --git a/headless/vulkan_gc_downloads.inc b/headless/vulkan_gc_downloads.inc
+index 30cd9e1..de54054 100644
+--- a/headless/vulkan_gc_downloads.inc
++++ b/headless/vulkan_gc_downloads.inc
+@@ -59,7 +59,7 @@
+                 auto map = runtime.DownloadStagingBuffer(image.unswizzled_size_bytes, true);
+                 // Pin until CPU publication, even if later recording submits work.
+                 gc_downloads.emplace_back(id, map);
+-                const auto copies = FixSmallVectorADL(FullDownloadCopies(image.info));
++                const auto copies = FullDownloadCopies(image.info);
+                 image.DownloadMemory(map, copies);
+                 bytes += image.unswizzled_size_bytes;
+                 usage -= ReclaimedBytes(image);
+@@ -82,7 +82,7 @@
+                 return entry.first == id;
+             });
+             if (it != gc_downloads.end()) {
+-                const auto copies = FixSmallVectorADL(FullDownloadCopies(image.info));
++                const auto copies = FullDownloadCopies(image.info);
+                 SwizzleImage(*gpu_memory, image.gpu_addr, image.info, copies,
+                              it->second.mapped_span, swizzle_data_buffer);
+                 runtime.FreeDeferredStagingBuffer(it->second);
+diff --git a/tools/build-headless-host.sh b/tools/build-headless-host.sh
+index 09be694..e0e744d 100644
+--- a/tools/build-headless-host.sh
++++ b/tools/build-headless-host.sh
+@@ -18,26 +18,26 @@ scratch=$(cat .local/headless-cache)
+ [[ "$scratch" == "$cache_parent"/ps5-eden-headless.* && "$(cat "$scratch/owner")" == "$root" ]]
+ eden="$scratch/source"
+ # As in prepare-build.sh: a tree unpacked from another archive is another Eden revision.
+-if [[ ! -f "$eden/CMakeLists.txt" || $(cat "$eden/.unpacked-from" 2>/dev/null) != eden-67bada77.tar.gz ]]; then
++if [[ ! -f "$eden/CMakeLists.txt" || $(cat "$eden/.unpacked-from" 2>/dev/null) != eden-50fa86bb.tar.gz ]]; then
+     python3 - <<'PY'
+ import hashlib, json, pathlib
+-p = pathlib.Path('.deps/eden-67bada77.tar.gz')
++p = pathlib.Path('.deps/eden-50fa86bb.tar.gz')
+ assert hashlib.sha256(p.read_bytes()).hexdigest() == json.loads(pathlib.Path('UPSTREAM.json').read_text())['archives'][p.name]
+ PY
+     if [[ -d $eden/.cache ]]; then rm -rf "$scratch/source-cache" && mv "$eden/.cache" "$scratch/source-cache"; fi
+     rm -rf "$eden"
+     mkdir -p "$eden"
+-    tar -xzf .deps/eden-67bada77.tar.gz --strip-components=1 -C "$eden"
++    tar -xzf .deps/eden-50fa86bb.tar.gz --strip-components=1 -C "$eden"
+     if [[ -d $scratch/source-cache ]]; then mv "$scratch/source-cache" "$eden/.cache"; fi
+-    printf '%s\n' eden-67bada77.tar.gz > "$eden/.unpacked-from"
++    printf '%s\n' eden-50fa86bb.tar.gz > "$eden/.unpacked-from"
+ fi
+-printf '%s\n' '67bada77f8a43a90da2e94e89b8e7da73c256989' > "$eden/GIT-COMMIT"
++printf '%s\n' '50fa86bbbc403ad565eb44fcc281f16f77c69e15' > "$eden/GIT-COMMIT"
+ printf '%s\n' 'ps5-headless' > "$eden/GIT-REFSPEC"
+ # FFmpeg links configure probes through the compiler driver, not raw ld.
+ # Keep the derivative in our cache and regenerate its Makefile when it changes.
+ python3 - "$eden" "$scratch/build" <<'PY'
+ import pathlib, sys
+-source = pathlib.Path('.deps/mirror-67bada77f8a43a90da2e94e89b8e7da73c256989/externals/ffmpeg/CMakeLists.txt')
++source = pathlib.Path('.deps/eden-50fa86bbbc403ad565eb44fcc281f16f77c69e15/externals/ffmpeg/CMakeLists.txt')
+ text = source.read_text()
+ for old, new in (
+     ('--ld=${CMAKE_LINKER}', '--ld=${CMAKE_C_COMPILER}'),
+diff --git a/tools/check-gc-scan.py b/tools/check-gc-scan.py
+index e7b88d8..75a85c7 100644
+--- a/tools/check-gc-scan.py
++++ b/tools/check-gc-scan.py
+@@ -13,7 +13,7 @@ plain python3:
+ 
+     python3 -B tools/check-gc-scan.py
+ 
+-When an Eden checkout is present (.deps/mirror-*/src/video_core/...), it also
++When an Eden checkout is present (.deps/eden-<commit>/src/video_core/...), it also
+ verifies the three anchors against the real Eden source. Without one, that
+ part is skipped.
+ """
+@@ -47,7 +47,7 @@ assert port.count("gc_count_visits.load(std::memory_order_relaxed)") == 2, \
+ 
+ # 4. Against real Eden source when a checkout exists: each anchor the patch
+ # relies on must match exactly once (configure fails on drift too).
+-mirrors = sorted(glob.glob(str(root / ".deps/mirror-*/src/video_core/texture_cache/texture_cache.h")))
++mirrors = sorted(glob.glob(str(root / ".deps/eden-*/src/video_core/texture_cache/texture_cache.h")))
+ if not mirrors:
+     print("check-gc-scan: SKIPPED pin-vs-source (no Eden texture_cache.h; structural checks passed)")
+     sys.exit(0)
+diff --git a/tools/check-native-queue-probe.py b/tools/check-native-queue-probe.py
+index a2e793f..f0844b4 100644
+--- a/tools/check-native-queue-probe.py
++++ b/tools/check-native-queue-probe.py
+@@ -70,7 +70,7 @@ int main() {
+ with tempfile.TemporaryDirectory() as tmp:
+     exe=Path(tmp)/'probe'
+     subprocess.run(['c++','-std=c++20','-Wall','-Wextra','-Werror',
+-                    '-I'+str(root/'.deps/mirror-67bada77f8a43a90da2e94e89b8e7da73c256989/src'),
++                    '-I'+str(root/'.deps/eden-50fa86bbbc403ad565eb44fcc281f16f77c69e15/src'),
+                     '-x','c++','-o',str(exe),'-'],input=code,text=True,check=True)
+     subprocess.run([str(exe)],check=True,stdout=subprocess.DEVNULL)
+ print('Native queue probe PASS: 64 cases, packet ABI, submit failure/timeout preserve GPU allocations')
+diff --git a/tools/check-tsc-fallback.py b/tools/check-tsc-fallback.py
+index 7fd26d5..cac2551 100644
+--- a/tools/check-tsc-fallback.py
++++ b/tools/check-tsc-fallback.py
+@@ -8,9 +8,10 @@ root = Path(__file__).resolve().parents[1]
+ cache = Path((root / '.local/headless-cache').read_text().strip())
+ original = (cache / 'source/src/common/cpu_features.cpp').read_text()
+ derived = (cache / 'native-local/headless/cpu_features.cpp').read_text()
++# eden-nx2 measures the frequency when it is 0; the build also when it is below 1 GHz.
+ expected = original.replace('        } else {\n            caps.tsc_frequency = X64::EstimateRDTSCFrequency();\n        }', '        }').replace(
+-    '    if (max_std_fn >= 0x16) {',
+-    "    if (caps.invariant_tsc && caps.tsc_frequency < 1'000'000'000ULL) {\n        caps.tsc_frequency = X64::EstimateRDTSCFrequency();\n    }\n\n    if (max_std_fn >= 0x16) {")
++    '    if (caps.invariant_tsc && caps.tsc_frequency == 0) {\n',
++    "    if (caps.invariant_tsc && caps.tsc_frequency < 1'000'000'000ULL) {\n")
+ assert derived == expected and derived.count('X64::EstimateRDTSCFrequency()') == 1
+ selection = derived[derived.index('    if (max_std_fn >= 0x15) {'):derived.index('    if (max_std_fn >= 0x16) {')]
+ code = '''
+diff --git a/tools/ci/build-release.sh b/tools/ci/build-release.sh
+index a812548..ca56456 100644
+--- a/tools/ci/build-release.sh
++++ b/tools/ci/build-release.sh
+@@ -16,7 +16,7 @@ if [[ -n ${EDEN_DEV_CHECKOUT:-} ]]; then
+             fi
+         done
+         mkdir -p .deps build
+-        for input in "$dev"/.deps/eden-67bada77.tar.gz "$dev"/.deps/mirror-* "$dev"/.deps/ffmpeg-* \
++        for input in "$dev"/.deps/eden-* "$dev"/.deps/ffmpeg-* \
+                      "$dev"/.deps/fmt-12.1.0 "$dev"/.deps/compiler-rt-18.1.8 "$dev"/.deps/pacbrew-* \
+                      "$dev"/.deps/ps5-opengl-sdk-*; do
+             [[ -e $input && ! -e .deps/${input##*/} ]] && ln -s "$input" ".deps/${input##*/}"
+diff --git a/tools/deps.json b/tools/deps.json
+index 49a94e9..a232fb3 100644
+--- a/tools/deps.json
++++ b/tools/deps.json
+@@ -3,13 +3,14 @@
+   "items": [
+     {
+       "name": "eden",
+-      "about": "Eden emulator source at the pinned commit (GitHub mirror archive)",
++      "about": "Eden emulator source: Takoroka's eden-nx2 (Eden master with Switch 2 support) at the pinned commit, as git.eden-emu.dev archives it",
+       "kind": "archive",
+-      "url": "https://github.com/eden-emulator/mirror/archive/67bada77f8a43a90da2e94e89b8e7da73c256989.tar.gz",
+-      "sha256": "d42b6fb492c65eb5e98ab72a786dff01fd64384d073a739b9c9ff475414366ee",
+-      "save": ".deps/eden-67bada77.tar.gz",
+-      "extract": ".deps",
+-      "creates": ".deps/mirror-67bada77f8a43a90da2e94e89b8e7da73c256989/CMakeLists.txt"
++      "url": "https://git.eden-emu.dev/Takoroka/eden-nx2/archive/50fa86bbbc403ad565eb44fcc281f16f77c69e15.tar.gz",
++      "sha256": "54c7b3c5fc6c5eb7fe0c212d7e10f8b8b206f6f0eff3fb758d0922574a295b62",
++      "save": ".deps/eden-50fa86bb.tar.gz",
++      "extract": ".deps/eden-50fa86bbbc403ad565eb44fcc281f16f77c69e15",
++      "strip": 1,
++      "creates": ".deps/eden-50fa86bbbc403ad565eb44fcc281f16f77c69e15/CMakeLists.txt"
+     },
+     {
+       "name": "ffmpeg",
+diff --git a/tools/eden-patches/01-fast-file-reads.diff b/tools/eden-patches/01-fast-file-reads.diff
+index 48150f4..db2f275 100644
+--- a/tools/eden-patches/01-fast-file-reads.diff
++++ b/tools/eden-patches/01-fast-file-reads.diff
+@@ -1,23 +1,6 @@
+---- a/src/common/fs/file.h
+-+++ b/src/common/fs/file.h
+-@@ -289,6 +289,14 @@
+-     }
+- 
+-     /**
+-+     * Reads length bytes at offset without the stdio buffer (which splits a read into
+-+     * buffer-sized system calls) and without moving the file pointer.
+-+     *
+-+     * @returns Count of bytes successfully read.
+-+     */
+-+    [[nodiscard]] size_t ReadAt(void* data, size_t length, s64 offset) const;
+-+
+-+    /**
+-      * Writes a span of T data to a file sequentially.
+-      * This function writes from the current position of the file pointer and
+-      * advances it by the (count of T * sizeof(T)) bytes successfully written.
+ --- a/src/common/fs/file.cpp
+ +++ b/src/common/fs/file.cpp
+-@@ -427,6 +427,33 @@
++@@ -427,6 +427,33 @@ u64 IOFile::GetSize() const {
+      return file_size;
+  }
+  
+@@ -51,32 +34,23 @@
+  bool IOFile::Seek(s64 offset, SeekOrigin origin) const {
+      if (!IsOpen()) {
+          return false;
+---- a/src/core/file_sys/vfs/vfs_real.h
+-+++ b/src/core/file_sys/vfs/vfs_real.h
+-@@ -10,6 +10,7 @@
+- #include <mutex>
+- #include <optional>
+- #include <string_view>
+-+#include <vector>
+- #include "common/intrusive_list.h"
+- #include "core/file_sys/fs_filesystem.h"
+- #include "core/file_sys/vfs/vfs.h"
+-@@ -22,6 +23,15 @@
+- 
+- struct FileReference : public Common::IntrusiveListBaseNode<FileReference> {
+-     std::shared_ptr<Common::FS::IOFile> file{};
+-+    // Read-only files: recently read 1 MiB blocks. Each system call on the console's storage
+-+    // costs about the same whatever its size, so a game's small reads are served from whole blocks.
+-+    struct Block {
+-+        u64 index;
+-+        u64 used;
+-+        std::vector<u8> data;
+-+    };
+-+    std::vector<Block> blocks{};
+-+    u64 block_clock{};
+- };
++--- a/src/common/fs/file.h
+++++ b/src/common/fs/file.h
++@@ -288,6 +288,14 @@ public:
++         return std::fread(data.data(), sizeof(T), data.size(), file);
++     }
+  
+- class RealVfsFile;
+++    /**
+++     * Reads length bytes at offset without the stdio buffer (which splits a read into
+++     * buffer-sized system calls) and without moving the file pointer.
+++     *
+++     * @returns Count of bytes successfully read.
+++     */
+++    [[nodiscard]] size_t ReadAt(void* data, size_t length, s64 offset) const;
+++
++     /**
++      * Writes a span of T data to a file sequentially.
++      * This function writes from the current position of the file pointer and
+ --- a/src/core/file_sys/vfs/vfs_real.cpp
+ +++ b/src/core/file_sys/vfs/vfs_real.cpp
+ @@ -6,9 +6,11 @@
+@@ -91,7 +65,7 @@
+  #include "common/fs/file.h"
+  #include "common/fs/fs.h"
+  #include "common/fs/path_util.h"
+-@@ -332,12 +334,60 @@
++@@ -345,12 +347,60 @@ bool RealVfsFile::IsReadable() const {
+      return True(perms & OpenMode::Read);
+  }
+  
+@@ -154,3 +128,29 @@
+  }
+  
+  std::size_t RealVfsFile::Write(const u8* data, std::size_t length, std::size_t offset) {
++--- a/src/core/file_sys/vfs/vfs_real.h
+++++ b/src/core/file_sys/vfs/vfs_real.h
++@@ -10,6 +10,7 @@
++ #include <mutex>
++ #include <optional>
++ #include <string_view>
+++#include <vector>
++ #include "common/intrusive_list.h"
++ #include "core/file_sys/fs_filesystem.h"
++ #include "core/file_sys/vfs/vfs.h"
++@@ -22,6 +23,15 @@ namespace FileSys {
++ 
++ struct FileReference : public Common::IntrusiveListBaseNode<FileReference> {
++     std::shared_ptr<Common::FS::IOFile> file{};
+++    // Read-only files: recently read 1 MiB blocks. Each system call on the console's storage
+++    // costs about the same whatever its size, so a game's small reads are served from whole blocks.
+++    struct Block {
+++        u64 index;
+++        u64 used;
+++        std::vector<u8> data;
+++    };
+++    std::vector<Block> blocks{};
+++    u64 block_clock{};
++ };
++ 
++ class RealVfsFile;
+diff --git a/tools/eden-patches/02-cache-storage-title-id.diff b/tools/eden-patches/02-cache-storage-title-id.diff
+index 9b8ca14..005e83e 100644
+--- a/tools/eden-patches/02-cache-storage-title-id.diff
++++ b/tools/eden-patches/02-cache-storage-title-id.diff
+@@ -1,6 +1,6 @@
+ --- a/src/core/file_sys/savedata_factory.cpp
+ +++ b/src/core/file_sys/savedata_factory.cpp
+-@@ -109,8 +109,11 @@
++@@ -105,8 +105,11 @@ std::string SaveDataFactory::GetFullPath(ProgramId program_id, VirtualDir dir,
+                                           SaveDataSpaceId space, SaveDataType type, u64 title_id,
+                                           u128 user_id, u64 save_id) {
+      // According to switchbrew, if a save is of type SaveData and the title id field is 0, it should
+diff --git a/tools/eden-patches/03-local-memory-bounds.diff b/tools/eden-patches/03-local-memory-bounds.diff
+index ff24e31..14b0c5c 100644
+--- a/tools/eden-patches/03-local-memory-bounds.diff
++++ b/tools/eden-patches/03-local-memory-bounds.diff
+@@ -1,6 +1,6 @@
+ --- a/src/shader_recompiler/frontend/maxwell/translate/impl/load_store_local_shared.cpp
+ +++ b/src/shader_recompiler/frontend/maxwell/translate/impl/load_store_local_shared.cpp
+-@@ -88,10 +88,31 @@
++@@ -88,10 +88,31 @@ IR::U32 ShortOffset(IR::IREmitter& ir, const IR::U32& offset) {
+      return ir.BitwiseAnd(ir.ShiftLeftLogical(offset, ir.Imm32(3)), ir.Imm32(16));
+  }
+  
+@@ -35,7 +35,7 @@
+  }
+  } // Anonymous namespace
+  
+-@@ -166,14 +187,14 @@
++@@ -166,14 +187,14 @@ void TranslatorVisitor::STL(u64 insn) {
+      switch (bit_size) {
+      case 8: {
+          const IR::U32 bit{ByteOffset(ir, offset)};
+@@ -54,7 +54,7 @@
+          break;
+      }
+      case 32:
+-@@ -182,9 +203,10 @@
++@@ -182,9 +203,10 @@ void TranslatorVisitor::STL(u64 insn) {
+          if (!IR::IsAligned(reg, static_cast<size_t>(bit_size / 32))) {
+              throw NotImplementedException("Unaligned source register");
+          }
+diff --git a/tools/eden-patches/04-cpu-reads-reactive-flushing.diff b/tools/eden-patches/04-cpu-reads-reactive-flushing.diff
+index 27f3578..a766594 100644
+--- a/tools/eden-patches/04-cpu-reads-reactive-flushing.diff
++++ b/tools/eden-patches/04-cpu-reads-reactive-flushing.diff
+@@ -1,6 +1,6 @@
+ --- a/src/core/memory.cpp
+ +++ b/src/core/memory.cpp
+-@@ -292,7 +292,7 @@
++@@ -298,7 +298,7 @@ struct Memory::Impl {
+          },
+          [&](const Common::ProcessAddress current_vaddr, const std::size_t offset, const std::size_t copy_amount, const u8* const ptr) {
+              if (!unsafe) {
+@@ -9,16 +9,16 @@
+              }
+              std::memcpy(reinterpret_cast<u8*>(buffer) + offset, ptr, copy_amount);
+          });
+-@@ -625,7 +625,7 @@
+-         if (auto const ptr = GetPointerImpl(addr, [addr]() {
+-             LOG_ERROR(HW_Memory, "Unmapped Read{} @ {:#016x}", sizeof(T) * 8, addr);
++@@ -637,7 +637,7 @@ struct Memory::Impl {
++             }
++             ++UnmappedReadFlag();
+          }, [&]() {
+ -            HandleRasterizerDownload(addr, sizeof(T));
+ +            HandleRasterizerReadDownload(addr, sizeof(T));
+          }); ptr) [[likely]] {
+              // It may be tempting to rewrite this particular section to use "reinterpret_cast";
+              // afterall, it's trivially copyable so surely it can be copied ov- Alignment.
+-@@ -678,6 +678,16 @@
++@@ -690,6 +690,16 @@ struct Memory::Impl {
+          return true;
+      }
+  
+diff --git a/tools/prepare-build.sh b/tools/prepare-build.sh
+index f4a1d6f..aea1202 100644
+--- a/tools/prepare-build.sh
++++ b/tools/prepare-build.sh
+@@ -22,7 +22,7 @@ scratch=$(cat .local/headless-cache)
+ [[ "$(cat "$scratch/owner")" == "$root" ]] || { echo "Build cache $scratch belongs to another checkout" >&2; exit 1; }
+ 
+ eden="$scratch/source"
+-eden_archive=eden-67bada77.tar.gz
++eden_archive=eden-50fa86bb.tar.gz
+ # A tree unpacked from another archive is the source of another Eden revision: it is unpacked
+ # again (Eden's package cache, downloads only, is kept). A tree left from before an update of
+ # the pin was built as if it were the new one, and what Eden had changed went unseen.
+@@ -35,7 +35,7 @@ if [[ ! -f $eden/CMakeLists.txt || $(cat "$eden/.unpacked-from" 2>/dev/null) !=
+     if [[ -d $scratch/source-cache ]]; then mv "$scratch/source-cache" "$eden/.cache"; fi
+     printf '%s\n' "$eden_archive" > "$eden/.unpacked-from"
+ fi
+-printf '%s\n' '67bada77f8a43a90da2e94e89b8e7da73c256989' > "$eden/GIT-COMMIT"
++printf '%s\n' '50fa86bbbc403ad565eb44fcc281f16f77c69e15' > "$eden/GIT-COMMIT"
+ printf '%s\n' 'ps5-headless' > "$eden/GIT-REFSPEC"
+ # Fixes to Eden's own source (tools/eden-patches, in name order), each applied once: a patch that
+ # reverses cleanly is already in the tree. One that neither reverses nor applies was changed after
+diff --git a/tools/prepare-vulkan-port.py b/tools/prepare-vulkan-port.py
+index 3c3104d..0ecac66 100644
+--- a/tools/prepare-vulkan-port.py
++++ b/tools/prepare-vulkan-port.py
+@@ -105,7 +105,10 @@ void RasterizerVulkan::DispatchCompute() {"""),
+     # command buffer submission: 4,096 exceeds the PS5 GPU watchdog timeout in shader-heavy
+     # scenes (VK_ERROR_DEVICE_LOST in one game's cities). CHECK_MASK is the configurable
+     # dispatch interval (dev-settings dispatch_draws=N); default 64 draws between hand-offs.
+-    ('#ifdef __ANDROID__\n    static constexpr u32 DRAWS_TO_DISPATCH = 512;\n    static constexpr u32 CHECK_MASK = 3;\n#else\n    static constexpr u32 DRAWS_TO_DISPATCH = 4096;\n    static constexpr u32 CHECK_MASK = 7;\n#endif // __ANDROID__\n\n    static_assert(DRAWS_TO_DISPATCH % (CHECK_MASK + 1) == 0);\n',
++    ('#ifdef __ANDROID__\n    static constexpr u32 DRAWS_TO_DISPATCH = 512;\n    static constexpr u32 CHECK_MASK = 3;\n#else\n'
++     '    // Every 32 draws (was 8): each dispatch woke the worker thread, and Switch 2 titles make\n'
++     '    // ~55,000 draws a second. A full chunk is dispatched on its own (Scheduler::Record).\n'
++     '    static constexpr u32 DRAWS_TO_DISPATCH = 4096;\n    static constexpr u32 CHECK_MASK = 31;\n#endif // __ANDROID__\n\n    static_assert(DRAWS_TO_DISPATCH % (CHECK_MASK + 1) == 0);\n',
+      '    static constexpr u32 DRAWS_TO_DISPATCH = 512;\n    const u32 CHECK_MASK = ::Eden::Performance::dispatch_mask.load(std::memory_order_relaxed);\n    recorded_tick = scheduler.CurrentTick();\n\n'),
+     # A guest fence with something to wait for submits twice in a row: its own Flush
+     # (InnerFence::Queue, vk_fence_manager.cpp), then the fence manager's FlushCommands, which
+@@ -122,54 +125,84 @@ void RasterizerVulkan::DispatchCompute() {"""),
+     # so a draw that returns early is charged for its unmarked tail and the sum of the six falls
+     # short by that amount plus two clock reads per phase. control/scheduler.cpp aside, this is the
+     # only place the dispatch's time can be spent - so its six numbers should add up to it.
+-    ('''    FlushWork();
+-    gpu_memory->FlushCaching();
+-
+-    GraphicsPipeline* const pipeline{pipeline_cache.CurrentGraphicsPipeline()};
++    # eden-nx2 times the same steps with its own zones (video_core/nx2_profile.h,
++    # EDEN_NX2_GPU_PROFILE); the marks go between them.
++    ('''    namespace Profile = VideoCommon::Nx2Profile;
++    {
++        Profile::Scope scope{Profile::Zone::FlushWork};
++        FlushWork();
++        gpu_memory->FlushCaching();
++    }
++''',
++     '''    namespace Profile = VideoCommon::Nx2Profile;
++    const ::Eden::Performance::Timer rasterizer_draw_timer(::Eden::Performance::rasterizer_draw);
++    auto phase = ::Eden::Performance::MarkStart();
++    {
++        Profile::Scope scope{Profile::Zone::FlushWork};
++        FlushWork();
++        gpu_memory->FlushCaching();
++    }
++    ::Eden::Performance::Mark(::Eden::Performance::draw_flush, phase);
++'''),
++    ('''        return pipeline_cache.CurrentGraphicsPipeline();
++    }()};
+     if (!pipeline) {
++        report_failure("no pipeline");
+         return;
+     }
+-    std::scoped_lock lock{buffer_cache.mutex, texture_cache.mutex};
+-    // update engine as channel may be different.
+-    pipeline->SetEngine(maxwell3d, gpu_memory);
+-    if (!pipeline->Configure(is_indexed))
++''',
++     '''        return pipeline_cache.CurrentGraphicsPipeline();
++    }()};
++    ::Eden::Performance::Mark(::Eden::Performance::draw_pipeline, phase);
++    if (!pipeline) {
++        report_failure("no pipeline");
++        return;
++    }
++'''),
++    ('''    pipeline->SetEngine(maxwell3d, gpu_memory);
++    if (Profile::Scope scope{Profile::Zone::Configure}; !pipeline->Configure(is_indexed)) {
++        report_failure("configure failed");
+         return;
++    }
+ 
+-    UpdateDynamicStates();
++    {
++        Profile::Scope scope{Profile::Zone::DynamicState};
++        UpdateDynamicStates();
++    }
+ 
+     query_cache.NotifySegment(true);
+     HandleTransformFeedback();
+     query_cache.CounterEnable(VideoCommon::QueryType::ZPassPixelCount64, maxwell3d->regs.zpass_pixel_count_enable);
+-    draw_func();''',
+-     '''    const ::Eden::Performance::Timer rasterizer_draw_timer(::Eden::Performance::rasterizer_draw);
+-    auto phase = ::Eden::Performance::MarkStart();
+-    FlushWork();
+-    gpu_memory->FlushCaching();
+-    ::Eden::Performance::Mark(::Eden::Performance::draw_flush, phase);
+-
+-    GraphicsPipeline* const pipeline{pipeline_cache.CurrentGraphicsPipeline()};
+-    ::Eden::Performance::Mark(::Eden::Performance::draw_pipeline, phase);
+-    if (!pipeline) {
+-        return;
++    {
++        Profile::Scope scope{Profile::Zone::DrawRecord};
++        draw_func();
+     }
+-    std::scoped_lock lock{buffer_cache.mutex, texture_cache.mutex};
+-    // update engine as channel may be different.
+-    pipeline->SetEngine(maxwell3d, gpu_memory);
++''',
++     '''    pipeline->SetEngine(maxwell3d, gpu_memory);
+     // Waiting for both cache mutexes. SetEngine between them and here is two pointer assignments,
+     // and the hold itself carries on through what follows: the phases below measure it.
+     ::Eden::Performance::Mark(::Eden::Performance::draw_lock_wait, phase);
+-    if (!pipeline->Configure(is_indexed))
++    if (Profile::Scope scope{Profile::Zone::Configure}; !pipeline->Configure(is_indexed)) {
++        report_failure("configure failed");
+         return;
++    }
+     ::Eden::Performance::Mark(::Eden::Performance::draw_config, phase);
+ 
+-    UpdateDynamicStates();
++    {
++        Profile::Scope scope{Profile::Zone::DynamicState};
++        UpdateDynamicStates();
++    }
+ 
+     query_cache.NotifySegment(true);
+     HandleTransformFeedback();
+     query_cache.CounterEnable(VideoCommon::QueryType::ZPassPixelCount64, maxwell3d->regs.zpass_pixel_count_enable);
+     ::Eden::Performance::Mark(::Eden::Performance::draw_state, phase);
+-    draw_func();
+-    ::Eden::Performance::Mark(::Eden::Performance::draw_record, phase);'''),
++    {
++        Profile::Scope scope{Profile::Zone::DrawRecord};
++        draw_func();
++    }
++    ::Eden::Performance::Mark(::Eden::Performance::draw_record, phase);
++'''),
+     # Development: where OnCPUWrite spends its time (performance.h CpuWriteDetail).
+     ("""    DEBUG_ASSERT(addr != 0 || size != 0);
+     {
+@@ -325,8 +358,13 @@ void RasterizerVulkan::PrepareDraw(bool is_indexed, Func&& draw_func) {'''),
+      '        }\n    });\n    SyncProbe(scheduler, "draw", probe_pipeline);\n}\n\nvoid RasterizerVulkan::DrawIndirect() {'),
+     ('void RasterizerVulkan::DrawTexture() {', 'void RasterizerVulkan::DrawTexture() {\n    SCOPE_EXIT { SyncProbe(scheduler, "draw_texture", nullptr); };'),
+     ('void RasterizerVulkan::Clear(u32 layer_count) {', 'void RasterizerVulkan::Clear(u32 layer_count) {\n    SCOPE_EXIT { SyncProbe(scheduler, "clear", nullptr); };'),
+-    ('    ComputePipeline* const pipeline{pipeline_cache.CurrentComputePipeline()};\n    if (!pipeline) {\n        return;\n    }',
+-     '    ComputePipeline* const pipeline{pipeline_cache.CurrentComputePipeline()};\n    if (!pipeline) {\n        return;\n    }\n'
++    # eden-nx2: a Switch 2 (native) compute dispatch with no pipeline throws instead of returning.
++    ('    ComputePipeline* const pipeline{pipeline_cache.CurrentComputePipeline()};\n    if (!pipeline) {\n'
++     '        if (kepler_compute->IsNativeMode()) throw Shader::RuntimeError("Native compute pipeline unavailable");\n'
++     '        return;\n    }',
++     '    ComputePipeline* const pipeline{pipeline_cache.CurrentComputePipeline()};\n    if (!pipeline) {\n'
++     '        if (kepler_compute->IsNativeMode()) throw Shader::RuntimeError("Native compute pipeline unavailable");\n'
++     '        return;\n    }\n'
+      '    SCOPE_EXIT { SyncProbe(scheduler, "dispatch", pipeline); };'),
+     # Guest writes while the GPU thread holds a cache lock are queued instead of waiting
+     # (performance.h cpu_write_defer); the GPU thread runs them before its next draw.
+@@ -942,8 +980,35 @@ if not path.exists() or path.read_text() != shader_header:
+ # refuses is asked for again outside it, as Commit does; the driver refuses when the pool has no
+ # room, and that is still the session's end.
+ allocator = (source / 'src/video_core/vulkan_common/vulkan_memory_allocator.cpp').read_text()
+-for call in ('vmaCreateImage(allocator, &ci, &alloc_ci, &handle, &allocation, &alloc_info)',
+-             'vmaCreateBuffer(allocator, &ci, &alloc_ci, &handle, &allocation, &alloc_info)',
++# Images: eden-nx2 already asks again outside the budget when the budget refuses (and creates images
++# of more than 2^28 texels as unbacked sparse images). Its retry is counted and reported the same way.
++POOL_REPORT = (
++    '            VmaBudget held[VK_MAX_MEMORY_HEAPS]{};\n'
++    '            vmaGetHeapBudgets(allocator, held);\n'
++    '            unsigned long long blocks = 0, used = 0;\n'
++    '            for (const VmaBudget& heap : held) {\n'
++    '                blocks += heap.statistics.blockBytes;\n'
++    '                used += heap.statistics.allocationBytes;\n'
++    '            }\n'
++    '            const auto free_block = ::Eden::Performance::graphics_memory_free.load(std::memory_order_relaxed);\n'
++    '            std::fprintf(stderr, "[ProsperoEden] graphics memory: refused outside the budget too (result %d): the pool\'s "\n'
++    '                         "largest free block is %llu MiB; the allocator holds %llu MiB in blocks, %llu MiB of it in use\\n",\n'
++    '                         int(RESULT), free_block ? free_block() >> 20 : 0ull, blocks >> 20, used >> 20);\n')
++for old, new in (
++        ('        result = vmaCreateImage(allocator, &ci, &relaxed, &handle, &allocation, &alloc_info);\n    }\n',
++         '        result = vmaCreateImage(allocator, &ci, &relaxed, &handle, &allocation, &alloc_info);\n'
++         '        const auto times = ::Eden::Performance::outside_budget.fetch_add(1, std::memory_order_relaxed) + 1;\n'
++         '        if ((times & (times - 1)) == 0)  // the 1st, 2nd, 4th, 8th ... time\n'
++         '            std::fprintf(stderr, "[ProsperoEden] graphics memory: the allocator\'s budget refused %llu requests; "\n'
++         '                         "asked again outside it (result %d): image %ux%ux%u, %u layers, %u levels, %u samples, format %d\\n",\n'
++         '                         static_cast<unsigned long long>(times), int(result), ci.extent.width, ci.extent.height,\n'
++         '                         ci.extent.depth, ci.arrayLayers, ci.mipLevels, unsigned(ci.samples), int(ci.format));\n'
++         '        if (result != VK_SUCCESS) {\n' + POOL_REPORT.replace('RESULT', 'result') + '        }\n'
++         '    }\n'),):
++    if allocator.count(old) != 1:
++        raise RuntimeError(f'Pinned Vulkan allocator changed: {old[:40]} is there {allocator.count(old)} times')
++    allocator = allocator.replace(old, new)
++for call in ('vmaCreateBuffer(allocator, &ci, &alloc_ci, &handle, &allocation, &alloc_info)',
+              'vmaCreateBufferWithAlignment(allocator, &ci, &alloc_ci, min_alignment, &handle,\n'
+              '                                           &allocation, &alloc_info)'):
+     old = '    vk::Check(' + call + ');\n'
+@@ -961,19 +1026,7 @@ for call in ('vmaCreateImage(allocator, &ci, &alloc_ci, &handle, &allocation, &a
+         '                         "asked again outside it (result %d): DETAIL\\n", static_cast<unsigned long long>(times), int(created),\n'
+         '                         VALUES);\n'
+         # Refused outside the budget too: the session ends here, and its log says what there was.
+-        '        if (created != VK_SUCCESS) {\n'
+-        '            VmaBudget held[VK_MAX_MEMORY_HEAPS]{};\n'
+-        '            vmaGetHeapBudgets(allocator, held);\n'
+-        '            unsigned long long blocks = 0, used = 0;\n'
+-        '            for (const VmaBudget& heap : held) {\n'
+-        '                blocks += heap.statistics.blockBytes;\n'
+-        '                used += heap.statistics.allocationBytes;\n'
+-        '            }\n'
+-        '            const auto free_block = ::Eden::Performance::graphics_memory_free.load(std::memory_order_relaxed);\n'
+-        '            std::fprintf(stderr, "[ProsperoEden] graphics memory: refused outside the budget too (result %d): the pool\'s "\n'
+-        '                         "largest free block is %llu MiB; the allocator holds %llu MiB in blocks, %llu MiB of it in use\\n",\n'
+-        '                         int(created), free_block ? free_block() >> 20 : 0ull, blocks >> 20, used >> 20);\n'
+-        '        }\n'
++        '        if (created != VK_SUCCESS) {\n' + POOL_REPORT.replace('RESULT', 'created') + '        }\n'
+         '    }\n'
+         '    vk::Check(created);\n'
+         ).replace('CALL', call).replace('AGAIN', call.replace('&alloc_ci', '&outside_budget'))
+@@ -1295,8 +1348,12 @@ configure_phases = [
+      '    buffer_cache.SetUniformBuffersState(enabled_uniform_buffer_masks, &uniform_buffer_sizes);\n'
+      '    // Sampler and image tables synced, uniform-buffer state set.\n'
+      '    ::Eden::Performance::Mark(::Eden::Performance::cfg_sync, since);'),
+-    ('    texture_cache.FillImageViews(std::span(views.data(), views.size()), false, Spec::has_images);',
+-     '    texture_cache.FillImageViews(std::span(views.data(), views.size()), false, Spec::has_images);\n'
++    ('    {\n        Profile::Scope scope{Profile::Zone::FillImageViews};\n'
++     '        texture_cache.FillImageViews(std::span(views.data(), views.size()), false,\n'
++     '                                     Spec::has_images);\n    }',
++     '    {\n        Profile::Scope scope{Profile::Zone::FillImageViews};\n'
++     '        texture_cache.FillImageViews(std::span(views.data(), views.size()), false,\n'
++     '                                     Spec::has_images);\n    }\n'
+      '    // Every texture handle read out of guest memory, every sampler and view filled.\n'
+      '    ::Eden::Performance::Mark(::Eden::Performance::cfg_read, since);\n'
+      '    long long since_bind = ::Eden::Performance::MarkStart();'),
+@@ -1819,22 +1876,26 @@ adapt('src/video_core/renderer_vulkan/present/frame_gen.cpp', 'vulkan_frame_gen.
+ # call from gpu_thread.cpp, so these say which of the three it is spent in.
+ adapt('src/video_core/control/scheduler.cpp', 'control_scheduler.cpp', [
+     ('#include <memory>', '#include <memory>\n#include "performance.h"'),
++    # eden-nx2 binds the channel outside the lock (Scheduler::BindChannel takes it, or defers the
++    # bind to the split GPU thread's back); the lock phase still counts both.
+     ('        std::unique_lock lk(scheduling_guard);\n'
+      '        auto it = channels.find(channel);\n'
+      '        ASSERT(it != channels.end());\n'
+      '        channel_state = it->second;\n'
+-     '        gpu.BindChannel(channel_state->bind_id);\n'
+      '    }\n'
++     '    BindChannel(gpu, channel_state->bind_id);\n'
+      '    // Process commands outside the lock to reduce contention.\n'
+      '    // Multiple channels can prepare their commands in parallel.\n'
+      '    channel_state->payload->dma_pusher.Push(std::move(entries));\n'
+      '    channel_state->payload->dma_pusher.DispatchCalls();',
+      '        const ::Eden::Performance::Timer sched_lock_timer(::Eden::Performance::gpu_sched_lock);\n'
+-     '        std::unique_lock lk(scheduling_guard);\n'
+-     '        auto it = channels.find(channel);\n'
+-     '        ASSERT(it != channels.end());\n'
+-     '        channel_state = it->second;\n'
+-     '        gpu.BindChannel(channel_state->bind_id);\n'
++     '        {\n'
++     '            std::unique_lock lk(scheduling_guard);\n'
++     '            auto it = channels.find(channel);\n'
++     '            ASSERT(it != channels.end());\n'
++     '            channel_state = it->second;\n'
++     '        }\n'
++     '        BindChannel(gpu, channel_state->bind_id);\n'
+      '    }\n'
+      '    // Process commands outside the lock to reduce contention.\n'
+      '    // Multiple channels can prepare their commands in parallel.\n'

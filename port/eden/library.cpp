@@ -1,6 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "library.h"
 #include "addons.h"
+#include "exefs.h"
 #include "nx_files.h"
 #include "../app/gameinfo.h"
 #include "../app/paths.h"
@@ -222,16 +223,28 @@ namespace ps5eden
 			game.titleId = readId ? readId : tagged ? tagged : kIdTag | HashPath(CoverKey(path));
 			const std::string saved = SavedTitle(path);
 			game.name = !saved.empty() ? saved : CleanTitle(path);
+			// a game folder's ExeFS (a Switch 2 title): its program's ID, and the folder's name
+			exefs::Npdm npdm;
+			if (IsExeFsMain(path.string()))
+			{
+				if (exefs::Read(path, npdm) && npdm.titleId)
+					game.titleId = npdm.titleId;
+				if (saved.empty())
+					game.name = path.parent_path().parent_path().filename().string();
+			}
 			game.path = path;
 			std::string extension = path.extension().string();
 			for (char& c : extension)
 				c = (char)std::toupper((unsigned char)c);
 			game.format = extension.size() > 1 ? extension.substr(1) : extension;
+			if (IsExeFsMain(path.string()))
+				game.format = npdm.switch2 ? "Switch 2" : "ExeFS";
 			games.push_back(std::move(game));
 		}
 
 		// The Switch files in a folder: its .nsp and .xci files, and those in its folders (one level
-		// down, as Eden's library looks: a folder per game, with its update and DLC beside it)
+		// down, as Eden's library looks: a folder per game, with its update and DLC beside it), and the
+		// main of each folder that holds its game as an ExeFS and a RomFS (a Switch 2 title)
 		void Collect(const std::string& folder, std::vector<fs::path>& files)
 		{
 			std::error_code ec;
@@ -242,6 +255,11 @@ namespace ps5eden
 					continue;
 				if (entry.is_directory(ec))
 				{
+					if (fs::path main = exefs::MainIn(entry.path()); !main.empty())
+					{
+						files.push_back(std::move(main));
+						continue;
+					}
 					std::error_code inner;
 					for (const auto& file : fs::directory_iterator(entry.path(), inner))
 						if (file.is_regular_file(inner) && IsSwitchFile(file.path().filename().string()))
@@ -314,6 +332,13 @@ namespace ps5eden
 			for (size_t i = 0; i < files.size(); i++)
 			{
 				const fs::path& path = files[i];
+				// a game folder's ExeFS: already decrypted, no package to read (its ID from main.npdm)
+				if (IsExeFsMain(path.string()))
+				{
+					if (i < inFolder)
+						Add(path, games);
+					continue;
+				}
 				Known file;
 				const bool stamped = Stamp(path, file.size, file.time);
 				if (const auto earlier = known.find(path.string());
@@ -459,6 +484,11 @@ namespace ps5eden
 		return Exists(ps5paths::AppDir() + "/eden/eboot.bin");
 	}
 
+	bool IsExeFsMain(const std::string& path)
+	{
+		return exefs::IsMain(path);
+	}
+
 	bool IsSwitchFile(const std::string& name)
 	{
 		const std::string lower = Lower(name);
@@ -540,6 +570,16 @@ namespace ps5eden
 	std::string BoxArt(const ps5emu::Game& game)
 	{
 		const fs::path& path = game.path;
+		// a game folder's ExeFS: cover.png in the folder, or a picture named as the folder beside it
+		if (IsExeFsMain(path.string()))
+		{
+			const fs::path folder = path.parent_path().parent_path();
+			for (const char* extension : {".png", ".jpg", ".jpeg"})
+				for (const fs::path& picture : {folder / (std::string("cover") + extension), fs::path(folder.string() + extension)})
+					if (Exists(picture.string()))
+						return picture.string();
+			return {};
+		}
 		for (const char* extension : {".png", ".jpg", ".jpeg"})
 		{
 			fs::path beside = path;

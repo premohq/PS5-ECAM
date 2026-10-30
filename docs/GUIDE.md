@@ -351,6 +351,33 @@ the extended storage, `eden` is at the top of that drive instead (see
 - A standalone ProsperoEden's files in `/data/prosperoeden` are used while `/data/eden` has
   no keys.
 
+#### Switch 2 games (experimental)
+
+The Switch side's Eden is Takoroka's [eden-nx2](https://git.eden-emu.dev/Takoroka/eden-nx2), Eden
+with early support for Switch 2 games, ported to the PS5 after Oliv3rmoon's
+[Nightshade](https://github.com/Oliv3rmoon/Nightshade). **No Switch 2 game has been run on a PS5
+yet**: expect crashes, missing graphics and low frame rates, and send the logs of what you try.
+
+- eden-nx2 plays a Switch 2 game from its ExeFS and RomFS as folders (it does not read Switch 2 NSP
+  or XCI files). Dump your own game into a folder of its own in `roms/`:
+
+  ```text
+  roms/
+  └── Pokopia/
+      ├── exefs/                      main, main.npdm, rtld, sdk and every subsdk*
+      └── romfs/                      the whole RomFS
+  ```
+
+- The library lists the folder by its name, with `Switch 2` as its format; its title ID is the one
+  in `main.npdm`. `cover.png` (or `.jpg`) in the folder, or `Pokopia.png` beside it, is its box art.
+  A Switch game dumped the same way plays too (format `ExeFS`).
+- Keys and firmware are your own, as for any game. A Switch 2 game starts with eden-nx2's own
+  settings (a 12 GiB console memory layout, the lowest GPU accuracy, ASTC decoded on the GPU, a
+  second GPU thread); Eden's settings file can change three of them (ProsperoEdenX's
+  `docs/SETTINGS.md`, *Switch 2 titles*).
+- The memory a Switch 2 game asks for is more than the PS5 has; it runs only while the game uses
+  less of it. Eden's log says `Switch 2 title (experimental)` with what the session got.
+
 ### Games in archives
 
 The library lists an archive's game by its own name and icon, read where it is, and keeps what it

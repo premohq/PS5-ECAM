@@ -214,6 +214,10 @@ says where the app is going and how to fit in.
   and [ProsperoEden](https://github.com/Swordpdf/ProsperoEden), its PS5 port and launcher, by **Sword**
   ([Swordpdf](https://github.com/Swordpdf)), **BlackBearReloaded**, **bawsdeep**, **Rockiu0** and its
   contributors (GPL-3.0-or-later; the Switch side runs it with `patches/eden`)
+- [eden-nx2](https://git.eden-emu.dev/Takoroka/eden-nx2) by **Takoroka**, Eden with experimental
+  support for Switch 2 games (GPL-3.0-or-later), the Switch side's Eden now, and
+  [Nightshade](https://github.com/Oliv3rmoon/Nightshade) by **Oliv3rmoon**, whose port of it to the PS5
+  the Switch side's follows (`patches/eden` 0021 and 0022)
 - **Mihawk** for RADV on PS5 ([PS5_Mesa](https://github.com/mihawk-99/PS5_Mesa),
   [PS5_Vulkan](https://github.com/mihawk-99/PS5_Vulkan), the payload SDK fork and its platform layer)
   and the PS5 ports of Azahar and dynarmic ([PS5_Azahar](https://github.com/mihawk-99/PS5_Azahar)),

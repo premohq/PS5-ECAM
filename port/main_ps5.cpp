@@ -229,6 +229,9 @@ namespace
 		for (const char* nx : {".nsp", ".xci"})
 			if (extension == nx)
 				tile.side = ps5launcher::System::Switch;
+		// a game folder's ExeFS main (a Switch 2 title, eden/library.h)
+		if (ps5eden::IsExeFsMain(tile.rom))
+			tile.side = ps5launcher::System::Switch;
 		// the other sides' games, by their file type (a GameCube or Wii disc by its header)
 		if (const int retro = ps5retro::IdentifySystem(tile.rom); ps5retro::IsRetro(retro))
 			tile.side = (ps5launcher::System)retro;

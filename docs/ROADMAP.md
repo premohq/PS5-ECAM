@@ -216,6 +216,22 @@ Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
   are shown is a bit each in `ui.sides`, read with an upper limit (2047 for 11 sides) that grows too,
   and an `int` holds 31 of them: past that it needs a wider mask or a list of names.
 
+### Switch 2
+
+**Started, 30 October 2026: experimental.** The Switch side's Eden is Takoroka's eden-nx2 (Eden master
+with Switch 2 support) at `50fa86bbbc`, ported as Oliv3rmoon's Nightshade did (`feature/nx2`): the pin
+and the derivations moved (patches/eden 0021), and a game folder's ExeFS and RomFS play, a Switch 2
+title by its npdm, with eden-nx2's session settings (0022). Six emulated cores: what ProsperoEdenX counts
+per core has a place for each. The launcher lists such a folder as a Switch game, `Switch 2` its
+format (port/eden/exefs.h). Nothing has run on a console yet. Next:
+
+- **A first console run** with a tester's own dump (Pokopia, Splatoon Raiders): the logs say how far.
+- **A side of its own** in the carousel, once a game plays: the Switch's Eden with Switch 2 games
+  only, its own settings page and in-game menu, as every system has.
+- **Its own words in the library** (an "experimental" warning on the game's page), in every language.
+- **eden-nx2's macro compiler** with the console's executable memory (Nightshade's next step), and
+  sparse images in the console's RADV for the largest textures.
+
 ### Lighter
 
 - **Eden's `ui/` folder** (about 26 MB, 62 files in 5.0.1's ZIP): **done**, none of it is packaged now.

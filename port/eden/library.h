@@ -47,6 +47,11 @@ namespace ps5eden
 
 	// The files a Switch game can be: .nsp and .xci
 	bool IsSwitchFile(const std::string& name);
+	// A game folder's ExeFS main ("<game>/exefs/main", exefs/ in any case, main.npdm beside it in the
+	// folder): how a Switch 2 title is played (eden-nx2, patches/eden 0022). Its folder is the game's,
+	// with its RomFS in romfs/; its title ID is main.npdm's, its format "Switch 2" (or "ExeFS", a Switch
+	// game dumped so).
+	bool IsExeFsMain(const std::string& path);
 	// The title IDs made for games whose names have none: their top byte, which no Switch title has
 	constexpr uint64_t kIdTag = 0x5Aull << 56;
 	inline bool IsMadeId(uint64_t titleId) { return (titleId >> 56) == (kIdTag >> 56); }

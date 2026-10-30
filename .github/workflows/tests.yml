@@ -40,6 +40,9 @@ jobs:
           bash tools/eden-patches.sh apply
           bash tools/tests/test-eden-paths.sh
 
+      - name: Switch 2 game folders
+        run: bash tools/tests/test-switch2-games.sh
+
       - name: Switch updates and DLC beside their games
         run: |
           bash tools/tests/test-eden-addons.sh

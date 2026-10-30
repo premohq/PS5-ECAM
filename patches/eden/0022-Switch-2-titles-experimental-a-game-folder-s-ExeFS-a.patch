@@ -1,0 +1,873 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: Claude <noreply@anthropic.com>
+Date: Fri, 30 Oct 2026 20:34:47 +0000
+Subject: [PATCH] Switch 2 titles (experimental): a game folder's ExeFS and
+ RomFS, with eden-nx2's session settings
+
+From Oliv3rmoon's Nightshade (79f2ba0, 02fbd2e), onto this fork's own code:
+
+- A game folder that holds exefs/ (main, main.npdm) and romfs/ is a game, by the path of its main
+  (exefs_game.h): its title ID from main.npdm, its name from a control.nacp beside it, and a
+  Switch 2 title is one whose npdm has the Switch 2 layout (eden_game_is_switch2). The last and
+  recent games keep such a path; the update and DLC scan skips ExeFS and RomFS folders.
+- A Switch 2 session starts with eden-nx2's run settings (12 GiB layout, lowest GPU accuracy, no
+  reactive flushing, ASTC decoded on the GPU, split GPU thread); "switch2" in the settings file
+  changes three of them, for every Switch 2 title or one (docs/SETTINGS.md). The Turing macro
+  compiler stays off on the console, which refuses its executable memory. eden-nx2's process-wide
+  Switch 2 state is put back before every session (nx2_session.h), and the split GPU thread's mode
+  is read once per session. Two optimizations eden-nx2 measured only with Switch 2 titles stay off
+  for Switch 1 games (tools/eden-patches/12).
+- Six emulated cores: eden-nx2 raises NUM_CPU_CORES from 4 to 6 for every title. Everything
+  performance.h counts per core is sized by kGuestCores, and the derived physical_core.cpp asserts
+  it: with four places the JIT callbacks, CPU write statistics and CPU samples of cores 4 and 5 were
+  written past their arrays (and SampleCpu's at() threw).
+- ASTC transcoding keeps half the hardware threads, as Switch 1 games were measured with.
+
+Checked: every derivation finds its anchor on eden-nx2 (PS5 build with graphics, Linux host);
+metadata_bridge.cpp, main.cpp and performance.cpp compile against eden-nx2's headers; the settings
+store's check passes with the Switch 2 settings and paths. Not run on a console.
+
+Co-authored-by: Oliv3rmoon <165517657+Oliv3rmoon@users.noreply.github.com>
+Co-Authored-By: Claude Opus 5.5 <noreply@anthropic.com>
+Claude-Session: https://claude.ai/code/session_01Ef4Vv4wsGSyy7YgkCfzRaf
+---
+ README.md                                     |  3 +-
+ docs/NX2_PORT.md                              | 78 +++++++++++++++++
+ docs/SETTINGS.md                              | 17 ++++
+ headless/CMakeLists.txt                       | 40 ++++++++-
+ headless/exefs_game.h                         | 28 ++++++
+ headless/main.cpp                             | 41 +++++++++
+ headless/metadata_bridge.cpp                  | 85 ++++++++++++++++++-
+ headless/metadata_bridge.h                    |  4 +
+ headless/nx2_session.h                        | 31 +++++++
+ headless/performance.cpp                      | 10 ++-
+ headless/performance.h                        | 20 +++--
+ headless/preferences_check.cpp                | 34 ++++++++
+ headless/settings_store.h                     | 45 +++++++++-
+ .../12-switch2-only-optimizations.diff        | 51 +++++++++++
+ 14 files changed, 469 insertions(+), 18 deletions(-)
+ create mode 100644 docs/NX2_PORT.md
+ create mode 100644 headless/exefs_game.h
+ create mode 100644 headless/nx2_session.h
+ create mode 100644 tools/eden-patches/12-switch2-only-optimizations.diff
+
+diff --git a/README.md b/README.md
+index 7906897..933499d 100644
+--- a/README.md
++++ b/README.md
+@@ -177,7 +177,8 @@ Thank you also to the code, documentation and translation contributors (several
+ - **kasobos67** ([GitHub](https://github.com/kasobos67)), for custom launcher support, and launcher pack updates from a feed with a faster library for packs.
+ - **Rockiu0** ([GitHub](https://github.com/Rockiu0)), for JIT and memory-access optimizations, GPU command and texture-cache improvements, Vulkan rendering fixes, CPU scheduling and vsync changes, OpenGL queue tuning, build tooling, and OnionHEN elevation support.
+ - **cippy-9** ([GitHub](https://github.com/cippy-9)), for the Malay (ms-MY) translation.
+-- **Oliv3rmoon** ([GitHub](https://github.com/Oliv3rmoon)), for letting games with many pipelines start, keeping the driver's pipeline cache when a write is cut short, naming the refused allocation in crash reports, and reading a packed update's languages for a game's language.
++- **Oliv3rmoon** ([GitHub](https://github.com/Oliv3rmoon)), for letting games with many pipelines start, keeping the driver's pipeline cache when a write is cut short, naming the refused allocation in crash reports, and reading a packed update's languages for a game's language, and for the port of eden-nx2's Switch 2 titles to the PS5 that this fork's follows ([docs/NX2_PORT.md](docs/NX2_PORT.md)).
++- **Takoroka**, for [eden-nx2](https://git.eden-emu.dev/Takoroka/eden-nx2), Eden with experimental support for Switch 2 titles.
+ 
+ <!-- bbr-footer:start -->
+ <!-- Generated by ps5-homebrew-dev-protocol/scripts/readme-footer. Edit the template there, not here. -->
+diff --git a/docs/NX2_PORT.md b/docs/NX2_PORT.md
+new file mode 100644
+index 0000000..549db08
+--- /dev/null
++++ b/docs/NX2_PORT.md
+@@ -0,0 +1,78 @@
++# Switch 2 titles (experimental)
++
++Switch 2 support comes from Takoroka's **eden-nx2** (<https://git.eden-emu.dev/Takoroka/eden-nx2>,
++branch `eden-nx2`, GPL-3.0-or-later like Eden), a fork of Eden master that boots Switch 2 titles on
++PC; its findings are in that tree's `NX2_NOTES.md` and `NX2_GPU_THREAD_SPLIT.md`. The port to the
++PS5 follows **Oliv3rmoon's Nightshade** (<https://github.com/Oliv3rmoon/Nightshade>, branch
++`feature/nx2`, `docs/NX2_PORT.md` there), whose first commits are this fork's ancestors: its pin
++move, session settings, per-session reset and Switch 2 only optimizations are taken from it, onto
++this fork's own derivations.
++
++Nothing here has run on a console: nobody here has a Switch 2 dump. Expect crashes, missing graphics
++and low frame rates.
++
++## The pin
++
++Eden is eden-nx2 at `50fa86bbbc403ad565eb44fcc281f16f77c69e15` (Eden master at `26a03d2473`, then
++eden-nx2's commits), the archive git.eden-emu.dev makes of it, checked by sha256 in
++`tools/deps.json` and `UPSTREAM.json` (Nightshade's, the same on two downloads). The same commit is
++on GitHub in Djihads80/Eglantine's `nx2` branch, for reading it where git.eden-emu.dev is out of
++reach. If the archive's sha256 ever stops matching (Forgejo builds archives on request), compare the
++unpacked tree with `git archive` of the commit and pin the new hash.
++
++What moved with it:
++
++- `tools/eden-patches/01` to `04` apply to eden-nx2 as they are (rebased, context only); `12` is new:
++  two optimizations eden-nx2 measured only with Switch 2 titles (same-value 3D register writes
++  dropped, inline uploads' cache invalidation deferred) wait for a Switch 2 driver
++  (`Tegra::g_nx2_ampere`), so Switch 1 games keep Eden's behaviour.
++- Every derivation in `headless/CMakeLists.txt` and `tools/prepare-vulkan-port.py` still finds its
++  anchor. Changed for eden-nx2: the guest core's idle wait (its flag is a `std::atomic<bool>`; this
++  fork's spin-then-sleep replaces eden-nx2's optional poll), `KSpinLock` (eden-nx2's own
++  spin-then-wait lock, spinning `kernel_spin_iterations`), `vfs_real.cpp`'s open file cap (a
++  function now), the image allocator's retry outside the budget (eden-nx2 retries itself; it is
++  counted and reported as before), the split GPU thread stopped with the worker.
++- Dropped because upstream does it now: `GetPseudoDeviceId` without control data (seeded from the
++  program ID), and the `texture_cache/util.h` small-vector workaround.
++- **Six emulated cores.** eden-nx2 raises `Core::Hardware::NUM_CPU_CORES` from 4 to 6 for every
++  title (Switch 1 titles leave 4 and 5 idle). Everything `headless/performance.h` counts per core is
++  sized by `kGuestCores` (6), and the derived `physical_core.cpp` asserts it: with four places, the
++  JIT callbacks, CPU write statistics and CPU samples of cores 4 and 5 were written past their arrays.
++- ASTC transcoding keeps half the hardware threads (eden-nx2 takes a quarter, measured on a PC).
++
++## Playing one
++
++- **Format.** eden-nx2 boots a Switch 2 title as a loose ExeFS (`exefs/main`, `main.npdm`, `rtld`,
++  `sdk`, `subsdk*`) with its RomFS in a sibling `romfs/`; it has no Switch 2 NSP or XCI support. Such
++  a game is a game folder holding `exefs/` and `romfs/`, and goes by the path of its main,
++  `<folder>/exefs/main` (`headless/exefs_game.h`). A Switch 1 game dumped the same way plays too.
++- **Title ID and detection.** The program ID in `main.npdm` (`eden_game_title_id`); a Switch 2 title
++  is one whose npdm has the Switch 2 layout (`eden_game_is_switch2`, eden-nx2's
++  `ProgramMetadata::IsSwitch2`). Its name is the folder's, or a `control.nacp` beside `exefs/`.
++- **Keys and firmware**: the user's own, as for any game. A loose ExeFS is already decrypted.
++- **A session** (`headless/main.cpp`): the 12 GiB memory layout, Eden's lowest GPU accuracy, no
++  reactive flushing, ASTC decoded on the GPU, eden-nx2's split GPU thread; `"switch2"` in the
++  settings file changes three of them (docs/SETTINGS.md). eden-nx2's Turing macro compiler stays off
++  (`EDEN_NX2_MME_JIT=0`): the console refuses the executable memory it asks for. eden-nx2's
++  process-wide Switch 2 state is put back before every session (`headless/nx2_session.h`), since this
++  program plays one game after another; the split GPU thread's mode is read once per session.
++
++## Risks on the PS5
++
++- **Memory.** The 12 GiB layout plus eden-nx2's 8 GiB for the graphics server is 20 GiB of guest
++  memory against about 12.4 GiB on the console: it works only while a title touches less than what
++  is left, guest memory being backed where it is written.
++- **CPU.** Six emulated cores and a second GPU thread on the console's Zen 2: expect CPU-bound frame
++  rates. `"switch2": { "gpu_split": false }` gives a core back.
++- **Sparse images.** Images over 2^28 texels become sparse images with nothing bound; without sparse
++  residency in the console's RADV they fail.
++
++## Checked here
++
++- The derivations run against eden-nx2 with every anchor found, in the PS5 build (with its graphics)
++  and the Linux host build, and every line they add on the old pin is added on eden-nx2 too or
++  explained above.
++- `headless/metadata_bridge.cpp`, `main.cpp` and `performance.cpp` compile against eden-nx2's
++  headers; the settings store's check (`preferences_check.cpp`) passes with the Switch 2 settings
++  and paths.
++- Not built for the console, and not run on one.
+diff --git a/docs/SETTINGS.md b/docs/SETTINGS.md
+index ecafc29..b750435 100644
+--- a/docs/SETTINGS.md
++++ b/docs/SETTINGS.md
+@@ -170,6 +170,23 @@ The menu opens with the profile that the PS5 user in front chose last. If you us
+ 
+ The output resolution, the menu's sounds and the accessibility settings are the same for every game.
+ 
++### Switch 2 titles
++
++A Switch 2 title (experimental, [NX2_PORT.md](NX2_PORT.md)) starts with eden-nx2's own choices. In the
++settings file only, `"switch2"` at the top level changes them for every Switch 2 title, and one inside
++a game's entry under `"games"` for that game, whose values go first:
++
++```json
++  "switch2": { "gpu_split": true, "exact_gpu": false, "reactive_flushing": false },
++  "games": { "0400380020056000": { "switch2": { "gpu_split": false } } }
++```
++
++- `gpu_split`: eden-nx2's split GPU thread (on): more throughput where the GPU thread is the limit,
++  one more busy CPU core. Off gives the core back.
++- `exact_gpu`: Eden's exact GPU accuracy instead of its lowest (off); the split GPU thread runs
++  only without it.
++- `reactive_flushing`: Eden's reactive flushing (off).
++
+ ## Button mapping
+ 
+ **Settings > Controls > Vibration strength** sets how strong the DualSense vibrates, from 25% to 100% of what a game asks for; **Vibration** turns it off altogether.
+diff --git a/headless/CMakeLists.txt b/headless/CMakeLists.txt
+index 430c047..ec6d2a4 100644
+--- a/headless/CMakeLists.txt
++++ b/headless/CMakeLists.txt
+@@ -1003,8 +1003,10 @@ string(REPLACE "${idle_old}" [=[void PhysicalCore::Idle() {
+ string(REPLACE "${prefetch_old}"
+     "            } else {\n                interface->LogBacktrace(process);\n                if (prefetch_abort)\n                    ::Eden::RecordGuestFault(\"guest thread \" + Core::GetThreadName(thread).value_or(\"?\") +\n                                             \" jumped to an unmapped address\");\n            }\n            thread->RequestSuspend(kernel, SuspendType::Debug);"
+     physical_core_source "${physical_core_source}")
++# Every emulated core has its place in what is counted per core (performance.h kGuestCores).
++string(APPEND physical_core_source "\nstatic_assert(::Eden::Performance::kGuestCores >= ::Core::Hardware::NUM_CPU_CORES);\n")
+ write_derived("${PORT_BUILD_DIR}/physical_core.cpp"
+-    "#include \"${EDEN_PORT_DIR}/guest_fault.h\"\n#include \"${EDEN_PORT_DIR}/performance.h\"\n#include \"core/arm/debug.h\"\n${physical_core_source}")
++    "#include \"${EDEN_PORT_DIR}/guest_fault.h\"\n#include \"${EDEN_PORT_DIR}/performance.h\"\n#include \"core/arm/debug.h\"\n#include \"core/hardware_properties.h\"\n${physical_core_source}")
+ # The guest's tick counter gives when a frame is a little late (headless/guest_clock.h): its
+ # rate is applied where Eden applies its own clock settings, and it follows the frames the
+ # game hands in (BufferQueueProducer::QueueBuffer, below).
+@@ -2375,6 +2377,15 @@ else()
+ endif()
+ list(REMOVE_ITEM video_sources video_core.cpp gpu.cpp)
+ list(APPEND video_sources "${PORT_BUILD_DIR}/video_core.cpp")
++# Texture transcoding threads (ASTC decoded on the CPU): eden-nx2 takes a quarter of the hardware
++# threads instead of half, measured on an 8-core PC with Switch 2 titles. On the console the count
++# stays what Switch 1 games were measured with.
++file(READ "${PROJECT_SOURCE_DIR}/src/video_core/textures/workers.cpp" transcode_workers_source)
++eden_patch(transcode_workers_source "        return (std::max)(std::thread::hardware_concurrency() / 4, 2U);\n"
++    "        return (std::max)(std::thread::hardware_concurrency(), 2U) / 2;\n")
++write_derived("${PORT_BUILD_DIR}/texture_workers.cpp" "${transcode_workers_source}")
++list(REMOVE_ITEM video_sources textures/workers.cpp)
++list(APPEND video_sources "${PORT_BUILD_DIR}/texture_workers.cpp")
+ # A game's own post-processing (headless/reshade_folder.h): its game folder's reshade/ is read
+ # before post_presets/ and post_shaders/. Presets: listed first. Effects: listed first, and one of
+ # the same name in post_shaders/ is left out; the renderer reads a chain's effect from the game's
+@@ -2693,6 +2704,33 @@ if(EDEN_PS5_OPENGL)
+                     break;
+                 }
+             }
++]=])
++        # Whether a session splits is the game's (settings_store.h Switch2Settings, main.cpp sets
++        # EDEN_NX2_SPLIT before it starts): read once per session instead of once per run.
++        eden_patch(gpu_split_source [=[    static const char mode = [] {
++        const char* value = std::getenv("EDEN_NX2_SPLIT");
++        return value != nullptr ? value[0] : '2';
++    }();
++]=] [=[    if (session_split_mode == 0) {
++        const char* value = std::getenv("EDEN_NX2_SPLIT");
++        session_split_mode = value != nullptr && value[0] != 0 ? value[0] : '2';
++    }
++    const char mode = session_split_mode;
++]=])
++        eden_patch(gpu_split_source [=[GpuSplit GpuSplit::instance;
++]=] [=[GpuSplit GpuSplit::instance;
++
++namespace {
++// EDEN_NX2_SPLIT as this session read it (0: not read yet). The GPU thread reads it; Stop, after
++// that thread has ended, clears it.
++char session_split_mode = 0;
++} // Anonymous namespace
++]=])
++        eden_patch(gpu_split_source [=[void GpuSplit::Stop() {
++    if (!back_thread.joinable()) {
++]=] [=[void GpuSplit::Stop() {
++    session_split_mode = 0;
++    if (!back_thread.joinable()) {
+ ]=])
+         eden_patch(gpu_split_source [=[    back_thread.join();
+     active = false;
+diff --git a/headless/exefs_game.h b/headless/exefs_game.h
+new file mode 100644
+index 0000000..d349a9e
+--- /dev/null
++++ b/headless/exefs_game.h
+@@ -0,0 +1,28 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++// A game folder that holds its game's ExeFS and RomFS as folders (<game>/exefs/main with main.npdm
++// beside it, <game>/romfs/): how Switch 2 titles are played (experimental, eden-nx2,
++// docs/NX2_PORT.md). Such a game goes by the path of its main, "<game>/exefs/main"; Eden's loader
++// boots that file as a deconstructed ROM directory. After Oliv3rmoon's Nightshade (game_files.h).
++#pragma once
++#include <cctype>
++#include <string_view>
++
++namespace Eden {
++// The main of a game folder's ExeFS: "<game>/exefs/main", or a full path ending so ("exefs" in any
++// case; "main" as Eden names it).
++inline bool IsExeFsMain(std::string_view path) {
++    constexpr std::string_view suffix = "/exefs/main";
++    if (path.size() <= suffix.size()) return false;
++    const std::string_view end = path.substr(path.size() - suffix.size());
++    for (std::size_t i = 0; i < suffix.size(); ++i)
++        if (std::tolower(static_cast<unsigned char>(end[i])) != suffix[i]) return false;
++    path.remove_suffix(suffix.size());
++    return !path.empty() && path.back() != '/';
++}
++// The game folder of an ExeFS main ("<game>" of "<game>/exefs/main"; its full path for a full path).
++inline std::string_view ExeFsGameFolder(std::string_view path) {
++    if (!IsExeFsMain(path)) return {};
++    path.remove_suffix(std::string_view{"/exefs/main"}.size());
++    return path;
++}
++} // namespace Eden
+diff --git a/headless/main.cpp b/headless/main.cpp
+index c203183..4948052 100644
+--- a/headless/main.cpp
++++ b/headless/main.cpp
+@@ -52,6 +52,7 @@ extern "C" void eden_stay_closed(void);
+ #include "load_address.h"
+ #include "preferences.h"
+ #include "metadata_bridge.h"
++#include "nx2_session.h"
+ #ifdef EDEN_PS5_OPENGL
+ #include "graphics.h"
+ #include "video_core/renderer_base.h"
+@@ -477,6 +478,11 @@ int main(int argc, char** argv) {
+         SCOPE_EXIT { if (report != stdout) std::fclose(report); };
+         std::setvbuf(report, nullptr, _IONBF, 0);
+ #ifdef PS5_NATIVE
++        // eden-nx2's compiler for Switch 2 titles' macros writes x86-64 code into memory it makes
++        // executable with mprotect, which the console refuses, as for Eden's own macro compiler
++        // (headless/macro_recovery.cmake): those macros run through its interpreter and its call
++        // memo. Read once, when the first Switch 2 macro runs.
++        setenv("EDEN_NX2_MME_JIT", "0", 0);
+         Eden::BootTrace::Begin(Eden::kAppVersion, __DATE__ " " __TIME__);
+         // The PS5 keyboard's module, for a game's text entry: asked for before anything else
+         // changes what the app may load (system_keyboard.h).
+@@ -935,8 +941,12 @@ int main(int argc, char** argv) {
+         // The audio and the renderer read this game's own settings (Library > Game settings).
+ #ifdef PS5_NATIVE
+         const uint64_t game_title = game ? eden_game_title_id(guest) : 0;
++        // A Switch 2 title (a game folder's ExeFS with the Switch 2 npdm, exefs_game.h): played by
++        // eden-nx2's experimental support, with its own defaults below (docs/NX2_PORT.md).
++        [[maybe_unused]] const bool switch2 = game && eden_game_is_switch2(guest) != 0;
+ #else
+         const uint64_t game_title = 0;
++        [[maybe_unused]] const bool switch2 = false;
+ #endif
+         Eden::session_title.store(game_title);
+         // The loading screen shows the game's cover: the one the launcher keeps of it, found by
+@@ -961,6 +971,7 @@ int main(int argc, char** argv) {
+ #else
+         const char* guest = argc >= 2 ? argv[1] : nullptr;
+         const uint64_t game_title = 0;  // the host build has no game's own settings
++        [[maybe_unused]] const bool switch2 = false;
+         unsigned cycles = 1;
+         bool devices = false;
+         bool game = false;
+@@ -1561,6 +1572,34 @@ int main(int argc, char** argv) {
+             if (!dev_block_list) Eden::JitList::enabled = speed.block_list;
+             // Set for every session: the value outlives one.
+             Settings::values.vertex_input_dynamic_state.SetValue(dev_vertex_input != 0);
++            // A Switch 2 title (experimental, docs/NX2_PORT.md) starts with eden-nx2's own choices,
++            // which its "switch2" settings change (settings_store.h): the 12 GiB memory layout its
++            // heap is sized from (backed where it is written: src/guest_memory_service.inc), Eden's
++            // lowest GPU accuracy (the split GPU thread needs it), no reactive flushing, ASTC
++            // decoded on the GPU, and the split GPU thread. The Performance settings above do not
++            // change these.
++            if (switch2) {
++                const Eden::Switch2Settings nx2 = Eden::LoadSwitch2(game_title);
++                Settings::values.memory_layout_mode = Settings::MemoryLayout::Memory_12Gb;
++                const auto accuracy = nx2.exact_gpu ? Settings::GpuAccuracy::High : Settings::GpuAccuracy::Low;
++                Settings::values.gpu_accuracy.SetValue(accuracy);
++                Settings::values.current_gpu_accuracy = accuracy;
++                Settings::values.use_reactive_flushing.SetValue(nx2.reactive_flushing);
++                if (backend == Eden::GraphicsBackend::Vulkan)
++                    Settings::values.accelerate_astc.SetValue(Settings::AstcDecodeMode::Gpu);
++                // Read by eden-nx2's split GPU thread when the session's GPU thread starts.
++                setenv("EDEN_NX2_SPLIT", nx2.gpu_split ? "2" : "0", 1);
++                Eden::Report("launch",
++                             (std::string("Switch 2 title (experimental): 12 GiB memory layout and 8 GiB for "
++                                          "its graphics server, backed where written; GPU accuracy ") +
++                              (nx2.exact_gpu ? "exact" : "lowest") + ", reactive flushing " +
++                              (nx2.reactive_flushing ? "on" : "off") + ", ASTC decoded on the " +
++                              (backend == Eden::GraphicsBackend::Vulkan ? "GPU" : "CPU") + ", split GPU thread " +
++                              (nx2.gpu_split && !nx2.exact_gpu && backend == Eden::GraphicsBackend::Vulkan ? "on" : "off"))
++                                 .c_str());
++            } else {
++                setenv("EDEN_NX2_SPLIT", "0", 1);
++            }
+             // The report reads the values back: what the emulator has, whoever set it.
+             const auto on = [](bool value) { return value ? "on" : "off"; };
+             Eden::Report("launch", (std::string("Performance: block list ") + on(Eden::JitList::enabled) +
+@@ -1915,6 +1954,8 @@ int main(int argc, char** argv) {
+                 Eden::Loading::Set(Eden::Loading::Step::game);
+                 Eden::BootTrace::Line("loading the game");
+                 Core::SystemResultStatus loaded;
++                // eden-nx2's process-wide Switch 2 state from an earlier session (nx2_session.h).
++                Eden::Nx2::ResetForSession();
+                 try {
+                     loaded = system.Load(window, guest, params);
+                 } catch (const std::exception& error) {
+diff --git a/headless/metadata_bridge.cpp b/headless/metadata_bridge.cpp
+index a5fe8c9..db0fe26 100644
+--- a/headless/metadata_bridge.cpp
++++ b/headless/metadata_bridge.cpp
+@@ -2,6 +2,7 @@
+ #include "metadata_bridge.h"
+ #include "assets_dir.h"
+ #include "diagnostics.h"
++#include "exefs_game.h"
+ #include "profiles.h"
+ #include "ryujinx_saves.h"
+ #if defined(__PROSPERO__)
+@@ -17,6 +18,7 @@
+ #include <filesystem>
+ #include <map>
+ #include <memory>
++#include <optional>
+ #include <set>
+ #include <string>
+ #include <vector>
+@@ -40,6 +42,7 @@
+ #include "core/file_sys/content_archive.h"
+ #include "core/file_sys/control_metadata.h"
+ #include "core/file_sys/nca_metadata.h"
++#include "core/file_sys/program_metadata.h"
+ #include "core/file_sys/registered_cache.h"
+ #include "core/file_sys/romfs.h"
+ #include "core/file_sys/submission_package.h"
+@@ -131,6 +134,26 @@ uint32_t ReadLanguages(const FileSys::VirtualDir& game, const FileSys::VirtualDi
+     return game ? ReadLanguages(game) : 0;
+ }
+ 
++// A game folder's ExeFS (exefs_game.h, a Switch 2 title): its main.npdm, read as Eden reads it.
++// Empty when the folder has none that Eden can read.
++std::optional<FileSys::ProgramMetadata> ExeFsMetadata(FileSys::RealVfsFilesystem& vfs, const std::string& main) {
++    const auto exefs = std::filesystem::path(main).parent_path().string();
++    const auto npdm = vfs.OpenFile(exefs + "/main.npdm", FileSys::OpenMode::Read);
++    if (!npdm) return std::nullopt;
++    FileSys::ProgramMetadata metadata;
++    if (metadata.Load(npdm) != Loader::ResultStatus::Success) return std::nullopt;
++    return metadata;
++}
++
++// A game folder's control data when it has it beside its ExeFS (a control.nacp a dump may hold;
++// none is needed to play): the folder itself, to be read as a control RomFS is.
++FileSys::VirtualDir ExeFsControl(FileSys::RealVfsFilesystem& vfs, const std::string& main) {
++    const std::string folder{Eden::ExeFsGameFolder(main)};
++    auto directory = vfs.OpenDirectory(folder, FileSys::OpenMode::Read);
++    if (!directory || (!directory->GetFile("control.nacp") && !directory->GetFile("Control.nacp"))) return {};
++    return directory;
++}
++
+ // Game file -> its language flags, kept from the Library's metadata pass over the same data.
+ std::map<std::string, uint32_t>& GameLanguages() {
+     static std::map<std::string, uint32_t> languages;
+@@ -215,10 +238,27 @@ int eden_write_cover_tga(const unsigned char* encoded, size_t size, const char*
+     return 1;
+ }
+ 
++int eden_game_is_switch2(const char* rom_path) {
++    if (!rom_path || !Eden::IsExeFsMain(rom_path)) return 0;
++    try {
++        FileSys::RealVfsFilesystem vfs;
++        const auto metadata = ExeFsMetadata(vfs, rom_path);
++        return metadata && metadata->IsSwitch2() ? 1 : 0;
++    } catch (const std::exception& error) {
++        std::fprintf(stderr, "[ProsperoEden] library: %s\n", error.what());
++        return 0;
++    }
++}
++
+ uint64_t eden_game_title_id(const char* rom_path) {
+     if (!rom_path) return 0;
+     Common::FS::SetEdenPath(Common::FS::EdenPath::KeysDir, Eden::AssetsPath("keys"));
+     FileSys::RealVfsFilesystem vfs;
++    // A game folder's ExeFS: the program ID its main.npdm declares.
++    if (Eden::IsExeFsMain(rom_path)) {
++        const auto metadata = ExeFsMetadata(vfs, rom_path);
++        return metadata ? metadata->GetTitleID() : 0;
++    }
+     const auto file = vfs.OpenFile(rom_path, FileSys::OpenMode::Read);
+     if (!file) return 0;
+     std::string path = rom_path;
+@@ -242,6 +282,17 @@ int eden_extract_game_metadata(const char* rom_path, const char* keys_dir,
+     title[0] = '\0';
+     Common::FS::SetEdenPath(Common::FS::EdenPath::KeysDir, keys_dir);
+     FileSys::RealVfsFilesystem vfs;
++    // A game folder's ExeFS has no package to read: its name from a control.nacp beside it, when
++    // there is one (the launcher names it by its folder otherwise), and no cover.
++    if (Eden::IsExeFsMain(rom_path)) {
++        const auto control = ExeFsControl(vfs, rom_path);
++        if (!control) return 0;
++        GameLanguages()[rom_path] = ReadLanguages(control);
++        const auto extracted_title = ReadTitle(control);
++        if (extracted_title.empty()) return 0;
++        std::snprintf(title, title_capacity, "%s", extracted_title.c_str());
++        return EDEN_METADATA_TITLE;
++    }
+     const auto file = vfs.OpenFile(rom_path, FileSys::OpenMode::Read);
+     if (!file) return 0;
+     std::string path = rom_path;
+@@ -270,6 +321,10 @@ uint32_t eden_game_supported_languages(const char* rom_path, const char* keys_di
+     try {
+         Common::FS::SetEdenPath(Common::FS::EdenPath::KeysDir, keys_dir);
+         FileSys::RealVfsFilesystem vfs;
++        if (Eden::IsExeFsMain(rom_path)) {
++            const auto control = ExeFsControl(vfs, rom_path);
++            return GameLanguages()[rom_path] = control ? ReadLanguages(control) : 0;
++        }
+         const auto file = vfs.OpenFile(rom_path, FileSys::OpenMode::Read);
+         if (!file) return 0;
+         std::string path = rom_path;
+@@ -303,6 +358,8 @@ int eden_rom_content(const char* rom_path, const char* keys_dir) {
+     try {
+         Common::FS::SetEdenPath(Common::FS::EdenPath::KeysDir, keys_dir);
+         FileSys::RealVfsFilesystem vfs;
++        if (Eden::IsExeFsMain(rom_path))
++            return ExeFsMetadata(vfs, rom_path) ? EDEN_CONTENT_GAME : EDEN_CONTENT_UNKNOWN;
+         const auto file = vfs.OpenFile(rom_path, FileSys::OpenMode::Read);
+         if (!file) return EDEN_CONTENT_UNKNOWN;
+         std::string path = rom_path;
+@@ -331,14 +388,31 @@ int eden_rom_content(const char* rom_path, const char* keys_dir) {
+ }
+ 
+ namespace {
++// A folder's name in lower case, for the ExeFS and RomFS folders' names, in any case.
++std::string LowerName(const FileSys::VirtualDir& folder) {
++    std::string name = folder->GetName();
++    std::transform(name.begin(), name.end(), name.begin(),
++                   [](unsigned char c) { return static_cast<char>(std::tolower(c)); });
++    return name;
++}
++
++// A game folder that holds its game as an ExeFS and a RomFS (a Switch 2 title, exefs_game.h): its
++// RomFS can be thousands of files, and none of them is an update or DLC to look for.
++bool HoldsExeFs(const FileSys::VirtualDir& folder) {
++    for (const auto& part : folder->GetSubdirectories())
++        if (LowerName(part) == "exefs" && part->GetFile("main") && part->GetFile("main.npdm")) return true;
++    return false;
++}
++
+ // The folders of roms/ that are game folders (one per game, its update and DLC beside it):
+-// every folder in it but hidden ones.
++// every folder in it but hidden ones, and those holding an ExeFS.
+ std::vector<FileSys::VirtualDir> GameFolders(FileSys::RealVfsFilesystem& vfs, const char* roms_dir) {
+     std::vector<FileSys::VirtualDir> folders;
+     if (!roms_dir) return folders;
+     if (const auto roms = vfs.OpenDirectory(roms_dir, FileSys::OpenMode::Read))
+         for (auto& folder : roms->GetSubdirectories())
+-            if (!folder->GetName().empty() && folder->GetName().front() != '.') folders.push_back(std::move(folder));
++            if (!folder->GetName().empty() && folder->GetName().front() != '.' && !HoldsExeFs(folder))
++                folders.push_back(std::move(folder));
+     return folders;
+ }
+ } // namespace
+@@ -407,7 +481,12 @@ int FindAddOnFiles(const FileSys::VirtualDir& directory, uint64_t base, eden_fou
+             found(user, file->GetFullPath().c_str());
+             ++count;
+         }
+-    for (const auto& folder : directory->GetSubdirectories()) count += FindAddOnFiles(folder, base, found, user, depth + 1);
++    for (const auto& folder : directory->GetSubdirectories()) {
++        // A game's own ExeFS and RomFS (a Switch 2 title's folder, a mod's parts) hold no update.
++        const std::string name = LowerName(folder);
++        if (name == "exefs" || name == "romfs") continue;
++        count += FindAddOnFiles(folder, base, found, user, depth + 1);
++    }
+     return count;
+ }
+ } // namespace
+diff --git a/headless/metadata_bridge.h b/headless/metadata_bridge.h
+index a0ed0a8..ab8637d 100644
+--- a/headless/metadata_bridge.h
++++ b/headless/metadata_bridge.h
+@@ -20,6 +20,10 @@ int eden_extract_game_metadata(const char* rom_path, const char* keys_dir,
+                                const char* cover_tga_path, char* title,
+                                size_t title_capacity);
+ 
++// Nonzero for a Switch 2 title (experimental, docs/NX2_PORT.md): a game folder's ExeFS main
++// (exefs_game.h) whose main.npdm has the Switch 2 layout.
++int eden_game_is_switch2(const char* rom_path);
++
+ // A cover in a picture file's bytes (PNG or JPEG, as a download source sends it) as the TGA the
+ // launcher draws, at most 512 pixels a side. Nonzero when it was written.
+ int eden_write_cover_tga(const unsigned char* encoded, size_t size, const char* cover_tga_path);
+diff --git a/headless/nx2_session.h b/headless/nx2_session.h
+new file mode 100644
+index 0000000..3aafb9d
+--- /dev/null
++++ b/headless/nx2_session.h
+@@ -0,0 +1,31 @@
++// SPDX-FileCopyrightText: Copyright 2026 Oliv3rmoon
++// SPDX-License-Identifier: GPL-3.0-or-later
++// Switch 2 titles (experimental, eden-nx2, docs/NX2_PORT.md) and the app's sessions.
++//
++// eden-nx2 keeps what it learns of a Switch 2 title's GPU driver in process-wide state: that a
++// Switch 2 NvRm talks to the GPU (g_nx2_driver, g_nx2_ampere: the puller then runs Ampere
++// classes and Turing macros), the GPU mappings the title made (Nx2GpuMemoryRegistry, applied to
++// every new GPU address space), its semaphore regions and waiters. On a PC one process plays one
++// game. Here the app returns to the launcher and starts the next game in the same process, so
++// that state is put back before every session: a Switch 1 game after a Switch 2 one must not run
++// as Ampere, nor a second Switch 2 game get the first one's mappings.
++#pragma once
++#include <new>
++
++#include "core/hle/service/nvdrv/devices/nx2_stub_device.h"
++#include "video_core/nx2.h"
++
++namespace Eden::Nx2 {
++// Called between sessions only: no guest, GPU or service thread of an earlier session is left.
++inline void ResetForSession() {
++    Service::Nvidia::Devices::g_nx2_driver.store(false);
++    Tegra::g_nx2_ampere.store(false);
++    for (auto& region : Tegra::g_nx2_semaphore_regions) region.store(0);
++    auto& registry = Service::Nvidia::Devices::Nx2GpuMemoryRegistry::Get();
++    registry.~Nx2GpuMemoryRegistry();
++    new (&registry) Service::Nvidia::Devices::Nx2GpuMemoryRegistry();
++    auto& waiters = Tegra::Nx2SemaphoreWaiters::Get();
++    waiters.~Nx2SemaphoreWaiters();
++    new (&waiters) Tegra::Nx2SemaphoreWaiters();
++}
++} // namespace Eden::Nx2
+diff --git a/headless/performance.cpp b/headless/performance.cpp
+index 689aead..70c1f2a 100644
+--- a/headless/performance.cpp
++++ b/headless/performance.cpp
+@@ -332,9 +332,13 @@ struct CpuSample {
+     unsigned svc = ~0u, fpcr = 0;
+     unsigned long long compilations = 0, compile_ns = 0;
+ };
+-std::array<CpuSample, 4> cpu_samples;
++std::array<CpuSample, kGuestCores> cpu_samples;
+ // Read/written only by the worker owning this core; samples use workers_mutex.
+-std::array<unsigned, 4> sampled_epoch{~0u, ~0u, ~0u, ~0u};
++std::array<unsigned, kGuestCores> sampled_epoch = [] {
++    std::array<unsigned, kGuestCores> epochs;
++    epochs.fill(~0u);
++    return epochs;
++}();
+ clockid_t process_clock{};
+ int CurrentCpuClock(clockid_t* clock, bool process = false) {
+ #ifdef PS5_NATIVE
+@@ -580,7 +584,7 @@ void GuestCoreLoads(unsigned loads[4]) {
+     const long long now = MonotonicNs();
+     if (now != 0 && (asked == 0 || now - asked >= 250'000'000)) {
+         asked = now;
+-        std::array<CpuSample, 4> samples;
++        std::array<CpuSample, kGuestCores> samples;
+         {
+             std::lock_guard lock(workers_mutex);
+             samples = cpu_samples;
+diff --git a/headless/performance.h b/headless/performance.h
+index e9fd16b..4fc3e93 100644
+--- a/headless/performance.h
++++ b/headless/performance.h
+@@ -44,17 +44,21 @@ inline std::atomic<bool> gpu_time_wanted{false};
+ inline std::atomic<unsigned long long> gpu_time_busy_ns{0}, gpu_time_results{0};
+ inline std::atomic<bool> gpu_time_failed{false};
+ void MemoryPool(unsigned long long* free_bytes, unsigned long long* total_bytes);
++// Emulated CPU cores: six since eden-nx2 (Core::Hardware::NUM_CPU_CORES; Switch 2 titles run on
++// all six, Switch 1 titles leave 4 and 5 idle). What is counted per core has a place for each:
++// the derived physical_core.cpp asserts it.
++inline constexpr std::size_t kGuestCores = 6;
+ #ifdef EDEN_DEV_PROFILE
+ void BeginPcSampling();
+ void PollGpuPc();
+ // Development: A64 block compilation split into translate, optimize, emit and the emitter's
+ // block-range registration (part of emit), per guest core, in nanoseconds.
+-inline std::array<std::array<std::atomic<unsigned long long>, 4>, 4> jit_phase_ns{};
++inline std::array<std::array<std::atomic<unsigned long long>, 4>, kGuestCores> jit_phase_ns{};
+ // Development: A64 blocks per guest core that no core had compiled before, that this core had
+ // compiled before (after an invalidation), and that another core compiled first, by how long
+ // before: under 1 ms, 10 ms, 100 ms, 1 s, 10 s, and later. Counted only with dev-settings
+ // jit_dups=on (a process-wide lock and map insert per compiled block).
+-inline std::array<std::array<std::atomic<unsigned long long>, 8>, 4> jit_duplicates{};
++inline std::array<std::array<std::atomic<unsigned long long>, 8>, kGuestCores> jit_duplicates{};
+ inline std::atomic<bool> jit_duplicate_tracking{false};
+ // Guest core whose host PCs the development sampler collects (dev-settings pc_core=N, default 0).
+ inline std::atomic<unsigned> pc_sample_core{0};
+@@ -70,13 +74,13 @@ inline std::atomic<bool> firmware_applets{false};
+ // One writer per guest core. JIT state is read only by its owning worker after Run.
+ enum class CpuPhase : unsigned { Kernel, Guest, Idle };
+ struct alignas(64) CpuState { std::atomic<CpuPhase> phase{}; };
+-inline std::array<CpuState, 4> cpu_state{};
++inline std::array<CpuState, kGuestCores> cpu_state{};
+ void SampleCpu(unsigned core, unsigned long long thread, unsigned long long pc, unsigned svc, unsigned fpcr);
+ struct alignas(64) Totals {
+     std::atomic<unsigned long long> calls{}, nanoseconds{}, requested_bytes{};
+ };
+-inline std::array<Totals, 4> compilation;
+-inline std::array<std::atomic<unsigned long long>, 4> evacuations{};
++inline std::array<Totals, kGuestCores> compilation;
++inline std::array<std::atomic<unsigned long long>, kGuestCores> evacuations{};
+ inline Totals storage;
+ inline Totals jit_protection;
+ inline Totals rasterizer_draw;
+@@ -157,7 +161,7 @@ struct alignas(64) CpuWriteDetail {
+     std::array<std::atomic<unsigned long long>, 4> sizes{};
+     unsigned long long last_page{~0ULL};  // the owning core's (core 3: under Eden's sys-core guard)
+ };
+-inline std::array<CpuWriteDetail, 4> cpu_write_stats{};
++inline std::array<CpuWriteDetail, kGuestCores> cpu_write_stats{};
+ // A guest write that leaves a buffer page tracked by the GPU caches costs a trip through
+ // OnCPUWrite, mostly waiting for the buffer cache lock the GPU thread holds while it prepares each
+ // draw (a game writing ~3,300 buffer pages per frame spent a third of two guest cores there). With
+@@ -530,7 +534,7 @@ inline std::array<std::atomic<unsigned long long>, 20> render_conditions{};
+ struct IdleCounters {
+     std::atomic<unsigned long long> calls{0}, nanoseconds{0}, sleeps{0};
+ };
+-inline std::array<IdleCounters, 4> guest_idle{};
++inline std::array<IdleCounters, kGuestCores> guest_idle{};
+ // PAUSE iterations a guest core spins on its interrupt flag before sleeping (~20 ns each on the
+ // console). Guest job systems hand work between cores thousands of times a second; sleeping on a
+ // handoff puts the host's thread wake-up latency on the critical path. 100 us took a racing game's
+@@ -577,7 +581,7 @@ inline void AddHold(long long start) {
+ struct alignas(64) JitCallbacks {
+     std::atomic<unsigned long long> reads{}, writes{}, exclusive_writes{};
+ };
+-inline std::array<JitCallbacks, 4> jit_callbacks{};
++inline std::array<JitCallbacks, kGuestCores> jit_callbacks{};
+ inline void CountJit(std::atomic<unsigned long long>& counter) {
+     counter.fetch_add(1, std::memory_order_relaxed);
+ }
+diff --git a/headless/preferences_check.cpp b/headless/preferences_check.cpp
+index 5f0e6ee..e8992c8 100644
+--- a/headless/preferences_check.cpp
++++ b/headless/preferences_check.cpp
+@@ -659,6 +659,40 @@ int main() {
+     assert(!Eden::LoadGameDocked(quest, migrated) && Eden::LoadGameDocked(racer, migrated));
+     assert(std::filesystem::exists(folder + "/settings.txt"));
+ 
++    // Switch 2 titles (settings_store.h Switch2Settings): eden-nx2's choices without a file entry;
++    // "switch2" at the top level for every Switch 2 title, the game's own first; a value of the
++    // wrong kind reads as absent; a save from the Library keeps them. (From Oliv3rmoon's Nightshade.)
++    {
++        const std::string nx2_file = std::string(directory) + "/switch2.json";
++        const Eden::Switch2Settings none = Eden::LoadSwitch2(quest, nx2_file);
++        assert(none.gpu_split && !none.exact_gpu && !none.reactive_flushing);
++        auto document = Eden::Settings::Load(nx2_file);
++        document["switch2"] = {{"gpu_split", false}, {"reactive_flushing", true}};
++        document["games"][Eden::Settings::TitleKey(quest)]["switch2"] = {{"gpu_split", true}, {"exact_gpu", "yes"}};
++        assert(Eden::Settings::Write(document, nx2_file));
++        const Eden::Switch2Settings own = Eden::LoadSwitch2(quest, nx2_file);
++        assert(own.gpu_split && !own.exact_gpu && own.reactive_flushing);
++        const Eden::Switch2Settings other = Eden::LoadSwitch2(racer, nx2_file);
++        assert(!other.gpu_split && !other.exact_gpu && other.reactive_flushing);
++        assert(Eden::SaveGameSettings(quest, Eden::GameSettings{}, nx2_file));
++        assert(Eden::LoadSwitch2(quest, nx2_file).gpu_split && Eden::LoadSwitch2(quest, nx2_file).reactive_flushing);
++    }
++    // A Switch 2 title goes by the path of its game folder's ExeFS main (exefs_game.h): the last
++    // game and the recent games keep it like a file in a game folder.
++    {
++        const std::string nx2_file = std::string(directory) + "/switch2-games.json";
++        assert(Eden::ValidRomPath("Lumen Drift/exefs/main") && Eden::ValidRomPath("Lumen Drift/ExeFS/main"));
++        assert(!Eden::ValidRomPath("exefs/main") && !Eden::ValidRomPath("A/B/exefs/main") &&
++               !Eden::ValidRomPath(".hidden/exefs/main") && !Eden::ValidRomPath("Lumen Drift/exefs/rtld"));
++        assert(Eden::SaveLastGame("Lumen Drift/exefs/main", nx2_file) &&
++               Eden::LoadLastGame(nx2_file) == "Lumen Drift/exefs/main");
++        assert(Eden::SaveRecentGame("Lumen Drift/exefs/main", nx2_file) &&
++               Eden::LoadRecentGames(nx2_file).front() == "Lumen Drift/exefs/main");
++        assert(Eden::IsExeFsMain("/data/eden/roms/Lumen Drift/exefs/main") &&
++               Eden::ExeFsGameFolder("/data/eden/roms/Lumen Drift/exefs/main") == "/data/eden/roms/Lumen Drift");
++        assert(!Eden::IsExeFsMain("/exefs/main") && !Eden::IsExeFsMain("Game.nsp") && Eden::ExeFsGameFolder("Game.nsp").empty());
++    }
++
+     std::filesystem::remove_all(directory);
+     std::filesystem::remove_all(legacy);
+     std::puts("settings store: all checks passed");
+diff --git a/headless/settings_store.h b/headless/settings_store.h
+index 8bc503e..44df33d 100644
+--- a/headless/settings_store.h
++++ b/headless/settings_store.h
+@@ -34,7 +34,9 @@
+ //                                      "mods_off": ["A mod's folder name"],
+ //                                      "cheats_on": ["A mod's folder name#A cheat's name"],
+ //                                      "cheats_off": ["A mod's folder name#Its one cheat's name"],
+-//                                      "performance": { "fast_gpu": true } } }
++//                                      "performance": { "fast_gpu": true },
++//                                      "switch2": { "gpu_split": false } } },
++//     "switch2": { "gpu_split": true, "exact_gpu": false, "reactive_flushing": false }
+ //   }
+ //
+ // Missing or mistyped values read as their defaults. Writes replace the file atomically. The
+@@ -58,6 +60,7 @@
+ #include <nlohmann/json.hpp>
+ 
+ #include "button_mapping.h"
++#include "exefs_game.h"
+ #include "storage_paths.h"
+ #include "multiplayer.h"
+ 
+@@ -187,11 +190,17 @@ inline int KeyIndex(const std::string& value, const char* const* keys, int count
+ 
+ // A game's file as the Library names it: its path in the game files folder's roms/, either its
+ // name ("Game.nsp") or a game folder and its name ("Game/Game.nsp", the game's update and DLC
+-// beside it). Readable characters, one folder at most, never a hidden folder, "." or "..".
++// beside it), or a game folder's ExeFS main ("Game/exefs/main", a Switch 2 title, exefs_game.h).
++// Readable characters, one folder at most (besides exefs/), never a hidden folder, "." or "..".
+ inline bool ValidRomPath(std::string_view name) {
+     if (name.size() < 5 || name.size() > 511) return false;
+     for (unsigned char c : name)
+         if (c < 32 || c == 127 || c == '\\') return false;
++    if (IsExeFsMain(name)) {
++        const std::string_view folder = ExeFsGameFolder(name);
++        return folder.size() <= 255 && folder[0] != '.' && folder.find('/') == std::string_view::npos &&
++               folder != "." && folder != "..";
++    }
+     if (const auto slash = name.find('/'); slash != std::string_view::npos) {
+         if (slash == 0 || name[0] == '.' || name.find('/', slash + 1) != std::string_view::npos) return false;
+         if (slash > 255 || name.size() - slash - 1 < 5 || name.size() - slash - 1 > 255) return false;
+@@ -944,6 +953,38 @@ inline Preferences PreferencesFor(uint64_t title_id, const std::string& file) {
+ // read their game's settings for.
+ inline std::atomic<uint64_t> session_title{0};
+ 
++// Switch 2 titles (experimental, eden-nx2, docs/NX2_PORT.md), in the settings file only: "switch2"
++// for every Switch 2 title, and one in a game's entry under "games" for that game, whose values go
++// first. A Switch 2 session starts with eden-nx2's own choices (these defaults); a Switch 1 game
++// reads none. From Oliv3rmoon's Nightshade.
++struct Switch2Settings {
++    // eden-nx2's split GPU thread: command lists are read on one thread, engine methods and draws
++    // run on a second. More throughput where the GPU thread is the limit, one more busy CPU core.
++    bool gpu_split = true;
++    // Eden's exact GPU accuracy instead of its lowest, which eden-nx2 measured Switch 2 titles at.
++    // The split GPU thread runs only without it.
++    bool exact_gpu = false;
++    // Eden's reactive flushing; eden-nx2 runs Switch 2 titles without it (no difference seen).
++    bool reactive_flushing = false;
++};
++
++inline Switch2Settings LoadSwitch2(uint64_t title_id, const std::string& file = SettingsFile()) {
++    using Settings::Json;
++    const Json document = Settings::Load(file);
++    Switch2Settings result;
++    const auto read = [&](const std::string& base) {
++        const auto value = [&](const char* name, bool& out) {
++            out = Settings::Bool(document, Json::json_pointer(base + "/switch2/" + name), out);
++        };
++        value("gpu_split", result.gpu_split);
++        value("exact_gpu", result.exact_gpu);
++        value("reactive_flushing", result.reactive_flushing);
++    };
++    read("");
++    if (title_id) read("/games/" + Settings::TitleKey(title_id));
++    return result;
++}
++
+ // Speed against accuracy, for every game ("performance") and for one ("games/<title>/performance",
+ // whose values go before the general ones, one value at a time). Settings > Performance has
+ // a switch for each general value, and Library > Game settings > Performance one for each of a
+diff --git a/tools/eden-patches/12-switch2-only-optimizations.diff b/tools/eden-patches/12-switch2-only-optimizations.diff
+new file mode 100644
+index 0000000..0ac54a3
+--- /dev/null
++++ b/tools/eden-patches/12-switch2-only-optimizations.diff
+@@ -0,0 +1,51 @@
++--- a/src/video_core/engines/maxwell_3d.h
+++++ b/src/video_core/engines/maxwell_3d.h
++@@ -26,6 +26,7 @@
++ #include "video_core/engines/engine_upload.h"
++ #include "video_core/gpu.h"
++ #include "video_core/macro.h"
+++#include "video_core/nx2.h"
++ #include "video_core/textures/texture.h"
++ #include "video_core/engines/maxwell_3d.h"
++ 
++@@ -3269,12 +3270,13 @@ private:
++     void CallMacroMethod(Core::System& system, u32 method, std::span<const u32> parameters);
++ 
++     /// Whether state register writes that keep the register's value are dropped (CallMethod).
+++    /// Measured with Switch 2 titles; a Switch 1 game keeps every write (Tegra::g_nx2_ampere).
++     static bool SkipSameValueWrites() {
++         static const bool skip = [] {
++             const char* value = std::getenv("EDEN_NX2_SKIP_SAME");
++             return value == nullptr || value[0] != '0';
++         }();
++-        return skip;
+++        return skip && Tegra::g_nx2_ampere.load(std::memory_order_relaxed);
++     }
++ 
++     /// Handles writes to the macro uploading register.
++--- a/src/video_core/renderer_vulkan/vk_rasterizer.cpp
+++++ b/src/video_core/renderer_vulkan/vk_rasterizer.cpp
++@@ -50,6 +50,7 @@
++ #include "video_core/vulkan_common/vulkan_device.h"
++ #include "video_core/vulkan_common/vulkan_wrapper.h"
++ #include "video_core/nx2_profile.h"
+++#include "video_core/nx2.h"
++ 
++ namespace Vulkan {
++ 
++@@ -1250,11 +1251,13 @@ void RasterizerVulkan::AccelerateInlineToMemory(GPUVAddr address, size_t copy_si
++         return;
++     }
++     gpu_memory->WriteBlockUnsafe(address, memory.data(), copy_size);
++-    // EDEN_NX2_INLINE_DEFER=0: invalidate every cache at once (for comparisons).
++-    static const bool defer = [] {
+++    // EDEN_NX2_INLINE_DEFER=0: invalidate every cache at once (for comparisons). Measured with
+++    // Switch 2 titles; a Switch 1 game invalidates at once, as before (Tegra::g_nx2_ampere).
+++    static const bool defer_wanted = [] {
++         const char* value = std::getenv("EDEN_NX2_INLINE_DEFER");
++         return value == nullptr || value[0] != '0';
++     }();
+++    const bool defer = defer_wanted && Tegra::g_nx2_ampere.load(std::memory_order_relaxed);
++     // One cache at a time: holding both while waiting for either (std::lock) waited longer, the
++     // fencing thread and CPU write traps holding one of them most of the time.
++     bool uploaded;
