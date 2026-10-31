@@ -63,7 +63,7 @@ ECAM does not offer its Wii U/3DS/DS/Switch save or home-tile actions for these 
 
 Exact donor revisions are in tools/retro/sources.json:
 
-- premohq/Porpoise-X: c855be7f93cdfde98cc558fe0a8408c4cdf759fa (its ps5-ecam branch: 4.0 with the bridge in it)
+- premohq/Porpoise-X: 3b36a08c92c07981f02e77a4c26d53521b3e690b (its ps5-ecam branch: 4.0, the bridge in it, no menus' sounds or downloads when PS5-ECAM starts it)
 - Yahballon/PS5N64X: 28c55d854f5e451da9ffd5a78c694415accad172
 - Yahballon/PS5NESX: 58168b79fe0e2cce7d42b8b8109d74a4283a2b41
 

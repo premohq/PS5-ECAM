@@ -261,7 +261,9 @@ its `main` stays upstream's (4.0 now).
    applied by `tools/retro/prepare.py`, which finds it there and changes nothing).
 2. **None of its own screens** when PS5-ECAM starts it: no library, settings, memory cards, setup or
    update check; its UI's assets (fonts, images, sounds, themes) neither loaded nor packaged, only what
-   the emulation reads (Dolphin's `Sys`, `recommended.ini`, the per-game profiles).
+   the emulation reads (Dolphin's `Sys`, `recommended.ini`, the per-game profiles). **Started:** `3b36a08` (no menu
+   music, sounds, jingle or cover downloads; Porpoise checks for updates only when its own Settings
+   asks). Its fonts and theme stay until step 4's menu replaces its in-game one, which draws with them.
 3. **Its settings in PS5-ECAM's Settings**, the GameCube and Wii sides' and a game's own: every row of
    its `add_game_rows` (Video, Enhancements, Graphics, Audio, Controls, System, Wii Remote), with its
    controller layouts and Wii Remote setup, written to its own files by `port/retro/porpoise_settings.cpp`
