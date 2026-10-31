@@ -23,7 +23,8 @@ namespace ps5esde
 		// ES-DE's systems (its resources/systems/unix/es_systems.xml), in the launcher's sides' order:
 		// Wii U, 3DS, DS, Switch, then ps5retro::kSystems' (GameCube, Wii, N64, NES, GB, GBC, GBA, SNES,
 		// Virtual Boy, Pokemon mini). The extensions are each side's (ES-DE scans for none here: its
-		// systems file wants them all the same).
+		// systems file wants them all the same). Every theme the app ships has art for each of these
+		// names (tools/check-esde-themes.py, run by tools/build-esde.sh): a new one is checked there.
 		struct Known
 		{
 			const char* name;

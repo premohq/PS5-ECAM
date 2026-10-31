@@ -80,6 +80,9 @@ An app built with it (`make esde`) can open on **EmulationStation** (ES-DE) inst
 **Settings > Launcher > Start in EmulationStation**: ES-DE's own menus, its themes (Alekfull NX by
 default) and its scraper for box art, screenshots and videos, in Mihawk's PS5 port of it.
 
+- Its themes, in its UI Settings: Alekfull NX (the default), Art Book Next, Artflix Revisited, Colorful
+  Revisited, Colorful Simplified, PlayStation X and RetroFix Revisited, each with art for every one of
+  PS5-ECAM's systems (the build checks it).
 - It shows the sides the bar shows, as ES-DE's own systems (so its themes have their art), with the
   games each side's library lists: open a side once in PS5-ECAM, or **Look for games now**, for its
   games to be there. Favourites follow whichever of the two you changed last; hidden games stay hidden.
