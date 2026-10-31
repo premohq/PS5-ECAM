@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2558
+#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2559
 msgid "The Wii U has twelve accounts at most."
 msgstr "A Wii U-n legfeljebb tizenkét fiók lehet."
 
@@ -100,7 +100,7 @@ msgstr "Nem indul"
 msgid "the PS5 Vulkan driver did not start"
 msgstr "a PS5 Vulkan-illesztőprogramja nem indult el"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2835 port/frontend/shell/shell.cpp:1961
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2836 port/frontend/shell/shell.cpp:1961
 msgid "PS5-ECAM cannot write to {0}. Is the HEN loaded?"
 msgstr "A PS5-ECAM nem tud írni ide: {0}. Be van töltve a HEN?"
 
@@ -117,7 +117,7 @@ msgstr "A játék alapfájljai nem találhatók."
 msgid "The game could not be mounted. Check that its files are still in the game files folder."
 msgstr "A játékot nem sikerült csatolni. Ellenőrizd, hogy a fájljai még a játékok mappájában vannak-e."
 
-#: port/app/emulator.cpp:777 port/azahar/core.cpp:627 port/retro/launch.cpp:50
+#: port/app/emulator.cpp:777 port/azahar/core.cpp:627 port/retro/launch.cpp:57
 #, menu
 msgid "The game could not be started."
 msgstr "A játékot nem sikerült elindítani."
@@ -144,7 +144,7 @@ msgid "The Vulkan renderer did not start: {0}"
 msgstr "A Vulkan-megjelenítő nem indult el: {0}"
 
 #. the PS5's notification as a Wii U game starts
-#: port/app/emulator.cpp:867
+#: port/app/emulator.cpp:867 port/libretro/game.cpp:575
 msgid "Touchpad click + Options: the in-game menu (screens, picture, volume, controls, the library)"
 msgstr "Érintőpanel-kattintás + OPTIONS: a játék menüje (képernyők, kép, hangerő, irányítás, könyvtár)"
 
@@ -735,7 +735,7 @@ msgstr "AMD FSR 1"
 
 #. the quick action that puts a gap between the two screens, and its state
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:471 port/frontend/shell/settings.cpp:1597 port/frontend/shell/switch_extras.cpp:54
+#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:472 port/frontend/shell/settings.cpp:1598 port/frontend/shell/switch_extras.cpp:54
 #, menu
 msgid "On"
 msgstr "Be"
@@ -745,7 +745,7 @@ msgstr "Be"
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:75 port/frontend/shell/settings.cpp:471 port/frontend/shell/settings.cpp:680 port/frontend/shell/settings.cpp:1280 port/frontend/shell/settings.cpp:1569 port/frontend/shell/settings.cpp:1597 port/frontend/shell/settings.cpp:1625 port/frontend/shell/settings.cpp:1633 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
+#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:75 port/frontend/shell/settings.cpp:472 port/frontend/shell/settings.cpp:681 port/frontend/shell/settings.cpp:1281 port/frontend/shell/settings.cpp:1570 port/frontend/shell/settings.cpp:1598 port/frontend/shell/settings.cpp:1626 port/frontend/shell/settings.cpp:1634 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
 #, menu
 msgid "Off"
 msgstr "Ki"
@@ -834,7 +834,7 @@ msgstr "Grafika"
 msgid "Upscaling, Cemu's accuracy settings and the performance overlay. Kept for the next games."
 msgstr "Felskálázás, a Cemu pontossági beállításai és a teljesítményjelző. A következő játékokra is érvényes."
 
-#: port/app/ingame.cpp:196 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:553 port/frontend/shell/settings.cpp:674
+#: port/app/ingame.cpp:196 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:554 port/frontend/shell/settings.cpp:675
 #, menu
 msgid "Upscaling to 4K"
 msgstr "Felskálázás 4K-ra"
@@ -854,7 +854,7 @@ msgstr "Pontos korlátok"
 msgid "Off can raise the frame rate, but some games then flicker or show wrong shadows. It changes at once."
 msgstr "Kikapcsolva nőhet a képkockasebesség, de egyes játékok villoghatnak vagy hibás árnyékokat mutathatnak. Azonnal érvényes."
 
-#: port/app/ingame.cpp:200 port/frontend/shell/settings.cpp:599 port/frontend/shell/settings.cpp:646 port/frontend/shell/settings.cpp:999
+#: port/app/ingame.cpp:200 port/frontend/shell/settings.cpp:600 port/frontend/shell/settings.cpp:647 port/frontend/shell/settings.cpp:1000
 #, menu
 msgid "Async shader compile"
 msgstr "Aszinkron árnyalófordítás"
@@ -864,7 +864,7 @@ msgstr "Aszinkron árnyalófordítás"
 msgid "On, new shaders build while the game carries on: no stutter, but things may be missing for a moment."
 msgstr "Bekapcsolva az új árnyalók a játék futása közben készülnek: nincs akadás, de valami egy pillanatra hiányozhat."
 
-#: port/app/ingame.cpp:202 port/frontend/shell/settings.cpp:574
+#: port/app/ingame.cpp:202 port/frontend/shell/settings.cpp:575
 #, menu
 msgid "Frame pacing"
 msgstr "Egyenletes képkockák"
@@ -875,7 +875,7 @@ msgid "Holds the game to an even rate: 60 fps for 4K at 120 Hz, 30 for 8K at 60 
 msgstr "Egyenletes tempón tartja a játékot: 60 fps 4K-hoz 120 Hz-en, 30 a 8K-hoz 60 Hz-en. Kikapcsolva minden képkocka azonnal megjelenik, amint elkészül."
 
 #. What's new: Lossless Scaling's frame generation for Switch games; Lossless.dll and MihawkGen are names, left as they are
-#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:533 port/eden/ingame.cpp:576 port/frontend/shell/settings.cpp:562 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:651 port/frontend/shell/settings.cpp:714 port/frontend/shell/settings.cpp:727 port/frontend/shell/whatsnew.cpp:36
+#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:533 port/eden/ingame.cpp:576 port/frontend/shell/settings.cpp:563 port/frontend/shell/settings.cpp:581 port/frontend/shell/settings.cpp:652 port/frontend/shell/settings.cpp:715 port/frontend/shell/settings.cpp:728 port/frontend/shell/whatsnew.cpp:36
 #, menu
 msgid "Frame generation"
 msgstr "Képkocka-generálás"
@@ -885,7 +885,7 @@ msgstr "Képkocka-generálás"
 msgid "A picture made between each two frames of a game at 30 fps, so it is shown at 60. It changes at once."
 msgstr "Egy kép készül minden két képkocka közé egy 30 fps-es játékban, így 60-nal látszik. Azonnal változik."
 
-#: port/app/ingame.cpp:206 port/frontend/shell/settings.cpp:587 port/frontend/shell/switch_extras.cpp:72
+#: port/app/ingame.cpp:206 port/frontend/shell/settings.cpp:588 port/frontend/shell/switch_extras.cpp:72
 #, menu
 msgid "ReShade"
 msgstr "ReShade"
@@ -895,7 +895,7 @@ msgstr "ReShade"
 msgid "Your ReShade preset over the game's picture (Settings > Graphics says where it goes). It changes at once."
 msgstr "A ReShade-preseted a játék képén (a Beállítások > Grafika megmondja, hová kell tenni). Azonnal változik."
 
-#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:514 port/app/ingame3ds.cpp:522 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:593 port/frontend/shell/settings.cpp:661 port/frontend/shell/settings.cpp:735 port/frontend/shell/settings.cpp:753
+#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:514 port/app/ingame3ds.cpp:522 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:594 port/frontend/shell/settings.cpp:662 port/frontend/shell/settings.cpp:736 port/frontend/shell/settings.cpp:754
 #, menu
 msgid "Performance overlay"
 msgstr "Teljesítményjelző"
@@ -905,7 +905,7 @@ msgstr "Teljesítményjelző"
 msgid "Frames per second, CPU and memory use in the top left corner, as Cemu shows them."
 msgstr "Képkocka/másodperc, CPU- és memóriahasználat a bal felső sarokban, ahogy a Cemu mutatja."
 
-#: port/app/ingame.cpp:210 port/frontend/shell/settings.cpp:603
+#: port/app/ingame.cpp:210 port/frontend/shell/settings.cpp:604
 #, menu
 msgid "Shader notices"
 msgstr "Árnyalóértesítések"
@@ -966,7 +966,7 @@ msgid "None"
 msgstr "Nincs"
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1569
+#: port/app/ingame.cpp:243 port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1570
 #, menu
 msgid "{0} on"
 msgid_plural "{0} on"
@@ -1015,7 +1015,7 @@ msgid "The last figure could not be put on."
 msgstr "Az utolsó figurát nem sikerült felhelyezni."
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1569
+#: port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1570
 #, menu
 msgid "USB devices"
 msgstr "USB-eszközök"
@@ -1099,7 +1099,7 @@ msgstr "Emulált kontroller"
 msgid "What the game sees in this player's hands. Most games want the GamePad for player 1."
 msgstr "Amit a játék e játékos kezében lát. A legtöbb játék az 1. játékoshoz a GamePadet kéri."
 
-#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:635 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:875
+#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:635 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:876
 #, menu
 msgid "Motion controls"
 msgstr "Mozgásvezérlés"
@@ -1114,7 +1114,7 @@ msgstr "Ennek nincs"
 msgid "The DualSense's gyroscope and accelerometer, for the games that aim or steer by tilting."
 msgstr "A DualSense giroszkópja és gyorsulásmérője, azokhoz a játékokhoz, ahol döntéssel céloz vagy kormányoz az ember."
 
-#: port/app/ingame.cpp:311 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:820
+#: port/app/ingame.cpp:311 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:821
 #, menu
 msgid "Vibration"
 msgstr "Rezgés"
@@ -1144,17 +1144,17 @@ msgstr "Jobb kar holtzónája"
 msgid "How far the right stick moves before the game sees it. Raise it if the camera drifts."
 msgstr "Mennyit mozdul a jobb kar, mielőtt a játék észreveszi. Növeld, ha a kamera magától forog."
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:618 port/app/ingame3ds.cpp:629 port/app/ingame3ds.cpp:639 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:869 port/frontend/shell/welcome.cpp:58
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:618 port/app/ingame3ds.cpp:629 port/app/ingame3ds.cpp:639 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:870 port/frontend/shell/welcome.cpp:58
 #, menu
 msgid "A and B"
 msgstr "A és B"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:869 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:870 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Circle"
 msgstr "A a körön"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:869 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:870 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Cross"
 msgstr "A a kereszten"
@@ -1190,7 +1190,7 @@ msgstr "{0}: {1}"
 #. the languages the emulated 3DS can be set to
 #. the Switch's controller types, as a game sees the DualSense (Automatic: what the game takes)
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/settings.cpp:50 port/frontend/shell/settings.cpp:53 port/frontend/shell/settings.cpp:126 port/frontend/shell/settings.cpp:958 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:321 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/settings.cpp:50 port/frontend/shell/settings.cpp:53 port/frontend/shell/settings.cpp:126 port/frontend/shell/settings.cpp:959 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Automatic"
 msgstr "Automatikus"
@@ -1211,7 +1211,7 @@ msgid "Touches the GamePad's screen, or presses the button set to Touchpad click
 msgstr "Megérinti a GamePad képernyőjét, vagy megnyomja az Érintőpanel-kattintáshoz rendelt gombot (- ha nincs ilyen). A gyorsbillentyűk továbbra is működnek."
 
 #. the remote touch screen's row: which screen a phone or a tablet shows
-#: port/app/ingame.cpp:326 port/frontend/shell/settings.cpp:1588
+#: port/app/ingame.cpp:326 port/frontend/shell/settings.cpp:1589
 #, menu
 msgid "The GamePad's screen"
 msgstr "A GamePad képernyője"
@@ -1345,7 +1345,7 @@ msgstr "Képernyő és keret"
 msgid "The border around the screen."
 msgstr "A keret a képernyő körül."
 
-#: port/app/ingame3ds.cpp:479 port/app/ingame3ds.cpp:490 port/frontend/shell/settings.cpp:784
+#: port/app/ingame3ds.cpp:479 port/app/ingame3ds.cpp:490 port/frontend/shell/settings.cpp:785
 #, menu
 msgid "Border"
 msgstr "Keret"
@@ -1397,7 +1397,7 @@ msgstr "Melyik képernyő veszi át a felső helyét. Játék közben az érint�
 msgid "Artwork around the screens, never over them. Also in the launcher's Settings > Screens."
 msgstr "Grafika a képernyők körül, soha nem rajtuk. Az indítóban a Beállítások > Képernyők alatt is."
 
-#: port/app/ingame3ds.cpp:495 port/frontend/shell/settings.cpp:763
+#: port/app/ingame3ds.cpp:495 port/frontend/shell/settings.cpp:764
 #, menu
 msgid "Screen rotation"
 msgstr "Képernyő-elforgatás"
@@ -1413,7 +1413,7 @@ msgid "For the games played with the 3DS held on its side, like a book: both scr
 msgstr "Azokhoz a játékokhoz, amelyeknél a 3DS-t oldalra fordítva, könyvként kell tartani: a két képernyő együtt fordul, az érintőképernyő is."
 
 #. the quick action that puts a gap between the two screens, and its state
-#: port/app/ingame3ds.cpp:501 port/app/ingame3ds.cpp:690 port/frontend/shell/settings.cpp:773
+#: port/app/ingame3ds.cpp:501 port/app/ingame3ds.cpp:690 port/frontend/shell/settings.cpp:774
 #, menu
 msgid "Screen gap"
 msgstr "Képernyőköz"
@@ -1423,7 +1423,7 @@ msgstr "Képernyőköz"
 msgid "A gap between the two screens where both show, as the console's hinge makes: one above the other, side by side, or turned like a book."
 msgstr "Rés a két képernyő között, ahol mindkettő látszik, ahogy a konzol zsanérja tartja őket: egymás alatt, egymás mellett vagy könyvként elforgatva."
 
-#: port/app/ingame3ds.cpp:506 port/frontend/shell/settings.cpp:778
+#: port/app/ingame3ds.cpp:506 port/frontend/shell/settings.cpp:779
 #, menu
 msgid "Touch without the bottom screen"
 msgstr "Érintés alsó képernyő nélkül"
@@ -1438,7 +1438,7 @@ msgstr "Ha csak a felső képernyő látszik, az érintőpanel akkor is az alsó
 msgid "The screen filter and the performance overlay."
 msgstr "A képernyőszűrő és a teljesítményjelző."
 
-#: port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/frontend/shell/settings.cpp:740
+#: port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/frontend/shell/settings.cpp:741
 #, menu
 msgid "Screen filter"
 msgstr "Képernyőszűrő"
@@ -1448,7 +1448,7 @@ msgstr "Képernyőszűrő"
 msgid "How the game's picture is scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them together; Square pixels takes the nearest, uneven at most sizes."
 msgstr "Hogyan méreteződik a játék képe a tévére. Az Éles minden képpontot négyzetesnek és egyenletesnek hagy; a Lágy összemossa őket; a Négyzetes képpontok a legközelebbit veszi, a legtöbb méretnél egyenetlenül."
 
-#: port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/frontend/shell/settings.cpp:661 port/frontend/shell/settings.cpp:662 port/frontend/shell/settings.cpp:735 port/frontend/shell/settings.cpp:736 port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:754
+#: port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/frontend/shell/settings.cpp:662 port/frontend/shell/settings.cpp:663 port/frontend/shell/settings.cpp:736 port/frontend/shell/settings.cpp:737 port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:755
 #, menu
 msgid "The frame rate and the emulation's speed, in the top left corner."
 msgstr "A képkockasebesség és az emuláció sebessége a bal felső sarokban."
@@ -1463,7 +1463,7 @@ msgstr "Hogyan méreteződnek a DS 256 x 192-es képernyői a tévére. Az Éles
 msgid "Internal resolution, texture filter and the performance overlay."
 msgstr "Belső felbontás, textúraszűrő és teljesítményjelző."
 
-#: port/app/ingame3ds.cpp:529 port/frontend/shell/settings.cpp:610 port/frontend/shell/settings.cpp:666
+#: port/app/ingame3ds.cpp:529 port/frontend/shell/settings.cpp:611 port/frontend/shell/settings.cpp:667
 #, menu
 msgid "Internal resolution"
 msgstr "Belső felbontás"
@@ -1473,7 +1473,7 @@ msgstr "Belső felbontás"
 msgid "How large the 3D scenes are drawn before they are scaled to the TV. Higher is sharper and asks more of the GPU."
 msgstr "Mekkora méretben készülnek a 3D-s jelenetek, mielőtt a tévére méreteződnek. A nagyobb élesebb, és jobban terheli a GPU-t."
 
-#: port/app/ingame3ds.cpp:531 port/frontend/shell/settings.cpp:621
+#: port/app/ingame3ds.cpp:531 port/frontend/shell/settings.cpp:622
 #, menu
 msgid "Texture filter"
 msgstr "Textúraszűrő"
@@ -1484,13 +1484,13 @@ msgid "Smooths textures as they are scaled up. The costliest setting here: if a 
 msgstr "Kisimítja a textúrákat nagyításkor. Itt ez a legköltségesebb beállítás: ha egy játék akad, először próbáld a Nincs lehetőséget."
 
 #. no speed limit
-#: port/app/ingame3ds.cpp:540 port/eden/ingame.cpp:582 port/frontend/shell/settings.cpp:953
+#: port/app/ingame3ds.cpp:540 port/eden/ingame.cpp:582 port/frontend/shell/settings.cpp:954
 #, menu
 msgid "Speed limit"
 msgstr "Sebességkorlát"
 
 #. no speed limit
-#: port/app/ingame3ds.cpp:540 port/app/ingame3ds.cpp:543 port/eden/ingame.cpp:524 port/frontend/shell/settings.cpp:952
+#: port/app/ingame3ds.cpp:540 port/app/ingame3ds.cpp:543 port/eden/ingame.cpp:524 port/frontend/shell/settings.cpp:953
 #, menu
 msgctxt "speed limit"
 msgid "None"
@@ -1506,7 +1506,7 @@ msgstr "100% felett felgyorsítja a lassú jeleneteket; a Nincs olyan gyorsan fu
 msgid "Speed"
 msgstr "Sebesség"
 
-#: port/app/ingame3ds.cpp:545 port/eden/ingame.cpp:581 port/frontend/shell/settings.cpp:953
+#: port/app/ingame3ds.cpp:545 port/eden/ingame.cpp:581 port/frontend/shell/settings.cpp:954
 #, menu
 msgid "How fast the game may run."
 msgstr "Milyen gyorsan futhat a játék."
@@ -1516,7 +1516,7 @@ msgstr "Milyen gyorsan futhat a játék."
 msgid "The emulated CPU's clock, and how fast the game may run."
 msgstr "Az emulált CPU órajele, és hogy milyen gyorsan futhat a játék."
 
-#: port/app/ingame3ds.cpp:549 port/frontend/shell/settings.cpp:922
+#: port/app/ingame3ds.cpp:549 port/frontend/shell/settings.cpp:923
 #, menu
 msgid "CPU clock"
 msgstr "CPU-órajel"
@@ -1678,7 +1678,7 @@ msgstr "Leveszi az amiibót az olvasóról, mintha felemelnéd."
 msgid "The left stick's deadzone and where A and B are."
 msgstr "A bal kar holtzónája, és hol van az A és a B."
 
-#: port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:627 port/app/ingame3ds.cpp:637 port/eden/ingame.cpp:600 port/frontend/shell/settings.cpp:823 port/frontend/shell/settings.cpp:877
+#: port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:627 port/app/ingame3ds.cpp:637 port/eden/ingame.cpp:600 port/frontend/shell/settings.cpp:824 port/frontend/shell/settings.cpp:878
 #, menu
 msgid "Stick deadzone"
 msgstr "Kar holtzónája"
@@ -1769,12 +1769,12 @@ msgstr "Az utolsó betöltés visszavonása"
 msgid "Goes back to the moment before the last load, as if it had not been made. What you did since the load is lost, so Cross is held."
 msgstr "Visszatér az utolsó betöltés előtti pillanathoz, mintha meg sem történt volna. Ami a betöltés óta történt, elvész, ezért a keresztet nyomva kell tartani."
 
-#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1588
+#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1589
 #, menu
 msgid "The touch screen"
 msgstr "Az érintőképernyő"
 
-#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1588
+#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1589
 #, menu
 msgid "The bottom screen"
 msgstr "Az alsó képernyő"
@@ -2302,7 +2302,7 @@ msgid "The new packs could not take the old ones' place"
 msgstr "Az új csomagok nem tudták felváltani a régieket"
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1597 port/frontend/shell/settings.cpp:1599 port/frontend/shell/settings.cpp:3139
+#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1598 port/frontend/shell/settings.cpp:1600 port/frontend/shell/settings.cpp:3140
 #, menu
 msgid "Remote touch screen"
 msgstr "Távoli érintőképernyő"
@@ -2318,7 +2318,7 @@ msgstr "{0} egy telefon vagy táblagép böngészőjében, érintéssel: olvasd 
 msgid "A phone or tablet on the PS5's network. Sound stays on the PS5."
 msgstr "Telefon vagy táblagép a PS5 hálózatán. A hang a PS5-ön marad."
 
-#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3147
+#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3148
 #, menu
 msgid "Turn it off and on again once that is fixed."
 msgstr "Kapcsold ki, majd be, ha ez megoldódott."
@@ -2665,13 +2665,13 @@ msgid "{0}: off"
 msgstr "{0}: ki"
 
 #. how a save state's save or load went
-#: port/azahar/core.cpp:342 port/melonds/core.cpp:572
+#: port/azahar/core.cpp:342 port/libretro/game.cpp:430 port/melonds/core.cpp:572
 #, menu
 msgid "Loaded slot {0}"
 msgstr "{0}. hely betöltve"
 
 #. how a save state's save or load went
-#: port/azahar/core.cpp:342 port/melonds/core.cpp:555
+#: port/azahar/core.cpp:342 port/libretro/game.cpp:424 port/melonds/core.cpp:555
 #, menu
 msgid "Saved slot {0}"
 msgstr "Mentve: {0}. hely"
@@ -2681,18 +2681,18 @@ msgstr "Mentve: {0}. hely"
 msgid "Made by another version"
 msgstr "Másik verzió készítette"
 
-#: port/azahar/core.cpp:344 port/melonds/core.cpp:545 port/melonds/core.cpp:556 port/melonds/core.cpp:564 port/melonds/core.cpp:566
+#: port/azahar/core.cpp:344 port/libretro/game.cpp:419 port/libretro/game.cpp:424 port/libretro/game.cpp:429 port/melonds/core.cpp:545 port/melonds/core.cpp:556 port/melonds/core.cpp:564 port/melonds/core.cpp:566
 #, menu
 msgid "It did not work"
 msgstr "Nem sikerült"
 
 #. how undoing the last load went
-#: port/azahar/core.cpp:346 port/melonds/core.cpp:540
+#: port/azahar/core.cpp:346 port/libretro/game.cpp:419 port/melonds/core.cpp:540
 #, menu
 msgid "Back to before the load"
 msgstr "Vissza a betöltés előttre"
 
-#: port/azahar/core.cpp:349 port/melonds/core.cpp:572
+#: port/azahar/core.cpp:349 port/libretro/game.cpp:430 port/melonds/core.cpp:572
 #, menu
 msgid "Back where you left off"
 msgstr "Vissza oda, ahol abbahagytad"
@@ -2890,7 +2890,7 @@ msgstr "Felskálázás, élsimítás, képkocka-generálás és a teljesítmény
 msgid "How the picture is scaled to the TV: Bicubic is sharp, Bilinear softer, AMD FSR 1 keeps edges clean. It changes at once."
 msgstr "Hogyan skálázódik a kép a tévére: a bikubikus éles, a bilineáris lágyabb, az AMD FSR 1 tisztán tartja az éleket. Azonnal változik."
 
-#: port/eden/ingame.cpp:571 port/frontend/shell/settings.cpp:691
+#: port/eden/ingame.cpp:571 port/frontend/shell/settings.cpp:692
 #, menu
 msgid "FSR sharpening"
 msgstr "FSR-élesség"
@@ -2900,7 +2900,7 @@ msgstr "FSR-élesség"
 msgid "How much AMD FSR 1 sharpens the picture as it scales it: 100% is the most. It changes at once."
 msgstr "Mennyire élesíti az AMD FSR 1 a képet skálázás közben: a 100% a legtöbb. Azonnal változik."
 
-#: port/eden/ingame.cpp:573 port/frontend/shell/settings.cpp:697
+#: port/eden/ingame.cpp:573 port/frontend/shell/settings.cpp:698
 #, menu
 msgid "Anti-aliasing"
 msgstr "Élsimítás"
@@ -2916,14 +2916,14 @@ msgid "The frame rate and the emulation's speed, in a corner of the screen."
 msgstr "A képkockasebesség és az emuláció sebessége a képernyő egyik sarkában."
 
 #. the emulated Switch's console mode: in its dock, or handheld
-#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:934
+#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:935
 #, menu
 msgctxt "switch mode"
 msgid "Docked"
 msgstr "Dokkolva"
 
 #. the emulated Switch's console mode: in its dock, or handheld
-#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:934
+#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:935
 #, menu
 msgctxt "switch mode"
 msgid "Handheld"
@@ -2935,7 +2935,7 @@ msgid "Docked or handheld, the controller the game sees, vibration and the stick
 msgstr "Dokkolva vagy kézi módban, a vezérlő, amit a játék lát, a rezgés és a karok holtzónája."
 
 #. the emulated Switch's console mode: in its dock, or handheld
-#: port/eden/ingame.cpp:592 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:934
+#: port/eden/ingame.cpp:592 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:935
 #, menu
 msgid "Console mode"
 msgstr "Konzol mód"
@@ -2945,7 +2945,7 @@ msgstr "Konzol mód"
 msgid "Docked, the game draws for a TV, at its sharpest; handheld, for the console's own screen, which asks less of the GPU. The game is told at once, as when a Switch leaves its dock."
 msgstr "Dokkolva a játék tévére rajzol, a legélesebben; kézi módban a konzol saját képernyőjére, ami kevesebbet kér a GPU-tól. A játék azonnal értesül róla, mint amikor egy Switch elhagyja a dokkját."
 
-#: port/eden/ingame.cpp:595 port/frontend/shell/settings.cpp:943
+#: port/eden/ingame.cpp:595 port/frontend/shell/settings.cpp:944
 #, menu
 msgid "Controller type"
 msgstr "Vezérlő típusa"
@@ -2970,7 +2970,7 @@ msgstr "Mennyit mozdul a kar, mielőtt a játék észreveszi. Növeld, ha egy sz
 msgid "Left and Right choose an amiibo dump; Cross touches it to the controller when the game asks for one, and again takes it away."
 msgstr "Balra és jobbra amiibo-dumpot választ; a kereszt a vezérlőhöz érinti, amikor a játék kér egyet, és újra megnyomva elveszi."
 
-#: port/eden/ingame.cpp:627 port/frontend/shell/settings.cpp:1319
+#: port/eden/ingame.cpp:627 port/frontend/shell/settings.cpp:1320
 #, menu
 msgid "Room"
 msgstr "Szoba"
@@ -3008,7 +3008,7 @@ msgid_plural "{0} players"
 msgstr[0] "{0} játékos"
 msgstr[1] "{0} játékos"
 
-#: port/eden/launch.cpp:117 port/main_ps5.cpp:721
+#: port/eden/launch.cpp:117 port/main_ps5.cpp:722
 msgid "This build has no Switch emulator: eden/eboot.bin is not in the app's folder."
 msgstr "Ebben a változatban nincs Switch-emulátor: az eden/eboot.bin nincs az alkalmazás mappájában."
 
@@ -3083,7 +3083,7 @@ msgstr[0] "{0} fájl törölve ({1} MB)"
 msgstr[1] "{0} fájl törölve ({1} MB)"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1524 port/frontend/shell/settings.cpp:2815
+#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1525 port/frontend/shell/settings.cpp:2816
 msgid "None to delete"
 msgstr "Nincs mit törölni"
 
@@ -3542,7 +3542,7 @@ msgid "Game files"
 msgstr "Játékfájlok"
 
 #. What's new: a Switch game's update and DLC files are found next to it, and its page shows them
-#: port/frontend/shell/installs.cpp:362 port/frontend/shell/settings.cpp:1109 port/frontend/shell/shell.cpp:1866 port/frontend/shell/whatsnew.cpp:32
+#: port/frontend/shell/installs.cpp:362 port/frontend/shell/settings.cpp:1110 port/frontend/shell/shell.cpp:1866 port/frontend/shell/whatsnew.cpp:32
 msgid "Updates and DLC"
 msgstr "Frissítések és DLC-k"
 
@@ -3652,7 +3652,7 @@ msgstr "Beüzemelés"
 msgid "Something needs a look"
 msgstr "Valami figyelmet igényel"
 
-#: port/frontend/shell/library.cpp:135 port/frontend/shell/library.cpp:172 port/frontend/shell/library.cpp:202 port/frontend/shell/settings.cpp:1500
+#: port/frontend/shell/library.cpp:135 port/frontend/shell/library.cpp:172 port/frontend/shell/library.cpp:202 port/frontend/shell/settings.cpp:1501
 msgid "Setup check"
 msgstr "Beüzemelési ellenőrzés"
 
@@ -3854,7 +3854,7 @@ msgid "Presets · choosing one turns it on"
 msgstr "Előbeállítások · választás bekapcsolja"
 
 #. what a held row says once it has done its work
-#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2870
+#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2871
 msgctxt "finished"
 msgid "Done"
 msgstr "Kész"
@@ -3929,16 +3929,16 @@ msgstr "A kontroller alapértelmezett gombjai, rezgése, mozgása és holtzóná
 
 #. {0} is the player's number, {1} an emulated controller (Wii U GamePad)
 #. Settings > Controls: a row that opens the buttons' settings (each button, the defaults)
-#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:633 port/frontend/shell/pages.cpp:830 port/frontend/shell/pages.cpp:836 port/frontend/shell/settings.cpp:841 port/frontend/shell/settings.cpp:893
+#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:633 port/frontend/shell/pages.cpp:830 port/frontend/shell/pages.cpp:836 port/frontend/shell/settings.cpp:842 port/frontend/shell/settings.cpp:894
 msgid "Buttons"
 msgstr "Gombok"
 
-#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:847 port/frontend/shell/settings.cpp:902
+#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:903
 msgid "Reset to defaults"
 msgstr "Alapértékek visszaállítása"
 
 #. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:592 port/frontend/shell/settings.cpp:857
+#: port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:592 port/frontend/shell/settings.cpp:858
 msgid "Player {0}"
 msgstr "{0}. játékos"
 
@@ -4003,19 +4003,19 @@ msgstr "A kattintás megnyomja az Érintőpanel-kattintáshoz rendelt gombot."
 msgid "The click touches the GamePad's screen."
 msgstr "A kattintás megérinti a GamePad képernyőjét."
 
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:839 port/frontend/shell/settings.cpp:892
+#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:840 port/frontend/shell/settings.cpp:893
 msgid "{0} button set"
 msgid_plural "{0} buttons set"
 msgstr[0] "{0} gomb beállítva"
 msgstr[1] "{0} gomb beállítva"
 
 #. Settings > Controls > Buttons: the row that opens the list of every button and the DualSense button on it
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:844 port/frontend/shell/settings.cpp:896
+#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:845 port/frontend/shell/settings.cpp:897
 msgid "Which DualSense button presses each button."
 msgstr "Melyik DualSense-gomb nyomja meg az egyes gombokat."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:634 port/frontend/shell/pages.cpp:1540 port/frontend/shell/pages.cpp:1544 port/frontend/shell/settings.cpp:847 port/frontend/shell/settings.cpp:902 port/frontend/shell/settings.cpp:1132 port/frontend/shell/settings.cpp:1196 port/frontend/shell/settings.cpp:1253 port/frontend/shell/settings.cpp:1295 port/frontend/shell/settings.cpp:1392 port/frontend/shell/settings.cpp:1506 port/frontend/shell/settings.cpp:1509 port/frontend/shell/settings.cpp:1523 port/frontend/shell/settings.cpp:1674 port/frontend/shell/settings.cpp:1796 port/frontend/shell/settings.cpp:1838 port/frontend/shell/settings.cpp:1863 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#: port/frontend/shell/pages.cpp:634 port/frontend/shell/pages.cpp:1540 port/frontend/shell/pages.cpp:1544 port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:903 port/frontend/shell/settings.cpp:1133 port/frontend/shell/settings.cpp:1197 port/frontend/shell/settings.cpp:1254 port/frontend/shell/settings.cpp:1296 port/frontend/shell/settings.cpp:1393 port/frontend/shell/settings.cpp:1507 port/frontend/shell/settings.cpp:1510 port/frontend/shell/settings.cpp:1524 port/frontend/shell/settings.cpp:1675 port/frontend/shell/settings.cpp:1797 port/frontend/shell/settings.cpp:1839 port/frontend/shell/settings.cpp:1864 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "Tartsd nyomva a keresztet"
 
@@ -4176,19 +4176,19 @@ msgstr "Megszakítva. A korábbi telepítés olyan, amilyen volt."
 msgid "{0} games"
 msgstr "{0}-játékok"
 
-#: port/frontend/shell/pages.cpp:1194 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1194 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "3DS games"
 msgstr "3DS-játékok"
 
-#: port/frontend/shell/pages.cpp:1195 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1195 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "DS games"
 msgstr "DS-játékok"
 
-#: port/frontend/shell/pages.cpp:1196 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1196 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "Switch games"
 msgstr "Switch-játékok"
 
-#: port/frontend/shell/pages.cpp:1197 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1197 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "Wii U games"
 msgstr "Wii U-játékok"
 
@@ -4270,7 +4270,7 @@ msgid "Cannot be read"
 msgstr "Nem olvasható"
 
 #. Settings > Game files' Keys and firmware row, its value when the firmware is missing and the keys are there
-#: port/frontend/shell/pages.cpp:1301 port/frontend/shell/pages.cpp:1308 port/frontend/shell/settings.cpp:1071
+#: port/frontend/shell/pages.cpp:1301 port/frontend/shell/pages.cpp:1308 port/frontend/shell/settings.cpp:1072
 msgid "Found"
 msgstr "Megtalálva"
 
@@ -4278,7 +4278,7 @@ msgstr "Megtalálva"
 msgid "Missing: Eden cannot read Switch games without it"
 msgstr "Hiányzik: nélküle az Eden nem tudja olvasni a Switch-játékokat"
 
-#: port/frontend/shell/pages.cpp:1314 port/frontend/shell/settings.cpp:1025
+#: port/frontend/shell/pages.cpp:1314 port/frontend/shell/settings.cpp:1026
 msgid "Your DS's BIOS"
 msgstr "A DS-ed BIOS-a"
 
@@ -4341,7 +4341,7 @@ msgstr "Kapcsolódás: {0}"
 msgid "Artic Setup Tool"
 msgstr "Artic Setup Tool"
 
-#: port/frontend/shell/pages.cpp:1506 port/frontend/shell/pages.cpp:1517 port/frontend/shell/settings.cpp:1302 port/frontend/shell/setup.cpp:270
+#: port/frontend/shell/pages.cpp:1506 port/frontend/shell/pages.cpp:1517 port/frontend/shell/settings.cpp:1303 port/frontend/shell/setup.cpp:270
 msgid "Artic Base"
 msgstr "Artic Base"
 
@@ -4530,7 +4530,7 @@ msgstr "Sötét matt üveg és kerekebb sarkok, az oldal sodródó fénye és fe
 msgid "A light background with dark text."
 msgstr "Világos háttér sötét szöveggel."
 
-#: port/frontend/shell/settings.cpp:205 port/frontend/shell/settings.cpp:546 port/frontend/shell/settings.cpp:916 port/frontend/shell/settings.cpp:961 port/frontend/shell/settings.cpp:1020 port/frontend/shell/settings.cpp:2000 port/frontend/shell/setup.cpp:538
+#: port/frontend/shell/settings.cpp:205 port/frontend/shell/settings.cpp:547 port/frontend/shell/settings.cpp:917 port/frontend/shell/settings.cpp:962 port/frontend/shell/settings.cpp:1021 port/frontend/shell/settings.cpp:2001 port/frontend/shell/setup.cpp:538
 msgid "Language"
 msgstr "Nyelv"
 
@@ -4631,7 +4631,7 @@ msgstr "Mentések"
 msgid "Each account has its own saves for every game. Backups hold every side's saves."
 msgstr "Minden fióknak saját mentései vannak minden játékhoz. A biztonsági mentések minden oldal mentéseit tartalmazzák."
 
-#: port/frontend/shell/settings.cpp:243 port/frontend/shell/settings.cpp:1645
+#: port/frontend/shell/settings.cpp:243 port/frontend/shell/settings.cpp:1646
 msgid "Who plays, each with saves of their own."
 msgstr "Ki játszik, mindenki a saját mentéseivel."
 
@@ -4750,7 +4750,7 @@ msgstr "Kereszt: letöltés"
 msgid "{0}: Cross to install"
 msgstr "{0}: kereszt a telepítéshez"
 
-#: port/frontend/shell/settings.cpp:332 port/frontend/shell/settings.cpp:1331 port/frontend/shell/shell.cpp:2537
+#: port/frontend/shell/settings.cpp:332 port/frontend/shell/settings.cpp:1332 port/frontend/shell/shell.cpp:2537
 msgid "Downloading…"
 msgstr "Letöltés…"
 
@@ -4847,1751 +4847,1751 @@ msgstr "Játékok mappája"
 msgid "The folder this side's games are in. Choosing another moves nothing: games and saves stay where they are."
 msgstr "A mappa, amelyben ennek az oldalnak a játékai vannak. Másik választása semmit sem helyez át: a játékok és a mentések maradnak, ahol vannak."
 
-#: port/frontend/shell/settings.cpp:451 port/frontend/shell/settings.cpp:1054
+#: port/frontend/shell/settings.cpp:451 port/frontend/shell/settings.cpp:1055
 msgid "Look for games now"
 msgstr "Játékok keresése most"
 
-#: port/frontend/shell/settings.cpp:455
+#: port/frontend/shell/settings.cpp:456
 msgid "Open emulator settings and saves"
 msgstr "Az emulátor beállításainak és mentéseinek megnyitása"
 
-#: port/frontend/shell/settings.cpp:456
+#: port/frontend/shell/settings.cpp:457
 msgid "This side's emulator keeps its own settings, controls and saves: this opens its menus to change them, and quitting them comes back here. What it already had stays where it is."
 msgstr "Ennek az oldalnak az emulátora saját beállításokat, irányítást és mentéseket tart: ez megnyitja a menüit, hogy módosíthasd őket, és a kilépés ide hoz vissza. Ami már megvolt neki, ott marad, ahol van."
 
-#: port/frontend/shell/settings.cpp:458 port/frontend/shell/settings.cpp:1243 port/frontend/shell/settings.cpp:1817
+#: port/frontend/shell/settings.cpp:459 port/frontend/shell/settings.cpp:1244 port/frontend/shell/settings.cpp:1818
 msgid "Back up to USB"
 msgstr "Biztonsági mentés USB-re"
 
-#: port/frontend/shell/settings.cpp:458
+#: port/frontend/shell/settings.cpp:459
 msgid "Every side's saves, each emulator's. A save state loads only in the emulator that made it."
 msgstr "Minden oldal mentései, minden emulátoré. Egy mentett állapot csak abban az emulátorban töltődik be, amelyik készítette."
 
-#: port/frontend/shell/settings.cpp:459 port/frontend/shell/settings.cpp:2598
+#: port/frontend/shell/settings.cpp:460 port/frontend/shell/settings.cpp:2599
 msgid "Emulator diagnostics"
 msgstr "Emulátordiagnosztika"
 
-#: port/frontend/shell/settings.cpp:535
+#: port/frontend/shell/settings.cpp:536
 msgid "Cemu is still starting. One moment."
 msgstr "A Cemu még indul. Egy pillanat."
 
-#: port/frontend/shell/settings.cpp:535
+#: port/frontend/shell/settings.cpp:536
 msgid "Cemu did not start, so this cannot be changed."
 msgstr "A Cemu nem indult el, így ez nem módosítható."
 
-#: port/frontend/shell/settings.cpp:546
+#: port/frontend/shell/settings.cpp:547
 msgid "The menus' language, and the games' names where they have one in it."
 msgstr "A menük nyelve, és a játékok neveié, ha a játéknak van ilyen nyelvű neve."
 
-#: port/frontend/shell/settings.cpp:547
+#: port/frontend/shell/settings.cpp:548
 msgid "PS5-ECAM speaks the PS5's own language unless you choose another here; the first start's Setup check has the same choice. A game's name follows it where the game has one in that language, as on a console set to it; otherwise it is the English one. Descriptions come from GameTDB in English, and graphic packs from their authors, as they wrote them."
 msgstr "A PS5-ECAM a PS5 nyelvén beszél, hacsak nem választasz itt mást; az első indítás beüzemelési ellenőrzése ugyanezt a választást kínálja. A játék neve is ezt követi, ha a játéknak van ilyen nyelvű neve, ahogy egy erre a nyelvre állított konzolon; különben az angol név látszik. A leírások a GameTDB-ből jönnek angolul, a grafikus csomagok a szerzőiktől, úgy, ahogy megírták őket."
 
-#: port/frontend/shell/settings.cpp:553 port/frontend/shell/settings.cpp:674
+#: port/frontend/shell/settings.cpp:554 port/frontend/shell/settings.cpp:675
 msgid "How the picture is scaled to the TV."
 msgstr "Hogyan méreteződik a kép a tévére."
 
-#: port/frontend/shell/settings.cpp:554
+#: port/frontend/shell/settings.cpp:555
 msgid "Bicubic is sharp, Bicubic Hermite a little softer, Bilinear softer still; Nearest neighbour keeps pixels square. AMD FSR 1 keeps edges clean for a game drawn below 4K, for a little more work by the GPU than Bicubic."
 msgstr "A Bikubikus éles, a Bikubikus Hermite kicsit lágyabb, a Bilineáris még lágyabb; a Legközelebbi szomszéd négyzetesen tartja a képpontokat. Az AMD FSR 1 tisztán tartja az éleket a 4K alatt rajzolt játékoknál, a GPU-nak kicsit több munkával, mint a Bikubikus."
 
 #. Settings > Graphics: a row that opens the frame rate's settings (120 Hz output, frame pacing, frame generation)
-#: port/frontend/shell/settings.cpp:564
+#: port/frontend/shell/settings.cpp:565
 msgid "Frame rate"
 msgstr "Képkockasebesség"
 
 #. Settings > Graphics: a row that opens the frame rate's settings (120 Hz output, frame pacing, frame generation)
-#: port/frontend/shell/settings.cpp:564
+#: port/frontend/shell/settings.cpp:565
 msgid "120 Hz output, frame pacing and frame generation."
 msgstr "120 Hz-es kimenet, egyenletes képkockák és képkocka-generálás."
 
-#: port/frontend/shell/settings.cpp:565
+#: port/frontend/shell/settings.cpp:566
 msgid "The display's refresh rate, a game held to an even frame rate, and a picture made between each two frames. Triangle on each says more."
 msgstr "A kijelző frissítési gyakorisága, egyenletes képkockasebességre fogott játék, és két képkocka közé készített kép. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:567
+#: port/frontend/shell/settings.cpp:568
 msgid "120 Hz output"
 msgstr "120 Hz-es kimenet"
 
-#: port/frontend/shell/settings.cpp:567
+#: port/frontend/shell/settings.cpp:568
 msgid "For displays that take 120 Hz."
 msgstr "120 Hz-et kezelő kijelzőkhöz."
 
-#: port/frontend/shell/settings.cpp:568
+#: port/frontend/shell/settings.cpp:569
 msgid "The 119.88 Hz mode, on displays that support it. Games still run at their own speed, and a frame that misses a refresh waits 8 ms for the next instead of 17."
 msgstr "A 119,88 Hz-es mód, az azt támogató kijelzőkön. A játékok továbbra is a saját sebességükkel futnak, és a frissítésről lemaradó képkocka 17 helyett 8 ms-ot vár a következőre."
 
-#: port/frontend/shell/settings.cpp:574
+#: port/frontend/shell/settings.cpp:575
 msgid "Holds a game to an even frame rate."
 msgstr "Egyenletes képkockasebességen tartja a játékot."
 
-#: port/frontend/shell/settings.cpp:575
+#: port/frontend/shell/settings.cpp:576
 msgid "Each frame stays on screen for at least two or three refreshes, so a game that cannot hold the display's rate runs at an even one: 60 or 40 fps with 120 Hz output, 30 or 20 without. 60 fps with 120 Hz output suits a game at 4K that sometimes drops under 60; 30 fps at 60 Hz suits one at 8K. Also in the in-game menu."
 msgstr "Minden képkocka legalább két vagy három frissítésig a képernyőn marad, így az a játék, amely nem bírja a kijelző tempóját, egyenletesen fut: 60 vagy 40 fps 120 Hz-es kimenettel, 30 vagy 20 anélkül. A 60 fps 120 Hz-es kimenettel olyan 4K-s játékhoz illik, amely néha 60 alá esik; a 30 fps 60 Hz-en egy 8K-s játékhoz. A játék menüjében is."
 
-#: port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:651 port/frontend/shell/settings.cpp:727
+#: port/frontend/shell/settings.cpp:581 port/frontend/shell/settings.cpp:652 port/frontend/shell/settings.cpp:728
 msgid "A game held to 30 fps shown at 60."
 msgstr "A 30 fps-re korlátozott játék 60-nal látszik."
 
-#: port/frontend/shell/settings.cpp:581 port/frontend/shell/settings.cpp:652
+#: port/frontend/shell/settings.cpp:582 port/frontend/shell/settings.cpp:653
 msgid "MihawkGen makes a picture between each two frames of a game that takes two refreshes a frame or more, so a game at 30 fps is shown at 60, or at 60 with 120 Hz output. A game that runs faster is shown as it is. It costs the GPU about 2 ms a picture at 4K, and adds a little delay. Also in the in-game menu."
 msgstr "A MihawkGen egy képet készít minden két képkocka közé egy olyan játékban, amely képkockánként két vagy több frissítést vesz igénybe, így egy 30 fps-es játék 60-nal látszik, vagy 60-nal 120 Hz-es kimenetnél. Egy gyorsabb játék úgy látszik, ahogy van. Képenként körülbelül 2 ms-ba kerül a GPU-nak 4K-ban, és kis késést ad hozzá. A játék menüjében is."
 
-#: port/frontend/shell/settings.cpp:587
+#: port/frontend/shell/settings.cpp:588
 msgid "Your ReShade preset and effects, from {0}."
 msgstr "A ReShade-preseted és effektjeid innen: {0}."
 
-#: port/frontend/shell/settings.cpp:588
+#: port/frontend/shell/settings.cpp:589
 msgid "Runs a ReShade preset made on a PC over the game's picture, before the GamePad's screen and the menus. Put ReShadePreset.ini (or presets/<title ID>.ini for one game) with the Shaders and Textures folders it uses in {0}. Compiled as the game starts; the boot log says what runs. Also in the in-game menu."
 msgstr "Egy PC-n készült ReShade-presetet futtat a játék képén, a GamePad képernyője és a menük előtt. Tedd a ReShadePreset.ini-t (vagy egy játékhoz a presets/<címazonosító>.ini-t) az általa használt Shaders és Textures mappákkal ide: {0}. A játék indulásakor fordul le; az indítási napló megmondja, mi fut. A játék közbeni menüben is."
 
-#: port/frontend/shell/settings.cpp:593
+#: port/frontend/shell/settings.cpp:594
 msgid "Frame rate, CPU and memory in a corner."
 msgstr "Képkockasebesség, CPU és memória a sarokban."
 
-#: port/frontend/shell/settings.cpp:594
+#: port/frontend/shell/settings.cpp:595
 msgid "Frames per second, CPU and memory use in the top left corner, as Cemu shows them. Also in the in-game menu."
 msgstr "Képkocka/másodperc, CPU- és memóriahasználat a bal felső sarokban, ahogy a Cemu mutatja. A játék menüjében is."
 
 #. Settings > Graphics: a row that opens the shaders' settings
 #. Settings > Graphics' Shaders row, its value: where the 3DS's vertex shaders run, on the GPU (Hardware) or on the CPU (Software)
-#: port/frontend/shell/settings.cpp:597 port/frontend/shell/settings.cpp:630
+#: port/frontend/shell/settings.cpp:598 port/frontend/shell/settings.cpp:631
 msgid "Shaders"
 msgstr "Árnyalók"
 
 #. Settings > Graphics: a row that opens the shaders' settings
-#: port/frontend/shell/settings.cpp:597
+#: port/frontend/shell/settings.cpp:598
 msgid "How new shaders are built, and Cemu's notes about them."
 msgstr "Hogyan készülnek az új árnyalók, és a Cemu értesítései róluk."
 
-#: port/frontend/shell/settings.cpp:598
+#: port/frontend/shell/settings.cpp:599
 msgid "Async shader compile, and the notes Cemu shows while a game builds its shaders. Triangle on each says more."
 msgstr "Az aszinkron árnyalófordítás, és az értesítések, amelyeket a Cemu mutat, amíg egy játék az árnyalóit készíti. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:599 port/frontend/shell/settings.cpp:646 port/frontend/shell/settings.cpp:999
+#: port/frontend/shell/settings.cpp:600 port/frontend/shell/settings.cpp:647 port/frontend/shell/settings.cpp:1000
 msgid "No stutter while new shaders build."
 msgstr "Nincs akadás, amíg új árnyalók készülnek."
 
-#: port/frontend/shell/settings.cpp:600 port/frontend/shell/settings.cpp:647 port/frontend/shell/settings.cpp:1000
+#: port/frontend/shell/settings.cpp:601 port/frontend/shell/settings.cpp:648 port/frontend/shell/settings.cpp:1001
 msgid "On, a new shader is built while the game carries on, so it does not stutter, but some things may be missing for a moment. Off, the game waits for each one: stutter, but nothing drawn wrong."
 msgstr "Bekapcsolva az új árnyaló a játék futása közben készül, így nem akad, de valami egy pillanatra hiányozhat. Kikapcsolva a játék mindegyikre vár: akadás, de semmi sem rajzolódik rosszul."
 
-#: port/frontend/shell/settings.cpp:603
+#: port/frontend/shell/settings.cpp:604
 msgid "Cemu's \"compiled shaders\" notes over a game."
 msgstr "A Cemu „lefordított árnyalók” üzenetei a játék fölött."
 
-#: port/frontend/shell/settings.cpp:604
+#: port/frontend/shell/settings.cpp:605
 msgid "The notes Cemu shows in a corner while a game builds its shaders and pipelines (\"Loaded 1200 shaders\"). Off hides them; the shaders are built either way. Also in the in-game menu."
 msgstr "Az üzenetek, amelyeket a Cemu a sarokban mutat, amíg a játék árnyalókat és pipeline-okat fordít („Loaded 1200 shaders”). A Ki elrejti őket; az árnyalók így is lefordulnak. A játék menüjében is."
 
-#: port/frontend/shell/settings.cpp:610 port/frontend/shell/settings.cpp:666
+#: port/frontend/shell/settings.cpp:611 port/frontend/shell/settings.cpp:667
 msgid "Higher is sharper and asks more of the GPU."
 msgstr "A nagyobb élesebb, és jobban terheli a GPU-t."
 
-#: port/frontend/shell/settings.cpp:611
+#: port/frontend/shell/settings.cpp:612
 msgid "How large the 3DS's 3D scenes are drawn before they are scaled to the TV. Higher is sharper and asks more of the GPU, and each time a game reads a picture back the wait grows with it."
 msgstr "Mekkora méretben készülnek a 3DS 3D-s jelenetei, mielőtt a tévére méreteződnek. A nagyobb élesebb és jobban terheli a GPU-t, és amikor egy játék visszaolvas egy képet, a várakozás is vele nő."
 
-#: port/frontend/shell/settings.cpp:617 port/frontend/shell/settings.cpp:625
+#: port/frontend/shell/settings.cpp:618 port/frontend/shell/settings.cpp:626
 msgid "Custom textures"
 msgstr "Egyéni textúrák"
 
 #. Settings > Graphics: a row that opens the textures' settings (the texture filter, custom textures)
-#: port/frontend/shell/settings.cpp:619
+#: port/frontend/shell/settings.cpp:620
 msgid "Textures"
 msgstr "Textúrák"
 
 #. Settings > Graphics: a row that opens the textures' settings (the texture filter, custom textures)
-#: port/frontend/shell/settings.cpp:619
+#: port/frontend/shell/settings.cpp:620
 msgid "The texture filter, and texture packs."
 msgstr "A textúraszűrő és a textúracsomagok."
 
-#: port/frontend/shell/settings.cpp:620
+#: port/frontend/shell/settings.cpp:621
 msgid "A filter that smooths the game's textures as they are scaled up, and texture packs of your own. Triangle on each says more."
 msgstr "Egy szűrő, amely nagyításkor simítja a játék textúráit, és a saját textúracsomagjaid. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:621
+#: port/frontend/shell/settings.cpp:622
 msgid "Smooths textures as they are scaled up."
 msgstr "Kisimítja a textúrákat nagyításkor."
 
-#: port/frontend/shell/settings.cpp:622
+#: port/frontend/shell/settings.cpp:623
 msgid "Smooths the game's textures as they are scaled up; None keeps them as the 3DS draws them. A filter redraws every texture at the internal resolution: at high resolutions it is the costliest setting. If a game stutters, try None first."
 msgstr "Kisimítja a játék textúráit nagyításkor; a Nincs úgy hagyja őket, ahogy a 3DS rajzolja. A szűrő minden textúrát újrarajzol a belső felbontáson: nagy felbontáson ez a legköltségesebb beállítás. Ha egy játék akad, először próbáld a Nincs lehetőséget."
 
-#: port/frontend/shell/settings.cpp:625
+#: port/frontend/shell/settings.cpp:626
 msgid "Texture packs from azahar/load/textures."
 msgstr "Textúracsomagok az azahar/load/textures mappából."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:627
+#: port/frontend/shell/settings.cpp:628
 msgid "Texture packs in {0}/azahar/load/textures/<title ID>, as the desktop Azahar loads them."
 msgstr "Textúracsomagok a {0}/azahar/load/textures/<címazonosító> mappában, ahogy az asztali Azahar betölti őket."
 
 #. Settings > Graphics' Shaders row, its value: where the 3DS's vertex shaders run, on the GPU (Hardware) or on the CPU (Software)
-#: port/frontend/shell/settings.cpp:630
+#: port/frontend/shell/settings.cpp:631
 msgctxt "shaders"
 msgid "Hardware"
 msgstr "Hardveres"
 
 #. Settings > Graphics' Shaders row, its value: where the 3DS's vertex shaders run, on the GPU (Hardware) or on the CPU (Software)
-#: port/frontend/shell/settings.cpp:630
+#: port/frontend/shell/settings.cpp:631
 msgctxt "shaders"
 msgid "Software"
 msgstr "Szoftveres"
 
-#: port/frontend/shell/settings.cpp:631
+#: port/frontend/shell/settings.cpp:632
 msgid "Where the 3DS's shaders run, and how new ones are built."
 msgstr "Hol futnak a 3DS árnyalói, és hogyan készülnek az újak."
 
-#: port/frontend/shell/settings.cpp:632
+#: port/frontend/shell/settings.cpp:633
 msgid "Hardware shaders, the outline fix for them, and async shader compile. Triangle on each says more."
 msgstr "A hardveres árnyalók, a körvonaljavítás hozzájuk és az aszinkron árnyalófordítás. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:633
+#: port/frontend/shell/settings.cpp:634
 msgid "Hardware shaders"
 msgstr "Hardveres árnyalók"
 
-#: port/frontend/shell/settings.cpp:633
+#: port/frontend/shell/settings.cpp:634
 msgid "Off: 3D drawn exactly, on the CPU. Off for Pokémon."
 msgstr "Ki: pontos 3D a CPU-n. Pokémonnál ki."
 
-#: port/frontend/shell/settings.cpp:634
+#: port/frontend/shell/settings.cpp:635
 msgid "On, the 3DS's vertex shaders run on the PS5's GPU, the fastest way. Off, they run on the CPU as Azahar's software shaders: slower, but a model and the outline drawn around it are computed alike, and its lighting is corrected per triangle. Off by default for Pokémon X, Y, Omega Ruby, Alpha Sapphire, Sun, Moon, Ultra Sun and Ultra Moon, whose outlines, lighting and shadows glitch otherwise. Applies to the next game."
 msgstr "Bekapcsolva a 3DS csúcspont-árnyalói a PS5 GPU-ján futnak, ez a leggyorsabb. Kikapcsolva a CPU-n futnak, az Azahar szoftveres árnyalóiként: lassabb, de a modell és a köré rajzolt körvonal ugyanúgy számolódik, a megvilágítás pedig háromszögenként javul. Alapból ki van kapcsolva a Pokémon X, Y, Omega Ruby, Alpha Sapphire, Sun, Moon, Ultra Sun és Ultra Moon játékoknál, amelyek körvonalai, megvilágítása és árnyékai különben hibásak. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:639
+#: port/frontend/shell/settings.cpp:640
 msgid "Outline fix"
 msgstr "Körvonaljavítás"
 
-#: port/frontend/shell/settings.cpp:639
+#: port/frontend/shell/settings.cpp:640
 msgid "Fixes moving black dots on outlined 3D models."
 msgstr "Kijavítja a mozgó fekete pontokat a körvonalas 3D-modelleken."
 
-#: port/frontend/shell/settings.cpp:640
+#: port/frontend/shell/settings.cpp:641
 msgid "Computes every 3D position the same way twice, as Azahar does on Apple's GPUs. For a game that shows moving black dots on its outlined models with hardware shaders on; the Pokémon games are drawn right with Hardware shaders off instead. Applies to the next game."
 msgstr "Minden 3D-pozíciót kétszer ugyanúgy számol ki, ahogy az Azahar az Apple GPU-in. Olyan játékhoz, amely bekapcsolt hardveres árnyalókkal mozgó fekete pontokat mutat a körvonalas modelljein; a Pokémon játékok ehelyett a Hardveres árnyalók kikapcsolásával jelennek meg helyesen. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:656
+#: port/frontend/shell/settings.cpp:657
 msgid "3D for red and cyan glasses"
 msgstr "3D piros-cián szemüveghez"
 
-#: port/frontend/shell/settings.cpp:656
+#: port/frontend/shell/settings.cpp:657
 msgid "The 3DS's 3D, in red and cyan."
 msgstr "A 3DS 3D-je pirosban és ciánban."
 
-#: port/frontend/shell/settings.cpp:657
+#: port/frontend/shell/settings.cpp:658
 msgid "The 3DS's 3D screen as both eyes' pictures in one, red for the left and cyan for the right, to see in 3D with red and cyan glasses, as Azahar's anaglyph mode makes it, the 3D slider all the way up. Colours change with it. Applies to the next game."
 msgstr "A 3DS 3D-s képernyője a két szem képével egyben, pirossal a bal, ciánnal a jobb szemnek, hogy piros-cián szemüveggel 3D-ben lásd, ahogy az Azahar anaglif módja készíti, a 3D-csúszkát teljesen felhúzva. A színek megváltoznak. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:667
+#: port/frontend/shell/settings.cpp:668
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
 msgstr "Mekkorára rajzolja az Eden a játékot, mielőtt a tévére skálázza, a játék saját képéhez mérve: az 1x dokkolva 1080p, kézi módban 720p. A magasabb élesebb, és többet kér a GPU-tól; a 3x-hez és a 4x-hez kell hozzá elég grafikus memória. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:675
+#: port/frontend/shell/settings.cpp:676
 msgid "Bilinear is soft, Bicubic sharper; Nearest neighbour keeps pixels square. AMD FSR 1 keeps edges clean for a game drawn below 4K, for a little more work by the GPU."
 msgstr "A bilineáris lágy, a bikubikus élesebb; a Legközelebbi szomszéd négyzetesen tartja a pixeleket. Az AMD FSR 1 tisztán tartja a széleket a 4K alatt rajzolt játékokban, kicsivel több munkáért a GPU-tól."
 
 #. Settings > Graphics on the Switch side: a row that opens FSR sharpening, anti-aliasing and Eden's ReShade looks
-#: port/frontend/shell/settings.cpp:682
+#: port/frontend/shell/settings.cpp:683
 msgid "Picture effects"
 msgstr "Képeffektek"
 
 #. Settings > Graphics on the Switch side: a row that opens FSR sharpening, anti-aliasing and Eden's ReShade looks
-#: port/frontend/shell/settings.cpp:682
+#: port/frontend/shell/settings.cpp:683
 msgid "Sharpening, anti-aliasing and ReShade's looks."
 msgstr "Élesség, élsimítás és ReShade-stílusok."
 
-#: port/frontend/shell/settings.cpp:683
+#: port/frontend/shell/settings.cpp:684
 msgid "FSR sharpening, while AMD FSR 1 scales the picture; Eden's anti-aliasing; and a ReShade look over the picture, Eden's own or one of yours. Triangle on each says more."
 msgstr "FSR-élesség, amíg az AMD FSR 1 méretezi a képet; Eden élsimítása; és egy ReShade-stílus a kép fölött, Edené vagy egy saját. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:692
+#: port/frontend/shell/settings.cpp:693
 msgid "How much AMD FSR 1 sharpens the picture."
 msgstr "Mennyire élesíti az AMD FSR 1 a képet."
 
-#: port/frontend/shell/settings.cpp:693
+#: port/frontend/shell/settings.cpp:694
 msgid "How much AMD FSR 1 sharpens the picture as it scales it to the TV: 100% is the most, and each step down halves it. Also in the in-game menu, where it changes at once."
 msgstr "Mennyire élesíti az AMD FSR 1 a képet, miközben a tévére skálázza: a 100% a legtöbb, és minden lépés lejjebb a felére csökkenti. A játék menüjében is, ahol azonnal változik."
 
-#: port/frontend/shell/settings.cpp:697
+#: port/frontend/shell/settings.cpp:698
 msgid "Smooths the jagged edges of the picture."
 msgstr "Elsimítja a kép recés éleit."
 
-#: port/frontend/shell/settings.cpp:698
+#: port/frontend/shell/settings.cpp:699
 msgid "Eden's anti-aliasing, over the game's picture: FXAA smooths edges lightly, SMAA more cleanly, each for a little more work by the GPU. Off, as Eden has it. Also in the in-game menu, where it changes at once."
 msgstr "Az Eden élsimítása a játék képén: az FXAA enyhén simítja az éleket, az SMAA tisztábban, mindkettő a GPU kicsivel több munkájáért. Kikapcsolva, ahogy az Edenben. A játék menüjében is, ahol azonnal változik."
 
-#: port/frontend/shell/settings.cpp:703
+#: port/frontend/shell/settings.cpp:704
 msgid "ASTC textures"
 msgstr "ASTC-textúrák"
 
-#: port/frontend/shell/settings.cpp:703
+#: port/frontend/shell/settings.cpp:704
 msgid "Compressed"
 msgstr "Tömörített"
 
-#: port/frontend/shell/settings.cpp:703
+#: port/frontend/shell/settings.cpp:704
 msgid "Full quality"
 msgstr "Teljes minőség"
 
-#: port/frontend/shell/settings.cpp:704
+#: port/frontend/shell/settings.cpp:705
 msgid "Compressed saves graphics memory; full quality looks best."
 msgstr "A tömörített grafikus memóriát spórol; a teljes minőség néz ki a legjobban."
 
-#: port/frontend/shell/settings.cpp:705
+#: port/frontend/shell/settings.cpp:706
 msgid "Many Switch games keep their textures in ASTC, which the PS5's GPU cannot read: Eden converts them. Compressed keeps them small, as BC3; full quality keeps them as they are, at four times the graphics memory, for a game whose textures look blocky. Applies to the next game."
 msgstr "Sok Switch-játék ASTC-ben tárolja a textúráit, amit a PS5 GPU-ja nem tud olvasni: az Eden átalakítja őket. A tömörített kicsiben tartja őket, BC3-ként; a teljes minőség meghagyja őket, ahogy vannak, négyszeres grafikus memóriával, olyan játékhoz, amelynek a textúrái kockásnak tűnnek. A következő játéktól érvényes."
 
 #. Settings > Graphics: a row that opens what Eden sends to the TV (output resolution, 120 Hz, frame generation)
-#: port/frontend/shell/settings.cpp:716
+#: port/frontend/shell/settings.cpp:717
 msgid "Output to the TV"
 msgstr "Kimenet a tévére"
 
 #. Settings > Graphics: a row that opens what Eden sends to the TV (output resolution, 120 Hz, frame generation)
-#: port/frontend/shell/settings.cpp:716
+#: port/frontend/shell/settings.cpp:717
 msgid "The picture's size, 120 Hz and frame generation."
 msgstr "A kép mérete, 120 Hz és képkocka-generálás."
 
-#: port/frontend/shell/settings.cpp:717
+#: port/frontend/shell/settings.cpp:718
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
 msgstr "Az Eden által a tévére küldött kép mérete, hogy 120 Hz-en küldi-e, és a ProsperoEden képkocka-generálása. Mindegyik a következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:719
+#: port/frontend/shell/settings.cpp:720
 msgid "Output resolution"
 msgstr "Kimeneti felbontás"
 
-#: port/frontend/shell/settings.cpp:720 port/frontend/shell/settings.cpp:721
+#: port/frontend/shell/settings.cpp:721 port/frontend/shell/settings.cpp:722
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
 msgstr "A kép mérete, amelyet az Eden a tévére küld. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:723
+#: port/frontend/shell/settings.cpp:724
 msgid "120 Hz"
 msgstr "120 Hz"
 
-#: port/frontend/shell/settings.cpp:723 port/frontend/shell/settings.cpp:724
+#: port/frontend/shell/settings.cpp:724 port/frontend/shell/settings.cpp:725
 msgid "For a TV that takes 120 Hz. Applies to the next game."
 msgstr "Olyan tévéhez, amely fogadja a 120 Hz-et. A következő játéktól érvényes."
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
-#: port/frontend/shell/settings.cpp:729
+#: port/frontend/shell/settings.cpp:730
 msgid "ProsperoEden's own frame generation: a picture made between each two frames, so a game at 30 fps is shown at 60. It is Lossless Scaling's when your own copy of its Lossless.dll is at {0}, else MihawkGen's. It asks more of the GPU and adds a little delay. Applies to the next game."
 msgstr "A ProsperoEden saját képkocka-generálása: egy kép készül minden két képkocka közé, így egy 30 fps-es játék 60-nal látszik. Ez a Lossless Scaling generálása, ha a Lossless.dll saját példányod itt van: {0}, különben a MihawkGené. Többet kér a GPU-tól, és egy kis késleltetést ad hozzá. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:740
+#: port/frontend/shell/settings.cpp:741
 msgid "How the DS's screens are scaled."
 msgstr "Hogyan méreteződnek a DS képernyői."
 
-#: port/frontend/shell/settings.cpp:741
+#: port/frontend/shell/settings.cpp:742
 msgid "How the DS's 256 x 192 screens are scaled to the TV. Sharp keeps every pixel square and even at any size; Smooth blurs them together; Square pixels takes the nearest, uneven where the size is not a whole number. The in-game menu changes it too."
 msgstr "Hogyan méreteződnek a DS 256 x 192-es képernyői a tévére. Az Éles minden képpontot bármilyen méretben négyzetesen és egyformán tart; a Lágy összemossa őket; a Négyzetes képpontok a legközelebbit veszi, egyenetlenül, ahol a méret nem egész szám. A játék menüje is módosítja."
 
-#: port/frontend/shell/settings.cpp:747
+#: port/frontend/shell/settings.cpp:748
 msgid "Recompiler"
 msgstr "Újrafordító"
 
-#: port/frontend/shell/settings.cpp:748
+#: port/frontend/shell/settings.cpp:749
 msgid "melonDS's JIT: much faster than its interpreter."
 msgstr "A melonDS JIT-je: sokkal gyorsabb az értelmezőjénél."
 
-#: port/frontend/shell/settings.cpp:748
+#: port/frontend/shell/settings.cpp:749
 msgid "No executable memory: the slower interpreter runs."
 msgstr "Nincs futtatható memória: a lassabb értelmező fut."
 
-#: port/frontend/shell/settings.cpp:749
+#: port/frontend/shell/settings.cpp:750
 msgid "Runs the DS's two CPUs on melonDS's recompiler, in the executable memory the PS5 gives (Diagnostics says whether it does), much faster than its interpreter. Off: the interpreter, slower, for a game the recompiler gets wrong. Applies to the next game."
 msgstr "A DS két processzorát a melonDS újrafordítójával futtatja a PS5 által adott futtatható memóriában (a Diagnosztika megmutatja, hogy ad-e), sokkal gyorsabban, mint az értelmezője. Ki: az értelmező, lassabban, olyan játékhoz, amelyet az újrafordító rosszul futtat. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:758
+#: port/frontend/shell/settings.cpp:759
 msgid "Screen layout"
 msgstr "Képernyő-elrendezés"
 
-#: port/frontend/shell/settings.cpp:758
+#: port/frontend/shell/settings.cpp:759
 msgid "How the two screens share the TV."
 msgstr "Hogyan osztozik a két képernyő a tévén."
 
-#: port/frontend/shell/settings.cpp:759
+#: port/frontend/shell/settings.cpp:760
 msgid "One above the other, the top one alone, the top one large with the bottom one beside it, or the two side by side. In a game, touchpad click + R1 goes to the next."
 msgstr "Egymás alatt, csak a felső, a felső nagyban az alsóval mellette, vagy a kettő egymás mellett. Játék közben az érintőpanel-kattintás + R1 a következőre vált."
 
-#: port/frontend/shell/settings.cpp:764
+#: port/frontend/shell/settings.cpp:765
 msgid "For the games held on their side, like a book."
 msgstr "Az oldalra fordítva, könyvként tartott játékokhoz."
 
-#: port/frontend/shell/settings.cpp:765
+#: port/frontend/shell/settings.cpp:766
 msgid "Turns the DS's two screens together, a quarter turn at a time, for the games played with the DS held on its side, like a book (Hotel Dusk). The touchpad moves the cursor over the bottom screen as the TV shows it. The in-game menu changes it too."
 msgstr "Negyed fordulatonként együtt forgatja a DS két képernyőjét azokhoz a játékokhoz, amelyeknél a DS-t oldalra fordítva, könyvként kell tartani (Hotel Dusk). Az érintőpanel úgy mozgatja a kurzort az alsó képernyőn, ahogy a tévé mutatja. A játék menüje is módosítja."
 
-#: port/frontend/shell/settings.cpp:768
+#: port/frontend/shell/settings.cpp:769
 msgid "Turns the 3DS's two screens together, a quarter turn at a time, for the games played with the 3DS held on its side, like a book. The touchpad moves the cursor over the bottom screen as the TV shows it. The in-game menu changes it too."
 msgstr "Negyed fordulatonként együtt forgatja a 3DS két képernyőjét azokhoz a játékokhoz, amelyeknél a 3DS-t oldalra fordítva, könyvként kell tartani. Az érintőpanel úgy mozgatja a kurzort az alsó képernyőn, ahogy a tévé mutatja. A játék menüje is módosítja."
 
-#: port/frontend/shell/settings.cpp:773
+#: port/frontend/shell/settings.cpp:774
 msgid "The two screens held apart, as the hinge holds them."
 msgstr "A két képernyő egymástól elválasztva, ahogy a zsanér tartja őket."
 
-#: port/frontend/shell/settings.cpp:774
+#: port/frontend/shell/settings.cpp:775
 msgid "A gap between the two screens wherever both show: one above the other, side by side, or turned like a book. A game can have its own; the in-game menu's quick actions change it too."
 msgstr "Rés a két képernyő között, ahol csak mindkettő látszik: egymás alatt, egymás mellett vagy könyvként elforgatva. Egy játéknak lehet sajátja; a játék menüjének gyorsműveletei is módosítják."
 
-#: port/frontend/shell/settings.cpp:779
+#: port/frontend/shell/settings.cpp:780
 msgid "The touchpad touches it while only the top screen shows."
 msgstr "Az érintőpanel akkor is érinti, ha csak a felső képernyő látszik."
 
-#: port/frontend/shell/settings.cpp:780
+#: port/frontend/shell/settings.cpp:781
 msgid "With the top screen alone on the TV, the touchpad still touches the bottom screen: its cursor moves over the top screen as if the bottom one were there, for the games that ask for a touch now and then (Star Fox 64 3D). Off, the touchpad touches only a bottom screen that is shown. A game can have its own; the in-game menu changes it too."
 msgstr "Ha csak a felső képernyő van a tévén, az érintőpanel akkor is az alsó képernyőt érinti: a kurzor a felső fölött mozog, mintha ott lenne az alsó, azokhoz a játékokhoz, amelyek néha érintést kérnek (Star Fox 64 3D). Kikapcsolva az érintőpanel csak a megjelenített alsó képernyőt érinti. Egy játéknak lehet sajátja; a játék menüje is módosítja."
 
-#: port/frontend/shell/settings.cpp:784
+#: port/frontend/shell/settings.cpp:785
 msgid "Artwork around the screens."
 msgstr "Grafika a képernyők körül."
 
-#: port/frontend/shell/settings.cpp:785
+#: port/frontend/shell/settings.cpp:786
 msgid "Artwork around the screens, never over them. It follows every layout, and the in-game menu changes it too."
 msgstr "Grafika a képernyők körül, soha nem rajtuk. Minden elrendezést követ, és a játék menüje is módosítja."
 
-#: port/frontend/shell/settings.cpp:795
+#: port/frontend/shell/settings.cpp:796
 msgid "Moves and scales where the touchpad's cursor lands on the DS's screens, for a game where it is off: 0% and 100% leave it as it is. The remote touch screen is not changed. Applies to the next game."
 msgstr "Eltolja és átméretezi, hová esik az érintőpanel kurzora a DS képernyőin, olyan játékhoz, ahol mellémegy: 0% és 100% változatlanul hagyja. A telefonon lévő érintőképernyő nem változik. A következő játéktól érvényes."
 
 #. Settings > Screens' Touch row, its value: the right stick is the stylus
-#: port/frontend/shell/settings.cpp:801
+#: port/frontend/shell/settings.cpp:802
 msgid "Stick as stylus"
 msgstr "Kar mint ceruza"
 
 #. Settings > Screens: a row that opens the touch screen's settings (where the touchpad's cursor lands, the right stick as the stylus)
-#: port/frontend/shell/settings.cpp:803
+#: port/frontend/shell/settings.cpp:804
 msgid "Touch"
 msgstr "Érintés"
 
 #. Settings > Screens: a row that opens the touch screen's settings (where the touchpad's cursor lands, the right stick as the stylus)
 #. Settings > Performance: a row that opens Eden's accuracy shortcuts (Fast GPU, Unsafe CPU, ...); its value: how many are changed
 #. Settings > Launcher: a row that opens Larger text, High contrast, Reduce motion and Hold to confirm
-#: port/frontend/shell/settings.cpp:803 port/frontend/shell/settings.cpp:1010 port/frontend/shell/settings.cpp:1481 port/frontend/shell/shell.cpp:1552 port/frontend/shell/switch_extras.cpp:73 port/frontend/shell/widgets.cpp:349
+#: port/frontend/shell/settings.cpp:804 port/frontend/shell/settings.cpp:1011 port/frontend/shell/settings.cpp:1482 port/frontend/shell/shell.cpp:1552 port/frontend/shell/switch_extras.cpp:73 port/frontend/shell/widgets.cpp:349
 msgid "Default"
 msgstr "Alapértelmezett"
 
-#: port/frontend/shell/settings.cpp:804
+#: port/frontend/shell/settings.cpp:805
 msgid "Where the touchpad's cursor lands, and the right stick as the stylus."
 msgstr "Hová kerül az érintőpad kurzora, és a jobb kar mint érintőceruza."
 
-#: port/frontend/shell/settings.cpp:805
+#: port/frontend/shell/settings.cpp:806
 msgid "Moves and scales where the touchpad's cursor lands on the DS's screens, for a game where it is off, and lets the right stick drag a touch on the bottom screen. Triangle on each says more."
 msgstr "Eltolja és méretezi, hová kerül az érintőpad kurzora a DS képernyőin, egy játékhoz, ahol mellé talál, és a jobb karral érintést húzhatsz az alsó képernyőn. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:807
+#: port/frontend/shell/settings.cpp:808
 msgid "Touch, left or right"
 msgstr "Érintés, balra vagy jobbra"
 
-#: port/frontend/shell/settings.cpp:808
+#: port/frontend/shell/settings.cpp:809
 msgid "Touch, up or down"
 msgstr "Érintés, fel vagy le"
 
-#: port/frontend/shell/settings.cpp:809
+#: port/frontend/shell/settings.cpp:810
 msgid "Touch, scale"
 msgstr "Érintés, méretarány"
 
 #. a DS setting: the right stick as the touch screen's stylus (DraStic has it), for Metroid Prime Hunters' aiming
-#: port/frontend/shell/settings.cpp:811
+#: port/frontend/shell/settings.cpp:812
 msgid "The right stick as the stylus"
 msgstr "A jobb kar mint érintőceruza"
 
 #. a DS setting: the right stick as the touch screen's stylus (DraStic has it), for Metroid Prime Hunters' aiming
-#: port/frontend/shell/settings.cpp:811
+#: port/frontend/shell/settings.cpp:812
 msgid "Pushed, it drags a touch on the bottom screen."
 msgstr "Elmozdítva érintést húz az alsó képernyőn."
 
-#: port/frontend/shell/settings.cpp:812
+#: port/frontend/shell/settings.cpp:813
 msgid "Push the right stick and the bottom screen is touched in its middle, the touch dragged as you push and lifted when you let go: Metroid Prime Hunters aims that way. The stick's directions do nothing else then. Applies to the next game."
 msgstr "Mozdítsd el a jobb kart, és az alsó képernyő a közepén megérintődik; az érintés húzódik, amíg tolod, és felemelkedik, amikor elengeded: így céloz a Metroid Prime Hunters. A kar irányai ilyenkor mást nem csinálnak. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:820
+#: port/frontend/shell/settings.cpp:821
 msgid "The DualSense's rumble, in games and in the launcher."
 msgstr "A DualSense rezgése, a játékokban és az indítóban."
 
-#: port/frontend/shell/settings.cpp:821
+#: port/frontend/shell/settings.cpp:822
 msgid "Off, the DualSense never rumbles, in games or in the launcher. The same on every side."
 msgstr "Kikapcsolva a DualSense soha nem rezeg, sem játékban, sem az indítóban. Minden oldalon ugyanígy."
 
-#: port/frontend/shell/settings.cpp:823 port/frontend/shell/settings.cpp:877
+#: port/frontend/shell/settings.cpp:824 port/frontend/shell/settings.cpp:878
 msgid "How far a stick moves before it counts."
 msgstr "Mennyit mozdul egy kar, mielőtt számít."
 
-#: port/frontend/shell/settings.cpp:824
+#: port/frontend/shell/settings.cpp:825
 msgid "How far a stick moves before the game sees it, for both sticks. Raise it if a character or the camera drifts when you let go of the stick; lower it for finer control. Also in the in-game menu."
 msgstr "Mennyit mozdul a kar, mielőtt a játék észreveszi, mindkét karnál. Növeld, ha egy szereplő vagy a kamera elmozdul, amikor elengeded a kart; csökkentsd a finomabb irányításhoz. A játék menüjében is."
 
-#: port/frontend/shell/settings.cpp:831
+#: port/frontend/shell/settings.cpp:832
 msgid "Turbo button"
 msgstr "Turbógomb"
 
-#: port/frontend/shell/settings.cpp:831
+#: port/frontend/shell/settings.cpp:832
 msgid "Hold it and it presses again and again by itself."
 msgstr "Tartsd lenyomva, és magától nyomja újra és újra."
 
-#: port/frontend/shell/settings.cpp:832
+#: port/frontend/shell/settings.cpp:833
 msgid "Choose a DualSense button: while you hold it in a game, it presses and lets go by itself about fifteen times a second, for games that make you mash. The button keeps whatever it is mapped to. None turns it off. Every player on this side has it."
 msgstr "Válassz egy DualSense-gombot: amíg játékban lenyomva tartod, másodpercenként kb. tizenötször magától lenyomódik és felenged, azokhoz a játékokhoz, ahol nyomkodni kell. A gomb megtartja a hozzárendelését. A Nincs kikapcsolja. Ezen az oldalon minden játékosnak megvan."
 
 #. Settings > Controls: a row that opens the buttons' settings (each button, the defaults)
-#: port/frontend/shell/settings.cpp:841
+#: port/frontend/shell/settings.cpp:842
 msgid "Each button, and the defaults."
 msgstr "Minden gomb és az alapértékek."
 
-#: port/frontend/shell/settings.cpp:842
+#: port/frontend/shell/settings.cpp:843
 msgid "Which DualSense button presses each of the Switch's buttons, and the buttons and deadzone back as they were."
 msgstr "Melyik DualSense-gomb nyomja a Switch egyes gombjait, és a gombok és a holtzóna az eredeti állapotban."
 
 #. Settings > Controls > Buttons: the row that opens the list of every button and the DualSense button on it
-#: port/frontend/shell/settings.cpp:844 port/frontend/shell/settings.cpp:896
+#: port/frontend/shell/settings.cpp:845 port/frontend/shell/settings.cpp:897
 msgid "Each button"
 msgstr "Minden gomb"
 
-#: port/frontend/shell/settings.cpp:845
+#: port/frontend/shell/settings.cpp:846
 msgid "Which DualSense button presses each of the Switch's buttons. A is on Circle and B on Cross by default, where the Switch has them; + is Options and - the touchpad's click. The D-pad and the sticks stay the Switch's own."
 msgstr "Melyik DualSense-gomb nyomja a Switch egyes gombjait. Alapból az A a Körön, a B a Kereszten van, ahol a Switchen; a + az Options, a - az érintőpad kattintása. Az irányítókereszt és a karok a Switchéi maradnak."
 
-#: port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:903
+#: port/frontend/shell/settings.cpp:849 port/frontend/shell/settings.cpp:849 port/frontend/shell/settings.cpp:904
 msgid "Default buttons and deadzone."
 msgstr "Alapértelmezett gombok és holtzóna."
 
-#: port/frontend/shell/settings.cpp:858
+#: port/frontend/shell/settings.cpp:859
 msgid "Cross: this player's controller, motion and buttons."
 msgstr "Kereszt: ennek a játékosnak a kontrollere, mozgása és gombjai."
 
-#: port/frontend/shell/settings.cpp:858
+#: port/frontend/shell/settings.cpp:859
 msgid "No DualSense for this player yet."
 msgstr "Ennek a játékosnak még nincs DualSense-e."
 
-#: port/frontend/shell/settings.cpp:859
+#: port/frontend/shell/settings.cpp:860
 msgid "What the game sees in this player's hands, and its motion, vibration, deadzones and buttons. Player 1 is the signed-in user who started the app; the other signed-in users' DualSenses are players 2 to 4."
 msgstr "Amit a játék e játékos kezében lát, valamint a mozgása, rezgése, holtzónái és gombjai. Az 1. játékos az a bejelentkezett felhasználó, aki elindította az alkalmazást; a többi bejelentkezett felhasználó DualSense-e a 2–4. játékos."
 
-#: port/frontend/shell/settings.cpp:870
+#: port/frontend/shell/settings.cpp:871
 msgid "Where A is: on Circle, as on the console, or on Cross."
 msgstr "Hol van A: a Körön, mint a konzolon, vagy a Kereszten."
 
-#: port/frontend/shell/settings.cpp:871
+#: port/frontend/shell/settings.cpp:872
 msgid "A on Circle and B on Cross, where the console has them, or A on Cross and B on Circle, as PlayStation games confirm. X and Y swap to match. Also in the in-game menu."
 msgstr "A a Körön és B a Kereszten, ahol a konzolon vannak, vagy A a Kereszten és B a Körön, ahogy a PlayStation-játékok megerősítenek. Az X és az Y ennek megfelelően felcserélődik. A játék menüjében is."
 
-#: port/frontend/shell/settings.cpp:875
+#: port/frontend/shell/settings.cpp:876
 msgid "The DualSense's motion as the 3DS's."
 msgstr "A DualSense mozgása a 3DS-é helyett."
 
-#: port/frontend/shell/settings.cpp:876
+#: port/frontend/shell/settings.cpp:877
 msgid "The DualSense's gyroscope and accelerometer as the 3DS's own, for the games that aim or steer by tilting it."
 msgstr "A DualSense giroszkópja és gyorsulásmérője magáé a 3DS-é helyett, azokhoz a játékokhoz, ahol a konzol döntésével céloz vagy kormányoz az ember."
 
-#: port/frontend/shell/settings.cpp:878
+#: port/frontend/shell/settings.cpp:879
 msgid "How far a stick moves before the game sees it, for the circle pad and the C-stick. Raise it if something drifts when you let go of the stick; lower it for finer control."
 msgstr "Mennyit mozdul egy kar, mielőtt a játék észreveszi – a Circle Padhez és a C-karhoz. Növeld, ha valami elcsúszik, miután elengedted a kart; csökkentsd a finomabb irányításért."
 
-#: port/frontend/shell/settings.cpp:880
+#: port/frontend/shell/settings.cpp:881
 msgid "How far the left stick moves before it presses the DS's D-pad. Raise it if a direction is pressed when you let go of the stick."
 msgstr "Mennyit kell elmozdulnia a bal karnak, mielőtt megnyomja a DS iránygombját. Növeld, ha egy irány lenyomva marad, amikor elengeded a kart."
 
-#: port/frontend/shell/settings.cpp:893
+#: port/frontend/shell/settings.cpp:894
 msgid "Each button, the turbo button, and the defaults."
 msgstr "Minden gomb, a turbógomb és az alapértékek."
 
-#: port/frontend/shell/settings.cpp:894
+#: port/frontend/shell/settings.cpp:895
 msgid "Which DualSense button presses each button, a button that presses again and again while you hold it, and the controls back as they were."
 msgstr "Melyik DualSense-gomb nyomja az egyes gombokat, egy gomb, amely újra és újra nyom, amíg nyomva tartod, és a vezérlés az eredeti állapotban."
 
-#: port/frontend/shell/settings.cpp:897
+#: port/frontend/shell/settings.cpp:898
 msgid "Which DualSense button presses each of the 3DS's buttons. A is on Circle and B on Cross by default, where the 3DS has them; the circle pad is the left stick, the C-stick the right one, and the touchpad the touch screen."
 msgstr "Melyik DualSense-gomb nyomja meg a 3DS egyes gombjait. Alapértelmezés szerint A a Körön és B a Kereszten van, ahol a 3DS-en; a Circle Pad a bal kar, a C-Stick a jobb, az érintőpanel pedig az érintőképernyő."
 
-#: port/frontend/shell/settings.cpp:899
+#: port/frontend/shell/settings.cpp:900
 msgid "Which DualSense button presses each of the DS's buttons. A is on Circle and B on Cross by default, where the DS has them; the left stick is a second D-pad, the touchpad the touch screen, and holding R3 blows into the microphone."
 msgstr "Melyik DualSense-gomb nyomja meg a DS egyes gombjait. Alapértelmezés szerint A a Körön és B a Kereszten van, ahol a DS-en; a bal kar egy második iránygomb, az érintőpanel az érintőképernyő, az R3 lenyomva tartása pedig belefúj a mikrofonba."
 
-#: port/frontend/shell/settings.cpp:903
+#: port/frontend/shell/settings.cpp:904
 msgid "Default buttons, motion and deadzone."
 msgstr "Alapértelmezett gombok, mozgás és holtzóna."
 
-#: port/frontend/shell/settings.cpp:903
+#: port/frontend/shell/settings.cpp:904
 msgid "The default buttons, motion and deadzone."
 msgstr "Az alapértelmezett gombok, mozgás és holtzóna."
 
-#: port/frontend/shell/settings.cpp:912
+#: port/frontend/shell/settings.cpp:913
 msgid "Region"
 msgstr "Régió"
 
-#: port/frontend/shell/settings.cpp:912
+#: port/frontend/shell/settings.cpp:913
 msgid "The emulated 3DS's region."
 msgstr "Az emulált 3DS régiója."
 
-#: port/frontend/shell/settings.cpp:913
+#: port/frontend/shell/settings.cpp:914
 msgid "Automatic takes each game's own region. A game made for another region may refuse to start or show other languages. Applies to the next game."
 msgstr "Az Automatikus minden játék saját régióját veszi. Egy másik régióra készült játék nem indulhat el, vagy más nyelveket mutathat. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:916
+#: port/frontend/shell/settings.cpp:917
 msgid "The emulated 3DS's language."
 msgstr "Az emulált 3DS nyelve."
 
-#: port/frontend/shell/settings.cpp:917
+#: port/frontend/shell/settings.cpp:918
 msgid "The language games that follow the console's show their text in. Applies to the next game."
 msgstr "Az a nyelv, amelyen a konzolt követő játékok a szövegüket mutatják. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:922
+#: port/frontend/shell/settings.cpp:923
 msgid "The emulated 3DS's CPU speed."
 msgstr "Az emulált 3DS processzorsebessége."
 
-#: port/frontend/shell/settings.cpp:923
+#: port/frontend/shell/settings.cpp:924
 msgid "How fast the emulated CPU runs, against a 3DS's: higher can steady a game that slows down where a 3DS would not, and asks more of the PS5; lower can speed up one held back by its own pacing. 100% is a 3DS. Also in the in-game menu."
 msgstr "Milyen gyorsan fut az emulált processzor egy 3DS-éhez képest: a magasabb stabilizálhat egy játékot, amely ott lassul, ahol egy 3DS nem lassulna, és többet kér a PS5-től; az alacsonyabb gyorsíthat egy saját ütemezése által visszafogott játékot. A 100 % egy 3DS. A játék menüjében is."
 
-#: port/frontend/shell/settings.cpp:926
+#: port/frontend/shell/settings.cpp:927
 msgid "Home Menu"
 msgstr "HOME menü"
 
-#: port/frontend/shell/settings.cpp:926
+#: port/frontend/shell/settings.cpp:927
 msgid "Start"
 msgstr "Indítás"
 
-#: port/frontend/shell/settings.cpp:926
+#: port/frontend/shell/settings.cpp:927
 msgid "Run Artic Setup first"
 msgstr "Előbb futtasd az Artic Setupot"
 
-#: port/frontend/shell/settings.cpp:927
+#: port/frontend/shell/settings.cpp:928
 msgid "The 3DS Home Menu, from your console's files."
 msgstr "A 3DS HOME menüje, a konzolod fájljaiból."
 
-#: port/frontend/shell/settings.cpp:928
+#: port/frontend/shell/settings.cpp:929
 msgid "Starts the 3DS Home Menu, once Artic Base's setup has copied your own console's system files (Artic Base)."
 msgstr "Elindítja a 3DS HOME menüjét, miután az Artic Base beállítása átmásolta a saját konzolod rendszerfájljait (Artic Base)."
 
-#: port/frontend/shell/settings.cpp:935
+#: port/frontend/shell/settings.cpp:936
 msgid "Docked: the TV's picture. Handheld: the console's own screen's."
 msgstr "Dokkolva: a tévé képe. Kézi: a konzol saját kijelzőjének képe."
 
-#: port/frontend/shell/settings.cpp:936
+#: port/frontend/shell/settings.cpp:937
 msgid "Docked, games draw for a TV, at their sharpest (1080p for most); handheld, for the console's own screen (720p), which asks less of the GPU. A few games look or play differently in each. Applies to the next game."
 msgstr "Dokkolva a játékok tévére rajzolnak, a legélesebben (a legtöbb 1080p-ben); kézi módban a konzol saját kijelzőjére (720p), ami kevesebbet kér a GPU-tól. Néhány játék másként néz ki vagy játszható az egyes módokban. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:943
+#: port/frontend/shell/settings.cpp:944
 msgid "What a game sees in your hands."
 msgstr "Amit egy játék a kezedben lát."
 
-#: port/frontend/shell/settings.cpp:944
+#: port/frontend/shell/settings.cpp:945
 msgid "Automatic gives each game the controller it takes: a Pro Controller for most. A game that does not work with one may with a Joy-Con pair; Handheld is player 1's alone, for games played on the console's own screen. Also in the in-game menu."
 msgstr "Az Automatikus minden játéknak azt a vezérlőt adja, amelyet elfogad: a legtöbbnek Pro Controllert. Egy játék, amely nem működik vele, működhet Joy-Con-párral; a Kézi csak az 1. játékosé, a konzol saját képernyőjén játszott játékokhoz. A játék menüjében is."
 
-#: port/frontend/shell/settings.cpp:954
+#: port/frontend/shell/settings.cpp:955
 msgid "As a share of the Switch's own speed. Above 100%, a game held to 30 fps can reach 60 where the PS5 has the time to spare, and a game that keeps time by its frames plays faster. None runs as fast as the PS5 can. Applies to the next game."
 msgstr "A Switch saját sebességének arányában. 100% felett egy 30 fps-re korlátozott játék elérheti a 60-at, ahol a PS5-nek bőven van ideje, és egy játék, amely a képkockáival méri az időt, gyorsabban fut. A Nincs olyan gyorsan fut, ahogy a PS5 bírja. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:962 port/frontend/shell/settings.cpp:963
+#: port/frontend/shell/settings.cpp:963 port/frontend/shell/settings.cpp:964
 msgid "The language Switch games see. Automatic: the menus' own."
 msgstr "A nyelv, amelyet a Switch-játékok látnak. Automatikus: a menüké."
 
-#: port/frontend/shell/settings.cpp:969
+#: port/frontend/shell/settings.cpp:970
 msgid "Memory"
 msgstr "Memória"
 
-#: port/frontend/shell/settings.cpp:970 port/frontend/shell/settings.cpp:971
+#: port/frontend/shell/settings.cpp:971 port/frontend/shell/settings.cpp:972
 msgid "4 GB is the Switch's own. More, for mods that ask for it. Applies to the next game."
 msgstr "4 GB a Switch sajátja. Több az ezt kérő modokhoz. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:981
+#: port/frontend/shell/settings.cpp:982
 msgid "Compact memory"
 msgstr "Tömör memória"
 
-#: port/frontend/shell/settings.cpp:981
+#: port/frontend/shell/settings.cpp:982
 msgid "Keeps the game's mostly empty memory small, for the biggest games."
 msgstr "Kicsin tartja a játék nagyrészt üres memóriáját, a legnagyobb játékokhoz."
 
-#: port/frontend/shell/settings.cpp:983
+#: port/frontend/shell/settings.cpp:984
 msgid "Precompile code"
 msgstr "Kód előfordítása"
 
-#: port/frontend/shell/settings.cpp:983
+#: port/frontend/shell/settings.cpp:984
 msgid "Compiles the code earlier sessions ran before the game needs it: fewer hitches."
 msgstr "Lefordítja a korábbi munkamenetek kódját, mielőtt a játéknak kell: kevesebb akadás."
 
-#: port/frontend/shell/settings.cpp:986
+#: port/frontend/shell/settings.cpp:987
 msgid "Fast GPU"
 msgstr "Gyors GPU"
 
-#: port/frontend/shell/settings.cpp:986
+#: port/frontend/shell/settings.cpp:987
 msgid "Eden's lowest GPU accuracy: faster, and some effects may be drawn wrong."
 msgstr "Az Eden legalacsonyabb GPU-pontossága: gyorsabb, néhány effekt hibásan rajzolódhat."
 
-#: port/frontend/shell/settings.cpp:988
+#: port/frontend/shell/settings.cpp:989
 msgid "Unsafe CPU"
 msgstr "Nem biztonságos CPU"
 
-#: port/frontend/shell/settings.cpp:988
+#: port/frontend/shell/settings.cpp:989
 msgid "Quicker, inexact floating-point maths. Faster; a few games misbehave."
 msgstr "Gyorsabb, pontatlan lebegőpontos számítás. Gyorsabb; néhány játék hibásan viselkedik."
 
-#: port/frontend/shell/settings.cpp:990
+#: port/frontend/shell/settings.cpp:991
 msgid "Unsafe DMA"
 msgstr "Nem biztonságos DMA"
 
-#: port/frontend/shell/settings.cpp:990
+#: port/frontend/shell/settings.cpp:991
 msgid "Eden's unsafe DMA accuracy: faster, a few games show glitches."
 msgstr "Az Eden nem biztonságos DMA-pontossága: gyorsabb, néhány játékban hibák látszanak."
 
-#: port/frontend/shell/settings.cpp:992
+#: port/frontend/shell/settings.cpp:993
 msgid "Reactive flushing"
 msgstr "Reaktív ürítés"
 
-#: port/frontend/shell/settings.cpp:992
+#: port/frontend/shell/settings.cpp:993
 msgid "Keeps effects that read back the GPU's work right. Off is faster; some break."
 msgstr "Helyesen tartja a GPU munkáját visszaolvasó effekteket. Kikapcsolva gyorsabb; néhány elromlik."
 
-#: port/frontend/shell/settings.cpp:994
+#: port/frontend/shell/settings.cpp:995
 msgid "Skip cache invalidation"
 msgstr "Gyorsítótár-érvénytelenítés kihagyása"
 
-#: port/frontend/shell/settings.cpp:994
+#: port/frontend/shell/settings.cpp:995
 msgid "Fewer CPU cache invalidations: faster, rarely wrong."
 msgstr "Kevesebb CPU-gyorsítótár-érvénytelenítés: gyorsabb, ritkán hibás."
 
 #. Settings > Performance: a row that opens Eden's accuracy shortcuts (Fast GPU, Unsafe CPU, ...); its value: how many are changed
-#: port/frontend/shell/settings.cpp:1010
+#: port/frontend/shell/settings.cpp:1011
 msgid "Accuracy"
 msgstr "Pontosság"
 
 #. Settings > Performance: a row that opens Eden's accuracy shortcuts (Fast GPU, Unsafe CPU, ...); its value: how many are changed
-#: port/frontend/shell/settings.cpp:1010
+#: port/frontend/shell/settings.cpp:1011
 msgid "{0} changed"
 msgid_plural "{0} changed"
 msgstr[0] "{0} módosítva"
 msgstr[1] "{0} módosítva"
 
-#: port/frontend/shell/settings.cpp:1011
+#: port/frontend/shell/settings.cpp:1012
 msgid "Eden's shortcuts: faster, some less exact."
 msgstr "Az Eden gyorsításai: gyorsabb, némelyik kevésbé pontos."
 
-#: port/frontend/shell/settings.cpp:1012
+#: port/frontend/shell/settings.cpp:1013
 msgid "Fast GPU, Unsafe CPU, Unsafe DMA, Reactive flushing and Skip cache invalidation trade exactness for speed, for every Switch game or one game's own. Triangle on each says more."
 msgstr "A Gyors GPU, Nem biztonságos CPU, Nem biztonságos DMA, Reaktív ürítés és Gyorsítótár-érvénytelenítés kihagyása pontosságot cserél sebességre, minden Switch-játékhoz vagy csak egyhez. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:1020
+#: port/frontend/shell/settings.cpp:1021
 msgid "The emulated DS's language."
 msgstr "Az emulált DS nyelve."
 
-#: port/frontend/shell/settings.cpp:1021
+#: port/frontend/shell/settings.cpp:1022
 msgid "The DS's own language, which many games follow. The DS has Japanese, English, French, German, Italian, Spanish and Chinese; any other language uses English. Applies to the next game."
 msgstr "A DS saját nyelve, amelyet sok játék követ. A DS-en japán, angol, francia, német, olasz, spanyol és kínai van; bármely más nyelv angolt ad. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:1025
+#: port/frontend/shell/settings.cpp:1026
 msgid "Found in melonds/bios."
 msgstr "Megtalálva itt: melonds/bios."
 
-#: port/frontend/shell/settings.cpp:1025
+#: port/frontend/shell/settings.cpp:1026
 msgid "Not found: melonDS's built-in BIOS runs the games."
 msgstr "Nem található: a játékokat a melonDS beépített BIOS-a futtatja."
 
 #. {0} is the folder for a DS's own BIOS and firmware dumps
-#: port/frontend/shell/settings.cpp:1027
+#: port/frontend/shell/settings.cpp:1028
 msgid "bios7.bin, bios9.bin and firmware.bin, dumped from your own DS, in {0}: melonDS runs on them when they are there and this is on. Without them, its own replacements (FreeBIOS) run most games as well. Applies to the next game."
 msgstr "A saját DS-edből kiolvasott bios7.bin, bios9.bin és firmware.bin itt: {0}. A melonDS ezeken fut, ha ott vannak és ez be van kapcsolva. Nélkülük a saját helyettesítői (FreeBIOS) ugyanúgy futtatják a legtöbb játékot. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "Microphone"
 msgstr "Mikrofon"
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "Noise"
 msgstr "Zaj"
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "Silence"
 msgstr "Csend"
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "A recording"
 msgstr "Felvétel"
 
-#: port/frontend/shell/settings.cpp:1032
+#: port/frontend/shell/settings.cpp:1033
 msgid "What the DS hears while R3 is held. Applies to the next game."
 msgstr "Amit a DS hall, amíg az R3 nyomva van. A következő játéktól érvényes."
 
 #. {0} is melonDS's folder, /data/melonds or where the DS's files are; keep <the game's file name> as a placeholder
-#: port/frontend/shell/settings.cpp:1034
+#: port/frontend/shell/settings.cpp:1035
 msgid "A recording is a WAV file, 16-bit mono PCM at 8,000 to 48,000 Hz and up to 16 MB: {0}/microphone/<the game's file name>.wav for one game, {0}/microphone.wav for the others. It plays over and over while R3 is held, from its start each time. Nothing is recorded from a microphone."
 msgstr "A felvétel egy WAV-fájl, 16 bites mono PCM 8000–48 000 Hz-en és legfeljebb 16 MB: {0}/microphone/<a játék fájlneve>.wav egy játékhoz, {0}/microphone.wav a többihez. Újra és újra lejátszódik, amíg az R3 nyomva van, mindig az elejéről. Mikrofonról semmi sem kerül felvételre."
 
-#: port/frontend/shell/settings.cpp:1035
+#: port/frontend/shell/settings.cpp:1036
 msgid "GBA cartridge in Slot-2"
 msgstr "GBA-kazetta a 2-es foglalatban"
 
-#: port/frontend/shell/settings.cpp:1036
+#: port/frontend/shell/settings.cpp:1037
 msgid "For the DS games that read a GBA game in their second slot, as Pokémon's Pal Park does. It does not play GBA games."
 msgstr "Azokhoz a DS-játékokhoz, amelyek egy GBA-játékot olvasnak a második foglalatukban, mint a Pokémon Pal Parkja. GBA-játékokat nem futtat."
 
 #. {0} is melonDS's folder, /data/melonds or where the DS's files are
-#: port/frontend/shell/settings.cpp:1038
+#: port/frontend/shell/settings.cpp:1039
 msgid "Put the GBA game in {0}/slot2 with the DS game's file name, ending .gba, and its .sav beside it if it has one. The cartridge's save is then kept in {0}/slot2-saves, and the files you put there are never changed. A DS game without a cartridge there starts with the slot empty. Applies to the next game."
 msgstr "Tedd a GBA-játékot a {0}/slot2 mappába a DS-játék fájlnevével, .gba végződéssel, és mellé a .sav fájlját, ha van. A kazetta mentése ezután a {0}/slot2-saves mappában van, az oda tett fájljaid pedig sosem változnak. Az a DS-játék, amelyhez nincs ott kazetta, üres foglalattal indul. A következő játéktól érvényes."
 
-#: port/frontend/shell/settings.cpp:1045
+#: port/frontend/shell/settings.cpp:1046
 msgid "Where your games are. Cross picks another."
 msgstr "Hol vannak a játékaid. A Kereszt másik mappát választ."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1047
+#: port/frontend/shell/settings.cpp:1048
 msgid "Your Wii U games: .wua, .wud, .wux, or folders with code, content and meta, alone or in .zip, .7z or .rar archives. Encrypted .wud and .wux need their keys in {0}/keys.txt."
 msgstr "A Wii U-játékaid: .wua, .wud, .wux, vagy code, content és meta mappák, önállóan vagy .zip, .7z vagy .rar archívumban. A titkosított .wud és .wux fájlokhoz kellenek a kulcsaik a {0}/keys.txt fájlban."
 
-#: port/frontend/shell/settings.cpp:1049
+#: port/frontend/shell/settings.cpp:1050
 msgid "Your 3DS games: .3ds or .cci, .cxi, .3dsx and Azahar's compressed dumps, decrypted, alone or in .zip, .7z or .rar archives, here or in the folders in it. CIA files are installed (Install a CIA file). Encrypted dumps do not start, with keys or without: decrypt them on your 3DS first (GodMode9)."
 msgstr "A 3DS-játékaid: .3ds vagy .cci, .cxi, .3dsx és az Azahar tömörített dumpjai, visszafejtve, önállóan vagy .zip, .7z vagy .rar archívumban, itt vagy az almappákban. A CIA-fájlok telepíthetők (CIA-fájl telepítése). A titkosított dumpok nem indulnak, kulccsal sem: előbb fejtsd vissza őket a 3DS-eden (GodMode9)."
 
-#: port/frontend/shell/settings.cpp:1052
+#: port/frontend/shell/settings.cpp:1053
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
 msgstr "A Switch-játékaid: .nsp és .xci fájlok, önállóan vagy mindegyik a saját mappájában a frissítésével és DLC-ivel."
 
-#: port/frontend/shell/settings.cpp:1053
+#: port/frontend/shell/settings.cpp:1054
 msgid "Your DS games: .nds files, alone or in .zip, .7z or .rar archives, here or in the folders in it."
 msgstr "DS-játékaid: .nds fájlok, önállóan vagy .zip, .7z vagy .rar archívumban, itt vagy az almappáiban."
 
-#: port/frontend/shell/settings.cpp:1054 port/frontend/shell/shares.cpp:292
+#: port/frontend/shell/settings.cpp:1055 port/frontend/shell/shares.cpp:292
 msgid "Looking…"
 msgstr "Keresés…"
 
-#: port/frontend/shell/settings.cpp:1054
+#: port/frontend/shell/settings.cpp:1055
 msgid "This side's folder, again."
 msgstr "Ennek az oldalnak a mappája, újra."
 
-#: port/frontend/shell/settings.cpp:1055
+#: port/frontend/shell/settings.cpp:1056
 msgid "Looks through this side's folder again: games added since appear, and games taken away go."
 msgstr "Újra átnézi ennek az oldalnak a mappáját: az azóta hozzáadott játékok megjelennek, az eltávolítottak eltűnnek."
 
-#: port/frontend/shell/settings.cpp:1058
+#: port/frontend/shell/settings.cpp:1059
 msgid "Look on network shares at every start"
 msgstr "Hálózati megosztások átnézése minden indításkor"
 
-#: port/frontend/shell/settings.cpp:1059
+#: port/frontend/shell/settings.cpp:1060
 msgid "Off: the games found last time, at once."
 msgstr "Ki: a legutóbb talált játékok, azonnal."
 
-#: port/frontend/shell/settings.cpp:1060
+#: port/frontend/shell/settings.cpp:1061
 msgid "A games folder on a network share is looked through each time its side opens, and the app starts again after every game: with a large library that is a long wait. Off, the side shows the games it found there last time at once; Look for games now looks again when you have added some. Folders on the PS5 or a USB drive are looked through every time either way."
 msgstr "A hálózati megosztáson lévő játékmappát minden alkalommal átnézi, amikor az oldala megnyílik, és az alkalmazás minden játék után újraindul: nagy könyvtárnál ez hosszú várakozás. Kikapcsolva az oldal azonnal megmutatja a játékokat, amelyeket legutóbb ott talált, a Játékok keresése most pedig újra keres, ha hozzáadtál néhányat. A PS5-ön vagy USB-meghajtón lévő mappákat így is, úgy is minden alkalommal átnézi."
 
 #. Settings > Game files' Keys and firmware row, its value when the firmware is missing and the keys are there
-#: port/frontend/shell/settings.cpp:1071
+#: port/frontend/shell/settings.cpp:1072
 msgid "Firmware missing"
 msgstr "Hiányzik a firmware"
 
 #. Settings > Game files' Keys and firmware row, its value when prod.keys is missing and the firmware is there
-#: port/frontend/shell/settings.cpp:1073
+#: port/frontend/shell/settings.cpp:1074
 msgid "Keys missing"
 msgstr "Hiányoznak a kulcsok"
 
 #. Settings > Game files' Keys and firmware row, its value when prod.keys is missing and the firmware is there
-#: port/frontend/shell/settings.cpp:1073
+#: port/frontend/shell/settings.cpp:1074
 msgid "Missing"
 msgstr "Hiányzik"
 
 #. Settings > Game files: one row for the Switch's keys (prod.keys) and its firmware, which Eden needs
-#: port/frontend/shell/settings.cpp:1075
+#: port/frontend/shell/settings.cpp:1076
 msgid "Keys and firmware"
 msgstr "Kulcsok és firmware"
 
-#: port/frontend/shell/settings.cpp:1076 port/frontend/shell/setup.cpp:301
+#: port/frontend/shell/settings.cpp:1077 port/frontend/shell/setup.cpp:301
 msgid "prod.keys is missing: Eden cannot read Switch games without it"
 msgstr "A prod.keys hiányzik: nélküle az Eden nem tudja olvasni a Switch-játékokat"
 
-#: port/frontend/shell/settings.cpp:1077 port/frontend/shell/setup.cpp:312
+#: port/frontend/shell/settings.cpp:1078 port/frontend/shell/setup.cpp:312
 msgid "No firmware yet: many games need it to start"
 msgstr "Még nincs firmware: sok játéknak kell az induláshoz"
 
-#: port/frontend/shell/settings.cpp:1078
+#: port/frontend/shell/settings.cpp:1079
 msgid "Eden can read your games."
 msgstr "Az Eden tudja olvasni a játékaidat."
 
-#: port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:304
+#: port/frontend/shell/settings.cpp:1080 port/frontend/shell/setup.cpp:304
 msgid "Eden reads Switch games with your own console's keys: prod.keys (and title.keys), dumped from your Switch, in {0}/keys. No keys come with PS5-ECAM."
 msgstr "Az Eden a saját konzolod kulcsaival olvassa a Switch-játékokat: a Switchedből kimentett prod.keys (és title.keys) ide: {0}/keys. A PS5-ECAM nem tartalmaz kulcsokat."
 
-#: port/frontend/shell/settings.cpp:1083 port/frontend/shell/setup.cpp:315
+#: port/frontend/shell/settings.cpp:1084 port/frontend/shell/setup.cpp:315
 msgid "Many Switch games need the console's own system files: its firmware's .nca files, dumped from your Switch, in {0}/firmware. No firmware comes with PS5-ECAM."
 msgstr "Sok Switch-játéknak kellenek a konzol saját rendszerfájljai: a firmware-je .nca fájljai, a Switchedből kimentve, ide: {0}/firmware. A PS5-ECAM nem tartalmaz firmware-t."
 
-#: port/frontend/shell/settings.cpp:1091 port/frontend/shell/shares.cpp:536
+#: port/frontend/shell/settings.cpp:1092 port/frontend/shell/shares.cpp:536
 msgid "Network shares"
 msgstr "Hálózati megosztások"
 
-#: port/frontend/shell/settings.cpp:1091
+#: port/frontend/shell/settings.cpp:1092
 msgid "{0} share"
 msgid_plural "{0} shares"
 msgstr[0] "{0} megosztás"
 msgstr[1] "{0} megosztás"
 
-#: port/frontend/shell/settings.cpp:1092
+#: port/frontend/shell/settings.cpp:1093
 msgid "Games on a computer or a NAS, over SMB or NFS."
 msgstr "Játékok számítógépen vagy NAS-on, SMB-n vagy NFS-en."
 
-#: port/frontend/shell/settings.cpp:1093
+#: port/frontend/shell/settings.cpp:1094
 msgid "A folder shared by a Windows, macOS or Linux computer or a NAS, read where it is: add it here, then choose a games folder on it with the folder browser, where each share is a tab. Nothing is ever written to it; saves and installs stay on the PS5. A cable does better than Wi-Fi for Wii U games."
 msgstr "Egy Windows, macOS vagy Linux rendszerű számítógép vagy egy NAS által megosztott mappa, ott olvasva, ahol van: add hozzá itt, majd válassz rajta játékmappát a mappaböngészővel, ahol minden megosztás egy fül. Soha semmi nem íródik rá; a mentések és a telepítések a PS5-ön maradnak. Wii U-játékokhoz a kábel jobb, mint a Wi-Fi."
 
-#: port/frontend/shell/settings.cpp:1100 port/frontend/shell/setup.cpp:246
+#: port/frontend/shell/settings.cpp:1101 port/frontend/shell/setup.cpp:246
 msgid "Wii U disc keys"
 msgstr "Wii U-lemezkulcsok"
 
-#: port/frontend/shell/settings.cpp:1100 port/frontend/shell/setup.cpp:248
+#: port/frontend/shell/settings.cpp:1101 port/frontend/shell/setup.cpp:248
 msgid "keys.txt found"
 msgstr "keys.txt megtalálva"
 
-#: port/frontend/shell/settings.cpp:1101
+#: port/frontend/shell/settings.cpp:1102
 msgid "Only encrypted .wud and .wux need them."
 msgstr "Csak a titkosított .wud és .wux fájlokhoz kellenek."
 
-#: port/frontend/shell/settings.cpp:1101 port/frontend/shell/setup.cpp:248
+#: port/frontend/shell/settings.cpp:1102 port/frontend/shell/setup.cpp:248
 msgid "keys.txt is missing: only encrypted .wud and .wux need it"
 msgstr "keys.txt hiányzik: csak a titkosított .wud és .wux fájlokhoz kell"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1103
+#: port/frontend/shell/settings.cpp:1104
 msgid "Encrypted .wud and .wux dumps need their disc keys in {0}/keys.txt, one a line. Decrypted dumps, .wua and folders need none."
 msgstr "A titkosított .wud és .wux dumpokhoz kellenek a lemezkulcsaik a {0}/keys.txt fájlban, soronként egy. A visszafejtett dumpoknak, a .wua fájloknak és a mappáknak nem kell."
 
 #. Settings > Game files: a row that opens Updates and DLC and Mods from USB
-#: port/frontend/shell/settings.cpp:1106
+#: port/frontend/shell/settings.cpp:1107
 msgid "Updates, DLC and mods"
 msgstr "Frissítések, DLC-k és modok"
 
 #. Settings > Game files: a row that opens Updates and DLC and Mods from USB
-#: port/frontend/shell/settings.cpp:1106
+#: port/frontend/shell/settings.cpp:1107
 msgid "Installs from your drives, and Cemu mods."
 msgstr "Telepítés a meghajtóidról és Cemu-modok."
 
-#: port/frontend/shell/settings.cpp:1107
+#: port/frontend/shell/settings.cpp:1108
 msgid "Updates and DLC found on your drives, each installed into the Wii U's storage with one press, and Cemu mods copied from a USB drive's ps5cemu/mods folder. Triangle on each says more."
 msgstr "A meghajtóidon talált frissítések és DLC-k, mindegyik egy gombnyomással a Wii U tárhelyére telepítve, és az USB-meghajtó ps5cemu/mods mappájából másolt Cemu-modok. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:1109
+#: port/frontend/shell/settings.cpp:1110
 msgid "Found on your drives, each installed with one press."
 msgstr "A meghajtóidon találva, mindegyik egy gombnyomással telepíthető."
 
-#: port/frontend/shell/settings.cpp:1110
+#: port/frontend/shell/settings.cpp:1111
 msgid "Looks on every USB drive and extended storage plugged in, in the games folder and in /data for updates, DLC and games (folders with code, content and meta), and lists them by game with what is installed now. Cross installs one, Square every new one; each goes into the Wii U's storage (mlc01), as Cemu's Install game title, update or DLC does. Triangle there chooses a folder anywhere else."
 msgstr "Frissítéseket, DLC-ket és játékokat (code, content és meta mappákat) keres minden csatlakoztatott USB-meghajtón és bővített tárhelyen, a játékok mappájában és a /data alatt, és játékonként listázza őket a jelenleg telepítettekkel együtt. A Kereszt egyet telepít, a Négyzet minden újat; mind a Wii U tárhelyére (mlc01) kerül, ahogy a Cemu „Install game title, update or DLC” funkciójánál. Ott a Háromszög bármilyen más mappát választ."
 
-#: port/frontend/shell/settings.cpp:1114
+#: port/frontend/shell/settings.cpp:1115
 msgid "Mods from USB"
 msgstr "Modok USB-ről"
 
-#: port/frontend/shell/settings.cpp:1114
+#: port/frontend/shell/settings.cpp:1115
 msgid "Cemu mods from the ps5cemu/mods folder on your drives."
 msgstr "Cemu-modok a meghajtóid ps5cemu/mods mappájából."
 
-#: port/frontend/shell/settings.cpp:1115
+#: port/frontend/shell/settings.cpp:1116
 msgid "Copies the mods in a USB drive's ps5cemu/mods folder into the app's graphic packs, where each shows on its game's Graphic packs page, off until you turn it on. A mod is a Cemu graphic pack (a folder with a rules.txt), or, for one shared without it, a folder with content and aoc folders, in a folder named by its game's title ID. A game's menu has Add mods from USB as well, which gives such mods that game. The guide on GitHub, docs/GUIDE.md, has more."
 msgstr "Átmásolja az USB-meghajtó ps5cemu/mods mappájában lévő modokat az alkalmazás grafikus csomagjai közé, ahol mindegyik megjelenik a játéka Grafikus csomagok oldalán, kikapcsolva, amíg be nem kapcsolod. A mod egy Cemu grafikus csomag (egy rules.txt fájlt tartalmazó mappa), vagy ha anélkül osztották meg, egy content és aoc mappákat tartalmazó mappa a játéka címazonosítójáról elnevezett mappában. A játék menüjében is van Modok hozzáadása USB-ről, amely az ilyen modokat ahhoz a játékhoz rendeli. A GitHubon lévő útmutató, a docs/GUIDE.md, többet mond."
 
-#: port/frontend/shell/settings.cpp:1122
+#: port/frontend/shell/settings.cpp:1123
 msgid "Install a CIA file"
 msgstr "CIA-fájl telepítése"
 
-#: port/frontend/shell/settings.cpp:1122
+#: port/frontend/shell/settings.cpp:1123
 msgid "A game, an update or DLC."
 msgstr "Játék, frissítés vagy DLC."
 
-#: port/frontend/shell/settings.cpp:1123
+#: port/frontend/shell/settings.cpp:1124
 msgid "Installs a CIA into the 3DS's storage, as Azahar's Install CIA does: an update or DLC goes with its game, and a game joins the library. Circle cancels while it runs."
 msgstr "Telepít egy CIA-t a 3DS tárhelyére, ahogy az Azahar Install CIA funkciója: a frissítés vagy DLC a játékához kerül, a játék pedig a könyvtárba. A kör futás közben megszakítja."
 
 #. What's new: each system's files in a folder of its own (/data/cemu, /data/azahar...), which Reorganize moves an install from before into
-#: port/frontend/shell/settings.cpp:1131 port/frontend/shell/shell.cpp:2625 port/frontend/shell/whatsnew.cpp:28
+#: port/frontend/shell/settings.cpp:1132 port/frontend/shell/shell.cpp:2625 port/frontend/shell/whatsnew.cpp:28
 msgid "A folder for each system"
 msgstr "Külön mappa minden rendszernek"
 
-#: port/frontend/shell/settings.cpp:1132
+#: port/frontend/shell/settings.cpp:1133
 msgid "Cannot move"
 msgstr "Nem helyezhető át"
 
 #. {0} is a file or folder already where one would be moved to
-#: port/frontend/shell/settings.cpp:1134
+#: port/frontend/shell/settings.cpp:1135
 msgid "In the way: {0}"
 msgstr "Útban van: {0}"
 
-#: port/frontend/shell/settings.cpp:1135
+#: port/frontend/shell/settings.cpp:1136
 msgid "Each system's files are in a folder of their own."
 msgstr "Minden rendszer fájljai a saját mappájukban vannak."
 
-#: port/frontend/shell/settings.cpp:1136
+#: port/frontend/shell/settings.cpp:1137
 msgid "Your files from before into a folder for each system."
 msgstr "A korábbi fájljaid rendszerenként külön mappába."
 
-#: port/frontend/shell/settings.cpp:1137
+#: port/frontend/shell/settings.cpp:1138
 msgid "Puts each system's files back into {0}, where they were before. Going back to an earlier version needs them there, as it looks for them there. PS5-ECAM starts again to do it."
 msgstr "Visszateszi minden rendszer fájljait ide: {0}, ahol korábban voltak. Egy korábbi verzióra való visszatéréshez ott kellenek, mert ott keresi őket. A PS5-ECAM ehhez újraindul."
 
 #. {0} is the app's data folder, /data/ps5cemu; {1} lists the four folders: /data/cemu, /data/azahar, ...
-#: port/frontend/shell/settings.cpp:1141
+#: port/frontend/shell/settings.cpp:1142
 msgid "Moves each system's files from {0} into a folder of its own: {1}. They are renamed on the same drive, never copied, so it takes a moment whatever their size, and nothing is deleted. PS5-ECAM starts again to do it; a system that cannot move stays as it was. This row puts them back."
 msgstr "Áthelyezi minden rendszer fájljait innen: {0}, egy saját mappába: {1}. Ugyanazon a meghajtón átnevezi őket, sosem másolja, így méretüktől függetlenül csak egy pillanat, és semmi sem törlődik. A PS5-ECAM ehhez újraindul; az a rendszer, amelyet nem lehet áthelyezni, marad, ahogy volt. Ez a sor visszateszi őket."
 
-#: port/frontend/shell/settings.cpp:1168
+#: port/frontend/shell/settings.cpp:1169
 msgid "Account games start on"
 msgstr "Fiók, amellyel a játékok indulnak"
 
-#: port/frontend/shell/settings.cpp:1169
+#: port/frontend/shell/settings.cpp:1170
 msgid "Chosen by your PS5 user: One account for each PS5 user is on."
 msgstr "A PS5-felhasználód választja: be van kapcsolva az Egy fiók minden PS5-felhasználónak."
 
-#: port/frontend/shell/settings.cpp:1170
+#: port/frontend/shell/settings.cpp:1171
 msgid "The next game starts on these saves. A game already running keeps its own."
 msgstr "A következő játék ezekkel a mentésekkel indul. A már futó játék megtartja a sajátjait."
 
-#: port/frontend/shell/settings.cpp:1171
+#: port/frontend/shell/settings.cpp:1172
 msgid "Each Wii U account has its own saves of every game, as on a Wii U. The next game you start uses the one shown here; a game already running keeps the one it started with."
 msgstr "Minden Wii U-fióknak saját mentései vannak minden játékhoz, ahogy a Wii U-n. A következő elindított játék az itt látható fiókot használja; a már futó játék azt tartja meg, amellyel elindult."
 
-#: port/frontend/shell/settings.cpp:1175
+#: port/frontend/shell/settings.cpp:1176
 msgid "One account for each PS5 user"
 msgstr "Egy fiók minden PS5-felhasználónak"
 
-#: port/frontend/shell/settings.cpp:1176
+#: port/frontend/shell/settings.cpp:1177
 msgid "Whoever starts PS5-ECAM plays on their own saves."
 msgstr "Aki elindítja a PS5-ECAM-t, a saját mentéseivel játszik."
 
-#: port/frontend/shell/settings.cpp:1177
+#: port/frontend/shell/settings.cpp:1178
 msgid "The PS5 user who starts the app plays on a Wii U account of their own, made the first time with their PS5 name, so brothers and sisters each keep their own saves just by starting the app from their own PS5 user."
 msgstr "Az alkalmazást elindító PS5-felhasználó saját Wii U-fiókon játszik, amely első alkalommal a PS5-nevével jön létre, így a testvérek mind megtartják a saját mentéseiket, egyszerűen azzal, hogy a saját PS5-felhasználójukról indítják az alkalmazást."
 
 #. Settings > Accounts and saves: a row that opens New account, Rename and Delete an account
-#: port/frontend/shell/settings.cpp:1180
+#: port/frontend/shell/settings.cpp:1181
 msgid "Manage accounts"
 msgstr "Fiókok kezelése"
 
 #. Settings > Accounts and saves: a row that opens New account, Rename and Delete an account
 #. how many Wii U accounts there are, of the twelve a Wii U has at most
-#: port/frontend/shell/settings.cpp:1180 port/frontend/shell/settings.cpp:1184
+#: port/frontend/shell/settings.cpp:1181 port/frontend/shell/settings.cpp:1185
 msgid "{0} of 12"
 msgstr "{0}/12"
 
 #. Settings > Accounts and saves: a row that opens New account, Rename and Delete an account
-#: port/frontend/shell/settings.cpp:1180
+#: port/frontend/shell/settings.cpp:1181
 msgid "New, renamed or deleted."
 msgstr "Új, átnevezett vagy törölt."
 
-#: port/frontend/shell/settings.cpp:1181
+#: port/frontend/shell/settings.cpp:1182
 msgid "A new account, a new name for the one games start on, or another account deleted. Saves always stay in the Wii U's storage."
 msgstr "Új fiók, új név annak a fióknak, amelyen a játékok indulnak, vagy egy másik fiók törlése. A mentések mindig a Wii U tárhelyén maradnak."
 
 #. how many Wii U accounts there are, of the twelve a Wii U has at most
-#: port/frontend/shell/settings.cpp:1184
+#: port/frontend/shell/settings.cpp:1185
 msgid "New account"
 msgstr "Új fiók"
 
-#: port/frontend/shell/settings.cpp:1185
+#: port/frontend/shell/settings.cpp:1186
 msgid "A new account starts with no saves."
 msgstr "Az új fiók mentések nélkül indul."
 
-#: port/frontend/shell/settings.cpp:1185
+#: port/frontend/shell/settings.cpp:1186
 msgid "Name it with the keyboard, ten letters at most. Games start on it from then on."
 msgstr "Nevezd el a billentyűzettel, legfeljebb tíz betű. Ezután a játékok ezzel indulnak."
 
-#: port/frontend/shell/settings.cpp:1186
+#: port/frontend/shell/settings.cpp:1187
 msgid "Rename {0}"
 msgstr "{0} átnevezése"
 
-#: port/frontend/shell/settings.cpp:1186
+#: port/frontend/shell/settings.cpp:1187
 msgid "The account games start on."
 msgstr "A fiók, amellyel a játékok indulnak."
 
-#: port/frontend/shell/settings.cpp:1187
+#: port/frontend/shell/settings.cpp:1188
 msgid "The name games show for this account, ten letters at most. Its saves stay as they are."
 msgstr "A név, amelyet a játékok ehhez a fiókhoz mutatnak, legfeljebb tíz betű. A mentései úgy maradnak, ahogy vannak."
 
-#: port/frontend/shell/settings.cpp:1195
+#: port/frontend/shell/settings.cpp:1196
 msgid "Delete an account"
 msgstr "Fiók törlése"
 
-#: port/frontend/shell/settings.cpp:1196
+#: port/frontend/shell/settings.cpp:1197
 msgid "Only one"
 msgstr "Csak egy"
 
-#: port/frontend/shell/settings.cpp:1197
+#: port/frontend/shell/settings.cpp:1198
 msgid "There is only one account, and games start on it."
 msgstr "Csak egy fiók van, és a játékok azzal indulnak."
 
-#: port/frontend/shell/settings.cpp:1197
+#: port/frontend/shell/settings.cpp:1198
 msgid "Left and Right choose which. Its saves stay in the Wii U's storage."
 msgstr "A Bal és a Jobb választja ki, melyiket. A mentései a Wii U tárhelyén maradnak."
 
-#: port/frontend/shell/settings.cpp:1198
+#: port/frontend/shell/settings.cpp:1199
 msgid "The account is removed; its saves stay in the Wii U's storage (and in any backup), so nothing is lost. The account games start on cannot be deleted: choose another first."
 msgstr "A fiók törlődik; a mentései a Wii U tárhelyén (és minden biztonsági mentésben) maradnak, így semmi sem vész el. A fiók, amellyel a játékok indulnak, nem törölhető: előbb válassz másikat."
 
 #. a backup or restore of the saves, finished ({0}: how many files)
-#: port/frontend/shell/settings.cpp:1222 port/frontend/shell/settings.cpp:1781
+#: port/frontend/shell/settings.cpp:1223 port/frontend/shell/settings.cpp:1782
 msgid "Done: {0} file"
 msgid_plural "Done: {0} files"
 msgstr[0] "Kész: {0} fájl"
 msgstr[1] "Kész: {0} fájl"
 
 #. a backup of the saves, as it copies ({0}: a percentage)
-#: port/frontend/shell/settings.cpp:1239 port/frontend/shell/settings.cpp:1255 port/frontend/shell/settings.cpp:1820 port/frontend/shell/settings.cpp:1840
+#: port/frontend/shell/settings.cpp:1240 port/frontend/shell/settings.cpp:1256 port/frontend/shell/settings.cpp:1821 port/frontend/shell/settings.cpp:1841
 msgid "Copying: {0}"
 msgstr "Másolás: {0}"
 
 #. the newest backup of the saves: when, and on which drive
-#: port/frontend/shell/settings.cpp:1242 port/frontend/shell/settings.cpp:1822
+#: port/frontend/shell/settings.cpp:1243 port/frontend/shell/settings.cpp:1823
 msgid "Last: {0} · {1}"
 msgstr "Utolsó: {0} · {1}"
 
-#: port/frontend/shell/settings.cpp:1243
+#: port/frontend/shell/settings.cpp:1244
 msgid "Every side's saves, save states and Wii U accounts."
 msgstr "Minden oldal mentései, mentett állapotai és Wii U-fiókjai."
 
-#: port/frontend/shell/settings.cpp:1244
+#: port/frontend/shell/settings.cpp:1245
 msgid "Copies the Wii U's saves (every account's, with the accounts), the 3DS's saves, extra data and save states, the DS's saves and save states, and the Switch's saves with its user profiles to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time. Never the games, so a backup stays small. The settings go with them: the launcher's, each game's own and the controllers'."
 msgstr "Átmásolja a Wii U mentéseit (minden fiókét, a fiókokkal együtt), a 3DS mentéseit, extra adatait és mentett állapotait, a DS mentéseit és mentett állapotait, valamint a Switch mentéseit a felhasználói profiljaival együtt az első csatlakoztatott USB-meghajtó PS5CEMU-HAR-saves mappájába, egy dátummal és idővel elnevezett mappába. A játékokat soha, így a biztonsági mentés kicsi marad. A beállítások is velük mennek: az indítóé, az egyes játékok sajátjai és a kontrollereké."
 
-#: port/frontend/shell/settings.cpp:1253 port/frontend/shell/settings.cpp:1838
+#: port/frontend/shell/settings.cpp:1254 port/frontend/shell/settings.cpp:1839
 msgid "No backups found"
 msgstr "Nincs biztonsági mentés"
 
-#: port/frontend/shell/settings.cpp:1256 port/frontend/shell/settings.cpp:1837
+#: port/frontend/shell/settings.cpp:1257 port/frontend/shell/settings.cpp:1838
 msgid "Restore from USB"
 msgstr "Visszaállítás USB-ről"
 
-#: port/frontend/shell/settings.cpp:1257
+#: port/frontend/shell/settings.cpp:1258
 msgid "Back up first, or plug in the drive with your backups."
 msgstr "Előbb készíts biztonsági mentést, vagy csatlakoztasd a mentéseidet tartalmazó meghajtót."
 
-#: port/frontend/shell/settings.cpp:1257 port/frontend/shell/settings.cpp:1841
+#: port/frontend/shell/settings.cpp:1258 port/frontend/shell/settings.cpp:1842
 msgid "Left and Right choose which backup, the newest first."
 msgstr "A Bal és a Jobb választja ki a biztonsági mentést, a legújabbal kezdve."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1259
+#: port/frontend/shell/settings.cpp:1260
 msgid "Puts the chosen backup's saves back where they came from. The saves there now are moved first to {0}/saves-before, so nothing is lost; saves the backup does not have stay as they are. Its settings come back too, and PS5-ECAM starts again to use them."
 msgstr "A kiválasztott biztonsági mentés mentéseit oda teszi vissza, ahonnan jöttek. Az ott lévő jelenlegi mentések előbb a {0}/saves-before mappába kerülnek, így semmi sem vész el; azok a mentések, amelyek nincsenek a biztonsági mentésben, maradnak, ahogy vannak. A beállításai is visszakerülnek, és a PS5-ECAM újraindul, hogy használja őket."
 
-#: port/frontend/shell/settings.cpp:1275
+#: port/frontend/shell/settings.cpp:1276
 msgid "Downloading: {0} left"
 msgid_plural "Downloading: {0} left"
 msgstr[0] "Letöltés: {0} van hátra"
 msgstr[1] "Letöltés: {0} van hátra"
 
-#: port/frontend/shell/settings.cpp:1276
+#: port/frontend/shell/settings.cpp:1277
 msgid "GameTDB did not answer: is the PS5 online?"
 msgstr "A GameTDB nem válaszolt: online van a PS5?"
 
-#: port/frontend/shell/settings.cpp:1277
+#: port/frontend/shell/settings.cpp:1278
 msgid "{0} game without box art"
 msgid_plural "{0} games without box art"
 msgstr[0] "{0} játék borító nélkül"
 msgstr[1] "{0} játék borító nélkül"
 
-#: port/frontend/shell/settings.cpp:1278
+#: port/frontend/shell/settings.cpp:1279
 msgid "Every game has box art"
 msgstr "Minden játéknak van borítója"
 
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
-#: port/frontend/shell/settings.cpp:1280 port/frontend/shell/settings.cpp:1289 port/frontend/shell/setup.cpp:327
+#: port/frontend/shell/settings.cpp:1281 port/frontend/shell/settings.cpp:1290 port/frontend/shell/setup.cpp:327
 msgid "Box art"
 msgstr "Borítók"
 
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
-#: port/frontend/shell/settings.cpp:1280
+#: port/frontend/shell/settings.cpp:1281
 msgid "Covers for the library, from GameTDB."
 msgstr "Borítók a könyvtárhoz a GameTDB-ről."
 
-#: port/frontend/shell/settings.cpp:1281
+#: port/frontend/shell/settings.cpp:1282
 msgid "Whether covers are downloaded from GameTDB (art.gametdb.com), and the missing ones or every one downloaded again. On the Switch side, also whether a game shows its box art or its own icon."
 msgstr "Letöltődjenek-e a borítók a GameTDB-ről (art.gametdb.com), és a hiányzók vagy mind újbóli letöltése. A Switch oldalon az is, hogy egy játék a borítóját vagy a saját ikonját mutatja."
 
-#: port/frontend/shell/settings.cpp:1284
+#: port/frontend/shell/settings.cpp:1285
 msgid "Box art from GameTDB"
 msgstr "Borítók a GameTDB-ből"
 
-#: port/frontend/shell/settings.cpp:1284
+#: port/frontend/shell/settings.cpp:1285
 msgid "Covers for the library, downloaded once."
 msgstr "Borítók a könyvtárhoz, egyszer letöltve."
 
-#: port/frontend/shell/settings.cpp:1285
+#: port/frontend/shell/settings.cpp:1286
 msgid "The first time a game shows up, its cover is downloaded from GameTDB (art.gametdb.com) by the ID on its box. Off: nothing more is downloaded."
 msgstr "Amikor egy játék először megjelenik, a borítója letöltődik a GameTDB-ből (art.gametdb.com) a dobozán lévő azonosító alapján. Ki: semmi több nem töltődik le."
 
-#: port/frontend/shell/settings.cpp:1289
+#: port/frontend/shell/settings.cpp:1290
 msgid "Switch covers"
 msgstr "Switch-borítók"
 
-#: port/frontend/shell/settings.cpp:1289
+#: port/frontend/shell/settings.cpp:1290
 msgid "Game icons"
 msgstr "Játékikonok"
 
-#: port/frontend/shell/settings.cpp:1289
+#: port/frontend/shell/settings.cpp:1290
 msgid "GameTDB's box art, or each game's own icon."
 msgstr "Borítók a GameTDB-ből, vagy minden játék saját ikonja."
 
-#: port/frontend/shell/settings.cpp:1290
+#: port/frontend/shell/settings.cpp:1291
 msgid "Box art is GameTDB's, found by each game's name. Game icons are the games' own, read from their files, as the Switch's home menu shows them. A picture beside a game (Game.png or Game.jpg) is its cover either way."
 msgstr "A borítók a GameTDB-ből jönnek, minden játéknál a neve alapján megtalálva. A játékikonok a játékok sajátjai, a fájljaikból olvasva, ahogy a Switch HOME menüje mutatja őket. Egy játék melletti kép (Game.png vagy Game.jpg) mindkét esetben a borítója."
 
-#: port/frontend/shell/settings.cpp:1292
+#: port/frontend/shell/settings.cpp:1293
 msgid "Download missing box art"
 msgstr "Hiányzó borítók letöltése"
 
-#: port/frontend/shell/settings.cpp:1292
+#: port/frontend/shell/settings.cpp:1293
 msgid "Tries again for every game without a cover."
 msgstr "Újra próbálkozik minden borító nélküli játéknál."
 
-#: port/frontend/shell/settings.cpp:1293
+#: port/frontend/shell/settings.cpp:1294
 msgid "Asks GameTDB again for the cover of every game on this side that has none, including games it had no cover for before. Covers are downloaded in the background while you use the launcher."
 msgstr "Újra lekéri a GameTDB-ről ezen az oldal minden olyan játékának borítóját, amelynek nincs, azokét is, amelyekhez korábban nem volt. A borítók a háttérben töltődnek le, amíg az indítót használod."
 
-#: port/frontend/shell/settings.cpp:1295
+#: port/frontend/shell/settings.cpp:1296
 msgid "Download all box art again"
 msgstr "Összes borító újbóli letöltése"
 
-#: port/frontend/shell/settings.cpp:1296
+#: port/frontend/shell/settings.cpp:1297
 msgid "Replaces every cover on this side with a fresh download."
 msgstr "Ezen az oldalon minden borítót friss letöltésre cserél."
 
-#: port/frontend/shell/settings.cpp:1297
+#: port/frontend/shell/settings.cpp:1298
 msgid "Downloads the cover of every game on this side again, replacing the ones you have. Useful when a cover is wrong or looks broken."
 msgstr "Ezen az oldalon minden játék borítóját újra letölti, lecserélve a meglévőket. Hasznos, ha egy borító rossz vagy sérültnek látszik."
 
-#: port/frontend/shell/settings.cpp:1302
+#: port/frontend/shell/settings.cpp:1303
 msgid "Play a game from your 3DS, and set up from it."
 msgstr "Játék a 3DS-edről, és beállítás róla."
 
-#: port/frontend/shell/settings.cpp:1303
+#: port/frontend/shell/settings.cpp:1304
 msgid "Artic Base plays a game from a 3DS on your network, its saves staying on the 3DS; Artic Setup copies a 3DS's system files into Azahar, for the Home Menu and the games that need them."
 msgstr "Az Artic Base egy játékot futtat a hálózatodon lévő 3DS-ről, a mentései a 3DS-en maradnak; az Artic Setup egy 3DS rendszerfájljait másolja az Azaharba, a HOME menühöz és az azokat igénylő játékokhoz."
 
-#: port/frontend/shell/settings.cpp:1310
+#: port/frontend/shell/settings.cpp:1311
 msgid "A room is a server where Switch games find each other for their local wireless play, as in desktop Eden and ProsperoEden. The room chosen here is joined as each Switch game starts: then choose Local Wireless (or local play) in the game. A room that cannot be joined brings you back here with why."
 msgstr "A szoba egy szerver, ahol a Switch-játékok megtalálják egymást a helyi vezeték nélküli játékhoz, mint az asztali Edenben és a ProsperoEdenben. Az itt választott szobába minden Switch-játék indulásakor belép: aztán válaszd a játékban a Helyi vezeték nélküli játékot (vagy a helyi játékot). Ha egy szobába nem lehet belépni, ide jössz vissza az okkal."
 
 #. Settings > Online on the Switch side: a row that opens the rooms for the games' local wireless play
-#: port/frontend/shell/settings.cpp:1314
+#: port/frontend/shell/settings.cpp:1315
 msgid "Multiplayer"
 msgstr "Többjátékos"
 
 #. Settings > Online on the Switch side: a row that opens the rooms for the games' local wireless play
-#: port/frontend/shell/settings.cpp:1314 port/frontend/shell/settings.cpp:1319
+#: port/frontend/shell/settings.cpp:1315 port/frontend/shell/settings.cpp:1320
 msgid "None: games play offline"
 msgstr "Nincs: a játékok offline futnak"
 
-#: port/frontend/shell/settings.cpp:1315
+#: port/frontend/shell/settings.cpp:1316
 msgid "Rooms for the games' local wireless play, online."
 msgstr "Szobák a játékok helyi vezeték nélküli játékához, online."
 
-#: port/frontend/shell/settings.cpp:1320
+#: port/frontend/shell/settings.cpp:1321
 msgid "Joined as a Switch game starts. Cross plays offline again."
 msgstr "Belép, amikor egy Switch-játék elindul. A kereszt újra offline-ra vált."
 
-#: port/frontend/shell/settings.cpp:1320
+#: port/frontend/shell/settings.cpp:1321
 msgid "Choose a public room below, or a private one."
 msgstr "Válassz lent egy nyilvános szobát, vagy egy privátot."
 
-#: port/frontend/shell/settings.cpp:1323
+#: port/frontend/shell/settings.cpp:1324
 msgid "Nickname"
 msgstr "Becenév"
 
-#: port/frontend/shell/settings.cpp:1323
+#: port/frontend/shell/settings.cpp:1324
 msgid "Your name in the room."
 msgstr "A neved a szobában."
 
-#: port/frontend/shell/settings.cpp:1324
+#: port/frontend/shell/settings.cpp:1325
 msgid "What the others in a room see of you: 4 to 20 letters, digits, spaces, dots, dashes or underscores, as Eden takes them."
 msgstr "Amit mások látnak rólad egy szobában: 4–20 latin betű, számjegy, szóköz, pont, kötőjel vagy aláhúzás, ahogy az Eden elfogadja."
 
-#: port/frontend/shell/settings.cpp:1326
+#: port/frontend/shell/settings.cpp:1327
 msgid "Private room"
 msgstr "Privát szoba"
 
-#: port/frontend/shell/settings.cpp:1327
+#: port/frontend/shell/settings.cpp:1328
 msgid "Cross to enter one"
 msgstr "Kereszt a megadásához"
 
-#: port/frontend/shell/settings.cpp:1328
+#: port/frontend/shell/settings.cpp:1329
 msgid "A room by its address, port and password."
 msgstr "Egy szoba a címe, portja és jelszava alapján."
 
-#: port/frontend/shell/settings.cpp:1329
+#: port/frontend/shell/settings.cpp:1330
 msgid "A room someone gave you the address of: its address (a name or an IPv4 address), its UDP port (24872 unless they say otherwise) and its password, if it has one."
 msgstr "Egy szoba, amelynek a címét valaki megadta neked: a címe (név vagy IPv4-cím), az UDP-portja (24872, hacsak mást nem mondanak) és a jelszava, ha van."
 
-#: port/frontend/shell/settings.cpp:1333
+#: port/frontend/shell/settings.cpp:1334
 msgid "No public rooms right now"
 msgstr "Most nincs nyilvános szoba"
 
-#: port/frontend/shell/settings.cpp:1334
+#: port/frontend/shell/settings.cpp:1335
 msgid "{0} room"
 msgid_plural "{0} rooms"
 msgstr[0] "{0} szoba"
 msgstr[1] "{0} szoba"
 
-#: port/frontend/shell/settings.cpp:1335
+#: port/frontend/shell/settings.cpp:1336
 msgid "Public rooms"
 msgstr "Nyilvános szobák"
 
-#: port/frontend/shell/settings.cpp:1335
+#: port/frontend/shell/settings.cpp:1336
 msgid "Cross downloads the list again."
 msgstr "A kereszt újra letölti a listát."
 
-#: port/frontend/shell/settings.cpp:1336
+#: port/frontend/shell/settings.cpp:1337
 msgid "ProsperoEden's list of public rooms: its own featured rooms first, then the others, the fullest first. A room for another version of Eden cannot be joined."
 msgstr "A ProsperoEden nyilvános szobáinak listája: előbb a saját kiemelt szobái, aztán a többi, a legtelibbek elöl. Az Eden másik verziójához tartozó szobába nem lehet belépni."
 
-#: port/frontend/shell/settings.cpp:1344 port/frontend/shell/shares.cpp:317 port/frontend/shell/shares.cpp:489
+#: port/frontend/shell/settings.cpp:1345 port/frontend/shell/shares.cpp:317 port/frontend/shell/shares.cpp:489
 msgid "Password"
 msgstr "Jelszó"
 
 #. one of ProsperoEden's own rooms, which its list puts first
-#: port/frontend/shell/settings.cpp:1347
+#: port/frontend/shell/settings.cpp:1348
 msgid "Featured"
 msgstr "Kiemelt"
 
-#: port/frontend/shell/settings.cpp:1349
+#: port/frontend/shell/settings.cpp:1350
 msgid "Another version"
 msgstr "Másik verzió"
 
-#: port/frontend/shell/settings.cpp:1351
+#: port/frontend/shell/settings.cpp:1352
 msgid "{0} (chosen)"
 msgstr "{0} (választva)"
 
-#: port/frontend/shell/settings.cpp:1352
+#: port/frontend/shell/settings.cpp:1353
 msgid "Any game"
 msgstr "Bármely játék"
 
-#: port/frontend/shell/settings.cpp:1359
+#: port/frontend/shell/settings.cpp:1360
 msgid "Community graphic packs"
 msgstr "Közösségi grafikus csomagok"
 
-#: port/frontend/shell/settings.cpp:1359
+#: port/frontend/shell/settings.cpp:1360
 msgid "Cross checks GitHub for newer ones."
 msgstr "A kereszt újabbakat keres a GitHubon."
 
-#: port/frontend/shell/settings.cpp:1360
+#: port/frontend/shell/settings.cpp:1361
 msgid "Cemu's community graphic packs, from GitHub's latest release when it is newer than the ones installed. They are not in the app: the first time the Wii U side starts without them, they are downloaded in the background."
 msgstr "A Cemu közösségi grafikus csomagjai a GitHub legújabb kiadásából, ha az újabb a telepítetteknél. Nincsenek benne az alkalmazásban: amikor a Wii U oldal először indul el nélkülük, a háttérben letöltődnek."
 
-#: port/frontend/shell/settings.cpp:1366
+#: port/frontend/shell/settings.cpp:1367
 msgid "Earn RetroAchievements in DS games with your account, as RetroArch does. Cross signs in with your user name and password; only the sign-in's token is kept on the PS5, never the password. Softcore: save states, cheats and speed stay as they are. RetroAchievements has no sets for the Wii U or the 3DS."
 msgstr "Szerezz RetroAchievements-teljesítményeket DS-játékokban a fiókoddal, ahogy a RetroArchban. A kereszt bejelentkeztet a felhasználóneveddel és jelszavaddal; a PS5 csak a bejelentkezés tokenjét tárolja, a jelszót soha. Softcore: a mentett állapotok, a csalások és a sebesség maradnak, ahogy vannak. A RetroAchievementsnek nincs készlete Wii U-hoz és 3DS-hez."
 
 #. the RetroAchievements account signed in: its name ({1}) and softcore points ({0})
-#: port/frontend/shell/settings.cpp:1371 port/frontend/shell/settings.cpp:1375
+#: port/frontend/shell/settings.cpp:1372 port/frontend/shell/settings.cpp:1376
 msgid "RetroAchievements"
 msgstr "RetroAchievements"
 
-#: port/frontend/shell/settings.cpp:1372
+#: port/frontend/shell/settings.cpp:1373
 msgid "{1} · {0} point"
 msgid_plural "{1} · {0} points"
 msgstr[0] "{1} · {0} pont"
 msgstr[1] "{1} · {0} pont"
 
-#: port/frontend/shell/settings.cpp:1372
+#: port/frontend/shell/settings.cpp:1373
 msgid "Hold Cross to sign out"
 msgstr "Kijelentkezéshez tartsd nyomva a keresztet"
 
-#: port/frontend/shell/settings.cpp:1373
+#: port/frontend/shell/settings.cpp:1374
 msgid "Signed in: DS games with a set earn achievements."
 msgstr "Bejelentkezve: a készlettel rendelkező DS-játékok teljesítményeket adnak."
 
-#: port/frontend/shell/settings.cpp:1376
+#: port/frontend/shell/settings.cpp:1377
 msgid "Signing in…"
 msgstr "Bejelentkezés…"
 
-#: port/frontend/shell/settings.cpp:1376
+#: port/frontend/shell/settings.cpp:1377
 msgid "Cross to sign in"
 msgstr "Kereszt: bejelentkezés"
 
-#: port/frontend/shell/settings.cpp:1377
+#: port/frontend/shell/settings.cpp:1378
 msgid "Achievements in DS games, with your RetroAchievements account."
 msgstr "Teljesítmények DS-játékokban, a RetroAchievements-fiókoddal."
 
-#: port/frontend/shell/settings.cpp:1378
+#: port/frontend/shell/settings.cpp:1379
 msgid "Unlock notices"
 msgstr "Értesítés a teljesítményekről"
 
-#: port/frontend/shell/settings.cpp:1378
+#: port/frontend/shell/settings.cpp:1379
 msgid "Each unlock as the PS5's notification."
 msgstr "Minden teljesítmény PS5-értesítésként."
 
-#: port/frontend/shell/settings.cpp:1379
+#: port/frontend/shell/settings.cpp:1380
 msgid "An achievement earned, and the count as a game starts, shown as the PS5's own notifications. Off: they are only in the in-game menu's Achievements."
 msgstr "Egy megszerzett teljesítmény, és a játék indulásakor a számuk, a PS5 saját értesítéseiként. Ki: csak a játékmenü Teljesítmények pontjában láthatók."
 
-#: port/frontend/shell/settings.cpp:1384
+#: port/frontend/shell/settings.cpp:1385
 msgid "PS5-ECAM updates"
 msgstr "PS5-ECAM-frissítések"
 
-#: port/frontend/shell/settings.cpp:1384
+#: port/frontend/shell/settings.cpp:1385
 msgid "Cross checks GitHub for a newer version."
 msgstr "A kereszt újabb verziót keres a GitHubon."
 
-#: port/frontend/shell/settings.cpp:1385
+#: port/frontend/shell/settings.cpp:1386
 msgid "PS5-ECAM asks GitHub for its latest release each time it starts. Cross asks again, or installs the newer version it found: the release's files are downloaded, checked and put in place of these, and the app starts again. Your games, saves and settings stay as they are."
 msgstr "A PS5-ECAM minden indításkor megkérdezi a GitHubot a legújabb kiadásról. A kereszt újra rákérdez, vagy telepíti a talált újabb verziót: a kiadás fájljai letöltődnek, ellenőrződnek és a jelenlegiek helyére kerülnek, az alkalmazás pedig újraindul. A játékaid, mentéseid és beállításaid úgy maradnak, ahogy vannak."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/settings.cpp:1392
+#: port/frontend/shell/settings.cpp:1393
 msgid "Go back to {0}"
 msgstr "Vissza ehhez: {0}"
 
-#: port/frontend/shell/settings.cpp:1393
+#: port/frontend/shell/settings.cpp:1394
 msgid "The version before the last update, kept as it was."
 msgstr "Az utolsó frissítés előtti verzió, változatlanul megőrizve."
 
-#: port/frontend/shell/settings.cpp:1394
+#: port/frontend/shell/settings.cpp:1395
 msgid "The last update kept the version it replaced. Holding Cross puts its files back in place of these, and PS5-ECAM starts again as that version. Your games, saves and settings stay as they are. The newer version is not offered at start again; this page still finds it."
 msgstr "Az utolsó frissítés megőrizte az általa lecserélt verziót. A Kereszt nyomva tartása visszateszi annak fájljait ezek helyére, és a PS5-ECAM újraindul azzal a verzióval. A játékaid, mentéseid és beállításaid nem változnak. Az újabb verziót induláskor nem ajánlja fel újra; ez az oldal továbbra is megtalálja."
 
-#: port/frontend/shell/settings.cpp:1401
+#: port/frontend/shell/settings.cpp:1402
 msgid "Put each system's files back first: Settings > Game files > A folder for each system."
 msgstr "Előbb tedd vissza minden rendszer fájljait: Beállítások > Játékfájlok > Külön mappa minden rendszernek."
 
-#: port/frontend/shell/settings.cpp:1419
+#: port/frontend/shell/settings.cpp:1420
 msgid "Theme"
 msgstr "Téma"
 
-#: port/frontend/shell/settings.cpp:1421
+#: port/frontend/shell/settings.cpp:1422
 msgid "How the launcher looks: its colours, its corners and what moves behind the menus. Every theme has the same screens and buttons. Make your own as a JSON file in {0}/themes, starting from any of these: the text under this page says how. Only the launcher changes: the in-game menus and the games stay as they are."
 msgstr "Hogyan néz ki az indító: a színei, a sarkai és ami a menük mögött mozog. Minden témában ugyanazok a képernyők és gombok vannak. Készítsd el a sajátodat JSON-fájlként ide: {0}/themes, ezek bármelyikéből kiindulva: az oldal alatti szöveg elmondja, hogyan. Csak az indító változik: a játékok menüi és maguk a játékok olyanok maradnak, amilyenek."
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
-#: port/frontend/shell/settings.cpp:1432
+#: port/frontend/shell/settings.cpp:1433
 msgid "Sides"
 msgstr "Oldalak"
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
-#: port/frontend/shell/settings.cpp:1432
+#: port/frontend/shell/settings.cpp:1433
 msgid "Which systems the bar shows."
 msgstr "Mely rendszereket mutatja a sáv."
 
-#: port/frontend/shell/settings.cpp:1433
+#: port/frontend/shell/settings.cpp:1434
 msgid "The sides the bar offers, any mix of the four. A hidden side keeps its games and settings, and they come back when it is turned on again. At least one side stays on."
 msgstr "Az oldalak, amelyeket a sáv kínál, a négy bármilyen kombinációjában. Egy elrejtett oldal megtartja a játékait és beállításait, és visszajönnek, amikor újra bekapcsolod. Legalább egy oldal bekapcsolva marad."
 
-#: port/frontend/shell/settings.cpp:1438
+#: port/frontend/shell/settings.cpp:1439
 msgid "This system's games, in the bar."
 msgstr "Ennek a rendszernek a játékai a sávon."
 
-#: port/frontend/shell/settings.cpp:1438
+#: port/frontend/shell/settings.cpp:1439
 msgid "Whether the bar shows this side. Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Hogy a sáv megmutatja-e ezt az oldalt. Elrejtve a játékai és beállításai megmaradnak, és visszajönnek, ha újra bekapcsolod. Legalább egy oldal bekapcsolva marad."
 
-#: port/frontend/shell/settings.cpp:1440
+#: port/frontend/shell/settings.cpp:1441
 msgid "Wii U side"
 msgstr "Wii U oldal"
 
-#: port/frontend/shell/settings.cpp:1440
+#: port/frontend/shell/settings.cpp:1441
 msgid "Cemu's games, in the bar."
 msgstr "A Cemu játékai a sávon."
 
-#: port/frontend/shell/settings.cpp:1441
+#: port/frontend/shell/settings.cpp:1442
 msgid "Whether the bar shows the Wii U side (Cemu). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Hogy a sáv megmutatja-e a Wii U oldalt (Cemu). Elrejtve a játékai és beállításai megmaradnak, és visszajönnek, ha újra bekapcsolod. Legalább egy oldal bekapcsolva marad."
 
-#: port/frontend/shell/settings.cpp:1444
+#: port/frontend/shell/settings.cpp:1445
 msgid "Switch side"
 msgstr "Switch oldal"
 
-#: port/frontend/shell/settings.cpp:1444
+#: port/frontend/shell/settings.cpp:1445
 msgid "Eden's games, in the bar."
 msgstr "Az Eden játékai a sávon."
 
-#: port/frontend/shell/settings.cpp:1445
+#: port/frontend/shell/settings.cpp:1446
 msgid "Whether the bar shows the Switch side (Eden). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Hogy a sáv megmutatja-e a Switch oldalt (Eden). Elrejtve a játékai és beállításai megmaradnak, és visszajönnek, ha újra bekapcsolod. Legalább egy oldal bekapcsolva marad."
 
-#: port/frontend/shell/settings.cpp:1447
+#: port/frontend/shell/settings.cpp:1448
 msgid "DS side"
 msgstr "DS oldal"
 
-#: port/frontend/shell/settings.cpp:1447
+#: port/frontend/shell/settings.cpp:1448
 msgid "melonDS's games, in the bar."
 msgstr "A melonDS játékai a sávon."
 
-#: port/frontend/shell/settings.cpp:1448
+#: port/frontend/shell/settings.cpp:1449
 msgid "Whether the bar shows the DS side (melonDS). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Hogy a sáv megmutatja-e a DS oldalt (melonDS). Elrejtve a játékai és beállításai megmaradnak, és visszajönnek, ha újra bekapcsolod. Legalább egy oldal bekapcsolva marad."
 
-#: port/frontend/shell/settings.cpp:1450
+#: port/frontend/shell/settings.cpp:1451
 msgid "3DS side"
 msgstr "3DS oldal"
 
-#: port/frontend/shell/settings.cpp:1450
+#: port/frontend/shell/settings.cpp:1451
 msgid "Azahar's games, in the bar."
 msgstr "Az Azahar játékai a sávon."
 
-#: port/frontend/shell/settings.cpp:1451
+#: port/frontend/shell/settings.cpp:1452
 msgid "Whether the bar shows the 3DS side (Azahar). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Hogy a sáv megmutatja-e a 3DS oldalt (Azahar). Elrejtve a játékai és beállításai megmaradnak, és visszajönnek, ha újra bekapcsolod. Legalább egy oldal bekapcsolva marad."
 
-#: port/frontend/shell/settings.cpp:1454
+#: port/frontend/shell/settings.cpp:1455
 msgid "Game pictures behind menus"
 msgstr "Játékképek a menük mögött"
 
-#: port/frontend/shell/settings.cpp:1454
+#: port/frontend/shell/settings.cpp:1455
 msgid "The focused game's cover, softened, behind the screens."
 msgstr "A kijelölt játék borítója, elmosva, a képernyők mögött."
 
-#: port/frontend/shell/settings.cpp:1455
+#: port/frontend/shell/settings.cpp:1456
 msgid "The focused game's picture fills the screen behind the menus, softened and dimmed, so moving the focus changes the whole screen. Off: the game's colours only."
 msgstr "A kijelölt játék képe kitölti a képernyőt a menük mögött, elmosva és elsötétítve, így a kijelölés mozgatása az egész képernyőt megváltoztatja. Ki: csak a játék színei."
 
-#: port/frontend/shell/settings.cpp:1457
+#: port/frontend/shell/settings.cpp:1458
 msgid "Library filters"
 msgstr "Könyvtárszűrők"
 
-#: port/frontend/shell/settings.cpp:1457
+#: port/frontend/shell/settings.cpp:1458
 msgid "All, Recently added, Favourites: a row over the list."
 msgstr "Mind, Nemrég hozzáadott, Kedvencek: egy sor a lista fölött."
 
-#: port/frontend/shell/settings.cpp:1458
+#: port/frontend/shell/settings.cpp:1459
 msgid "A row of filters over the Library's list: All, Recently added (the last 30 days), Favourites and, on the Wii U side, Graphic packs on, each with its count. Off: the list has every game, and Sort and Search are all it needs."
 msgstr "Egy sor szűrő a könyvtár listája fölött: Mind, Nemrég hozzáadott (az utolsó 30 nap), Kedvencek és a Wii U oldalon Grafikus csomaggal, mindegyik a számával. Ki: a listában minden játék benne van, és a Rendezés és a Keresés elég neki."
 
-#: port/frontend/shell/settings.cpp:1462
+#: port/frontend/shell/settings.cpp:1463
 msgid "Start in EmulationStation"
 msgstr "Indítás EmulationStationben"
 
-#: port/frontend/shell/settings.cpp:1463
+#: port/frontend/shell/settings.cpp:1464
 msgid "ES-DE's menus and themes over the same games, played here."
 msgstr "Az ES-DE menüi és témái ugyanazokkal a játékokkal, amelyek itt futnak."
 
-#: port/frontend/shell/settings.cpp:1464
+#: port/frontend/shell/settings.cpp:1465
 msgid "PS5-ECAM opens on EmulationStation (ES-DE) instead of its own launcher: the sides the bar shows, with the games their libraries list, and every game plays here with its settings, saves and in-game menu, then goes back to EmulationStation. Hold L1 as PS5-ECAM starts, or quit EmulationStation, for this launcher."
 msgstr "A PS5-ECAM a saját indítója helyett az EmulationStationben (ES-DE) nyílik meg: a sávon látható oldalakkal, a könyvtáraikban lévő játékokkal, és minden játék itt fut a saját beállításaival, mentéseivel és játékmenüjével, majd visszatér az EmulationStationbe. Tartsd lenyomva az L1-et, amíg a PS5-ECAM elindul, vagy lépj ki az EmulationStationből, hogy ezt az indítót kapd."
 
-#: port/frontend/shell/settings.cpp:1474 port/frontend/shell/settings.cpp:1485
+#: port/frontend/shell/settings.cpp:1475 port/frontend/shell/settings.cpp:1486
 msgid "Larger text"
 msgstr "Nagyobb szöveg"
 
-#: port/frontend/shell/settings.cpp:1474 port/frontend/shell/settings.cpp:1487
+#: port/frontend/shell/settings.cpp:1475 port/frontend/shell/settings.cpp:1488
 msgid "High contrast"
 msgstr "Nagy kontraszt"
 
-#: port/frontend/shell/settings.cpp:1475 port/frontend/shell/settings.cpp:1489
+#: port/frontend/shell/settings.cpp:1476 port/frontend/shell/settings.cpp:1490
 msgid "Reduce motion"
 msgstr "Kevesebb mozgás"
 
 #. Settings > Launcher: a row that opens Larger text, High contrast, Reduce motion and Hold to confirm
-#: port/frontend/shell/settings.cpp:1481
+#: port/frontend/shell/settings.cpp:1482
 msgid "Accessibility"
 msgstr "Akadálymentesség"
 
-#: port/frontend/shell/settings.cpp:1482
+#: port/frontend/shell/settings.cpp:1483
 msgid "Larger text, high contrast, less motion, the hold to confirm."
 msgstr "Nagyobb szöveg, nagy kontraszt, kevesebb mozgás, nyomva tartás a megerősítéshez."
 
-#: port/frontend/shell/settings.cpp:1483
+#: port/frontend/shell/settings.cpp:1484
 msgid "Text a step larger, opaque panels with full-strength text, fades in place of movement, and how long Cross is held for what cannot be undone. Triangle on each says more."
 msgstr "Egy fokkal nagyobb szöveg, átlátszatlan panelek teljes erősségű szöveggel, áttűnések mozgás helyett, és mennyi ideig kell nyomva tartani a Keresztet ahhoz, ami nem vonható vissza. A Háromszög minden sornál többet mond."
 
-#: port/frontend/shell/settings.cpp:1485
+#: port/frontend/shell/settings.cpp:1486
 msgid "Every size of text a step up."
 msgstr "Minden szövegméret egy fokkal nagyobb."
 
-#: port/frontend/shell/settings.cpp:1486
+#: port/frontend/shell/settings.cpp:1487
 msgid "Every style of text a step larger: captions from 20 to 23, reading text from 26 to 30."
 msgstr "Minden szövegstílus egy fokkal nagyobb: a feliratok 20-ról 23-ra, az olvasandó szöveg 26-ról 30-ra."
 
-#: port/frontend/shell/settings.cpp:1487
+#: port/frontend/shell/settings.cpp:1488
 msgid "Opaque panels, full-strength text, a thicker ring."
 msgstr "Átlátszatlan panelek, teljes erejű szöveg, vastagabb gyűrű."
 
-#: port/frontend/shell/settings.cpp:1488
+#: port/frontend/shell/settings.cpp:1489
 msgid "Opaque panels instead of glass, all text at full strength, a thicker focus ring and no grain or pictures behind the menus."
 msgstr "Üveg helyett átlátszatlan panelek, minden szöveg teljes erővel, vastagabb kijelölőgyűrű, és se szemcse, se képek a menük mögött."
 
-#: port/frontend/shell/settings.cpp:1489
+#: port/frontend/shell/settings.cpp:1490
 msgid "Fades in place of movement."
 msgstr "Áttűnések mozgás helyett."
 
-#: port/frontend/shell/settings.cpp:1490
+#: port/frontend/shell/settings.cpp:1491
 msgid "Springs become short fades; nothing drifts, breathes or rises behind the menus."
 msgstr "A rugózó animációkból rövid áttűnések lesznek; a menük mögött semmi sem úszik, „lélegzik” vagy emelkedik."
 
-#: port/frontend/shell/settings.cpp:1491
+#: port/frontend/shell/settings.cpp:1492
 msgid "Hold to confirm"
 msgstr "Nyomva tartás a megerősítéshez"
 
-#: port/frontend/shell/settings.cpp:1491
+#: port/frontend/shell/settings.cpp:1492
 msgid "How long Cross is held for what cannot be undone."
 msgstr "Meddig kell nyomva tartani a keresztet ahhoz, ami nem vonható vissza."
 
-#: port/frontend/shell/settings.cpp:1492
+#: port/frontend/shell/settings.cpp:1493
 msgid "Clearing caches, Artic Setup and resetting controls are held to confirm, never pressed twice. This is how long."
 msgstr "A gyorsítótárak törlését, az Artic Setupot és az irányítás visszaállítását nyomva tartással kell megerősíteni, soha nem dupla nyomással. Ennyi ideig."
 
-#: port/frontend/shell/settings.cpp:1494 port/frontend/shell/welcome.cpp:208
+#: port/frontend/shell/settings.cpp:1495 port/frontend/shell/welcome.cpp:208
 msgid "Make it yours"
 msgstr "Tedd a sajátoddá"
 
-#: port/frontend/shell/settings.cpp:1494
+#: port/frontend/shell/settings.cpp:1495
 msgid "The first-start choices again: sides, theme, buttons."
 msgstr "Az első indítás választásai újra: oldalak, téma, gombok."
 
-#: port/frontend/shell/settings.cpp:1495
+#: port/frontend/shell/settings.cpp:1496
 msgid "The page the first start opens on: the language, the sides, the theme, A and B, the music, vibration and the games' pictures, on one page."
 msgstr "Az oldal, amellyel az első indítás kezdődik: a nyelv, az oldalak, a téma, A és B, a zene, a rezgés és a játékok képei, egy oldalon."
 
-#: port/frontend/shell/settings.cpp:1500
+#: port/frontend/shell/settings.cpp:1501
 msgid "Storage, recompilers, games, keys and box art, checked."
 msgstr "Tárhely, újrafordítók, játékok, kulcsok és borítók, ellenőrizve."
 
-#: port/frontend/shell/settings.cpp:1501
+#: port/frontend/shell/settings.cpp:1502
 msgid "Each check has a status, what it means and what to do. It is also shown on the first start and whenever a check fails as the app starts."
 msgstr "Minden ellenőrzésnek van állapota, jelentése és teendője. Az első indításkor is megjelenik, és mindig, ha az alkalmazás indulásakor egy ellenőrzés nem sikerül."
 
-#: port/frontend/shell/settings.cpp:1503
+#: port/frontend/shell/settings.cpp:1504
 msgid "Copy logs to USB"
 msgstr "Naplók másolása USB-re"
 
-#: port/frontend/shell/settings.cpp:1503
+#: port/frontend/shell/settings.cpp:1504
 msgid "The logs a report needs, onto a USB drive."
 msgstr "A hibajelentéshez szükséges naplók, USB-meghajtóra."
 
-#: port/frontend/shell/settings.cpp:1504
+#: port/frontend/shell/settings.cpp:1505
 msgid "Copies the last five sessions' logs and the settings into a dated folder on a USB drive, to attach to a report."
 msgstr "Átmásolja az utolsó öt munkamenet naplóit és a beállításokat egy dátummal ellátott mappába egy USB-meghajtón, hogy egy hibajelentéshez csatolhasd."
 
-#: port/frontend/shell/settings.cpp:1506 port/frontend/shell/settings.cpp:1509
+#: port/frontend/shell/settings.cpp:1507 port/frontend/shell/settings.cpp:1510
 msgid "Clear shader caches"
 msgstr "Árnyaló-gyorsítótárak törlése"
 
-#: port/frontend/shell/settings.cpp:1507 port/frontend/shell/settings.cpp:1510
+#: port/frontend/shell/settings.cpp:1508 port/frontend/shell/settings.cpp:1511
 msgid "For a game that crashes on a bad cache."
 msgstr "Hibás gyorsítótár miatt összeomló játékhoz."
 
-#: port/frontend/shell/settings.cpp:1507
+#: port/frontend/shell/settings.cpp:1508
 msgid "Deletes Cemu's shader caches. Games build them again as they run: the first minutes stutter."
 msgstr "Törli a Cemu árnyaló-gyorsítótárait. A játékok futás közben újraépítik őket: az első percekben akadás lesz."
 
-#: port/frontend/shell/settings.cpp:1511
+#: port/frontend/shell/settings.cpp:1512
 msgid "Deletes Azahar's shader caches. Games build them again as they run: the first minutes stutter."
 msgstr "Törli az Azahar árnyaló-gyorsítótárait. A játékok futás közben újraépítik őket: az első percekben akadás lesz."
 
 #. Settings > Diagnostics: the copies of games unpacked from their archives (.zip, .7z...), kept for their next start
-#: port/frontend/shell/settings.cpp:1521
+#: port/frontend/shell/settings.cpp:1522
 msgid "Unpacked games"
 msgstr "Kicsomagolt játékok"
 
-#: port/frontend/shell/settings.cpp:1525
+#: port/frontend/shell/settings.cpp:1526
 msgid "Games from archives, kept unpacked for their next start."
 msgstr "Archívumokból származó játékok, kicsomagolva megőrizve a következő indításukhoz."
 
 #. {0} is the folder they are kept in
-#: port/frontend/shell/settings.cpp:1527
+#: port/frontend/shell/settings.cpp:1528
 msgid "Deletes the copies of games unpacked from their archives, kept in {0}. Each is unpacked again the next time it starts; when room is needed, the copies used longest ago go by themselves."
 msgstr "Törli az archívumukból kicsomagolt játékok másolatait, amelyek itt vannak: {0}. Mindegyiket a következő indításakor újra kicsomagolja; ha hely kell, a legrégebben használt másolatok maguktól törlődnek."
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "Wii U games' volume"
 msgstr "Wii U-játékok hangereje"
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "3DS games' volume"
 msgstr "3DS-játékok hangereje"
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "Switch games' volume"
 msgstr "Switch-játékok hangereje"
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "DS games' volume"
 msgstr "DS-játékok hangereje"
 
-#: port/frontend/shell/settings.cpp:1539
+#: port/frontend/shell/settings.cpp:1540
 msgid "The games' sound."
 msgstr "A játékok hangja."
 
-#: port/frontend/shell/settings.cpp:1539
+#: port/frontend/shell/settings.cpp:1540
 msgid "The games' sound on this side. Left and Right change it by 10%."
 msgstr "A játékok hangja ezen az oldalon. A Bal és a Jobb 10 %-kal módosítja."
 
-#: port/frontend/shell/settings.cpp:1542
+#: port/frontend/shell/settings.cpp:1543
 msgid "GamePad speaker"
 msgstr "GamePad-hangszóró"
 
-#: port/frontend/shell/settings.cpp:1542
+#: port/frontend/shell/settings.cpp:1543
 msgid "The Wii U GamePad's own sound, on the DualSense."
 msgstr "A Wii U GamePad saját hangja, a DualSense-en."
 
-#: port/frontend/shell/settings.cpp:1543
+#: port/frontend/shell/settings.cpp:1544
 msgid "The sounds games play on the Wii U GamePad's speaker, from player 1's DualSense speaker. Many games send their whole sound there too, so it is off unless you want it. Applies to the next game."
 msgstr "A hangok, amelyeket a játékok a Wii U GamePad hangszóróján játszanak le, az 1. játékos DualSense-ének hangszóróján. Sok játék a teljes hangját is oda küldi, ezért ki van kapcsolva, hacsak nem kéred. A következő játéktól érvényes."
 
 #. Settings > System: a row that opens the launcher's music and menu sounds
-#: port/frontend/shell/settings.cpp:1551
+#: port/frontend/shell/settings.cpp:1552
 msgid "Launcher sound"
 msgstr "Az indító hangja"
 
 #. Settings > System: a row that opens the launcher's music and menu sounds
-#: port/frontend/shell/settings.cpp:1551
+#: port/frontend/shell/settings.cpp:1552
 msgid "The menus' music and sounds."
 msgstr "A menük zenéje és hangjai."
 
-#: port/frontend/shell/settings.cpp:1552
+#: port/frontend/shell/settings.cpp:1553
 msgid "The music that plays in the menus, how loud it is, and the sounds of moving and choosing. Every side has the same."
 msgstr "A menükben szóló zene, a hangereje, és a mozgás és választás hangjai. Minden oldalon ugyanazok."
 
-#: port/frontend/shell/settings.cpp:1553
+#: port/frontend/shell/settings.cpp:1554
 msgid "Launcher music"
 msgstr "Az indító zenéje"
 
-#: port/frontend/shell/settings.cpp:1553
+#: port/frontend/shell/settings.cpp:1554
 msgid "Music that plays in the menus."
 msgstr "Zene, ami a menükben szól."
 
-#: port/frontend/shell/settings.cpp:1554
+#: port/frontend/shell/settings.cpp:1555
 msgid "The launcher's own music, one of yours, or none. To use your own, put MP3 or WAV files in {0}; they appear here. Every side plays the same."
 msgstr "Az indító saját zenéje, egy a tieid közül, vagy semmi. A sajátodhoz tegyél MP3- vagy WAV-fájlokat ide: {0}; itt jelennek meg. Minden oldal ugyanazt játssza."
 
-#: port/frontend/shell/settings.cpp:1557
+#: port/frontend/shell/settings.cpp:1558
 msgid "Music volume"
 msgstr "Zene hangereje"
 
-#: port/frontend/shell/settings.cpp:1557
+#: port/frontend/shell/settings.cpp:1558
 msgid "How loud the menus' music is."
 msgstr "Milyen hangos a menük zenéje."
 
-#: port/frontend/shell/settings.cpp:1558
+#: port/frontend/shell/settings.cpp:1559
 msgid "How loud the launcher's music is. Left and Right change it by 10%."
 msgstr "Milyen hangos az indító zenéje. Balra és jobbra 10%-kal változtatja."
 
-#: port/frontend/shell/settings.cpp:1559
+#: port/frontend/shell/settings.cpp:1560
 msgid "Menu sounds"
 msgstr "Menühangok"
 
-#: port/frontend/shell/settings.cpp:1559
+#: port/frontend/shell/settings.cpp:1560
 msgid "The sounds of moving and choosing."
 msgstr "A mozgás és a választás hangjai."
 
-#: port/frontend/shell/settings.cpp:1560
+#: port/frontend/shell/settings.cpp:1561
 msgid "The launcher's sounds as you move, choose and go back."
 msgstr "Az indító hangjai, amikor mozogsz, választasz és visszalépsz."
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/frontend/shell/settings.cpp:1569
+#: port/frontend/shell/settings.cpp:1570
 msgid "Cemu's emulated portals."
 msgstr "A Cemu emulált portáljai."
 
-#: port/frontend/shell/settings.cpp:1574
+#: port/frontend/shell/settings.cpp:1575
 msgid "For the Skylanders games."
 msgstr "A Skylanders-játékokhoz."
 
-#: port/frontend/shell/settings.cpp:1575
+#: port/frontend/shell/settings.cpp:1576
 msgid "For Disney Infinity 3.0."
 msgstr "A Disney Infinity 3.0-hoz."
 
-#: port/frontend/shell/settings.cpp:1576
+#: port/frontend/shell/settings.cpp:1577
 msgid "For LEGO Dimensions."
 msgstr "A LEGO Dimensionshöz."
 
-#: port/frontend/shell/settings.cpp:1577
+#: port/frontend/shell/settings.cpp:1578
 msgid "Cemu's emulated portal, plugged in as a game starts. In the game, the menu's USB devices category puts figures on it: dumps in {0}. A real portal plugged into the PS5 is not supported."
 msgstr "A Cemu emulált portálja, amely a játék indulásakor csatlakozik. Játék közben a menü USB-eszközök kategóriája helyez rá figurákat: a dumpok helye {0}. A PS5-höz csatlakoztatott valódi portál nem támogatott."
 
-#: port/frontend/shell/settings.cpp:1589
+#: port/frontend/shell/settings.cpp:1590
 msgid ""
 "{0} in any browser on the PS5's network, a phone's, a tablet's or a computer's, with nothing to install, and its touches sent back to the game. Scan the code shown here, or open the address. The DualSense stays the buttons, and the sound stays on the PS5.\n"
 "While a browser shows it, the PS5 copies that screen up to 30 times a second, so a game can run a little slower; with no browser, it costs nothing. Any device on your network can open the page, so turn it off on a network you share.\n"
@@ -6602,150 +6602,150 @@ msgstr ""
 "Egy kapcsoló minden oldalhoz (a GamePad képernyője az 1. játékosé), a játék menüjében is (érintőpanel-kattintás + OPTIONS). dolphin78 ötlete és prototípusa alapján (#38)."
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/frontend/shell/settings.cpp:1597 port/frontend/shell/settings.cpp:1599
+#: port/frontend/shell/settings.cpp:1598 port/frontend/shell/settings.cpp:1600
 msgid "{0} in a phone's or tablet's browser, with touch."
 msgstr "{0} egy telefon vagy táblagép böngészőjében, érintéssel."
 
 #. the Switch side's players, the people (Eden's user profiles), each with saves of their own; not a number of players
-#: port/frontend/shell/settings.cpp:1643
+#: port/frontend/shell/settings.cpp:1644
 msgctxt "switch"
 msgid "Players"
 msgstr "Játékosok"
 
-#: port/frontend/shell/settings.cpp:1646 port/frontend/shell/switch_extras.cpp:91
+#: port/frontend/shell/settings.cpp:1647 port/frontend/shell/switch_extras.cpp:91
 msgid "Remembered for this PS5 user. Each player has saves of their own; none are moved or deleted."
 msgstr "Megjegyezve ehhez a PS5-felhasználóhoz. Minden játékosnak saját mentései vannak; semmi sem kerül áthelyezésre vagy törlésre."
 
-#: port/frontend/shell/settings.cpp:1673
+#: port/frontend/shell/settings.cpp:1674
 msgid "Back to defaults"
 msgstr "Vissza az alapértelmezéshez"
 
-#: port/frontend/shell/settings.cpp:1675
+#: port/frontend/shell/settings.cpp:1676
 msgid "This game goes back to its side's settings."
 msgstr "Ez a játék újra az oldala beállításait használja."
 
-#: port/frontend/shell/settings.cpp:1676
+#: port/frontend/shell/settings.cpp:1677
 msgid "Clears this game's own settings, so it uses its side's settings again, like every other game."
 msgstr "Törli a játék saját beállításait, így újra az oldala beállításait használja, mint bármely másik játék."
 
 #. a Wii U account by its number, when its name cannot be read
-#: port/frontend/shell/settings.cpp:1741
+#: port/frontend/shell/settings.cpp:1742
 msgid "Account {0}"
 msgstr "{0} fiók"
 
 #. a Wii U game's save that all its accounts share
-#: port/frontend/shell/settings.cpp:1743
+#: port/frontend/shell/settings.cpp:1744
 msgid "Every account's"
 msgstr "Minden fióké"
 
-#: port/frontend/shell/settings.cpp:1744
+#: port/frontend/shell/settings.cpp:1745
 msgid "Save data"
 msgstr "Mentett adatok"
 
 #. a 3DS game's extra data (its extdata), which some games keep beside their saves
-#: port/frontend/shell/settings.cpp:1746
+#: port/frontend/shell/settings.cpp:1747
 msgid "Extra data"
 msgstr "Extra adatok"
 
-#: port/frontend/shell/settings.cpp:1747
+#: port/frontend/shell/settings.cpp:1748
 msgid "{0} save state"
 msgid_plural "{0} save states"
 msgstr[0] "{0} mentett állapot"
 msgstr[1] "{0} mentett állapot"
 
-#: port/frontend/shell/settings.cpp:1748
+#: port/frontend/shell/settings.cpp:1749
 msgid "The GBA cartridge's save"
 msgstr "A GBA-kazetta mentése"
 
-#: port/frontend/shell/settings.cpp:1797
+#: port/frontend/shell/settings.cpp:1798
 msgid "Held: moved to saves-before on the PS5, so it can still come back."
 msgstr "Nyomva tartva: a PS5-ön a saves-before mappába kerül, így visszahozható."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1799
+#: port/frontend/shell/settings.cpp:1800
 msgid "Holding Cross moves these files to {0}/saves-before, in a folder named by the date and time, and the game starts without them next time. Nothing is deleted: copy them back from there (or restore a backup) to have them again."
 msgstr "A kereszt nyomva tartása a fájlokat a {0}/saves-before alá teszi, egy dátummal és időponttal elnevezett mappába, és a játék legközelebb nélkülük indul. Semmi sem törlődik: másold vissza onnan (vagy állíts vissza egy biztonsági mentést), ha újra kellenek."
 
-#: port/frontend/shell/settings.cpp:1809
+#: port/frontend/shell/settings.cpp:1810
 msgid "No saves yet"
 msgstr "Még nincsenek mentések"
 
-#: port/frontend/shell/settings.cpp:1810
+#: port/frontend/shell/settings.cpp:1811
 msgid "They appear here once the game has saved."
 msgstr "Itt jelennek meg, amint a játék ment."
 
-#: port/frontend/shell/settings.cpp:1823
+#: port/frontend/shell/settings.cpp:1824
 msgid "This game's saves, to the first USB drive."
 msgstr "A játék mentései az első USB-meghajtóra."
 
-#: port/frontend/shell/settings.cpp:1824
+#: port/frontend/shell/settings.cpp:1825
 msgid "Copies this game's saves (every account's, on the Wii U) and its save states to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time, the same way a backup of every side's saves is made."
 msgstr "A játék mentéseit (Wii U-n minden fiókét) és mentett állapotait a PS5CEMU-HAR-saves mappába másolja az első csatlakoztatott USB-meghajtón, egy dátummal és időponttal elnevezett mappába, ugyanúgy, mint minden oldal mentéseinek biztonsági mentésekor."
 
-#: port/frontend/shell/settings.cpp:1841
+#: port/frontend/shell/settings.cpp:1842
 msgid "No backup on the drives plugged in has this game's saves."
 msgstr "A csatlakoztatott meghajtók egyik biztonsági mentésében sincsenek a játék mentései."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1843
+#: port/frontend/shell/settings.cpp:1844
 msgid "Puts this game's saves from the chosen backup back where they came from, and nothing else. Its saves there now are moved first to {0}/saves-before, so nothing is lost."
 msgstr "A játék mentéseit a kiválasztott biztonsági mentésből oda teszi vissza, ahonnan jöttek, és semmi mást. A jelenlegi mentései előbb a {0}/saves-before mappába kerülnek, így semmi sem vész el."
 
-#: port/frontend/shell/settings.cpp:1853
+#: port/frontend/shell/settings.cpp:1854
 msgid "Copy the save to USB"
 msgstr "Mentés másolása USB-re"
 
-#: port/frontend/shell/settings.cpp:1854
+#: port/frontend/shell/settings.cpp:1855
 msgid "The chosen player's save, in USB/PS5-ECAM-exports, as folders another emulator can take."
 msgstr "A kiválasztott játékos mentése a USB/PS5-ECAM-exports mappában, olyan mappákként, amelyeket egy másik emulátor átvehet."
 
-#: port/frontend/shell/settings.cpp:1858
+#: port/frontend/shell/settings.cpp:1859
 msgid "Take a save from USB"
 msgstr "Mentés átvétele USB-ről"
 
-#: port/frontend/shell/settings.cpp:1863
+#: port/frontend/shell/settings.cpp:1864
 msgid "None on a USB drive"
 msgstr "Nincs egy USB-meghajtón sem"
 
-#: port/frontend/shell/settings.cpp:1864
+#: port/frontend/shell/settings.cpp:1865
 msgid "From USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
 msgstr "A USB/PS5-ECAM-imports/<címazonosító> mappából vagy a Ryujinx mappájának másolatából a USB/Ryujinx mappában, a kiválasztott játékos mentéseként. A lecserélt mentés megmarad."
 
-#: port/frontend/shell/settings.cpp:1865
+#: port/frontend/shell/settings.cpp:1866
 msgid "Choose the player in Settings > Players and saves > Players first. Every file is copied and checked before the save is replaced, and the save it replaces is kept in Eden's save-transfer-recovery folder."
 msgstr "Előbb válaszd ki a játékost a Beállítások > Játékosok és mentések > Játékosok menüben. Minden fájl átmásolásra és ellenőrzésre kerül, mielőtt a mentés lecserélődik, a lecserélt mentés pedig megmarad Eden save-transfer-recovery mappájában."
 
-#: port/frontend/shell/settings.cpp:1878
+#: port/frontend/shell/settings.cpp:1879
 msgid "{0} min"
 msgstr "{0} perc"
 
 #. a play time: hours, then minutes
-#: port/frontend/shell/settings.cpp:1880
+#: port/frontend/shell/settings.cpp:1881
 msgid "{0} h {1} min"
 msgstr "{0} óra {1} perc"
 
 #. Settings > Play time, a side's line: {1} the side (Wii U, 3DS, DS, Switch), {2} its play time, {0} how many games
-#: port/frontend/shell/settings.cpp:1912
+#: port/frontend/shell/settings.cpp:1913
 msgid "{1}: {2}, {0} game"
 msgid_plural "{1}: {2}, {0} games"
 msgstr[0] "{1}: {2}, {0} játék"
 msgstr[1] "{1}: {2}, {0} játék"
 
-#: port/frontend/shell/settings.cpp:1915
+#: port/frontend/shell/settings.cpp:1916
 msgid "Nothing played yet. A game's time counts from its start to its end, and shows here and on its page."
 msgstr "Még semmit sem játszottál. Egy játék ideje az indításától a végéig számít, és itt, valamint a játék oldalán látszik."
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1918
+#: port/frontend/shell/settings.cpp:1919
 msgid "In all: {0}"
 msgstr "Összesen: {0}"
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1918
+#: port/frontend/shell/settings.cpp:1919
 msgid "Most played"
 msgstr "Legtöbbet játszott"
 
-#: port/frontend/shell/settings.cpp:1938
+#: port/frontend/shell/settings.cpp:1939
 msgid ""
 "Your own theme: a file such as sunset.json in {0}/themes, read as the app starts, then listed under Theme by its name:\n"
 "{{\"name\": \"Sunset\", \"base\": \"midnight\", \"colours\": {{\"wiiu\": \"#ff7a59\", \"ink-0\": \"#120806\"}}, \"corners\": 0.5, \"motif\": \"none\"}}\n"
@@ -6756,31 +6756,31 @@ msgstr ""
 "base: kiinduló téma (light, link-jack, classic, midnight, eden). colours: ink-0-tól ink-2-ig (a háttér), text, wiiu, n3ds, nds és nx (az oldalak színei), glass, line, good, warn, bad és focus, #rrggbb formában. corners: 0 (szögletes) és 1.5 (kerek) között. motif: side, none vagy eden."
 
 #. {0} is Eden's data folder; {1} its game files folder (the same one unless another was chosen)
-#: port/frontend/shell/settings.cpp:1947
+#: port/frontend/shell/settings.cpp:1948
 msgid "Saves: {0}/user/nand/user/save. Updates and DLC: beside a game, in its own folder, or in {1}/updates. Mods and cheats: {1}/mods. Covers and names: {0}/covers, once Eden has read a game."
 msgstr "Mentések: {0}/user/nand/user/save. Frissítések és DLC-k: a játék mellett, a saját mappájában, vagy itt: {1}/updates. Modok és csalások: {1}/mods. Borítók és nevek: {0}/covers, miután az Eden beolvasott egy játékot."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1952
+#: port/frontend/shell/settings.cpp:1953
 msgid "Saves: {0}/melonds/saves (a .sav beside the game is taken the first time). Save states: melonds/states. Cheats: melonds/cheats/<game file>.mch, melonDS's format. A GBA game for Slot-2: melonds/slot2/<game file>.gba. DSi games and the DS's wireless are not there."
 msgstr "Mentések: {0}/melonds/saves (a játék melletti .sav fájlt az első alkalommal átveszi). Mentett állapotok: melonds/states. Csalások: melonds/cheats/<játékfájl>.mch, melonDS-formátumban. GBA-játék a 2-es foglalathoz: melonds/slot2/<játékfájl>.gba. A DSi-játékok és a DS vezeték nélküli funkciója nem támogatott."
 
-#: port/frontend/shell/settings.cpp:1956
+#: port/frontend/shell/settings.cpp:1957
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Bekapcsolva egy itteni QR-kód megnyitja a játék második képernyőjét egy telefon böngészőjében. Nem kell semmit telepíteni; a telefonnak a PS5 hálózatán kell lennie."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1960
+#: port/frontend/shell/settings.cpp:1961
 msgid "Figure dumps go in {0}/figures: skylanders, infinity and dimensions. Switch a portal on here, start the game, then put figures on it from the in-game menu (touchpad click + Options > USB devices)."
 msgstr "A figuradumpok helye {0}/figures: skylanders, infinity és dimensions. Kapcsolj be itt egy portált, indítsd el a játékot, majd helyezz rá figurákat a játék menüjéből (érintőpanel-kattintás + OPTIONS > USB-eszközök)."
 
 #. premohq and JMUtechnologies are GitHub names: keep them as they are
-#: port/frontend/shell/settings.cpp:1965
+#: port/frontend/shell/settings.cpp:1966
 msgid "PS5-ECAM is made by its co-founders, premohq and JMUtechnologies."
 msgstr "A PS5-ECAM-et társalapítói, premohq és JMUtechnologies készítik."
 
 #. {0} is the app's version; {1} its data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on; {2} Eden's game files folder; {3} Cemu's selected data folder; {4} its default games folder; {5} Azahar's selected folder; {6} melonDS's selected folder
-#: port/frontend/shell/settings.cpp:1967
+#: port/frontend/shell/settings.cpp:1968
 msgid ""
 "Cemu, the Wii U emulator, by the Cemu team and its contributors; RADV on the PS5 by Mihawk-99 and mpereiraesaa; the community graphic packs' authors.\n"
 "Azahar, the 3DS emulator, by the Azahar team and the Citra contributors before them; Mihawk-99's PS5 port of it and dynarmic.\n"
@@ -6811,198 +6811,198 @@ msgstr ""
 "Verzió: {0}"
 
 #. the first choice in the language list: the PS5's own ({0}, in its own words)
-#: port/frontend/shell/settings.cpp:1985
+#: port/frontend/shell/settings.cpp:1986
 msgid "The PS5's language: {0}"
 msgstr "A PS5 nyelve: {0}"
 
-#: port/frontend/shell/settings.cpp:2010
+#: port/frontend/shell/settings.cpp:2011
 msgid "Language: {0}"
 msgstr "Nyelv: {0}"
 
-#: port/frontend/shell/settings.cpp:2137
+#: port/frontend/shell/settings.cpp:2138
 msgid "One side at least stays on"
 msgstr "Legalább egy oldal bekapcsolva marad"
 
 #. the Wii U account games start on now ({0}: its name)
-#: port/frontend/shell/settings.cpp:2299 port/frontend/shell/settings.cpp:2480 port/frontend/shell/settings.cpp:2566
+#: port/frontend/shell/settings.cpp:2300 port/frontend/shell/settings.cpp:2481 port/frontend/shell/settings.cpp:2567
 msgid "Games start on {0}'s saves"
 msgstr "A játékok {0} mentéseivel indulnak"
 
-#: port/frontend/shell/settings.cpp:2398
+#: port/frontend/shell/settings.cpp:2399
 msgid "This game has no ID to save settings under"
 msgstr "Ennek a játéknak nincs azonosítója, amely alatt a beállítások menthetők"
 
-#: port/frontend/shell/settings.cpp:2503
+#: port/frontend/shell/settings.cpp:2504
 msgid "Backing up {0}'s saves…"
 msgstr "A(z) {0} mentéseinek biztonsági mentése…"
 
-#: port/frontend/shell/settings.cpp:2518 port/frontend/shell/settings.cpp:2913
+#: port/frontend/shell/settings.cpp:2519 port/frontend/shell/settings.cpp:2914
 msgid "Choose a player first, in Settings > Players and saves."
 msgstr "Előbb válassz játékost a Beállítások > Játékosok és mentések menüben."
 
-#: port/frontend/shell/settings.cpp:2519
+#: port/frontend/shell/settings.cpp:2520
 msgid "Copying to USB…"
 msgstr "Másolás USB-re…"
 
-#: port/frontend/shell/settings.cpp:2561
+#: port/frontend/shell/settings.cpp:2562
 msgid "A name for the new account"
 msgstr "Az új fiók neve"
 
-#: port/frontend/shell/settings.cpp:2578
+#: port/frontend/shell/settings.cpp:2579
 msgid "A new name"
 msgstr "Új név"
 
-#: port/frontend/shell/settings.cpp:2580
+#: port/frontend/shell/settings.cpp:2581
 msgid "Renamed {0}"
 msgstr "{0} átnevezve"
 
-#: port/frontend/shell/settings.cpp:2589
+#: port/frontend/shell/settings.cpp:2590
 msgid "Backing up every side's saves…"
 msgstr "Minden oldal mentéseinek biztonsági mentése…"
 
 #. the loading screen's name for a retro side's own emulator menus: {0} is the side (Nintendo 64)
-#: port/frontend/shell/settings.cpp:2602
+#: port/frontend/shell/settings.cpp:2603
 msgid "{0}: its emulator's settings"
 msgstr "{0}: az emulátora beállításai"
 
-#: port/frontend/shell/settings.cpp:2603
+#: port/frontend/shell/settings.cpp:2604
 msgid "Opening emulator settings"
 msgstr "Az emulátor beállításainak megnyitása"
 
-#: port/frontend/shell/settings.cpp:2678
+#: port/frontend/shell/settings.cpp:2679
 msgid "Switch games play offline"
 msgstr "A Switch-játékok offline futnak"
 
-#: port/frontend/shell/settings.cpp:2682
+#: port/frontend/shell/settings.cpp:2683
 msgid "Your nickname in rooms"
 msgstr "A beceneved a szobákban"
 
-#: port/frontend/shell/settings.cpp:2687
+#: port/frontend/shell/settings.cpp:2688
 msgid "A nickname is 4 to 20 letters, digits, spaces, dots, dashes or underscores."
 msgstr "A becenév 4–20 latin betű, számjegy, szóköz, pont, kötőjel vagy aláhúzás."
 
 #. the nickname shown in Switch rooms ({0})
-#: port/frontend/shell/settings.cpp:2693
+#: port/frontend/shell/settings.cpp:2694
 msgid "In rooms you are {0}"
 msgstr "A szobákban te vagy: {0}"
 
-#: port/frontend/shell/settings.cpp:2707
+#: port/frontend/shell/settings.cpp:2708
 msgid "This room is for another version of Eden."
 msgstr "Ez a szoba az Eden másik verziójához tartozik."
 
 #. the room ({0}) Switch games join from now on
-#: port/frontend/shell/settings.cpp:2718 port/frontend/shell/settings.cpp:2755
+#: port/frontend/shell/settings.cpp:2719 port/frontend/shell/settings.cpp:2756
 msgid "Switch games join {0} as they start"
 msgstr "A Switch-játékok indításkor belépnek ide: {0}"
 
 #. the password of a room ({0}: its name)
-#: port/frontend/shell/settings.cpp:2722
+#: port/frontend/shell/settings.cpp:2723
 msgid "{0}'s password"
 msgstr "{0} jelszava"
 
-#: port/frontend/shell/settings.cpp:2733
+#: port/frontend/shell/settings.cpp:2734
 msgid "The room's address"
 msgstr "A szoba címe"
 
-#: port/frontend/shell/settings.cpp:2738
+#: port/frontend/shell/settings.cpp:2739
 msgid "An address is a name or an IPv4 address: letters, digits, dots and dashes."
 msgstr "A cím egy név vagy egy IPv4-cím: betűk, számjegyek, pontok és kötőjelek."
 
-#: port/frontend/shell/settings.cpp:2741
+#: port/frontend/shell/settings.cpp:2742
 msgid "Its UDP port"
 msgstr "Az UDP-portja"
 
-#: port/frontend/shell/settings.cpp:2745
+#: port/frontend/shell/settings.cpp:2746
 msgid "A port is a number from 1 to 65535."
 msgstr "A port egy 1 és 65535 közötti szám."
 
-#: port/frontend/shell/settings.cpp:2748
+#: port/frontend/shell/settings.cpp:2749
 msgid "Its password (empty: none)"
 msgstr "A jelszava (üres: nincs)"
 
-#: port/frontend/shell/settings.cpp:2765
+#: port/frontend/shell/settings.cpp:2766
 msgid "Starting the 3DS"
 msgstr "A 3DS indul"
 
-#: port/frontend/shell/settings.cpp:2774
+#: port/frontend/shell/settings.cpp:2775
 msgid "Your RetroAchievements user name"
 msgstr "RetroAchievements-felhasználóneved"
 
-#: port/frontend/shell/settings.cpp:2777
+#: port/frontend/shell/settings.cpp:2778
 msgid "{0}'s RetroAchievements password"
 msgstr "{0} RetroAchievements-jelszava"
 
-#: port/frontend/shell/settings.cpp:2779
+#: port/frontend/shell/settings.cpp:2780
 msgid "Signing in to RetroAchievements…"
 msgstr "Bejelentkezés a RetroAchievementsbe…"
 
-#: port/frontend/shell/settings.cpp:2801
+#: port/frontend/shell/settings.cpp:2802
 msgid "Player removed: their saves and settings are kept"
 msgstr "Játékos eltávolítva: a mentései és beállításai megmaradnak"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/shell/settings.cpp:2815
+#: port/frontend/shell/settings.cpp:2816
 msgid "{0} game deleted ({1})"
 msgid_plural "{0} games deleted ({1})"
 msgstr[0] "{0} játék törölve ({1})"
 msgstr[1] "{0} játék törölve ({1})"
 
 #. a held row's result: the covers are on their way
-#: port/frontend/shell/settings.cpp:2822
+#: port/frontend/shell/settings.cpp:2823
 msgid "Downloading in the background"
 msgstr "Letöltés a háttérben"
 
-#: port/frontend/shell/settings.cpp:2842 port/frontend/shell/shell.cpp:436
+#: port/frontend/shell/settings.cpp:2843 port/frontend/shell/shell.cpp:436
 msgid "Close PS5-ECAM and start it again from the home screen: the folders move as it starts."
 msgstr "Zárd be a PS5-ECAM-et, és indítsd el újra a kezdőképernyőről: a mappák az induláskor kerülnek át."
 
-#: port/frontend/shell/settings.cpp:2884
+#: port/frontend/shell/settings.cpp:2885
 msgid "{0} is deleted; its saves stay"
 msgstr "{0} törölve; a mentései megmaradnak"
 
-#: port/frontend/shell/settings.cpp:2897
+#: port/frontend/shell/settings.cpp:2898
 msgid "Restoring the saves of {0}…"
 msgstr "Mentések visszaállítása innen: {0}…"
 
-#: port/frontend/shell/settings.cpp:2905
+#: port/frontend/shell/settings.cpp:2906
 msgid "Signed out of RetroAchievements"
 msgstr "Kijelentkezve a RetroAchievementsből"
 
-#: port/frontend/shell/settings.cpp:2915
+#: port/frontend/shell/settings.cpp:2916
 msgid "Taking the save…"
 msgstr "Mentés átvétele…"
 
-#: port/frontend/shell/settings.cpp:2925
+#: port/frontend/shell/settings.cpp:2926
 msgid "Restoring {0}'s saves of {1}…"
 msgstr "A(z) {0} mentéseinek visszaállítása innen: {1}…"
 
 #. one of a game's saves moved out of the way ({0}: which, as its row names it)
-#: port/frontend/shell/settings.cpp:2939
+#: port/frontend/shell/settings.cpp:2940
 msgid "{0}: moved to saves-before"
 msgstr "{0}: áthelyezve a saves-before mappába"
 
-#: port/frontend/shell/settings.cpp:2950
+#: port/frontend/shell/settings.cpp:2951
 msgid "Done: back to its side's settings"
 msgstr "Kész: újra az oldala beállításai"
 
-#: port/frontend/shell/settings.cpp:3139
+#: port/frontend/shell/settings.cpp:3140
 msgid "Scan it, or open"
 msgstr "Olvasd be, vagy nyisd meg"
 
-#: port/frontend/shell/settings.cpp:3145
+#: port/frontend/shell/settings.cpp:3146
 msgid "Same network as the PS5. Nothing to install: the browser is enough. Sound stays on the PS5. Any browser on the network can see it and touch."
 msgstr "Ugyanaz a hálózat, mint a PS5-é. Nem kell semmit telepíteni: elég a böngésző. A hang a PS5-ön marad. A hálózat bármely böngészője láthatja és megérintheti."
 
-#: port/frontend/shell/settings.cpp:3177
+#: port/frontend/shell/settings.cpp:3178
 msgid "Support PS5-ECAM"
 msgstr "A PS5-ECAM támogatása"
 
-#: port/frontend/shell/settings.cpp:3188
+#: port/frontend/shell/settings.cpp:3189
 msgid "PS5-ECAM is free. If it brings your games back, you can support its work here."
 msgstr "A PS5-ECAM ingyenes. Ha visszahozta a játékaidat, itt támogathatod a munkát."
 
 #. above Settings' pages: whose settings they are ({0}: Wii U, Nintendo 3DS or Nintendo DS)
-#: port/frontend/shell/settings.cpp:3228
+#: port/frontend/shell/settings.cpp:3229
 msgid "{0} settings"
 msgstr "{0} beállításai"
 
@@ -7072,7 +7072,7 @@ msgstr "Nincs JIT- és végrehajtható memória: a Wii U-játékok a sokkal lass
 msgid "Neither your HEN's JIT memory nor executable memory could be made, so Wii U games fall back to Cemu's interpreter. Add PPSA99360 to your HEN's app jailbreak list, then start PS5-ECAM again; Settings > Diagnostics says what it got."
 msgstr "Sem a HEN-ed JIT-memóriáját, sem végrehajtható memóriát nem sikerült létrehozni, így a Wii U-játékok a Cemu értelmezőjére váltanak. Add hozzá a PPSA99360-at a HEN-ed alkalmazás-jailbreak listájához, majd indítsd újra a PS5-ECAM-t; a Beállítások > Diagnosztika mutatja, mit kapott."
 
-#: port/frontend/shell/setup.cpp:190 port/frontend/shell/shell.cpp:731 port/main_ps5.cpp:702 port/retro/launch.cpp:31 port/retro/launch.cpp:41
+#: port/frontend/shell/setup.cpp:190 port/frontend/shell/shell.cpp:731 port/libretro/game.cpp:517 port/main_ps5.cpp:703 port/retro/launch.cpp:38 port/retro/launch.cpp:48
 msgid "This side's emulator is not in this copy of PS5-ECAM."
 msgstr "Ennek az oldalnak az emulátora nincs benne a PS5-ECAM ezen példányában."
 
@@ -8210,49 +8210,54 @@ msgstr "Az eddigi legnagyobb frissítés, dióhéjban. A GitHubon lévő kiadás
 msgid "This game"
 msgstr "Ez a játék"
 
-#: port/main_ps5.cpp:155
+#. a notification as a game on a libretro core stops because the PS5's GPU stopped drawing it
+#: port/libretro/game.cpp:497
+msgid "The game's picture stopped (the GPU's device was lost)."
+msgstr "A játék képe leállt (a GPU eszköze elveszett)."
+
+#: port/main_ps5.cpp:156
 msgid "Firmware {0}"
 msgstr "Firmware: {0}"
 
-#: port/main_ps5.cpp:157
+#: port/main_ps5.cpp:158
 msgid "Logs: {0}, {1}/log.txt"
 msgstr "Naplók: {0}, {1}/log.txt"
 
-#: port/main_ps5.cpp:158
+#: port/main_ps5.cpp:159
 msgid "Boot log not written (/data is unreachable)"
 msgstr "Indítási napló nincs megírva (a /data nem érhető el)"
 
-#: port/main_ps5.cpp:597
+#: port/main_ps5.cpp:598
 msgid "PS5-ECAM cannot reach /data. Load a HEN with PPSA99360 in its app jailbreak list, or elfldr, then restart PS5-ECAM."
 msgstr "A PS5-ECAM nem éri el a /data mappát. Tölts be egy HEN-t, amelynek alkalmazás-jailbreak listáján szerepel a PPSA99360, vagy az elfldr-t, majd indítsd újra a PS5-ECAM-t."
 
-#: port/main_ps5.cpp:709
+#: port/main_ps5.cpp:710
 msgid "This session: Azahar (3DS); Cemu's emulated Wii U is not started"
 msgstr "Ez a munkamenet: Azahar (3DS); a Cemu emulált Wii U-ja nincs elindítva"
 
-#: port/main_ps5.cpp:719
+#: port/main_ps5.cpp:720
 msgid "This session: Eden (Switch), in a program of its own; Cemu's emulated Wii U is not started"
 msgstr "Ez a munkamenet: Eden (Switch), saját programban; a Cemu emulált Wii U-ja nincs elindítva"
 
-#: port/main_ps5.cpp:729
+#: port/main_ps5.cpp:730
 msgid "This session: melonDS (DS); Cemu's emulated Wii U is not started"
 msgstr "Ez a munkamenet: melonDS (DS); a Cemu emulált Wii U-ja nincs elindítva"
 
-#: port/main_ps5.cpp:736
+#: port/main_ps5.cpp:737
 msgid "This session: Cemu (Wii U); Azahar's core is not started"
 msgstr "Ez a munkamenet: Cemu (Wii U); az Azahar magja nincs elindítva"
 
-#: port/main_ps5.cpp:746
+#: port/main_ps5.cpp:747
 msgid "No JIT memory: Wii U games run on the interpreter, much slower. Is PPSA99360 in your HEN's app jailbreak list?"
 msgstr "Nincs JIT-memória: a Wii U-játékok az értelmezőn futnak, sokkal lassabban. Szerepel a PPSA99360 a HEN-ed alkalmazás-jailbreak listáján?"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/main_ps5.cpp:788
+#: port/main_ps5.cpp:789
 msgid "The launcher could not start. The boot log in {0}/logs says why."
 msgstr "Az indító nem tudott elindulni. Az okát a {0}/logs mappában lévő indítási napló írja le."
 
 #. {0} is why; {1} the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the app's drive
-#: port/main_ps5.cpp:790
+#: port/main_ps5.cpp:791
 msgid "The launcher could not start: {0}. The boot log in {1}/logs has more."
 msgstr "Az indító nem tudott elindulni: {0}. A {1}/logs alatti indítási naplóban több részlet van."
 
@@ -8308,7 +8313,7 @@ msgid "{0} fps"
 msgstr "{0} fps"
 
 #. a retro side's emulator: {0} its name, {1} its program in the app's folder, {2} whether this copy has it, {3} its data folder
-#: port/retro/launch.cpp:26
+#: port/retro/launch.cpp:33
 msgid ""
 "{0}\n"
 "Its program: {1}, {2}\n"
@@ -8320,23 +8325,23 @@ msgstr ""
 "Adatai és naplói: {3}\n"
 "Beállításai és mentett állapotai csak az övéi: más emulátor nem olvassa őket."
 
-#: port/retro/launch.cpp:27
+#: port/retro/launch.cpp:34
 msgid "in this copy of PS5-ECAM"
 msgstr "benne van a PS5-ECAM ezen példányában"
 
-#: port/retro/launch.cpp:27
+#: port/retro/launch.cpp:34
 msgid "not in this copy of PS5-ECAM"
 msgstr "nincs benne a PS5-ECAM ezen példányában"
 
-#: port/retro/launch.cpp:35
+#: port/retro/launch.cpp:42
 msgid "The emulator could not be started."
 msgstr "Az emulátort nem sikerült elindítani."
 
-#: port/retro/launch.cpp:43
+#: port/retro/launch.cpp:50
 msgid "This game is no longer where it was, or is not one this side can start."
 msgstr "Ez a játék már nincs ott, ahol volt, vagy nem olyan, amit ez az oldal el tud indítani."
 
-#: port/retro/launch.cpp:47
+#: port/retro/launch.cpp:54
 msgid "This game's folder or name cannot be handed to its emulator: move it or rename it."
 msgstr "Ennek a játéknak a mappáját vagy nevét nem lehet átadni az emulátorának: helyezd át vagy nevezd át."
 

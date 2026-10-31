@@ -196,9 +196,15 @@ picture (`ps5dsscreens::Frame::picture`). `port/libretro/session.cpp` makes the 
 environment, its picture in any of the three formats, its sound, four RetroPads, its options (v0 to
 v2, in the launcher's language where the core has it), the save RAM (`<saves>/<game>.srm`, written once
 it holds still) and the save states with Undo; `cores.cpp` finds the cores the app links
-(`tools/tests/test-libretro.sh` runs it with a core of its own). Next: the game's loop on the console
-(the screens, AudioOut, the DualSense, the in-game menu, back to the library), `build/libretro/objects.txt`
-linked into the app, then a side on its core as a choice beside its program (the NES on Mesen first).
+(`tools/tests/test-libretro.sh` runs it with a core of its own). `port/libretro/game.cpp` is the game's
+loop on the console, as the DS side's: the picture through the DS side's screens, the sound through
+AudioOut at 48 kHz, the DualSense as each player's RetroPad with the side's controls, the in-game menu
+(save states, Undo, Resume where you left off, volume, filter, border, A and B, back to the library) and
+the play time. A side with a core and no program of its own (the SNES, the Virtual Boy, the Pokémon
+mini) plays on it in the app once `tools/build-libretro.py` has built the cores, which
+`tools/build-cemu.sh` then links (`build/libretro/objects.txt`). **To check on a console first:** a
+game on each of the three, its save after a quit, a state, Resume, the sound's pace (`[perfretro]` in
+the boot log). Then the NES on Mesen as a choice beside its program, and the others in turn.
 
 **The classic systems already added** (JMUtechnologies, PR #87 and PR #91) are to run on the best
 emulator there is for each, replaced where they do not, maybe as libretro cores. This is the N64, the

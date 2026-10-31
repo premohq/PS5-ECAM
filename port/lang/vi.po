@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
 
-#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2558
+#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2559
 msgid "The Wii U has twelve accounts at most."
 msgstr "Wii U có tối đa mười hai tài khoản."
 
@@ -99,7 +99,7 @@ msgstr "Không chạy"
 msgid "the PS5 Vulkan driver did not start"
 msgstr "trình điều khiển Vulkan của PS5 không khởi động được"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2835 port/frontend/shell/shell.cpp:1961
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2836 port/frontend/shell/shell.cpp:1961
 msgid "PS5-ECAM cannot write to {0}. Is the HEN loaded?"
 msgstr "PS5-ECAM không thể ghi vào {0}. HEN đã được nạp chưa?"
 
@@ -116,7 +116,7 @@ msgstr "Không tìm thấy tệp gốc của trò chơi."
 msgid "The game could not be mounted. Check that its files are still in the game files folder."
 msgstr "Không thể gắn trò chơi. Kiểm tra xem tệp của trò chơi có còn trong thư mục trò chơi không."
 
-#: port/app/emulator.cpp:777 port/azahar/core.cpp:627 port/retro/launch.cpp:50
+#: port/app/emulator.cpp:777 port/azahar/core.cpp:627 port/retro/launch.cpp:57
 #, menu
 msgid "The game could not be started."
 msgstr "Không thể khởi động trò chơi."
@@ -143,7 +143,7 @@ msgid "The Vulkan renderer did not start: {0}"
 msgstr "Trình kết xuất Vulkan không khởi động được: {0}"
 
 #. the PS5's notification as a Wii U game starts
-#: port/app/emulator.cpp:867
+#: port/app/emulator.cpp:867 port/libretro/game.cpp:575
 msgid "Touchpad click + Options: the in-game menu (screens, picture, volume, controls, the library)"
 msgstr "Nhấn bàn di cảm ứng + OPTIONS: menu trong trò chơi (màn hình, hình ảnh, âm lượng, điều khiển, thư viện)"
 
@@ -734,7 +734,7 @@ msgstr "AMD FSR 1"
 
 #. the quick action that puts a gap between the two screens, and its state
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:471 port/frontend/shell/settings.cpp:1597 port/frontend/shell/switch_extras.cpp:54
+#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:472 port/frontend/shell/settings.cpp:1598 port/frontend/shell/switch_extras.cpp:54
 #, menu
 msgid "On"
 msgstr "Bật"
@@ -744,7 +744,7 @@ msgstr "Bật"
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:75 port/frontend/shell/settings.cpp:471 port/frontend/shell/settings.cpp:680 port/frontend/shell/settings.cpp:1280 port/frontend/shell/settings.cpp:1569 port/frontend/shell/settings.cpp:1597 port/frontend/shell/settings.cpp:1625 port/frontend/shell/settings.cpp:1633 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
+#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:75 port/frontend/shell/settings.cpp:472 port/frontend/shell/settings.cpp:681 port/frontend/shell/settings.cpp:1281 port/frontend/shell/settings.cpp:1570 port/frontend/shell/settings.cpp:1598 port/frontend/shell/settings.cpp:1626 port/frontend/shell/settings.cpp:1634 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
 #, menu
 msgid "Off"
 msgstr "Tắt"
@@ -833,7 +833,7 @@ msgstr "Đồ họa"
 msgid "Upscaling, Cemu's accuracy settings and the performance overlay. Kept for the next games."
 msgstr "Nâng độ phân giải, các mục cài đặt độ chính xác của Cemu và lớp phủ hiệu năng. Được giữ cho các trò chơi sau."
 
-#: port/app/ingame.cpp:196 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:553 port/frontend/shell/settings.cpp:674
+#: port/app/ingame.cpp:196 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:554 port/frontend/shell/settings.cpp:675
 #, menu
 msgid "Upscaling to 4K"
 msgstr "Nâng độ phân giải lên 4K"
@@ -853,7 +853,7 @@ msgstr "Barrier chính xác"
 msgid "Off can raise the frame rate, but some games then flicker or show wrong shadows. It changes at once."
 msgstr "Tắt có thể tăng tốc độ khung hình, nhưng một số trò chơi sẽ bị nhấp nháy hoặc hiện sai bóng. Thay đổi có hiệu lực ngay."
 
-#: port/app/ingame.cpp:200 port/frontend/shell/settings.cpp:599 port/frontend/shell/settings.cpp:646 port/frontend/shell/settings.cpp:999
+#: port/app/ingame.cpp:200 port/frontend/shell/settings.cpp:600 port/frontend/shell/settings.cpp:647 port/frontend/shell/settings.cpp:1000
 #, menu
 msgid "Async shader compile"
 msgstr "Biên dịch shader không đồng bộ"
@@ -863,7 +863,7 @@ msgstr "Biên dịch shader không đồng bộ"
 msgid "On, new shaders build while the game carries on: no stutter, but things may be missing for a moment."
 msgstr "Khi bật, shader mới được dựng trong lúc trò chơi vẫn chạy: không giật, nhưng có thể thiếu vài thứ trong chốc lát."
 
-#: port/app/ingame.cpp:202 port/frontend/shell/settings.cpp:574
+#: port/app/ingame.cpp:202 port/frontend/shell/settings.cpp:575
 #, menu
 msgid "Frame pacing"
 msgstr "Nhịp khung hình"
@@ -874,7 +874,7 @@ msgid "Holds the game to an even rate: 60 fps for 4K at 120 Hz, 30 for 8K at 60 
 msgstr "Giữ trò chơi ở tốc độ đều: 60 fps cho 4K ở 120 Hz, 30 cho 8K ở 60 Hz. Khi tắt, mỗi khung hình hiện ngay khi xong."
 
 #. What's new: Lossless Scaling's frame generation for Switch games; Lossless.dll and MihawkGen are names, left as they are
-#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:533 port/eden/ingame.cpp:576 port/frontend/shell/settings.cpp:562 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:651 port/frontend/shell/settings.cpp:714 port/frontend/shell/settings.cpp:727 port/frontend/shell/whatsnew.cpp:36
+#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:533 port/eden/ingame.cpp:576 port/frontend/shell/settings.cpp:563 port/frontend/shell/settings.cpp:581 port/frontend/shell/settings.cpp:652 port/frontend/shell/settings.cpp:715 port/frontend/shell/settings.cpp:728 port/frontend/shell/whatsnew.cpp:36
 #, menu
 msgid "Frame generation"
 msgstr "Tạo khung hình"
@@ -884,7 +884,7 @@ msgstr "Tạo khung hình"
 msgid "A picture made between each two frames of a game at 30 fps, so it is shown at 60. It changes at once."
 msgstr "Một khung hình được tạo giữa mỗi hai khung hình của trò chơi 30 fps, nên nó hiển thị ở 60. Đổi ngay lập tức."
 
-#: port/app/ingame.cpp:206 port/frontend/shell/settings.cpp:587 port/frontend/shell/switch_extras.cpp:72
+#: port/app/ingame.cpp:206 port/frontend/shell/settings.cpp:588 port/frontend/shell/switch_extras.cpp:72
 #, menu
 msgid "ReShade"
 msgstr "ReShade"
@@ -894,7 +894,7 @@ msgstr "ReShade"
 msgid "Your ReShade preset over the game's picture (Settings > Graphics says where it goes). It changes at once."
 msgstr "Preset ReShade của bạn trên hình ảnh trò chơi (Cài đặt > Đồ họa cho biết nó đặt ở đâu). Thay đổi ngay."
 
-#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:514 port/app/ingame3ds.cpp:522 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:593 port/frontend/shell/settings.cpp:661 port/frontend/shell/settings.cpp:735 port/frontend/shell/settings.cpp:753
+#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:514 port/app/ingame3ds.cpp:522 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:594 port/frontend/shell/settings.cpp:662 port/frontend/shell/settings.cpp:736 port/frontend/shell/settings.cpp:754
 #, menu
 msgid "Performance overlay"
 msgstr "Lớp phủ hiệu năng"
@@ -904,7 +904,7 @@ msgstr "Lớp phủ hiệu năng"
 msgid "Frames per second, CPU and memory use in the top left corner, as Cemu shows them."
 msgstr "Số khung hình mỗi giây, mức dùng CPU và bộ nhớ ở góc trên bên trái, như Cemu hiển thị."
 
-#: port/app/ingame.cpp:210 port/frontend/shell/settings.cpp:603
+#: port/app/ingame.cpp:210 port/frontend/shell/settings.cpp:604
 #, menu
 msgid "Shader notices"
 msgstr "Thông báo shader"
@@ -965,7 +965,7 @@ msgid "None"
 msgstr "Không có"
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1569
+#: port/app/ingame.cpp:243 port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1570
 #, menu
 msgid "{0} on"
 msgid_plural "{0} on"
@@ -1013,7 +1013,7 @@ msgid "The last figure could not be put on."
 msgstr "Không thể đặt mô hình vừa rồi lên."
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1569
+#: port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1570
 #, menu
 msgid "USB devices"
 msgstr "Thiết bị USB"
@@ -1097,7 +1097,7 @@ msgstr "Tay cầm giả lập"
 msgid "What the game sees in this player's hands. Most games want the GamePad for player 1."
 msgstr "Thứ trò chơi thấy trong tay người chơi này. Phần lớn trò chơi cần GamePad cho người chơi 1."
 
-#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:635 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:875
+#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:635 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:876
 #, menu
 msgid "Motion controls"
 msgstr "Điều khiển chuyển động"
@@ -1112,7 +1112,7 @@ msgstr "Tay cầm này không có"
 msgid "The DualSense's gyroscope and accelerometer, for the games that aim or steer by tilting."
 msgstr "Con quay hồi chuyển và gia tốc kế của DualSense, cho các trò chơi ngắm hoặc lái bằng cách nghiêng."
 
-#: port/app/ingame.cpp:311 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:820
+#: port/app/ingame.cpp:311 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:821
 #, menu
 msgid "Vibration"
 msgstr "Rung"
@@ -1142,17 +1142,17 @@ msgstr "Vùng chết cần phải"
 msgid "How far the right stick moves before the game sees it. Raise it if the camera drifts."
 msgstr "Cần phải phải di chuyển bao xa thì trò chơi mới nhận. Tăng lên nếu camera tự trôi."
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:618 port/app/ingame3ds.cpp:629 port/app/ingame3ds.cpp:639 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:869 port/frontend/shell/welcome.cpp:58
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:618 port/app/ingame3ds.cpp:629 port/app/ingame3ds.cpp:639 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:870 port/frontend/shell/welcome.cpp:58
 #, menu
 msgid "A and B"
 msgstr "A và B"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:869 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:870 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Circle"
 msgstr "A ở nút Tròn"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:869 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:870 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Cross"
 msgstr "A ở nút Chữ thập"
@@ -1188,7 +1188,7 @@ msgstr "{0}: {1}"
 #. the languages the emulated 3DS can be set to
 #. the Switch's controller types, as a game sees the DualSense (Automatic: what the game takes)
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/settings.cpp:50 port/frontend/shell/settings.cpp:53 port/frontend/shell/settings.cpp:126 port/frontend/shell/settings.cpp:958 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:321 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/settings.cpp:50 port/frontend/shell/settings.cpp:53 port/frontend/shell/settings.cpp:126 port/frontend/shell/settings.cpp:959 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Automatic"
 msgstr "Tự động"
@@ -1209,7 +1209,7 @@ msgid "Touches the GamePad's screen, or presses the button set to Touchpad click
 msgstr "Chạm màn hình GamePad, hoặc nhấn nút được gán cho Bàn di cảm ứng (- nếu chưa gán). Các phím tắt vẫn dùng được."
 
 #. the remote touch screen's row: which screen a phone or a tablet shows
-#: port/app/ingame.cpp:326 port/frontend/shell/settings.cpp:1588
+#: port/app/ingame.cpp:326 port/frontend/shell/settings.cpp:1589
 #, menu
 msgid "The GamePad's screen"
 msgstr "Màn hình GamePad"
@@ -1343,7 +1343,7 @@ msgstr "Màn hình và viền"
 msgid "The border around the screen."
 msgstr "Viền quanh màn hình."
 
-#: port/app/ingame3ds.cpp:479 port/app/ingame3ds.cpp:490 port/frontend/shell/settings.cpp:784
+#: port/app/ingame3ds.cpp:479 port/app/ingame3ds.cpp:490 port/frontend/shell/settings.cpp:785
 #, menu
 msgid "Border"
 msgstr "Viền"
@@ -1395,7 +1395,7 @@ msgstr "Màn hình nào chiếm chỗ của màn hình trên. Trong trò chơi, 
 msgid "Artwork around the screens, never over them. Also in the launcher's Settings > Screens."
 msgstr "Hình trang trí quanh màn hình, không bao giờ đè lên. Cũng có trong Cài đặt > Màn hình của trình khởi chạy."
 
-#: port/app/ingame3ds.cpp:495 port/frontend/shell/settings.cpp:763
+#: port/app/ingame3ds.cpp:495 port/frontend/shell/settings.cpp:764
 #, menu
 msgid "Screen rotation"
 msgstr "Xoay màn hình"
@@ -1411,7 +1411,7 @@ msgid "For the games played with the 3DS held on its side, like a book: both scr
 msgstr "Cho các trò chơi cầm 3DS nghiêng như cầm sách: hai màn hình xoay cùng nhau, cả màn hình cảm ứng cũng vậy."
 
 #. the quick action that puts a gap between the two screens, and its state
-#: port/app/ingame3ds.cpp:501 port/app/ingame3ds.cpp:690 port/frontend/shell/settings.cpp:773
+#: port/app/ingame3ds.cpp:501 port/app/ingame3ds.cpp:690 port/frontend/shell/settings.cpp:774
 #, menu
 msgid "Screen gap"
 msgstr "Khoảng cách màn hình"
@@ -1421,7 +1421,7 @@ msgstr "Khoảng cách màn hình"
 msgid "A gap between the two screens where both show, as the console's hinge makes: one above the other, side by side, or turned like a book."
 msgstr "Một khoảng hở giữa hai màn hình khi cả hai cùng hiện, như bản lề của máy tạo ra: trên dưới, cạnh nhau hoặc xoay như cầm sách."
 
-#: port/app/ingame3ds.cpp:506 port/frontend/shell/settings.cpp:778
+#: port/app/ingame3ds.cpp:506 port/frontend/shell/settings.cpp:779
 #, menu
 msgid "Touch without the bottom screen"
 msgstr "Chạm mà không hiện màn hình dưới"
@@ -1436,7 +1436,7 @@ msgstr "Khi chỉ có màn hình trên, bàn di cảm ứng vẫn chạm vào m�
 msgid "The screen filter and the performance overlay."
 msgstr "Bộ lọc màn hình và lớp phủ hiệu năng."
 
-#: port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/frontend/shell/settings.cpp:740
+#: port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/frontend/shell/settings.cpp:741
 #, menu
 msgid "Screen filter"
 msgstr "Bộ lọc màn hình"
@@ -1446,7 +1446,7 @@ msgstr "Bộ lọc màn hình"
 msgid "How the game's picture is scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them together; Square pixels takes the nearest, uneven at most sizes."
 msgstr "Cách hình ảnh trò chơi được co giãn lên TV. Sắc nét giữ mỗi điểm ảnh vuông và đều; Mượt làm chúng nhòe vào nhau; Điểm ảnh vuông lấy điểm gần nhất, không đều ở hầu hết các kích thước."
 
-#: port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/frontend/shell/settings.cpp:661 port/frontend/shell/settings.cpp:662 port/frontend/shell/settings.cpp:735 port/frontend/shell/settings.cpp:736 port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:754
+#: port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/frontend/shell/settings.cpp:662 port/frontend/shell/settings.cpp:663 port/frontend/shell/settings.cpp:736 port/frontend/shell/settings.cpp:737 port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:755
 #, menu
 msgid "The frame rate and the emulation's speed, in the top left corner."
 msgstr "Tốc độ khung hình và tốc độ giả lập, ở góc trên bên trái."
@@ -1461,7 +1461,7 @@ msgstr "Cách co giãn màn hình 256 x 192 của DS lên TV. Sắc nét giữ m
 msgid "Internal resolution, texture filter and the performance overlay."
 msgstr "Độ phân giải nội bộ, bộ lọc kết cấu và lớp phủ hiệu năng."
 
-#: port/app/ingame3ds.cpp:529 port/frontend/shell/settings.cpp:610 port/frontend/shell/settings.cpp:666
+#: port/app/ingame3ds.cpp:529 port/frontend/shell/settings.cpp:611 port/frontend/shell/settings.cpp:667
 #, menu
 msgid "Internal resolution"
 msgstr "Độ phân giải nội bộ"
@@ -1471,7 +1471,7 @@ msgstr "Độ phân giải nội bộ"
 msgid "How large the 3D scenes are drawn before they are scaled to the TV. Higher is sharper and asks more of the GPU."
 msgstr "Kích thước vẽ cảnh 3D trước khi co giãn lên TV. Càng cao càng nét và càng nặng cho GPU."
 
-#: port/app/ingame3ds.cpp:531 port/frontend/shell/settings.cpp:621
+#: port/app/ingame3ds.cpp:531 port/frontend/shell/settings.cpp:622
 #, menu
 msgid "Texture filter"
 msgstr "Bộ lọc kết cấu"
@@ -1482,13 +1482,13 @@ msgid "Smooths textures as they are scaled up. The costliest setting here: if a 
 msgstr "Làm mượt kết cấu khi phóng to. Mục tốn nhất ở đây: nếu trò chơi bị giật, thử Không trước."
 
 #. no speed limit
-#: port/app/ingame3ds.cpp:540 port/eden/ingame.cpp:582 port/frontend/shell/settings.cpp:953
+#: port/app/ingame3ds.cpp:540 port/eden/ingame.cpp:582 port/frontend/shell/settings.cpp:954
 #, menu
 msgid "Speed limit"
 msgstr "Giới hạn tốc độ"
 
 #. no speed limit
-#: port/app/ingame3ds.cpp:540 port/app/ingame3ds.cpp:543 port/eden/ingame.cpp:524 port/frontend/shell/settings.cpp:952
+#: port/app/ingame3ds.cpp:540 port/app/ingame3ds.cpp:543 port/eden/ingame.cpp:524 port/frontend/shell/settings.cpp:953
 #, menu
 msgctxt "speed limit"
 msgid "None"
@@ -1504,7 +1504,7 @@ msgstr "Trên 100% giúp vượt nhanh cảnh chậm; Không chạy nhanh hết 
 msgid "Speed"
 msgstr "Tốc độ"
 
-#: port/app/ingame3ds.cpp:545 port/eden/ingame.cpp:581 port/frontend/shell/settings.cpp:953
+#: port/app/ingame3ds.cpp:545 port/eden/ingame.cpp:581 port/frontend/shell/settings.cpp:954
 #, menu
 msgid "How fast the game may run."
 msgstr "Trò chơi được chạy nhanh đến mức nào."
@@ -1514,7 +1514,7 @@ msgstr "Trò chơi được chạy nhanh đến mức nào."
 msgid "The emulated CPU's clock, and how fast the game may run."
 msgstr "Xung nhịp CPU giả lập, và trò chơi được chạy nhanh đến mức nào."
 
-#: port/app/ingame3ds.cpp:549 port/frontend/shell/settings.cpp:922
+#: port/app/ingame3ds.cpp:549 port/frontend/shell/settings.cpp:923
 #, menu
 msgid "CPU clock"
 msgstr "Xung nhịp CPU"
@@ -1675,7 +1675,7 @@ msgstr "Bỏ amiibo khỏi đầu đọc, như khi nhấc nó ra."
 msgid "The left stick's deadzone and where A and B are."
 msgstr "Vùng chết của cần trái và vị trí của A và B."
 
-#: port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:627 port/app/ingame3ds.cpp:637 port/eden/ingame.cpp:600 port/frontend/shell/settings.cpp:823 port/frontend/shell/settings.cpp:877
+#: port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:627 port/app/ingame3ds.cpp:637 port/eden/ingame.cpp:600 port/frontend/shell/settings.cpp:824 port/frontend/shell/settings.cpp:878
 #, menu
 msgid "Stick deadzone"
 msgstr "Vùng chết cần"
@@ -1766,12 +1766,12 @@ msgstr "Hoàn tác lần tải gần nhất"
 msgid "Goes back to the moment before the last load, as if it had not been made. What you did since the load is lost, so Cross is held."
 msgstr "Quay về lúc trước lần tải gần nhất, như thể chưa từng tải. Những gì đã làm từ lúc tải sẽ mất, nên cần giữ nút Chữ thập."
 
-#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1588
+#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1589
 #, menu
 msgid "The touch screen"
 msgstr "Màn hình cảm ứng"
 
-#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1588
+#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1589
 #, menu
 msgid "The bottom screen"
 msgstr "Màn hình dưới"
@@ -2299,7 +2299,7 @@ msgid "The new packs could not take the old ones' place"
 msgstr "Các gói mới không thay được các gói cũ"
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1597 port/frontend/shell/settings.cpp:1599 port/frontend/shell/settings.cpp:3139
+#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1598 port/frontend/shell/settings.cpp:1600 port/frontend/shell/settings.cpp:3140
 #, menu
 msgid "Remote touch screen"
 msgstr "Màn hình cảm ứng từ xa"
@@ -2315,7 +2315,7 @@ msgstr "{0} trong trình duyệt của điện thoại hoặc máy tính bảng,
 msgid "A phone or tablet on the PS5's network. Sound stays on the PS5."
 msgstr "Điện thoại hoặc máy tính bảng trong mạng của PS5. Âm thanh vẫn phát trên PS5."
 
-#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3147
+#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3148
 #, menu
 msgid "Turn it off and on again once that is fixed."
 msgstr "Tắt rồi bật lại sau khi đã khắc phục."
@@ -2662,13 +2662,13 @@ msgid "{0}: off"
 msgstr "{0}: tắt"
 
 #. how a save state's save or load went
-#: port/azahar/core.cpp:342 port/melonds/core.cpp:572
+#: port/azahar/core.cpp:342 port/libretro/game.cpp:430 port/melonds/core.cpp:572
 #, menu
 msgid "Loaded slot {0}"
 msgstr "Đã tải ô {0}"
 
 #. how a save state's save or load went
-#: port/azahar/core.cpp:342 port/melonds/core.cpp:555
+#: port/azahar/core.cpp:342 port/libretro/game.cpp:424 port/melonds/core.cpp:555
 #, menu
 msgid "Saved slot {0}"
 msgstr "Đã lưu vào ô {0}"
@@ -2678,18 +2678,18 @@ msgstr "Đã lưu vào ô {0}"
 msgid "Made by another version"
 msgstr "Do phiên bản khác tạo"
 
-#: port/azahar/core.cpp:344 port/melonds/core.cpp:545 port/melonds/core.cpp:556 port/melonds/core.cpp:564 port/melonds/core.cpp:566
+#: port/azahar/core.cpp:344 port/libretro/game.cpp:419 port/libretro/game.cpp:424 port/libretro/game.cpp:429 port/melonds/core.cpp:545 port/melonds/core.cpp:556 port/melonds/core.cpp:564 port/melonds/core.cpp:566
 #, menu
 msgid "It did not work"
 msgstr "Không thành công"
 
 #. how undoing the last load went
-#: port/azahar/core.cpp:346 port/melonds/core.cpp:540
+#: port/azahar/core.cpp:346 port/libretro/game.cpp:419 port/melonds/core.cpp:540
 #, menu
 msgid "Back to before the load"
 msgstr "Đã quay về trước lần tải"
 
-#: port/azahar/core.cpp:349 port/melonds/core.cpp:572
+#: port/azahar/core.cpp:349 port/libretro/game.cpp:430 port/melonds/core.cpp:572
 #, menu
 msgid "Back where you left off"
 msgstr "Đã quay lại chỗ đã dừng"
@@ -2887,7 +2887,7 @@ msgstr "Nâng độ phân giải, khử răng cưa, tạo khung hình và lớp 
 msgid "How the picture is scaled to the TV: Bicubic is sharp, Bilinear softer, AMD FSR 1 keeps edges clean. It changes at once."
 msgstr "Cách hình ảnh được phóng lên TV: Bicubic sắc nét, Bilinear mềm hơn, AMD FSR 1 giữ cạnh gọn gàng. Thay đổi ngay."
 
-#: port/eden/ingame.cpp:571 port/frontend/shell/settings.cpp:691
+#: port/eden/ingame.cpp:571 port/frontend/shell/settings.cpp:692
 #, menu
 msgid "FSR sharpening"
 msgstr "Độ sắc nét FSR"
@@ -2897,7 +2897,7 @@ msgstr "Độ sắc nét FSR"
 msgid "How much AMD FSR 1 sharpens the picture as it scales it: 100% is the most. It changes at once."
 msgstr "Mức AMD FSR 1 làm sắc nét hình ảnh khi phóng: 100% là nhiều nhất. Thay đổi ngay."
 
-#: port/eden/ingame.cpp:573 port/frontend/shell/settings.cpp:697
+#: port/eden/ingame.cpp:573 port/frontend/shell/settings.cpp:698
 #, menu
 msgid "Anti-aliasing"
 msgstr "Khử răng cưa"
@@ -2913,14 +2913,14 @@ msgid "The frame rate and the emulation's speed, in a corner of the screen."
 msgstr "Tốc độ khung hình và tốc độ giả lập, ở một góc màn hình."
 
 #. the emulated Switch's console mode: in its dock, or handheld
-#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:934
+#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:935
 #, menu
 msgctxt "switch mode"
 msgid "Docked"
 msgstr "Trên đế"
 
 #. the emulated Switch's console mode: in its dock, or handheld
-#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:934
+#: port/eden/ingame.cpp:589 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:935
 #, menu
 msgctxt "switch mode"
 msgid "Handheld"
@@ -2932,7 +2932,7 @@ msgid "Docked or handheld, the controller the game sees, vibration and the stick
 msgstr "Trên đế hoặc cầm tay, tay cầm mà trò chơi thấy, rung và vùng chết của cần."
 
 #. the emulated Switch's console mode: in its dock, or handheld
-#: port/eden/ingame.cpp:592 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:934
+#: port/eden/ingame.cpp:592 port/eden/ingame.cpp:656 port/frontend/shell/settings.cpp:935
 #, menu
 msgid "Console mode"
 msgstr "Chế độ máy"
@@ -2942,7 +2942,7 @@ msgstr "Chế độ máy"
 msgid "Docked, the game draws for a TV, at its sharpest; handheld, for the console's own screen, which asks less of the GPU. The game is told at once, as when a Switch leaves its dock."
 msgstr "Trên đế, trò chơi vẽ cho TV, sắc nét nhất; cầm tay, cho màn hình của chính máy, ít tốn GPU hơn. Trò chơi biết ngay, như khi một chiếc Switch rời khỏi đế."
 
-#: port/eden/ingame.cpp:595 port/frontend/shell/settings.cpp:943
+#: port/eden/ingame.cpp:595 port/frontend/shell/settings.cpp:944
 #, menu
 msgid "Controller type"
 msgstr "Loại tay cầm"
@@ -2967,7 +2967,7 @@ msgstr "Cần phải di chuyển bao xa trước khi trò chơi nhận thấy. T
 msgid "Left and Right choose an amiibo dump; Cross touches it to the controller when the game asks for one, and again takes it away."
 msgstr "Nhấn trái/phải để chọn bản dump amiibo; khi trò chơi yêu cầu, nút Chữ thập chạm nó vào tay cầm, và nhấn lần nữa để lấy ra."
 
-#: port/eden/ingame.cpp:627 port/frontend/shell/settings.cpp:1319
+#: port/eden/ingame.cpp:627 port/frontend/shell/settings.cpp:1320
 #, menu
 msgid "Room"
 msgstr "Phòng"
@@ -3004,7 +3004,7 @@ msgid "{0} player"
 msgid_plural "{0} players"
 msgstr[0] "{0} người chơi"
 
-#: port/eden/launch.cpp:117 port/main_ps5.cpp:721
+#: port/eden/launch.cpp:117 port/main_ps5.cpp:722
 msgid "This build has no Switch emulator: eden/eboot.bin is not in the app's folder."
 msgstr "Bản này không có trình giả lập Switch: không có eden/eboot.bin trong thư mục của ứng dụng."
 
@@ -3077,7 +3077,7 @@ msgid_plural "{0} files deleted ({1} MB)"
 msgstr[0] "Đã xóa {0} tệp ({1} MB)"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1524 port/frontend/shell/settings.cpp:2815
+#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1525 port/frontend/shell/settings.cpp:2816
 msgid "None to delete"
 msgstr "Không có gì để xóa"
 
@@ -3532,7 +3532,7 @@ msgid "Game files"
 msgstr "Tệp trò chơi"
 
 #. What's new: a Switch game's update and DLC files are found next to it, and its page shows them
-#: port/frontend/shell/installs.cpp:362 port/frontend/shell/settings.cpp:1109 port/frontend/shell/shell.cpp:1866 port/frontend/shell/whatsnew.cpp:32
+#: port/frontend/shell/installs.cpp:362 port/frontend/shell/settings.cpp:1110 port/frontend/shell/shell.cpp:1866 port/frontend/shell/whatsnew.cpp:32
 msgid "Updates and DLC"
 msgstr "Bản cập nhật và DLC"
 
@@ -3640,7 +3640,7 @@ msgstr "Thiết lập"
 msgid "Something needs a look"
 msgstr "Có mục cần xem lại"
 
-#: port/frontend/shell/library.cpp:135 port/frontend/shell/library.cpp:172 port/frontend/shell/library.cpp:202 port/frontend/shell/settings.cpp:1500
+#: port/frontend/shell/library.cpp:135 port/frontend/shell/library.cpp:172 port/frontend/shell/library.cpp:202 port/frontend/shell/settings.cpp:1501
 msgid "Setup check"
 msgstr "Kiểm tra thiết lập"
 
@@ -3841,7 +3841,7 @@ msgid "Presets · choosing one turns it on"
 msgstr "Cấu hình sẵn · chọn một cái sẽ bật nó"
 
 #. what a held row says once it has done its work
-#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2870
+#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2871
 msgctxt "finished"
 msgid "Done"
 msgstr "Đã xong"
@@ -3916,16 +3916,16 @@ msgstr "Nút, rung, chuyển động và vùng chết mặc định cho tay cầ
 
 #. {0} is the player's number, {1} an emulated controller (Wii U GamePad)
 #. Settings > Controls: a row that opens the buttons' settings (each button, the defaults)
-#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:633 port/frontend/shell/pages.cpp:830 port/frontend/shell/pages.cpp:836 port/frontend/shell/settings.cpp:841 port/frontend/shell/settings.cpp:893
+#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:633 port/frontend/shell/pages.cpp:830 port/frontend/shell/pages.cpp:836 port/frontend/shell/settings.cpp:842 port/frontend/shell/settings.cpp:894
 msgid "Buttons"
 msgstr "Nút"
 
-#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:847 port/frontend/shell/settings.cpp:902
+#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:903
 msgid "Reset to defaults"
 msgstr "Khôi phục mặc định"
 
 #. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:592 port/frontend/shell/settings.cpp:857
+#: port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:592 port/frontend/shell/settings.cpp:858
 msgid "Player {0}"
 msgstr "Người chơi {0}"
 
@@ -3990,18 +3990,18 @@ msgstr "Nhấn bàn di cảm ứng sẽ nhấn nút được gán cho Bàn di c�
 msgid "The click touches the GamePad's screen."
 msgstr "Nhấn bàn di cảm ứng sẽ chạm màn hình GamePad."
 
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:839 port/frontend/shell/settings.cpp:892
+#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:840 port/frontend/shell/settings.cpp:893
 msgid "{0} button set"
 msgid_plural "{0} buttons set"
 msgstr[0] "Đã gán {0} nút"
 
 #. Settings > Controls > Buttons: the row that opens the list of every button and the DualSense button on it
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:844 port/frontend/shell/settings.cpp:896
+#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:845 port/frontend/shell/settings.cpp:897
 msgid "Which DualSense button presses each button."
 msgstr "Nút DualSense nào nhấn từng nút."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:634 port/frontend/shell/pages.cpp:1540 port/frontend/shell/pages.cpp:1544 port/frontend/shell/settings.cpp:847 port/frontend/shell/settings.cpp:902 port/frontend/shell/settings.cpp:1132 port/frontend/shell/settings.cpp:1196 port/frontend/shell/settings.cpp:1253 port/frontend/shell/settings.cpp:1295 port/frontend/shell/settings.cpp:1392 port/frontend/shell/settings.cpp:1506 port/frontend/shell/settings.cpp:1509 port/frontend/shell/settings.cpp:1523 port/frontend/shell/settings.cpp:1674 port/frontend/shell/settings.cpp:1796 port/frontend/shell/settings.cpp:1838 port/frontend/shell/settings.cpp:1863 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#: port/frontend/shell/pages.cpp:634 port/frontend/shell/pages.cpp:1540 port/frontend/shell/pages.cpp:1544 port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:903 port/frontend/shell/settings.cpp:1133 port/frontend/shell/settings.cpp:1197 port/frontend/shell/settings.cpp:1254 port/frontend/shell/settings.cpp:1296 port/frontend/shell/settings.cpp:1393 port/frontend/shell/settings.cpp:1507 port/frontend/shell/settings.cpp:1510 port/frontend/shell/settings.cpp:1524 port/frontend/shell/settings.cpp:1675 port/frontend/shell/settings.cpp:1797 port/frontend/shell/settings.cpp:1839 port/frontend/shell/settings.cpp:1864 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "Giữ nút Chữ thập"
 
@@ -4160,19 +4160,19 @@ msgstr "Đã hủy. Nội dung đã cài trước đó vẫn nguyên vẹn."
 msgid "{0} games"
 msgstr "Trò chơi {0}"
 
-#: port/frontend/shell/pages.cpp:1194 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1194 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "3DS games"
 msgstr "Trò chơi 3DS"
 
-#: port/frontend/shell/pages.cpp:1195 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1195 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "DS games"
 msgstr "Trò chơi DS"
 
-#: port/frontend/shell/pages.cpp:1196 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1196 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "Switch games"
 msgstr "Trò chơi Switch"
 
-#: port/frontend/shell/pages.cpp:1197 port/frontend/shell/settings.cpp:1043 port/frontend/shell/setup.cpp:210
+#: port/frontend/shell/pages.cpp:1197 port/frontend/shell/settings.cpp:1044 port/frontend/shell/setup.cpp:210
 msgid "Wii U games"
 msgstr "Trò chơi Wii U"
 
@@ -4254,7 +4254,7 @@ msgid "Cannot be read"
 msgstr "Không đọc được"
 
 #. Settings > Game files' Keys and firmware row, its value when the firmware is missing and the keys are there
-#: port/frontend/shell/pages.cpp:1301 port/frontend/shell/pages.cpp:1308 port/frontend/shell/settings.cpp:1071
+#: port/frontend/shell/pages.cpp:1301 port/frontend/shell/pages.cpp:1308 port/frontend/shell/settings.cpp:1072
 msgid "Found"
 msgstr "Đã tìm thấy"
 
@@ -4262,7 +4262,7 @@ msgstr "Đã tìm thấy"
 msgid "Missing: Eden cannot read Switch games without it"
 msgstr "Thiếu: không có nó, Eden không đọc được trò chơi Switch"
 
-#: port/frontend/shell/pages.cpp:1314 port/frontend/shell/settings.cpp:1025
+#: port/frontend/shell/pages.cpp:1314 port/frontend/shell/settings.cpp:1026
 msgid "Your DS's BIOS"
 msgstr "BIOS của DS"
 
@@ -4325,7 +4325,7 @@ msgstr "Đang kết nối với {0}"
 msgid "Artic Setup Tool"
 msgstr "Artic Setup Tool"
 
-#: port/frontend/shell/pages.cpp:1506 port/frontend/shell/pages.cpp:1517 port/frontend/shell/settings.cpp:1302 port/frontend/shell/setup.cpp:270
+#: port/frontend/shell/pages.cpp:1506 port/frontend/shell/pages.cpp:1517 port/frontend/shell/settings.cpp:1303 port/frontend/shell/setup.cpp:270
 msgid "Artic Base"
 msgstr "Artic Base"
 
@@ -4514,7 +4514,7 @@ msgstr "Kính mờ tối và góc bo tròn hơn, ánh sáng của bên trôi nh�
 msgid "A light background with dark text."
 msgstr "Nền sáng với chữ tối."
 
-#: port/frontend/shell/settings.cpp:205 port/frontend/shell/settings.cpp:546 port/frontend/shell/settings.cpp:916 port/frontend/shell/settings.cpp:961 port/frontend/shell/settings.cpp:1020 port/frontend/shell/settings.cpp:2000 port/frontend/shell/setup.cpp:538
+#: port/frontend/shell/settings.cpp:205 port/frontend/shell/settings.cpp:547 port/frontend/shell/settings.cpp:917 port/frontend/shell/settings.cpp:962 port/frontend/shell/settings.cpp:1021 port/frontend/shell/settings.cpp:2001 port/frontend/shell/setup.cpp:538
 msgid "Language"
 msgstr "Ngôn ngữ"
 
@@ -4615,7 +4615,7 @@ msgstr "Bản lưu"
 msgid "Each account has its own saves for every game. Backups hold every side's saves."
 msgstr "Mỗi tài khoản có bản lưu riêng cho mọi trò chơi. Bản sao lưu chứa bản lưu của mọi bên."
 
-#: port/frontend/shell/settings.cpp:243 port/frontend/shell/settings.cpp:1645
+#: port/frontend/shell/settings.cpp:243 port/frontend/shell/settings.cpp:1646
 msgid "Who plays, each with saves of their own."
 msgstr "Ai chơi, mỗi người có bản lưu riêng."
 
@@ -4734,7 +4734,7 @@ msgstr "Nhấn Chữ thập để tải xuống"
 msgid "{0}: Cross to install"
 msgstr "{0}: nhấn Chữ thập để cài"
 
-#: port/frontend/shell/settings.cpp:332 port/frontend/shell/settings.cpp:1331 port/frontend/shell/shell.cpp:2537
+#: port/frontend/shell/settings.cpp:332 port/frontend/shell/settings.cpp:1332 port/frontend/shell/shell.cpp:2537
 msgid "Downloading…"
 msgstr "Đang tải xuống…"
 
@@ -4827,1744 +4827,1744 @@ msgstr "Thư mục trò chơi"
 msgid "The folder this side's games are in. Choosing another moves nothing: games and saves stay where they are."
 msgstr "Thư mục chứa trò chơi của bên này. Chọn thư mục khác không di chuyển gì: trò chơi và bản lưu vẫn ở nguyên chỗ."
 
-#: port/frontend/shell/settings.cpp:451 port/frontend/shell/settings.cpp:1054
+#: port/frontend/shell/settings.cpp:451 port/frontend/shell/settings.cpp:1055
 msgid "Look for games now"
 msgstr "Tìm trò chơi ngay"
 
-#: port/frontend/shell/settings.cpp:455
+#: port/frontend/shell/settings.cpp:456
 msgid "Open emulator settings and saves"
 msgstr "Mở cài đặt và bản lưu của trình giả lập"
 
-#: port/frontend/shell/settings.cpp:456
+#: port/frontend/shell/settings.cpp:457
 msgid "This side's emulator keeps its own settings, controls and saves: this opens its menus to change them, and quitting them comes back here. What it already had stays where it is."
 msgstr "Trình giả lập của bên này giữ cài đặt, điều khiển và bản lưu riêng: mục này mở menu của nó để thay đổi, và thoát khỏi đó sẽ quay lại đây. Những gì nó đã có vẫn ở nguyên chỗ."
 
-#: port/frontend/shell/settings.cpp:458 port/frontend/shell/settings.cpp:1243 port/frontend/shell/settings.cpp:1817
+#: port/frontend/shell/settings.cpp:459 port/frontend/shell/settings.cpp:1244 port/frontend/shell/settings.cpp:1818
 msgid "Back up to USB"
 msgstr "Sao lưu vào USB"
 
-#: port/frontend/shell/settings.cpp:458
+#: port/frontend/shell/settings.cpp:459
 msgid "Every side's saves, each emulator's. A save state loads only in the emulator that made it."
 msgstr "Bản lưu của mọi bên, của từng trình giả lập. Trạng thái đã lưu chỉ tải được trong trình giả lập đã tạo ra nó."
 
-#: port/frontend/shell/settings.cpp:459 port/frontend/shell/settings.cpp:2598
+#: port/frontend/shell/settings.cpp:460 port/frontend/shell/settings.cpp:2599
 msgid "Emulator diagnostics"
 msgstr "Chẩn đoán trình giả lập"
 
-#: port/frontend/shell/settings.cpp:535
+#: port/frontend/shell/settings.cpp:536
 msgid "Cemu is still starting. One moment."
 msgstr "Cemu vẫn đang khởi động. Chờ một chút."
 
-#: port/frontend/shell/settings.cpp:535
+#: port/frontend/shell/settings.cpp:536
 msgid "Cemu did not start, so this cannot be changed."
 msgstr "Cemu không khởi động được, nên không thể đổi mục này."
 
-#: port/frontend/shell/settings.cpp:546
+#: port/frontend/shell/settings.cpp:547
 msgid "The menus' language, and the games' names where they have one in it."
 msgstr "Ngôn ngữ của menu, và của tên trò chơi khi trò chơi có tên bằng ngôn ngữ đó."
 
-#: port/frontend/shell/settings.cpp:547
+#: port/frontend/shell/settings.cpp:548
 msgid "PS5-ECAM speaks the PS5's own language unless you choose another here; the first start's Setup check has the same choice. A game's name follows it where the game has one in that language, as on a console set to it; otherwise it is the English one. Descriptions come from GameTDB in English, and graphic packs from their authors, as they wrote them."
 msgstr "PS5-ECAM dùng ngôn ngữ của PS5 trừ khi bạn chọn ngôn ngữ khác ở đây; Kiểm tra thiết lập ở lần khởi động đầu cũng có lựa chọn này. Tên trò chơi theo ngôn ngữ này khi trò chơi có tên bằng ngôn ngữ đó, như trên máy được đặt ngôn ngữ ấy; nếu không thì là tên tiếng Anh. Mô tả lấy từ GameTDB bằng tiếng Anh, còn gói đồ họa lấy từ tác giả, giữ nguyên như họ viết."
 
-#: port/frontend/shell/settings.cpp:553 port/frontend/shell/settings.cpp:674
+#: port/frontend/shell/settings.cpp:554 port/frontend/shell/settings.cpp:675
 msgid "How the picture is scaled to the TV."
 msgstr "Cách co giãn hình lên TV."
 
-#: port/frontend/shell/settings.cpp:554
+#: port/frontend/shell/settings.cpp:555
 msgid "Bicubic is sharp, Bicubic Hermite a little softer, Bilinear softer still; Nearest neighbour keeps pixels square. AMD FSR 1 keeps edges clean for a game drawn below 4K, for a little more work by the GPU than Bicubic."
 msgstr "Bicubic sắc nét, Bicubic Hermite mềm hơn một chút, Bilinear còn mềm hơn; Nearest neighbour giữ điểm ảnh vuông. AMD FSR 1 giữ cạnh gọn cho trò chơi vẽ dưới 4K, chỉ tốn GPU hơn Bicubic một chút."
 
 #. Settings > Graphics: a row that opens the frame rate's settings (120 Hz output, frame pacing, frame generation)
-#: port/frontend/shell/settings.cpp:564
+#: port/frontend/shell/settings.cpp:565
 msgid "Frame rate"
 msgstr "Tốc độ khung hình"
 
 #. Settings > Graphics: a row that opens the frame rate's settings (120 Hz output, frame pacing, frame generation)
-#: port/frontend/shell/settings.cpp:564
+#: port/frontend/shell/settings.cpp:565
 msgid "120 Hz output, frame pacing and frame generation."
 msgstr "Xuất 120 Hz, nhịp khung hình và tạo khung hình."
 
-#: port/frontend/shell/settings.cpp:565
+#: port/frontend/shell/settings.cpp:566
 msgid "The display's refresh rate, a game held to an even frame rate, and a picture made between each two frames. Triangle on each says more."
 msgstr "Tần số làm mới của màn hình, trò chơi được giữ ở tốc độ khung hình đều, và một hình được tạo giữa mỗi hai khung hình. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:567
+#: port/frontend/shell/settings.cpp:568
 msgid "120 Hz output"
 msgstr "Xuất 120 Hz"
 
-#: port/frontend/shell/settings.cpp:567
+#: port/frontend/shell/settings.cpp:568
 msgid "For displays that take 120 Hz."
 msgstr "Cho màn hình hỗ trợ 120 Hz."
 
-#: port/frontend/shell/settings.cpp:568
+#: port/frontend/shell/settings.cpp:569
 msgid "The 119.88 Hz mode, on displays that support it. Games still run at their own speed, and a frame that misses a refresh waits 8 ms for the next instead of 17."
 msgstr "Chế độ 119,88 Hz, trên màn hình hỗ trợ. Trò chơi vẫn chạy ở tốc độ của nó, và một khung hình lỡ một lần làm mới chỉ chờ 8 ms cho lần tiếp theo thay vì 17."
 
-#: port/frontend/shell/settings.cpp:574
+#: port/frontend/shell/settings.cpp:575
 msgid "Holds a game to an even frame rate."
 msgstr "Giữ trò chơi ở tốc độ khung hình đều."
 
-#: port/frontend/shell/settings.cpp:575
+#: port/frontend/shell/settings.cpp:576
 msgid "Each frame stays on screen for at least two or three refreshes, so a game that cannot hold the display's rate runs at an even one: 60 or 40 fps with 120 Hz output, 30 or 20 without. 60 fps with 120 Hz output suits a game at 4K that sometimes drops under 60; 30 fps at 60 Hz suits one at 8K. Also in the in-game menu."
 msgstr "Mỗi khung hình ở trên màn hình ít nhất hai hoặc ba lần làm mới, nên trò chơi không giữ được tốc độ của màn hình sẽ chạy ở một tốc độ đều: 60 hoặc 40 fps khi xuất 120 Hz, 30 hoặc 20 khi không. 60 fps với xuất 120 Hz hợp với trò chơi ở 4K đôi khi tụt dưới 60; 30 fps ở 60 Hz hợp với trò chơi ở 8K. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:651 port/frontend/shell/settings.cpp:727
+#: port/frontend/shell/settings.cpp:581 port/frontend/shell/settings.cpp:652 port/frontend/shell/settings.cpp:728
 msgid "A game held to 30 fps shown at 60."
 msgstr "Trò chơi khóa ở 30 fps được hiển thị ở 60."
 
-#: port/frontend/shell/settings.cpp:581 port/frontend/shell/settings.cpp:652
+#: port/frontend/shell/settings.cpp:582 port/frontend/shell/settings.cpp:653
 msgid "MihawkGen makes a picture between each two frames of a game that takes two refreshes a frame or more, so a game at 30 fps is shown at 60, or at 60 with 120 Hz output. A game that runs faster is shown as it is. It costs the GPU about 2 ms a picture at 4K, and adds a little delay. Also in the in-game menu."
 msgstr "MihawkGen tạo một khung hình giữa mỗi hai khung hình của trò chơi cần hai lần làm mới trở lên cho mỗi khung hình, nên trò chơi 30 fps hiển thị ở 60, hoặc ở 60 với đầu ra 120 Hz. Trò chơi chạy nhanh hơn được hiển thị như vốn có. GPU tốn khoảng 2 ms mỗi khung hình ở 4K và thêm một chút độ trễ. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:587
+#: port/frontend/shell/settings.cpp:588
 msgid "Your ReShade preset and effects, from {0}."
 msgstr "Preset và hiệu ứng ReShade của bạn, từ {0}."
 
-#: port/frontend/shell/settings.cpp:588
+#: port/frontend/shell/settings.cpp:589
 msgid "Runs a ReShade preset made on a PC over the game's picture, before the GamePad's screen and the menus. Put ReShadePreset.ini (or presets/<title ID>.ini for one game) with the Shaders and Textures folders it uses in {0}. Compiled as the game starts; the boot log says what runs. Also in the in-game menu."
 msgstr "Áp dụng một preset ReShade làm trên PC lên hình ảnh trò chơi, trước màn hình GamePad và các menu. Đặt ReShadePreset.ini (hoặc presets/<ID tựa game>.ini cho một trò chơi) cùng các thư mục Shaders và Textures mà nó dùng vào {0}. Được biên dịch khi trò chơi bắt đầu; nhật ký khởi động cho biết cái gì chạy. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:593
+#: port/frontend/shell/settings.cpp:594
 msgid "Frame rate, CPU and memory in a corner."
 msgstr "Tốc độ khung hình, CPU và bộ nhớ ở một góc."
 
-#: port/frontend/shell/settings.cpp:594
+#: port/frontend/shell/settings.cpp:595
 msgid "Frames per second, CPU and memory use in the top left corner, as Cemu shows them. Also in the in-game menu."
 msgstr "Số khung hình mỗi giây, mức dùng CPU và bộ nhớ ở góc trên bên trái, như Cemu hiển thị. Cũng có trong menu trong trò chơi."
 
 #. Settings > Graphics: a row that opens the shaders' settings
 #. Settings > Graphics' Shaders row, its value: where the 3DS's vertex shaders run, on the GPU (Hardware) or on the CPU (Software)
-#: port/frontend/shell/settings.cpp:597 port/frontend/shell/settings.cpp:630
+#: port/frontend/shell/settings.cpp:598 port/frontend/shell/settings.cpp:631
 msgid "Shaders"
 msgstr "Shader"
 
 #. Settings > Graphics: a row that opens the shaders' settings
-#: port/frontend/shell/settings.cpp:597
+#: port/frontend/shell/settings.cpp:598
 msgid "How new shaders are built, and Cemu's notes about them."
 msgstr "Cách shader mới được tạo, và thông báo của Cemu về chúng."
 
-#: port/frontend/shell/settings.cpp:598
+#: port/frontend/shell/settings.cpp:599
 msgid "Async shader compile, and the notes Cemu shows while a game builds its shaders. Triangle on each says more."
 msgstr "Biên dịch shader không đồng bộ, và thông báo Cemu hiện khi trò chơi tạo shader. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:599 port/frontend/shell/settings.cpp:646 port/frontend/shell/settings.cpp:999
+#: port/frontend/shell/settings.cpp:600 port/frontend/shell/settings.cpp:647 port/frontend/shell/settings.cpp:1000
 msgid "No stutter while new shaders build."
 msgstr "Không giật khi dựng shader mới."
 
-#: port/frontend/shell/settings.cpp:600 port/frontend/shell/settings.cpp:647 port/frontend/shell/settings.cpp:1000
+#: port/frontend/shell/settings.cpp:601 port/frontend/shell/settings.cpp:648 port/frontend/shell/settings.cpp:1001
 msgid "On, a new shader is built while the game carries on, so it does not stutter, but some things may be missing for a moment. Off, the game waits for each one: stutter, but nothing drawn wrong."
 msgstr "Khi bật, shader mới được dựng trong lúc trò chơi vẫn chạy, nên không giật, nhưng có thể thiếu vài thứ trong chốc lát. Khi tắt, trò chơi chờ từng shader: có giật, nhưng không vẽ sai gì."
 
-#: port/frontend/shell/settings.cpp:603
+#: port/frontend/shell/settings.cpp:604
 msgid "Cemu's \"compiled shaders\" notes over a game."
 msgstr "Ghi chú \"compiled shaders\" của Cemu trên trò chơi."
 
-#: port/frontend/shell/settings.cpp:604
+#: port/frontend/shell/settings.cpp:605
 msgid "The notes Cemu shows in a corner while a game builds its shaders and pipelines (\"Loaded 1200 shaders\"). Off hides them; the shaders are built either way. Also in the in-game menu."
 msgstr "Ghi chú Cemu hiện ở góc khi trò chơi dựng shader và pipeline (\"Loaded 1200 shaders\"). Tắt để ẩn; shader vẫn được dựng. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:610 port/frontend/shell/settings.cpp:666
+#: port/frontend/shell/settings.cpp:611 port/frontend/shell/settings.cpp:667
 msgid "Higher is sharper and asks more of the GPU."
 msgstr "Càng cao càng nét và càng nặng cho GPU."
 
-#: port/frontend/shell/settings.cpp:611
+#: port/frontend/shell/settings.cpp:612
 msgid "How large the 3DS's 3D scenes are drawn before they are scaled to the TV. Higher is sharper and asks more of the GPU, and each time a game reads a picture back the wait grows with it."
 msgstr "Kích thước vẽ cảnh 3D của 3DS trước khi co giãn lên TV. Càng cao càng nét và càng nặng cho GPU, và mỗi lần trò chơi đọc lại một hình, thời gian chờ cũng tăng theo."
 
-#: port/frontend/shell/settings.cpp:617 port/frontend/shell/settings.cpp:625
+#: port/frontend/shell/settings.cpp:618 port/frontend/shell/settings.cpp:626
 msgid "Custom textures"
 msgstr "Kết cấu tùy chỉnh"
 
 #. Settings > Graphics: a row that opens the textures' settings (the texture filter, custom textures)
-#: port/frontend/shell/settings.cpp:619
+#: port/frontend/shell/settings.cpp:620
 msgid "Textures"
 msgstr "Kết cấu"
 
 #. Settings > Graphics: a row that opens the textures' settings (the texture filter, custom textures)
-#: port/frontend/shell/settings.cpp:619
+#: port/frontend/shell/settings.cpp:620
 msgid "The texture filter, and texture packs."
 msgstr "Bộ lọc kết cấu và gói kết cấu."
 
-#: port/frontend/shell/settings.cpp:620
+#: port/frontend/shell/settings.cpp:621
 msgid "A filter that smooths the game's textures as they are scaled up, and texture packs of your own. Triangle on each says more."
 msgstr "Bộ lọc làm mịn kết cấu của trò chơi khi phóng to, và gói kết cấu của riêng bạn. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:621
+#: port/frontend/shell/settings.cpp:622
 msgid "Smooths textures as they are scaled up."
 msgstr "Làm mượt kết cấu khi phóng to."
 
-#: port/frontend/shell/settings.cpp:622
+#: port/frontend/shell/settings.cpp:623
 msgid "Smooths the game's textures as they are scaled up; None keeps them as the 3DS draws them. A filter redraws every texture at the internal resolution: at high resolutions it is the costliest setting. If a game stutters, try None first."
 msgstr "Làm mượt kết cấu của trò chơi khi phóng to; Không giữ chúng như 3DS vẽ. Bộ lọc vẽ lại mọi kết cấu ở độ phân giải nội bộ: ở độ phân giải cao, đây là mục tốn nhất. Nếu trò chơi bị giật, thử Không trước."
 
-#: port/frontend/shell/settings.cpp:625
+#: port/frontend/shell/settings.cpp:626
 msgid "Texture packs from azahar/load/textures."
 msgstr "Gói kết cấu từ azahar/load/textures."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:627
+#: port/frontend/shell/settings.cpp:628
 msgid "Texture packs in {0}/azahar/load/textures/<title ID>, as the desktop Azahar loads them."
 msgstr "Gói kết cấu trong {0}/azahar/load/textures/<title ID>, như Azahar trên máy tính tải chúng."
 
 #. Settings > Graphics' Shaders row, its value: where the 3DS's vertex shaders run, on the GPU (Hardware) or on the CPU (Software)
-#: port/frontend/shell/settings.cpp:630
+#: port/frontend/shell/settings.cpp:631
 msgctxt "shaders"
 msgid "Hardware"
 msgstr "Phần cứng"
 
 #. Settings > Graphics' Shaders row, its value: where the 3DS's vertex shaders run, on the GPU (Hardware) or on the CPU (Software)
-#: port/frontend/shell/settings.cpp:630
+#: port/frontend/shell/settings.cpp:631
 msgctxt "shaders"
 msgid "Software"
 msgstr "Phần mềm"
 
-#: port/frontend/shell/settings.cpp:631
+#: port/frontend/shell/settings.cpp:632
 msgid "Where the 3DS's shaders run, and how new ones are built."
 msgstr "Shader của 3DS chạy ở đâu, và shader mới được tạo thế nào."
 
-#: port/frontend/shell/settings.cpp:632
+#: port/frontend/shell/settings.cpp:633
 msgid "Hardware shaders, the outline fix for them, and async shader compile. Triangle on each says more."
 msgstr "Shader phần cứng, sửa viền cho chúng, và biên dịch shader không đồng bộ. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:633
+#: port/frontend/shell/settings.cpp:634
 msgid "Hardware shaders"
 msgstr "Shader phần cứng"
 
-#: port/frontend/shell/settings.cpp:633
+#: port/frontend/shell/settings.cpp:634
 msgid "Off: 3D drawn exactly, on the CPU. Off for Pokémon."
 msgstr "Tắt: vẽ 3D chính xác trên CPU. Tắt cho Pokémon."
 
-#: port/frontend/shell/settings.cpp:634
+#: port/frontend/shell/settings.cpp:635
 msgid "On, the 3DS's vertex shaders run on the PS5's GPU, the fastest way. Off, they run on the CPU as Azahar's software shaders: slower, but a model and the outline drawn around it are computed alike, and its lighting is corrected per triangle. Off by default for Pokémon X, Y, Omega Ruby, Alpha Sapphire, Sun, Moon, Ultra Sun and Ultra Moon, whose outlines, lighting and shadows glitch otherwise. Applies to the next game."
 msgstr "Khi bật, vertex shader của 3DS chạy trên GPU của PS5, cách nhanh nhất. Khi tắt, chúng chạy trên CPU dưới dạng shader phần mềm của Azahar: chậm hơn, nhưng mô hình và đường viền vẽ quanh nó được tính giống nhau, và ánh sáng được hiệu chỉnh theo từng tam giác. Mặc định tắt cho Pokémon X, Y, Omega Ruby, Alpha Sapphire, Sun, Moon, Ultra Sun và Ultra Moon, vốn bị lỗi viền, ánh sáng và bóng nếu không tắt. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:639
+#: port/frontend/shell/settings.cpp:640
 msgid "Outline fix"
 msgstr "Sửa viền"
 
-#: port/frontend/shell/settings.cpp:639
+#: port/frontend/shell/settings.cpp:640
 msgid "Fixes moving black dots on outlined 3D models."
 msgstr "Sửa các chấm đen di chuyển trên mô hình 3D có viền."
 
-#: port/frontend/shell/settings.cpp:640
+#: port/frontend/shell/settings.cpp:641
 msgid "Computes every 3D position the same way twice, as Azahar does on Apple's GPUs. For a game that shows moving black dots on its outlined models with hardware shaders on; the Pokémon games are drawn right with Hardware shaders off instead. Applies to the next game."
 msgstr "Tính mọi vị trí 3D theo cùng một cách ở cả hai lần, như Azahar làm trên GPU của Apple. Dành cho trò chơi hiện các chấm đen di chuyển trên mô hình có viền khi bật shader phần cứng; còn các trò chơi Pokémon được vẽ đúng khi tắt Shader phần cứng. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:656
+#: port/frontend/shell/settings.cpp:657
 msgid "3D for red and cyan glasses"
 msgstr "3D cho kính đỏ-xanh lơ"
 
-#: port/frontend/shell/settings.cpp:656
+#: port/frontend/shell/settings.cpp:657
 msgid "The 3DS's 3D, in red and cyan."
 msgstr "3D của 3DS, bằng màu đỏ và xanh lơ."
 
-#: port/frontend/shell/settings.cpp:657
+#: port/frontend/shell/settings.cpp:658
 msgid "The 3DS's 3D screen as both eyes' pictures in one, red for the left and cyan for the right, to see in 3D with red and cyan glasses, as Azahar's anaglyph mode makes it, the 3D slider all the way up. Colours change with it. Applies to the next game."
 msgstr "Màn hình 3D của 3DS gộp ảnh của hai mắt làm một, màu đỏ cho mắt trái và xanh lơ cho mắt phải, để xem 3D bằng kính đỏ-xanh lơ, như chế độ anaglyph của Azahar làm, với thanh trượt 3D ở mức cao nhất. Màu sắc sẽ thay đổi. Áp dụng cho trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:667
+#: port/frontend/shell/settings.cpp:668
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
 msgstr "Kích thước Eden vẽ trò chơi trước khi phóng lên TV, so với hình ảnh gốc của trò chơi: 1x là 1080p khi đặt trên đế và 720p khi cầm tay. Cao hơn thì nét hơn và đòi hỏi GPU nhiều hơn; 3x và 4x cần đủ bộ nhớ đồ họa. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:675
+#: port/frontend/shell/settings.cpp:676
 msgid "Bilinear is soft, Bicubic sharper; Nearest neighbour keeps pixels square. AMD FSR 1 keeps edges clean for a game drawn below 4K, for a little more work by the GPU."
 msgstr "Song tuyến mềm, Song khối nét hơn; Láng giềng gần nhất giữ điểm ảnh vuông. AMD FSR 1 giữ viền sạch cho trò chơi vẽ dưới 4K, đổi lại GPU làm việc thêm một chút."
 
 #. Settings > Graphics on the Switch side: a row that opens FSR sharpening, anti-aliasing and Eden's ReShade looks
-#: port/frontend/shell/settings.cpp:682
+#: port/frontend/shell/settings.cpp:683
 msgid "Picture effects"
 msgstr "Hiệu ứng hình ảnh"
 
 #. Settings > Graphics on the Switch side: a row that opens FSR sharpening, anti-aliasing and Eden's ReShade looks
-#: port/frontend/shell/settings.cpp:682
+#: port/frontend/shell/settings.cpp:683
 msgid "Sharpening, anti-aliasing and ReShade's looks."
 msgstr "Độ sắc nét, khử răng cưa và phong cách ReShade."
 
-#: port/frontend/shell/settings.cpp:683
+#: port/frontend/shell/settings.cpp:684
 msgid "FSR sharpening, while AMD FSR 1 scales the picture; Eden's anti-aliasing; and a ReShade look over the picture, Eden's own or one of yours. Triangle on each says more."
 msgstr "Độ sắc nét FSR, khi AMD FSR 1 phóng hình ảnh; khử răng cưa của Eden; và một phong cách ReShade phủ lên hình ảnh, của Eden hoặc của bạn. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:692
+#: port/frontend/shell/settings.cpp:693
 msgid "How much AMD FSR 1 sharpens the picture."
 msgstr "Mức AMD FSR 1 làm sắc nét hình ảnh."
 
-#: port/frontend/shell/settings.cpp:693
+#: port/frontend/shell/settings.cpp:694
 msgid "How much AMD FSR 1 sharpens the picture as it scales it to the TV: 100% is the most, and each step down halves it. Also in the in-game menu, where it changes at once."
 msgstr "Mức AMD FSR 1 làm sắc nét hình ảnh khi phóng lên TV: 100% là nhiều nhất, và mỗi bậc thấp hơn giảm một nửa. Cũng có trong menu trong trò chơi, nơi nó thay đổi ngay."
 
-#: port/frontend/shell/settings.cpp:697
+#: port/frontend/shell/settings.cpp:698
 msgid "Smooths the jagged edges of the picture."
 msgstr "Làm mịn các cạnh răng cưa của hình ảnh."
 
-#: port/frontend/shell/settings.cpp:698
+#: port/frontend/shell/settings.cpp:699
 msgid "Eden's anti-aliasing, over the game's picture: FXAA smooths edges lightly, SMAA more cleanly, each for a little more work by the GPU. Off, as Eden has it. Also in the in-game menu, where it changes at once."
 msgstr "Khử răng cưa của Eden, trên hình ảnh trò chơi: FXAA làm mịn cạnh nhẹ, SMAA gọn hơn, mỗi loại đổi lại GPU làm việc nhiều hơn một chút. Tắt, như Eden để. Cũng có trong menu trong trò chơi, nơi nó thay đổi ngay."
 
-#: port/frontend/shell/settings.cpp:703
+#: port/frontend/shell/settings.cpp:704
 msgid "ASTC textures"
 msgstr "Họa tiết ASTC"
 
-#: port/frontend/shell/settings.cpp:703
+#: port/frontend/shell/settings.cpp:704
 msgid "Compressed"
 msgstr "Nén"
 
-#: port/frontend/shell/settings.cpp:703
+#: port/frontend/shell/settings.cpp:704
 msgid "Full quality"
 msgstr "Chất lượng đầy đủ"
 
-#: port/frontend/shell/settings.cpp:704
+#: port/frontend/shell/settings.cpp:705
 msgid "Compressed saves graphics memory; full quality looks best."
 msgstr "Nén tiết kiệm bộ nhớ đồ họa; chất lượng đầy đủ đẹp nhất."
 
-#: port/frontend/shell/settings.cpp:705
+#: port/frontend/shell/settings.cpp:706
 msgid "Many Switch games keep their textures in ASTC, which the PS5's GPU cannot read: Eden converts them. Compressed keeps them small, as BC3; full quality keeps them as they are, at four times the graphics memory, for a game whose textures look blocky. Applies to the next game."
 msgstr "Nhiều trò chơi Switch lưu họa tiết dạng ASTC, mà GPU của PS5 không đọc được: Eden chuyển đổi chúng. Nén giữ chúng nhỏ, dạng BC3; chất lượng đầy đủ giữ nguyên, tốn gấp bốn lần bộ nhớ đồ họa, dành cho trò chơi có họa tiết trông bị vỡ khối. Áp dụng từ trò chơi tiếp theo."
 
 #. Settings > Graphics: a row that opens what Eden sends to the TV (output resolution, 120 Hz, frame generation)
-#: port/frontend/shell/settings.cpp:716
+#: port/frontend/shell/settings.cpp:717
 msgid "Output to the TV"
 msgstr "Xuất ra TV"
 
 #. Settings > Graphics: a row that opens what Eden sends to the TV (output resolution, 120 Hz, frame generation)
-#: port/frontend/shell/settings.cpp:716
+#: port/frontend/shell/settings.cpp:717
 msgid "The picture's size, 120 Hz and frame generation."
 msgstr "Kích thước hình, 120 Hz và tạo khung hình."
 
-#: port/frontend/shell/settings.cpp:717
+#: port/frontend/shell/settings.cpp:718
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
 msgstr "Kích thước hình Eden gửi tới TV, có gửi ở 120 Hz hay không, và tính năng tạo khung hình của ProsperoEden. Mỗi mục áp dụng từ trò chơi sau."
 
-#: port/frontend/shell/settings.cpp:719
+#: port/frontend/shell/settings.cpp:720
 msgid "Output resolution"
 msgstr "Độ phân giải đầu ra"
 
-#: port/frontend/shell/settings.cpp:720 port/frontend/shell/settings.cpp:721
+#: port/frontend/shell/settings.cpp:721 port/frontend/shell/settings.cpp:722
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
 msgstr "Kích thước hình ảnh Eden gửi tới TV. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:723
+#: port/frontend/shell/settings.cpp:724
 msgid "120 Hz"
 msgstr "120 Hz"
 
-#: port/frontend/shell/settings.cpp:723 port/frontend/shell/settings.cpp:724
+#: port/frontend/shell/settings.cpp:724 port/frontend/shell/settings.cpp:725
 msgid "For a TV that takes 120 Hz. Applies to the next game."
 msgstr "Cho TV nhận 120 Hz. Áp dụng từ trò chơi tiếp theo."
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
-#: port/frontend/shell/settings.cpp:729
+#: port/frontend/shell/settings.cpp:730
 msgid "ProsperoEden's own frame generation: a picture made between each two frames, so a game at 30 fps is shown at 60. It is Lossless Scaling's when your own copy of its Lossless.dll is at {0}, else MihawkGen's. It asks more of the GPU and adds a little delay. Applies to the next game."
 msgstr "Tính năng tạo khung hình riêng của ProsperoEden: một khung hình được tạo giữa mỗi hai khung hình, nên trò chơi 30 fps hiển thị ở 60. Đó là của Lossless Scaling khi bản sao Lossless.dll của riêng bạn nằm ở {0}, nếu không thì của MihawkGen. Tốn GPU hơn và thêm một chút độ trễ. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:740
+#: port/frontend/shell/settings.cpp:741
 msgid "How the DS's screens are scaled."
 msgstr "Cách co giãn màn hình của DS."
 
-#: port/frontend/shell/settings.cpp:741
+#: port/frontend/shell/settings.cpp:742
 msgid "How the DS's 256 x 192 screens are scaled to the TV. Sharp keeps every pixel square and even at any size; Smooth blurs them together; Square pixels takes the nearest, uneven where the size is not a whole number. The in-game menu changes it too."
 msgstr "Cách co giãn màn hình 256 x 192 của DS lên TV. Sắc nét giữ mọi điểm ảnh vuông và đều ở mọi kích cỡ; Mượt làm chúng hòa vào nhau; Điểm ảnh vuông lấy điểm gần nhất, không đều khi kích cỡ không phải bội số nguyên. Menu trong trò chơi cũng đổi được."
 
-#: port/frontend/shell/settings.cpp:747
+#: port/frontend/shell/settings.cpp:748
 msgid "Recompiler"
 msgstr "Trình biên dịch lại"
 
-#: port/frontend/shell/settings.cpp:748
+#: port/frontend/shell/settings.cpp:749
 msgid "melonDS's JIT: much faster than its interpreter."
 msgstr "JIT của melonDS: nhanh hơn nhiều so với trình thông dịch của nó."
 
-#: port/frontend/shell/settings.cpp:748
+#: port/frontend/shell/settings.cpp:749
 msgid "No executable memory: the slower interpreter runs."
 msgstr "Không có bộ nhớ thực thi: trình thông dịch chậm hơn sẽ chạy."
 
-#: port/frontend/shell/settings.cpp:749
+#: port/frontend/shell/settings.cpp:750
 msgid "Runs the DS's two CPUs on melonDS's recompiler, in the executable memory the PS5 gives (Diagnostics says whether it does), much faster than its interpreter. Off: the interpreter, slower, for a game the recompiler gets wrong. Applies to the next game."
 msgstr "Chạy hai CPU của DS bằng trình biên dịch lại của melonDS, trong bộ nhớ thực thi mà PS5 cấp (Chẩn đoán cho biết có hay không), nhanh hơn nhiều so với trình thông dịch. Tắt: trình thông dịch, chậm hơn, cho trò chơi mà trình biên dịch lại chạy sai. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:758
+#: port/frontend/shell/settings.cpp:759
 msgid "Screen layout"
 msgstr "Bố cục màn hình"
 
-#: port/frontend/shell/settings.cpp:758
+#: port/frontend/shell/settings.cpp:759
 msgid "How the two screens share the TV."
 msgstr "Cách hai màn hình chia nhau TV."
 
-#: port/frontend/shell/settings.cpp:759
+#: port/frontend/shell/settings.cpp:760
 msgid "One above the other, the top one alone, the top one large with the bottom one beside it, or the two side by side. In a game, touchpad click + R1 goes to the next."
 msgstr "Một trên một dưới, chỉ màn hình trên, màn hình trên lớn với màn hình dưới bên cạnh, hoặc hai màn hình cạnh nhau. Trong trò chơi, nhấn bàn di cảm ứng + R1 để sang bố cục tiếp theo."
 
-#: port/frontend/shell/settings.cpp:764
+#: port/frontend/shell/settings.cpp:765
 msgid "For the games held on their side, like a book."
 msgstr "Cho các trò chơi cầm nghiêng như cầm sách."
 
-#: port/frontend/shell/settings.cpp:765
+#: port/frontend/shell/settings.cpp:766
 msgid "Turns the DS's two screens together, a quarter turn at a time, for the games played with the DS held on its side, like a book (Hotel Dusk). The touchpad moves the cursor over the bottom screen as the TV shows it. The in-game menu changes it too."
 msgstr "Xoay cả hai màn hình của DS cùng nhau, mỗi lần một phần tư vòng, cho các trò chơi cầm DS nghiêng như cầm sách (Hotel Dusk). Bàn di cảm ứng di chuyển con trỏ trên màn hình dưới theo cách TV hiển thị. Menu trong trò chơi cũng đổi được."
 
-#: port/frontend/shell/settings.cpp:768
+#: port/frontend/shell/settings.cpp:769
 msgid "Turns the 3DS's two screens together, a quarter turn at a time, for the games played with the 3DS held on its side, like a book. The touchpad moves the cursor over the bottom screen as the TV shows it. The in-game menu changes it too."
 msgstr "Xoay cả hai màn hình của 3DS cùng nhau, mỗi lần một phần tư vòng, cho các trò chơi cầm 3DS nghiêng như cầm sách. Bàn di cảm ứng di chuyển con trỏ trên màn hình dưới theo cách TV hiển thị. Menu trong trò chơi cũng đổi được."
 
-#: port/frontend/shell/settings.cpp:773
+#: port/frontend/shell/settings.cpp:774
 msgid "The two screens held apart, as the hinge holds them."
 msgstr "Hai màn hình tách nhau ra, như bản lề giữ chúng."
 
-#: port/frontend/shell/settings.cpp:774
+#: port/frontend/shell/settings.cpp:775
 msgid "A gap between the two screens wherever both show: one above the other, side by side, or turned like a book. A game can have its own; the in-game menu's quick actions change it too."
 msgstr "Một khoảng hở giữa hai màn hình ở mọi nơi cả hai cùng hiện: trên dưới, cạnh nhau hoặc xoay như cầm sách. Mỗi trò chơi có thể có thiết lập riêng; các thao tác nhanh của menu trong trò chơi cũng đổi được."
 
-#: port/frontend/shell/settings.cpp:779
+#: port/frontend/shell/settings.cpp:780
 msgid "The touchpad touches it while only the top screen shows."
 msgstr "Bàn di cảm ứng chạm vào nó khi chỉ có màn hình trên hiện ra."
 
-#: port/frontend/shell/settings.cpp:780
+#: port/frontend/shell/settings.cpp:781
 msgid "With the top screen alone on the TV, the touchpad still touches the bottom screen: its cursor moves over the top screen as if the bottom one were there, for the games that ask for a touch now and then (Star Fox 64 3D). Off, the touchpad touches only a bottom screen that is shown. A game can have its own; the in-game menu changes it too."
 msgstr "Khi TV chỉ có màn hình trên, bàn di cảm ứng vẫn chạm vào màn hình dưới: con trỏ di chuyển trên màn hình trên như thể màn hình dưới ở đó, cho các trò chơi thỉnh thoảng cần chạm (Star Fox 64 3D). Khi tắt, bàn di cảm ứng chỉ chạm vào màn hình dưới đang hiện. Mỗi trò chơi có thể có thiết lập riêng; menu trong trò chơi cũng đổi được."
 
-#: port/frontend/shell/settings.cpp:784
+#: port/frontend/shell/settings.cpp:785
 msgid "Artwork around the screens."
 msgstr "Hình trang trí quanh màn hình."
 
-#: port/frontend/shell/settings.cpp:785
+#: port/frontend/shell/settings.cpp:786
 msgid "Artwork around the screens, never over them. It follows every layout, and the in-game menu changes it too."
 msgstr "Hình trang trí quanh màn hình, không bao giờ đè lên. Theo mọi bố cục, và menu trong trò chơi cũng đổi được."
 
-#: port/frontend/shell/settings.cpp:795
+#: port/frontend/shell/settings.cpp:796
 msgid "Moves and scales where the touchpad's cursor lands on the DS's screens, for a game where it is off: 0% and 100% leave it as it is. The remote touch screen is not changed. Applies to the next game."
 msgstr "Dời và co giãn điểm con trỏ bàn di cảm ứng chạm vào màn hình DS, cho trò chơi bị lệch: 0% và 100% giữ nguyên. Màn hình cảm ứng trên điện thoại không đổi. Áp dụng từ trò chơi tiếp theo."
 
 #. Settings > Screens' Touch row, its value: the right stick is the stylus
-#: port/frontend/shell/settings.cpp:801
+#: port/frontend/shell/settings.cpp:802
 msgid "Stick as stylus"
 msgstr "Cần làm bút"
 
 #. Settings > Screens: a row that opens the touch screen's settings (where the touchpad's cursor lands, the right stick as the stylus)
-#: port/frontend/shell/settings.cpp:803
+#: port/frontend/shell/settings.cpp:804
 msgid "Touch"
 msgstr "Chạm"
 
 #. Settings > Screens: a row that opens the touch screen's settings (where the touchpad's cursor lands, the right stick as the stylus)
 #. Settings > Performance: a row that opens Eden's accuracy shortcuts (Fast GPU, Unsafe CPU, ...); its value: how many are changed
 #. Settings > Launcher: a row that opens Larger text, High contrast, Reduce motion and Hold to confirm
-#: port/frontend/shell/settings.cpp:803 port/frontend/shell/settings.cpp:1010 port/frontend/shell/settings.cpp:1481 port/frontend/shell/shell.cpp:1552 port/frontend/shell/switch_extras.cpp:73 port/frontend/shell/widgets.cpp:349
+#: port/frontend/shell/settings.cpp:804 port/frontend/shell/settings.cpp:1011 port/frontend/shell/settings.cpp:1482 port/frontend/shell/shell.cpp:1552 port/frontend/shell/switch_extras.cpp:73 port/frontend/shell/widgets.cpp:349
 msgid "Default"
 msgstr "Mặc định"
 
-#: port/frontend/shell/settings.cpp:804
+#: port/frontend/shell/settings.cpp:805
 msgid "Where the touchpad's cursor lands, and the right stick as the stylus."
 msgstr "Nơi con trỏ của bàn di chạm rơi vào, và cần phải làm bút cảm ứng."
 
-#: port/frontend/shell/settings.cpp:805
+#: port/frontend/shell/settings.cpp:806
 msgid "Moves and scales where the touchpad's cursor lands on the DS's screens, for a game where it is off, and lets the right stick drag a touch on the bottom screen. Triangle on each says more."
 msgstr "Dịch và co giãn nơi con trỏ của bàn di chạm rơi vào trên màn hình DS, cho trò chơi bị lệch, và cho cần phải kéo một lần chạm trên màn hình dưới. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:807
+#: port/frontend/shell/settings.cpp:808
 msgid "Touch, left or right"
 msgstr "Chạm, trái hoặc phải"
 
-#: port/frontend/shell/settings.cpp:808
+#: port/frontend/shell/settings.cpp:809
 msgid "Touch, up or down"
 msgstr "Chạm, lên hoặc xuống"
 
-#: port/frontend/shell/settings.cpp:809
+#: port/frontend/shell/settings.cpp:810
 msgid "Touch, scale"
 msgstr "Chạm, tỉ lệ"
 
 #. a DS setting: the right stick as the touch screen's stylus (DraStic has it), for Metroid Prime Hunters' aiming
-#: port/frontend/shell/settings.cpp:811
+#: port/frontend/shell/settings.cpp:812
 msgid "The right stick as the stylus"
 msgstr "Cần phải làm bút cảm ứng"
 
 #. a DS setting: the right stick as the touch screen's stylus (DraStic has it), for Metroid Prime Hunters' aiming
-#: port/frontend/shell/settings.cpp:811
+#: port/frontend/shell/settings.cpp:812
 msgid "Pushed, it drags a touch on the bottom screen."
 msgstr "Khi đẩy, nó kéo một lần chạm trên màn hình dưới."
 
-#: port/frontend/shell/settings.cpp:812
+#: port/frontend/shell/settings.cpp:813
 msgid "Push the right stick and the bottom screen is touched in its middle, the touch dragged as you push and lifted when you let go: Metroid Prime Hunters aims that way. The stick's directions do nothing else then. Applies to the next game."
 msgstr "Đẩy cần phải thì màn hình dưới được chạm ở giữa; điểm chạm được kéo theo khi bạn đẩy và nhấc lên khi bạn thả: Metroid Prime Hunters ngắm theo cách đó. Khi đó các hướng của cần không làm gì khác. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:820
+#: port/frontend/shell/settings.cpp:821
 msgid "The DualSense's rumble, in games and in the launcher."
 msgstr "Rung của DualSense, trong trò chơi và trong trình khởi chạy."
 
-#: port/frontend/shell/settings.cpp:821
+#: port/frontend/shell/settings.cpp:822
 msgid "Off, the DualSense never rumbles, in games or in the launcher. The same on every side."
 msgstr "Khi tắt, DualSense không bao giờ rung, trong trò chơi hay trình khởi chạy. Như nhau ở mọi bên."
 
-#: port/frontend/shell/settings.cpp:823 port/frontend/shell/settings.cpp:877
+#: port/frontend/shell/settings.cpp:824 port/frontend/shell/settings.cpp:878
 msgid "How far a stick moves before it counts."
 msgstr "Cần phải di chuyển bao xa mới được tính."
 
-#: port/frontend/shell/settings.cpp:824
+#: port/frontend/shell/settings.cpp:825
 msgid "How far a stick moves before the game sees it, for both sticks. Raise it if a character or the camera drifts when you let go of the stick; lower it for finer control. Also in the in-game menu."
 msgstr "Cần phải di chuyển bao xa trước khi trò chơi nhận thấy, cho cả hai cần. Tăng lên nếu nhân vật hoặc camera trôi khi bạn thả cần; giảm xuống để điều khiển tinh hơn. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:831
+#: port/frontend/shell/settings.cpp:832
 msgid "Turbo button"
 msgstr "Nút turbo"
 
-#: port/frontend/shell/settings.cpp:831
+#: port/frontend/shell/settings.cpp:832
 msgid "Hold it and it presses again and again by itself."
 msgstr "Giữ nút và nó tự nhấn liên tục."
 
-#: port/frontend/shell/settings.cpp:832
+#: port/frontend/shell/settings.cpp:833
 msgid "Choose a DualSense button: while you hold it in a game, it presses and lets go by itself about fifteen times a second, for games that make you mash. The button keeps whatever it is mapped to. None turns it off. Every player on this side has it."
 msgstr "Chọn một nút DualSense: khi bạn giữ nó trong trò chơi, nó tự nhấn và nhả khoảng mười lăm lần mỗi giây, cho các trò chơi bắt bạn nhấn liên tục. Nút vẫn giữ chức năng được gán. Không để tắt. Mọi người chơi ở bên này đều có."
 
 #. Settings > Controls: a row that opens the buttons' settings (each button, the defaults)
-#: port/frontend/shell/settings.cpp:841
+#: port/frontend/shell/settings.cpp:842
 msgid "Each button, and the defaults."
 msgstr "Từng nút và mặc định."
 
-#: port/frontend/shell/settings.cpp:842
+#: port/frontend/shell/settings.cpp:843
 msgid "Which DualSense button presses each of the Switch's buttons, and the buttons and deadzone back as they were."
 msgstr "Nút nào của DualSense nhấn từng nút của Switch, và đưa các nút cùng vùng chết về như ban đầu."
 
 #. Settings > Controls > Buttons: the row that opens the list of every button and the DualSense button on it
-#: port/frontend/shell/settings.cpp:844 port/frontend/shell/settings.cpp:896
+#: port/frontend/shell/settings.cpp:845 port/frontend/shell/settings.cpp:897
 msgid "Each button"
 msgstr "Từng nút"
 
-#: port/frontend/shell/settings.cpp:845
+#: port/frontend/shell/settings.cpp:846
 msgid "Which DualSense button presses each of the Switch's buttons. A is on Circle and B on Cross by default, where the Switch has them; + is Options and - the touchpad's click. The D-pad and the sticks stay the Switch's own."
 msgstr "Nút DualSense nào nhấn từng nút của Switch. Mặc định A ở nút Tròn và B ở nút Chữ thập, đúng chỗ trên Switch; + là Options và - là cú nhấn bàn di cảm ứng. D-pad và các cần vẫn là của Switch."
 
-#: port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:848 port/frontend/shell/settings.cpp:903
+#: port/frontend/shell/settings.cpp:849 port/frontend/shell/settings.cpp:849 port/frontend/shell/settings.cpp:904
 msgid "Default buttons and deadzone."
 msgstr "Nút và vùng chết mặc định."
 
-#: port/frontend/shell/settings.cpp:858
+#: port/frontend/shell/settings.cpp:859
 msgid "Cross: this player's controller, motion and buttons."
 msgstr "Chữ thập: tay cầm, chuyển động và nút của người chơi này."
 
-#: port/frontend/shell/settings.cpp:858
+#: port/frontend/shell/settings.cpp:859
 msgid "No DualSense for this player yet."
 msgstr "Người chơi này chưa có DualSense."
 
-#: port/frontend/shell/settings.cpp:859
+#: port/frontend/shell/settings.cpp:860
 msgid "What the game sees in this player's hands, and its motion, vibration, deadzones and buttons. Player 1 is the signed-in user who started the app; the other signed-in users' DualSenses are players 2 to 4."
 msgstr "Thứ trò chơi thấy trong tay người chơi này, cùng chuyển động, rung, vùng chết và nút. Người chơi 1 là người dùng đã đăng nhập mở ứng dụng; DualSense của những người dùng đã đăng nhập khác là người chơi 2 đến 4."
 
-#: port/frontend/shell/settings.cpp:870
+#: port/frontend/shell/settings.cpp:871
 msgid "Where A is: on Circle, as on the console, or on Cross."
 msgstr "Vị trí của A: ở nút Tròn như trên máy, hoặc ở nút Chữ thập."
 
-#: port/frontend/shell/settings.cpp:871
+#: port/frontend/shell/settings.cpp:872
 msgid "A on Circle and B on Cross, where the console has them, or A on Cross and B on Circle, as PlayStation games confirm. X and Y swap to match. Also in the in-game menu."
 msgstr "A ở nút Tròn và B ở nút Chữ thập, như vị trí trên máy, hoặc A ở nút Chữ thập và B ở nút Tròn, như trò chơi PlayStation xác nhận. X và Y đổi chỗ cho khớp. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:875
+#: port/frontend/shell/settings.cpp:876
 msgid "The DualSense's motion as the 3DS's."
 msgstr "Chuyển động của DualSense thay cho của 3DS."
 
-#: port/frontend/shell/settings.cpp:876
+#: port/frontend/shell/settings.cpp:877
 msgid "The DualSense's gyroscope and accelerometer as the 3DS's own, for the games that aim or steer by tilting it."
 msgstr "Con quay hồi chuyển và gia tốc kế của DualSense thay cho của chính 3DS, cho các trò chơi ngắm hoặc lái bằng cách nghiêng máy."
 
-#: port/frontend/shell/settings.cpp:878
+#: port/frontend/shell/settings.cpp:879
 msgid "How far a stick moves before the game sees it, for the circle pad and the C-stick. Raise it if something drifts when you let go of the stick; lower it for finer control."
 msgstr "Cần phải di chuyển bao xa thì trò chơi mới nhận, cho Circle Pad và C-Stick. Tăng lên nếu có gì tự trôi khi bạn thả cần; giảm xuống để điều khiển tinh hơn."
 
-#: port/frontend/shell/settings.cpp:880
+#: port/frontend/shell/settings.cpp:881
 msgid "How far the left stick moves before it presses the DS's D-pad. Raise it if a direction is pressed when you let go of the stick."
 msgstr "Cần trái phải di chuyển bao xa thì mới nhấn D-pad của DS. Tăng lên nếu một hướng vẫn bị nhấn khi bạn thả cần."
 
-#: port/frontend/shell/settings.cpp:893
+#: port/frontend/shell/settings.cpp:894
 msgid "Each button, the turbo button, and the defaults."
 msgstr "Từng nút, nút turbo và mặc định."
 
-#: port/frontend/shell/settings.cpp:894
+#: port/frontend/shell/settings.cpp:895
 msgid "Which DualSense button presses each button, a button that presses again and again while you hold it, and the controls back as they were."
 msgstr "Nút nào của DualSense nhấn từng nút, một nút tự nhấn liên tục khi bạn giữ, và đưa điều khiển về như ban đầu."
 
-#: port/frontend/shell/settings.cpp:897
+#: port/frontend/shell/settings.cpp:898
 msgid "Which DualSense button presses each of the 3DS's buttons. A is on Circle and B on Cross by default, where the 3DS has them; the circle pad is the left stick, the C-stick the right one, and the touchpad the touch screen."
 msgstr "Nút DualSense nào nhấn từng nút của 3DS. Theo mặc định A ở nút Tròn và B ở nút Chữ thập, như vị trí trên 3DS; Circle Pad là cần trái, C-Stick là cần phải, và bàn di cảm ứng là màn hình cảm ứng."
 
-#: port/frontend/shell/settings.cpp:899
+#: port/frontend/shell/settings.cpp:900
 msgid "Which DualSense button presses each of the DS's buttons. A is on Circle and B on Cross by default, where the DS has them; the left stick is a second D-pad, the touchpad the touch screen, and holding R3 blows into the microphone."
 msgstr "Nút DualSense nào nhấn từng nút của DS. Theo mặc định A ở nút Tròn và B ở nút Chữ thập, như vị trí trên DS; cần trái là D-pad thứ hai, bàn di cảm ứng là màn hình cảm ứng, và giữ R3 để thổi vào micrô."
 
-#: port/frontend/shell/settings.cpp:903
+#: port/frontend/shell/settings.cpp:904
 msgid "Default buttons, motion and deadzone."
 msgstr "Nút, chuyển động và vùng chết mặc định."
 
-#: port/frontend/shell/settings.cpp:903
+#: port/frontend/shell/settings.cpp:904
 msgid "The default buttons, motion and deadzone."
 msgstr "Nút, chuyển động và vùng chết mặc định."
 
-#: port/frontend/shell/settings.cpp:912
+#: port/frontend/shell/settings.cpp:913
 msgid "Region"
 msgstr "Khu vực"
 
-#: port/frontend/shell/settings.cpp:912
+#: port/frontend/shell/settings.cpp:913
 msgid "The emulated 3DS's region."
 msgstr "Khu vực của 3DS giả lập."
 
-#: port/frontend/shell/settings.cpp:913
+#: port/frontend/shell/settings.cpp:914
 msgid "Automatic takes each game's own region. A game made for another region may refuse to start or show other languages. Applies to the next game."
 msgstr "Tự động lấy khu vực riêng của từng trò chơi. Trò chơi làm cho khu vực khác có thể không chịu khởi động hoặc hiện ngôn ngữ khác. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:916
+#: port/frontend/shell/settings.cpp:917
 msgid "The emulated 3DS's language."
 msgstr "Ngôn ngữ của 3DS giả lập."
 
-#: port/frontend/shell/settings.cpp:917
+#: port/frontend/shell/settings.cpp:918
 msgid "The language games that follow the console's show their text in. Applies to the next game."
 msgstr "Ngôn ngữ mà các trò chơi theo ngôn ngữ của máy dùng để hiện chữ. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:922
+#: port/frontend/shell/settings.cpp:923
 msgid "The emulated 3DS's CPU speed."
 msgstr "Tốc độ CPU của 3DS giả lập."
 
-#: port/frontend/shell/settings.cpp:923
+#: port/frontend/shell/settings.cpp:924
 msgid "How fast the emulated CPU runs, against a 3DS's: higher can steady a game that slows down where a 3DS would not, and asks more of the PS5; lower can speed up one held back by its own pacing. 100% is a 3DS. Also in the in-game menu."
 msgstr "CPU giả lập chạy nhanh đến đâu so với 3DS: cao hơn có thể giúp ổn định trò chơi bị chậm ở chỗ 3DS không chậm, và nặng hơn cho PS5; thấp hơn có thể tăng tốc trò chơi bị nhịp riêng của nó kìm lại. 100% là 3DS. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:926
+#: port/frontend/shell/settings.cpp:927
 msgid "Home Menu"
 msgstr "HOME Menu"
 
-#: port/frontend/shell/settings.cpp:926
+#: port/frontend/shell/settings.cpp:927
 msgid "Start"
 msgstr "Khởi động"
 
-#: port/frontend/shell/settings.cpp:926
+#: port/frontend/shell/settings.cpp:927
 msgid "Run Artic Setup first"
 msgstr "Chạy Artic Setup trước"
 
-#: port/frontend/shell/settings.cpp:927
+#: port/frontend/shell/settings.cpp:928
 msgid "The 3DS Home Menu, from your console's files."
 msgstr "HOME Menu của 3DS, từ tệp của máy bạn."
 
-#: port/frontend/shell/settings.cpp:928
+#: port/frontend/shell/settings.cpp:929
 msgid "Starts the 3DS Home Menu, once Artic Base's setup has copied your own console's system files (Artic Base)."
 msgstr "Khởi động HOME Menu của 3DS, sau khi phần thiết lập của Artic Base đã sao chép tệp hệ thống từ máy của bạn (Artic Base)."
 
-#: port/frontend/shell/settings.cpp:935
+#: port/frontend/shell/settings.cpp:936
 msgid "Docked: the TV's picture. Handheld: the console's own screen's."
 msgstr "Trên đế: hình ảnh cho TV. Cầm tay: hình ảnh cho màn hình của máy."
 
-#: port/frontend/shell/settings.cpp:936
+#: port/frontend/shell/settings.cpp:937
 msgid "Docked, games draw for a TV, at their sharpest (1080p for most); handheld, for the console's own screen (720p), which asks less of the GPU. A few games look or play differently in each. Applies to the next game."
 msgstr "Trên đế, trò chơi vẽ cho TV, nét nhất có thể (đa số là 1080p); khi cầm tay, vẽ cho màn hình của máy (720p), đỡ tốn GPU hơn. Một vài trò chơi trông hoặc chơi khác nhau ở mỗi chế độ. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:943
+#: port/frontend/shell/settings.cpp:944
 msgid "What a game sees in your hands."
 msgstr "Thứ một trò chơi thấy trong tay bạn."
 
-#: port/frontend/shell/settings.cpp:944
+#: port/frontend/shell/settings.cpp:945
 msgid "Automatic gives each game the controller it takes: a Pro Controller for most. A game that does not work with one may with a Joy-Con pair; Handheld is player 1's alone, for games played on the console's own screen. Also in the in-game menu."
 msgstr "Tự động đưa cho mỗi trò chơi tay cầm nó nhận: một Pro Controller cho hầu hết. Một trò chơi không chạy với nó có thể chạy với cặp Joy-Con; Cầm tay chỉ dành cho người chơi 1, cho các trò chơi chơi trên màn hình của chính máy. Cũng có trong menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:954
+#: port/frontend/shell/settings.cpp:955
 msgid "As a share of the Switch's own speed. Above 100%, a game held to 30 fps can reach 60 where the PS5 has the time to spare, and a game that keeps time by its frames plays faster. None runs as fast as the PS5 can. Applies to the next game."
 msgstr "Tính theo tỉ lệ tốc độ gốc của Switch. Trên 100%, trò chơi bị khóa ở 30 fps có thể đạt 60 khi PS5 còn dư thời gian, và trò chơi tính giờ bằng khung hình của nó sẽ chạy nhanh hơn. Không chạy nhanh hết mức PS5 có thể. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:962 port/frontend/shell/settings.cpp:963
+#: port/frontend/shell/settings.cpp:963 port/frontend/shell/settings.cpp:964
 msgid "The language Switch games see. Automatic: the menus' own."
 msgstr "Ngôn ngữ mà trò chơi Switch thấy. Tự động: ngôn ngữ của menu."
 
-#: port/frontend/shell/settings.cpp:969
+#: port/frontend/shell/settings.cpp:970
 msgid "Memory"
 msgstr "Bộ nhớ"
 
-#: port/frontend/shell/settings.cpp:970 port/frontend/shell/settings.cpp:971
+#: port/frontend/shell/settings.cpp:971 port/frontend/shell/settings.cpp:972
 msgid "4 GB is the Switch's own. More, for mods that ask for it. Applies to the next game."
 msgstr "4 GB là của chính Switch. Nhiều hơn, cho các mod yêu cầu. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:981
+#: port/frontend/shell/settings.cpp:982
 msgid "Compact memory"
 msgstr "Bộ nhớ gọn"
 
-#: port/frontend/shell/settings.cpp:981
+#: port/frontend/shell/settings.cpp:982
 msgid "Keeps the game's mostly empty memory small, for the biggest games."
 msgstr "Giữ nhỏ bộ nhớ gần như trống của trò chơi, cho những trò chơi lớn nhất."
 
-#: port/frontend/shell/settings.cpp:983
+#: port/frontend/shell/settings.cpp:984
 msgid "Precompile code"
 msgstr "Biên dịch mã trước"
 
-#: port/frontend/shell/settings.cpp:983
+#: port/frontend/shell/settings.cpp:984
 msgid "Compiles the code earlier sessions ran before the game needs it: fewer hitches."
 msgstr "Biên dịch mã của các phiên trước trước khi trò chơi cần: ít giật hơn."
 
-#: port/frontend/shell/settings.cpp:986
+#: port/frontend/shell/settings.cpp:987
 msgid "Fast GPU"
 msgstr "GPU nhanh"
 
-#: port/frontend/shell/settings.cpp:986
+#: port/frontend/shell/settings.cpp:987
 msgid "Eden's lowest GPU accuracy: faster, and some effects may be drawn wrong."
 msgstr "Độ chính xác GPU thấp nhất của Eden: nhanh hơn, một số hiệu ứng có thể vẽ sai."
 
-#: port/frontend/shell/settings.cpp:988
+#: port/frontend/shell/settings.cpp:989
 msgid "Unsafe CPU"
 msgstr "CPU không an toàn"
 
-#: port/frontend/shell/settings.cpp:988
+#: port/frontend/shell/settings.cpp:989
 msgid "Quicker, inexact floating-point maths. Faster; a few games misbehave."
 msgstr "Phép tính dấu phẩy động nhanh hơn, kém chính xác. Nhanh hơn; vài trò chơi hoạt động sai."
 
-#: port/frontend/shell/settings.cpp:990
+#: port/frontend/shell/settings.cpp:991
 msgid "Unsafe DMA"
 msgstr "DMA không an toàn"
 
-#: port/frontend/shell/settings.cpp:990
+#: port/frontend/shell/settings.cpp:991
 msgid "Eden's unsafe DMA accuracy: faster, a few games show glitches."
 msgstr "Độ chính xác DMA không an toàn của Eden: nhanh hơn, vài trò chơi bị lỗi hình."
 
-#: port/frontend/shell/settings.cpp:992
+#: port/frontend/shell/settings.cpp:993
 msgid "Reactive flushing"
 msgstr "Xả phản ứng"
 
-#: port/frontend/shell/settings.cpp:992
+#: port/frontend/shell/settings.cpp:993
 msgid "Keeps effects that read back the GPU's work right. Off is faster; some break."
 msgstr "Giữ đúng các hiệu ứng đọc lại công việc của GPU. Tắt thì nhanh hơn; một số bị hỏng."
 
-#: port/frontend/shell/settings.cpp:994
+#: port/frontend/shell/settings.cpp:995
 msgid "Skip cache invalidation"
 msgstr "Bỏ qua vô hiệu hóa bộ đệm"
 
-#: port/frontend/shell/settings.cpp:994
+#: port/frontend/shell/settings.cpp:995
 msgid "Fewer CPU cache invalidations: faster, rarely wrong."
 msgstr "Ít lần vô hiệu hóa bộ đệm CPU hơn: nhanh hơn, hiếm khi sai."
 
 #. Settings > Performance: a row that opens Eden's accuracy shortcuts (Fast GPU, Unsafe CPU, ...); its value: how many are changed
-#: port/frontend/shell/settings.cpp:1010
+#: port/frontend/shell/settings.cpp:1011
 msgid "Accuracy"
 msgstr "Độ chính xác"
 
 #. Settings > Performance: a row that opens Eden's accuracy shortcuts (Fast GPU, Unsafe CPU, ...); its value: how many are changed
-#: port/frontend/shell/settings.cpp:1010
+#: port/frontend/shell/settings.cpp:1011
 msgid "{0} changed"
 msgid_plural "{0} changed"
 msgstr[0] "Đã đổi {0}"
 
-#: port/frontend/shell/settings.cpp:1011
+#: port/frontend/shell/settings.cpp:1012
 msgid "Eden's shortcuts: faster, some less exact."
 msgstr "Các lối tắt của Eden: nhanh hơn, một số kém chính xác hơn."
 
-#: port/frontend/shell/settings.cpp:1012
+#: port/frontend/shell/settings.cpp:1013
 msgid "Fast GPU, Unsafe CPU, Unsafe DMA, Reactive flushing and Skip cache invalidation trade exactness for speed, for every Switch game or one game's own. Triangle on each says more."
 msgstr "GPU nhanh, CPU không an toàn, DMA không an toàn, Xả phản ứng và Bỏ qua vô hiệu hóa bộ đệm đổi độ chính xác lấy tốc độ, cho mọi trò chơi Switch hoặc chỉ một trò. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:1020
+#: port/frontend/shell/settings.cpp:1021
 msgid "The emulated DS's language."
 msgstr "Ngôn ngữ của DS giả lập."
 
-#: port/frontend/shell/settings.cpp:1021
+#: port/frontend/shell/settings.cpp:1022
 msgid "The DS's own language, which many games follow. The DS has Japanese, English, French, German, Italian, Spanish and Chinese; any other language uses English. Applies to the next game."
 msgstr "Ngôn ngữ riêng của DS, mà nhiều trò chơi làm theo. DS có tiếng Nhật, Anh, Pháp, Đức, Ý, Tây Ban Nha và Trung; mọi ngôn ngữ khác dùng tiếng Anh. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:1025
+#: port/frontend/shell/settings.cpp:1026
 msgid "Found in melonds/bios."
 msgstr "Đã tìm thấy trong melonds/bios."
 
-#: port/frontend/shell/settings.cpp:1025
+#: port/frontend/shell/settings.cpp:1026
 msgid "Not found: melonDS's built-in BIOS runs the games."
 msgstr "Không tìm thấy: BIOS tích hợp của melonDS chạy trò chơi."
 
 #. {0} is the folder for a DS's own BIOS and firmware dumps
-#: port/frontend/shell/settings.cpp:1027
+#: port/frontend/shell/settings.cpp:1028
 msgid "bios7.bin, bios9.bin and firmware.bin, dumped from your own DS, in {0}: melonDS runs on them when they are there and this is on. Without them, its own replacements (FreeBIOS) run most games as well. Applies to the next game."
 msgstr "bios7.bin, bios9.bin và firmware.bin, trích xuất từ máy DS của chính bạn, trong {0}: melonDS chạy trên chúng khi chúng có ở đó và tùy chọn này bật. Không có chúng, các bản thay thế riêng của nó (FreeBIOS) vẫn chạy tốt hầu hết trò chơi. Áp dụng cho trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "Microphone"
 msgstr "Micrô"
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "Noise"
 msgstr "Tiếng ồn"
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "Silence"
 msgstr "Im lặng"
 
-#: port/frontend/shell/settings.cpp:1031
+#: port/frontend/shell/settings.cpp:1032
 msgid "A recording"
 msgstr "Bản ghi âm"
 
-#: port/frontend/shell/settings.cpp:1032
+#: port/frontend/shell/settings.cpp:1033
 msgid "What the DS hears while R3 is held. Applies to the next game."
 msgstr "Những gì DS nghe thấy khi giữ R3. Áp dụng từ trò chơi tiếp theo."
 
 #. {0} is melonDS's folder, /data/melonds or where the DS's files are; keep <the game's file name> as a placeholder
-#: port/frontend/shell/settings.cpp:1034
+#: port/frontend/shell/settings.cpp:1035
 msgid "A recording is a WAV file, 16-bit mono PCM at 8,000 to 48,000 Hz and up to 16 MB: {0}/microphone/<the game's file name>.wav for one game, {0}/microphone.wav for the others. It plays over and over while R3 is held, from its start each time. Nothing is recorded from a microphone."
 msgstr "Bản ghi âm là một tệp WAV, PCM mono 16 bit ở 8.000 đến 48.000 Hz và tối đa 16 MB: {0}/microphone/<tên tệp trò chơi>.wav cho một trò chơi, {0}/microphone.wav cho các trò chơi khác. Nó phát lặp đi lặp lại khi giữ R3, mỗi lần từ đầu. Không ghi âm gì từ micrô."
 
-#: port/frontend/shell/settings.cpp:1035
+#: port/frontend/shell/settings.cpp:1036
 msgid "GBA cartridge in Slot-2"
 msgstr "Băng GBA ở khe 2"
 
-#: port/frontend/shell/settings.cpp:1036
+#: port/frontend/shell/settings.cpp:1037
 msgid "For the DS games that read a GBA game in their second slot, as Pokémon's Pal Park does. It does not play GBA games."
 msgstr "Cho các trò chơi DS đọc một trò chơi GBA ở khe thứ hai, như Pal Park của Pokémon. Nó không chạy trò chơi GBA."
 
 #. {0} is melonDS's folder, /data/melonds or where the DS's files are
-#: port/frontend/shell/settings.cpp:1038
+#: port/frontend/shell/settings.cpp:1039
 msgid "Put the GBA game in {0}/slot2 with the DS game's file name, ending .gba, and its .sav beside it if it has one. The cartridge's save is then kept in {0}/slot2-saves, and the files you put there are never changed. A DS game without a cartridge there starts with the slot empty. Applies to the next game."
 msgstr "Đặt trò chơi GBA vào {0}/slot2 với tên tệp của trò chơi DS, đuôi .gba, và tệp .sav của nó bên cạnh nếu có. Bản lưu của băng sau đó được giữ trong {0}/slot2-saves, và các tệp bạn đặt ở đó không bao giờ bị thay đổi. Trò chơi DS không có băng ở đó sẽ khởi động với khe trống. Áp dụng từ trò chơi tiếp theo."
 
-#: port/frontend/shell/settings.cpp:1045
+#: port/frontend/shell/settings.cpp:1046
 msgid "Where your games are. Cross picks another."
 msgstr "Nơi chứa trò chơi. Nhấn Chữ thập để chọn chỗ khác."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1047
+#: port/frontend/shell/settings.cpp:1048
 msgid "Your Wii U games: .wua, .wud, .wux, or folders with code, content and meta, alone or in .zip, .7z or .rar archives. Encrypted .wud and .wux need their keys in {0}/keys.txt."
 msgstr "Trò chơi Wii U: .wua, .wud, .wux, hoặc thư mục có code, content và meta, để riêng hoặc trong tệp nén .zip, .7z hay .rar. Tệp .wud và .wux mã hóa cần khóa của chúng trong {0}/keys.txt."
 
-#: port/frontend/shell/settings.cpp:1049
+#: port/frontend/shell/settings.cpp:1050
 msgid "Your 3DS games: .3ds or .cci, .cxi, .3dsx and Azahar's compressed dumps, decrypted, alone or in .zip, .7z or .rar archives, here or in the folders in it. CIA files are installed (Install a CIA file). Encrypted dumps do not start, with keys or without: decrypt them on your 3DS first (GodMode9)."
 msgstr "Trò chơi 3DS: .3ds hoặc .cci, .cxi, .3dsx và bản dump nén của Azahar, đã giải mã, để riêng hoặc trong tệp nén .zip, .7z hay .rar, ở đây hoặc trong các thư mục bên trong. Tệp CIA thì cần cài (Cài một tệp CIA). Bản dump mã hóa không khởi động được, dù có khóa hay không: giải mã chúng trên máy 3DS trước (GodMode9)."
 
-#: port/frontend/shell/settings.cpp:1052
+#: port/frontend/shell/settings.cpp:1053
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
 msgstr "Trò chơi Switch của bạn: tệp .nsp và .xci, để riêng hoặc mỗi trò trong một thư mục riêng cùng bản cập nhật và DLC của nó."
 
-#: port/frontend/shell/settings.cpp:1053
+#: port/frontend/shell/settings.cpp:1054
 msgid "Your DS games: .nds files, alone or in .zip, .7z or .rar archives, here or in the folders in it."
 msgstr "Trò chơi DS: tệp .nds, để riêng hoặc trong tệp nén .zip, .7z hay .rar, ở đây hoặc trong các thư mục bên trong."
 
-#: port/frontend/shell/settings.cpp:1054 port/frontend/shell/shares.cpp:292
+#: port/frontend/shell/settings.cpp:1055 port/frontend/shell/shares.cpp:292
 msgid "Looking…"
 msgstr "Đang tìm…"
 
-#: port/frontend/shell/settings.cpp:1054
+#: port/frontend/shell/settings.cpp:1055
 msgid "This side's folder, again."
 msgstr "Tìm lại thư mục của bên này."
 
-#: port/frontend/shell/settings.cpp:1055
+#: port/frontend/shell/settings.cpp:1056
 msgid "Looks through this side's folder again: games added since appear, and games taken away go."
 msgstr "Tìm lại trong thư mục của bên này: trò chơi thêm vào từ lần trước sẽ hiện ra, trò chơi đã gỡ đi sẽ biến mất."
 
-#: port/frontend/shell/settings.cpp:1058
+#: port/frontend/shell/settings.cpp:1059
 msgid "Look on network shares at every start"
 msgstr "Tìm trong chia sẻ qua mạng mỗi lần khởi động"
 
-#: port/frontend/shell/settings.cpp:1059
+#: port/frontend/shell/settings.cpp:1060
 msgid "Off: the games found last time, at once."
 msgstr "Tắt: các trò chơi tìm thấy lần trước, ngay lập tức."
 
-#: port/frontend/shell/settings.cpp:1060
+#: port/frontend/shell/settings.cpp:1061
 msgid "A games folder on a network share is looked through each time its side opens, and the app starts again after every game: with a large library that is a long wait. Off, the side shows the games it found there last time at once; Look for games now looks again when you have added some. Folders on the PS5 or a USB drive are looked through every time either way."
 msgstr "Thư mục trò chơi trên chia sẻ qua mạng được tìm lại mỗi lần bên của nó mở ra, và ứng dụng khởi động lại sau mỗi trò chơi: với thư viện lớn thì phải chờ lâu. Khi tắt, bên đó hiện ngay các trò chơi đã tìm thấy ở đó lần trước, và Tìm trò chơi ngay sẽ tìm lại khi bạn thêm trò chơi. Thư mục trên PS5 hoặc ổ USB vẫn được tìm mỗi lần như thường."
 
 #. Settings > Game files' Keys and firmware row, its value when the firmware is missing and the keys are there
-#: port/frontend/shell/settings.cpp:1071
+#: port/frontend/shell/settings.cpp:1072
 msgid "Firmware missing"
 msgstr "Thiếu firmware"
 
 #. Settings > Game files' Keys and firmware row, its value when prod.keys is missing and the firmware is there
-#: port/frontend/shell/settings.cpp:1073
+#: port/frontend/shell/settings.cpp:1074
 msgid "Keys missing"
 msgstr "Thiếu khóa"
 
 #. Settings > Game files' Keys and firmware row, its value when prod.keys is missing and the firmware is there
-#: port/frontend/shell/settings.cpp:1073
+#: port/frontend/shell/settings.cpp:1074
 msgid "Missing"
 msgstr "Thiếu"
 
 #. Settings > Game files: one row for the Switch's keys (prod.keys) and its firmware, which Eden needs
-#: port/frontend/shell/settings.cpp:1075
+#: port/frontend/shell/settings.cpp:1076
 msgid "Keys and firmware"
 msgstr "Khóa và firmware"
 
-#: port/frontend/shell/settings.cpp:1076 port/frontend/shell/setup.cpp:301
+#: port/frontend/shell/settings.cpp:1077 port/frontend/shell/setup.cpp:301
 msgid "prod.keys is missing: Eden cannot read Switch games without it"
 msgstr "Thiếu prod.keys: không có nó, Eden không đọc được trò chơi Switch"
 
-#: port/frontend/shell/settings.cpp:1077 port/frontend/shell/setup.cpp:312
+#: port/frontend/shell/settings.cpp:1078 port/frontend/shell/setup.cpp:312
 msgid "No firmware yet: many games need it to start"
 msgstr "Chưa có firmware: nhiều trò chơi cần nó để khởi động"
 
-#: port/frontend/shell/settings.cpp:1078
+#: port/frontend/shell/settings.cpp:1079
 msgid "Eden can read your games."
 msgstr "Eden đọc được trò chơi của bạn."
 
-#: port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:304
+#: port/frontend/shell/settings.cpp:1080 port/frontend/shell/setup.cpp:304
 msgid "Eden reads Switch games with your own console's keys: prod.keys (and title.keys), dumped from your Switch, in {0}/keys. No keys come with PS5-ECAM."
 msgstr "Eden đọc trò chơi Switch bằng khóa của chính máy bạn: prod.keys (và title.keys) trích xuất từ máy Switch của bạn, trong {0}/keys. PS5-ECAM không kèm khóa nào."
 
-#: port/frontend/shell/settings.cpp:1083 port/frontend/shell/setup.cpp:315
+#: port/frontend/shell/settings.cpp:1084 port/frontend/shell/setup.cpp:315
 msgid "Many Switch games need the console's own system files: its firmware's .nca files, dumped from your Switch, in {0}/firmware. No firmware comes with PS5-ECAM."
 msgstr "Nhiều trò chơi Switch cần tệp hệ thống của chính máy: các tệp .nca trong firmware của nó, trích xuất từ máy Switch của bạn, trong {0}/firmware. PS5-ECAM không kèm firmware."
 
-#: port/frontend/shell/settings.cpp:1091 port/frontend/shell/shares.cpp:536
+#: port/frontend/shell/settings.cpp:1092 port/frontend/shell/shares.cpp:536
 msgid "Network shares"
 msgstr "Chia sẻ qua mạng"
 
-#: port/frontend/shell/settings.cpp:1091
+#: port/frontend/shell/settings.cpp:1092
 msgid "{0} share"
 msgid_plural "{0} shares"
 msgstr[0] "{0} thư mục chia sẻ"
 
-#: port/frontend/shell/settings.cpp:1092
+#: port/frontend/shell/settings.cpp:1093
 msgid "Games on a computer or a NAS, over SMB or NFS."
 msgstr "Trò chơi trên máy tính hoặc NAS, qua SMB hoặc NFS."
 
-#: port/frontend/shell/settings.cpp:1093
+#: port/frontend/shell/settings.cpp:1094
 msgid "A folder shared by a Windows, macOS or Linux computer or a NAS, read where it is: add it here, then choose a games folder on it with the folder browser, where each share is a tab. Nothing is ever written to it; saves and installs stay on the PS5. A cable does better than Wi-Fi for Wii U games."
 msgstr "Thư mục do máy tính Windows, macOS, Linux hoặc NAS chia sẻ, đọc ngay tại chỗ: thêm nó ở đây, rồi chọn thư mục trò chơi trên đó bằng trình duyệt thư mục, nơi mỗi thư mục chia sẻ là một thẻ. Không bao giờ ghi gì lên đó; bản lưu và nội dung đã cài vẫn ở trên PS5. Với trò chơi Wii U, mạng dây tốt hơn Wi-Fi."
 
-#: port/frontend/shell/settings.cpp:1100 port/frontend/shell/setup.cpp:246
+#: port/frontend/shell/settings.cpp:1101 port/frontend/shell/setup.cpp:246
 msgid "Wii U disc keys"
 msgstr "Khóa đĩa Wii U"
 
-#: port/frontend/shell/settings.cpp:1100 port/frontend/shell/setup.cpp:248
+#: port/frontend/shell/settings.cpp:1101 port/frontend/shell/setup.cpp:248
 msgid "keys.txt found"
 msgstr "Đã tìm thấy keys.txt"
 
-#: port/frontend/shell/settings.cpp:1101
+#: port/frontend/shell/settings.cpp:1102
 msgid "Only encrypted .wud and .wux need them."
 msgstr "Chỉ .wud và .wux mã hóa mới cần."
 
-#: port/frontend/shell/settings.cpp:1101 port/frontend/shell/setup.cpp:248
+#: port/frontend/shell/settings.cpp:1102 port/frontend/shell/setup.cpp:248
 msgid "keys.txt is missing: only encrypted .wud and .wux need it"
 msgstr "Thiếu keys.txt: chỉ .wud và .wux mã hóa mới cần"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1103
+#: port/frontend/shell/settings.cpp:1104
 msgid "Encrypted .wud and .wux dumps need their disc keys in {0}/keys.txt, one a line. Decrypted dumps, .wua and folders need none."
 msgstr "Bản dump .wud và .wux mã hóa cần khóa đĩa trong {0}/keys.txt, mỗi dòng một khóa. Bản dump đã giải mã, .wua và thư mục thì không cần."
 
 #. Settings > Game files: a row that opens Updates and DLC and Mods from USB
-#: port/frontend/shell/settings.cpp:1106
+#: port/frontend/shell/settings.cpp:1107
 msgid "Updates, DLC and mods"
 msgstr "Bản cập nhật, DLC và mod"
 
 #. Settings > Game files: a row that opens Updates and DLC and Mods from USB
-#: port/frontend/shell/settings.cpp:1106
+#: port/frontend/shell/settings.cpp:1107
 msgid "Installs from your drives, and Cemu mods."
 msgstr "Cài đặt từ ổ đĩa của bạn, và mod Cemu."
 
-#: port/frontend/shell/settings.cpp:1107
+#: port/frontend/shell/settings.cpp:1108
 msgid "Updates and DLC found on your drives, each installed into the Wii U's storage with one press, and Cemu mods copied from a USB drive's ps5cemu/mods folder. Triangle on each says more."
 msgstr "Bản cập nhật và DLC tìm thấy trên ổ đĩa của bạn, mỗi thứ cài vào bộ nhớ Wii U bằng một lần nhấn, và mod Cemu sao chép từ thư mục ps5cemu/mods của ổ USB. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:1109
+#: port/frontend/shell/settings.cpp:1110
 msgid "Found on your drives, each installed with one press."
 msgstr "Tìm thấy trên các ổ, mỗi mục cài bằng một lần nhấn."
 
-#: port/frontend/shell/settings.cpp:1110
+#: port/frontend/shell/settings.cpp:1111
 msgid "Looks on every USB drive and extended storage plugged in, in the games folder and in /data for updates, DLC and games (folders with code, content and meta), and lists them by game with what is installed now. Cross installs one, Square every new one; each goes into the Wii U's storage (mlc01), as Cemu's Install game title, update or DLC does. Triangle there chooses a folder anywhere else."
 msgstr "Tìm trên mọi ổ USB và bộ lưu trữ mở rộng đang cắm, trong thư mục trò chơi và trong /data các bản cập nhật, DLC và trò chơi (thư mục có code, content và meta), rồi liệt kê theo trò chơi cùng những gì đang cài. Nhấn Chữ thập để cài một mục, Vuông để cài mọi mục mới; mỗi mục được cài vào bộ lưu trữ của Wii U (mlc01), như mục Install game title, update or DLC của Cemu. Nhấn Tam giác ở đó để chọn thư mục ở bất kỳ đâu khác."
 
-#: port/frontend/shell/settings.cpp:1114
+#: port/frontend/shell/settings.cpp:1115
 msgid "Mods from USB"
 msgstr "Mod từ USB"
 
-#: port/frontend/shell/settings.cpp:1114
+#: port/frontend/shell/settings.cpp:1115
 msgid "Cemu mods from the ps5cemu/mods folder on your drives."
 msgstr "Mod Cemu từ thư mục ps5cemu/mods trên các ổ của bạn."
 
-#: port/frontend/shell/settings.cpp:1115
+#: port/frontend/shell/settings.cpp:1116
 msgid "Copies the mods in a USB drive's ps5cemu/mods folder into the app's graphic packs, where each shows on its game's Graphic packs page, off until you turn it on. A mod is a Cemu graphic pack (a folder with a rules.txt), or, for one shared without it, a folder with content and aoc folders, in a folder named by its game's title ID. A game's menu has Add mods from USB as well, which gives such mods that game. The guide on GitHub, docs/GUIDE.md, has more."
 msgstr "Sao chép các mod trong thư mục ps5cemu/mods của ổ USB vào gói đồ họa của ứng dụng, nơi mỗi mod hiện trên trang Gói đồ họa của trò chơi tương ứng, ở trạng thái tắt cho đến khi bạn bật. Mod là một gói đồ họa của Cemu (thư mục có rules.txt), hoặc, nếu được chia sẻ mà không có tệp đó, là một thư mục chứa thư mục content và aoc, nằm trong thư mục đặt tên theo Title ID của trò chơi. Menu của trò chơi cũng có Thêm mod từ USB, giúp gán những mod như vậy cho trò chơi đó. Hướng dẫn trên GitHub, docs/GUIDE.md, có thêm thông tin."
 
-#: port/frontend/shell/settings.cpp:1122
+#: port/frontend/shell/settings.cpp:1123
 msgid "Install a CIA file"
 msgstr "Cài một tệp CIA"
 
-#: port/frontend/shell/settings.cpp:1122
+#: port/frontend/shell/settings.cpp:1123
 msgid "A game, an update or DLC."
 msgstr "Trò chơi, bản cập nhật hoặc DLC."
 
-#: port/frontend/shell/settings.cpp:1123
+#: port/frontend/shell/settings.cpp:1124
 msgid "Installs a CIA into the 3DS's storage, as Azahar's Install CIA does: an update or DLC goes with its game, and a game joins the library. Circle cancels while it runs."
 msgstr "Cài một tệp CIA vào bộ lưu trữ của 3DS, như mục Install CIA của Azahar: bản cập nhật hoặc DLC đi cùng trò chơi của nó, còn trò chơi vào thư viện. Nhấn nút Tròn để hủy khi đang chạy."
 
 #. What's new: each system's files in a folder of its own (/data/cemu, /data/azahar...), which Reorganize moves an install from before into
-#: port/frontend/shell/settings.cpp:1131 port/frontend/shell/shell.cpp:2625 port/frontend/shell/whatsnew.cpp:28
+#: port/frontend/shell/settings.cpp:1132 port/frontend/shell/shell.cpp:2625 port/frontend/shell/whatsnew.cpp:28
 msgid "A folder for each system"
 msgstr "Một thư mục cho mỗi hệ máy"
 
-#: port/frontend/shell/settings.cpp:1132
+#: port/frontend/shell/settings.cpp:1133
 msgid "Cannot move"
 msgstr "Không thể di chuyển"
 
 #. {0} is a file or folder already where one would be moved to
-#: port/frontend/shell/settings.cpp:1134
+#: port/frontend/shell/settings.cpp:1135
 msgid "In the way: {0}"
 msgstr "Bị cản bởi: {0}"
 
-#: port/frontend/shell/settings.cpp:1135
+#: port/frontend/shell/settings.cpp:1136
 msgid "Each system's files are in a folder of their own."
 msgstr "Tệp của mỗi hệ máy nằm trong thư mục riêng."
 
-#: port/frontend/shell/settings.cpp:1136
+#: port/frontend/shell/settings.cpp:1137
 msgid "Your files from before into a folder for each system."
 msgstr "Đưa tệp cũ của bạn vào một thư mục cho mỗi hệ máy."
 
-#: port/frontend/shell/settings.cpp:1137
+#: port/frontend/shell/settings.cpp:1138
 msgid "Puts each system's files back into {0}, where they were before. Going back to an earlier version needs them there, as it looks for them there. PS5-ECAM starts again to do it."
 msgstr "Đưa tệp của mỗi hệ máy trở lại {0}, nơi chúng ở trước đây. Quay lại phiên bản trước cần chúng ở đó, vì phiên bản đó tìm chúng ở đó. PS5-ECAM sẽ khởi động lại để làm việc này."
 
 #. {0} is the app's data folder, /data/ps5cemu; {1} lists the four folders: /data/cemu, /data/azahar, ...
-#: port/frontend/shell/settings.cpp:1141
+#: port/frontend/shell/settings.cpp:1142
 msgid "Moves each system's files from {0} into a folder of its own: {1}. They are renamed on the same drive, never copied, so it takes a moment whatever their size, and nothing is deleted. PS5-ECAM starts again to do it; a system that cannot move stays as it was. This row puts them back."
 msgstr "Chuyển tệp của mỗi hệ máy từ {0} vào thư mục riêng: {1}. Chúng được đổi tên trên cùng ổ đĩa, không bao giờ sao chép, nên chỉ mất một lát dù lớn đến đâu, và không có gì bị xóa. PS5-ECAM sẽ khởi động lại để làm việc này; hệ máy nào không chuyển được sẽ giữ nguyên. Hàng này đưa chúng trở lại."
 
-#: port/frontend/shell/settings.cpp:1168
+#: port/frontend/shell/settings.cpp:1169
 msgid "Account games start on"
 msgstr "Tài khoản để khởi động trò chơi"
 
-#: port/frontend/shell/settings.cpp:1169
+#: port/frontend/shell/settings.cpp:1170
 msgid "Chosen by your PS5 user: One account for each PS5 user is on."
 msgstr "Do người dùng PS5 chọn: Mỗi người dùng PS5 một tài khoản đang bật."
 
-#: port/frontend/shell/settings.cpp:1170
+#: port/frontend/shell/settings.cpp:1171
 msgid "The next game starts on these saves. A game already running keeps its own."
 msgstr "Trò chơi tiếp theo khởi động với các bản lưu này. Trò chơi đang chạy giữ tài khoản của nó."
 
-#: port/frontend/shell/settings.cpp:1171
+#: port/frontend/shell/settings.cpp:1172
 msgid "Each Wii U account has its own saves of every game, as on a Wii U. The next game you start uses the one shown here; a game already running keeps the one it started with."
 msgstr "Mỗi tài khoản Wii U có bản lưu riêng của mọi trò chơi, như trên Wii U. Trò chơi tiếp theo bạn khởi động dùng tài khoản hiện ở đây; trò chơi đang chạy giữ tài khoản nó đã khởi động cùng."
 
-#: port/frontend/shell/settings.cpp:1175
+#: port/frontend/shell/settings.cpp:1176
 msgid "One account for each PS5 user"
 msgstr "Mỗi người dùng PS5 một tài khoản"
 
-#: port/frontend/shell/settings.cpp:1176
+#: port/frontend/shell/settings.cpp:1177
 msgid "Whoever starts PS5-ECAM plays on their own saves."
 msgstr "Ai khởi động PS5-ECAM sẽ chơi bằng bản lưu của chính mình."
 
-#: port/frontend/shell/settings.cpp:1177
+#: port/frontend/shell/settings.cpp:1178
 msgid "The PS5 user who starts the app plays on a Wii U account of their own, made the first time with their PS5 name, so brothers and sisters each keep their own saves just by starting the app from their own PS5 user."
 msgstr "Người dùng PS5 khởi động ứng dụng sẽ chơi bằng tài khoản Wii U riêng, được tạo lần đầu với tên PS5 của họ, nên anh chị em mỗi người giữ bản lưu riêng chỉ bằng cách mở ứng dụng từ người dùng PS5 của mình."
 
 #. Settings > Accounts and saves: a row that opens New account, Rename and Delete an account
-#: port/frontend/shell/settings.cpp:1180
+#: port/frontend/shell/settings.cpp:1181
 msgid "Manage accounts"
 msgstr "Quản lý tài khoản"
 
 #. Settings > Accounts and saves: a row that opens New account, Rename and Delete an account
 #. how many Wii U accounts there are, of the twelve a Wii U has at most
-#: port/frontend/shell/settings.cpp:1180 port/frontend/shell/settings.cpp:1184
+#: port/frontend/shell/settings.cpp:1181 port/frontend/shell/settings.cpp:1185
 msgid "{0} of 12"
 msgstr "{0}/12"
 
 #. Settings > Accounts and saves: a row that opens New account, Rename and Delete an account
-#: port/frontend/shell/settings.cpp:1180
+#: port/frontend/shell/settings.cpp:1181
 msgid "New, renamed or deleted."
 msgstr "Tạo mới, đổi tên hoặc xóa."
 
-#: port/frontend/shell/settings.cpp:1181
+#: port/frontend/shell/settings.cpp:1182
 msgid "A new account, a new name for the one games start on, or another account deleted. Saves always stay in the Wii U's storage."
 msgstr "Một tài khoản mới, tên mới cho tài khoản trò chơi khởi động, hoặc xóa tài khoản khác. Bản lưu luôn ở trong bộ nhớ Wii U."
 
 #. how many Wii U accounts there are, of the twelve a Wii U has at most
-#: port/frontend/shell/settings.cpp:1184
+#: port/frontend/shell/settings.cpp:1185
 msgid "New account"
 msgstr "Tài khoản mới"
 
-#: port/frontend/shell/settings.cpp:1185
+#: port/frontend/shell/settings.cpp:1186
 msgid "A new account starts with no saves."
 msgstr "Tài khoản mới không có bản lưu nào."
 
-#: port/frontend/shell/settings.cpp:1185
+#: port/frontend/shell/settings.cpp:1186
 msgid "Name it with the keyboard, ten letters at most. Games start on it from then on."
 msgstr "Đặt tên bằng bàn phím, tối đa mười ký tự. Từ đó trò chơi sẽ khởi động bằng tài khoản này."
 
-#: port/frontend/shell/settings.cpp:1186
+#: port/frontend/shell/settings.cpp:1187
 msgid "Rename {0}"
 msgstr "Đổi tên {0}"
 
-#: port/frontend/shell/settings.cpp:1186
+#: port/frontend/shell/settings.cpp:1187
 msgid "The account games start on."
 msgstr "Tài khoản dùng để khởi động trò chơi."
 
-#: port/frontend/shell/settings.cpp:1187
+#: port/frontend/shell/settings.cpp:1188
 msgid "The name games show for this account, ten letters at most. Its saves stay as they are."
 msgstr "Tên mà trò chơi hiện cho tài khoản này, tối đa mười ký tự. Bản lưu giữ nguyên."
 
-#: port/frontend/shell/settings.cpp:1195
+#: port/frontend/shell/settings.cpp:1196
 msgid "Delete an account"
 msgstr "Xóa một tài khoản"
 
-#: port/frontend/shell/settings.cpp:1196
+#: port/frontend/shell/settings.cpp:1197
 msgid "Only one"
 msgstr "Chỉ có một"
 
-#: port/frontend/shell/settings.cpp:1197
+#: port/frontend/shell/settings.cpp:1198
 msgid "There is only one account, and games start on it."
 msgstr "Chỉ có một tài khoản, và trò chơi khởi động bằng tài khoản đó."
 
-#: port/frontend/shell/settings.cpp:1197
+#: port/frontend/shell/settings.cpp:1198
 msgid "Left and Right choose which. Its saves stay in the Wii U's storage."
 msgstr "Nhấn trái/phải để chọn tài khoản. Bản lưu của nó vẫn ở trong bộ lưu trữ của Wii U."
 
-#: port/frontend/shell/settings.cpp:1198
+#: port/frontend/shell/settings.cpp:1199
 msgid "The account is removed; its saves stay in the Wii U's storage (and in any backup), so nothing is lost. The account games start on cannot be deleted: choose another first."
 msgstr "Tài khoản bị xóa; bản lưu của nó vẫn ở trong bộ lưu trữ của Wii U (và trong mọi bản sao lưu), nên không mất gì. Không thể xóa tài khoản dùng để khởi động trò chơi: chọn tài khoản khác trước."
 
 #. a backup or restore of the saves, finished ({0}: how many files)
-#: port/frontend/shell/settings.cpp:1222 port/frontend/shell/settings.cpp:1781
+#: port/frontend/shell/settings.cpp:1223 port/frontend/shell/settings.cpp:1782
 msgid "Done: {0} file"
 msgid_plural "Done: {0} files"
 msgstr[0] "Xong: {0} tệp"
 
 #. a backup of the saves, as it copies ({0}: a percentage)
-#: port/frontend/shell/settings.cpp:1239 port/frontend/shell/settings.cpp:1255 port/frontend/shell/settings.cpp:1820 port/frontend/shell/settings.cpp:1840
+#: port/frontend/shell/settings.cpp:1240 port/frontend/shell/settings.cpp:1256 port/frontend/shell/settings.cpp:1821 port/frontend/shell/settings.cpp:1841
 msgid "Copying: {0}"
 msgstr "Đang sao chép: {0}"
 
 #. the newest backup of the saves: when, and on which drive
-#: port/frontend/shell/settings.cpp:1242 port/frontend/shell/settings.cpp:1822
+#: port/frontend/shell/settings.cpp:1243 port/frontend/shell/settings.cpp:1823
 msgid "Last: {0} · {1}"
 msgstr "Gần nhất: {0} · {1}"
 
-#: port/frontend/shell/settings.cpp:1243
+#: port/frontend/shell/settings.cpp:1244
 msgid "Every side's saves, save states and Wii U accounts."
 msgstr "Bản lưu, trạng thái đã lưu và tài khoản Wii U của mọi bên."
 
-#: port/frontend/shell/settings.cpp:1244
+#: port/frontend/shell/settings.cpp:1245
 msgid "Copies the Wii U's saves (every account's, with the accounts), the 3DS's saves, extra data and save states, the DS's saves and save states, and the Switch's saves with its user profiles to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time. Never the games, so a backup stays small. The settings go with them: the launcher's, each game's own and the controllers'."
 msgstr "Sao chép bản lưu Wii U (của mọi tài khoản, cùng các tài khoản), bản lưu, dữ liệu bổ sung và trạng thái đã lưu của 3DS, bản lưu và trạng thái đã lưu của DS, cùng bản lưu của Switch kèm hồ sơ người dùng vào PS5CEMU-HAR-saves trên ổ USB đầu tiên đang cắm, trong một thư mục đặt tên theo ngày giờ. Không bao giờ sao chép trò chơi, nên bản sao lưu luôn nhỏ. Cài đặt cũng đi kèm: của trình khởi chạy, của từng trò chơi và của tay cầm."
 
-#: port/frontend/shell/settings.cpp:1253 port/frontend/shell/settings.cpp:1838
+#: port/frontend/shell/settings.cpp:1254 port/frontend/shell/settings.cpp:1839
 msgid "No backups found"
 msgstr "Không tìm thấy bản sao lưu"
 
-#: port/frontend/shell/settings.cpp:1256 port/frontend/shell/settings.cpp:1837
+#: port/frontend/shell/settings.cpp:1257 port/frontend/shell/settings.cpp:1838
 msgid "Restore from USB"
 msgstr "Khôi phục từ USB"
 
-#: port/frontend/shell/settings.cpp:1257
+#: port/frontend/shell/settings.cpp:1258
 msgid "Back up first, or plug in the drive with your backups."
 msgstr "Sao lưu trước, hoặc cắm ổ có bản sao lưu."
 
-#: port/frontend/shell/settings.cpp:1257 port/frontend/shell/settings.cpp:1841
+#: port/frontend/shell/settings.cpp:1258 port/frontend/shell/settings.cpp:1842
 msgid "Left and Right choose which backup, the newest first."
 msgstr "Nhấn trái/phải để chọn bản sao lưu, mới nhất trước."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1259
+#: port/frontend/shell/settings.cpp:1260
 msgid "Puts the chosen backup's saves back where they came from. The saves there now are moved first to {0}/saves-before, so nothing is lost; saves the backup does not have stay as they are. Its settings come back too, and PS5-ECAM starts again to use them."
 msgstr "Đưa bản lưu của bản sao lưu đã chọn về chỗ cũ. Bản lưu hiện có được chuyển trước vào {0}/saves-before, nên không mất gì; bản lưu mà bản sao lưu không có vẫn giữ nguyên. Cài đặt của bản sao lưu cũng được khôi phục, và PS5-ECAM khởi động lại để dùng chúng."
 
-#: port/frontend/shell/settings.cpp:1275
+#: port/frontend/shell/settings.cpp:1276
 msgid "Downloading: {0} left"
 msgid_plural "Downloading: {0} left"
 msgstr[0] "Đang tải xuống: còn {0}"
 
-#: port/frontend/shell/settings.cpp:1276
+#: port/frontend/shell/settings.cpp:1277
 msgid "GameTDB did not answer: is the PS5 online?"
 msgstr "GameTDB không phản hồi: PS5 có đang kết nối mạng không?"
 
-#: port/frontend/shell/settings.cpp:1277
+#: port/frontend/shell/settings.cpp:1278
 msgid "{0} game without box art"
 msgid_plural "{0} games without box art"
 msgstr[0] "{0} trò chơi chưa có ảnh bìa"
 
-#: port/frontend/shell/settings.cpp:1278
+#: port/frontend/shell/settings.cpp:1279
 msgid "Every game has box art"
 msgstr "Mọi trò chơi đều có ảnh bìa"
 
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
-#: port/frontend/shell/settings.cpp:1280 port/frontend/shell/settings.cpp:1289 port/frontend/shell/setup.cpp:327
+#: port/frontend/shell/settings.cpp:1281 port/frontend/shell/settings.cpp:1290 port/frontend/shell/setup.cpp:327
 msgid "Box art"
 msgstr "Ảnh bìa"
 
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
-#: port/frontend/shell/settings.cpp:1280
+#: port/frontend/shell/settings.cpp:1281
 msgid "Covers for the library, from GameTDB."
 msgstr "Ảnh bìa cho thư viện, từ GameTDB."
 
-#: port/frontend/shell/settings.cpp:1281
+#: port/frontend/shell/settings.cpp:1282
 msgid "Whether covers are downloaded from GameTDB (art.gametdb.com), and the missing ones or every one downloaded again. On the Switch side, also whether a game shows its box art or its own icon."
 msgstr "Có tải ảnh bìa từ GameTDB (art.gametdb.com) hay không, và tải lại ảnh thiếu hoặc tất cả. Ở bên Switch, còn chọn trò chơi hiện ảnh bìa hay biểu tượng riêng."
 
-#: port/frontend/shell/settings.cpp:1284
+#: port/frontend/shell/settings.cpp:1285
 msgid "Box art from GameTDB"
 msgstr "Ảnh bìa từ GameTDB"
 
-#: port/frontend/shell/settings.cpp:1284
+#: port/frontend/shell/settings.cpp:1285
 msgid "Covers for the library, downloaded once."
 msgstr "Ảnh bìa cho thư viện, tải xuống một lần."
 
-#: port/frontend/shell/settings.cpp:1285
+#: port/frontend/shell/settings.cpp:1286
 msgid "The first time a game shows up, its cover is downloaded from GameTDB (art.gametdb.com) by the ID on its box. Off: nothing more is downloaded."
 msgstr "Lần đầu một trò chơi xuất hiện, ảnh bìa của nó được tải xuống từ GameTDB (art.gametdb.com) theo ID trên hộp. Tắt: không tải xuống thêm gì."
 
-#: port/frontend/shell/settings.cpp:1289
+#: port/frontend/shell/settings.cpp:1290
 msgid "Switch covers"
 msgstr "Ảnh bìa Switch"
 
-#: port/frontend/shell/settings.cpp:1289
+#: port/frontend/shell/settings.cpp:1290
 msgid "Game icons"
 msgstr "Biểu tượng trò chơi"
 
-#: port/frontend/shell/settings.cpp:1289
+#: port/frontend/shell/settings.cpp:1290
 msgid "GameTDB's box art, or each game's own icon."
 msgstr "Ảnh bìa từ GameTDB, hoặc biểu tượng riêng của mỗi trò chơi."
 
-#: port/frontend/shell/settings.cpp:1290
+#: port/frontend/shell/settings.cpp:1291
 msgid "Box art is GameTDB's, found by each game's name. Game icons are the games' own, read from their files, as the Switch's home menu shows them. A picture beside a game (Game.png or Game.jpg) is its cover either way."
 msgstr "Ảnh bìa lấy từ GameTDB, tìm theo tên của mỗi trò chơi. Biểu tượng là của chính trò chơi, đọc từ tệp của nó, như menu HOME của Switch hiển thị. Một hình ảnh cạnh trò chơi (Game.png hoặc Game.jpg) là ảnh bìa của nó trong cả hai trường hợp."
 
-#: port/frontend/shell/settings.cpp:1292
+#: port/frontend/shell/settings.cpp:1293
 msgid "Download missing box art"
 msgstr "Tải xuống ảnh bìa còn thiếu"
 
-#: port/frontend/shell/settings.cpp:1292
+#: port/frontend/shell/settings.cpp:1293
 msgid "Tries again for every game without a cover."
 msgstr "Thử lại cho mọi trò chơi chưa có ảnh bìa."
 
-#: port/frontend/shell/settings.cpp:1293
+#: port/frontend/shell/settings.cpp:1294
 msgid "Asks GameTDB again for the cover of every game on this side that has none, including games it had no cover for before. Covers are downloaded in the background while you use the launcher."
 msgstr "Hỏi lại GameTDB ảnh bìa của mọi trò chơi ở bên này chưa có ảnh, kể cả những trò chơi trước đây không có. Ảnh bìa được tải xuống ngầm trong lúc bạn dùng trình khởi chạy."
 
-#: port/frontend/shell/settings.cpp:1295
+#: port/frontend/shell/settings.cpp:1296
 msgid "Download all box art again"
 msgstr "Tải xuống lại mọi ảnh bìa"
 
-#: port/frontend/shell/settings.cpp:1296
+#: port/frontend/shell/settings.cpp:1297
 msgid "Replaces every cover on this side with a fresh download."
 msgstr "Thay mọi ảnh bìa ở bên này bằng bản mới tải xuống."
 
-#: port/frontend/shell/settings.cpp:1297
+#: port/frontend/shell/settings.cpp:1298
 msgid "Downloads the cover of every game on this side again, replacing the ones you have. Useful when a cover is wrong or looks broken."
 msgstr "Tải xuống lại ảnh bìa của mọi trò chơi ở bên này, thay cho ảnh đang có. Hữu ích khi ảnh bìa sai hoặc trông bị hỏng."
 
-#: port/frontend/shell/settings.cpp:1302
+#: port/frontend/shell/settings.cpp:1303
 msgid "Play a game from your 3DS, and set up from it."
 msgstr "Chơi trò chơi từ máy 3DS, và thiết lập từ máy đó."
 
-#: port/frontend/shell/settings.cpp:1303
+#: port/frontend/shell/settings.cpp:1304
 msgid "Artic Base plays a game from a 3DS on your network, its saves staying on the 3DS; Artic Setup copies a 3DS's system files into Azahar, for the Home Menu and the games that need them."
 msgstr "Artic Base chơi trò chơi từ máy 3DS trong mạng, bản lưu vẫn ở trên 3DS; Artic Setup sao chép tệp hệ thống của 3DS vào Azahar, cho HOME Menu và các trò chơi cần chúng."
 
-#: port/frontend/shell/settings.cpp:1310
+#: port/frontend/shell/settings.cpp:1311
 msgid "A room is a server where Switch games find each other for their local wireless play, as in desktop Eden and ProsperoEden. The room chosen here is joined as each Switch game starts: then choose Local Wireless (or local play) in the game. A room that cannot be joined brings you back here with why."
 msgstr "Phòng là một máy chủ nơi các trò chơi Switch tìm thấy nhau để chơi không dây cục bộ, như trong Eden trên máy tính và trong ProsperoEden. Phòng chọn ở đây được tham gia khi mỗi trò chơi Switch khởi động: sau đó chọn Chơi không dây cục bộ (hoặc chơi cục bộ) trong trò chơi. Phòng không vào được sẽ đưa bạn về đây kèm lý do."
 
 #. Settings > Online on the Switch side: a row that opens the rooms for the games' local wireless play
-#: port/frontend/shell/settings.cpp:1314
+#: port/frontend/shell/settings.cpp:1315
 msgid "Multiplayer"
 msgstr "Nhiều người chơi"
 
 #. Settings > Online on the Switch side: a row that opens the rooms for the games' local wireless play
-#: port/frontend/shell/settings.cpp:1314 port/frontend/shell/settings.cpp:1319
+#: port/frontend/shell/settings.cpp:1315 port/frontend/shell/settings.cpp:1320
 msgid "None: games play offline"
 msgstr "Không có: trò chơi chơi ngoại tuyến"
 
-#: port/frontend/shell/settings.cpp:1315
+#: port/frontend/shell/settings.cpp:1316
 msgid "Rooms for the games' local wireless play, online."
 msgstr "Phòng cho chế độ chơi không dây cục bộ của trò chơi, trực tuyến."
 
-#: port/frontend/shell/settings.cpp:1320
+#: port/frontend/shell/settings.cpp:1321
 msgid "Joined as a Switch game starts. Cross plays offline again."
 msgstr "Được tham gia khi một trò chơi Switch khởi động. Nút Chữ thập quay về chơi ngoại tuyến."
 
-#: port/frontend/shell/settings.cpp:1320
+#: port/frontend/shell/settings.cpp:1321
 msgid "Choose a public room below, or a private one."
 msgstr "Chọn một phòng công khai bên dưới, hoặc một phòng riêng."
 
-#: port/frontend/shell/settings.cpp:1323
+#: port/frontend/shell/settings.cpp:1324
 msgid "Nickname"
 msgstr "Biệt danh"
 
-#: port/frontend/shell/settings.cpp:1323
+#: port/frontend/shell/settings.cpp:1324
 msgid "Your name in the room."
 msgstr "Tên của bạn trong phòng."
 
-#: port/frontend/shell/settings.cpp:1324
+#: port/frontend/shell/settings.cpp:1325
 msgid "What the others in a room see of you: 4 to 20 letters, digits, spaces, dots, dashes or underscores, as Eden takes them."
 msgstr "Những gì người khác trong phòng thấy về bạn: 4 đến 20 chữ cái Latinh, chữ số, khoảng trắng, dấu chấm, gạch ngang hoặc gạch dưới, như Eden nhận."
 
-#: port/frontend/shell/settings.cpp:1326
+#: port/frontend/shell/settings.cpp:1327
 msgid "Private room"
 msgstr "Phòng riêng"
 
-#: port/frontend/shell/settings.cpp:1327
+#: port/frontend/shell/settings.cpp:1328
 msgid "Cross to enter one"
 msgstr "Nút Chữ thập để nhập"
 
-#: port/frontend/shell/settings.cpp:1328
+#: port/frontend/shell/settings.cpp:1329
 msgid "A room by its address, port and password."
 msgstr "Một phòng theo địa chỉ, cổng và mật khẩu."
 
-#: port/frontend/shell/settings.cpp:1329
+#: port/frontend/shell/settings.cpp:1330
 msgid "A room someone gave you the address of: its address (a name or an IPv4 address), its UDP port (24872 unless they say otherwise) and its password, if it has one."
 msgstr "Một phòng mà ai đó đưa bạn địa chỉ: địa chỉ của nó (một tên hoặc một địa chỉ IPv4), cổng UDP (24872 trừ khi họ nói khác) và mật khẩu, nếu có."
 
-#: port/frontend/shell/settings.cpp:1333
+#: port/frontend/shell/settings.cpp:1334
 msgid "No public rooms right now"
 msgstr "Hiện không có phòng công khai"
 
-#: port/frontend/shell/settings.cpp:1334
+#: port/frontend/shell/settings.cpp:1335
 msgid "{0} room"
 msgid_plural "{0} rooms"
 msgstr[0] "{0} phòng"
 
-#: port/frontend/shell/settings.cpp:1335
+#: port/frontend/shell/settings.cpp:1336
 msgid "Public rooms"
 msgstr "Phòng công khai"
 
-#: port/frontend/shell/settings.cpp:1335
+#: port/frontend/shell/settings.cpp:1336
 msgid "Cross downloads the list again."
 msgstr "Nút Chữ thập tải lại danh sách."
 
-#: port/frontend/shell/settings.cpp:1336
+#: port/frontend/shell/settings.cpp:1337
 msgid "ProsperoEden's list of public rooms: its own featured rooms first, then the others, the fullest first. A room for another version of Eden cannot be joined."
 msgstr "Danh sách phòng công khai của ProsperoEden: các phòng nổi bật của chính nó trước, rồi đến các phòng khác, phòng đông nhất trước. Không thể vào phòng dành cho phiên bản Eden khác."
 
-#: port/frontend/shell/settings.cpp:1344 port/frontend/shell/shares.cpp:317 port/frontend/shell/shares.cpp:489
+#: port/frontend/shell/settings.cpp:1345 port/frontend/shell/shares.cpp:317 port/frontend/shell/shares.cpp:489
 msgid "Password"
 msgstr "Mật khẩu"
 
 #. one of ProsperoEden's own rooms, which its list puts first
-#: port/frontend/shell/settings.cpp:1347
+#: port/frontend/shell/settings.cpp:1348
 msgid "Featured"
 msgstr "Nổi bật"
 
-#: port/frontend/shell/settings.cpp:1349
+#: port/frontend/shell/settings.cpp:1350
 msgid "Another version"
 msgstr "Phiên bản khác"
 
-#: port/frontend/shell/settings.cpp:1351
+#: port/frontend/shell/settings.cpp:1352
 msgid "{0} (chosen)"
 msgstr "{0} (đã chọn)"
 
-#: port/frontend/shell/settings.cpp:1352
+#: port/frontend/shell/settings.cpp:1353
 msgid "Any game"
 msgstr "Mọi trò chơi"
 
-#: port/frontend/shell/settings.cpp:1359
+#: port/frontend/shell/settings.cpp:1360
 msgid "Community graphic packs"
 msgstr "Gói đồ họa cộng đồng"
 
-#: port/frontend/shell/settings.cpp:1359
+#: port/frontend/shell/settings.cpp:1360
 msgid "Cross checks GitHub for newer ones."
 msgstr "Nhấn Chữ thập để kiểm tra bản mới hơn trên GitHub."
 
-#: port/frontend/shell/settings.cpp:1360
+#: port/frontend/shell/settings.cpp:1361
 msgid "Cemu's community graphic packs, from GitHub's latest release when it is newer than the ones installed. They are not in the app: the first time the Wii U side starts without them, they are downloaded in the background."
 msgstr "Gói đồ họa cộng đồng của Cemu, từ bản phát hành mới nhất trên GitHub khi nó mới hơn bản đã cài. Các gói không có sẵn trong ứng dụng: lần đầu bên Wii U khởi động mà chưa có gói, chúng sẽ được tải về ở chế độ nền."
 
-#: port/frontend/shell/settings.cpp:1366
+#: port/frontend/shell/settings.cpp:1367
 msgid "Earn RetroAchievements in DS games with your account, as RetroArch does. Cross signs in with your user name and password; only the sign-in's token is kept on the PS5, never the password. Softcore: save states, cheats and speed stay as they are. RetroAchievements has no sets for the Wii U or the 3DS."
 msgstr "Đạt thành tựu RetroAchievements trong trò chơi DS bằng tài khoản của bạn, như RetroArch. Nhấn nút Chữ thập để đăng nhập bằng tên người dùng và mật khẩu; PS5 chỉ giữ token đăng nhập, không bao giờ giữ mật khẩu. Softcore: trạng thái đã lưu, mã gian lận và tốc độ vẫn dùng như cũ. RetroAchievements không có bộ thành tựu cho Wii U hay 3DS."
 
 #. the RetroAchievements account signed in: its name ({1}) and softcore points ({0})
-#: port/frontend/shell/settings.cpp:1371 port/frontend/shell/settings.cpp:1375
+#: port/frontend/shell/settings.cpp:1372 port/frontend/shell/settings.cpp:1376
 msgid "RetroAchievements"
 msgstr "RetroAchievements"
 
-#: port/frontend/shell/settings.cpp:1372
+#: port/frontend/shell/settings.cpp:1373
 msgid "{1} · {0} point"
 msgid_plural "{1} · {0} points"
 msgstr[0] "{1} · {0} điểm"
 
-#: port/frontend/shell/settings.cpp:1372
+#: port/frontend/shell/settings.cpp:1373
 msgid "Hold Cross to sign out"
 msgstr "Giữ nút Chữ thập để đăng xuất"
 
-#: port/frontend/shell/settings.cpp:1373
+#: port/frontend/shell/settings.cpp:1374
 msgid "Signed in: DS games with a set earn achievements."
 msgstr "Đã đăng nhập: trò chơi DS có bộ thành tựu sẽ mang lại thành tựu."
 
-#: port/frontend/shell/settings.cpp:1376
+#: port/frontend/shell/settings.cpp:1377
 msgid "Signing in…"
 msgstr "Đang đăng nhập…"
 
-#: port/frontend/shell/settings.cpp:1376
+#: port/frontend/shell/settings.cpp:1377
 msgid "Cross to sign in"
 msgstr "Nhấn Chữ thập để đăng nhập"
 
-#: port/frontend/shell/settings.cpp:1377
+#: port/frontend/shell/settings.cpp:1378
 msgid "Achievements in DS games, with your RetroAchievements account."
 msgstr "Thành tựu trong trò chơi DS, bằng tài khoản RetroAchievements."
 
-#: port/frontend/shell/settings.cpp:1378
+#: port/frontend/shell/settings.cpp:1379
 msgid "Unlock notices"
 msgstr "Thông báo mở khóa"
 
-#: port/frontend/shell/settings.cpp:1378
+#: port/frontend/shell/settings.cpp:1379
 msgid "Each unlock as the PS5's notification."
 msgstr "Mỗi lần mở khóa là một thông báo của PS5."
 
-#: port/frontend/shell/settings.cpp:1379
+#: port/frontend/shell/settings.cpp:1380
 msgid "An achievement earned, and the count as a game starts, shown as the PS5's own notifications. Off: they are only in the in-game menu's Achievements."
 msgstr "Thành tựu vừa đạt, và số thành tựu khi trò chơi khởi động, hiện thành thông báo của chính PS5. Tắt: chúng chỉ có trong mục Thành tựu của menu trong trò chơi."
 
-#: port/frontend/shell/settings.cpp:1384
+#: port/frontend/shell/settings.cpp:1385
 msgid "PS5-ECAM updates"
 msgstr "Bản cập nhật PS5-ECAM"
 
-#: port/frontend/shell/settings.cpp:1384
+#: port/frontend/shell/settings.cpp:1385
 msgid "Cross checks GitHub for a newer version."
 msgstr "Nhấn Chữ thập để kiểm tra phiên bản mới hơn trên GitHub."
 
-#: port/frontend/shell/settings.cpp:1385
+#: port/frontend/shell/settings.cpp:1386
 msgid "PS5-ECAM asks GitHub for its latest release each time it starts. Cross asks again, or installs the newer version it found: the release's files are downloaded, checked and put in place of these, and the app starts again. Your games, saves and settings stay as they are."
 msgstr "Mỗi lần khởi động, PS5-ECAM hỏi GitHub bản phát hành mới nhất. Nhấn Chữ thập để hỏi lại, hoặc cài phiên bản mới hơn đã tìm thấy: tệp của bản phát hành được tải xuống, kiểm tra rồi thay cho tệp hiện tại, và ứng dụng khởi động lại. Trò chơi, bản lưu và cài đặt giữ nguyên."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/settings.cpp:1392
+#: port/frontend/shell/settings.cpp:1393
 msgid "Go back to {0}"
 msgstr "Quay lại {0}"
 
-#: port/frontend/shell/settings.cpp:1393
+#: port/frontend/shell/settings.cpp:1394
 msgid "The version before the last update, kept as it was."
 msgstr "Phiên bản trước lần cập nhật gần nhất, được giữ nguyên."
 
-#: port/frontend/shell/settings.cpp:1394
+#: port/frontend/shell/settings.cpp:1395
 msgid "The last update kept the version it replaced. Holding Cross puts its files back in place of these, and PS5-ECAM starts again as that version. Your games, saves and settings stay as they are. The newer version is not offered at start again; this page still finds it."
 msgstr "Lần cập nhật gần nhất đã giữ lại phiên bản mà nó thay thế. Giữ nút Chữ thập để đặt lại các tệp của phiên bản đó thay cho các tệp này, rồi PS5-ECAM khởi động lại dưới phiên bản đó. Trò chơi, bản lưu và cài đặt của bạn vẫn giữ nguyên. Phiên bản mới hơn sẽ không được đề xuất lại khi khởi động; trang này vẫn tìm thấy nó."
 
-#: port/frontend/shell/settings.cpp:1401
+#: port/frontend/shell/settings.cpp:1402
 msgid "Put each system's files back first: Settings > Game files > A folder for each system."
 msgstr "Hãy đưa tệp của mỗi hệ máy trở lại trước: Cài đặt > Tệp trò chơi > Một thư mục cho mỗi hệ máy."
 
-#: port/frontend/shell/settings.cpp:1419
+#: port/frontend/shell/settings.cpp:1420
 msgid "Theme"
 msgstr "Giao diện"
 
-#: port/frontend/shell/settings.cpp:1421
+#: port/frontend/shell/settings.cpp:1422
 msgid "How the launcher looks: its colours, its corners and what moves behind the menus. Every theme has the same screens and buttons. Make your own as a JSON file in {0}/themes, starting from any of these: the text under this page says how. Only the launcher changes: the in-game menus and the games stay as they are."
 msgstr "Diện mạo của trình khởi chạy: màu sắc, góc bo và những gì chuyển động sau menu. Mọi giao diện đều có cùng màn hình và nút. Tự tạo giao diện bằng tệp JSON trong {0}/themes, bắt đầu từ bất kỳ giao diện nào ở đây: phần chữ bên dưới trang này hướng dẫn cách làm. Chỉ trình khởi chạy thay đổi: menu trong trò chơi và trò chơi giữ nguyên."
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
-#: port/frontend/shell/settings.cpp:1432
+#: port/frontend/shell/settings.cpp:1433
 msgid "Sides"
 msgstr "Các bên"
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
-#: port/frontend/shell/settings.cpp:1432
+#: port/frontend/shell/settings.cpp:1433
 msgid "Which systems the bar shows."
 msgstr "Hệ máy mà thanh hiển thị."
 
-#: port/frontend/shell/settings.cpp:1433
+#: port/frontend/shell/settings.cpp:1434
 msgid "The sides the bar offers, any mix of the four. A hidden side keeps its games and settings, and they come back when it is turned on again. At least one side stays on."
 msgstr "Các bên mà thanh cung cấp, kết hợp bất kỳ trong bốn. Bên bị ẩn giữ trò chơi và cài đặt, và chúng quay lại khi bật lại. Ít nhất một bên luôn bật."
 
-#: port/frontend/shell/settings.cpp:1438
+#: port/frontend/shell/settings.cpp:1439
 msgid "This system's games, in the bar."
 msgstr "Trò chơi của hệ máy này, trên thanh."
 
-#: port/frontend/shell/settings.cpp:1438
+#: port/frontend/shell/settings.cpp:1439
 msgid "Whether the bar shows this side. Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Thanh có hiện bên này hay không. Khi ẩn, trò chơi và cài đặt của bên đó vẫn được giữ và trở lại khi bật lại. Luôn có ít nhất một bên được bật."
 
-#: port/frontend/shell/settings.cpp:1440
+#: port/frontend/shell/settings.cpp:1441
 msgid "Wii U side"
 msgstr "Bên Wii U"
 
-#: port/frontend/shell/settings.cpp:1440
+#: port/frontend/shell/settings.cpp:1441
 msgid "Cemu's games, in the bar."
 msgstr "Trò chơi của Cemu, trên thanh."
 
-#: port/frontend/shell/settings.cpp:1441
+#: port/frontend/shell/settings.cpp:1442
 msgid "Whether the bar shows the Wii U side (Cemu). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Thanh có hiện bên Wii U (Cemu) hay không. Khi ẩn, trò chơi và cài đặt của bên đó vẫn được giữ và trở lại khi bật lại. Luôn có ít nhất một bên được bật."
 
-#: port/frontend/shell/settings.cpp:1444
+#: port/frontend/shell/settings.cpp:1445
 msgid "Switch side"
 msgstr "Bên Switch"
 
-#: port/frontend/shell/settings.cpp:1444
+#: port/frontend/shell/settings.cpp:1445
 msgid "Eden's games, in the bar."
 msgstr "Trò chơi của Eden, trên thanh."
 
-#: port/frontend/shell/settings.cpp:1445
+#: port/frontend/shell/settings.cpp:1446
 msgid "Whether the bar shows the Switch side (Eden). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Thanh có hiện bên Switch (Eden) hay không. Khi ẩn, trò chơi và cài đặt của bên đó vẫn được giữ và trở lại khi bật lại. Luôn có ít nhất một bên được bật."
 
-#: port/frontend/shell/settings.cpp:1447
+#: port/frontend/shell/settings.cpp:1448
 msgid "DS side"
 msgstr "Bên DS"
 
-#: port/frontend/shell/settings.cpp:1447
+#: port/frontend/shell/settings.cpp:1448
 msgid "melonDS's games, in the bar."
 msgstr "Trò chơi của melonDS, trên thanh."
 
-#: port/frontend/shell/settings.cpp:1448
+#: port/frontend/shell/settings.cpp:1449
 msgid "Whether the bar shows the DS side (melonDS). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Thanh có hiện bên DS (melonDS) hay không. Khi ẩn, trò chơi và cài đặt của bên đó vẫn được giữ và trở lại khi bật lại. Luôn có ít nhất một bên được bật."
 
-#: port/frontend/shell/settings.cpp:1450
+#: port/frontend/shell/settings.cpp:1451
 msgid "3DS side"
 msgstr "Bên 3DS"
 
-#: port/frontend/shell/settings.cpp:1450
+#: port/frontend/shell/settings.cpp:1451
 msgid "Azahar's games, in the bar."
 msgstr "Trò chơi của Azahar, trên thanh."
 
-#: port/frontend/shell/settings.cpp:1451
+#: port/frontend/shell/settings.cpp:1452
 msgid "Whether the bar shows the 3DS side (Azahar). Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."
 msgstr "Thanh có hiện bên 3DS (Azahar) hay không. Khi ẩn, trò chơi và cài đặt của bên đó vẫn được giữ và trở lại khi bật lại. Luôn có ít nhất một bên được bật."
 
-#: port/frontend/shell/settings.cpp:1454
+#: port/frontend/shell/settings.cpp:1455
 msgid "Game pictures behind menus"
 msgstr "Ảnh trò chơi sau menu"
 
-#: port/frontend/shell/settings.cpp:1454
+#: port/frontend/shell/settings.cpp:1455
 msgid "The focused game's cover, softened, behind the screens."
 msgstr "Ảnh bìa của trò chơi đang chọn, làm mờ, phía sau màn hình."
 
-#: port/frontend/shell/settings.cpp:1455
+#: port/frontend/shell/settings.cpp:1456
 msgid "The focused game's picture fills the screen behind the menus, softened and dimmed, so moving the focus changes the whole screen. Off: the game's colours only."
 msgstr "Ảnh của trò chơi đang chọn phủ kín màn hình sau menu, làm mờ và tối đi, nên di chuyển mục chọn sẽ đổi cả màn hình. Tắt: chỉ màu của trò chơi."
 
-#: port/frontend/shell/settings.cpp:1457
+#: port/frontend/shell/settings.cpp:1458
 msgid "Library filters"
 msgstr "Bộ lọc thư viện"
 
-#: port/frontend/shell/settings.cpp:1457
+#: port/frontend/shell/settings.cpp:1458
 msgid "All, Recently added, Favourites: a row over the list."
 msgstr "Tất cả, Mới thêm, Yêu thích: một hàng phía trên danh sách."
 
-#: port/frontend/shell/settings.cpp:1458
+#: port/frontend/shell/settings.cpp:1459
 msgid "A row of filters over the Library's list: All, Recently added (the last 30 days), Favourites and, on the Wii U side, Graphic packs on, each with its count. Off: the list has every game, and Sort and Search are all it needs."
 msgstr "Một hàng bộ lọc phía trên danh sách thư viện: Tất cả, Mới thêm (30 ngày gần nhất), Yêu thích và, ở bên Wii U, Đang bật gói đồ họa, mỗi bộ lọc kèm số lượng. Tắt: danh sách có mọi trò chơi, chỉ cần Sắp xếp và Tìm kiếm là đủ."
 
-#: port/frontend/shell/settings.cpp:1462
+#: port/frontend/shell/settings.cpp:1463
 msgid "Start in EmulationStation"
 msgstr "Khởi động vào EmulationStation"
 
-#: port/frontend/shell/settings.cpp:1463
+#: port/frontend/shell/settings.cpp:1464
 msgid "ES-DE's menus and themes over the same games, played here."
 msgstr "Menu và giao diện của ES-DE trên cùng những trò chơi, chơi tại đây."
 
-#: port/frontend/shell/settings.cpp:1464
+#: port/frontend/shell/settings.cpp:1465
 msgid "PS5-ECAM opens on EmulationStation (ES-DE) instead of its own launcher: the sides the bar shows, with the games their libraries list, and every game plays here with its settings, saves and in-game menu, then goes back to EmulationStation. Hold L1 as PS5-ECAM starts, or quit EmulationStation, for this launcher."
 msgstr "PS5-ECAM mở EmulationStation (ES-DE) thay cho trình khởi chạy riêng của nó: các bên mà thanh hiện, cùng trò chơi trong thư viện của chúng, và mỗi trò chơi đều chạy tại đây với cài đặt, bản lưu và menu trong trò chơi của nó, rồi quay lại EmulationStation. Giữ L1 khi PS5-ECAM khởi động, hoặc thoát EmulationStation, để vào trình khởi chạy này."
 
-#: port/frontend/shell/settings.cpp:1474 port/frontend/shell/settings.cpp:1485
+#: port/frontend/shell/settings.cpp:1475 port/frontend/shell/settings.cpp:1486
 msgid "Larger text"
 msgstr "Chữ lớn hơn"
 
-#: port/frontend/shell/settings.cpp:1474 port/frontend/shell/settings.cpp:1487
+#: port/frontend/shell/settings.cpp:1475 port/frontend/shell/settings.cpp:1488
 msgid "High contrast"
 msgstr "Độ tương phản cao"
 
-#: port/frontend/shell/settings.cpp:1475 port/frontend/shell/settings.cpp:1489
+#: port/frontend/shell/settings.cpp:1476 port/frontend/shell/settings.cpp:1490
 msgid "Reduce motion"
 msgstr "Giảm chuyển động"
 
 #. Settings > Launcher: a row that opens Larger text, High contrast, Reduce motion and Hold to confirm
-#: port/frontend/shell/settings.cpp:1481
+#: port/frontend/shell/settings.cpp:1482
 msgid "Accessibility"
 msgstr "Trợ năng"
 
-#: port/frontend/shell/settings.cpp:1482
+#: port/frontend/shell/settings.cpp:1483
 msgid "Larger text, high contrast, less motion, the hold to confirm."
 msgstr "Chữ lớn hơn, độ tương phản cao, ít chuyển động, giữ để xác nhận."
 
-#: port/frontend/shell/settings.cpp:1483
+#: port/frontend/shell/settings.cpp:1484
 msgid "Text a step larger, opaque panels with full-strength text, fades in place of movement, and how long Cross is held for what cannot be undone. Triangle on each says more."
 msgstr "Chữ lớn hơn một bậc, bảng mờ đục với chữ đậm đủ, mờ dần thay cho chuyển động, và thời gian giữ Chữ thập cho những việc không thể hoàn tác. Tam giác ở mỗi dòng cho biết thêm."
 
-#: port/frontend/shell/settings.cpp:1485
+#: port/frontend/shell/settings.cpp:1486
 msgid "Every size of text a step up."
 msgstr "Mọi cỡ chữ tăng một bậc."
 
-#: port/frontend/shell/settings.cpp:1486
+#: port/frontend/shell/settings.cpp:1487
 msgid "Every style of text a step larger: captions from 20 to 23, reading text from 26 to 30."
 msgstr "Mọi kiểu chữ lớn hơn một bậc: chú thích từ 20 lên 23, chữ đọc từ 26 lên 30."
 
-#: port/frontend/shell/settings.cpp:1487
+#: port/frontend/shell/settings.cpp:1488
 msgid "Opaque panels, full-strength text, a thicker ring."
 msgstr "Bảng không trong suốt, chữ đậm đủ, viền chọn dày hơn."
 
-#: port/frontend/shell/settings.cpp:1488
+#: port/frontend/shell/settings.cpp:1489
 msgid "Opaque panels instead of glass, all text at full strength, a thicker focus ring and no grain or pictures behind the menus."
 msgstr "Bảng không trong suốt thay cho kính, mọi chữ ở độ đậm tối đa, viền chọn dày hơn và không có hạt hay ảnh sau menu."
 
-#: port/frontend/shell/settings.cpp:1489
+#: port/frontend/shell/settings.cpp:1490
 msgid "Fades in place of movement."
 msgstr "Mờ dần thay cho chuyển động."
 
-#: port/frontend/shell/settings.cpp:1490
+#: port/frontend/shell/settings.cpp:1491
 msgid "Springs become short fades; nothing drifts, breathes or rises behind the menus."
 msgstr "Hiệu ứng nảy thành mờ dần ngắn; không có gì trôi, nhịp thở hay bay lên sau menu."
 
-#: port/frontend/shell/settings.cpp:1491
+#: port/frontend/shell/settings.cpp:1492
 msgid "Hold to confirm"
 msgstr "Giữ để xác nhận"
 
-#: port/frontend/shell/settings.cpp:1491
+#: port/frontend/shell/settings.cpp:1492
 msgid "How long Cross is held for what cannot be undone."
 msgstr "Thời gian giữ nút Chữ thập cho những thao tác không hoàn tác được."
 
-#: port/frontend/shell/settings.cpp:1492
+#: port/frontend/shell/settings.cpp:1493
 msgid "Clearing caches, Artic Setup and resetting controls are held to confirm, never pressed twice. This is how long."
 msgstr "Xóa bộ nhớ đệm, Artic Setup và khôi phục điều khiển đều cần giữ để xác nhận, không bao giờ là nhấn hai lần. Đây là thời gian giữ."
 
-#: port/frontend/shell/settings.cpp:1494 port/frontend/shell/welcome.cpp:208
+#: port/frontend/shell/settings.cpp:1495 port/frontend/shell/welcome.cpp:208
 msgid "Make it yours"
 msgstr "Tùy biến theo ý bạn"
 
-#: port/frontend/shell/settings.cpp:1494
+#: port/frontend/shell/settings.cpp:1495
 msgid "The first-start choices again: sides, theme, buttons."
 msgstr "Các lựa chọn của lần khởi động đầu: các bên, giao diện, nút."
 
-#: port/frontend/shell/settings.cpp:1495
+#: port/frontend/shell/settings.cpp:1496
 msgid "The page the first start opens on: the language, the sides, the theme, A and B, the music, vibration and the games' pictures, on one page."
 msgstr "Trang mở ra ở lần khởi động đầu: ngôn ngữ, các bên, giao diện, A và B, nhạc, rung và ảnh trò chơi, trên một trang."
 
-#: port/frontend/shell/settings.cpp:1500
+#: port/frontend/shell/settings.cpp:1501
 msgid "Storage, recompilers, games, keys and box art, checked."
 msgstr "Kiểm tra bộ lưu trữ, trình biên dịch lại, trò chơi, khóa và ảnh bìa."
 
-#: port/frontend/shell/settings.cpp:1501
+#: port/frontend/shell/settings.cpp:1502
 msgid "Each check has a status, what it means and what to do. It is also shown on the first start and whenever a check fails as the app starts."
 msgstr "Mỗi mục kiểm tra có trạng thái, ý nghĩa và cách xử lý. Nó cũng hiện ở lần khởi động đầu và mỗi khi có mục kiểm tra không đạt lúc ứng dụng khởi động."
 
-#: port/frontend/shell/settings.cpp:1503
+#: port/frontend/shell/settings.cpp:1504
 msgid "Copy logs to USB"
 msgstr "Sao chép nhật ký vào USB"
 
-#: port/frontend/shell/settings.cpp:1503
+#: port/frontend/shell/settings.cpp:1504
 msgid "The logs a report needs, onto a USB drive."
 msgstr "Nhật ký cần cho báo cáo lỗi, vào ổ USB."
 
-#: port/frontend/shell/settings.cpp:1504
+#: port/frontend/shell/settings.cpp:1505
 msgid "Copies the last five sessions' logs and the settings into a dated folder on a USB drive, to attach to a report."
 msgstr "Sao chép nhật ký của năm phiên gần nhất và các mục cài đặt vào một thư mục ghi ngày trên ổ USB, để đính kèm vào báo cáo lỗi."
 
-#: port/frontend/shell/settings.cpp:1506 port/frontend/shell/settings.cpp:1509
+#: port/frontend/shell/settings.cpp:1507 port/frontend/shell/settings.cpp:1510
 msgid "Clear shader caches"
 msgstr "Xóa bộ nhớ đệm shader"
 
-#: port/frontend/shell/settings.cpp:1507 port/frontend/shell/settings.cpp:1510
+#: port/frontend/shell/settings.cpp:1508 port/frontend/shell/settings.cpp:1511
 msgid "For a game that crashes on a bad cache."
 msgstr "Cho trò chơi bị sập vì bộ nhớ đệm hỏng."
 
-#: port/frontend/shell/settings.cpp:1507
+#: port/frontend/shell/settings.cpp:1508
 msgid "Deletes Cemu's shader caches. Games build them again as they run: the first minutes stutter."
 msgstr "Xóa bộ nhớ đệm shader của Cemu. Trò chơi dựng lại chúng khi chạy: vài phút đầu sẽ giật."
 
-#: port/frontend/shell/settings.cpp:1511
+#: port/frontend/shell/settings.cpp:1512
 msgid "Deletes Azahar's shader caches. Games build them again as they run: the first minutes stutter."
 msgstr "Xóa bộ nhớ đệm shader của Azahar. Trò chơi dựng lại chúng khi chạy: vài phút đầu sẽ giật."
 
 #. Settings > Diagnostics: the copies of games unpacked from their archives (.zip, .7z...), kept for their next start
-#: port/frontend/shell/settings.cpp:1521
+#: port/frontend/shell/settings.cpp:1522
 msgid "Unpacked games"
 msgstr "Trò chơi đã giải nén"
 
-#: port/frontend/shell/settings.cpp:1525
+#: port/frontend/shell/settings.cpp:1526
 msgid "Games from archives, kept unpacked for their next start."
 msgstr "Trò chơi từ tệp nén, được giữ ở dạng đã giải nén cho lần khởi động sau."
 
 #. {0} is the folder they are kept in
-#: port/frontend/shell/settings.cpp:1527
+#: port/frontend/shell/settings.cpp:1528
 msgid "Deletes the copies of games unpacked from their archives, kept in {0}. Each is unpacked again the next time it starts; when room is needed, the copies used longest ago go by themselves."
 msgstr "Xóa các bản sao của trò chơi đã giải nén từ tệp nén, được giữ trong {0}. Mỗi trò chơi sẽ được giải nén lại vào lần khởi động sau; khi cần chỗ trống, các bản sao lâu nhất chưa dùng sẽ tự bị xóa."
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "Wii U games' volume"
 msgstr "Âm lượng trò chơi Wii U"
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "3DS games' volume"
 msgstr "Âm lượng trò chơi 3DS"
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "Switch games' volume"
 msgstr "Âm lượng trò chơi Switch"
 
-#: port/frontend/shell/settings.cpp:1538
+#: port/frontend/shell/settings.cpp:1539
 msgid "DS games' volume"
 msgstr "Âm lượng trò chơi DS"
 
-#: port/frontend/shell/settings.cpp:1539
+#: port/frontend/shell/settings.cpp:1540
 msgid "The games' sound."
 msgstr "Âm thanh của trò chơi."
 
-#: port/frontend/shell/settings.cpp:1539
+#: port/frontend/shell/settings.cpp:1540
 msgid "The games' sound on this side. Left and Right change it by 10%."
 msgstr "Âm thanh của trò chơi bên này. Nhấn trái/phải để đổi 10% mỗi lần."
 
-#: port/frontend/shell/settings.cpp:1542
+#: port/frontend/shell/settings.cpp:1543
 msgid "GamePad speaker"
 msgstr "Loa GamePad"
 
-#: port/frontend/shell/settings.cpp:1542
+#: port/frontend/shell/settings.cpp:1543
 msgid "The Wii U GamePad's own sound, on the DualSense."
 msgstr "Âm thanh riêng của Wii U GamePad, trên DualSense."
 
-#: port/frontend/shell/settings.cpp:1543
+#: port/frontend/shell/settings.cpp:1544
 msgid "The sounds games play on the Wii U GamePad's speaker, from player 1's DualSense speaker. Many games send their whole sound there too, so it is off unless you want it. Applies to the next game."
 msgstr "Âm thanh trò chơi phát trên loa Wii U GamePad, phát từ loa DualSense của người chơi 1. Nhiều trò chơi cũng gửi toàn bộ âm thanh đến đó, nên mục này tắt trừ khi bạn muốn. Áp dụng từ trò chơi tiếp theo."
 
 #. Settings > System: a row that opens the launcher's music and menu sounds
-#: port/frontend/shell/settings.cpp:1551
+#: port/frontend/shell/settings.cpp:1552
 msgid "Launcher sound"
 msgstr "Âm thanh trình khởi chạy"
 
 #. Settings > System: a row that opens the launcher's music and menu sounds
-#: port/frontend/shell/settings.cpp:1551
+#: port/frontend/shell/settings.cpp:1552
 msgid "The menus' music and sounds."
 msgstr "Nhạc và âm thanh của menu."
 
-#: port/frontend/shell/settings.cpp:1552
+#: port/frontend/shell/settings.cpp:1553
 msgid "The music that plays in the menus, how loud it is, and the sounds of moving and choosing. Every side has the same."
 msgstr "Nhạc phát trong menu, độ to của nhạc, và âm thanh khi di chuyển và chọn. Mọi bên đều giống nhau."
 
-#: port/frontend/shell/settings.cpp:1553
+#: port/frontend/shell/settings.cpp:1554
 msgid "Launcher music"
 msgstr "Nhạc trình khởi chạy"
 
-#: port/frontend/shell/settings.cpp:1553
+#: port/frontend/shell/settings.cpp:1554
 msgid "Music that plays in the menus."
 msgstr "Nhạc phát trong menu."
 
-#: port/frontend/shell/settings.cpp:1554
+#: port/frontend/shell/settings.cpp:1555
 msgid "The launcher's own music, one of yours, or none. To use your own, put MP3 or WAV files in {0}; they appear here. Every side plays the same."
 msgstr "Nhạc riêng của trình khởi chạy, nhạc của bạn, hoặc không có. Để dùng nhạc của bạn, đặt tệp MP3 hoặc WAV vào {0}; chúng sẽ hiện ở đây. Mọi bên phát cùng một nhạc."
 
-#: port/frontend/shell/settings.cpp:1557
+#: port/frontend/shell/settings.cpp:1558
 msgid "Music volume"
 msgstr "Âm lượng nhạc"
 
-#: port/frontend/shell/settings.cpp:1557
+#: port/frontend/shell/settings.cpp:1558
 msgid "How loud the menus' music is."
 msgstr "Nhạc menu to đến mức nào."
 
-#: port/frontend/shell/settings.cpp:1558
+#: port/frontend/shell/settings.cpp:1559
 msgid "How loud the launcher's music is. Left and Right change it by 10%."
 msgstr "Nhạc của trình khởi chạy to đến mức nào. Nhấn trái/phải để đổi 10% mỗi lần."
 
-#: port/frontend/shell/settings.cpp:1559
+#: port/frontend/shell/settings.cpp:1560
 msgid "Menu sounds"
 msgstr "Âm thanh menu"
 
-#: port/frontend/shell/settings.cpp:1559
+#: port/frontend/shell/settings.cpp:1560
 msgid "The sounds of moving and choosing."
 msgstr "Âm thanh khi di chuyển và chọn."
 
-#: port/frontend/shell/settings.cpp:1560
+#: port/frontend/shell/settings.cpp:1561
 msgid "The launcher's sounds as you move, choose and go back."
 msgstr "Âm thanh của trình khởi chạy khi bạn di chuyển, chọn và quay lại."
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/frontend/shell/settings.cpp:1569
+#: port/frontend/shell/settings.cpp:1570
 msgid "Cemu's emulated portals."
 msgstr "Các cổng giả lập của Cemu."
 
-#: port/frontend/shell/settings.cpp:1574
+#: port/frontend/shell/settings.cpp:1575
 msgid "For the Skylanders games."
 msgstr "Cho các trò chơi Skylanders."
 
-#: port/frontend/shell/settings.cpp:1575
+#: port/frontend/shell/settings.cpp:1576
 msgid "For Disney Infinity 3.0."
 msgstr "Cho Disney Infinity 3.0."
 
-#: port/frontend/shell/settings.cpp:1576
+#: port/frontend/shell/settings.cpp:1577
 msgid "For LEGO Dimensions."
 msgstr "Cho LEGO Dimensions."
 
-#: port/frontend/shell/settings.cpp:1577
+#: port/frontend/shell/settings.cpp:1578
 msgid "Cemu's emulated portal, plugged in as a game starts. In the game, the menu's USB devices category puts figures on it: dumps in {0}. A real portal plugged into the PS5 is not supported."
 msgstr "Cổng giả lập của Cemu, được cắm vào khi trò chơi khởi động. Trong trò chơi, mục Thiết bị USB của menu đặt mô hình lên cổng: bản dump nằm trong {0}. Cổng thật cắm vào PS5 không được hỗ trợ."
 
-#: port/frontend/shell/settings.cpp:1589
+#: port/frontend/shell/settings.cpp:1590
 msgid ""
 "{0} in any browser on the PS5's network, a phone's, a tablet's or a computer's, with nothing to install, and its touches sent back to the game. Scan the code shown here, or open the address. The DualSense stays the buttons, and the sound stays on the PS5.\n"
 "While a browser shows it, the PS5 copies that screen up to 30 times a second, so a game can run a little slower; with no browser, it costs nothing. Any device on your network can open the page, so turn it off on a network you share.\n"
@@ -6575,148 +6575,148 @@ msgstr ""
 "Một công tắc cho mọi bên (màn hình GamePad là của người chơi 1), cũng có trong menu của trò chơi (nhấn bàn di cảm ứng + OPTIONS). Từ ý tưởng và bản mẫu của dolphin78 (#38)."
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/frontend/shell/settings.cpp:1597 port/frontend/shell/settings.cpp:1599
+#: port/frontend/shell/settings.cpp:1598 port/frontend/shell/settings.cpp:1600
 msgid "{0} in a phone's or tablet's browser, with touch."
 msgstr "{0} trong trình duyệt của điện thoại hoặc máy tính bảng, có cảm ứng."
 
 #. the Switch side's players, the people (Eden's user profiles), each with saves of their own; not a number of players
-#: port/frontend/shell/settings.cpp:1643
+#: port/frontend/shell/settings.cpp:1644
 msgctxt "switch"
 msgid "Players"
 msgstr "Người chơi"
 
-#: port/frontend/shell/settings.cpp:1646 port/frontend/shell/switch_extras.cpp:91
+#: port/frontend/shell/settings.cpp:1647 port/frontend/shell/switch_extras.cpp:91
 msgid "Remembered for this PS5 user. Each player has saves of their own; none are moved or deleted."
 msgstr "Được ghi nhớ cho người dùng PS5 này. Mỗi người chơi có bản lưu riêng; không bản lưu nào bị di chuyển hay xóa."
 
-#: port/frontend/shell/settings.cpp:1673
+#: port/frontend/shell/settings.cpp:1674
 msgid "Back to defaults"
 msgstr "Về mặc định"
 
-#: port/frontend/shell/settings.cpp:1675
+#: port/frontend/shell/settings.cpp:1676
 msgid "This game goes back to its side's settings."
 msgstr "Trò chơi này trở lại dùng cài đặt của bên nó."
 
-#: port/frontend/shell/settings.cpp:1676
+#: port/frontend/shell/settings.cpp:1677
 msgid "Clears this game's own settings, so it uses its side's settings again, like every other game."
 msgstr "Xóa các mục cài đặt riêng của trò chơi này, để nó lại dùng cài đặt của bên nó như mọi trò chơi khác."
 
 #. a Wii U account by its number, when its name cannot be read
-#: port/frontend/shell/settings.cpp:1741
+#: port/frontend/shell/settings.cpp:1742
 msgid "Account {0}"
 msgstr "Tài khoản {0}"
 
 #. a Wii U game's save that all its accounts share
-#: port/frontend/shell/settings.cpp:1743
+#: port/frontend/shell/settings.cpp:1744
 msgid "Every account's"
 msgstr "Chung cho mọi tài khoản"
 
-#: port/frontend/shell/settings.cpp:1744
+#: port/frontend/shell/settings.cpp:1745
 msgid "Save data"
 msgstr "Dữ liệu lưu"
 
 #. a 3DS game's extra data (its extdata), which some games keep beside their saves
-#: port/frontend/shell/settings.cpp:1746
+#: port/frontend/shell/settings.cpp:1747
 msgid "Extra data"
 msgstr "Dữ liệu bổ sung"
 
-#: port/frontend/shell/settings.cpp:1747
+#: port/frontend/shell/settings.cpp:1748
 msgid "{0} save state"
 msgid_plural "{0} save states"
 msgstr[0] "{0} bản lưu trạng thái"
 
-#: port/frontend/shell/settings.cpp:1748
+#: port/frontend/shell/settings.cpp:1749
 msgid "The GBA cartridge's save"
 msgstr "Bản lưu của băng GBA"
 
-#: port/frontend/shell/settings.cpp:1797
+#: port/frontend/shell/settings.cpp:1798
 msgid "Held: moved to saves-before on the PS5, so it can still come back."
 msgstr "Giữ: chuyển vào saves-before trên PS5, nên vẫn lấy lại được."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1799
+#: port/frontend/shell/settings.cpp:1800
 msgid "Holding Cross moves these files to {0}/saves-before, in a folder named by the date and time, and the game starts without them next time. Nothing is deleted: copy them back from there (or restore a backup) to have them again."
 msgstr "Giữ nút Chữ thập sẽ chuyển các tệp này vào {0}/saves-before, trong một thư mục đặt tên theo ngày giờ, và lần sau trò chơi khởi động mà không có chúng. Không có gì bị xóa: sao chép chúng từ đó về (hoặc khôi phục một bản sao lưu) để có lại."
 
-#: port/frontend/shell/settings.cpp:1809
+#: port/frontend/shell/settings.cpp:1810
 msgid "No saves yet"
 msgstr "Chưa có bản lưu"
 
-#: port/frontend/shell/settings.cpp:1810
+#: port/frontend/shell/settings.cpp:1811
 msgid "They appear here once the game has saved."
 msgstr "Chúng hiện ở đây khi trò chơi đã lưu."
 
-#: port/frontend/shell/settings.cpp:1823
+#: port/frontend/shell/settings.cpp:1824
 msgid "This game's saves, to the first USB drive."
 msgstr "Bản lưu của trò chơi này, vào ổ USB đầu tiên."
 
-#: port/frontend/shell/settings.cpp:1824
+#: port/frontend/shell/settings.cpp:1825
 msgid "Copies this game's saves (every account's, on the Wii U) and its save states to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time, the same way a backup of every side's saves is made."
 msgstr "Sao chép bản lưu của trò chơi này (của mọi tài khoản, trên Wii U) và trạng thái đã lưu của nó vào PS5CEMU-HAR-saves trên ổ USB đầu tiên đang cắm, trong một thư mục đặt tên theo ngày giờ, giống như khi sao lưu bản lưu của mọi bên."
 
-#: port/frontend/shell/settings.cpp:1841
+#: port/frontend/shell/settings.cpp:1842
 msgid "No backup on the drives plugged in has this game's saves."
 msgstr "Không bản sao lưu nào trên các ổ đang cắm có bản lưu của trò chơi này."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1843
+#: port/frontend/shell/settings.cpp:1844
 msgid "Puts this game's saves from the chosen backup back where they came from, and nothing else. Its saves there now are moved first to {0}/saves-before, so nothing is lost."
 msgstr "Đưa bản lưu của trò chơi này từ bản sao lưu đã chọn về chỗ cũ, không gì khác. Bản lưu hiện có của nó được chuyển trước vào {0}/saves-before, nên không mất gì."
 
-#: port/frontend/shell/settings.cpp:1853
+#: port/frontend/shell/settings.cpp:1854
 msgid "Copy the save to USB"
 msgstr "Sao chép bản lưu sang USB"
 
-#: port/frontend/shell/settings.cpp:1854
+#: port/frontend/shell/settings.cpp:1855
 msgid "The chosen player's save, in USB/PS5-ECAM-exports, as folders another emulator can take."
 msgstr "Bản lưu của người chơi đã chọn, trong USB/PS5-ECAM-exports, dưới dạng thư mục mà trình giả lập khác có thể dùng."
 
-#: port/frontend/shell/settings.cpp:1858
+#: port/frontend/shell/settings.cpp:1859
 msgid "Take a save from USB"
 msgstr "Lấy bản lưu từ USB"
 
-#: port/frontend/shell/settings.cpp:1863
+#: port/frontend/shell/settings.cpp:1864
 msgid "None on a USB drive"
 msgstr "Không có trên ổ USB"
 
-#: port/frontend/shell/settings.cpp:1864
+#: port/frontend/shell/settings.cpp:1865
 msgid "From USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
 msgstr "Từ USB/PS5-ECAM-imports/<title ID>, hoặc bản sao thư mục của Ryujinx trong USB/Ryujinx, làm bản lưu của người chơi đã chọn. Bản lưu bị thay thế được giữ lại."
 
-#: port/frontend/shell/settings.cpp:1865
+#: port/frontend/shell/settings.cpp:1866
 msgid "Choose the player in Settings > Players and saves > Players first. Every file is copied and checked before the save is replaced, and the save it replaces is kept in Eden's save-transfer-recovery folder."
 msgstr "Hãy chọn người chơi trước trong Cài đặt > Người chơi và bản lưu > Người chơi. Mọi tệp được sao chép và kiểm tra trước khi thay bản lưu, và bản lưu bị thay được giữ trong thư mục save-transfer-recovery của Eden."
 
-#: port/frontend/shell/settings.cpp:1878
+#: port/frontend/shell/settings.cpp:1879
 msgid "{0} min"
 msgstr "{0} phút"
 
 #. a play time: hours, then minutes
-#: port/frontend/shell/settings.cpp:1880
+#: port/frontend/shell/settings.cpp:1881
 msgid "{0} h {1} min"
 msgstr "{0} giờ {1} phút"
 
 #. Settings > Play time, a side's line: {1} the side (Wii U, 3DS, DS, Switch), {2} its play time, {0} how many games
-#: port/frontend/shell/settings.cpp:1912
+#: port/frontend/shell/settings.cpp:1913
 msgid "{1}: {2}, {0} game"
 msgid_plural "{1}: {2}, {0} games"
 msgstr[0] "{1}: {2}, {0} trò chơi"
 
-#: port/frontend/shell/settings.cpp:1915
+#: port/frontend/shell/settings.cpp:1916
 msgid "Nothing played yet. A game's time counts from its start to its end, and shows here and on its page."
 msgstr "Chưa chơi gì. Thời gian của một trò chơi được tính từ lúc bắt đầu đến lúc kết thúc, và hiện ở đây và trên trang của nó."
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1918
+#: port/frontend/shell/settings.cpp:1919
 msgid "In all: {0}"
 msgstr "Tổng cộng: {0}"
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1918
+#: port/frontend/shell/settings.cpp:1919
 msgid "Most played"
 msgstr "Chơi nhiều nhất"
 
-#: port/frontend/shell/settings.cpp:1938
+#: port/frontend/shell/settings.cpp:1939
 msgid ""
 "Your own theme: a file such as sunset.json in {0}/themes, read as the app starts, then listed under Theme by its name:\n"
 "{{\"name\": \"Sunset\", \"base\": \"midnight\", \"colours\": {{\"wiiu\": \"#ff7a59\", \"ink-0\": \"#120806\"}}, \"corners\": 0.5, \"motif\": \"none\"}}\n"
@@ -6727,31 +6727,31 @@ msgstr ""
 "base: giao diện để bắt đầu (light, link-jack, classic, midnight, eden). colours: ink-0 đến ink-2 (nền), text, wiiu, n3ds, nds và nx (màu của từng bên), glass, line, good, warn, bad và focus, dạng #rrggbb. corners: từ 0 (vuông) đến 1.5 (tròn). motif: side, none hoặc eden."
 
 #. {0} is Eden's data folder; {1} its game files folder (the same one unless another was chosen)
-#: port/frontend/shell/settings.cpp:1947
+#: port/frontend/shell/settings.cpp:1948
 msgid "Saves: {0}/user/nand/user/save. Updates and DLC: beside a game, in its own folder, or in {1}/updates. Mods and cheats: {1}/mods. Covers and names: {0}/covers, once Eden has read a game."
 msgstr "Bản lưu: {0}/user/nand/user/save. Bản cập nhật và DLC: cạnh trò chơi, trong thư mục riêng của nó, hoặc trong {1}/updates. Bản mod và mã gian lận: {1}/mods. Ảnh bìa và tên: {0}/covers, sau khi Eden đã đọc trò chơi."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1952
+#: port/frontend/shell/settings.cpp:1953
 msgid "Saves: {0}/melonds/saves (a .sav beside the game is taken the first time). Save states: melonds/states. Cheats: melonds/cheats/<game file>.mch, melonDS's format. A GBA game for Slot-2: melonds/slot2/<game file>.gba. DSi games and the DS's wireless are not there."
 msgstr "Bản lưu: {0}/melonds/saves (tệp .sav cạnh trò chơi được lấy ở lần đầu). Trạng thái đã lưu: melonds/states. Mã gian lận: melonds/cheats/<tệp trò chơi>.mch, định dạng của melonDS. Trò chơi GBA cho khe 2: melonds/slot2/<tệp trò chơi>.gba. Không có trò chơi DSi và kết nối không dây của DS."
 
-#: port/frontend/shell/settings.cpp:1956
+#: port/frontend/shell/settings.cpp:1957
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Khi bật, mã QR ở đây mở màn hình thứ hai của trò chơi trong trình duyệt điện thoại. Không cần cài gì; điện thoại phải ở trong mạng của PS5."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1960
+#: port/frontend/shell/settings.cpp:1961
 msgid "Figure dumps go in {0}/figures: skylanders, infinity and dimensions. Switch a portal on here, start the game, then put figures on it from the in-game menu (touchpad click + Options > USB devices)."
 msgstr "Bản dump mô hình đặt trong {0}/figures: skylanders, infinity và dimensions. Bật một cổng ở đây, khởi động trò chơi, rồi đặt mô hình lên từ menu trong trò chơi (nhấn bàn di cảm ứng + OPTIONS > Thiết bị USB)."
 
 #. premohq and JMUtechnologies are GitHub names: keep them as they are
-#: port/frontend/shell/settings.cpp:1965
+#: port/frontend/shell/settings.cpp:1966
 msgid "PS5-ECAM is made by its co-founders, premohq and JMUtechnologies."
 msgstr "PS5-ECAM do các nhà đồng sáng lập premohq và JMUtechnologies làm ra."
 
 #. {0} is the app's version; {1} its data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on; {2} Eden's game files folder; {3} Cemu's selected data folder; {4} its default games folder; {5} Azahar's selected folder; {6} melonDS's selected folder
-#: port/frontend/shell/settings.cpp:1967
+#: port/frontend/shell/settings.cpp:1968
 msgid ""
 "Cemu, the Wii U emulator, by the Cemu team and its contributors; RADV on the PS5 by Mihawk-99 and mpereiraesaa; the community graphic packs' authors.\n"
 "Azahar, the 3DS emulator, by the Azahar team and the Citra contributors before them; Mihawk-99's PS5 port of it and dynarmic.\n"
@@ -6782,197 +6782,197 @@ msgstr ""
 "Phiên bản {0}"
 
 #. the first choice in the language list: the PS5's own ({0}, in its own words)
-#: port/frontend/shell/settings.cpp:1985
+#: port/frontend/shell/settings.cpp:1986
 msgid "The PS5's language: {0}"
 msgstr "Ngôn ngữ của PS5: {0}"
 
-#: port/frontend/shell/settings.cpp:2010
+#: port/frontend/shell/settings.cpp:2011
 msgid "Language: {0}"
 msgstr "Ngôn ngữ: {0}"
 
-#: port/frontend/shell/settings.cpp:2137
+#: port/frontend/shell/settings.cpp:2138
 msgid "One side at least stays on"
 msgstr "Luôn có ít nhất một bên được bật"
 
 #. the Wii U account games start on now ({0}: its name)
-#: port/frontend/shell/settings.cpp:2299 port/frontend/shell/settings.cpp:2480 port/frontend/shell/settings.cpp:2566
+#: port/frontend/shell/settings.cpp:2300 port/frontend/shell/settings.cpp:2481 port/frontend/shell/settings.cpp:2567
 msgid "Games start on {0}'s saves"
 msgstr "Trò chơi khởi động với bản lưu của {0}"
 
-#: port/frontend/shell/settings.cpp:2398
+#: port/frontend/shell/settings.cpp:2399
 msgid "This game has no ID to save settings under"
 msgstr "Trò chơi này không có ID để lưu cài đặt"
 
-#: port/frontend/shell/settings.cpp:2503
+#: port/frontend/shell/settings.cpp:2504
 msgid "Backing up {0}'s saves…"
 msgstr "Đang sao lưu bản lưu của {0}…"
 
-#: port/frontend/shell/settings.cpp:2518 port/frontend/shell/settings.cpp:2913
+#: port/frontend/shell/settings.cpp:2519 port/frontend/shell/settings.cpp:2914
 msgid "Choose a player first, in Settings > Players and saves."
 msgstr "Hãy chọn người chơi trước, trong Cài đặt > Người chơi và bản lưu."
 
-#: port/frontend/shell/settings.cpp:2519
+#: port/frontend/shell/settings.cpp:2520
 msgid "Copying to USB…"
 msgstr "Đang sao chép sang USB…"
 
-#: port/frontend/shell/settings.cpp:2561
+#: port/frontend/shell/settings.cpp:2562
 msgid "A name for the new account"
 msgstr "Tên cho tài khoản mới"
 
-#: port/frontend/shell/settings.cpp:2578
+#: port/frontend/shell/settings.cpp:2579
 msgid "A new name"
 msgstr "Tên mới"
 
-#: port/frontend/shell/settings.cpp:2580
+#: port/frontend/shell/settings.cpp:2581
 msgid "Renamed {0}"
 msgstr "Đã đổi tên {0}"
 
-#: port/frontend/shell/settings.cpp:2589
+#: port/frontend/shell/settings.cpp:2590
 msgid "Backing up every side's saves…"
 msgstr "Đang sao lưu bản lưu của mọi bên…"
 
 #. the loading screen's name for a retro side's own emulator menus: {0} is the side (Nintendo 64)
-#: port/frontend/shell/settings.cpp:2602
+#: port/frontend/shell/settings.cpp:2603
 msgid "{0}: its emulator's settings"
 msgstr "{0}: cài đặt trình giả lập"
 
-#: port/frontend/shell/settings.cpp:2603
+#: port/frontend/shell/settings.cpp:2604
 msgid "Opening emulator settings"
 msgstr "Đang mở cài đặt trình giả lập"
 
-#: port/frontend/shell/settings.cpp:2678
+#: port/frontend/shell/settings.cpp:2679
 msgid "Switch games play offline"
 msgstr "Trò chơi Switch chơi ngoại tuyến"
 
-#: port/frontend/shell/settings.cpp:2682
+#: port/frontend/shell/settings.cpp:2683
 msgid "Your nickname in rooms"
 msgstr "Biệt danh của bạn trong phòng"
 
-#: port/frontend/shell/settings.cpp:2687
+#: port/frontend/shell/settings.cpp:2688
 msgid "A nickname is 4 to 20 letters, digits, spaces, dots, dashes or underscores."
 msgstr "Biệt danh gồm 4 đến 20 chữ cái Latinh, chữ số, khoảng trắng, dấu chấm, gạch ngang hoặc gạch dưới."
 
 #. the nickname shown in Switch rooms ({0})
-#: port/frontend/shell/settings.cpp:2693
+#: port/frontend/shell/settings.cpp:2694
 msgid "In rooms you are {0}"
 msgstr "Trong phòng, bạn là {0}"
 
-#: port/frontend/shell/settings.cpp:2707
+#: port/frontend/shell/settings.cpp:2708
 msgid "This room is for another version of Eden."
 msgstr "Phòng này dành cho phiên bản Eden khác."
 
 #. the room ({0}) Switch games join from now on
-#: port/frontend/shell/settings.cpp:2718 port/frontend/shell/settings.cpp:2755
+#: port/frontend/shell/settings.cpp:2719 port/frontend/shell/settings.cpp:2756
 msgid "Switch games join {0} as they start"
 msgstr "Trò chơi Switch vào {0} khi khởi động"
 
 #. the password of a room ({0}: its name)
-#: port/frontend/shell/settings.cpp:2722
+#: port/frontend/shell/settings.cpp:2723
 msgid "{0}'s password"
 msgstr "Mật khẩu của {0}"
 
-#: port/frontend/shell/settings.cpp:2733
+#: port/frontend/shell/settings.cpp:2734
 msgid "The room's address"
 msgstr "Địa chỉ của phòng"
 
-#: port/frontend/shell/settings.cpp:2738
+#: port/frontend/shell/settings.cpp:2739
 msgid "An address is a name or an IPv4 address: letters, digits, dots and dashes."
 msgstr "Địa chỉ là một tên hoặc một địa chỉ IPv4: chữ cái, chữ số, dấu chấm và gạch ngang."
 
-#: port/frontend/shell/settings.cpp:2741
+#: port/frontend/shell/settings.cpp:2742
 msgid "Its UDP port"
 msgstr "Cổng UDP của nó"
 
-#: port/frontend/shell/settings.cpp:2745
+#: port/frontend/shell/settings.cpp:2746
 msgid "A port is a number from 1 to 65535."
 msgstr "Cổng là một số từ 1 đến 65535."
 
-#: port/frontend/shell/settings.cpp:2748
+#: port/frontend/shell/settings.cpp:2749
 msgid "Its password (empty: none)"
 msgstr "Mật khẩu của nó (để trống: không có)"
 
-#: port/frontend/shell/settings.cpp:2765
+#: port/frontend/shell/settings.cpp:2766
 msgid "Starting the 3DS"
 msgstr "Đang khởi động 3DS"
 
-#: port/frontend/shell/settings.cpp:2774
+#: port/frontend/shell/settings.cpp:2775
 msgid "Your RetroAchievements user name"
 msgstr "Tên người dùng RetroAchievements của bạn"
 
-#: port/frontend/shell/settings.cpp:2777
+#: port/frontend/shell/settings.cpp:2778
 msgid "{0}'s RetroAchievements password"
 msgstr "Mật khẩu RetroAchievements của {0}"
 
-#: port/frontend/shell/settings.cpp:2779
+#: port/frontend/shell/settings.cpp:2780
 msgid "Signing in to RetroAchievements…"
 msgstr "Đang đăng nhập RetroAchievements…"
 
-#: port/frontend/shell/settings.cpp:2801
+#: port/frontend/shell/settings.cpp:2802
 msgid "Player removed: their saves and settings are kept"
 msgstr "Đã gỡ người chơi: bản lưu và cài đặt của họ vẫn được giữ"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/shell/settings.cpp:2815
+#: port/frontend/shell/settings.cpp:2816
 msgid "{0} game deleted ({1})"
 msgid_plural "{0} games deleted ({1})"
 msgstr[0] "Đã xóa {0} trò chơi ({1})"
 
 #. a held row's result: the covers are on their way
-#: port/frontend/shell/settings.cpp:2822
+#: port/frontend/shell/settings.cpp:2823
 msgid "Downloading in the background"
 msgstr "Đang tải xuống ngầm"
 
-#: port/frontend/shell/settings.cpp:2842 port/frontend/shell/shell.cpp:436
+#: port/frontend/shell/settings.cpp:2843 port/frontend/shell/shell.cpp:436
 msgid "Close PS5-ECAM and start it again from the home screen: the folders move as it starts."
 msgstr "Đóng PS5-ECAM rồi mở lại từ màn hình chính: các thư mục được chuyển khi ứng dụng khởi động."
 
-#: port/frontend/shell/settings.cpp:2884
+#: port/frontend/shell/settings.cpp:2885
 msgid "{0} is deleted; its saves stay"
 msgstr "Đã xóa {0}; bản lưu vẫn còn"
 
-#: port/frontend/shell/settings.cpp:2897
+#: port/frontend/shell/settings.cpp:2898
 msgid "Restoring the saves of {0}…"
 msgstr "Đang khôi phục bản lưu của {0}…"
 
-#: port/frontend/shell/settings.cpp:2905
+#: port/frontend/shell/settings.cpp:2906
 msgid "Signed out of RetroAchievements"
 msgstr "Đã đăng xuất khỏi RetroAchievements"
 
-#: port/frontend/shell/settings.cpp:2915
+#: port/frontend/shell/settings.cpp:2916
 msgid "Taking the save…"
 msgstr "Đang lấy bản lưu…"
 
-#: port/frontend/shell/settings.cpp:2925
+#: port/frontend/shell/settings.cpp:2926
 msgid "Restoring {0}'s saves of {1}…"
 msgstr "Đang khôi phục bản lưu của {0} từ bản sao lưu {1}…"
 
 #. one of a game's saves moved out of the way ({0}: which, as its row names it)
-#: port/frontend/shell/settings.cpp:2939
+#: port/frontend/shell/settings.cpp:2940
 msgid "{0}: moved to saves-before"
 msgstr "{0}: đã chuyển vào saves-before"
 
-#: port/frontend/shell/settings.cpp:2950
+#: port/frontend/shell/settings.cpp:2951
 msgid "Done: back to its side's settings"
 msgstr "Xong: đã về cài đặt của bên"
 
-#: port/frontend/shell/settings.cpp:3139
+#: port/frontend/shell/settings.cpp:3140
 msgid "Scan it, or open"
 msgstr "Quét mã, hoặc mở"
 
-#: port/frontend/shell/settings.cpp:3145
+#: port/frontend/shell/settings.cpp:3146
 msgid "Same network as the PS5. Nothing to install: the browser is enough. Sound stays on the PS5. Any browser on the network can see it and touch."
 msgstr "Cùng mạng với PS5. Không cần cài gì: chỉ cần trình duyệt. Âm thanh vẫn ở trên PS5. Mọi trình duyệt trong mạng đều xem và chạm được."
 
-#: port/frontend/shell/settings.cpp:3177
+#: port/frontend/shell/settings.cpp:3178
 msgid "Support PS5-ECAM"
 msgstr "Ủng hộ PS5-ECAM"
 
-#: port/frontend/shell/settings.cpp:3188
+#: port/frontend/shell/settings.cpp:3189
 msgid "PS5-ECAM is free. If it brings your games back, you can support its work here."
 msgstr "PS5-ECAM miễn phí. Nếu nó giúp bạn chơi lại các trò chơi của mình, bạn có thể ủng hộ công sức làm ra nó tại đây."
 
 #. above Settings' pages: whose settings they are ({0}: Wii U, Nintendo 3DS or Nintendo DS)
-#: port/frontend/shell/settings.cpp:3228
+#: port/frontend/shell/settings.cpp:3229
 msgid "{0} settings"
 msgstr "Cài đặt {0}"
 
@@ -7042,7 +7042,7 @@ msgstr "Không có bộ nhớ JIT hay bộ nhớ thực thi: trò chơi Wii U ch
 msgid "Neither your HEN's JIT memory nor executable memory could be made, so Wii U games fall back to Cemu's interpreter. Add PPSA99360 to your HEN's app jailbreak list, then start PS5-ECAM again; Settings > Diagnostics says what it got."
 msgstr "Không lấy được bộ nhớ JIT của HEN, cũng không tạo được bộ nhớ thực thi, nên trò chơi Wii U chuyển sang trình thông dịch của Cemu. Thêm PPSA99360 vào danh sách app jailbreak của HEN, rồi khởi động lại PS5-ECAM; Cài đặt > Chẩn đoán cho biết đã nhận được gì."
 
-#: port/frontend/shell/setup.cpp:190 port/frontend/shell/shell.cpp:731 port/main_ps5.cpp:702 port/retro/launch.cpp:31 port/retro/launch.cpp:41
+#: port/frontend/shell/setup.cpp:190 port/frontend/shell/shell.cpp:731 port/libretro/game.cpp:517 port/main_ps5.cpp:703 port/retro/launch.cpp:38 port/retro/launch.cpp:48
 msgid "This side's emulator is not in this copy of PS5-ECAM."
 msgstr "Trình giả lập của bên này không có trong bản PS5-ECAM này."
 
@@ -8167,49 +8167,54 @@ msgstr "Bản cập nhật lớn nhất từ trước đến nay, tóm tắt. Gh
 msgid "This game"
 msgstr "Trò chơi này"
 
-#: port/main_ps5.cpp:155
+#. a notification as a game on a libretro core stops because the PS5's GPU stopped drawing it
+#: port/libretro/game.cpp:497
+msgid "The game's picture stopped (the GPU's device was lost)."
+msgstr "Hình ảnh của trò chơi đã dừng (mất thiết bị GPU)."
+
+#: port/main_ps5.cpp:156
 msgid "Firmware {0}"
 msgstr "Firmware {0}"
 
-#: port/main_ps5.cpp:157
+#: port/main_ps5.cpp:158
 msgid "Logs: {0}, {1}/log.txt"
 msgstr "Nhật ký: {0}, {1}/log.txt"
 
-#: port/main_ps5.cpp:158
+#: port/main_ps5.cpp:159
 msgid "Boot log not written (/data is unreachable)"
 msgstr "Chưa ghi nhật ký khởi động (không truy cập được /data)"
 
-#: port/main_ps5.cpp:597
+#: port/main_ps5.cpp:598
 msgid "PS5-ECAM cannot reach /data. Load a HEN with PPSA99360 in its app jailbreak list, or elfldr, then restart PS5-ECAM."
 msgstr "PS5-ECAM không truy cập được /data. Nạp HEN có PPSA99360 trong danh sách app jailbreak, hoặc elfldr, rồi khởi động lại PS5-ECAM."
 
-#: port/main_ps5.cpp:709
+#: port/main_ps5.cpp:710
 msgid "This session: Azahar (3DS); Cemu's emulated Wii U is not started"
 msgstr "Phiên này: Azahar (3DS); Wii U giả lập của Cemu chưa khởi động"
 
-#: port/main_ps5.cpp:719
+#: port/main_ps5.cpp:720
 msgid "This session: Eden (Switch), in a program of its own; Cemu's emulated Wii U is not started"
 msgstr "Phiên này: Eden (Switch), trong một chương trình riêng; Wii U giả lập của Cemu chưa khởi động"
 
-#: port/main_ps5.cpp:729
+#: port/main_ps5.cpp:730
 msgid "This session: melonDS (DS); Cemu's emulated Wii U is not started"
 msgstr "Phiên này: melonDS (DS); Wii U giả lập của Cemu chưa khởi động"
 
-#: port/main_ps5.cpp:736
+#: port/main_ps5.cpp:737
 msgid "This session: Cemu (Wii U); Azahar's core is not started"
 msgstr "Phiên này: Cemu (Wii U); lõi của Azahar chưa khởi động"
 
-#: port/main_ps5.cpp:746
+#: port/main_ps5.cpp:747
 msgid "No JIT memory: Wii U games run on the interpreter, much slower. Is PPSA99360 in your HEN's app jailbreak list?"
 msgstr "Không có bộ nhớ JIT: trò chơi Wii U chạy bằng trình thông dịch, chậm hơn nhiều. PPSA99360 có trong danh sách app jailbreak của HEN không?"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/main_ps5.cpp:788
+#: port/main_ps5.cpp:789
 msgid "The launcher could not start. The boot log in {0}/logs says why."
 msgstr "Trình khởi chạy không khởi động được. Nhật ký khởi động trong {0}/logs ghi lý do."
 
 #. {0} is why; {1} the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the app's drive
-#: port/main_ps5.cpp:790
+#: port/main_ps5.cpp:791
 msgid "The launcher could not start: {0}. The boot log in {1}/logs has more."
 msgstr "Trình khởi chạy không khởi động được: {0}. Nhật ký khởi động trong {1}/logs có thêm chi tiết."
 
@@ -8265,7 +8270,7 @@ msgid "{0} fps"
 msgstr "{0} fps"
 
 #. a retro side's emulator: {0} its name, {1} its program in the app's folder, {2} whether this copy has it, {3} its data folder
-#: port/retro/launch.cpp:26
+#: port/retro/launch.cpp:33
 msgid ""
 "{0}\n"
 "Its program: {1}, {2}\n"
@@ -8277,23 +8282,23 @@ msgstr ""
 "Dữ liệu và nhật ký: {3}\n"
 "Cài đặt và trạng thái đã lưu là của riêng nó: không trình giả lập nào khác đọc chúng."
 
-#: port/retro/launch.cpp:27
+#: port/retro/launch.cpp:34
 msgid "in this copy of PS5-ECAM"
 msgstr "có trong bản PS5-ECAM này"
 
-#: port/retro/launch.cpp:27
+#: port/retro/launch.cpp:34
 msgid "not in this copy of PS5-ECAM"
 msgstr "không có trong bản PS5-ECAM này"
 
-#: port/retro/launch.cpp:35
+#: port/retro/launch.cpp:42
 msgid "The emulator could not be started."
 msgstr "Không thể khởi động trình giả lập."
 
-#: port/retro/launch.cpp:43
+#: port/retro/launch.cpp:50
 msgid "This game is no longer where it was, or is not one this side can start."
 msgstr "Trò chơi này không còn ở chỗ cũ, hoặc không phải trò chơi mà bên này khởi động được."
 
-#: port/retro/launch.cpp:47
+#: port/retro/launch.cpp:54
 msgid "This game's folder or name cannot be handed to its emulator: move it or rename it."
 msgstr "Không thể chuyển thư mục hoặc tên của trò chơi này cho trình giả lập: hãy di chuyển hoặc đổi tên nó."
 

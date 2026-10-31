@@ -4,6 +4,8 @@
 // null, and Find leaves it out, so the app links with any of them or none (hidden: resolved to null
 // when the app is linked, with nothing left for the PS5's loader).
 #include "core.h"
+#include "plays.h"
+#include "../retro/registry.h"
 
 #define PS5LIBRETRO_CORE(core) \
 	extern "C" { \
@@ -71,5 +73,13 @@ namespace ps5libretro
 			if (name == core.name)
 				return Linked(core) ? &core : nullptr;
 		return nullptr;
+	}
+
+	bool Plays(int side)
+	{
+		if (!ps5retro::IsRetro(side))
+			return false;
+		const ps5retro::System& system = ps5retro::Of(side);
+		return !*system.runtime && *system.core && Find(system.core);
 	}
 }

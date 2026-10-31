@@ -9,7 +9,8 @@ if [[ ${ECAM_TEST_SANITIZE:-0} == 1 ]]; then sanitize=(-fsanitize=address,undefi
 "${CXX:-c++}" "${sanitize[@]}" -std=c++20 -pthread -Wall -Wextra -Werror -Wno-deprecated-declarations -DFMT_HEADER_ONLY \
  -DPS5CEMU_DATA="\"$work/data\"" -I"$root/port" -I"${ECAM_RAPIDJSON_INCLUDE:-$root/.deps/rapidjson/include}" \
  "$root/tools/tests/test-retro.cpp" "$root/port/retro/library.cpp" "$root/port/retro/launch.cpp" \
- "$root/port/frontend/settings.cpp" "$root/port/app/catalog.cpp" -o "$work/test-retro"
+ "$root/port/frontend/settings.cpp" "$root/port/app/catalog.cpp" "$root/port/libretro/cores.cpp" \
+ -I"${ECAM_LIBRETRO_INCLUDE:-$root/.deps/libretro/libretro-common/include}" -o "$work/test-retro"
 "$work/test-retro" "$work/files"
 # ASan's runtime has to be the first library loaded, so this pass is left out of a sanitized run
 if [[ $(uname -s) == Linux && ${#sanitize[@]} == 0 ]]; then

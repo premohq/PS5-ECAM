@@ -32,6 +32,7 @@
 #include "frontend/launcher.h"
 #include "retro/library.h"
 #include "retro/launch.h"
+#include "libretro/game.h"
 #include "melonds/library.h"
 #include "melonds/melonds.h"
 #include "frontend/settings.h"
@@ -835,6 +836,34 @@ int main(int argc, char* argv[])
 			ps5pad::SetTurbo(ps5pad::ButtonNamed(turbo));
 			if (!turbo.empty())
 				ps5log::Line("[main] turbo button: {}", turbo);
+		}
+
+		if (ps5libretro::Plays((int)choice->system) && !game.path.empty())
+		{
+			// the side's libretro core, in this process as melonDS below: its picture on VideoOut at 59.94 Hz
+			const auto side = ps5launcher::SideName(choice->system);
+			const int index = (int)choice->system;
+			RememberSide(side);
+			SetHighFrameRate(false);
+			ps5threads::EndIsolation();
+			ps5libretro::SetResume(choice->resume);
+			if (ps5libretro::LaunchGame(index, game, forGame.retro[ps5retro::Slot(index)], error))
+			{
+				ps5libretro::RunGame();
+				countPlayTime((ps5catalog::System)index, game.titleId, game.name, std::time(nullptr));
+				backInProcess(choice->system);
+				continue;
+			}
+			ps5log::Line("[main] {} did not start: {}", game.name, error);
+			if (ps5libretro::CoreTouched())
+			{
+				RememberSide(side, error);
+				ps5emu::RestartToLibrary();
+				return 1;
+			}
+			status.launchError = error;
+			settings.side = side;
+			continue;
 		}
 
 		if (ps5retro::IsRetro((int)choice->system))

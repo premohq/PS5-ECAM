@@ -450,7 +450,8 @@ namespace ps5shell
 				Row folder; folder.id = "folder"; folder.kind = Kind::Link; folder.label = Tr("Games folder"); folder.value = GamesFolder(m_side); folder.description = Tr("The folder this side's games are in. Choosing another moves nothing: games and saves stay where they are."); rows.push_back(folder);
 				Row scan; scan.id = "rescan"; scan.kind = Kind::Action; scan.label = Tr("Look for games now"); rows.push_back(scan);
 			}
-			else
+			// a side on its core in the app has no emulator of its own to open: the in-game menu is its
+			else if (!ps5libretro::Plays(SideIndex()))
 			{
 				Row info; info.id = "retro-library"; info.kind = Kind::Action; info.dimmed = !ps5retro::Available(SideIndex(), backend); info.label = Tr("Open emulator settings and saves");
 				info.description = Tr("This side's emulator keeps its own settings, controls and saves: this opens its menus to change them, and quitting them comes back here. What it already had stays where it is."); rows.push_back(info);

@@ -20,6 +20,7 @@
 #include "../../app/saves.h"
 #include "../../retro/library.h"
 #include "../../retro/launch.h"
+#include "../../libretro/plays.h"
 #include "../../eden/extras.h"
 #include "../../ui/canvas.h"
 #include "../../ui/feedback.h"

@@ -176,6 +176,9 @@ add_library(CemuPS5 STATIC
 	retro/library.cpp
 	libretro/core.h
 	libretro/cores.cpp
+	libretro/game.cpp
+	libretro/game.h
+	libretro/plays.h
 	libretro/session.cpp
 	libretro/session.h
 	eden/launch.cpp
@@ -306,6 +309,7 @@ set_source_files_properties(
 	retro/launch.cpp
 	retro/library.cpp
 	libretro/cores.cpp
+	libretro/game.cpp
 	libretro/session.cpp
 	eden/launch.cpp
 	eden/extras.cpp
@@ -438,4 +442,17 @@ if(PS5CEMU_MELONDS_LIBRARIES AND EXISTS "${PS5CEMU_MELONDS_LIBRARIES}")
 else()
 	target_sources(CemuPS5 PRIVATE melonds/unavailable.cpp)
 	message(STATUS "PS5-ECAM: no melonDS build; DS games will not start")
+endif()
+
+# The libretro cores the app's frontend runs (libretro/game.h; tools/build-libretro.py builds them): the
+# objects its build lists, each core's entry points named <core>_retro_* (libretro/cores.cpp). Without
+# that build the sides on a core say their emulator is not in this copy.
+set(PS5CEMU_LIBRETRO_OBJECTS "" CACHE FILEPATH "The list of the libretro cores' objects (build/libretro/objects.txt)")
+if(PS5CEMU_LIBRETRO_OBJECTS AND EXISTS "${PS5CEMU_LIBRETRO_OBJECTS}")
+	file(STRINGS "${PS5CEMU_LIBRETRO_OBJECTS}" LIBRETRO_OBJECTS)
+	target_link_libraries(CemuPS5 PUBLIC ${LIBRETRO_OBJECTS})
+	set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS "${PS5CEMU_LIBRETRO_OBJECTS}")
+	message(STATUS "PS5-ECAM: libretro cores from ${PS5CEMU_LIBRETRO_OBJECTS}")
+else()
+	message(STATUS "PS5-ECAM: no libretro cores built; the sides on a core will not start")
 endif()

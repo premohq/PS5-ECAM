@@ -3,6 +3,7 @@
 #include "library.h"
 #include "../app/lang.h"
 #include "../app/paths.h"
+#include "../libretro/plays.h"
 #include <filesystem>
 namespace ps5retro
 {
@@ -15,9 +16,15 @@ namespace ps5retro
 	}
 	bool Available(int side, int backend)
 	{
+		// a side on its core in the app (port/libretro/game.h); else its program beside the app
+		if (backend == 0 && ps5libretro::Plays(side))
+			return true;
 		std::error_code error;
-		return IsRetro(side) && std::filesystem::is_regular_file(ps5paths::AppDir() + "/" + BackendFor(side, backend).runtime, error);
+		return IsRetro(side) && *BackendFor(side, backend).runtime &&
+			std::filesystem::is_regular_file(ps5paths::AppDir() + "/" + BackendFor(side, backend).runtime, error);
 	}
+	// a program to start: none for a side on its core
+	static bool HasProgram(int side, int backend) { return IsRetro(side) && *BackendFor(side, backend).runtime && Available(side, backend); }
 	std::string Diagnostics(int side, int backend)
 	{
 		if (!IsRetro(side)) return "Unknown emulator system.";
@@ -28,7 +35,7 @@ namespace ps5retro
 	}
 	bool LaunchLibrary(int side, std::string& error, int backend)
 	{
-		if (!Available(side, backend)) { error = Tr("This side's emulator is not in this copy of PS5-ECAM."); return false; }
+		if (!HasProgram(side, backend)) { error = Tr("This side's emulator is not in this copy of PS5-ECAM."); return false; }
 		FinishScans();
 		const auto request = (std::filesystem::path(ps5paths::AppDir()) / BackendFor(side, backend).runtime).parent_path() / "ecam-request.txt";
 		ps5emu::LoadExecApp(BackendFor(side, backend).runtime, {"--ecam-library", "--ecam-return", ps5paths::Eboot()}, true, request.string());
@@ -38,7 +45,7 @@ namespace ps5retro
 
 	bool Launch(int side, const std::string& rom, std::string& error, int backend)
 	{
-		if (!Available(side, backend)) { error = Tr("This side's emulator is not in this copy of PS5-ECAM."); return false; }
+		if (!HasProgram(side, backend)) { error = Tr("This side's emulator is not in this copy of PS5-ECAM."); return false; }
 		std::error_code ec;
 		if (!HasExtension(Of(side).key, rom) || !std::filesystem::is_regular_file(rom, ec)) { error = Tr("This game is no longer where it was, or is not one this side can start."); return false; }
 		if (!ValidateRom(side, rom, error, backend)) return false;
