@@ -52,8 +52,9 @@ they work. They are **transitional**:
 - please **don't add more standalone programs**, and don't build new features around one (its own
   folder layouts, title IDs or settings files): build them in PS5-ECAM's frontend, where every
   system gets them;
-- **Porpoise stays** for the GameCube and Wii. Changes to Porpoise itself go to
-  [premohq/Porpoise-X](https://github.com/premohq/Porpoise-X), not as patches kept in this repository.
+- **Porpoise stays** for the GameCube and Wii, from its main repository,
+  [elripalda/Porpoise-Dolphin-Emulator-for-PS5](https://github.com/elripalda/Porpoise-Dolphin-Emulator-for-PS5), pinned in `tools/retro/sources.json`. Changes to Porpoise itself
+  go there, not as patches kept in this repository, and not to a fork of it.
 
 The Wii U (Cemu), 3DS (Azahar), DS (melonDS) and Switch (Eden) sides are the app's own ports and
 stay as they are.

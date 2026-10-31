@@ -1,5 +1,5 @@
 /* PS5-ECAM - games on a network share: SMB with libsmb2, NFS with libnfs (netfs.h).
- * From Porpoise X (premohq/Porpoise-X, src/porpoise_netfs.cpp), as it is but for its libretro VFS,
+ * From Porpoise (elripalda/Porpoise-Dolphin-Emulator-for-PS5, src/porpoise_netfs.cpp, at its 3.0, 2ed1ab5), as it is but for its libretro VFS,
  * which this app has no use for (its emulators reach /net paths through ps5/netfs_files.cpp), and
  * its log, which is the boot log's [netfs] lines here.
  * Copyright (C) 2026 Ruben (Project Porpoise)

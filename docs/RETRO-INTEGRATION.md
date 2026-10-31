@@ -63,7 +63,7 @@ ECAM does not offer its Wii U/3DS/DS/Switch save or home-tile actions for these 
 
 Exact donor revisions are in tools/retro/sources.json:
 
-- premohq/Porpoise-X: 2ed1ab5a06995aa198f7bccd4da0f90c3fc29d39
+- elripalda/Porpoise-Dolphin-Emulator-for-PS5: 61f38f6079a3011abba88e8f4f1cb0ddc0ed27a8 (4.0)
 - Yahballon/PS5N64X: 28c55d854f5e451da9ffd5a78c694415accad172
 - Yahballon/PS5NESX: 58168b79fe0e2cce7d42b8b8109d74a4283a2b41
 
@@ -116,7 +116,7 @@ python3 tools/tests/test-retro-overlays.py /path/to/donor-checkouts
 python3 -B tools/lang.py check
 ```
 
-The overlay checker expects Porpoise-X, PS5N64X and PS5NESX folders at their exact pins. It applies
+The overlay checker expects Porpoise, PS5N64X and PS5NESX folders at their exact pins. It applies
 patches twice to temporary copies, checks forwarding/return anchors and Python build syntax, and
 verifies that the donor source files remain unchanged. The C++ host suite checks side identity,
 format isolation, bounded discovery behavior, scanner shutdown, settings compatibility, missing

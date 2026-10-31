@@ -6,7 +6,7 @@ are kept here instead, as small trimmed copies with PS5 changes of their own:
 - `libsmb2/`: the SMB2/3 client library (LGPL-2.1-or-later), and
 - `libnfs/`: the NFS client library (LGPL-2.1-or-later; its protocol files BSD-2-Clause),
 
-both as Porpoise X carries them (premohq/Porpoise-X, `third_party/`, commit
+both as Porpoise carries them (elripalda/Porpoise-Dolphin-Emulator-for-PS5, `third_party/`, its 3.0, commit
 `2ed1ab5a06995aa198f7bccd4da0f90c3fc29d39`): the client libraries only, each with its PS5
 configuration (`ps5/config.h`), the list of files the build compiles (`sources.txt`) and its changes
 from upstream (`README.porpoise`). The app reads games on a network share with them
