@@ -250,6 +250,31 @@ Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
   are shown is a bit each in `ui.sides`, read with an upper limit (2047 for 11 sides) that grows too,
   and an `int` holds 31 of them: past that it needs a wider mask or a list of names.
 
+### GameCube and Wii: Porpoise X as Eden is
+
+The owner, 31 October 2026: Porpoise X (premohq/Porpoise-X) goes the way ProsperoEdenX went for the
+Switch side: its UI taken out, PS5-ECAM's in its place, every one of its settings and features kept.
+Its work is on its `ps5-ecam` branch (as ProsperoEdenX's `ps5`), which `tools/retro/sources.json` pins;
+its `main` stays upstream's (4.0 now).
+
+1. **Started by PS5-ECAM, back to it.** **Done:** `c855be7` (the bridge in Porpoise X itself, no longer
+   applied by `tools/retro/prepare.py`, which finds it there and changes nothing).
+2. **None of its own screens** when PS5-ECAM starts it: no library, settings, memory cards, setup or
+   update check; its UI's assets (fonts, images, sounds, themes) neither loaded nor packaged, only what
+   the emulation reads (Dolphin's `Sys`, `recommended.ini`, the per-game profiles).
+3. **Its settings in PS5-ECAM's Settings**, the GameCube and Wii sides' and a game's own: every row of
+   its `add_game_rows` (Video, Enhancements, Graphics, Audio, Controls, System, Wii Remote), with its
+   controller layouts and Wii Remote setup, written to its own files by `port/retro/porpoise_settings.cpp`
+   (**done:** the files), in every language. Its menus' own (themes, library views, menu music) are
+   PS5-ECAM's launcher's.
+4. **PS5-ECAM's loading screen and in-game menu** drawn by Porpoise's program over its frames, as Eden's
+   (`port/eden/ingame.cpp` built into it): a `port/porpoise/ingame.cpp` with the session file the
+   launcher writes (`ps5eden::WriteSession`'s), recording into Porpoise's present pass
+   (`src/porpoise_vk.cpp`), its rows Porpoise's in-game actions (save states, the game's settings,
+   controllers and the Wii Remote's pointer, fast forward, screenshot, cheats, back to the library).
+5. **To check on a console** at each step: a GameCube and a Wii game started, played, quit back to the
+   library; a setting changed in PS5-ECAM seen in the game.
+
 ### EmulationStation, the other frontend
 
 **Started, 30 October 2026, not built yet.** ES-DE as a choice beside the launcher (Settings > Launcher >
