@@ -27,7 +27,7 @@ jobs:
           key: deps-${{ hashFiles('tools/deps.json') }}
 
       - name: What the tests need
-        run: python3 -B tools/deps.py fetch pacbrew pugixml dr_mp3 rapidjson prosperoedenx melonds
+        run: python3 -B tools/deps.py fetch pacbrew pugixml dr_mp3 rapidjson prosperoedenx melonds libretro-common
 
       - name: String tables
         run: python3 -B tools/lang.py check
@@ -95,6 +95,9 @@ jobs:
 
       - name: Additional emulator integration
         run: bash tools/tests/test-retro.sh
+
+      - name: The libretro frontend, with a core of the test's own
+        run: bash tools/tests/test-libretro.sh
 
       - name: Additional emulator tools and pinned overlays
         run: |

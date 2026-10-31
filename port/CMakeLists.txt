@@ -174,6 +174,10 @@ add_library(CemuPS5 STATIC
 	eden/save_transfer.h
 	retro/launch.cpp
 	retro/library.cpp
+	libretro/core.h
+	libretro/cores.cpp
+	libretro/session.cpp
+	libretro/session.h
 	eden/launch.cpp
 	eden/library.cpp
 	eden/library.h
@@ -301,6 +305,8 @@ set_source_files_properties(
 	eden/controls.cpp
 	retro/launch.cpp
 	retro/library.cpp
+	libretro/cores.cpp
+	libretro/session.cpp
 	eden/launch.cpp
 	eden/extras.cpp
 	eden/library.cpp
@@ -362,6 +368,8 @@ target_include_directories(CemuPS5 PUBLIC
 	"${CMAKE_CURRENT_LIST_DIR}/cemu"
 )
 target_include_directories(CemuPS5 PRIVATE
+	# libretro.h, for the app's libretro frontend (libretro/session.h)
+	"${PS5CEMU_DEPS}/libretro/libretro-common/include"
 	# the platform layer RADV is linked with: its heap's and executable memory's statistics
 	"${PS5CEMU_DEPS}/PS5_PayloadSDK/platform/include"
 	"${SANDBOX_ELEVATION}"

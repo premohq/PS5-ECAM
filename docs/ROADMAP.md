@@ -190,6 +190,16 @@ emulator libretro has comes in the same way. What the frontend has to do once, f
 - **Its own core per system first, the best one** (below), and a second core as a choice where one
   is faster.
 
+**Where it stands:** the cores are built (`tools/build-libretro.py`: Mesen, Mesen-S, mGBA, Beetle VB,
+PokeMini) and the in-game menu has a core's game (`ps5ingame3ds::Console::Retro`), the screens its
+picture (`ps5dsscreens::Frame::picture`). `port/libretro/session.cpp` makes the core's calls: its
+environment, its picture in any of the three formats, its sound, four RetroPads, its options (v0 to
+v2, in the launcher's language where the core has it), the save RAM (`<saves>/<game>.srm`, written once
+it holds still) and the save states with Undo; `cores.cpp` finds the cores the app links
+(`tools/tests/test-libretro.sh` runs it with a core of its own). Next: the game's loop on the console
+(the screens, AudioOut, the DualSense, the in-game menu, back to the library), `build/libretro/objects.txt`
+linked into the app, then a side on its core as a choice beside its program (the NES on Mesen first).
+
 **The classic systems already added** (JMUtechnologies, PR #87 and PR #91) are to run on the best
 emulator there is for each, replaced where they do not, maybe as libretro cores. This is the N64, the
 NES, the Game Boy, the Game Boy Color and the Game Boy Advance. Not GameCube and Wii (Dolphin, through
