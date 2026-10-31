@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 // PS5-ECAM: EmulationStation (ES-DE) as the app's other frontend (Settings > Launcher > Start in
 // EmulationStation). ES-DE is a program of its own in the app's folder (es-de/es-de.bin, built by
-// tools/build-esde.sh from Mihawk's ES-DE port in PS5 RetroArch), drawing with OpenGL where the launcher
+// tools/build-esde.sh from Mihawk's PS5 port of ES-DE), drawing with OpenGL where the launcher
 // draws with Vulkan, so the two never share a process: PS5-ECAM starts it through LoadExec as it starts
 // Eden. ES-DE shows the same systems and games as the launcher, and every game it starts plays here, as
 // a home screen tile's does, with the same emulators, settings, saves and in-game menus

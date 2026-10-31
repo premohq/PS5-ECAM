@@ -77,9 +77,8 @@ work stops before a game starts.
 ### EmulationStation, the other frontend
 
 An app built with it (`make esde`) can open on **EmulationStation** (ES-DE) instead of the launcher:
-**Settings > Launcher > Start in EmulationStation**. ES-DE is Mihawk's PS5 port of it, from
-[PS5 RetroArch](https://github.com/mihawk-99/PS5_RetroArch), with its menus, themes (Alekfull NX by
-default) and its scraper for box art, screenshots and videos.
+**Settings > Launcher > Start in EmulationStation**: ES-DE's own menus, its themes (Alekfull NX by
+default) and its scraper for box art, screenshots and videos, in Mihawk's PS5 port of it.
 
 - It shows the sides the bar shows, as ES-DE's own systems (so its themes have their art), with the
   games each side's library lists: open a side once in PS5-ECAM, or **Look for games now**, for its

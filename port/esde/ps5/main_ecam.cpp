@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: EmulationStation's entry point on the PS5. After Mihawk's main_ps5.cpp (PS5 RetroArch's
-// frontends/es-de), in its place: ES-DE runs as a program of its own in the app's folder,
+// PS5-ECAM: EmulationStation's entry point on the PS5. After the main_ps5.cpp of Mihawk's ES-DE port,
+// in its place: ES-DE runs as a program of its own in the app's folder,
 // es-de/es-de.bin, started by PS5-ECAM through LoadExec (port/esde/launch.cpp) with
 //
 //   --ecam-root <PS5-ECAM's data folder>   ES-DE's home is its es-de/ (settings, game lists, media)

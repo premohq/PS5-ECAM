@@ -237,9 +237,10 @@ Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
 ### EmulationStation, the other frontend
 
 **Started, 30 October 2026, not built yet.** ES-DE as a choice beside the launcher (Settings > Launcher >
-Start in EmulationStation, when the app has it): Mihawk's PS5 port of ES-DE 3.5.0 from PS5 RetroArch
-(`ps5-retroarch` in `tools/deps.json`: his patches/0001 and his PS5 glue), with PS5-ECAM's glue in place of
-RetroArch's (`port/esde/ps5`) and `patches/esde` (ES-DE's scraper where RetroArch's entries are). The
+Start in EmulationStation, when the app has it): Mihawk's PS5 port of ES-DE 3.5.0 (`esde-port` in
+`tools/deps.json`: his patches/0001 and his PS5 glue), with PS5-ECAM's glue in place of his
+(`port/esde/ps5`), only what PS5-ECAM's ES-DE uses linked into the program, and `patches/esde` (ES-DE's
+scraper in its menu, its notes and log lines saying what PS5-ECAM does). The
 launcher writes ES-DE's systems and game lists from its library before each start (`port/esde/esde.cpp`),
 and every game ES-DE starts plays here and goes back to it (`port/esde/handoff.h`). Checked on the host:
 the files ES-DE reads (`tools/tests/test-esde.sh`, and against ES-DE's own systems file), the handoff,
@@ -251,7 +252,6 @@ both patches applying to ES-DE 3.5.0, the glue compiling. Next:
   side (the Wii U's and the 3DS's in the app, the Switch's and the other sides' programs) and back,
   L1 at the start, Quit.
 - **Its media from the launcher's covers**, so ES-DE has box art before its scraper runs.
-- **PS5 RetroArch's issue #43** asks for its ES-DE to start PS5-ECAM's games: the same handoff would do.
 
 ### Switch 2
 

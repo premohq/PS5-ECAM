@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: EmulationStation's games, played by PS5-ECAM (port/esde/handoff.h). In place of Mihawk's
-// game_ps5.cpp (PS5 RetroArch's frontends/es-de), which hands them to RetroArch; the same two calls, which
-// his ES-DE patch (patches/0001, FileData::launchGame and ViewController::goToStart) makes.
+// PS5-ECAM: EmulationStation's games, played by PS5-ECAM (port/esde/handoff.h). In place of the
+// game_ps5.cpp of Mihawk's ES-DE port, which hands them to its own app; the same two calls, which his
+// ES-DE patch (patches/0001, FileData::launchGame and ViewController::goToStart) makes.
 //
 // A game ES-DE starts: its game lists are saved and its display released (the patch), game.txt says which
 // game, from which system, and PS5-ECAM starts with --rom <path> --frontend es-de, on the side its file is

@@ -1,6 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: ES-DE's systems and game lists from the launcher's catalogue (esde.h). After Mihawk's
-// library_ps5.cpp (PS5 RetroArch's frontends/es-de), which writes them from RetroArch's playlists.
+// PS5-ECAM: ES-DE's systems and game lists from the launcher's catalogue (esde.h). After the
+// library_ps5.cpp of Mihawk's ES-DE port, which writes them from its own app's library.
 #include "esde.h"
 
 #include <pugixml.hpp>

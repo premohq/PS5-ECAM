@@ -251,13 +251,13 @@
       "creates": ".deps/libretro/PokeMini/libretro/libretro.c"
     },
     {
-      "name": "ps5-retroarch",
-      "about": "Mihawk-99's PS5 RetroArch (GPL-3.0-or-later): its EmulationStation (ES-DE 3.5.0) port, frontends/es-de, and the scripts that build ES-DE and its libraries for the PS5. tools/build-esde.sh builds it with PS5-ECAM's glue (port/esde/ps5) in place of RetroArch's, for Settings > Launcher > Start in EmulationStation",
+      "name": "esde-port",
+      "about": "Mihawk-99's PS5 port of EmulationStation (ES-DE 3.5.0, GPL-3.0-or-later): its frontends/es-de and the scripts that build ES-DE and its libraries for the PS5. tools/build-esde.sh builds it with PS5-ECAM's glue (port/esde/ps5) in place of the port's own, for Settings > Launcher > Start in EmulationStation",
       "kind": "git",
       "url": "https://github.com/mihawk-99/PS5_RetroArch.git",
       "commit": "7268510b12fe7461342e0cc4497c87a0910c1055",
-      "path": ".deps/PS5_RetroArch",
-      "creates": ".deps/PS5_RetroArch/frontends/es-de/patches/0001-ps5-port.patch"
+      "path": ".deps/esde-port",
+      "creates": ".deps/esde-port/frontends/es-de/patches/0001-ps5-port.patch"
     },
     {
       "name": "ps5-opengl",

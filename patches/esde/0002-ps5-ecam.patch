@@ -1,5 +1,83 @@
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 00e01d0..8277d8f 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -105,7 +105,7 @@ set_property(CACHE GLSYSTEM PROPERTY STRINGS "Desktop OpenGL" "Embedded OpenGL")
+ # Package dependencies.
+ 
+ if(PS5)
+-    # PS5 RetroArch's port (its frontends/es-de): every dependency is a static
++    # The PS5 port (PS5-ECAM's tools/build-esde.sh): every dependency is a static
+     # archive that project builds, named by its ps5.cmake; nothing is searched for.
+     include(${PS5_PORT_DIR}/ps5.cmake)
+ elseif(GLSYSTEM MATCHES "Desktop OpenGL")
+@@ -640,7 +640,7 @@ elseif(EMSCRIPTEN)
+                          ${PROJECT_SOURCE_DIR}/libfreetype.a
+                          ${PROJECT_SOURCE_DIR}/libpugixml.a)
+ elseif(PS5)
+-    # The executable is linked by PS5 RetroArch's tools/build-frontend.sh.
++    # The executable is linked by the port's tools/build-frontend.sh.
+     set(COMMON_LIBRARIES "")
+ else()
+     set(COMMON_LIBRARIES ${BLUEZ_LIBRARIES}
+diff --git a/es-app/CMakeLists.txt b/es-app/CMakeLists.txt
+index 66c6792..ce8417d 100644
+--- a/es-app/CMakeLists.txt
++++ b/es-app/CMakeLists.txt
+@@ -140,7 +140,7 @@ elseif(WIN32)
+     target_link_libraries(ES-DE ${COMMON_LIBRARIES} es-core lunasvg::lunasvg)
+     set_target_properties(ES-DE PROPERTIES INSTALL_RPATH_USE_LINK_PATH TRUE)
+ elseif(PS5)
+-    # A static library; PS5 RetroArch's tools/build-frontend.sh links the executable.
++    # A static library; the port's tools/build-frontend.sh links the executable.
+     # The theme downloader needs libgit2, which the port does not build.
+     list(REMOVE_ITEM ES_SOURCES ${CMAKE_CURRENT_SOURCE_DIR}/src/guis/GuiThemeDownloader.cpp)
+     include_directories(${COMMON_INCLUDE_DIRS} ${CMAKE_CURRENT_SOURCE_DIR}/src)
+@@ -158,7 +158,7 @@ else()
+ endif()
+ 
+ if(PS5)
+-    # Installed into the title folder by PS5 RetroArch's build, not by CMake.
++    # Installed into the app's folder by PS5-ECAM's build, not by CMake.
+     return()
+ endif()
+ 
+diff --git a/es-app/src/FileData.cpp b/es-app/src/FileData.cpp
+index 0f708de..1abb7e5 100644
+--- a/es-app/src/FileData.cpp
++++ b/es-app/src/FileData.cpp
+@@ -35,7 +35,7 @@
+ #include <regex>
+ 
+ #if defined(__PROSPERO__)
+-// PS5: games run in RetroArch through the title's game mode (frontends/es-de/ps5/game_ps5.cpp).
++// PS5: games are played by PS5-ECAM (port/esde/ps5/game_ecam.cpp there).
+ extern "C" int ps5_esde_launch_game(const char* command, const char* system, const char* path,
+                                     char* error, size_t errorSize);
+ #endif
+@@ -2308,9 +2308,9 @@ void FileData::launchGame()
+ #else
+ 
+ #if defined(__PROSPERO__)
+-    // PS5: the game runs in RetroArch, in a process of its own (game mode, src/ps5_game.h).
++    // PS5: PS5-ECAM plays the game, in a process of its own (its port/esde/handoff.h).
+     // The game lists are saved and the display released, then the title restarts as
+-    // RetroArch; it comes back to ES-DE when the game is closed (ViewController::goToStart).
++    // PS5-ECAM; it comes back to ES-DE when the game has ended (ViewController::goToStart).
+     // Only a launch that did not happen returns here.
+     for (auto system : SystemData::sSystemVector)
+         system->writeMetaData();
+@@ -2321,7 +2321,7 @@ void FileData::launchGame()
+         returnValue = ps5_esde_launch_game(command.c_str(), mSystem->getName().c_str(),
+                                            getSourceFileData()->getPath().c_str(), ps5Error,
+                                            sizeof(ps5Error));
+-        LOG(LogError) << "Game mode did not start the game: " << ps5Error;
++        LOG(LogError) << "PS5-ECAM did not start the game: " << ps5Error;
+     }
+     AudioManager::getInstance().init();
+     window->init();
 diff --git a/es-app/src/guis/GuiMenu.cpp b/es-app/src/guis/GuiMenu.cpp
-index 134f446..12b3f5a 100644
+index 134f446..cdd966b 100644
 --- a/es-app/src/guis/GuiMenu.cpp
 +++ b/es-app/src/guis/GuiMenu.cpp
 @@ -8,10 +8,6 @@
@@ -13,7 +91,7 @@ index 134f446..12b3f5a 100644
  
  #if defined(_WIN64)
  // Why this is needed here is anyone's guess but without it the compilation fails.
-@@ -68,15 +64,9 @@ GuiMenu::GuiMenu()
+@@ -68,15 +64,8 @@ GuiMenu::GuiMenu()
      const bool isFullUI {UIModeController::getInstance()->isUIModeFull()};
  
      if (isFullUI)
@@ -24,17 +102,58 @@ index 134f446..12b3f5a 100644
 -        addEntry("WebUI", mMenuColorPrimary, true, [this] { mWindow->pushGui(new GuiWebUI()); });
 -    }
 -#else
-+        // PS5-ECAM: ES-DE's own scraper, where PS5 RetroArch has its frame generation and WebUI
-+        // (patches/0001); PS5-ECAM's games have their art from ES-DE's scraper here.
++        // PS5-ECAM: ES-DE's own scraper, which its games have their art from.
          addEntry(_("SCRAPER"), mMenuColorPrimary, true, [this] { openScraperOptions(); });
 -#endif
  
      if (isFullUI)
          addEntry(_("UI SETTINGS"), mMenuColorPrimary, true, [this] { openUIOptions(); });
+diff --git a/es-app/src/main.cpp b/es-app/src/main.cpp
+index a60159a..56988f4 100644
+--- a/es-app/src/main.cpp
++++ b/es-app/src/main.cpp
+@@ -578,7 +578,7 @@ void applicationLoop()
+ }
+ 
+ #if defined(__PROSPERO__)
+-// PS5 RetroArch's port starts ES-DE from its own main (frontends/es-de/ps5/main_ps5.cpp):
++// The PS5 port starts ES-DE from its own main (PS5-ECAM's port/esde/ps5/main_ecam.cpp):
+ // LoadExec's arguments arrive as the whole argv there, with no program name in front.
+ #define main esde_main
+ #endif
 diff --git a/es-app/src/views/ViewController.cpp b/es-app/src/views/ViewController.cpp
-index f911a41..5bbe973 100644
+index f911a41..189c9b8 100644
 --- a/es-app/src/views/ViewController.cpp
 +++ b/es-app/src/views/ViewController.cpp
+@@ -498,7 +498,7 @@ void ViewController::updateAvailableDialog()
+ #if defined(__PROSPERO__)
+ #include "utils/StringUtil.h"
+ #include "utils/TimeUtil.h"
+-// PS5: a game RetroArch ran for ES-DE (game mode, frontends/es-de/ps5/game_ps5.cpp).
++// PS5: a game PS5-ECAM played for ES-DE (port/esde/ps5/game_ecam.cpp there).
+ extern "C" int ps5_esde_game_return(char* system, size_t systemSize, char* path, size_t pathSize,
+                                     long* seconds, int* status, char* error, size_t errorSize);
+ #endif
+@@ -515,8 +515,8 @@ void ViewController::goToStart(bool playTransition)
+         getSystemListView();
+ 
+ #if defined(__PROSPERO__)
+-    // PS5: back from a game RetroArch ran (game mode): count the play, add the time
+-    // RetroArch ran, and open the system's game list on the game.
++    // PS5: back from a game PS5-ECAM played: count the play, add the time
++    // it ran, and open the system's game list on the game.
+     {
+         char systemName[256] {};
+         char gamePath[1024] {};
+@@ -540,7 +540,7 @@ void ViewController::goToStart(bool playTransition)
+                 }
+             }
+             if (status < 0) {
+-                LOG(LogError) << "Game mode refused the game: " << error;
++                LOG(LogError) << "PS5-ECAM did not play the game: " << error;
+                 Window::getInstance()->queueInfoPopup(
+                     Utils::String::format(_("ERROR LAUNCHING GAME: %s"),
+                                           Utils::String::toUpper(error).c_str()),
 @@ -552,7 +552,7 @@ void ViewController::goToStart(bool playTransition)
                  if (status >= 0) {
                      FileData* source {game->getSourceFileData()};
@@ -44,3 +163,27 @@ index f911a41..5bbe973 100644
                      source->metadata.set(
                          "playcount",
                          std::to_string(static_cast<long long>(source->metadata.getInt("playcount") + 1)));
+diff --git a/es-core/src/Settings.cpp b/es-core/src/Settings.cpp
+index cfeadd0..539a5c7 100644
+--- a/es-core/src/Settings.cpp
++++ b/es-core/src/Settings.cpp
+@@ -162,7 +162,7 @@ void Settings::setDefaults()
+ 
+     // UI settings.
+ #if defined(__PROSPERO__)
+-    // PS5: the theme the frontend picker's EmulationStation card shows.
++    // PS5: the theme ES-DE opens with, Alekfull NX.
+     mStringMap["Theme"] = {"alekfull-nx-es-de", "alekfull-nx-es-de"};
+ #else
+     mStringMap["Theme"] = {"linear-es-de", "linear-es-de"};
+@@ -262,8 +262,8 @@ void Settings::setDefaults()
+ 
+     // Game collection settings.
+ #if defined(__PROSPERO__)
+-    // PS5: RetroArch's favourites and last played games, which the port writes into the
+-    // game lists (frontends/es-de/ps5/library_ps5.cpp), as collections from the start.
++    // PS5: the favourites and last played games PS5-ECAM's library writes into the
++    // game lists (port/esde/esde.cpp there), as collections from the start.
+     mStringMap["CollectionSystemsAuto"] = {"favorites,recent", "favorites,recent"};
+ #else
+     mStringMap["CollectionSystemsAuto"] = {"", ""};
