@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Porpoise's settings files as PS5-ECAM writes them (port/retro/porpoise_settings.h). Prints PASS
+// Porpoise-X's settings files as PS5-ECAM writes them (port/retro/porpoise_settings.h). Prints PASS
 // lines; exits 1 on a failure.
 #include "retro/porpoise_settings.h"
 

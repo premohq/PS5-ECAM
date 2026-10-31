@@ -1,6 +1,6 @@
 /* PS5-ECAM - games on a network share: SMB (a Windows, macOS or Linux shared
  * folder, or a NAS), read with libsmb2, or NFS (a NAS or a Linux machine),
- * read with libnfs. From Porpoise (elripalda/Porpoise-Dolphin-Emulator-for-PS5, src/porpoise_netfs.hpp, at its 3.0).
+ * read with libnfs. From Porpoise X (premohq/Porpoise-X, src/porpoise_netfs.hpp).
  *
  * A share the player adds appears as /net/<name>/... : a side's games folder
  * can be one, its library searches it like a folder, and Cemu, Azahar and

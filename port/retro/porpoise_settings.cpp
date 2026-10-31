@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: Porpoise's settings files (porpoise_settings.h)
+// PS5-ECAM: Porpoise-X's settings files (porpoise_settings.h)
 #include "porpoise_settings.h"
 #include "registry.h"
 

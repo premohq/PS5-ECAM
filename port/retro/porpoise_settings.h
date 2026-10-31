@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: Porpoise's settings (its main repository, elripalda/Porpoise-Dolphin-Emulator-for-PS5,
-// src/ui_settings.cpp), for PS5-ECAM's own Settings to show on the GameCube and Wii sides: the files
-// Porpoise reads as PS5-ECAM starts a game in it (launch.cpp), written in Porpoise's own words, so
-// PS5-ECAM uses nothing of Porpoise's UI and Porpoise needs nothing of PS5-ECAM's.
+// PS5-ECAM: Porpoise-X's settings (premohq/Porpoise-X, src/ui_settings.cpp), for PS5-ECAM's own Settings
+// to show on the GameCube and Wii sides: the files Porpoise reads as PS5-ECAM starts a game in it
+// (launch.cpp), written in Porpoise's own words, so PS5-ECAM uses nothing of Porpoise's UI and Porpoise
+// needs nothing of PS5-ECAM's.
 //   <data>/settings.ini                every game's: "key = value" lines, Porpoise's settings table
 //   <data>/game-settings/<key>.ini     a game's own, with only the keys it changes; <key> its disc's ID
 //                                      (Porpoise's Library::settings_key_of), else its file's name

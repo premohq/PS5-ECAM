@@ -12,8 +12,7 @@ of you:
    for the system, **pinned by commit in `tools/deps.json`**. Do not add standalone homebrew
    programs, personal ports or forks of unknown provenance. Do not build features around the
    programs bundled today (`tools/retro/sources.json`): they are being replaced by the frontend.
-   Porpoise (GameCube, Wii) stays, from its main repository (`elripalda/Porpoise-Dolphin-Emulator-for-PS5`); changes to it belong
-   there, not in a fork. EmulationStation
+   Porpoise (GameCube, Wii) stays; changes to it belong in `premohq/Porpoise-X`. EmulationStation
    (`port/esde`) is an optional frontend over the same systems: its games play in PS5-ECAM; never add
    emulators or features to it alone.
 3. **Start from the newest `PS5-ECAM` branch**: `git fetch origin PS5-ECAM` and rebase before you
