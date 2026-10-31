@@ -258,8 +258,8 @@ namespace ps5shell
 		if (IsRetro())
 		{
 			std::vector<SettingsPage> selected;
-			if (InGameSettings()) return {{"runtime", Tr("Emulator settings"), Tr("Controls, settings and saves are managed by the bundled emulator."), Icon::Info}};
-			selected.push_back({"runtime", Tr("Emulator settings"), Tr("Controls, settings and saves are managed by the bundled emulator."), Icon::Info});
+			if (InGameSettings()) return {{"runtime", Tr("Emulator settings"), Tr("The emulator bundled for this side keeps its own controls, settings and saves."), Icon::Info}};
+			selected.push_back({"runtime", Tr("Emulator settings"), Tr("The emulator bundled for this side keeps its own controls, settings and saves."), Icon::Info});
 			for (const auto& page : pages) if (page.id == "files" || page.id == "launcher" || page.id == "playtime" || page.id == "diagnostics" || page.id == "about") selected.push_back(page);
 			return selected;
 		}
@@ -436,25 +436,26 @@ namespace ps5shell
 		if (IsRetro() && (page == "files" || page == "runtime" || page == "graphics" || page == "system" || page == "screens" || page == "gamesaves"))
 		{
 			std::vector<Row> rows;
-			const int backend = settings.retro[SideIndex() - 4].retroBackend;
-			if ((SideIndex() == 6 || SideIndex() == 7) && page == "runtime" && !InGameSettings())
+			const int backend = settings.retro[ps5retro::Slot(SideIndex())].retroBackend;
+			// a side with a second emulator (ps5retro::kAlternatives): which of the two plays its games
+			if (const ps5retro::Alternative* other = ps5retro::AlternativeOf(SideIndex()); other && page == "runtime" && !InGameSettings())
 			{
-				Row runtime; runtime.id = "retro-backend"; runtime.kind = Kind::Choice; runtime.label = Tr("Emulator runtime");
-				runtime.options = SideIndex() == 6 ? std::vector<std::string>{"N64XY", "Mupen64Plus (experimental)"} : std::vector<std::string>{"NESYX", "FCEUmm PS5 (experimental)"};
+				Row runtime; runtime.id = "retro-backend"; runtime.kind = Kind::Choice; runtime.label = Tr("Emulator");
+				runtime.options = {other->first, other->backend.name};
 				runtime.index = backend; runtime.value = runtime.options[backend];
-				runtime.description = Tr("Changes the next launch. Each emulator keeps separate settings and saves. Build and package the selected runtime first."); rows.push_back(runtime);
+				runtime.description = Tr("Which emulator plays this side's games, from the next one started. Each keeps its own settings and saves."); rows.push_back(runtime);
 			}
 			if (page == "files")
 			{
-				Row folder; folder.id = "folder"; folder.kind = Kind::Link; folder.label = Tr("Games folder"); folder.value = GamesFolder(m_side); folder.description = Tr("Select this system's games folder. Existing games and saves stay in place."); rows.push_back(folder);
+				Row folder; folder.id = "folder"; folder.kind = Kind::Link; folder.label = Tr("Games folder"); folder.value = GamesFolder(m_side); folder.description = Tr("The folder this side's games are in. Choosing another moves nothing: games and saves stay where they are."); rows.push_back(folder);
 				Row scan; scan.id = "rescan"; scan.kind = Kind::Action; scan.label = Tr("Look for games now"); rows.push_back(scan);
 			}
 			else
 			{
 				Row info; info.id = "retro-library"; info.kind = Kind::Action; info.dimmed = !ps5retro::Available(SideIndex(), backend); info.label = Tr("Open emulator settings and saves");
-				info.description = Tr("The bundled emulator keeps its own settings, controls and save formats. Open its native frontend to change settings. Close that frontend to return to ECAM. Existing standalone data is retained."); rows.push_back(info);
+				info.description = Tr("This side's emulator keeps its own settings, controls and saves: this opens its menus to change them, and quitting them comes back here. What it already had stays where it is."); rows.push_back(info);
 			}
-			if (page == "gamesaves") { Row backup; backup.id = "backup"; backup.kind = Kind::Action; backup.label = Tr("Back up to USB"); backup.description = Tr("Backs up all systems, including both N64 and NES backends. Save states remain specific to their emulator."); rows.push_back(backup); }
+			if (page == "gamesaves") { Row backup; backup.id = "backup"; backup.kind = Kind::Action; backup.label = Tr("Back up to USB"); backup.description = Tr("Every side's saves, each emulator's. A save state loads only in the emulator that made it."); rows.push_back(backup); }
 			Row diagnostic; diagnostic.id = "retro-diagnostics"; diagnostic.kind = Kind::Action; diagnostic.label = Tr("Emulator diagnostics"); rows.push_back(diagnostic);
 			return rows;
 		}
@@ -1431,10 +1432,10 @@ namespace ps5shell
 			sub("sides", Tr("Sides"), shown, Tr("Which systems the bar shows."),
 				Tr("The sides the bar offers, any mix of the four. A hidden side keeps its games and settings, and they come back when it is "
 				   "turned on again. At least one side stays on."));
-			for (int index = 4; index < kSides; index++)
+			for (int index = ps5retro::kFirst; index < kSides; index++)
 			{
 				const auto extra = (System)index;
-				toggle((std::string("side-") + ps5launcher::SideName(extra)).c_str(), SideTitle(extra), SideShown(extra), Tr("Show this emulator in the system bar."), Tr("The runtime must be included when packaging ECAM."));
+				toggle((std::string("side-") + ps5launcher::SideName(extra)).c_str(), SideTitle(extra), SideShown(extra), Tr("This system's games, in the bar."), Tr("Whether the bar shows this side. Hidden, its games and settings are kept and come back when it is turned on again. At least one side stays on."));
 			}
 			toggle("side-wiiu", Tr("Wii U side"), SideShown(System::WiiU), Tr("Cemu's games, in the bar."),
 				Tr("Whether the bar shows the Wii U side (Cemu). Hidden, its games and settings are kept and come back when it is turned on "
@@ -2014,7 +2015,7 @@ namespace ps5shell
 	void Shell::SetRowIndex(ps5settings::Launcher& settings, const std::string& id, int index)
 	{
 		ps5settings::N3ds& hand = m_side == System::Nds ? settings.nds : m_side == System::Switch ? settings.nx : settings.n3ds;
-		if (id == "retro-backend" && IsRetro()) settings.retro[SideIndex() - 4].retroBackend = std::clamp(index, 0, 1);
+		if (id == "retro-backend" && IsRetro()) settings.retro[ps5retro::Slot(SideIndex())].retroBackend = std::clamp(index, 0, 1);
 		else if (id == "music")
 		{
 			const std::vector<std::string> values = MusicValues(nullptr);
@@ -2351,7 +2352,7 @@ namespace ps5shell
 	{
 		if (row.id == "retro-backend" && IsRetro())
 		{
-			m_settings.retro[SideIndex() - 4].retroBackend = std::clamp(index, 0, 1); SaveSettings(); return;
+			m_settings.retro[ps5retro::Slot(SideIndex())].retroBackend = std::clamp(index, 0, 1); SaveSettings(); return;
 		}
 		if (row.id == "ui-language")
 		{
@@ -2594,10 +2595,11 @@ namespace ps5shell
 			}
 		}
 		else if (id == "retro-diagnostics" && IsRetro())
-			OpenHelp(Tr("Emulator diagnostics"), ps5retro::Diagnostics(SideIndex(), m_settings.retro[SideIndex() - 4].retroBackend));
+			OpenHelp(Tr("Emulator diagnostics"), ps5retro::Diagnostics(SideIndex(), m_settings.retro[ps5retro::Slot(SideIndex())].retroBackend));
 		else if (id == "retro-library" && IsRetro())
 		{
-			ps5emu::Game game; game.name = std::string(SideTitle(m_side)) + " " + Tr("Settings");
+			// tr: the loading screen's name for a retro side's own emulator menus: {0} is the side (Nintendo 64)
+			ps5emu::Game game; game.name = TrF("{0}: its emulator's settings", SideTitle(m_side));
 			LaunchGame(game, Tr("Opening emulator settings"), {760, 240, 400, 560});
 		}
 		else if (id == "folder")

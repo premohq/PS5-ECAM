@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "library.h"
+#include "../app/lang.h"
 #include "../app/own_status.h"
 #if defined(__PROSPERO__)
 #include "../ps5/log.h"
@@ -18,6 +19,17 @@
 namespace ps5retro
 {
 	namespace fs = std::filesystem;
+	using ps5lang::Tr;
+	using ps5lang::TrF;
+	namespace
+	{
+		bool Disc(int side) { return Is(side, "gamecube") || Is(side, "wii"); }
+		// the cartridge's name in the N64, NES and GB runtimes' own covers: <its name>-<a hash of the path>
+		const char* SerialPrefix(int side)
+		{
+			return Is(side, "n64") ? "N64" : Is(side, "nes") ? "NES" : Is(side, "gba") ? "GBA" : Is(side, "gb") || Is(side, "gbc") ? "GBC" : nullptr;
+		}
+	}
 	namespace
 	{
 		std::string Extension(const fs::path& path)
@@ -117,13 +129,13 @@ namespace ps5retro
 		{
 			const fs::path data = BackendFor(side, backend).data;
 			folders.push_back(data / "covers"); folders.push_back(data / "cache");
-			if (side == 7) folders.push_back(data / "covers" / ((game.path.extension() == ".fds" || game.path.extension() == ".FDS") ? "FDS" : "NES"));
+			if (Is(side, "nes")) folders.push_back(data / "covers" / ((game.path.extension() == ".fds" || game.path.extension() == ".FDS") ? "FDS" : "NES"));
 		}
 		std::vector<std::string> names{stem, game.name};
-		if (side >= 6)
+		if (const char* prefix = SerialPrefix(side))
 		{
 			uint32_t hash = 2166136261u; for (unsigned char c : game.path.string()) { hash ^= c; hash *= 16777619u; }
-			char serial[20]; std::snprintf(serial, sizeof(serial), "%s-%08X", side == 6 ? "N64" : side == 7 ? "NES" : side == 10 ? "GBA" : "GBC", hash); names.push_back(serial);
+			char serial[20]; std::snprintf(serial, sizeof(serial), "%s-%08X", prefix, hash); names.push_back(serial);
 		}
 		for (const auto& folder : folders)
 			for (const auto& name : names)
@@ -139,57 +151,61 @@ namespace ps5retro
 	}
 	bool ValidateRom(int side, const std::string& path, std::string& error, int backend)
 	{
-		if (!IsRetro(side) || !HasExtension(Of(side).key, path)) { error = "Unsupported game format."; return false; }
+		if (!IsRetro(side) || !HasExtension(Of(side).key, path)) { error = Tr("This is not a game this side can start."); return false; }
 		std::error_code ec;
 		const auto size = fs::file_size(path, ec);
-		if (ec || size == 0) { error = "The game file is empty or cannot be read."; return false; }
-		if (side < 6)
+		if (ec || size == 0) { error = Tr("The game file is empty or cannot be read."); return false; }
+		if (Disc(side))
 		{
-			if (!DiscMatches(Of(side).key, path)) { error = "The disc header is unreadable or does not match the selected system."; return false; }
+			if (!DiscMatches(Of(side).key, path)) { error = TrF("This disc is not a {0} game, or it cannot be read.", Of(side).name); return false; }
 			error.clear(); return true;
 		}
+		const char* damaged = Tr("This game's file is damaged or incomplete: its header is not a cartridge's.");
+		const char* tooLarge = Tr("This game is larger than this side's emulator can load.");
 		std::string ext = fs::path(path).extension().string();
 		for (char& c : ext) c = char(std::tolower((unsigned char)c));
-		if (side >= 8)
+		// the N64's and the NES's emulators have their limits below; the others' are a handheld's
+		const bool n64OrNes = Is(side, "n64") || Is(side, "nes");
+		if (!n64OrNes)
 		{
 			const uint64_t maximum = (ext == ".zip" || ext == ".7z") ? 64ull * 1024 * 1024 : 32ull * 1024 * 1024;
-			if (size > maximum) { error = "The handheld game exceeds this runtime's file-size limit."; return false; }
+			if (size > maximum) { error = tooLarge; return false; }
 			if (ext == ".gb" || ext == ".gbc" || ext == ".gba")
 			{
-				const uint64_t minimum = side == 10 ? 0xc0 : 0x150;
-				if (size < minimum) { error = "The handheld cartridge header is truncated."; return false; }
-				std::ifstream in(path, std::ios::binary); if (!in) { error = "The handheld game cannot be read."; return false; }
+				const uint64_t minimum = Is(side, "gba") ? 0xc0 : 0x150;
+				if (size < minimum) { error = damaged; return false; }
+				std::ifstream in(path, std::ios::binary); if (!in) { error = Tr("The game file is empty or cannot be read."); return false; }
 				error.clear(); return true; // The native mGBA loader validates complete cartridge contents.
 			}
 		}
-		if (side < 8 && backend == 0 && (ext == ".7z" || ext == ".rom")) { error = "This format requires the optional alternative runtime. Select it under Emulator runtime."; return false; }
-		const uint64_t limit = side == 6 ? (backend == 1 ? 252ull : 64ull) * 1024 * 1024 : 64ull * 1024 * 1024;
-		if (size > limit && ext != ".zip" && ext != ".7z") { error = "The ROM exceeds this backend's supported size limit."; return false; }
+		if (n64OrNes && backend == 0 && (ext == ".7z" || ext == ".rom")) { error = Tr("This side's first emulator cannot read this kind of file: the other one, chosen in its Settings, can."); return false; }
+		const uint64_t limit = Is(side, "n64") ? (backend == 1 ? 252ull : 64ull) * 1024 * 1024 : 64ull * 1024 * 1024;
+		if (size > limit && ext != ".zip" && ext != ".7z") { error = tooLarge; return false; }
 		unsigned char h[16]{}; std::ifstream in(path, std::ios::binary); in.read(reinterpret_cast<char*>(h), sizeof(h));
 		if (ext == ".zip")
 		{
-			if (size < 22 || size > 512ull * 1024 * 1024 || h[0] != 'P' || h[1] != 'K' || h[2] != 3 || h[3] != 4) { error = "Invalid or oversized ZIP archive."; return false; }
+			if (size < 22 || size > 512ull * 1024 * 1024 || h[0] != 'P' || h[1] != 'K' || h[2] != 3 || h[3] != 4) { error = TrF("This {0} archive is damaged or too large.", "ZIP"); return false; }
 			// The native loader selects members, limits decompression and validates the contents.
 		}
 		else if (ext == ".7z")
 		{
-			if (size < 32 || size > 512ull * 1024 * 1024 || h[0] != '7' || h[1] != 'z' || h[2] != 0xbc || h[3] != 0xaf || h[4] != 0x27 || h[5] != 0x1c) { error = "Invalid or oversized 7-Zip archive."; return false; }
+			if (size < 32 || size > 512ull * 1024 * 1024 || h[0] != '7' || h[1] != 'z' || h[2] != 0xbc || h[3] != 0xaf || h[4] != 0x27 || h[5] != 0x1c) { error = TrF("This {0} archive is damaged or too large.", "7-Zip"); return false; }
 		}
-		else if (side == 6)
+		else if (Is(side, "n64"))
 		{
 			const bool magic = (h[0] == 0x80 && h[1] == 0x37 && h[2] == 0x12 && h[3] == 0x40) ||
 				(h[0] == 0x37 && h[1] == 0x80 && h[2] == 0x40 && h[3] == 0x12) || (h[0] == 0x40 && h[1] == 0x12 && h[2] == 0x37 && h[3] == 0x80);
-			if (size < 64 || !magic) { error = "The N64 cartridge header is invalid or truncated."; return false; }
+			if (size < 64 || !magic) { error = damaged; return false; }
 		}
 		else if (ext == ".nes" && (size < 16 || h[0] != 'N' || h[1] != 'E' || h[2] != 'S' || h[3] != 0x1a))
-		{ error = "The NES cartridge header is invalid or truncated."; return false; }
+		{ error = damaged; return false; }
 		else if ((ext == ".unf" || ext == ".unif") && (size < 32 || std::string(reinterpret_cast<char*>(h), 4) != "UNIF"))
-		{ error = "The UNIF cartridge header is invalid or truncated."; return false; }
+		{ error = damaged; return false; }
 		else if (ext == ".fds")
 		{
 			const fs::path data = BackendFor(side, backend).data;
 			const fs::path bios = backend == 1 ? data / "bios/disksys.rom" : data / "disksys.rom";
-			if (!fs::is_regular_file(bios, ec) || fs::file_size(bios, ec) != 8192 || ec) { error = "Famicom Disk System requires your 8192-byte BIOS at " + bios.string(); return false; }
+			if (!fs::is_regular_file(bios, ec) || fs::file_size(bios, ec) != 8192 || ec) { error = TrF("Famicom Disk System games need its BIOS, disksys.rom (8192 bytes), in {0}.", bios.parent_path().string()); return false; }
 		}
 		error.clear(); return true;
 	}
@@ -198,12 +214,12 @@ namespace ps5retro
 		std::vector<ps5emu::Game> result;
 		if (!Find(side)) { error = "Unknown emulator system."; return result; }
 		std::error_code ec;
-		if (!fs::is_directory(folder, ec)) { error = "The games folder is not available: " + folder; return result; }
+		if (!fs::is_directory(folder, ec)) { error = TrF("{0} cannot be read", folder); return result; }
 		fs::recursive_directory_iterator it(folder, fs::directory_options::skip_permission_denied, ec), end;
 		size_t inspected = 0;
 		for (; !ec && it != end; it.increment(ec))
 		{
-			if (++inspected > 100000) { error = "The scan reached its 100000-entry limit."; break; }
+			if (++inspected > 100000) { error = TrF("Only the first {0} files in {1} were looked through: choose a folder with fewer.", 100000, folder); break; }
 			if (it.depth() >= 4) it.disable_recursion_pending();
 			std::error_code statusError;
 			const auto status = ps5files::OwnStatus(it->path(), statusError);
@@ -217,7 +233,7 @@ namespace ps5retro
 			game.titleId = 0x6000000000000000ull | (hash & 0x00ffffffffffffffull);
 			result.push_back(std::move(game));
 		}
-		if (ec) error = "The games folder could not be fully scanned: " + ec.message();
+		if (ec) error = TrF("Not all of {0} could be read: {1}", folder, ec.message());
 		else if (inspected <= 100000) error.clear();
 #if defined(__PROSPERO__)
 		ps5log::Line("[retro] {} scan {}: {} entries, {} games; {}", side, folder, inspected, result.size(), error);
@@ -248,7 +264,7 @@ namespace ps5retro
 			if (HasExtension(Of(side).key, path) && DiscMatches(Of(side).key, path))
 			{
 				// Compressed GC/Wii containers cannot be assigned by extension alone.
-				if (side < 6 && ext != ".iso" && ext != ".gcm" && ext != ".wbfs" && ext != ".wad" && ext != ".dol") return -1;
+				if (Disc(side) && ext != ".iso" && ext != ".gcm" && ext != ".wbfs" && ext != ".wad" && ext != ".dol") return -1;
 				return side;
 			}
 		return -1;

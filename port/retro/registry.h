@@ -28,12 +28,26 @@ namespace ps5retro
 	inline constexpr int kSideCount = kFirst + (int)kSystems.size();
 	inline const System* Find(std::string_view key) { for (const auto& s : kSystems) if (s.key == key) return &s; return nullptr; }
 	inline bool IsRetro(int side) { return side >= kFirst && side < kSideCount; }
-	inline const System& Of(int side) { return kSystems.at(size_t(side - kFirst)); }
+	// a side's place in kSystems, and in what is kept for each of them (ps5settings::Launcher's retro)
+	inline size_t Slot(int side) { return size_t(side - kFirst); }
+	inline const System& Of(int side) { return kSystems.at(Slot(side)); }
+	inline bool Is(int side, std::string_view key) { return IsRetro(side) && Of(side).key == key; }
 	struct Backend { const char* name; const char* runtime; const char* data; };
+	// the sides with a second emulator, chosen in the side's Settings (backend 1): a program bundled
+	// beside the app too, with its own settings and saves; first, the name of the side's own program
+	struct Alternative { const char* key; const char* first; Backend backend; };
+	inline constexpr Alternative kAlternatives[] = {
+		{"n64", "N64XY", {"Mupen64Plus (experimental)", "retro/mupen64plus/eboot.bin", "/data/mupen64plus"}},
+		{"nes", "NESYX", {"FCEUmm PS5 (experimental)", "retro/fceumm/eboot.bin", "/data/fceumm"}},
+	};
+	inline const Alternative* AlternativeOf(int side)
+	{
+		for (const auto& a : kAlternatives) if (Is(side, a.key)) return &a;
+		return nullptr;
+	}
 	inline Backend BackendFor(int side, int backend = 0)
 	{
-		if (side == 6 && backend == 1) return {"Mupen64Plus (experimental)", "retro/mupen64plus/eboot.bin", "/data/mupen64plus"};
-		if (side == 7 && backend == 1) return {"FCEUmm PS5 (experimental)", "retro/fceumm/eboot.bin", "/data/fceumm"};
+		if (const Alternative* other = AlternativeOf(side); other && backend == 1) return other->backend;
 		const auto& s = Of(side); return {s.name, s.runtime, s.data};
 	}
 	bool HasExtension(std::string_view side, std::string name);

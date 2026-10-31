@@ -187,12 +187,12 @@ namespace ps5shell
 				games.action = Tr("Choose a folder");
 				games.state = count > 0 && runtime ? 0 : 1;
 				const std::string where = ShortPath(Place(folder), 44);
-				games.detail = !runtime ? Tr("The selected emulator runtime is missing from this ECAM package.") :
+				games.detail = !runtime ? Tr("This side's emulator is not in this copy of PS5-ECAM.") :
 					count > 0			? TrP(count, "{0} game in {1}", "{0} games in {1}", where) :
 					readable			? TrF("None in {0} yet", where) :
 										  TrF("{0} cannot be read", where);
 				games.aboutTitle = TrF("{0} games", SystemName(side));
-				games.about = TrF("Put this system's supported game files in {0}, or choose a local or USB folder. Subfolders are searched to four levels. GameCube and Wii use separately selected folders.", folder);
+				games.about = TrF("Put this system's games in {0}, or choose any folder the PS5 can read, such as one on a USB drive. Folders inside it are searched too, four deep.", folder);
 				m_checks.push_back(games);
 				continue;
 			}

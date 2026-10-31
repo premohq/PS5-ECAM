@@ -2,7 +2,7 @@
 
 This is source integration, not a PS5 compatibility or speed certification. The original N64XY and
 NESYX backends remain the defaults. Two additional **optional** source-built runtimes are selectable
-in Settings > Runtime > Emulator runtime. A missing selected runtime produces an error; ECAM does
+in the side's Settings > Emulator settings > Emulator (`ps5retro::kAlternatives`). A missing selected runtime produces an error; ECAM does
 not silently select another emulator or convert saves. All five runtime overlays need PS5 build
 and hardware qualification before this draft is merge-ready.
 

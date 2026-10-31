@@ -218,7 +218,7 @@ namespace ps5shell
 		}
 		const std::string& Notice() const
 		{
-			return IsRetro() ? m_status.noticeRetro[SideIndex() - 4] : Is3ds() ? m_status.notice3ds : IsDs() ? m_status.noticeDs : IsSwitch() ? m_status.noticeSwitch : m_status.notice;
+			return IsRetro() ? m_status.noticeRetro[ps5retro::Slot(SideIndex())] : Is3ds() ? m_status.notice3ds : IsDs() ? m_status.noticeDs : IsSwitch() ? m_status.noticeSwitch : m_status.notice;
 		}
 		bool SystemScanning() const;
 		// the side's folder looked through again, its list replaced with what is found (also one a network
@@ -232,10 +232,10 @@ namespace ps5shell
 		std::string& GamesFolder(System side) { return side == System::WiiU ? m_settings.gamesFolder : Handheld(side).gamesFolder; }
 		const std::string& GamesFolder(System side) const { return side == System::WiiU ? m_settings.gamesFolder : Handheld(side).gamesFolder; }
 		// a handheld side's settings (the 3DS's, the DS's or the Switch's: the same shape)
-		ps5settings::N3ds& Handheld(System side) { return ps5retro::IsRetro((int)side) ? m_settings.retro[(int)side - 4] : side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds; }
+		ps5settings::N3ds& Handheld(System side) { return ps5retro::IsRetro((int)side) ? m_settings.retro[ps5retro::Slot((int)side)] : side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds; }
 		const ps5settings::N3ds& Handheld(System side) const
 		{
-			return ps5retro::IsRetro((int)side) ? m_settings.retro[(int)side - 4] : side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds;
+			return ps5retro::IsRetro((int)side) ? m_settings.retro[ps5retro::Slot((int)side)] : side == System::Nds ? m_settings.nds : side == System::Switch ? m_settings.nx : m_settings.n3ds;
 		}
 		uint64_t& LastGame(System side) { return side == System::WiiU ? m_settings.lastGame : Handheld(side).lastGame; }
 		std::vector<uint64_t>& RecentOf(System side) { return side == System::WiiU ? m_settings.recent : Handheld(side).recent; }

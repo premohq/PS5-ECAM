@@ -13,6 +13,7 @@ static int failures = 0;
 static std::string called;
 static std::vector<std::string> handed;
 namespace ps5emu { void LoadExecApp(const std::string& program, const std::vector<std::string>& args, bool, const std::string&) { called = program; handed = args; } }
+namespace ps5lang { const char* Tr(const char* english) { return english; } std::string Tr(const std::string& english) { return english; } }
 static void Check(bool ok, const char* text) { std::cout << (ok ? "PASS " : "FAIL ") << text << '\n'; failures += !ok; }
 static void Put(const fs::path& file, const std::string& text = "fixture") { fs::create_directories(file.parent_path()); std::ofstream(file, std::ios::binary) << text; }
 static std::string DiscHeader(bool wii)
@@ -176,5 +177,21 @@ int main(int argc, char** argv)
 	ps5retro::FinishScans();
 	const auto latest = ps5retro::ListGames(7);
 	Check(latest.size() == 1 && latest.front().name == "Latest", "a folder change during scanning queues the newest request instead of dropping it");
+	// the sides by their keys in ps5retro::kSystems, not by number
+	const int n64 = (int)ps5launcher::System::N64, nesSide = (int)ps5launcher::System::Nes, snes = (int)ps5launcher::System::Snes;
+	Check(ps5retro::Slot(ps5retro::kFirst) == 0 && ps5retro::Of(snes).key == std::string("snes") && ps5retro::Is(n64, "n64") && !ps5retro::Is(0, "n64"),
+		"a retro side's slot and key come from the registry");
+	int alternatives = 0;
+	for (int side = ps5retro::kFirst; side < ps5launcher::kSideCount; side++) alternatives += ps5retro::AlternativeOf(side) != nullptr;
+	Check(alternatives == 2 && ps5retro::AlternativeOf(n64) && ps5retro::AlternativeOf(nesSide) && std::string(ps5retro::BackendFor(nesSide, 1).runtime) == "retro/fceumm/eboot.bin" &&
+		std::string(ps5retro::BackendFor(snes, 1).runtime) == ps5retro::Of(snes).runtime, "only the N64 and the NES have a second emulator; another side's backend 1 is its own");
+	Put(root / "carts/Game.sfc", std::string(0x8000, '\0')); Put(root / "carts/Game.vb", std::string(0x1000, '\0')); Put(root / "carts/Game.min", std::string(0x1000, '\0'));
+	Check(ps5retro::ValidateRom(snes, (root / "carts/Game.sfc").string(), error) && ps5retro::ValidateRom((int)ps5launcher::System::VirtualBoy, (root / "carts/Game.vb").string(), error) &&
+		ps5retro::ValidateRom((int)ps5launcher::System::PokemonMini, (root / "carts/Game.min").string(), error), "SNES, Virtual Boy and Pokemon mini games pass preflight");
+	Put(root / "carts/huge.sfc", "x"); fs::resize_file(root / "carts/huge.sfc", 32ull * 1024 * 1024 + 1);
+	Check(!ps5retro::ValidateRom(snes, (root / "carts/huge.sfc").string(), error) && error.find("larger") != std::string::npos, "an oversized SNES game is refused, saying why");
+	Check(!ps5retro::ValidateRom(nesSide, (root / "roms/fake.zip").string(), error) && error == "This ZIP archive is damaged or too large.", "a refused game's reason is the app's words");
+	Check(ps5retro::Diagnostics(n64, 0).find("not in this copy of PS5-ECAM") != std::string::npos && ps5retro::Diagnostics(n64, 1).find("not in this copy") == std::string::npos,
+		"diagnostics say whether this copy has the emulator");
 	return failures ? 1 : 0;
 }
