@@ -8261,7 +8261,7 @@ msgstr "Изображение игры остановилось (устройс
 #. why a game in a .zip or .7z archive did not start: no file in it the system's emulator reads
 #: port/libretro/game.cpp:574
 msgid "There is no game for this system in this archive, or the archive could not be read."
-msgstr ""
+msgstr "В этом архиве нет игры для этой системы, или архив не удалось прочитать."
 
 #: port/main_ps5.cpp:156
 msgid "Firmware {0}"

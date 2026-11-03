@@ -8218,7 +8218,7 @@ msgstr "A imagem do jogo parou (o dispositivo da GPU foi perdido)."
 #. why a game in a .zip or .7z archive did not start: no file in it the system's emulator reads
 #: port/libretro/game.cpp:574
 msgid "There is no game for this system in this archive, or the archive could not be read."
-msgstr ""
+msgstr "Não há nenhum jogo deste sistema neste arquivo compactado, ou não foi possível lê-lo."
 
 #: port/main_ps5.cpp:156
 msgid "Firmware {0}"

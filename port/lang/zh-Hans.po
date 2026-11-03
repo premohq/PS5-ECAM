@@ -8175,7 +8175,7 @@ msgstr "游戏画面已停止（GPU设备丢失）。"
 #. why a game in a .zip or .7z archive did not start: no file in it the system's emulator reads
 #: port/libretro/game.cpp:574
 msgid "There is no game for this system in this archive, or the archive could not be read."
-msgstr ""
+msgstr "此压缩包中没有此系统的游戏，或无法读取此压缩包。"
 
 #: port/main_ps5.cpp:156
 msgid "Firmware {0}"

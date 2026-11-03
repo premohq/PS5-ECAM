@@ -8175,7 +8175,7 @@ msgstr "게임 화면이 멈췄습니다(GPU 장치를 잃었습니다)."
 #. why a game in a .zip or .7z archive did not start: no file in it the system's emulator reads
 #: port/libretro/game.cpp:574
 msgid "There is no game for this system in this archive, or the archive could not be read."
-msgstr ""
+msgstr "이 압축 파일에 이 시스템의 게임이 없거나, 압축 파일을 읽지 못했습니다."
 
 #: port/main_ps5.cpp:156
 msgid "Firmware {0}"

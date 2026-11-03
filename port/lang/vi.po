@@ -8175,7 +8175,7 @@ msgstr "Hình ảnh của trò chơi đã dừng (mất thiết bị GPU)."
 #. why a game in a .zip or .7z archive did not start: no file in it the system's emulator reads
 #: port/libretro/game.cpp:574
 msgid "There is no game for this system in this archive, or the archive could not be read."
-msgstr ""
+msgstr "Không có trò chơi nào của hệ máy này trong tệp nén này, hoặc không đọc được tệp nén."
 
 #: port/main_ps5.cpp:156
 msgid "Firmware {0}"
