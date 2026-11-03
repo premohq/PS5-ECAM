@@ -1,0 +1,150 @@
+From: Yahballon (PS5N64X)
+Subject: [PATCH] PS5N64X: a real stop on unload, and the PS5 SDK's fixes
+
+PS5N64X's changes to ParaLLEl-N64 at ef73c7e (its n64/third_party/parallel-n64, at
+28c55d854f5e451da9ffd5a78c694415accad172), for the files a core on the CPU compiles:
+
+- retro_unload_game stops the emulation for real (g_real_stop through the interpreter and
+  main_run's teardown) instead of running one more frame slice, so the next game loads in the
+  same process; retro_deinit shuts the core down (CoreShutdown); retro_load_game clears the stop.
+- main.c's pak type table has room for PLUGIN_BIO_PAK (index 6).
+- retro_eventcount.c asks for POSIX.1-2008, where the PS5 SDK has CLOCK_REALTIME.
+- libretro.c's software stub includes only glsm's state enum, no GL header.
+
+---
+diff --git a/libretro-common/rthreads/retro_eventcount.c b/libretro-common/rthreads/retro_eventcount.c
+index 6a378955..70a92e95 100644
+--- a/libretro-common/rthreads/retro_eventcount.c
++++ b/libretro-common/rthreads/retro_eventcount.c
+@@ -34,7 +34,7 @@
+  * vanish, in files that never asked for any of this. */
+ #if defined(__unix__) && !defined(__APPLE__) && !defined(__sun__)
+ #ifndef _POSIX_C_SOURCE
+-#define _POSIX_C_SOURCE 199309
++#define _POSIX_C_SOURCE 200809L /* (AI-assisted) PS5 SDK exposes CLOCK_REALTIME at POSIX.1-2001+. */
+ #endif
+ #endif
+ #if defined(__linux__) && !defined(_GNU_SOURCE)
+diff --git a/libretro/libretro.c b/libretro/libretro.c
+index 1ba39027..d0a70c1b 100644
+--- a/libretro/libretro.c
++++ b/libretro/libretro.c
+@@ -73,7 +73,7 @@ uint8_t* g_dd_disk;
+  * typedefs when one of the HAVE_OPENGLES* defines is set, while the headers
+  * rglgen pulls in on iOS are ES ones that do not carry them. glsm.h alone is
+  * enough here - the stub needs the enum and nothing else. */
+-#include <glsm/glsm.h>
++#include <glsm/glsm_state_ctl.h> /* (AI-assisted) Software builds only need the enum; no GL header. */
+ bool glsm_ctl(enum glsm_state_ctl state, void *data) { return false; }
+ #endif
+ 
+@@ -1492,6 +1492,7 @@ void retro_deinit(void)
+ {
+    mupen_main_stop();
+    mupen_main_exit();
++   CoreShutdown();
+ 
+    deinit_audio_libretro();
+ 
+@@ -2831,6 +2832,7 @@ static void format_saved_memory(void)
+ 
+ bool retro_load_game(const struct retro_game_info *game)
+ {
++   g_real_stop = 0; /* (AI-assisted) A prior deinit/unload must not suppress every new frame. */
+    format_saved_memory();
+ 
+    update_variables(true);
+@@ -3050,10 +3052,9 @@ void retro_unload_game(void)
+      * until SP_STATUS_HALT, which a half-finished task may never reach.
+      * Cleared again in retro_load_game(). */
+     g_rsp_force_halt = 1;
+-    mupencorestop = 1;
++    mupen_main_stop();
+     first_time = 1;
+-
+-    EmuThreadStep();
++    if (g_EmulatorRunning) main_run(); /* (AI-assisted) Real teardown, not another frame slice. */
+ 
+     /* The run loop has stopped (mupencorestop above; r4300_execute torn
+      * down).  Mark the emulator stopped so the core lets us release the
+diff --git a/mupen64plus-core/src/device/r4300/pure_interp.c b/mupen64plus-core/src/device/r4300/pure_interp.c
+index f54ce12d..b64f7b02 100644
+--- a/mupen64plus-core/src/device/r4300/pure_interp.c
++++ b/mupen64plus-core/src/device/r4300/pure_interp.c
+@@ -754,6 +754,8 @@ void run_pure_interpreter(struct r4300_core* r4300)
+     * (set by retro_return at the VI interrupt) breaks the loop and returns
+     * WITHOUT tearing anything down, so the next call continues the game. */
+    static int l_pi_started = 0;
++   extern int g_real_stop;
++   if (g_real_stop) { l_pi_started = 0; return; }
+    if (!l_pi_started)
+    {
+       l_pi_started = 1;
+diff --git a/mupen64plus-core/src/device/r4300/r4300_core.c b/mupen64plus-core/src/device/r4300/r4300_core.c
+index fd029293..c27fb18f 100644
+--- a/mupen64plus-core/src/device/r4300/r4300_core.c
++++ b/mupen64plus-core/src/device/r4300/r4300_core.c
+@@ -131,7 +131,8 @@ void run_r4300(struct r4300_core* r4300)
+     _MM_SET_DENORMALS_ZERO_MODE(_MM_DENORMALS_ZERO_OFF);
+ #endif
+ 
+-    *r4300_stop(r4300) = 0;
++    extern int g_real_stop;
++    *r4300_stop(r4300) = g_real_stop ? 1 : 0;
+ 
+     /* clear instruction counters */
+ #if defined(COUNT_INSTR)
+diff --git a/mupen64plus-core/src/main/main.c b/mupen64plus-core/src/main/main.c
+index 6da5089a..88008921 100644
+--- a/mupen64plus-core/src/main/main.c
++++ b/mupen64plus-core/src/main/main.c
+@@ -139,7 +139,7 @@ enum { PAK_MAX_SIZE = 5 };
+ static size_t l_paks_idx[GAME_CONTROLLERS_COUNT];
+ static void* l_paks[GAME_CONTROLLERS_COUNT][PAK_MAX_SIZE];
+ static const struct pak_interface* l_ipaks[PAK_MAX_SIZE];
+-static size_t l_pak_type_idx[6];
++static size_t l_pak_type_idx[7]; /* (AI-assisted) Includes PLUGIN_BIO_PAK index 6. */
+ 
+ /* PRNG state - used for Mempaks ID generation */
+ struct xoshiro256pp_state l_mpk_idgen;
+@@ -744,6 +744,8 @@ unsigned int r4300_emumode;
+ unsigned int r4300_jit_backend;
+ size_t rdram_size;
+ 
++extern int g_real_stop;
++extern void run_r4300(struct r4300_core* r4300);
+ m64p_error main_run(void)
+ {
+     static int l_setup_done = 0;
+@@ -789,6 +791,14 @@ m64p_error main_run(void)
+      * with controller/pak messages once per frame and redundantly reinitializing
+      * everything). The re-entry path only touches globals, so it is safe here. */
+     if (l_setup_done) {
++        /* (AI-assisted) Finish a real stop through the same cleanup as initial execution.
++         * A frame yield resumes, while ROM unload must release interpreter blocks and plugins. */
++        if (g_real_stop) {
++            frame_break = 0;
++            run_r4300(&g_dev.r4300);
++            goto teardown;
++        }
++
+         /* Clear the per-frame yield flag and run a slice (run_device returns
+          * when retro_return sets mupencorestop again). Clear the active
+          * backend's stop via the accessor (ari64 keeps it in
+@@ -1136,6 +1146,7 @@ m64p_error main_run(void)
+     if (frame_break)
+         return M64ERR_SUCCESS;
+ 
++teardown:
+     /* Genuine stop: allow the one-time setup to run again for the next ROM. */
+     l_setup_done = 0;
+ 
+@@ -1291,7 +1302,5 @@ void mupen_main_stop(void)
+ 
+ void mupen_main_exit(void)
+ {
+-   if (rsp.romClosed)   rsp.romClosed();
+-   inputRomClosed();
+-   if (gfx.romClosed)   gfx.romClosed();
++   if (g_EmulatorRunning) main_run(); /* (AI-assisted) Avoid closing plugins twice after unload. */
+ }

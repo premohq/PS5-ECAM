@@ -1843,10 +1843,14 @@ namespace ps5shell
 		m_menu.at = m_now;
 		const Game& g = m_games[game];
 		m_menu.items = {{"play", Tr("Play")}};
-		// a 3DS or DS game quit to the library left a state to go on from (ps5saves::ResumeState)
-		if (Is3ds() || IsDs())
+		// a 3DS or DS game quit to the library left a state to go on from (ps5saves::ResumeState), and so
+		// does a game on a libretro core (port/libretro/game.h: states/<its file>.state11)
+		const bool onCore = IsRetro() && ps5libretro::Plays(SideIndex()) && m_settings.retro[ps5retro::Slot(SideIndex())].retroBackend == 0;
+		if (Is3ds() || IsDs() || onCore)
 		{
-			const std::string state = ps5saves::ResumeState({Is3ds() ? 1 : 2, g.entry.game.titleId, g.entry.game.path.string()});
+			const std::string state = onCore ? std::string(ps5retro::Of(SideIndex()).data) + "/states/" + g.entry.game.path.stem().string() + ".state" +
+					std::to_string(ps5saves::kResumeSlot) :
+											   ps5saves::ResumeState({Is3ds() ? 1 : 2, g.entry.game.titleId, g.entry.game.path.string()});
 			std::error_code ec;
 			if (!state.empty() && std::filesystem::exists(state, ec))
 				m_menu.items.push_back({"resume", Tr("Resume where you left off")});

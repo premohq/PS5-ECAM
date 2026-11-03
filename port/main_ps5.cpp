@@ -838,7 +838,9 @@ int main(int argc, char* argv[])
 				ps5log::Line("[main] turbo button: {}", turbo);
 		}
 
-		if (ps5libretro::Plays((int)choice->system) && !game.path.empty())
+		// (unless its Settings chose the second emulator, a program of its own: the NES's FCEUmm)
+		if (ps5libretro::Plays((int)choice->system) && !game.path.empty() &&
+			settings.retro[ps5retro::Slot((int)choice->system)].retroBackend == 0)
 		{
 			// the side's libretro core, in this process as melonDS below: its picture on VideoOut at 59.94 Hz
 			const auto side = ps5launcher::SideName(choice->system);

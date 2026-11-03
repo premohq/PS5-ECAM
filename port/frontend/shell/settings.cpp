@@ -441,7 +441,9 @@ namespace ps5shell
 			if (const ps5retro::Alternative* other = ps5retro::AlternativeOf(SideIndex()); other && page == "runtime" && !InGameSettings())
 			{
 				Row runtime; runtime.id = "retro-backend"; runtime.kind = Kind::Choice; runtime.label = Tr("Emulator");
-				runtime.options = {other->first, other->backend.name};
+				// the first: the side's core in the app while its own program is not in this copy (Mesen, ParaLLEl-N64)
+				runtime.options = {ps5libretro::Plays(SideIndex()) ? std::string(ps5libretro::CoreTitle(SideIndex())) : std::string(other->first),
+					other->backend.name};
 				runtime.index = backend; runtime.value = runtime.options[backend];
 				runtime.description = Tr("Which emulator plays this side's games, from the next one started. Each keeps its own settings and saves."); rows.push_back(runtime);
 			}

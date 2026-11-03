@@ -60,7 +60,7 @@ def makefile_list(path, variables, names=("SOURCES_C", "SOURCES_CXX")):
 
 
 class Core:
-    def __init__(self, name, folder, sources, includes=(), defines=(), cxx_std="c++17", exclude=()):
+    def __init__(self, name, folder, sources, includes=(), defines=(), cxx_std="c++17", exclude=(), flags=()):
         self.name = name
         self.folder = os.path.join(DEPS, folder)
         # once each (a Makefile's lists are read with every branch of its conditions)
@@ -68,6 +68,24 @@ class Core:
         self.includes = list(includes)
         self.defines = list(defines)
         self.cxx_std = cxx_std
+        self.flags = list(flags)
+
+
+def apply_patches(core):
+    """patches/libretro/<the core's folder>/*.patch on its checkout, each once"""
+    folder = os.path.join(ROOT, "patches", "libretro", os.path.basename(core.folder))
+    for patch in sorted(glob.glob(os.path.join(folder, "*.patch"))):
+        applied = subprocess.run(["git", "-C", core.folder, "apply", "--reverse", "--check", patch], capture_output=True)
+        if applied.returncode == 0:
+            continue
+        subprocess.run(["git", "-C", core.folder, "apply", patch], check=True)
+        print(f"==> [libretro] {core.name}: {os.path.basename(patch)} applied")
+
+
+def make_list(folder, makefile, target):
+    """What a Makefile prints for target, one word a line, run in the core's folder"""
+    out = subprocess.run(["make", "-s", "-f", makefile, target], cwd=folder, check=True, capture_output=True, text=True).stdout
+    return [line.strip() for line in out.splitlines() if line.strip()]
 
 
 def cores():
@@ -148,6 +166,17 @@ def cores():
                           "ENABLE_VFS_FD", "HAVE_STRDUP", "HAVE_STRNDUP", "HAVE_LOCALTIME_R", "ENABLE_VFS", "ENABLE_DIRECTORIES",
                           "HAVE_LOCALE", "HAVE_XLOCALE",  # the SDK's locale_t, with port/libretro/compat/locale.c
                           "MINIMAL_CORE=2", "M_PI=3.14159265358979323846", "M_CORE_GB", "M_CORE_GBA"])
+
+    # ParaLLEl-N64 (mupen64plus's, GPL-2.0-or-later): the Nintendo 64, on the CPU as PS5N64X builds it:
+    # Angrylion's renderer on threads of its own, the cached interpreter, the HLE RSP. Its sources and
+    # flags are its Makefile.common's (tools/libretro/parallel-n64.mk), with its own libretro-common
+    # (patches/libretro/parallel-n64 changes one of its files); its C globals are common symbols
+    folder = os.path.join(DEPS, "parallel-n64")
+    makefile = os.path.join(ROOT, "tools/libretro/parallel-n64.mk")
+    flags = make_list(folder, makefile, "flags")
+    found["paralleln64"] = Core("paralleln64", "parallel-n64", [os.path.normpath(s) for s in make_list(folder, makefile, "list")],
+                                [os.path.normpath(f[2:]) for f in flags if f.startswith("-I")],
+                                [f[2:] for f in flags if f.startswith("-D")], "c++11", flags=["-fcommon"])
     return found
 
 
@@ -183,7 +212,7 @@ def stale(target, depfile):
     return any(os.path.exists(w) and os.path.getmtime(w) > when for w in words)
 
 
-def compile_all(name, folder, sources, includes, defines, cxx_std):
+def compile_all(name, folder, sources, includes, defines, cxx_std, flags=()):
     objdir = os.path.join(OUT, name, "obj")
     jobs, objects = [], []
     for source in sources:
@@ -194,7 +223,7 @@ def compile_all(name, folder, sources, includes, defines, cxx_std):
         if not stale(obj, dep):
             continue
         os.makedirs(os.path.dirname(obj), exist_ok=True)
-        command = (CXX_FLAGS + ["-std=" + cxx_std] if cxx else C_FLAGS + ["-std=gnu11"])
+        command = (CXX_FLAGS + ["-std=" + cxx_std] if cxx else C_FLAGS + ["-std=gnu11"]) + list(flags)
         command += ["-I" + os.path.join(folder, i) for i in includes] + ["-D" + d for d in defines]
         command += ["-MMD", "-MF", dep, "-c", os.path.join(folder, source), "-o", obj]
         jobs.append((source, command))
@@ -255,7 +284,8 @@ def main():
     built = []
     for name in wanted:
         core = available[name]
-        built.append(isolate(name, compile_all(name, core.folder, core.sources, core.includes, core.defines, core.cxx_std)))
+        apply_patches(core)
+        built.append(isolate(name, compile_all(name, core.folder, core.sources, core.includes, core.defines, core.cxx_std, core.flags)))
     built.append(libretro_common())
     open(os.path.join(OUT, "objects.txt"), "w").write("\n".join(built) + "\n")
     # what no object here gives: the C library's, the app's, or missing

@@ -251,6 +251,15 @@
       "creates": ".deps/libretro/PokeMini/libretro/libretro.c"
     },
     {
+      "name": "libretro-parallel-n64",
+      "about": "ParaLLEl-N64's libretro core (mupen64plus's, GPL-2.0-or-later; its Angrylion renderer's licence is to be settled before a release): the Nintendo 64 on the CPU, with patches/libretro/parallel-n64 (tools/build-libretro.py)",
+      "kind": "git",
+      "url": "https://github.com/libretro/parallel-n64.git",
+      "commit": "ef73c7e6fa356262f88e05f85cdfad092f8f90e0",
+      "path": ".deps/libretro/parallel-n64",
+      "creates": ".deps/libretro/parallel-n64/libretro/libretro.c"
+    },
+    {
       "name": "esde-port",
       "about": "Mihawk-99's PS5 port of EmulationStation (ES-DE 3.5.0, GPL-3.0-or-later): its frontends/es-de and the scripts that build ES-DE and its libraries for the PS5. tools/build-esde.sh builds it with PS5-ECAM's glue (port/esde/ps5) in place of the port's own, for Settings > Launcher > Start in EmulationStation",
       "kind": "git",

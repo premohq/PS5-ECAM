@@ -13,6 +13,7 @@
 #include "game.h"
 #include "core.h"
 #include "session.h"
+#include "../app/game_archives.h"
 #include "../app/ingame3ds.h"
 #include "../app/lang.h"
 #include "../app/saves.h"
@@ -25,12 +26,20 @@
 #include "../ps5/pad.h"
 #include "../retro/registry.h"
 
+#include <archive.h>
+#include <archive_entry.h>
+
 #include <algorithm>
 #include <array>
 #include <atomic>
+#include <cctype>
 #include <cmath>
+#include <cstring>
 #include <ctime>
 #include <deque>
+#include <filesystem>
+#include <fstream>
+#include <memory>
 #include <mutex>
 #include <sys/stat.h>
 #include <thread>
@@ -503,6 +512,68 @@ namespace ps5libretro
 				ps5pad::SetVibration(player, 0, 0);
 			s_running = false;
 		}
+
+		// Whether a file's name has one of the core's types (its valid_extensions: "sfc|smc|...")
+		bool CoreReads(const retro_system_info& info, const std::string& name)
+		{
+			std::string extension = std::filesystem::path(name).extension().string(), list = info.valid_extensions ? info.valid_extensions : "";
+			for (std::string* text : {&extension, &list})
+				for (char& c : *text)
+					c = (char)std::tolower((unsigned char)c);
+			return extension.size() > 1 && ("|" + list + "|").find("|" + extension.substr(1) + "|") != std::string::npos;
+		}
+
+		// A game in a .zip or .7z (the NES's and the Game Boy Advance's libraries list them): its first file
+		// of the core's types, a Mac's copies of them left out, unpacked once into folder (the side's
+		// cache), from where the core reads it as any game file. A core that reads the archive itself has it.
+		bool Unpack(const Core& core, const std::string& archivePath, const std::string& folder, std::string& unpacked, std::string& error)
+		{
+			retro_system_info info{};
+			core.getSystemInfo(&info);
+			unpacked = archivePath;
+			if (CoreReads(info, archivePath))
+				return true;
+			namespace fs = std::filesystem;
+			std::unique_ptr<archive, int (*)(archive*)> reader(archive_read_new(), archive_read_free);
+			archive_read_support_filter_all(reader.get());
+			archive_read_support_format_all(reader.get());
+			archive_entry* entry = nullptr;
+			if (archive_read_open_filename(reader.get(), archivePath.c_str(), 1 << 16) == ARCHIVE_OK)
+				while (archive_read_next_header(reader.get(), &entry) == ARCHIVE_OK)
+				{
+					const char* name = archive_entry_pathname(entry);
+					const int64_t size = archive_entry_size(entry);
+					if (!name || archive_entry_filetype(entry) != AE_IFREG || std::strstr(name, "__MACOSX/") ||
+						fs::path(name).filename().string().rfind("._", 0) == 0 || !CoreReads(info, name) || size <= 0 || size > (int64_t)512 << 20)
+						continue;
+					std::error_code ec;
+					fs::create_directories(folder, ec);
+					const std::string target = folder + "/" + fs::path(name).filename().string();
+					// a copy of its size there already is this game's, from its last start
+					if (const uintmax_t had = fs::file_size(target, ec); !ec && had == (uintmax_t)size)
+					{
+						unpacked = target;
+						return true;
+					}
+					std::vector<char> data((size_t)size);
+					size_t done = 0;
+					for (la_ssize_t got = 1; done < data.size() && got > 0; done += got > 0 ? (size_t)got : 0)
+						got = archive_read_data(reader.get(), data.data() + done, data.size() - done);
+					std::ofstream out(target + ".tmp", std::ios::binary | std::ios::trunc);
+					out.write(data.data(), (std::streamsize)data.size());
+					out.close();
+					if (done == data.size() && out)
+						fs::rename(target + ".tmp", target, ec);
+					if (done != data.size() || !out || ec)
+						break;
+					ps5log::Line("[retro] {} unpacked from {} ({} KiB)", fs::path(target).filename().string(), archivePath, data.size() >> 10);
+					unpacked = target;
+					return true;
+				}
+			// tr: why a game in a .zip or .7z archive did not start: no file in it the system's emulator reads
+			error = ps5lang::Tr("There is no game for this system in this archive, or the archive could not be read.");
+			return false;
+		}
 	}
 
 	bool CoreTouched() { return s_coreTouched; }
@@ -543,8 +614,25 @@ namespace ps5libretro
 			language == "ru" ? RETRO_LANGUAGE_RUSSIAN : language == "ko" ? RETRO_LANGUAGE_KOREAN :
 			language == "zh-Hant" ? RETRO_LANGUAGE_CHINESE_TRADITIONAL : language == "zh-Hans" ? RETRO_LANGUAGE_CHINESE_SIMPLIFIED :
 			language == "pl" ? RETRO_LANGUAGE_POLISH : language == "tr" ? RETRO_LANGUAGE_TURKISH : RETRO_LANGUAGE_ENGLISH;
+		// the app's values for some cores' options, over their defaults: the Virtual Boy's second D-pad on
+		// the right stick (Red Alarm, Teleroboxer); the Nintendo 64 on the CPU as it is built
+		// (tools/libretro/parallel-n64.mk): the cached interpreter, no dynarec being in it, and Angrylion's
+		// renderer on six threads, the emulation keeping a core to itself
+		const std::string coreName = system.core;
+		if (coreName == "beetlevb")
+			setup.options["vb_right_analog_to_digital"] = "enabled";
+		else if (coreName == "paralleln64")
+			setup.options = {{"parallel-n64-cpucore", "cached_interpreter"}, {"parallel-n64-gfxplugin", "angrylion"},
+				{"parallel-n64-angrylion-multithread", "6"}};
 		SetLog([](int, const std::string& line) { ps5log::Line("[retro] {}", line); });
-		if (!Load(*core, game.path.string(), setup, error))
+		// a game in an archive: its file unpacked into the side's cache, from where the core reads it
+		std::string path = game.path.string();
+		if (ps5archive::IsArchive(path) && !Unpack(*core, path, data + "/cache", path, error))
+		{
+			ps5log::Line("[retro] {} did not load: {}", game.name, error);
+			return false;
+		}
+		if (!Load(*core, path, setup, error))
 		{
 			ps5log::Line("[retro] {} did not load: {}", game.name, error);
 			return false;

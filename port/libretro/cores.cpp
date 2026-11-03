@@ -5,7 +5,12 @@
 // when the app is linked, with nothing left for the PS5's loader).
 #include "core.h"
 #include "plays.h"
+#include "../app/paths.h"
 #include "../retro/registry.h"
+
+#include <filesystem>
+#include <string_view>
+#include <utility>
 
 #define PS5LIBRETRO_CORE(core) \
 	extern "C" { \
@@ -45,6 +50,7 @@ PS5LIBRETRO_CORE(mesens)
 PS5LIBRETRO_CORE(mgba)
 PS5LIBRETRO_CORE(beetlevb)
 PS5LIBRETRO_CORE(pokemini)
+PS5LIBRETRO_CORE(paralleln64)
 
 namespace ps5libretro
 {
@@ -56,7 +62,15 @@ namespace ps5libretro
 			PS5LIBRETRO_ENTRY(mgba),
 			PS5LIBRETRO_ENTRY(beetlevb),
 			PS5LIBRETRO_ENTRY(pokemini),
+			PS5LIBRETRO_ENTRY(paralleln64),
 		};
+
+		// a side's program of its own (PR #87's and #91's), when this copy of the app has it
+		bool Packaged(const char* runtime)
+		{
+			std::error_code error;
+			return *runtime && std::filesystem::is_regular_file(ps5paths::AppDir() + "/" + runtime, error);
+		}
 
 		// every entry point there: a core is linked whole or not at all, but a half one is never run
 		bool Linked(const Core& c)
@@ -80,6 +94,19 @@ namespace ps5libretro
 		if (!ps5retro::IsRetro(side))
 			return false;
 		const ps5retro::System& system = ps5retro::Of(side);
-		return !*system.runtime && *system.core && Find(system.core);
+		// a program of its own that is not built here (the NES's, the Game Boys', the Nintendo 64's)
+		// gives way to the core; one that is stays the side's until the core is measured against it
+		return *system.core && Find(system.core) && !Packaged(system.runtime);
+	}
+
+	const char* CoreTitle(int side)
+	{
+		static constexpr std::pair<std::string_view, const char*> kTitles[] = {{"mesen", "Mesen"}, {"mesens", "Mesen-S"}, {"mgba", "mGBA"},
+			{"beetlevb", "Beetle VB"}, {"pokemini", "PokeMini"}, {"paralleln64", "ParaLLEl-N64"}};
+		if (ps5retro::IsRetro(side))
+			for (const auto& [core, title] : kTitles)
+				if (core == ps5retro::Of(side).core)
+					return title;
+		return "";
 	}
 }
