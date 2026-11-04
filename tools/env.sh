@@ -41,8 +41,9 @@ ps5cemu_patches_apply() {
     # exported yet, are built as they are, which is said; when the two differ otherwise, the build stops
     # (it used to build the branch as it was, leaving the new patches out without a word). A release
     # (PS5CEMU_RELEASE=1, which make release sets) takes the patches only as they are: commits not
-    # exported and changes not committed stop it too.
-    local name=$1 checkout=$2 patches=$3 pin=$4
+    # exported and changes not committed stop it too. A fifth argument, --ignore-submodules=dirty, leaves
+    # out what a checkout's own build changes in its submodules (EglantinePS5 patches its Eglantine).
+    local name=$1 checkout=$2 patches=$3 pin=$4 status=(${5:-})
     local where=${checkout#"$PS5CEMU_ROOT"/} folder=${patches#"$PS5CEMU_ROOT"/} script=tools/$1-patches.sh
     local identity=(-c user.name=ps5cemu -c user.email=ps5cemu@localhost)
     local files=() file
@@ -84,7 +85,7 @@ ps5cemu_patches_apply() {
         same=$((same + 1))
     done
     local changes=
-    if [[ -n $(git -C "$checkout" status --porcelain --untracked-files=no) ]]; then
+    if [[ -n $(git -C "$checkout" status --porcelain --untracked-files=no "${status[@]}") ]]; then
         changes="$where has changes not committed"
     fi
 

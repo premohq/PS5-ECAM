@@ -7,6 +7,9 @@
 #                                       and the ones added since on it (ps5cemu_patches_apply in tools/env.sh)
 #   tools/eglantine-patches.sh export   write the ps5 branch's commits back to patches/eglantine
 #
+# EglantinePS5's build patches its Eglantine submodule itself (its tools/apply-eglantine-patches.sh), so
+# what is changed in there is left out of both checks.
+#
 # To change EglantinePS5: edit .deps/eglantine/EglantinePS5 on the ps5 branch, commit, then export.
 
 set -euo pipefail
@@ -18,10 +21,10 @@ pin=$(python3 -c 'import json,sys; print(next(i["commit"] for i in json.load(ope
 
 case ${1:-} in
 apply)
-    ps5cemu_patches_apply eglantine "$eglantine" "$patches" "$pin"
+    ps5cemu_patches_apply eglantine "$eglantine" "$patches" "$pin" --ignore-submodules=dirty
     ;;
 export)
-    [[ -z $(git -C "$eglantine" status --porcelain --untracked-files=no) ]] ||
+    [[ -z $(git -C "$eglantine" status --porcelain --untracked-files=no --ignore-submodules=dirty) ]] ||
         { echo "commit the changes in .deps/eglantine/EglantinePS5 first" >&2; exit 1; }
     rm -f "$patches"/*.patch
     mkdir -p "$patches"
