@@ -3,9 +3,12 @@
 // library_ps5.cpp of Mihawk's ES-DE port, which writes them from its own app's library.
 #include "esde.h"
 
+#include "../retro/registry.h"
+
 #include <pugixml.hpp>
 
 #include <algorithm>
+#include <array>
 #include <cstdio>
 #include <cstdlib>
 #include <ctime>
@@ -20,41 +23,53 @@ namespace ps5esde
 {
 	namespace
 	{
-		// ES-DE's systems (its resources/systems/unix/es_systems.xml), in the launcher's sides' order:
-		// Wii U, 3DS, DS, Switch, then ps5retro::kSystems' (GameCube, Wii, N64, NES, GB, GBC, GBA, SNES,
-		// Virtual Boy, Pokemon mini, Famicom Disk System, Super Game Boy, Game & Watch, Satellaview, VS. System
-		// as ES-DE's arcade; a side after these is left out of ES-DE). The extensions are each side's (ES-DE scans for none here: its
-		// systems file wants them all the same). Every theme the app ships has art for each of these
-		// names (tools/check-esde-themes.py, run by tools/build-esde.sh): a new one is checked there.
+		// ES-DE's names and extensions for the launcher's systems. Retro metadata is keyed to
+		// ps5retro::kSystems rather than relying on that registry's current order. The extensions are
+		// each side's (ES-DE scans for none here: its systems file wants them all the same). Every theme
+		// the app ships has art for each name (tools/check-esde-themes.py, run by tools/build-esde.sh).
+		// The VS. System is ES-DE's arcade; the iQue Player has no system of ES-DE's, so none here.
 		struct Known
 		{
+			const char* key;
 			const char* name;
 			const char* fullname;
 			const char* extensions;
 		};
-		constexpr Known kSystems[] = {
-			{"wiiu", "Nintendo Wii U", ".wua .wud .wux .rpx .zip .7z .rar .WUA .WUD .WUX .RPX .ZIP .7Z .RAR"},
-			{"n3ds", "Nintendo 3DS", ".3ds .cci .cxi .3dsx .cia .z3ds .zip .7z .rar .3DS .CCI .CXI .3DSX .CIA .Z3DS .ZIP .7Z .RAR"},
-			{"nds", "Nintendo DS", ".nds .srl .zip .7z .rar .NDS .SRL .ZIP .7Z .RAR"},
-			{"switch", "Nintendo Switch", ".nsp .xci .NSP .XCI"},
-			{"gc", "Nintendo GameCube", ".iso .gcm .rvz .ciso .gcz .wia .ISO .GCM .RVZ .CISO .GCZ .WIA"},
-			{"wii", "Nintendo Wii", ".iso .gcm .rvz .ciso .gcz .wia .wbfs .wad .dol .elf .ISO .GCM .RVZ .CISO .GCZ .WIA .WBFS .WAD .DOL .ELF"},
-			{"n64", "Nintendo 64", ".z64 .n64 .v64 .zip .rom .Z64 .N64 .V64 .ZIP .ROM"},
-			{"nes", "Nintendo Entertainment System", ".nes .unf .unif .fds .zip .7z .NES .UNF .UNIF .FDS .ZIP .7Z"},
-			{"gb", "Nintendo Game Boy", ".gb .GB"},
-			{"gbc", "Nintendo Game Boy Color", ".gbc .GBC"},
-			{"gba", "Nintendo Game Boy Advance", ".gba .zip .7z .GBA .ZIP .7Z"},
-			{"snes", "Nintendo SNES (Super Nintendo)", ".sfc .smc .swc .fig .bs .st .SFC .SMC .SWC .FIG .BS .ST"},
-			{"virtualboy", "Nintendo Virtual Boy", ".vb .vboy .VB .VBOY"},
-			{"pokemini", "Nintendo Pokemon Mini", ".min .MIN"},
-			{"fds", "Nintendo Famicom Disk System", ".fds .FDS"},
-			{"sgb", "Nintendo Super Game Boy", ".gb .gbc .GB .GBC"},
-			{"gw", "Nintendo Game and Watch", ".mgw .MGW"},
-			{"satellaview", "Nintendo Satellaview", ".bs .BS"},
-			{"arcade", "Arcade", ".nes .zip .7z .NES .ZIP .7Z"}, // the VS. System's
-			// (the iQue Player, after these, has no system of ES-DE's)
+		constexpr Known kEsdeSystems[] = {
+			{"wiiu", "wiiu", "Nintendo Wii U", ".wua .wud .wux .rpx .zip .7z .rar .WUA .WUD .WUX .RPX .ZIP .7Z .RAR"},
+			{"3ds", "n3ds", "Nintendo 3DS", ".3ds .cci .cxi .3dsx .cia .z3ds .zip .7z .rar .3DS .CCI .CXI .3DSX .CIA .Z3DS .ZIP .7Z .RAR"},
+			{"ds", "nds", "Nintendo DS", ".nds .srl .zip .7z .rar .NDS .SRL .ZIP .7Z .RAR"},
+			{"switch", "switch", "Nintendo Switch", ".nsp .xci .NSP .XCI"},
+			{"gamecube", "gc", "Nintendo GameCube", ".iso .gcm .rvz .ciso .gcz .wia .ISO .GCM .RVZ .CISO .GCZ .WIA"},
+			{"wii", "wii", "Nintendo Wii", ".iso .gcm .rvz .ciso .gcz .wia .wbfs .wad .dol .elf .ISO .GCM .RVZ .CISO .GCZ .WIA .WBFS .WAD .DOL .ELF"},
+			{"n64", "n64", "Nintendo 64", ".z64 .n64 .v64 .zip .rom .Z64 .N64 .V64 .ZIP .ROM"},
+			{"nes", "nes", "Nintendo Entertainment System", ".nes .unf .unif .fds .zip .7z .NES .UNF .UNIF .FDS .ZIP .7Z"},
+			{"gb", "gb", "Nintendo Game Boy", ".gb .GB"},
+			{"gbc", "gbc", "Nintendo Game Boy Color", ".gbc .GBC"},
+			{"gba", "gba", "Nintendo Game Boy Advance", ".gba .zip .7z .GBA .ZIP .7Z"},
+			{"snes", "snes", "Nintendo SNES (Super Nintendo)", ".sfc .smc .swc .fig .bs .st .SFC .SMC .SWC .FIG .BS .ST"},
+			{"vb", "virtualboy", "Nintendo Virtual Boy", ".vb .vboy .VB .VBOY"},
+			{"pokemini", "pokemini", "Nintendo Pokemon Mini", ".min .MIN"},
+			{"fds", "fds", "Nintendo Famicom Disk System", ".fds .FDS"},
+			{"sgb", "sgb", "Nintendo Super Game Boy", ".gb .gbc .GB .GBC"},
+			{"gw", "gw", "Nintendo Game and Watch", ".mgw .MGW"},
+			{"satellaview", "satellaview", "Nintendo Satellaview", ".bs .BS"},
+			{"vs", "arcade", "Arcade", ".nes .zip .7z .NES .ZIP .7Z"}, // the VS. System's
 		};
-		constexpr int kKnown = (int)(sizeof(kSystems) / sizeof(kSystems[0]));
+		// The first four launcher sides predate ps5retro::kSystems. All later sides use their registry
+		// keys. ES-DE metadata is looked up by key so adding a side never changes another side's mapping.
+		constexpr std::array<const char*, ps5retro::kFirst> kBaseKeys = {"wiiu", "3ds", "ds", "switch"};
+
+		const Known* KnownForSide(int side)
+		{
+			if (side < 0 || side >= ps5retro::kSideCount)
+				return nullptr;
+			const char* key = side < ps5retro::kFirst ? kBaseKeys[side] : ps5retro::Of(side).key;
+			for (const Known& system : kEsdeSystems)
+				if (std::string_view(system.key) == key)
+					return &system;
+			return nullptr;
+		}
 
 		struct Reference
 		{
@@ -157,13 +172,14 @@ namespace ps5esde
 
 	const char* SystemName(int side)
 	{
-		return side >= 0 && side < kKnown ? kSystems[side].name : nullptr;
+		const Known* system = KnownForSide(side);
+		return system ? system->name : nullptr;
 	}
 
 	int SideNamed(std::string_view name)
 	{
-		for (int side = 0; side < kKnown; side++)
-			if (name == kSystems[side].name)
+		for (int side = 0; side < ps5retro::kSideCount; side++)
+			if (const Known* system = KnownForSide(side); system && name == system->name)
 				return side;
 		return -1;
 	}
@@ -204,9 +220,10 @@ namespace ps5esde
 		pugi::xml_node list = systemsFile.append_child("systemList");
 		for (const System& system : systems)
 		{
-			const char* name = SystemName(system.side);
-			if (!name)
+			const Known* descriptor = KnownForSide(system.side);
+			if (!descriptor)
 				continue;
+			const char* name = descriptor->name;
 			std::vector<std::string> paths;
 			for (const Game& game : system.games)
 				paths.push_back(game.path);
@@ -215,9 +232,9 @@ namespace ps5esde
 			pugi::xml_node entry = list.append_child("system");
 			entry.append_child("name").text().set(name);
 			entry.append_child("fullname").text().set(
-				own != known.end() && !own->second.fullname.empty() ? own->second.fullname.c_str() : kSystems[system.side].fullname);
+				own != known.end() && !own->second.fullname.empty() ? own->second.fullname.c_str() : descriptor->fullname);
 			entry.append_child("path").text().set(folder.c_str());
-			entry.append_child("extension").text().set(kSystems[system.side].extensions);
+			entry.append_child("extension").text().set(descriptor->extensions);
 			pugi::xml_node command = entry.append_child("command");
 			command.append_attribute("label").set_value("Playtendoh");
 			command.text().set((eboot + " --rom %ROM%").c_str());

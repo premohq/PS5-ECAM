@@ -8,6 +8,7 @@
 #include "esde/handoff.h"
 #include "app/paths.h"
 #include "frontend/settings.h"
+#include "retro/registry.h"
 
 #include <pugixml.hpp>
 
@@ -46,14 +47,24 @@ int main(int argc, char** argv)
 
 	// the sides' systems, ES-DE's names for them (its themes' art)
 	bool named = true;
-	const int ique = (int)ps5launcher::System::Ique; // the last side, and none of ES-DE's
-	for (int side = 0; side < ique; side++)
-		named = named && ps5esde::SystemName(side) && ps5esde::SideNamed(ps5esde::SystemName(side)) == side;
-	Check(named && !ps5esde::SystemName(ique) && ps5esde::SideNamed("psx") == -1, "each side has an ES-DE system of its own, but the iQue Player, which ES-DE has none of");
+	const int ique = (int)ps5launcher::System::Ique; // none of ES-DE's
+	for (int side = 0; side < ps5retro::kSideCount; side++)
+		if (side != ique)
+			named = named && ps5esde::SystemName(side) && ps5esde::SideNamed(ps5esde::SystemName(side)) == side;
+	int virtualBoy = -1;
+	for (int side = ps5retro::kFirst; side < ps5retro::kSideCount; side++)
+		if (ps5retro::Of(side).key == std::string_view("vb"))
+			virtualBoy = side;
+	Check(named && !ps5esde::SystemName(ique) && !ps5esde::SystemName(ps5retro::kSideCount) && ps5esde::SideNamed("psx") == -1,
+		"each registered side has an ES-DE system of its own, but the iQue Player, which ES-DE has none of");
 	Check(std::string(ps5esde::SystemName((int)ps5launcher::System::GameWatch)) == "gw" && std::string(ps5esde::SystemName((int)ps5launcher::System::VsSystem)) == "arcade",
 		"Game & Watch is ES-DE's gw, VS. System its arcade");
-	Check(std::string(ps5esde::SystemName(0)) == "wiiu" && std::string(ps5esde::SystemName(3)) == "switch" &&
-			  std::string(ps5esde::SystemName(4)) == "gc" && std::string(ps5esde::SystemName(12)) == "virtualboy",
+	auto maps = [](std::string_view name) {
+		const int side = ps5esde::SideNamed(name);
+		return side >= 0 && name == ps5esde::SystemName(side);
+	};
+	Check(maps("wiiu") && maps("switch") && std::string(ps5esde::SystemName(ps5retro::kFirst)) == "gc" && virtualBoy >= 0 &&
+			  std::string(ps5esde::SystemName(virtualBoy)) == "virtualboy",
 		"the names ES-DE's themes know: wiiu, switch, gc, virtualboy");
 
 	// a system's folder: the deepest that holds every game, as ES-DE reads a game only within it
