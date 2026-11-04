@@ -1,0 +1,66 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Tue, 3 Nov 2026 23:40:08 -0500
+Subject: [PATCH] wsi/videoout: the display gets a moment to settle at 119.88
+ Hz before 59.94 Hz is restored
+
+After VideoOut took the high-frame-rate mode, six vblank intervals were
+measured at once and their median above 12.5 ms put 59.94 Hz back, for a
+display that went on refreshing at 60 Hz (PS5_Vulkan, R31). Right after the
+change the vblanks come irregularly while the display settles: a TV that
+does refresh at 120 Hz measured 20.873 ms, and the Wii U side's frame
+generation then stayed at 60 frames a second (PS5-ECAM issue 103).
+
+The period is measured again until it is under the limit or 2.5 seconds
+have gone by; only then is 59.94 Hz restored. The log says how long the
+display took when it needed more than one measurement.
+---
+ src/vulkan/wsi/wsi_common_videoout.c | 24 +++++++++++++++++++++---
+ 1 file changed, 21 insertions(+), 3 deletions(-)
+
+diff --git a/src/vulkan/wsi/wsi_common_videoout.c b/src/vulkan/wsi/wsi_common_videoout.c
+index b6ef98a..f122d95 100644
+--- a/src/vulkan/wsi/wsi_common_videoout.c
++++ b/src/vulkan/wsi/wsi_common_videoout.c
+@@ -79,6 +79,10 @@
+  * went on refreshing at 60 Hz, as a tester's did (PS5_Vulkan, R31). */
+ #define VIDEOOUT_HIGH_REFRESH_LIMIT_NS UINT64_C(12500000)
+ #define VIDEOOUT_PERIOD_INTERVALS 6
++/* How long the display gets to settle in the high-frame-rate mode before it is
++ * given up: right after the change its vblanks come irregularly, and a TV that
++ * does refresh at 120 Hz measured a median of 20.9 ms (PS5-ECAM issue 103). */
++#define VIDEOOUT_HIGH_REFRESH_SETTLE_NS UINT64_C(2500000000)
+ /* param.json's attribute3 bit for 120 Hz output. PS5_Vulkan R31/R92 declared it with 0x80000
+  * (a 120 Hz mode that requires VRR), which turns the system's VRR off; retail titles with VRR
+  * declare 0x40 with 0x40000. VideoOut itself grants mode 15 or refuses it. */
+@@ -387,13 +391,27 @@ videoout_configure_locked(struct wsi_videoout_output *out, bool high)
+                     : supported;
+    out->high_frame_rate = configured == 0;
+    if (out->high_frame_rate) {
+-      const uint64_t period = videoout_vblank_period_ns(out->handle);
++      /* Measured again while the display settles: 59.94 Hz only when the
++       * vblanks still come too slowly at the end of it. */
++      const uint64_t started = os_time_get_nano();
++      uint64_t period = videoout_vblank_period_ns(out->handle);
++      unsigned rounds = 1;
++      while (period > VIDEOOUT_HIGH_REFRESH_LIMIT_NS &&
++             os_time_get_nano() - started < VIDEOOUT_HIGH_REFRESH_SETTLE_NS) {
++         period = videoout_vblank_period_ns(out->handle);
++         rounds++;
++      }
++      const double waited_ms = (double)(os_time_get_nano() - started) / 1e6;
+       if (period > VIDEOOUT_HIGH_REFRESH_LIMIT_NS) {
+          sceVideoOutConfigureOutput(out->handle, PS5_VIDEO_OUT_MODE_RESTORE, NULL, NULL, NULL);
+          out->high_frame_rate = false;
+          fprintf(stderr,
+-                 "wsi/videoout: 119.88 Hz accepted, but a vblank comes every %.3f ms; 59.94 Hz restored\n",
+-                 (double)period / 1e6);
++                 "wsi/videoout: 119.88 Hz accepted, but a vblank comes every %.3f ms (after %.0f ms); "
++                 "59.94 Hz restored\n",
++                 (double)period / 1e6, waited_ms);
++      } else if (rounds > 1) {
++         fprintf(stderr, "wsi/videoout: 119.88 Hz, a vblank every %.3f ms once the display settled (%.0f ms)\n",
++                 (double)period / 1e6, waited_ms);
+       }
+    } else {
+       fprintf(stderr, "wsi/videoout: 119.88 Hz %s (%d); presenting at 59.94 Hz\n",

@@ -38,12 +38,13 @@ help: ## List the targets
 	@echo
 	@echo 'Variables:'
 	@echo '  JOBS=$(JOBS)                parallel compile jobs'
-	@echo '  RADV_PATCHES=0006,0007,0008,0009'
+	@echo '  RADV_PATCHES=0006,0007,0008,0009,0010'
 	@echo '                              the driver patches (patches/mesa) RADV is built with: their numbers,'
 	@echo '                              all (0001-0007), or empty for none (0006: 120 Hz output after the new'
 	@echo '                              launcher; 0007: no GPU fault on a buffer freed while the GPU still'
 	@echo '                              uses it; 0008: submissions on a thread of their own, asyncSubmit;'
-	@echo '                              0009: the GPU waits sleep gpuWaitSleepUs)'
+	@echo '                              0009: the GPU waits sleep gpuWaitSleepUs; 0010: 120 Hz kept while'
+	@echo '                              the display settles in it)'
 	@echo '  RADV_ARCHIVE, RADV_SDK      a RADV built elsewhere, and the SDK fork it was built with'
 
 deps: ## Fetch the pinned inputs and build the libraries Cemu needs for the PS5
