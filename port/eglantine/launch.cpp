@@ -4,6 +4,7 @@
 #include "../app/netfs.h"
 #include "../app/own_status.h"
 #include "../app/paths.h"
+#include "../eden/ingame.h"
 #include "../ps5/log.h"
 
 #include <filesystem>
@@ -62,6 +63,7 @@ namespace ps5eglantine
 		// This is a child runtime, so end its one-game session and return to ECAM after every game.
 		const std::vector<std::string> args{
 			"--rom", path, "--exit-after-game",
+			"--ecam-session", ps5ingamenx::SessionFile(),
 			"--ecam-setting", "resolution=" + std::to_string(settings.nx.nxResolution),
 			"--ecam-setting", "filter=" + std::to_string(settings.nx.nxFilter == 1 ? 1 : settings.nx.nxFilter == 2 ? 2 : settings.nx.nxFilter == 3 ? 3 : 0),
 			"--ecam-setting", "output=" + std::to_string(settings.nx.nxOutput),
@@ -72,6 +74,7 @@ namespace ps5eglantine
 			"--ecam-setting", "vibration=" + std::to_string(settings.rumble ? 1 : 0),
 			"--ecam-setting", "docked=" + std::to_string(settings.nx.nxDocked ? 1 : 0),
 			"--ecam-setting", "controller=" + std::to_string(settings.nx.nxController + 1),
+			"--ecam-setting", "deadzone=" + std::to_string(settings.nx.nxDeadzone),
 			"--ecam-setting", "language=" + std::to_string(settings.nx.nxLanguage + 1),
 			"--ecam-setting", "async_shaders=" + std::to_string(settings.nx.nxAsyncShaders ? 1 : 0),
 			"--ecam-setting", "fast_gpu=" + std::to_string(settings.nx.nxFastGpu ? 1 : 0),

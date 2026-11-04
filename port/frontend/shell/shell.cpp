@@ -302,10 +302,11 @@ namespace ps5shell
 			ps5lang::SetMenuFont({font.path, font.face});
 			if (!font.path.empty())
 				ps5log::Line("[ui] the in-game menu's second font: {} (face {})", font.path, font.face);
-			// a Switch game's loading screen and in-game menu are drawn by Eden's program: what they show
+			// A Switch or Switch 2 game's loading screen and shared in-game menu are drawn by its runtime:
+			// what they show
 			// of the game, as the other sides' menus have it (its name, GameTDB's publisher and year, its
 			// cover), left for it
-			if (m_choice->system == ps5launcher::System::Switch)
+			if (m_choice->system == ps5launcher::System::Switch || m_choice->system == ps5launcher::System::Switch2)
 			{
 				ps5eden::Session session{m_choice->game.name};
 				session.titleId = m_choice->game.titleId;

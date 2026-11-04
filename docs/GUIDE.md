@@ -378,11 +378,12 @@ and built as a child runtime in the app. **This path is experimental and has not
 PS5.** The Switch 2 side hands a game folder to EglantinePS5 and returns to the same Playtendoh side
 when the game exits. ECAM passes supported per-game resolution, upscaling, output, refresh,
 frame-generation, audio, HUD, vibration, controller, language and performance settings at launch.
-EglantinePS5's emulation core can pause and resume, but the child runtime does not yet present or
-integrate Playtendoh's in-game menu, so the shared menu is not available during a Switch 2 game.
-**Touchpad click + Options** or **Touchpad click + L1** ends
-the current game and returns to ECAM; unsaved progress is lost. Touchpad click + R1 toggles
-EglantinePS5's performance HUD.
+The child runtime is wired to PS5-ECAM's shared Switch in-game menu, including its loading view,
+Touchpad click + Options controls, supported graphics/audio/controller settings, and return to the
+library. This source integration has not yet been built or verified on a PS5; menu behavior is
+experimental until a console report confirms it. **Touchpad click + Options** opens or closes the
+menu; choose **Quit to library** there to leave the game. **Touchpad click + L1** remains an immediate
+return to ECAM; unsaved progress is lost. Touchpad click + R1 toggles EglantinePS5's performance HUD.
 
 - ExeFS and RomFS game dumps are folders, not `.nsp` or `.xci` files. Put each dump in a separate
   folder under the Switch 2 games folder (by default `/data/eglantineps5/roms`):

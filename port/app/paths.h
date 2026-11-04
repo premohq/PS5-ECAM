@@ -22,6 +22,7 @@
 #include <cstring>
 #include <initializer_list>
 #include <string>
+#include <utility>
 #include <sys/stat.h>
 #include <vector>
 
@@ -77,8 +78,30 @@ namespace ps5paths
 	// or beside the data folder on the drive the app is installed on. Before DecideSystemRoots, /data's.
 	inline std::string Eden() { const auto& s = detail::SelectedSystems(); return s.decided ? s.eden : ecam_layout::System(kDefaultRoot, "eden"); }
 	inline std::string EdenRequestFile() { return Eden() + "/launch-request.txt"; }
-	inline std::string EdenSessionFile() { return Eden() + "/ecam-session.txt"; }
-	inline std::string EdenResultFile() { return Eden() + "/ecam-result.txt"; }
+	inline std::string& EdenSessionOverride() { static std::string path; return path; }
+	inline bool SetEdenSessionFile(std::string path)
+	{
+		if (path.empty() || path.front() != '/' || path.size() > 4096 || path.find_first_of("\r\n\\") != std::string::npos)
+			return false;
+		for (std::size_t start = 1; start <= path.size();)
+		{
+			const std::size_t end = path.find('/', start);
+			const std::string part = path.substr(start, end == std::string::npos ? std::string::npos : end - start);
+			if (part.empty() || part == "." || part == "..") return false;
+			if (end == std::string::npos) break;
+			start = end + 1;
+		}
+		if (path.size() < 16 || path.compare(path.size() - 16, 16, "ecam-session.txt") != 0)
+			return false;
+		EdenSessionOverride() = std::move(path);
+		return true;
+	}
+	inline std::string EdenSessionFile() { return EdenSessionOverride().empty() ? Eden() + "/ecam-session.txt" : EdenSessionOverride(); }
+	inline std::string EdenResultFile()
+	{
+		const std::string& session = EdenSessionOverride();
+		return session.empty() ? Eden() + "/ecam-result.txt" : session.substr(0, session.size() - 16) + "ecam-result.txt";
+	}
 	// EglantinePS5's data folder, beside the Switch side's default one (/data/eglantine): the program
 	// the Switch 2's games start in (patches/eglantine) takes its launch request from there
 	inline std::string Eglantine() { return ecam_layout::Sibling(kDefaultRoot, "eglantine"); }

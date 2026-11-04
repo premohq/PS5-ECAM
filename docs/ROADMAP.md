@@ -314,7 +314,8 @@ both patches applying to ES-DE 3.5.0, the glue compiling. Next:
 
 ### Switch 2
 
-**Experimental; source integration in progress.** The first Switch 2 experiment used Takoroka's
+**Experimental; source integration wired, build and console verification pending.** The first Switch 2
+experiment used Takoroka's
 eden-nx2 support in ProsperoEdenX to identify Switch 2 NPDMs and scan ExeFS/RomFS game folders. That
 code remains the library's format detector; it is not the Switch 2 runtime. Switch 2 games now have
 their own side and launch through the pinned EglantinePS5 child runtime. The game page marks Switch 2
@@ -332,11 +333,13 @@ Still to do:
 - **Build and review the child runtime:** run the pinned EglantinePS5 build and Playtendoh packaging;
   fix any upstream integration or toolchain failures. Do not describe this source work as a verified
   build until the build is actually run.
-- **Unify the in-game experience:** ECAM now exits a child game back to the saved library on
-  Touchpad + Options or Touchpad + L1, and its supported saved settings are passed at launch.
-  EglantinePS5's emulation core can pause and resume, but its child runtime has no ECAM menu
-  presentation/integration yet. Add and review that UI path before claiming menu parity.
-  Unsupported Eden-only controls are hidden on the Switch 2 side.
+- **Shared in-game menu source path:** the child build now compiles PS5-ECAM's existing Switch menu
+  into EglantinePS5, draws it in the Vulkan window pass, routes the DualSense menu controls, applies
+  supported runtime settings (including controller style), and returns to the library from the menu.
+  The session-file path is forwarded so apps using an external data root can find the same menu
+  session. This is source integration only: build it and have a tester verify the menu, input,
+  settings, loading display and return path on a console before calling it working. Unsupported
+  Eden-only controls remain unavailable on Switch 2.
 - **Console report:** testers report game-folder discovery on internal and external storage, a game
   launch, keys/firmware handling, controller behavior, settings, exit/return, logs and performance.
   Do not infer compatibility or performance from source review or a successful build.
