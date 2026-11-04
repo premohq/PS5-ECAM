@@ -1,0 +1,94 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Tue, 20 Oct 2026 07:32:02 +0000
+Subject: [PATCH] Build scripts: EDEN_HOST_PATH first on their PATH
+
+The scripts set PATH to the system's folders alone; EDEN_HOST_PATH puts a folder before them, for
+a newer CMake than the host's (3.31 or later; Ubuntu 24.04 has 3.28).
+---
+ tools/build-headless-ffmpeg.sh   | 2 +-
+ tools/build-headless-host.sh     | 2 +-
+ tools/build-headless-native.sh   | 2 +-
+ tools/build-package.sh           | 2 +-
+ tools/package-headless-native.sh | 2 +-
+ tools/prepare-build.sh           | 2 +-
+ 6 files changed, 6 insertions(+), 6 deletions(-)
+
+diff --git a/tools/build-headless-ffmpeg.sh b/tools/build-headless-ffmpeg.sh
+index 010b840..64cedb4 100644
+--- a/tools/build-headless-ffmpeg.sh
++++ b/tools/build-headless-ffmpeg.sh
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ set -euo pipefail
+-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++export PATH=${EDEN_HOST_PATH:+$EDEN_HOST_PATH:}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+ scratch=$(cat "$root/.local/headless-cache")
+ [[ "$(cat "$scratch/owner")" == "$root" ]]
+diff --git a/tools/build-headless-host.sh b/tools/build-headless-host.sh
+index e080c9a..b2ae690 100644
+--- a/tools/build-headless-host.sh
++++ b/tools/build-headless-host.sh
+@@ -1,7 +1,7 @@
+ #!/usr/bin/env bash
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ set -euo pipefail
+-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++export PATH=${EDEN_HOST_PATH:+$EDEN_HOST_PATH:}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+ cd "$root"
+ mkdir -p .local build/headless-host build/fixture
+diff --git a/tools/build-headless-native.sh b/tools/build-headless-native.sh
+index 2398d65..321f234 100644
+--- a/tools/build-headless-native.sh
++++ b/tools/build-headless-native.sh
+@@ -10,7 +10,7 @@ if [[ ${1:-} == --graphics ]]; then graphics=ON; fi
+ if [[ ${1:-} == --gpu-probe ]]; then graphics=ON; probe=ON; fi
+ jobs=${EDEN_BUILD_JOBS:-$(nproc)}
+ [[ "$jobs" =~ ^[1-9][0-9]*$ ]] || { echo "Invalid EDEN_BUILD_JOBS: $jobs" >&2; exit 1; }
+-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++export PATH=${EDEN_HOST_PATH:+$EDEN_HOST_PATH:}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ command -v ninja >/dev/null
+ cache=$(command -v ccache)
+ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+diff --git a/tools/build-package.sh b/tools/build-package.sh
+index 9d1fad8..fcfe66d 100644
+--- a/tools/build-package.sh
++++ b/tools/build-package.sh
+@@ -6,7 +6,7 @@
+ #                                    (profiling counters, dev-settings.txt A/B switches) that
+ #                                    boots title ID on launch
+ set -euo pipefail
+-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++export PATH=${EDEN_HOST_PATH:+$EDEN_HOST_PATH:}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+ cd "$root"
+ mode=${1:?usage: tools/build-package.sh release|dev TITLE_ID}
+diff --git a/tools/package-headless-native.sh b/tools/package-headless-native.sh
+index f78efdd..1b978c5 100644
+--- a/tools/package-headless-native.sh
++++ b/tools/package-headless-native.sh
+@@ -2,7 +2,7 @@
+ # SPDX-License-Identifier: GPL-3.0-or-later
+ set -euo pipefail
+ [[ $# == 0 || ( $# == 1 && ( "$1" == --integration || "$1" == --game ) ) ]]
+-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++export PATH=${EDEN_HOST_PATH:+$EDEN_HOST_PATH:}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+ scratch=$(cat "$root/.local/headless-cache")
+ [[ "$(cat "$scratch/owner")" == "$root" ]]
+diff --git a/tools/prepare-build.sh b/tools/prepare-build.sh
+index b155478..d8a9d4a 100644
+--- a/tools/prepare-build.sh
++++ b/tools/prepare-build.sh
+@@ -5,7 +5,7 @@
+ # SDK, FFmpeg for the PS5, the native packaging tool, the runtime libc.prx, the libSceAgcDriver
+ # link stub and the isolated RADV driver. Each step is skipped when its result already exists.
+ set -euo pipefail
+-export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
++export PATH=${EDEN_HOST_PATH:+$EDEN_HOST_PATH:}/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+ root=$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")/.." && pwd)
+ cd "$root"
+ step() { echo "== $*"; }

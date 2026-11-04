@@ -303,14 +303,34 @@ with Switch 2 support) at `50fa86bbbc`, ported as Oliv3rmoon's Nightshade did (`
 and the derivations moved (patches/eden 0021), and a game folder's ExeFS and RomFS play, a Switch 2
 title by its npdm, with eden-nx2's session settings (0022). Six emulated cores: what ProsperoEdenX counts
 per core has a place for each. The launcher lists such a folder as a Switch game, `Switch 2` its
-format (port/eden/exefs.h). Nothing has run on a console yet. Next:
+format (port/eden/exefs.h). Nothing has run on a console yet.
 
-- **A first console run** with a tester's own dump (Pokopia, Splatoon Raiders): the logs say how far.
+**EglantinePS5 for the Switch 2's games, 3 November 2026** (the owner's choice of 31 October):
+heydemoura's [EglantinePS5](https://github.com/heydemoura/EglantinePS5) (GPL-3.0, at `3c32faa`, which
+plays Pokopia from its library), the PS5 port of Djihads80's
+[Eglantine](https://github.com/Djihads80/Eglantine) (Eden with Switch 2 support), on ProsperoEden's
+frontend as ProsperoEdenX is. It comes in as ProsperoEdenX came in, pinned in `tools/deps.json`
+(`.deps/eglantine`, its inputs beside it) with `patches/eglantine` (`tools/eglantine-patches.sh`), built by
+`tools/build-eglantine.sh` (`make eglantine`) into the app's `eglantine/`. A Switch 2 title starts there
+(port/eden/launch.cpp), with the same arguments and request file as Eden's (`/data/eglantine`), and the
+program goes back to PS5-ECAM when its game ends. Its keys, firmware and games are the Switch side's
+folder's. Eden's eden-nx2 still plays a Switch 2 title where the app has no `eglantine/`. Nothing has run
+on a console yet. Next:
+
+- **A first console run** with a tester's own dump (Pokopia, Splatoon Raiders): the logs say how far
+  (`/data/eglantine/logs`).
+- **PS5-ECAM's loading screen and in-game menu in it**, as patches/eden 0007 to 0009 put them in Eden's,
+  with the result file the Switch side reads and the --set settings it knows: until then it shows its
+  own, and its launcher when a game stops with an error (Circle there goes back). Those patches lean on
+  what ProsperoEdenX has and EglantinePS5 does not (MihawkGen, the speed limit, game folders), so each
+  is ported on its own.
 - **A side of its own** in the carousel, once a game plays: the Switch's Eden with Switch 2 games
   only, its own settings page and in-game menu, as every system has.
 - **Its own words in the library** (an "experimental" warning on the game's page), in every language.
 - **eden-nx2's macro compiler** with the console's executable memory (Nightshade's next step), and
   sparse images in the console's RADV for the largest textures.
+- **A newer EglantinePS5**: its pin moves as `make update` moves its Eglantine, patches/eglantine
+  rebased with tools/eglantine-patches.sh.
 
 ### Lighter
 

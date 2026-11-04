@@ -53,6 +53,8 @@ python3 tools/symbolize-crash.py dist/ps5cemu-v3.0.0.elf boot.log
 - Mihawk's PS5_Mesa, PS5_Vulkan and payload SDK fork
 - compiler-rt's emulated TLS and CPU-model builtins
 - ProsperoEdenX, the Switch side's program (`make eden` builds it)
+- EglantinePS5, the program the Switch 2's games start in (`make eglantine` builds it in
+  `.deps/eglantine`, with its own inputs beside it)
 
 **RADV.** `make radv` builds the driver with PS5_Vulkan's own recipe, from the pinned Mesa fork and
 the payload SDK fork, whose platform layer the PS5 winsys is built on. It then builds the same

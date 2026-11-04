@@ -223,6 +223,10 @@ says where the app is going and how to fit in.
   support for Switch 2 games (GPL-3.0-or-later), the Switch side's Eden now, and
   [Nightshade](https://github.com/Oliv3rmoon/Nightshade) by **Oliv3rmoon**, whose port of it to the PS5
   the Switch side's follows (`patches/eden` 0021 and 0022)
+- [Eglantine](https://github.com/Djihads80/Eglantine) by **Djihads80** and its contributors, Eden with
+  Switch 2 support (GPL-3.0-or-later), in [EglantinePS5](https://github.com/heydemoura/EglantinePS5), its
+  PS5 port by **heydemoura** (**Heyde Moura**) with **darkxex** and **swizard** (GPL-3.0-or-later): the
+  program the Switch 2's games start in (`patches/eglantine`)
 - **Mihawk** for RADV on PS5 ([PS5_Mesa](https://github.com/mihawk-99/PS5_Mesa),
   [PS5_Vulkan](https://github.com/mihawk-99/PS5_Vulkan), the payload SDK fork and its platform layer)
   and the PS5 ports of Azahar and dynarmic ([PS5_Azahar](https://github.com/mihawk-99/PS5_Azahar)),
@@ -250,7 +254,8 @@ says where the app is going and how to fit in.
 
 The app's own code is GPL-3.0-or-later (see [LICENSE](LICENSE)). Files derived from Cemu keep Cemu's
 MPL-2.0, as their headers say; Azahar is GPL-2.0-or-later, melonDS GPL-3.0, and Eden and
-ProsperoEden GPL-3.0-or-later (their notices are in the app's `eden/` folder), and the app that
+ProsperoEden GPL-3.0-or-later (their notices are in the app's `eden/` folder), Eglantine and EglantinePS5
+GPL-3.0-or-later (in its `eglantine/` folder), and the app that
 includes them is distributed under GPL-3.0-or-later. Other third-party components keep their own
 licenses.
 

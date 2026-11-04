@@ -181,6 +181,17 @@ elif ((!check)); then
     [[ ${PS5CEMU_RELEASE:-0} == 1 ]] && exit 2
 fi
 
+# The program the Switch 2's games start in (tools/build-eglantine.sh): EglantinePS5's eboot.bin and the
+# files it reads from its own folder, with the boilerplate's libc.prx beside it as Eden's has
+if [[ -f $PS5CEMU_BUILD/eglantine/app/eboot.bin ]]; then
+    cp -a "$PS5CEMU_BUILD/eglantine/app" "$app/eglantine"
+    mkdir -p "$app/eglantine/sce_module"
+    cp "$boilerplate/runtime/libc.prx" "$app/eglantine/sce_module/libc.prx"
+elif ((!check)); then
+    echo "build/eglantine is missing (make eglantine): Switch 2 games start in Eden's program" >&2
+    [[ ${PS5CEMU_RELEASE:-0} == 1 ]] && exit 2
+fi
+
 # EmulationStation (tools/build-esde.sh), the optional other frontend: its folder as it was built. The
 # app is whole without it, and Settings > Launcher offers it only where it is (port/esde/esde.h).
 if [[ -f $PS5CEMU_BUILD/esde/es-de/es-de.bin ]]; then

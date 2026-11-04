@@ -14,7 +14,7 @@ APP := build/app/PPSA99360
 JOBS ?= $(shell nproc)
 export JOBS
 
-.PHONY: gameboy retro-upgrades retro test-retro help deps deps-status radv azahar melonds libretro eden build check package release clean distclean test-contribution esde
+.PHONY: gameboy retro-upgrades retro test-retro help deps deps-status radv azahar melonds libretro eden eglantine build check package release clean distclean test-contribution esde
 
 test-retro: ## Host verification for the additional system integration
 	bash tools/tests/test-retro.sh
@@ -65,6 +65,9 @@ melonds: deps ## Build melonDS's core (the DS side's) and its PS5 frontend: buil
 eden: deps ## Build ProsperoEdenX, the Switch side's program (Eden), with patches/eden: build/eden
 	bash tools/build-eden.sh
 
+eglantine: deps ## Build EglantinePS5, the program the Switch 2's games start in, with patches/eglantine: build/eglantine
+	bash tools/build-eglantine.sh
+
 esde: ## Build EmulationStation (ES-DE), the optional other frontend, with PS5-ECAM's glue: build/esde/es-de
 	bash tools/build-esde.sh
 
@@ -87,7 +90,7 @@ retro-upgrades: ## Build optional N64/NES alternative runtimes (prepared toolcha
 retro: ## Build the pinned Porpoise, N64 and NES runtimes (prepared donor toolchains required)
 	python3 tools/build-retro.py porpoise n64 nes
 
-package: build eden ## The app folder: build/app/PPSA99360 (with eden/, the Switch side's program)
+package: build eden eglantine ## The app folder: build/app/PPSA99360 (with eden/ and eglantine/, the Switch side's programs)
 	bash tools/package.sh
 
 # a release takes the emulators' patches only as they are: a checkout in .deps with commits not exported
@@ -103,6 +106,8 @@ release: package ## dist/PS5-ECAM-vVERSION.zip (the PPSA99360 folder), SHA256SUM
 	cp build/cemu/ps5cemu.elf dist/ps5cemu-v$(VERSION).elf
 	@# and the Switch side's program's (ProsperoEdenX's tools/symbolize-crash.py)
 	if [[ -f build/eden/eden.elf ]]; then cp build/eden/eden.elf dist/eden-v$(VERSION).elf; fi
+	@# and the Switch 2's games' program's (EglantinePS5's tools/symbolize-crash.py)
+	if [[ -f build/eglantine/eglantine.elf ]]; then cp build/eglantine/eglantine.elf dist/eglantine-v$(VERSION).elf; fi
 	@cat dist/SHA256SUMS
 
 clean: ## Remove build outputs (build/, dist/); dependencies stay

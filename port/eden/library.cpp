@@ -484,6 +484,11 @@ namespace ps5eden
 		return Exists(ps5paths::AppDir() + "/eden/eboot.bin");
 	}
 
+	bool Switch2Available()
+	{
+		return Exists(ps5paths::AppDir() + "/eglantine/eboot.bin");
+	}
+
 	bool IsExeFsMain(const std::string& path)
 	{
 		return exefs::IsMain(path);

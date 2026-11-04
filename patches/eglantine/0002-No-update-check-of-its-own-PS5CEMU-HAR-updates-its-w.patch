@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Tue, 20 Oct 2026 07:32:02 +0000
+Subject: [PATCH] No update check of its own: PS5CEMU-HAR updates its whole app
+ folder
+
+The check compares the running app's sce_sys/param.json, which is PS5CEMU-HAR's (PPSA99360), with
+the catalog: it would offer PS5CEMU-HAR's releases and run its own updater over them. PS5CEMU-HAR's
+updater replaces eden/ with the rest of the app.
+---
+ headless/eglantineps5/frontend.cpp | 3 +--
+ 1 file changed, 1 insertion(+), 2 deletions(-)
+
+diff --git a/headless/eglantineps5/frontend.cpp b/headless/eglantineps5/frontend.cpp
+index 5f5fdfc..1032b38 100644
+--- a/headless/eglantineps5/frontend.cpp
++++ b/headless/eglantineps5/frontend.cpp
+@@ -229,8 +229,7 @@ std::string RunApp(const std::string& launch_error, bool first_start, Eden::Mult
+ 
+         const bool input_ready = radio_input_init();
+         if (!input_ready) Eden::Report("menu failure", "The controller could not be opened");
+-        // Once per launch: is a newer release listed? The launcher shows the answer when it comes.
+-        Eden::UpdateNotice::Start();
++        // No update check of its own: PS5-ECAM updates its whole app folder, eglantine/ with it.
+         pe::ui::Launcher launcher(services, textures, fonts, first_start);
+         int menu_volume = launcher.menu_volume();
+         mixer->set_bus_gain(pe::audio::Bus::ui, MenuGain(menu_volume));

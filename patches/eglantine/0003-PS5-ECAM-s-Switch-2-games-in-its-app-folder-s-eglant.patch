@@ -1,0 +1,631 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Tue, 3 Nov 2026 22:42:21 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 games: in its app folder's eglantine/,
+ started by it and back to it
+
+PS5-ECAM (PPSA99360) carries this program as eglantine/eboot.bin and starts its Switch 2 games in it
+with LoadExec, as it starts its Switch games in Eden's (eden/).
+- Its folder is the app's eglantine/ (/app0/eglantine, /system_ex/app/PPSA99360/eglantine,
+  /data/homebrew/PPSA99360/eglantine), its sandbox PPSA99360's, its data /data/eglantine. The game
+  files folder is the Switch side's (ecam_layout::Eden, as Eden's program and the launcher choose
+  it: /data/eden, or <drive>/eden), so its keys and firmware serve both; while that has no keys, a
+  standalone EglantinePS5's /data/eglantineps5 is used as it is when it has them.
+- The arguments PS5-ECAM starts it with are in /data/eglantine/launch-request.txt too, one a line:
+  on the console LoadExec does not carry them (PS5-ECAM's #67). Taken once with filesystem access
+  (forwarded_launch.h, TakeLaunchRequest), else the program's own arguments.
+- Where main returns (a game PS5-ECAM started has ended, or this launcher was left), it LoadExecs
+  PS5-ECAM's eboot (--return <eboot>, then /app0, the system's mount and /data/homebrew); a home
+  screen tile's --exit-after-game still closes it. A game that stops with an error opens this
+  launcher, which says why, and Circle on its home screen goes back. After a crash it starts itself
+  again (/app0/eglantine/eboot.bin); a game PS5-ECAM starts after a crash is started all the same.
+- etaHEN's app jailbreak is asked first, as PS5-ECAM asks for its own process; the Lapy helper is
+  built for PPSA99360 and looked for in /app0/eglantine, then /app0.
+---
+ headless/assets_dir.h                   |  24 ++--
+ headless/boot_trace.h                   |   2 +-
+ headless/check_package.py               |   2 +-
+ headless/ecam_layout.h                  | 157 ++++++++++++++++++++++++
+ headless/eglantineps5/eden_services.cpp |   2 +-
+ headless/eglantineps5/pe/ui/home.cpp    |  15 ++-
+ headless/forwarded_launch.h             |  25 ++++
+ headless/main.cpp                       |  54 ++++++--
+ headless/storage_paths.h                |  27 ++--
+ src/lifecycle.c                         |  28 ++++-
+ tools/build-lapy-helper.py              |   2 +-
+ 11 files changed, 303 insertions(+), 35 deletions(-)
+ create mode 100644 headless/ecam_layout.h
+
+diff --git a/headless/assets_dir.h b/headless/assets_dir.h
+index ddd0bf9..1550dd2 100644
+--- a/headless/assets_dir.h
++++ b/headless/assets_dir.h
+@@ -1,6 +1,6 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ // The game files folder: keys/, firmware/ and roms/ in the folder chosen in Settings > Game
+-// files (/data/eglantineps5 by default).
++// files (the Switch side's folder of PS5-ECAM by default, whose keys and firmware Eden uses too).
+ // Resolved once per process; a new choice applies when EglantinePS5 is reopened. Where the rest
+ // lives: storage_paths.h; what is saved: settings_store.h.
+ #pragma once
+@@ -11,16 +11,22 @@
+ #include "storage_paths.h"
+ 
+ namespace Eden {
+-// The saved folder, else /data/eglantineps5, except that an install from before the setting
+-// keeps the app folder's assets/ while /data/eglantineps5 has no keys (main.cpp moves those
+-// files to /data/eglantineps5 when it can). Without filesystem access nothing can be read.
++// PS5-ECAM's Switch side's folder (/data/eden, or <drive>/eden beside the launcher's data on the
++// drive the app is installed on), chosen as Eden's program and the launcher choose it
++// (ecam_layout::Eden): its keys, firmware and games serve the Switch 2's games too. Read with
++// filesystem access only.
++inline std::string SwitchFolder() {
++    return ecam_layout::Eden(kEcamSharedData, ecam_layout::DriveData());
++}
++
++// The saved folder, else the Switch side's, except that a standalone EglantinePS5's is used as it
++// is while the Switch side's has no keys. Without filesystem access nothing can be read.
+ inline std::string ResolveAssetsDir() {
+-    const std::string legacy = AppFile("assets");
+-    if (!FilesystemAccess()) return kDefaultAssetsDir;
++    if (!FilesystemAccess()) return ecam_layout::Sibling(kEcamSharedData, "eden");
+     if (std::string saved = LoadSavedAssetsDir(); !saved.empty()) return saved;
+-    const std::string keys = "/keys/prod.keys";
+-    if (!FileExists(kDefaultAssetsDir + keys) && FileExists(legacy + keys)) return legacy;
+-    return kDefaultAssetsDir;
++    const std::string keys = "/keys/prod.keys", folder = SwitchFolder();
++    if (!FileExists(folder + keys) && FileExists(kStandaloneDataDir + keys)) return kStandaloneDataDir;
++    return folder;
+ }
+ 
+ // The game files folder in use by this process.
+diff --git a/headless/boot_trace.h b/headless/boot_trace.h
+index 6a4adb5..b7cc092 100644
+--- a/headless/boot_trace.h
++++ b/headless/boot_trace.h
+@@ -121,7 +121,7 @@ inline void Ready(const std::string& logs_folder, bool filesystem_access) {
+     (void)std::rename(path.c_str(), (logs_folder + "/boot-trace.prev.txt").c_str());
+     // The last run's sandbox trace (that run may have died before it had filesystem access), copied
+     // where it can be fetched; with filesystem access the sandbox is seen under /mnt/sandbox.
+-    if (int previous = open("/mnt/sandbox/PPSA98515_000/download0/boot-trace.prev.txt", O_RDONLY); previous >= 0) {
++    if (int previous = open("/mnt/sandbox/PPSA99360_000/download0/boot-trace.prev.txt", O_RDONLY); previous >= 0) {
+         const int copy = open((logs_folder + "/boot-trace.sandbox-prev.txt").c_str(), O_WRONLY | O_CREAT | O_TRUNC, 0666);
+         char buffer[4096];
+         for (ssize_t got; (got = read(previous, buffer, sizeof(buffer))) > 0;) detail::WriteAll(copy, buffer, static_cast<size_t>(got));
+diff --git a/headless/check_package.py b/headless/check_package.py
+index e74aa07..175b096 100644
+--- a/headless/check_package.py
++++ b/headless/check_package.py
+@@ -56,7 +56,7 @@ def check():
+     assert param['pubtools']['loudnessSnd0'] == '-28.00'
+     lapy = json.loads((APP / 'lapy-manifest.json').read_text())
+     assert lapy['schema'] == 'lapy-owned-build/1'
+-    assert lapy['target_title'] == 'PPSA98515' and lapy['mode'] == 'elf-helper'
++    assert lapy['target_title'] == 'PPSA99360' and lapy['mode'] == 'elf-helper'
+     assert lapy['max_requests'] == 1 and not lapy['service']
+     assert lapy['features'] == ['root_layout_probe_retry']
+     assert lapy['protocol_sha256'] == LAPY_PROTOCOL_SHA256
+diff --git a/headless/ecam_layout.h b/headless/ecam_layout.h
+new file mode 100644
+index 0000000..f33ed48
+--- /dev/null
++++ b/headless/ecam_layout.h
+@@ -0,0 +1,157 @@
++// SPDX-License-Identifier: GPL-3.0-or-later
++// Shared with Eden's separate executable. Discovery reads only; migration activates verified copies.
++#ifndef ECAM_SYSTEM_LAYOUT_H
++#define ECAM_SYSTEM_LAYOUT_H
++#include <cerrno>
++#include <cstdio>
++#include <cstring>
++#include <dirent.h>
++#include <initializer_list>
++#include <string>
++#include <sys/stat.h>
++// ShadowMountPlus's record of the folder the app is mounted from, and where the console mounts drives
++// (tests give their own)
++#ifndef ECAM_MOUNT_RECORD
++#define ECAM_MOUNT_RECORD "/user/app/PPSA99360/mount.lnk"
++#endif
++#ifndef ECAM_DRIVES
++#define ECAM_DRIVES "/mnt"
++#endif
++namespace ecam_layout
++{
++    // The launcher's data folder at the top of the drive the app is installed on (its DecideRoot):
++    // the app's name before 5.0.0
++    inline constexpr const char* kDriveData = "PS5CEMU-HAR-data";
++    inline constexpr const char* kMarker = ".ecam-separated-v2";
++    inline constexpr const char* kVersion = "ecam-system-layout-v2\n";
++    inline std::string Parent(const std::string& path)
++    {
++        const size_t end = path.find_last_of('/');
++        return end == 0 ? "/" : path.substr(0, end);
++    }
++    inline std::string Sibling(const std::string& shared, const char* system)
++    {
++        const std::string parent = Parent(shared);
++        return parent + (parent == "/" ? "" : "/") + system;
++    }
++    // A path's own status, a link's rather than its target's. ShadowMountPlus 1.7 mounts /data into an
++    // app without a HEN with lstat refused (EPERM) and stat answered: there, stat's, as nothing on /data
++    // is a link
++    inline int Status(const std::string& path, struct stat& info)
++    {
++        if (lstat(path.c_str(), &info) == 0) return 0;
++        return errno == EPERM ? stat(path.c_str(), &info) : -1;
++    }
++    inline bool Present(const std::string& path)
++    {
++        struct stat info{};
++        return Status(path, info) == 0 || (errno != ENOENT && errno != ENOTDIR);
++    }
++    inline bool Activated(const std::string& directory)
++    {
++        if (FILE* file = std::fopen((directory + "/" + kMarker).c_str(), "rb"))
++        {
++            char value[64]{};
++            const size_t length = std::fread(value, 1, sizeof(value), file);
++            std::fclose(file);
++            return length == std::strlen(kVersion) && std::memcmp(value, kVersion, length) == 0;
++        }
++        return false;
++    }
++    inline std::string System(const std::string& shared, const char* system)
++    {
++        const std::string target = Sibling(shared, system), legacy = shared + "/" + system;
++        return Activated(target) || !Present(legacy) ? target : legacy;
++    }
++    // The USB drive or extended storage a path is on ("/mnt/usb0" for "/mnt/usb0/homebrew/PPSA99360");
++    // empty for any other place
++    inline std::string DriveOf(const std::string& path)
++    {
++        for (const char* kind : {"/usb", "/ext"})
++        {
++            const std::string prefix = std::string(ECAM_DRIVES) + kind;
++            size_t end = prefix.size();
++            while (end < path.size() && path[end] >= '0' && path[end] <= '9')
++                end++;
++            if (path.compare(0, prefix.size(), prefix) == 0 && end > prefix.size() && (end == path.size() || path[end] == '/'))
++                return path.substr(0, end);
++        }
++        return {};
++    }
++    // The folder the app was mounted from, by ShadowMountPlus's record, when it holds the app; empty
++    // without one (an app mounted from an image has none)
++    inline std::string MountSource(const char* record = ECAM_MOUNT_RECORD)
++    {
++        std::string path;
++        if (FILE* file = std::fopen(record, "rb"))
++        {
++            char text[512]{};
++            path.assign(text, std::fread(text, 1, sizeof(text) - 1, file));
++            std::fclose(file);
++        }
++        while (!path.empty() && (path.back() == '\n' || path.back() == '\r' || path.back() == ' ' || path.back() == '\0' || path.back() == '/'))
++            path.pop_back();
++        struct stat info{};
++        if (path.size() < 2 || path[0] != '/' || stat((path + "/eboot.bin").c_str(), &info) != 0 || !S_ISREG(info.st_mode))
++            return {};
++        return path;
++    }
++    // The launcher's data folder on the drive the app is mounted from, when it is there (the launcher
++    // makes it on its first start there); empty for an app in /data or mounted from an image
++    inline std::string DriveData(const char* record = ECAM_MOUNT_RECORD)
++    {
++        const std::string drive = DriveOf(MountSource(record));
++        if (drive.empty()) return {};
++        const std::string folder = drive + "/" + kDriveData;
++        struct stat info{};
++        return stat(folder.c_str(), &info) == 0 && S_ISDIR(info.st_mode) ? folder : std::string();
++    }
++    // Whether a folder holds anything but empty folders: a file, a link, or what cannot be read (not
++    // taken for missing). The empty folders a start makes do not count.
++    inline bool HoldsFiles(const std::string& path, int depth = 0)
++    {
++        struct stat info{};
++        if (lstat(path.c_str(), &info) != 0) return errno != ENOENT && errno != ENOTDIR;
++        if (!S_ISDIR(info.st_mode) || depth > 16) return true;
++        DIR* folder = opendir(path.c_str());
++        if (!folder) return true;
++        bool holds = false;
++        for (const dirent* entry; !holds && (entry = readdir(folder)) != nullptr;)
++            if (std::strcmp(entry->d_name, ".") != 0 && std::strcmp(entry->d_name, "..") != 0)
++                holds = HoldsFiles(path + "/" + entry->d_name, depth + 1);
++        closedir(folder);
++        return holds;
++    }
++    // The Switch's folder, which the launcher and Eden's own program choose alike: on the console
++    // (System(shared, "eden")), unless the app's data is on the drive it is installed on (driveData,
++    // DriveData's): then the eden folder beside it there, once activated, or while the console's holds
++    // no files (it never had the Switch side's). Switch files already on the console stay in use.
++    inline std::string Eden(const std::string& shared, const std::string& driveData)
++    {
++        const std::string console = System(shared, "eden");
++        if (driveData.empty()) return console;
++        const std::string drive = Sibling(driveData, "eden");
++        return Activated(drive) || !HoldsFiles(console) ? drive : console;
++    }
++    // The folder made the active one: its marker, as a verified migration leaves
++    inline bool Activate(const std::string& directory)
++    {
++        if (Activated(directory)) return true;
++        if (mkdir(directory.c_str(), 0777) != 0 && errno != EEXIST) return false;
++        FILE* file = std::fopen((directory + "/" + kMarker).c_str(), "wb");
++        if (!file) return false;
++        const bool written = std::fputs(kVersion, file) >= 0;
++        return std::fclose(file) == 0 && written && Activated(directory);
++    }
++    inline std::string Cemu(const std::string& shared)
++    {
++        const std::string target = Sibling(shared, "cemu");
++        if (Activated(target)) return target;
++        for (const char* name : {"settings.xml", "mlc01", "keys.txt", "controllerProfiles", "graphicPacks", "reshade"})
++            if (Present(shared + "/" + name)) return shared;
++        // Also discover a nested Cemu layout if a previous development build created one.
++        return Present(shared + "/cemu") ? shared + "/cemu" : target;
++    }
++}
++
++#endif
+diff --git a/headless/eglantineps5/eden_services.cpp b/headless/eglantineps5/eden_services.cpp
+index d42614f..e56bff8 100644
+--- a/headless/eglantineps5/eden_services.cpp
++++ b/headless/eglantineps5/eden_services.cpp
+@@ -1451,7 +1451,7 @@ pe::ui::FolderInfo EdenServices::folder_info(const std::string& directory) {
+ 
+ std::string EdenServices::files_folder() { return Eden::AssetsDir(); }
+ std::string EdenServices::saved_files_folder() { return Eden::LoadSavedAssetsDir(); }
+-std::string EdenServices::default_files_folder() { return Eden::kDefaultAssetsDir; }
++std::string EdenServices::default_files_folder() { return Eden::SwitchFolder(); }
+ 
+ bool EdenServices::set_files_folder(const std::string& directory) {
+     const bool saved = Eden::SaveAssetsDir(directory);
+diff --git a/headless/eglantineps5/pe/ui/home.cpp b/headless/eglantineps5/pe/ui/home.cpp
+index f4e92bd..a9f588a 100644
+--- a/headless/eglantineps5/pe/ui/home.cpp
++++ b/headless/eglantineps5/pe/ui/home.cpp
+@@ -59,6 +59,13 @@ void Launcher::open_library_at_last()
+ 
+ void Launcher::press_home(Key key)
+ {
++    // PS5-ECAM: Circle on the home screen goes back to its launcher (no game: main returns)
++    if (key == Key::circle)
++    {
++        cue(Cue::back);
++        done_ = true;
++        return;
++    }
+     const bool ready = home_.setup_ready;
+     const bool continue_ready = ready && home_.last_exists;
+     // The status panel takes the place of the recent games.
+@@ -373,14 +380,16 @@ void Launcher::draw_home(Canvas &c)
+     // ---- footer ----
+     begin_band(3, 0.0f);
+     list.rounded_rect({120.0f, 952.0f, 1680.0f, 1.0f}, 0.0f, theme::kText.with_alpha(0.10f));
+-    static constexpr Hint kHints[] = {
+-        {Pad::cross, TR("Select")}, {Pad::triangle, TR("Details")}, {Pad::dpad, TR("Navigate")}};
++    static constexpr Hint kHints[] = {{Pad::cross, TR("Select")},
++                                      {Pad::triangle, TR("Details")},
++                                      {Pad::dpad, TR("Navigate")},
++                                      {Pad::circle, TR("Back")}};
+     std::string status = home_.system_status;
+     if (services_.room_status().phase == Eden::Multiplayer::Phase::Connected)
+         status += std::string{"  /  "} + tr("Multiplayer") + ": " + tr("Connected");
+     const float status_width = text_shrink(c, status, 1800.0f, 989.0f, theme::kSmall,
+                                           Color::rgb(0xac9ea1), 1120.0f, Align::right);
+-    draw_hints(c, kHints, 3, 120.0f, 982.0f, theme::kMuted, 1680.0f - status_width - 48.0f);
++    draw_hints(c, kHints, 4, 120.0f, 982.0f, theme::kMuted, 1680.0f - status_width - 48.0f);
+     end_band();
+ }
+ 
+diff --git a/headless/forwarded_launch.h b/headless/forwarded_launch.h
+index bce0587..49f331a 100644
+--- a/headless/forwarded_launch.h
++++ b/headless/forwarded_launch.h
+@@ -1,13 +1,17 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ #pragma once
++#include <cstdio>
++#include <fstream>
+ #include <string>
+ #include <string_view>
++#include <vector>
+ 
+ namespace Eden {
+ 
+ struct ForwardedArgs {
+     std::string rom;
+     bool exit_after_game = false;
++    std::string return_to;  // --return <eboot>: PS5-ECAM's, which started this program
+ };
+ 
+ inline ForwardedArgs ParseForwardedArgs(int argc, char** argv) {
+@@ -24,11 +28,32 @@ inline ForwardedArgs ParseForwardedArgs(int argc, char** argv) {
+             if (i + 1 < argc && argv[i + 1] != nullptr) result.rom = argv[++i];
+         } else if (arg.starts_with(rom_prefix)) {
+             result.rom = std::string{arg.substr(rom_prefix.size())};
++        } else if (arg == "--return") {
++            if (i + 1 < argc && argv[i + 1] != nullptr) result.return_to = argv[++i];
++        } else if (arg.starts_with("--return=")) {
++            result.return_to = std::string{arg.substr(9)};
+         }
+     }
+     return result;
+ }
+ 
++// PS5-ECAM puts the arguments it starts this program with in a file too, one a line
++// (launch-request.txt in the data folder): on the console LoadExec does not carry them (MihawkOS saw
++// argc 1 on every restart, and PS5-ECAM 5.0.0's Switch games never started, its #67). Taken once, as
++// the program starts with filesystem access: the file is gone after; empty when there is none.
++inline std::vector<std::string> TakeLaunchRequest(const std::string& file) {
++    std::vector<std::string> args;
++    std::ifstream in(file);
++    if (!in) return args;
++    for (std::string line; std::getline(in, line);) {
++        if (!line.empty() && line.back() == '\r') line.pop_back();
++        args.push_back(std::move(line));
++    }
++    in.close();
++    (void)std::remove(file.c_str());
++    return args;
++}
++
+ inline std::string ResolveForwardedRom(std::string_view rom, std::string_view roms_dir) {
+     while (!rom.empty() && (rom.back() == ' ' || rom.back() == '\r' || rom.back() == '\n')) rom.remove_suffix(1);
+     if (rom.empty()) return {};
+diff --git a/headless/main.cpp b/headless/main.cpp
+index c62dd75..4b9e425 100644
+--- a/headless/main.cpp
++++ b/headless/main.cpp
+@@ -8,6 +8,9 @@
+ #include <exception>
+ #include "assets_dir.h"
+ #include "forwarded_launch.h"
++// src/lifecycle.c: PS5-ECAM's eboot when main returns
++extern "C" void eden_set_host_eboot(const char* eboot);
++extern "C" void eden_stay_closed(void);
+ #include "gpu_failure.h"
+ #include "guest_fault.h"
+ #include "jit_list.h"
+@@ -136,7 +139,7 @@ public:
+ // and caches) into /data/eglantineps5. Only folders that do not exist yet are filled, and the
+ // sandbox copy stays, so an older EglantinePS5 still finds its data.
+ static void MigrateSandboxData() {
+-    const std::filesystem::path sandbox{"/mnt/sandbox/PPSA98515_000/download0"};
++    const std::filesystem::path sandbox{std::string{Eden::kSandboxDir} + "/download0"};
+     const std::pair<std::filesystem::path, std::string> moves[] = {
+         {sandbox / "eden-headless-g7/user", Eden::UserDir()},
+         {sandbox / "eglantineps5/covers", Eden::CoversDir()},
+@@ -169,7 +172,7 @@ static void MigrateSandboxData() {
+ // it is a rename of each folder. Nothing moves unless all of it can: a folder chosen in Settings,
+ // or anything already in /data/eglantineps5, leaves everything where it is.
+ static void MoveGameFilesOutOfTheApp() {
+-    const std::string from = std::string{Eden::kInstallDir} + "/assets", to = Eden::kDefaultAssetsDir;
++    const std::string from = std::string{Eden::kInstallDir} + "/assets", to = Eden::SwitchFolder();
+     const std::string saved = Eden::LoadSavedAssetsDir();
+     if ((!saved.empty() && saved != from) || !Eden::FileExists(from + "/keys/prod.keys") ||
+         Eden::FileExists(to + "/keys/prod.keys"))
+@@ -246,9 +249,14 @@ int main(int argc, char** argv) {
+         // The PS5 keyboard's module, for a game's text entry: asked for before anything else
+         // changes what the app may load (system_keyboard.h).
+         Eden::BootTrace::Line("PS5 keyboard module: %#x", static_cast<unsigned>(Eden::PrepareSystemKeyboard()));
+-        Eden::BootTrace::Line("requesting filesystem access");
++        // The packaged Lapy helper is in this program's folder, PS5-ECAM's eglantine/ (its
++        // tools/build-eglantine.sh), and /app0 is the app's: else where an EglantinePS5 of its own has it.
++        const char* const lapy_helper =
++            access("/app0/eglantine/lapy.elf", R_OK) == 0 ? "/app0/eglantine/lapy.elf" : "/app0/lapy.elf";
++        Eden::BootTrace::Line("requesting filesystem access (Lapy helper %s)", lapy_helper);
+         // Filesystem access beyond the sandbox, first: every path below depends on it
+-        // (assets_dir.h). A resident upstream Lapy service gets the first opportunity; otherwise
++        // (assets_dir.h). etaHEN's app jailbreak is asked first, as PS5-ECAM asks for its own
++        // process; then a resident upstream Lapy service gets the opportunity; otherwise
+         // the packaged exact-title upstream helper is sent to the local elfldr. EglantinePS5
+         // contains no locally implemented kernel mutation code. If neither path works, the app
+         // keeps its sandbox paths.
+@@ -257,7 +265,7 @@ int main(int argc, char** argv) {
+         if (access("/app0/no-filesystem-access.txt", F_OK) == 0) Eden::FilesystemAccessStatus() = 99;
+         else
+ #endif
+-        Eden::FilesystemAccessStatus() = static_cast<int>(elevation::request(elevation::Capability::filesystem));
++        Eden::FilesystemAccessStatus() = static_cast<int>(elevation::request(elevation::Capability::filesystem, lapy_helper));
+         Eden::BootTrace::Line("filesystem access returned status=%d, uid %d/%d gid %d/%d", Eden::FilesystemAccessStatus(),
+                               static_cast<int>(getuid()), static_cast<int>(geteuid()), static_cast<int>(getgid()),
+                               static_cast<int>(getegid()));
+@@ -305,7 +313,7 @@ int main(int argc, char** argv) {
+         Eden::Crash::Install(Eden::LogsDir(), Eden::kAppVersion, last_crash.restarted);
+         Eden::BootTrace::Ready(Eden::LogsDir(), Eden::FilesystemAccess());
+         Eden::BootTrace::Line("logs and crash handler ready (%s)", Eden::LogsDir().c_str());
+-        for (const char* folder : {"/app0", Eden::kMountedAppDir, Eden::kInstallDir, "/mnt/sandbox/PPSA98515_000/app0"})
++        for (const char* folder : {"/app0/eglantine", Eden::kMountedAppDir, Eden::kInstallDir, "/mnt/sandbox/PPSA99360_000/app0/eglantine"})
+             Eden::BootTrace::Line("app folder candidate %s: eboot %s, font %s", folder,
+                                   Eden::FileExists(std::string{folder} + "/eboot.bin") ? "yes" : "no",
+                                   Eden::FileExists(std::string{folder} + "/ui/fonts/montserrat-medium.pefont") ? "yes" : "no");
+@@ -339,9 +347,9 @@ int main(int argc, char** argv) {
+                 " uid=" + std::to_string(getuid()) + "/" + std::to_string(geteuid()) +
+                 " gid=" + std::to_string(getgid()) + "/" + std::to_string(getegid());
+             Eden::Report("filesystem access", access.c_str());
+-            if (Eden::FilesystemAccess() && Eden::AssetsDir() == Eden::kDefaultAssetsDir)
++            if (Eden::FilesystemAccess() && Eden::AssetsDir() == Eden::SwitchFolder())
+                 for (const char* folder : {"/keys", "/firmware", "/roms", "/updates", "/mods", "/ryujinx"})
+-                    (void)mkdir((std::string{Eden::kDefaultAssetsDir} + folder).c_str(), 0777);
++                    (void)mkdir((Eden::SwitchFolder() + folder).c_str(), 0777);
+             // RADV's shader cache is kept with the app's data (its own default is /app0), so it also
+             // works when the app is installed as a read-only package image. The cache an earlier
+             // version kept in the app folder moves over.
+@@ -418,10 +426,30 @@ int main(int argc, char** argv) {
+         std::string launch_error;
+         // The previous run crashed: the launcher says where its report is.
+         if (!last_crash.report.empty()) launch_error = std::string{Eden::Crash::kNotice} + last_crash.report;
+-        const Eden::ForwardedArgs forwarded = Eden::ParseForwardedArgs(argc, argv);
++        // PS5-ECAM's launch request: the arguments it started this program with, which LoadExec does
++        // not carry on the console (forwarded_launch.h). In the data folder, so read with filesystem
++        // access only; the program's own arguments without one.
++        std::vector<std::string> request;
++        if (Eden::FilesystemAccess()) request = Eden::TakeLaunchRequest(std::string{Eden::kDataDir} + "/launch-request.txt");
++        std::vector<char*> request_argv;
++        for (std::string& arg : request) request_argv.push_back(arg.data());
++        const std::string request_note = !request.empty() ? std::to_string(request.size()) + " arguments" :
++            Eden::FilesystemAccess() ? "none" : "not readable without filesystem access";
++        Eden::BootTrace::Line("PS5-ECAM's launch request: %s; the program's own arguments: %d", request_note.c_str(), argc);
++        const Eden::ForwardedArgs forwarded = request.empty() ? Eden::ParseForwardedArgs(argc, argv) :
++            Eden::ParseForwardedArgs(static_cast<int>(request_argv.size()), request_argv.data());
++        // PS5-ECAM's eboot, for when main returns (src/lifecycle.c)
++        static const std::string host_eboot = forwarded.return_to;
++        eden_set_host_eboot(host_eboot.c_str());
++        // A game PS5-ECAM started (--return) is started although the run before it crashed: the crash
++        // report stays in logs/, and PS5-ECAM's own game is what the player asked for.
++        const bool ecam_started = !forwarded.return_to.empty();
++        Eden::BootTrace::Line("started by PS5-ECAM: rom %s, return %s, exit after the game %d",
++                              forwarded.rom.empty() ? "none" : "given", host_eboot.empty() ? "default" : host_eboot.c_str(),
++                              forwarded.exit_after_game ? 1 : 0);
+         std::string forwarded_game;
+         bool forwarded_session = false;
+-        if (!forwarded.rom.empty() && last_crash.report.empty()) {
++        if (!forwarded.rom.empty() && (last_crash.report.empty() || ecam_started)) {
+             std::string path = Eden::ResolveForwardedRom(forwarded.rom, Eden::AssetsPath("roms"));
+             if (const auto main = Eden::ExtractedGameMain(path); !main.empty()) path = main;
+             if (!path.empty() && Eden::FileExists(path)) forwarded_game = path;
+@@ -513,6 +541,12 @@ int main(int argc, char** argv) {
+             Eden::BootTrace::Line("starting the forwarded game");
+         } else if (forwarded_session && forwarded.exit_after_game && launch_error.empty()) {
+             Eden::Report("exit", "Forwarded game ended");
++            eden_stay_closed();
++            return 0;
++        } else if (forwarded_session && launch_error.empty()) {
++            // PS5-ECAM started this game: back to its launcher, on the Switch side. A game that stopped
++            // with an error opens this launcher instead, which says why; Circle there goes back.
++            Eden::Report("exit", "Game ended: back to PS5-ECAM");
+             return 0;
+         } else {
+         guest_fault_retries = 0;
+diff --git a/headless/storage_paths.h b/headless/storage_paths.h
+index e524715..49fcfce 100644
+--- a/headless/storage_paths.h
++++ b/headless/storage_paths.h
+@@ -1,23 +1,34 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ // Where EglantinePS5 keeps things. With filesystem access (elevation/elevation.hpp, requested
+ // first thing in main) the app uses real console paths:
+-//   app folder     the install location, normally /data/homebrew/PPSA98515
+-//   data           /data/eglantineps5: config/ (eglantineps5.json), logs/, covers/, user/
++//   app folder     the eglantine/ folder of PS5-ECAM's app (PPSA99360), normally
++//                  /data/homebrew/PPSA99360/eglantine: PS5-ECAM starts it with LoadExec for its
++//                  Switch 2 games
++//   data           /data/eglantine: config/ (eglantineps5.json), logs/, covers/, user/
++//   game files     the Switch side's folder (assets_dir.h): its keys, firmware and games
+ // Without it (no resident service or local elfldr, or the request failed) the app has no data:
+ // it reads the app folder as /app0, keeps only its logs in /download0, and the launcher says
+ // that it has no access. It used to keep a second set of settings and saves in /download0
+ // then, and a console where access came and went showed one set or the other: saves and
+ // settings seemed to be gone.
+ #pragma once
++#include "ecam_layout.h"
+ #include <cstdio>
+ #include <string>
+ #include <string_view>
+ #include <sys/stat.h>
+ 
+ namespace Eden {
+-inline constexpr const char* kDataDir = "/data/eglantineps5";
+-inline constexpr const char* kDefaultAssetsDir = "/data/eglantineps5";
+-inline constexpr const char* kInstallDir = "/data/homebrew/PPSA98515";
++// PS5-ECAM (PPSA99360) runs this program from its app folder's eglantine/ (its Switch 2 games).
++inline constexpr const char* kHostTitle = "PPSA99360";
++inline constexpr const char* kDataDir = "/data/eglantine";
++// PS5-ECAM's launcher data, beside which the Switch side keeps its folder (ecam_layout::Eden)
++inline constexpr const char* kEcamSharedData = "/data/ps5cemu";
++// A standalone EglantinePS5's data: its keys, firmware and games are used where they are while the
++// Switch side's folder has no keys (assets_dir.h).
++inline constexpr const char* kStandaloneDataDir = "/data/eglantineps5";
++inline constexpr const char* kInstallDir = "/data/homebrew/PPSA99360/eglantine";
++inline constexpr const char* kSandboxDir = "/mnt/sandbox/PPSA99360_000";
+ 
+ // Filesystem access requested at startup: -1 not requested, 0 granted, otherwise the
+ // elevation::Status that refused it.
+@@ -38,7 +49,7 @@ inline bool DirectoryExists(const std::string& path) {
+ 
+ // Where the PS5 mounts the app it runs, whatever the source: a folder anywhere ShadowMountPlus
+ // scans (/data, ext or USB drives, its manual list) or an image.
+-inline constexpr const char* kMountedAppDir = "/system_ex/app/PPSA98515";
++inline constexpr const char* kMountedAppDir = "/system_ex/app/PPSA99360/eglantine";
+ 
+ // The app's own files (eboot, ui/, development markers): /app0 while it is still mounted (some
+ // kinds of filesystem access keep it), else the PS5's mount of the running app, else the usual
+@@ -46,8 +57,8 @@ inline constexpr const char* kMountedAppDir = "/system_ex/app/PPSA98515";
+ // /data/homebrew may hold nothing or an older copy.
+ inline const std::string& AppDir() {
+     static const std::string directory = [] {
+-        if (!FilesystemAccess()) return std::string{"/app0"};
+-        for (const char* candidate : {"/app0", kMountedAppDir, kInstallDir, "/mnt/sandbox/PPSA98515_000/app0"})
++        if (!FilesystemAccess()) return std::string{"/app0/eglantine"};
++        for (const char* candidate : {"/app0/eglantine", kMountedAppDir, kInstallDir, "/mnt/sandbox/PPSA99360_000/app0/eglantine"})
+             if (FileExists(std::string{candidate} + "/eboot.bin")) return std::string{candidate};
+         return std::string{kInstallDir};
+     }();
+diff --git a/src/lifecycle.c b/src/lifecycle.c
+index 3002c52..e624ad0 100644
+--- a/src/lifecycle.c
++++ b/src/lifecycle.c
+@@ -5,6 +5,30 @@
+ extern int sceKernelUsleep(uint32_t microseconds);
+ extern int sceKernelDebugOutText(int channel, const char *text);
+ extern int sceSystemServiceLoadExec(const char *path, const char **args);
++// PS5-ECAM (PPSA99360) runs this program from its app folder's eglantine/ for its Switch 2 games.
++// When main returns (its launcher was left, or a game PS5-ECAM started has ended), the app goes back
++// to PS5-ECAM's own eboot, which opens on its Switch side; only a home screen tile's
++// --exit-after-game closes it (eden_stay_closed). Each eboot is tried until one takes.
++static int return_to_host = 1;
++static const char *host_eboot = NULL;
++void eden_set_host_eboot(const char *eboot) { host_eboot = eboot; }
++void eden_stay_closed(void) { return_to_host = 0; }
++static void return_to_host_app(void) {
++    char marker[160];
++    const char *eboots[] = {host_eboot, "/app0/eboot.bin", "/system_ex/app/PPSA99360/eboot.bin",
++                            "/data/homebrew/PPSA99360/eboot.bin"};
++    for (unsigned i = 0; i < sizeof(eboots) / sizeof(eboots[0]); i++) {
++        if (!eboots[i] || !eboots[i][0]) continue;
++        snprintf(marker, sizeof(marker), "EDEN_PS5ECAM_RETURN %s\n", eboots[i]);
++        sceKernelDebugOutText(0, marker);
++        const int refused = sceSystemServiceLoadExec(eboots[i], NULL);
++        // it does not come back when it works; allow for one that returns before the process ends
++        if (refused == 0)
++            for (int wait = 0; wait < 100; wait++) sceKernelUsleep(100000);
++        snprintf(marker, sizeof(marker), "EDEN_PS5ECAM_RETURN_REFUSED %s rc=%x\n", eboots[i], (unsigned)refused);
++        sceKernelDebugOutText(0, marker);
++    }
++}
+ // main returned: ask the system to end this title. The C library's exit() and _Exit() are not a
+ // way out for a native title: the kernel answers them with signal 12, so the app "crashes", the
+ // system writes a crash report and force-kills it (every development run ended that way, and three
+@@ -14,6 +38,7 @@ __attribute__((noreturn)) void catchReturnFromMain(int status) {
+     fflush(NULL);
+     snprintf(marker, sizeof(marker), "EDEN_PPSA99121_MAIN_RETURN status=%d\n", status);
+     sceKernelDebugOutText(0, marker);
++    if (return_to_host) return_to_host_app();
+     const int refused = sceSystemServiceLoadExec("exit", NULL);
+     snprintf(marker, sizeof(marker), "EDEN_PPSA99121_EXIT_REFUSED rc=%x\n", (unsigned)refused);
+     sceKernelDebugOutText(0, marker);
+@@ -26,7 +51,8 @@ __attribute__((noreturn)) void catchReturnFromMain(int status) {
+ int eden_restart_app(void) {
+     char marker[96];
+     sceKernelDebugOutText(0, "EDEN_PPSA99121_RESTART\n");
+-    const int refused = sceSystemServiceLoadExec("/app0/eboot.bin", NULL);
++    int refused = sceSystemServiceLoadExec("/app0/eglantine/eboot.bin", NULL);
++    if (refused != 0) refused = sceSystemServiceLoadExec("/app0/eboot.bin", NULL);
+     snprintf(marker, sizeof(marker), "EDEN_PPSA99121_RESTART_REFUSED rc=%x\n", (unsigned)refused);
+     sceKernelDebugOutText(0, marker);
+     return refused;
+diff --git a/tools/build-lapy-helper.py b/tools/build-lapy-helper.py
+index 4268675..83a8d7c 100644
+--- a/tools/build-lapy-helper.py
++++ b/tools/build-lapy-helper.py
+@@ -11,7 +11,7 @@ import subprocess
+ 
+ 
+ ROOT = Path(__file__).resolve().parents[1]
+-TITLE = "PPSA98515"
++TITLE = "PPSA99360"
+ LAPY = ROOT / ".deps/PS5-Lapy-JB-Daemon-57fcc19"
+ PS5LOG = ROOT / ".deps/lapy-ps5log-1ae1f918"
+ SDK = ROOT / ".deps/lapy-ps5-payload-sdk-v0.42"

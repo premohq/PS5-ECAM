@@ -162,6 +162,15 @@
       "creates": ".deps/ProsperoEdenX/headless/main.cpp"
     },
     {
+      "name": "eglantineps5",
+      "about": "EglantinePS5, heydemoura's PS5 port of Djihads80's Eglantine (Eden with Switch 2 support; GPL-3.0-or-later), on ProsperoEden's frontend as ProsperoEdenX is: the program the Switch 2's games start in. patches/eglantine holds the port's changes (tools/eglantine-patches.sh): it lives in the app's eglantine/, keeps its data in /data/eglantine, takes its keys, firmware and games from the Switch side's folder, and goes back to PS5-ECAM when its game ends. tools/build-eglantine.sh builds it with its own Makefile, which fetches the Eglantine submodule and its inputs at their pins beside it (.deps/eglantine)",
+      "kind": "git",
+      "url": "https://github.com/heydemoura/EglantinePS5.git",
+      "commit": "3c32faa6589b5961c8b9a3f9618f473551e98495",
+      "path": ".deps/eglantine/EglantinePS5",
+      "creates": ".deps/eglantine/EglantinePS5/headless/main.cpp"
+    },
+    {
       "name": "mihawkgen",
       "about": "Mihawk-99's PS5_MihawkGen (framegen/ GPL-3.0-or-later): neural frame generation in compute shaders, the picture between two frames from their colour alone. Frame generation on the Wii U and 3DS sides (port/cemu/FrameGenPS5.cpp, patches/cemu 0042 and patches/azahar 0033) records it as a picture is presented, with the network.fgw the app's eden/mihawkgen carries",
       "kind": "git",
