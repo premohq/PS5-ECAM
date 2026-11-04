@@ -327,7 +327,7 @@ namespace
 		// a home screen tile's game closes the app instead, as the row says (#48)
 		Row library = ps5emu::ExitAfterGame() ?
 			Row{"library", Tr("Quit to the home screen"), "", false,
-				Tr("Leaves the game and closes PS5-ECAM, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held.")} :
+				Tr("Leaves the game and closes Playtendoh, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held.")} :
 			Row{"library", Tr("Quit to the library"), "", false,
 				Tr("Leaves the game for the library. What you have not saved in the game is lost, so Cross is held.")};
 		library.apart = true;
@@ -808,7 +808,7 @@ bool PS5Cemu_DrawKeyboard(std::u16string& text, sint32 maxLength, bool counted, 
 	ps5menu::KeyboardAsk ask;
 	ask.maxLength = std::max(maxLength, 0);
 	ask.counted = counted;
-	const int button = s_keyboard.Draw("PS5-ECAM##KeyboardWiiU", scale, fonts, ps5menu::kBlue, ask, s_pressed, s_buttons);
+	const int button = s_keyboard.Draw("Playtendoh##KeyboardWiiU", scale, fonts, ps5menu::kBlue, ask, s_pressed, s_buttons);
 	text = ps5keyboard::ToUtf16(s_keyboard.typed);
 	s_keyboardText = text;
 	return button >= 0;

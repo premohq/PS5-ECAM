@@ -1071,7 +1071,7 @@ bool save(const std::string &file, const std::vector<Share> &list)
     std::FILE *f = std::fopen(tmp.c_str(), "w");
     if (!f)
         return false;
-    std::fputs("# PS5-ECAM's network shares: name, computer, share (or NFS export), folder, username, password, "
+    std::fputs("# Playtendoh's network shares: name, computer, share (or NFS export), folder, username, password, "
                "nfs for an NFS share\n",
                f);
     for (const Share &s : list)
@@ -1347,7 +1347,7 @@ Problem enumerate(const Share &server, std::vector<std::string> &out, std::strin
         out.push_back(name);
     }
     smb2_free_data(session->ctx, reply);
-    note(server_of(server) + " shares " + std::to_string(out.size()) + " folders PS5-ECAM can use");
+    note(server_of(server) + " shares " + std::to_string(out.size()) + " folders Playtendoh can use");
     std::sort(out.begin(), out.end());
     return Problem::None;
 }

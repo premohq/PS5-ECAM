@@ -193,7 +193,7 @@ int main(int argc, char** argv)
 	Check(!ps5retro::ValidateRom(nesSide, (root / "roms/fake.zip").string(), error) && error == "This ZIP archive is damaged or too large.", "a refused game's reason is the app's words");
 	Check(!ps5retro::Available(snes) && !ps5retro::Launch(snes, (root / "carts/Game.sfc").string(), error) && !ps5retro::LaunchLibrary(snes, error),
 		"a side with no program and no core linked is not offered, and nothing is started for it");
-	Check(ps5retro::Diagnostics(n64, 0).find("not in this copy of PS5-ECAM") != std::string::npos && ps5retro::Diagnostics(n64, 1).find("not in this copy") == std::string::npos,
+	Check(ps5retro::Diagnostics(n64, 0).find("not in this copy of Playtendoh") != std::string::npos && ps5retro::Diagnostics(n64, 1).find("not in this copy") == std::string::npos,
 		"diagnostics say whether this copy has the emulator");
 	return failures ? 1 : 0;
 }

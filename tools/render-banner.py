@@ -195,9 +195,9 @@ def main():
     # the name is drawn 88 pixels high at baseline 176, then scaled and moved under the consoles, so
     # --title-from finds it as it was made
     place = f'transform="translate({HALF} {BASELINE}) scale({TITLE_SCALE}) translate({-HALF} -176)"'
-    title = f'<text x="{HALF}" y="176" font-size="88" font-weight="800" letter-spacing="-1" fill="{BODY}" {place}>PS5-ECAM</text>'
+    title = f'<text x="{HALF}" y="176" font-size="88" font-weight="800" letter-spacing="-1" fill="{BODY}" {place}>Playtendoh</text>'
     if len(args) >= 2 and args[0] == '--title-font':
-        title = f'<path d="{outlined(args[1], "PS5-ECAM", HALF, 176, 88, 1)}" {place} fill="{BODY}"/>'
+        title = f'<path d="{outlined(args[1], "Playtendoh", HALF, 176, 88, 1)}" {place} fill="{BODY}"/>'
         args = args[2:]
     elif len(args) >= 2 and args[0] == '--title-from':
         title = f'<path d="{title_from(args[1])}" {place} fill="{BODY}"/>'

@@ -122,8 +122,8 @@ namespace ps5porpoise
 	{
 		std::vector<std::string> lines = Lines(file);
 		if (lines.empty())
-			lines.push_back(file.find("/game-settings/") != std::string::npos ? "# This game's own settings (PS5-ECAM, as Porpoise > Details > Game settings)"
-																				: "# Porpoise settings (written by PS5-ECAM's Settings)");
+			lines.push_back(file.find("/game-settings/") != std::string::npos ? "# This game's own settings (Playtendoh, as Porpoise > Details > Game settings)"
+																				: "# Porpoise settings (written by Playtendoh's Settings)");
 		std::map<std::string, std::string> left = values;
 		std::string key, value;
 		for (std::string& line : lines)

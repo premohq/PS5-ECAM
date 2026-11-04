@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: the remote touch screen's second page, /files (stream.h, SetUploadFolders): files from
+// Playtendoh: the remote touch screen's second page, /files (stream.h, SetUploadFolders): files from
 // a phone or a computer, sent straight into the app's folders. Where they go (/folders), the files
 // to send, and each one's progress as it goes up (PUT /upload), one after another.
 #pragma once
 namespace ps5stream {
-constexpr const char* kFiles = R"HTML(<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>PS5-ECAM files</title>
+constexpr const char* kFiles = R"HTML(<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Playtendoh files</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;background:#090e18;color:#e6edf7;font:15px/1.5 system-ui,sans-serif}[hidden]{display:none!important}
 body{min-height:100vh;background:radial-gradient(ellipse at 30% 0%,#254f7a44,transparent 55%),radial-gradient(ellipse at 90% 100%,#ae7c2522,transparent 50%),#090e18}
@@ -27,7 +27,7 @@ li{padding:12px 14px;border:1px solid #ffffff12;border-radius:12px;background:#f
 </style>
 <main>
 <h1>Add files</h1>
-<p class="lead">Straight into PS5-ECAM's folders, from this phone or computer. Nothing there is ever replaced.</p>
+<p class="lead">Straight into Playtendoh's folders, from this phone or computer. Nothing there is ever replaced.</p>
 <label for="to">Where to</label>
 <select id="to"></select>
 <p class="hint" id="hint"></p>

@@ -229,9 +229,9 @@ namespace ps5shell
 		// the session before this one ended in a crash (main_ps5.cpp): said once, with where its log is
 		else if (!m_status.lastCrash.empty())
 		{
-			OpenHelp(Tr("PS5-ECAM closed after a crash"),
+			OpenHelp(Tr("Playtendoh closed after a crash"),
 				// tr: {0} is the crash report's first line in the log, as it is: "signal 11 at 0x7f3a..."
-				TrF("The last time, PS5-ECAM stopped with a crash: {0}. Its log is kept: Settings > Diagnostics > Copy logs to USB puts it "
+				TrF("The last time, Playtendoh stopped with a crash: {0}. Its log is kept: Settings > Diagnostics > Copy logs to USB puts it "
 					"on a drive, with the sessions before it, to attach to a report on GitHub.",
 					m_status.lastCrash));
 			m_status.lastCrash.clear();
@@ -433,7 +433,7 @@ namespace ps5shell
 			m_reorganize.restartAt = -1;
 			ps5update::Restart();
 			// back here only when the PS5 did not start the app again
-			m_reorganize.message = Tr("Close PS5-ECAM and start it again from the home screen: the folders move as it starts.");
+			m_reorganize.message = Tr("Close Playtendoh and start it again from the home screen: the folders move as it starts.");
 		}
 		if (m_frames == 1)
 			ps5log::Line("[ui] first frame: {} instances, {} draws", m_list.instances.size(), m_list.runs.size());
@@ -728,7 +728,7 @@ namespace ps5shell
 
 	void Shell::LoadGames()
 	{
-		if (IsRetro()) m_status.noticeRetro[ps5retro::Slot(SideIndex())] = ps5retro::Available(SideIndex(), m_settings.retro[ps5retro::Slot(SideIndex())].retroBackend) ? ps5retro::ScanError(SideIndex()) : Tr("This side's emulator is not in this copy of PS5-ECAM.");
+		if (IsRetro()) m_status.noticeRetro[ps5retro::Slot(SideIndex())] = ps5retro::Available(SideIndex(), m_settings.retro[ps5retro::Slot(SideIndex())].retroBackend) ? ps5retro::ScanError(SideIndex()) : Tr("This side's emulator is not in this copy of Playtendoh.");
 		m_scanning = CoreReady() && SystemScanning();
 		// a side not looked through this session (a network share's folder, #75) keeps the list of its last look
 		if (CoreReady() && !m_scanning && !m_status.lastLook[SideIndex()])
@@ -1155,7 +1155,7 @@ namespace ps5shell
 		// tr: {0} is the tile's folder, /data/homebrew/PPSA99xxx
 		OpenHelp(status.replaced ? Tr("The tile is made again") : Tr("The tile is made"),
 			TrF("It is in {0}. ShadowMount Plus puts it on the PS5's home screen as it does any homebrew: if it does not show, "
-				"restart ShadowMount Plus or the console. The tile starts the game in PS5-ECAM, and closing the game closes the app.",
+				"restart ShadowMount Plus or the console. The tile starts the game in Playtendoh, and closing the game closes the app.",
 				status.folder));
 	}
 
@@ -1962,7 +1962,7 @@ namespace ps5shell
 					m_reorganize.restartAt = m_now; // once a frame has said so (Frame)
 				}
 				else
-					m_reorganize.message = TrF("PS5-ECAM cannot write to {0}. Is the HEN loaded?", ps5paths::Root());
+					m_reorganize.message = TrF("Playtendoh cannot write to {0}. Is the HEN loaded?", ps5paths::Root());
 				m_feedback.Play(ui::Cue::Select);
 			}
 			return true;
@@ -2532,7 +2532,7 @@ namespace ps5shell
 			switch (status.state)
 			{
 			case State::Available:
-				title = TrF("PS5-ECAM {0} is out", next);
+				title = TrF("Playtendoh {0} is out", next);
 				text = TrF("This is {0}. Download and install it now? Your games, saves and settings stay as they are.", mine);
 				choices = {Tr("Update now"), Tr("Later"), Tr("Skip this version")};
 				break;
@@ -2554,7 +2554,7 @@ namespace ps5shell
 			case State::Ready:
 				title = TrF("{0} is installed", next);
 				if (m_update.restartAt >= 0)
-					text = Tr("Starting PS5-ECAM again…");
+					text = Tr("Starting Playtendoh again…");
 				else if (!status.message.empty())
 				{
 					text = status.message; // the PS5 did not start it again
@@ -2562,13 +2562,13 @@ namespace ps5shell
 				}
 				else
 				{
-					text = Tr("PS5-ECAM starts again to finish the update.");
+					text = Tr("Playtendoh starts again to finish the update.");
 					choices = {Tr("Restart now")};
 				}
 				break;
 			case State::Failed:
 				title = Tr("The update did not finish");
-				text = status.message + "\n" + TrF("PS5-ECAM is still {0}.", mine);
+				text = status.message + "\n" + TrF("Playtendoh is still {0}.", mine);
 				choices = {Tr("OK")};
 				break;
 			default: title = Tr("Checking for updates"); break;
@@ -2577,7 +2577,7 @@ namespace ps5shell
 			canvas.PushAlpha(a);
 			canvas.PushOffset(0, (1 - a) * 40);
 			DrawSheet(canvas, sheet, a);
-			canvas.Text(Style(kOverlineStyle), sheet.x + 48, sheet.y + 44, Tr("PS5-ECAM update"), Secondary(), sheet.w - 96, 1);
+			canvas.Text(Style(kOverlineStyle), sheet.x + 48, sheet.y + 44, Tr("Playtendoh update"), Secondary(), sheet.w - 96, 1);
 			canvas.Text(Style(kTitleStyle), sheet.x + 48, sheet.y + 72, title, kText, sheet.w - 96, 1);
 			ui::TextStyle body = Style(kBodyStyle);
 			body.tabular = true;
@@ -2611,11 +2611,11 @@ namespace ps5shell
 			const float a = appear(m_reorganize.at);
 			Scrim(canvas, 0.8f * a);
 			const bool restarting = m_reorganize.restartAt >= 0;
-			const std::string text = restarting					 ? std::string(Tr("Starting PS5-ECAM again…")) :
+			const std::string text = restarting					 ? std::string(Tr("Starting Playtendoh again…")) :
 				!m_reorganize.message.empty() ? m_reorganize.message :
 												// tr: {0} lists the four folders: /data/cemu, /data/azahar, /data/melonds, /data/eden
 												TrF("Your Wii U, 3DS, DS and Switch files go into folders of their own: {0}. They are moved on "
-													"the same drive, never copied, so it takes a moment whatever their size. PS5-ECAM starts "
+													"the same drive, never copied, so it takes a moment whatever their size. Playtendoh starts "
 													"again to do it.",
 													SystemFolders());
 			std::vector<std::string> choices;

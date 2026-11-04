@@ -81,7 +81,7 @@ The launcher no longer points at one folder while Eden uses another.
 
 At a start of the app, an install from before is asked once: **A folder for each system**,
 **Reorganize** or **Later**. **Later** asks again a week on; **Settings > Game files > A folder for
-each system** (hold Cross) does the same at any time. PS5-ECAM then starts again, and moves the files
+each system** (hold Cross) does the same at any time. Playtendoh then starts again, and moves the files
 as it starts, before anything opens them (`port/app/reorganize.h`):
 
 - Each system's files are **renamed** into its folder: Cemu's files at the top of `/data/ps5cemu`

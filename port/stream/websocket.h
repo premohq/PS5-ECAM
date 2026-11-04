@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: the remote touch screen's WebSockets (stream.h), from dolphin78's prototype (#38).
+// Playtendoh: the remote touch screen's WebSockets (stream.h), from dolphin78's prototype (#38).
 #pragma once
 #include <chrono>
 #include <cstdint>

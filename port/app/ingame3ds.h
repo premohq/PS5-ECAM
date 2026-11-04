@@ -142,7 +142,7 @@ namespace ps5ingame3ds
 	// top row first; empty for none), and where the screens are on a width x height picture.
 	// tr: the 3DS borders' names (artwork around the screens)
 	constexpr const char* kBorderNames[] = {ps5lang::TrMarkC("border", "None"), ps5lang::TrMarkC("border", "Midnight"),
-		ps5lang::TrMarkC("border", "Waves"), ps5lang::TrMarkC("border", "Aurora"), ps5lang::TrMarkC("border", "Shell"), "PS5-ECAM"};
+		ps5lang::TrMarkC("border", "Waves"), ps5lang::TrMarkC("border", "Aurora"), ps5lang::TrMarkC("border", "Shell"), "Playtendoh"};
 	constexpr int kBorderCount = (int)std::size(kBorderNames);
 	struct ScreenRect
 	{

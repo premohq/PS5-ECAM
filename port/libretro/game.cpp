@@ -585,7 +585,7 @@ namespace ps5libretro
 		const Core* core = Plays(side) ? Find(ps5retro::Of(side).core) : nullptr;
 		if (!core)
 		{
-			error = ps5lang::Tr("This side's emulator is not in this copy of PS5-ECAM.");
+			error = ps5lang::Tr("This side's emulator is not in this copy of Playtendoh.");
 			return false;
 		}
 		const ps5retro::System& system = ps5retro::Of(side);

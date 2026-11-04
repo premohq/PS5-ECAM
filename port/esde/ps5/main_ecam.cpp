@@ -150,7 +150,7 @@ int main(int argc, char** argv)
 
 	// quit: PS5-ECAM's own launcher
 	const char* back[] = {"--own-launcher", nullptr};
-	Note("back to PS5-ECAM: LoadExec", sceSystemServiceLoadExec(eboot.c_str(), back));
+	Note("back to Playtendoh: LoadExec", sceSystemServiceLoadExec(eboot.c_str(), back));
 	for (;;)
 		sceKernelUsleep(100000);
 }

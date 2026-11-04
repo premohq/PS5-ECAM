@@ -428,7 +428,7 @@ namespace ps5shell
 		{
 			static const char* kHelp[kPlayerRows] = {
 				TrMark("What the game sees in this player's hands.\n\nMost games want the Wii U GamePad for player 1: its screen is the second one "
-					   "PS5-ECAM shows, and the touchpad touches it. Others take Pro Controllers, or Wii Remotes for games such as New Super "
+					   "Playtendoh shows, and the touchpad touches it. Others take Pro Controllers, or Wii Remotes for games such as New Super "
 					   "Mario Bros. U.\nA Wii Remote points where a finger rests on the touchpad, or where you aim the DualSense.\nCemu has two "
 					   "GamePads at most."),
 				TrMark("The DualSense's gyroscope and accelerometer as the controller's own, for the games that aim or steer by tilting the "
@@ -1115,7 +1115,7 @@ namespace ps5shell
 			else
 				m_rescan[SideIndex(m_filesSide)] = true;
 			m_filesMessage = !saved ? Tr("The folder could not be saved. Please try again.") :
-				here			   ? Tr("Saved. PS5-ECAM is looking for games there.") :
+				here			   ? Tr("Saved. Playtendoh is looking for games there.") :
 									 Tr("Saved. That side looks for games there when it opens.");
 			m_feedback.Play(saved ? ui::Cue::Select : ui::Cue::Denied);
 			if (saved && here)

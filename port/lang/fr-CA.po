@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PS5-ECAM\n"
+"Project-Id-Version: Playtendoh\n"
 "Language: fr-CA\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -12,8 +12,8 @@ msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements ne répond pas. La PS5 est-elle en ligne?"
 
 #: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2838 port/frontend/shell/shell.cpp:1965
-msgid "PS5-ECAM cannot write to {0}. Is the HEN loaded?"
-msgstr "PS5-ECAM ne peut pas écrire dans {0}. Le HEN est-il chargé?"
+msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
+msgstr "Playtendoh ne peut pas écrire dans {0}. Le HEN est-il chargé?"
 
 #: port/app/gameinfo.cpp:246
 msgctxt "genre"
@@ -176,8 +176,8 @@ msgstr[0] "Encore {0} seconde; ensuite rien ne change. Le clic du pavé tactile 
 msgstr[1] "Encore {0} secondes; ensuite rien ne change. Le clic du pavé tactile compte aussi."
 
 #: port/frontend/shell/settings.cpp:550
-msgid "PS5-ECAM speaks the PS5's own language unless you choose another here; the first start's Setup check has the same choice. A game's name follows it where the game has one in that language, as on a console set to it; otherwise it is the English one. Descriptions come from GameTDB in English, and graphic packs from their authors, as they wrote them."
-msgstr "PS5-ECAM parle la langue de la PS5, sauf si vous en choisissez une autre ici; la vérification de la configuration au premier lancement offre le même choix. Le nom d’un jeu la suit quand le jeu en a un dans cette langue, comme sur une console réglée sur elle; sinon, c’est le nom anglais. Les descriptions viennent de GameTDB, en anglais, et les packs graphiques de leurs auteurs, tels qu’ils les ont écrits."
+msgid "Playtendoh speaks the PS5's own language unless you choose another here; the first start's Setup check has the same choice. A game's name follows it where the game has one in that language, as on a console set to it; otherwise it is the English one. Descriptions come from GameTDB in English, and graphic packs from their authors, as they wrote them."
+msgstr "Playtendoh parle la langue de la PS5, sauf si vous en choisissez une autre ici; la vérification de la configuration au premier lancement offre le même choix. Le nom d’un jeu la suit quand le jeu en a un dans cette langue, comme sur une console réglée sur elle; sinon, c’est le nom anglais. Les descriptions viennent de GameTDB, en anglais, et les packs graphiques de leurs auteurs, tels qu’ils les ont écrits."
 
 #: port/frontend/shell/settings.cpp:557
 msgid "Bicubic is sharp, Bicubic Hermite a little softer, Bilinear softer still; Nearest neighbour keeps pixels square. AMD FSR 1 keeps edges clean for a game drawn below 4K, for a little more work by the GPU than Bicubic."
@@ -283,20 +283,20 @@ msgid "{0} is deleted; its saves stay"
 msgstr "{0} est supprimé; ses sauvegardes restent"
 
 #: port/frontend/shell/setup.cpp:138
-msgid "Add PPSA99360 to your HEN's app jailbreak list (etaHEN: its app jailbreak list; OnionHEN: the end of exact_title_ids in config.ini, with no comma after it), or have elfldr listening on port 9021. Then start PS5-ECAM again."
-msgstr "Ajoutez PPSA99360 à la liste de jailbreak d’applis de votre HEN (etaHEN : sa liste de jailbreak d’applis; OnionHEN : à la fin de exact_title_ids dans config.ini, sans virgule après), ou faites écouter elfldr sur le port 9021. Puis relancez PS5-ECAM."
+msgid "Add PPSA99360 to your HEN's app jailbreak list (etaHEN: its app jailbreak list; OnionHEN: the end of exact_title_ids in config.ini, with no comma after it), or have elfldr listening on port 9021. Then start Playtendoh again."
+msgstr "Ajoutez PPSA99360 à la liste de jailbreak d’applis de votre HEN (etaHEN : sa liste de jailbreak d’applis; OnionHEN : à la fin de exact_title_ids dans config.ini, sans virgule après), ou faites écouter elfldr sur le port 9021. Puis relancez Playtendoh."
 
 #: port/frontend/shell/setup.cpp:161
-msgid "Neither your HEN's JIT memory nor executable memory could be made, so Wii U games fall back to Cemu's interpreter. Add PPSA99360 to your HEN's app jailbreak list, then start PS5-ECAM again; Settings > Diagnostics says what it got."
-msgstr "Ni la mémoire JIT de votre HEN ni une mémoire exécutable n’ont pu être obtenues, les jeux Wii U se rabattent donc sur l’interpréteur de Cemu. Ajoutez PPSA99360 à la liste de jailbreak d’applis de votre HEN, puis relancez PS5-ECAM; Paramètres > Diagnostic indique ce qu’il a obtenu."
+msgid "Neither your HEN's JIT memory nor executable memory could be made, so Wii U games fall back to Cemu's interpreter. Add PPSA99360 to your HEN's app jailbreak list, then start Playtendoh again; Settings > Diagnostics says what it got."
+msgstr "Ni la mémoire JIT de votre HEN ni une mémoire exécutable n’ont pu être obtenues, les jeux Wii U se rabattent donc sur l’interpréteur de Cemu. Ajoutez PPSA99360 à la liste de jailbreak d’applis de votre HEN, puis relancez Playtendoh; Paramètres > Diagnostic indique ce qu’il a obtenu."
 
 #: port/frontend/shell/setup.cpp:283
 msgid "melonDS's built-in BIOS runs DS games; your DS's is optional"
 msgstr "Le BIOS intégré de melonDS fait tourner les jeux DS; celui de votre DS est facultatif"
 
 #: port/frontend/shell/setup.cpp:540
-msgid "PS5-ECAM speaks the language your PS5 is set to. Cross chooses another; Settings > Language changes it at any time."
-msgstr "PS5-ECAM parle la langue de votre PS5. Croix en choisit une autre; Paramètres > Langue la change à tout moment."
+msgid "Playtendoh speaks the language your PS5 is set to. Cross chooses another; Settings > Language changes it at any time."
+msgstr "Playtendoh parle la langue de votre PS5. Croix en choisit une autre; Paramètres > Langue la change à tout moment."
 
 #: port/frontend/shell/shares.cpp:77
 msgid "Nothing answered. Is the computer on, with file sharing turned on?"

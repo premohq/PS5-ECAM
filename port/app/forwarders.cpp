@@ -321,7 +321,7 @@ namespace ps5forwarders
 			spec.target = ps5paths::kTitleId;
 			spec.argc = 3;
 			spec.argv = argv;
-			spec.creator = "PS5-ECAM " PS5CEMU_VERSION;
+			spec.creator = "Playtendoh " PS5CEMU_VERSION;
 			spec.icon0_png = {icon.data(), icon.size()};
 			char error[256] = {};
 			const std::string templateDir = ps5paths::Assets() + "/forwarder";

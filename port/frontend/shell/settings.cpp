@@ -46,7 +46,7 @@ namespace ps5shell
 	{
 		// tr: the 3DS borders' names (artwork around the screens)
 		constexpr const char* kBorderThemes[] = {TrMarkC("border", "None"), TrMarkC("border", "Midnight"), TrMarkC("border", "Waves"),
-			TrMarkC("border", "Aurora"), TrMarkC("border", "Shell"), "PS5-ECAM"};
+			TrMarkC("border", "Aurora"), TrMarkC("border", "Shell"), "Playtendoh"};
 		constexpr const char* kRegions[] = {TrMark("Automatic"), TrMark("Japan"), TrMark("USA"), TrMark("Europe"), TrMark("Australia"),
 			TrMark("China"), TrMark("Korea"), TrMark("Taiwan")};
 		// tr: the languages the emulated 3DS can be set to
@@ -244,10 +244,10 @@ namespace ps5shell
 							 Tr("Backups hold every side's saves."),
 			Icon::Save});
 		// with the Switch's rooms (port/eden/rooms.h) and the 3DS's Artic Base, what goes over the network
-		pages.push_back({"online", Tr("Online"), IsWiiU() ? Tr("Box art, graphic packs and PS5-ECAM's updates.") :
-										   IsDs()	 ? Tr("Box art, RetroAchievements and PS5-ECAM's updates.") :
-										   Is3ds()	 ? Tr("Box art, Artic Base and PS5-ECAM's updates.") :
-													   Tr("Box art, multiplayer rooms and PS5-ECAM's updates."),
+		pages.push_back({"online", Tr("Online"), IsWiiU() ? Tr("Box art, graphic packs and Playtendoh's updates.") :
+										   IsDs()	 ? Tr("Box art, RetroAchievements and Playtendoh's updates.") :
+										   Is3ds()	 ? Tr("Box art, Artic Base and Playtendoh's updates.") :
+													   Tr("Box art, multiplayer rooms and Playtendoh's updates."),
 			Icon::Globe});
 		pages.push_back({"launcher", Tr("Launcher"), Tr("Theme, sides, language and text."), Icon::Sparkle});
 		pages.push_back({"playtime", Tr("Play time"), Tr("How long you have played, each side and the most played games."), Icon::Play});
@@ -547,7 +547,7 @@ namespace ps5shell
 			// Cross, Left or Right opens the list
 			int index = 0;
 			choice("ui-language", Tr("Language"), LanguageOptions(index), index, Tr("The menus' language, and the games' names where they have one in it."),
-				Tr("PS5-ECAM speaks the PS5's own language unless you choose another here; the first start's Setup check has the same "
+				Tr("Playtendoh speaks the PS5's own language unless you choose another here; the first start's Setup check has the same "
 				   "choice. A game's name follows it where the game has one in that language, as on a console set to it; otherwise it is "
 				   "the English one. Descriptions come from GameTDB in English, and graphic packs from their authors, as they wrote them."));
 		}
@@ -1080,11 +1080,11 @@ namespace ps5shell
 						!firmware	? Tr("No firmware yet: many games need it to start") :
 									  Tr("Eden can read your games."),
 					TrF("Eden reads Switch games with your own console's keys: prod.keys (and title.keys), dumped from your Switch, in "
-						"{0}/keys. No keys come with PS5-ECAM.",
+						"{0}/keys. No keys come with Playtendoh.",
 						files) +
 						"\n\n" +
 						TrF("Many Switch games need the console's own system files: its firmware's .nca files, dumped from your Switch, "
-							"in {0}/firmware. No firmware comes with PS5-ECAM.",
+							"in {0}/firmware. No firmware comes with Playtendoh.",
 							files));
 			}
 			else
@@ -1138,11 +1138,11 @@ namespace ps5shell
 					back	? Tr("Each system's files are in a folder of their own.") :
 							  Tr("Your files from before into a folder for each system."),
 					back ? TrF("Puts each system's files back into {0}, where they were before. Going back to an earlier version needs them "
-							   "there, as it looks for them there. PS5-ECAM starts again to do it.",
+							   "there, as it looks for them there. Playtendoh starts again to do it.",
 							   ps5paths::Root()) :
 						   // tr: {0} is the app's data folder, /data/ps5cemu; {1} lists the four folders: /data/cemu, /data/azahar, ...
 						   TrF("Moves each system's files from {0} into a folder of its own: {1}. They are renamed on the same drive, never "
-							   "copied, so it takes a moment whatever their size, and nothing is deleted. PS5-ECAM starts again to do it; a "
+							   "copied, so it takes a moment whatever their size, and nothing is deleted. Playtendoh starts again to do it; a "
 							   "system that cannot move stays as it was. This row puts them back.",
 							   ps5paths::Root(), SystemFolders()));
 				row->dimmed = blocked;
@@ -1176,7 +1176,7 @@ namespace ps5shell
 				if (settings.accountPerUser)
 					account->dimmed = true;
 				cemu(toggle("accountperuser", Tr("One account for each PS5 user"), settings.accountPerUser,
-					Tr("Whoever starts PS5-ECAM plays on their own saves."),
+					Tr("Whoever starts Playtendoh plays on their own saves."),
 					Tr("The PS5 user who starts the app plays on a Wii U account of their own, made the first time with their PS5 name, so "
 					   "brothers and sisters each keep their own saves just by starting the app from their own PS5 user.")));
 				// tr: Settings > Accounts and saves: a row that opens New account, Rename and Delete an account
@@ -1261,7 +1261,7 @@ namespace ps5shell
 				// tr: {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
 				TrF("Puts the chosen backup's saves back where they came from. The saves there now are moved first to "
 					"{0}/saves-before, so nothing is lost; saves the backup does not have stay as they are. Its settings come back too, and "
-					"PS5-ECAM starts again to use them.",
+					"Playtendoh starts again to use them.",
 					ps5paths::Root()));
 			restore->options = backups;
 			restore->index = chosen;
@@ -1384,8 +1384,8 @@ namespace ps5shell
 				if (!account.signedIn)
 					notices->dimmed = true;
 			}
-			action(Kind::Action, "appupdate", Tr("PS5-ECAM updates"), AppUpdateStatus(), Tr("Cross checks GitHub for a newer version."),
-				Tr("PS5-ECAM asks GitHub for its latest release each time it starts. Cross asks again, or installs the newer version it found: "
+			action(Kind::Action, "appupdate", Tr("Playtendoh updates"), AppUpdateStatus(), Tr("Cross checks GitHub for a newer version."),
+				Tr("Playtendoh asks GitHub for its latest release each time it starts. Cross asks again, or installs the newer version it found: "
 				   "the release's files are downloaded, checked and put in place of these, and the app starts again. Your games, saves and "
 				   "settings stay as they are."));
 			// the release the last update replaced, kept until the next (ps5update::PreviousVersion)
@@ -1394,7 +1394,7 @@ namespace ps5shell
 				// tr: {0} is the version the last update replaced, as in 5.0.0
 				Row* goback = action(Kind::Hold, "goback", TrF("Go back to {0}", ps5update::Readable(previous)), m_message.empty() ? Tr("Hold Cross") : m_message,
 					Tr("The version before the last update, kept as it was."),
-					Tr("The last update kept the version it replaced. Holding Cross puts its files back in place of these, and PS5-ECAM starts "
+					Tr("The last update kept the version it replaced. Holding Cross puts its files back in place of these, and Playtendoh starts "
 					   "again as that version. Your games, saves and settings stay as they are. The newer version is not offered at start "
 					   "again; this page still finds it."));
 				// a version from before a folder for each system looks for the files where they were (app/reorganize.h)
@@ -1464,9 +1464,9 @@ namespace ps5shell
 			if (ps5esde::Available())
 				toggle("emulationstation", Tr("Start in EmulationStation"), settings.ui.emulationStation,
 					Tr("ES-DE's menus and themes over the same games, played here."),
-					Tr("PS5-ECAM opens on EmulationStation (ES-DE) instead of its own launcher: the sides the bar shows, with the games "
+					Tr("Playtendoh opens on EmulationStation (ES-DE) instead of its own launcher: the sides the bar shows, with the games "
 					   "their libraries list, and every game plays here with its settings, saves and in-game menu, then goes back to "
-					   "EmulationStation. Hold L1 as PS5-ECAM starts, or quit EmulationStation, for this launcher."));
+					   "EmulationStation. Hold L1 as Playtendoh starts, or quit EmulationStation, for this launcher."));
 			int hold = 2;
 			for (int i = 0; i < 6; i++)
 				if (kHolds[i] <= settings.ui.holdMs)
@@ -1965,7 +1965,7 @@ namespace ps5shell
 				ps5paths::Root());
 		if (page == "about")
 			// tr: premohq and JMUtechnologies are GitHub names: keep them as they are
-			return std::string(Tr("PS5-ECAM is made by its co-founders, premohq and JMUtechnologies.")) + "\n" +
+			return std::string(Tr("Playtendoh is made by its co-founders, premohq and JMUtechnologies.")) + "\n" +
 				   // tr: {0} is the app's version; {1} its data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on; {2} Eden's game files folder; {3} Cemu's selected data folder; {4} its default games folder; {5} Azahar's selected folder; {6} melonDS's selected folder
 				   TrF("Cemu, the Wii U emulator, by the Cemu team and its contributors; RADV on the PS5 by Mihawk-99 and mpereiraesaa; the "
 				   "community graphic packs' authors.\nAzahar, the 3DS emulator, by the Azahar team and the Citra contributors before them; "
@@ -2835,14 +2835,14 @@ namespace ps5shell
 			const auto request = id == "separate" ? ps5reorganize::Request::Separate : ps5reorganize::Request::PutBack;
 			if (!ps5reorganize::Ask(ps5paths::Root(), request))
 			{
-				m_message = TrF("PS5-ECAM cannot write to {0}. Is the HEN loaded?", ps5paths::Root());
+				m_message = TrF("Playtendoh cannot write to {0}. Is the HEN loaded?", ps5paths::Root());
 				return;
 			}
 			ps5log::Line("[reorganize] {} asked for in Settings: as the app starts again", id == "separate" ? "a folder for each system" : "putting back");
 			ps5update::Restart();
 			m_message = ps5update::GetStatus().message; // back only when the PS5 did not start it again
 			if (m_message.empty())
-				m_message = Tr("Close PS5-ECAM and start it again from the home screen: the folders move as it starts.");
+				m_message = Tr("Close Playtendoh and start it again from the home screen: the folders move as it starts.");
 		}
 		else if (id == "goback")
 		{
@@ -3177,7 +3177,7 @@ namespace ps5shell
 		canvas.Ring(card, kRadiusCard, 1.5f, kGlassEdge);
 		const float pad = 32, qr = std::min(card.w - 2 * pad, 260.0f);
 		float y = card.y + pad;
-		canvas.Text(Style(kOverlineStyle), card.x + pad, y, Tr("Support PS5-ECAM"), Accent(), card.w - 2 * pad, 1);
+		canvas.Text(Style(kOverlineStyle), card.x + pad, y, Tr("Support Playtendoh"), Accent(), card.w - 2 * pad, 1);
 		y += 40;
 		auto code = m_qrCodes.find(kSupport);
 		if (code == m_qrCodes.end())
@@ -3188,7 +3188,7 @@ namespace ps5shell
 			ui::Align::Centre);
 		y += address.height + 14;
 		canvas.Text(Style({20, ui::Weight::Regular, 1.45f}), card.x + pad, y,
-			Tr("PS5-ECAM is free. If it brings your games back, you can support its work here."), Secondary(), card.w - 2 * pad, 4,
+			Tr("Playtendoh is free. If it brings your games back, you can support its work here."), Secondary(), card.w - 2 * pad, 4,
 			ui::Align::Centre);
 	}
 

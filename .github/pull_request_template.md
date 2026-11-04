@@ -8,7 +8,7 @@
 
 - [ ] Rebased on the newest `PS5-ECAM` branch
 - [ ] Follows docs/ROADMAP.md for this area, or an issue / the owner agreed to it first
-- [ ] A new or changed emulator is the system's best, from its official upstream, pinned in `tools/deps.json`, run through PS5-ECAM's own frontend
+- [ ] A new or changed emulator is the system's best, from its official upstream, pinned in `tools/deps.json`, run through Playtendoh's own frontend
 - [ ] No hard-coded side counts or indices (`ps5retro::kSystems`)
 - [ ] New strings translated in every `port/lang/*.po`; `tools/lang.py check` passes
 - [ ] No unrelated files rewritten (`git diff --stat` checked)

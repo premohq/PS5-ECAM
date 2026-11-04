@@ -193,7 +193,7 @@ namespace ps5esde
 
 		pugi::xml_document systemsFile;
 		systemsFile.append_child(pugi::node_comment)
-			.set_value(" Written by PS5-ECAM before each start of ES-DE, from its library (port/esde/esde.cpp): changes here do not last. ");
+			.set_value(" Written by Playtendoh before each start of ES-DE, from its library (port/esde/esde.cpp): changes here do not last. ");
 		pugi::xml_node list = systemsFile.append_child("systemList");
 		for (const System& system : systems)
 		{
@@ -212,7 +212,7 @@ namespace ps5esde
 			entry.append_child("path").text().set(folder.c_str());
 			entry.append_child("extension").text().set(kSystems[system.side].extensions);
 			pugi::xml_node command = entry.append_child("command");
-			command.append_attribute("label").set_value("PS5-ECAM");
+			command.append_attribute("label").set_value("Playtendoh");
 			command.text().set((eboot + " --rom %ROM%").c_str());
 			entry.append_child("platform").text().set(
 				own != known.end() && !own->second.platform.empty() ? own->second.platform.c_str() : name);

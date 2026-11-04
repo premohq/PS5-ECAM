@@ -1,12 +1,12 @@
-# Getting PS5-ECAM running on any firmware and HEN
+# Getting Playtendoh running on any firmware and HEN
 
-PS5-ECAM is a homebrew app. It does not jailbreak your console; it runs on top of whatever
+Playtendoh is a homebrew app. It does not jailbreak your console; it runs on top of whatever
 jailbreak and HEN you already have, and it is written to work with **any** of them. This page covers
 two separate questions:
 
 1. **[Can your PS5 run homebrew at all?](#1-can-your-ps5-run-homebrew)** — this depends on your
-   firmware and is decided *before* PS5-ECAM, by the public jailbreak scene.
-2. **[Given a console that runs homebrew, how do you get PS5-ECAM going?](#2-what-ps5cemu-har-needs)**
+   firmware and is decided *before* Playtendoh, by the public jailbreak scene.
+2. **[Given a console that runs homebrew, how do you get Playtendoh going?](#2-what-ps5cemu-har-needs)**
    — this is what the rest of the page is about, for every HEN and config.
 
 After any change, open **Settings > Diagnostics** in the app: its first lines say exactly what the
@@ -14,7 +14,7 @@ app got (firmware, HEN, recompiler memory, `/data`). The [Setup check](#the-setu
 first start shows the same thing with a QR code to this page.
 
 > [!IMPORTANT]
-> **Legal use only.** PS5-ECAM plays games, keys and system files that *you* dump from hardware
+> **Legal use only.** Playtendoh plays games, keys and system files that *you* dump from hardware
 > and software you own. It ships none, and this guide is not an invitation to download any. Running
 > homebrew needs a modified console, which may void its warranty and breach the platform's terms.
 > Use at your own risk.
@@ -23,7 +23,7 @@ first start shows the same thing with a QR code to this page.
 
 ## 1. Can your PS5 run homebrew?
 
-Whether a PS5 can run *any* homebrew (and therefore PS5-ECAM) is set by its **firmware version**
+Whether a PS5 can run *any* homebrew (and therefore Playtendoh) is set by its **firmware version**
 and by the public exploits that exist for it. This is upstream of this project — we use the scene's
 tools, we don't make them — and it **moves quickly**, so treat the table below as a snapshot and
 check a current source such as [wololo.net's PS5 jailbreak
@@ -60,13 +60,13 @@ Two things to keep in mind whatever your firmware:
 
 - **These jailbreaks are tethered.** They don't survive a reboot or a full power-off. After every
   boot you run the exploit again (the exploit host page in the browser, the YouTube app, or the
-  disc) and reload your HEN *before* starting PS5-ECAM. Rest mode usually keeps a jailbroken
+  disc) and reload your HEN *before* starting Playtendoh. Rest mode usually keeps a jailbroken
   state; a cold boot does not.
 - **Never update to chase a feature.** If your console is on a jailbreakable firmware, turn off
   automatic updates. There is no official way back down.
 
 **The bottom line for this app:** if your console can load **etaHEN, OnionHEN, or even just an ELF
-loader (elfldr) on port 9021**, PS5-ECAM will run. The sections below assume you are at that
+loader (elfldr) on port 9021**, Playtendoh will run. The sections below assume you are at that
 point.
 
 Sources for the firmware picture above (as of October 2026):
@@ -82,7 +82,7 @@ Sources for the firmware picture above (as of October 2026):
 
 ---
 
-## 2. What PS5-ECAM needs
+## 2. What Playtendoh needs
 
 Once a HEN or ELF loader is running, the app needs three things, and it reaches for each of them by
 itself:
@@ -111,7 +111,7 @@ has to open `/data` (or an elfldr has to be listening). This is the key to "work
 
 ## The Setup check
 
-On the **first start** — and any time storage or the recompilers fail at start — PS5-ECAM shows a
+On the **first start** — and any time storage or the recompilers fail at start — Playtendoh shows a
 **Setup check** screen: one row each for storage, recompilers, each side's games and keys, the 3DS's
 system files and box art, with a status, what to do, and a QR code that opens the right page of this
 guide on your phone. Green rows are ready; amber rows need something; grey rows are optional. You can
@@ -124,7 +124,7 @@ always reach the same information later under **Settings > Diagnostics**.
 1. Load etaHEN (via your firmware's exploit host).
 2. Add `PPSA99360` to etaHEN's **app jailbreak list**, and turn on its **app jailbreak** option (in
    etaHEN's advanced or debug settings, depending on the version).
-3. Start PS5-ECAM. Diagnostics should say `HEN: ok`, `JIT available (the HEN's)` and
+3. Start Playtendoh. Diagnostics should say `HEN: ok`, `JIT available (the HEN's)` and
    `/data reachable`.
 
 etaHEN also provides the elfldr on port 9021 that the app uses for drives, so USB games generally
@@ -154,7 +154,7 @@ OnionHEN answers the same jailbreak request as etaHEN, but its allowlist is a li
    then no app is jailbroken
    ([#12](https://github.com/premohq/PS5-ECAM/issues/12)). It allows 20 entries at most.
 4. Reload OnionHEN (or restart the console and load it again), so it reads the new list.
-5. Start PS5-ECAM. With the debug notifications on, OnionHEN says it jailbroke the app.
+5. Start Playtendoh. With the debug notifications on, OnionHEN says it jailbroke the app.
    Diagnostics should say `HEN: ok` and `/data reachable`.
 
 ---
@@ -162,12 +162,12 @@ OnionHEN answers the same jailbreak request as etaHEN, but its allowlist is a li
 ## 5. Kstuff, GoldHEN, or any other HEN with no app jailbreak
 
 Some setups (Kstuff on its own, a HEN without an app-jailbreak allowlist, or a plain exploit host
-that only loads payloads) never answer the `/download0/etahen_jailbreak` request. PS5-ECAM still
+that only loads payloads) never answer the `/download0/etahen_jailbreak` request. Playtendoh still
 runs — it looks after itself:
 
 1. Load your HEN/exploit and make sure an **ELF loader is listening on port 9021** (elfldr; the
    etaHEN and OnionHEN payloads include one, and most exploit hosts can load `elfldr.elf`).
-2. Start PS5-ECAM. It runs its bundled `sandbox-elevator.elf` through elfldr to open `/data`, and
+2. Start Playtendoh. It runs its bundled `sandbox-elevator.elf` through elfldr to open `/data`, and
    the recompilers use executable direct memory.
 3. Diagnostics should say `JIT available (executable direct memory, no HEN needed)` and
    `/data reachable`. `HEN: no` here is **expected and fine** — it just means no HEN answered the
@@ -230,7 +230,7 @@ this:
 
 ## 9. Where it's impossible, and what we can do
 
-The project's goal is that **every console that can run homebrew can run PS5-ECAM**. Here is the
+The project's goal is that **every console that can run homebrew can run Playtendoh**. Here is the
 honest line between what we can fix and what we can't:
 
 **What the app already does to reach the widest set of consoles** (no change needed from you):
@@ -248,8 +248,8 @@ honest line between what we can fix and what we can't:
 - **Firmware 14.00 and newer, and only that.** Every firmware up to 13.60 has a public route, with or
   without a disc drive ([section 1](#1-can-your-ps5-run-homebrew)). From 14.00 there is no public
   exploit, so the console can't run *any* homebrew, and the PS5 can't be downgraded. This is a
-  kernel-exploit problem, not an app problem — nothing PS5-ECAM could ship would change it. If
-  and when the scene releases a route for a newer firmware, PS5-ECAM already works on top of
+  kernel-exploit problem, not an app problem — nothing Playtendoh could ship would change it. If
+  and when the scene releases a route for a newer firmware, Playtendoh already works on top of
   whatever HEN it loads; this page will be updated with the coverage.
 
 **What we're still improving** (tracked as issues, help welcome):
@@ -258,7 +258,7 @@ honest line between what we can fix and what we can't:
   can't provide one, so the interpreter fallback is an informed choice rather than a surprise.
 - Widening the drive-elevation probe as new mount points show up on newer firmwares.
 
-If your console runs homebrew but PS5-ECAM doesn't, that's a bug we want — it almost always means
+If your console runs homebrew but Playtendoh doesn't, that's a bug we want — it almost always means
 one of the three needs above wasn't met in a way we can handle better. Please
 [report it](#reporting-problems).
 

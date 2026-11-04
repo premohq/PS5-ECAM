@@ -41,7 +41,7 @@ HEAVY = [os.path.join(d, "seguibl.ttf") for d in FONT_DIRS] + ["/usr/share/fonts
 # the tagline: Segoe UI Semibold from Windows, else the launcher's own Lexend at its semibold weight
 LEXEND = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "Lexend[wght].ttf")
 SEMIBOLD = [os.path.join(d, "seguisb.ttf") for d in FONT_DIRS] + [LEXEND, "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]
-NAME = "PS5-ECAM"
+NAME = "Playtendoh"
 TAGLINE = "Wii U, 3DS, DS and Switch on PlayStation 5"
 TAGLINE_COLOUR = (0xc9, 0xd3, 0xe0)
 SIDES = ("wiiu", "3ds", "ds", "switch")  # the panes in the launcher's order: top left, top right, bottom left, bottom right

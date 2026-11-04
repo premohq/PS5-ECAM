@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: the remote touch screen's page (stream.h), from dolphin78's prototype (#38): the
+// Playtendoh: the remote touch screen's page (stream.h), from dolphin78's prototype (#38): the
 // picture, filling the browser, and its touches; a quiet splash while there is no picture, with the
 // way to the files page (files.h).
 #pragma once
 namespace ps5stream {
-constexpr const char* kBrowser = R"HTML(<!doctype html><html><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>PS5-ECAM touch screen</title>
+constexpr const char* kBrowser = R"HTML(<!doctype html><html><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover"><title>Playtendoh touch screen</title>
 <style>
 *{box-sizing:border-box}html,body{margin:0;background:#090e18;width:100%;height:100%;overflow:hidden}[hidden]{display:none!important}
 #screen{display:block;width:100vw;height:100vh;height:100dvh;object-fit:contain;touch-action:none;-webkit-touch-callout:none;-webkit-user-select:none;user-select:none;-webkit-user-drag:none}

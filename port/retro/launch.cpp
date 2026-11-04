@@ -31,11 +31,11 @@ namespace ps5retro
 		const auto b = BackendFor(side, backend);
 		// tr: a retro side's emulator: {0} its name, {1} its program in the app's folder, {2} whether this copy has it, {3} its data folder
 		return TrF("{0}\nIts program: {1}, {2}\nIts data and logs: {3}\nIts settings and save states are its own: no other emulator reads them.", b.name, b.runtime,
-			Available(side, backend) ? Tr("in this copy of PS5-ECAM") : Tr("not in this copy of PS5-ECAM"), b.data);
+			Available(side, backend) ? Tr("in this copy of Playtendoh") : Tr("not in this copy of Playtendoh"), b.data);
 	}
 	bool LaunchLibrary(int side, std::string& error, int backend)
 	{
-		if (!HasProgram(side, backend)) { error = Tr("This side's emulator is not in this copy of PS5-ECAM."); return false; }
+		if (!HasProgram(side, backend)) { error = Tr("This side's emulator is not in this copy of Playtendoh."); return false; }
 		FinishScans();
 		const auto request = (std::filesystem::path(ps5paths::AppDir()) / BackendFor(side, backend).runtime).parent_path() / "ecam-request.txt";
 		ps5emu::LoadExecApp(BackendFor(side, backend).runtime, {"--ecam-library", "--ecam-return", ps5paths::Eboot()}, true, request.string());
@@ -45,7 +45,7 @@ namespace ps5retro
 
 	bool Launch(int side, const std::string& rom, std::string& error, int backend)
 	{
-		if (!HasProgram(side, backend)) { error = Tr("This side's emulator is not in this copy of PS5-ECAM."); return false; }
+		if (!HasProgram(side, backend)) { error = Tr("This side's emulator is not in this copy of Playtendoh."); return false; }
 		std::error_code ec;
 		if (!HasExtension(Of(side).key, rom) || !std::filesystem::is_regular_file(rom, ec)) { error = Tr("This game is no longer where it was, or is not one this side can start."); return false; }
 		if (!ValidateRom(side, rom, error, backend)) return false;

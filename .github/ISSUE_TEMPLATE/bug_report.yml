@@ -31,7 +31,7 @@ body:
   - type: input
     id: app-version
     attributes:
-      label: PS5-ECAM version
+      label: Playtendoh version
       description: Shown on the launcher's top line and in Settings > Diagnostics.
       placeholder: "2.0.0b"
     validations:

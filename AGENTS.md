@@ -1,19 +1,19 @@
 # Notes for AI coding assistants
 
-You are helping someone contribute to PS5-ECAM, an app that plays Nintendo systems on a PS5. The
+You are helping someone contribute to Playtendoh, an app that plays Nintendo systems on a PS5. The
 owner is [premohq](https://github.com/premohq). Read [CONTRIBUTING.md](CONTRIBUTING.md) before you
 plan anything; it is short and it is the project's direction. The essentials, so they are in front
 of you:
 
 1. **One app, one way of working.** Every system has the same side, library, in-game menu, settings
-   and saves, all PS5-ECAM's own. Prefer the change that makes systems more alike.
-2. **New systems are libretro cores behind PS5-ECAM's own UI** (`port/libretro`,
+   and saves, all Playtendoh's own. Prefer the change that makes systems more alike.
+2. **New systems are libretro cores behind Playtendoh's own UI** (`port/libretro`,
    `tools/build-libretro.py`), from the emulator's **official upstream repository**, the best one
    for the system, **pinned by commit in `tools/deps.json`**. Do not add standalone homebrew
    programs, personal ports or forks of unknown provenance. Do not build features around the
    programs bundled today (`tools/retro/sources.json`): they are being replaced by the frontend.
    Porpoise (GameCube, Wii) stays; changes to it belong in `premohq/Porpoise-X`. EmulationStation
-   (`port/esde`) is an optional frontend over the same systems: its games play in PS5-ECAM; never add
+   (`port/esde`) is an optional frontend over the same systems: its games play in Playtendoh; never add
    emulators or features to it alone.
 3. **Start from the newest `PS5-ECAM` branch**: `git fetch origin PS5-ECAM` and rebase before you
    change anything and again before a pull request. Never base work on an old commit. Keep each pull

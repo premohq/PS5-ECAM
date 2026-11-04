@@ -1,6 +1,6 @@
 # Compatibility
 
-How games run in PS5-ECAM, from reports on real consoles. It only lists what has been reported:
+How games run in Playtendoh, from reports on real consoles. It only lists what has been reported:
 a game that isn't here hasn't been reported yet, which doesn't mean it doesn't work. To add a game
 or correct one, [open an issue](https://github.com/premohq/PS5-ECAM/issues/new/choose) with the
 game's region and version, the app version, and how far you played.

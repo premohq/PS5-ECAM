@@ -70,7 +70,7 @@ def facts(release):
         published_text = f"Published {int(m.group(3))} {months[int(m.group(2)) - 1]} {m.group(1)}"
     return {
         "VERSION": version or "the latest",
-        "RELEASE_NAME": release.get("name") or (f"PS5-ECAM {version}" if version else "The latest release"),
+        "RELEASE_NAME": release.get("name") or (f"Playtendoh {version}" if version else "The latest release"),
         "ZIP_URL": url,
         "ZIP_NAME": url.rsplit("/", 1)[-1] if tag else "Download",
         "SIZE": size,

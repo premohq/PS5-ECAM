@@ -1,6 +1,6 @@
-# Contributing to PS5-ECAM
+# Contributing to Playtendoh
 
-Thank you for helping. PS5-ECAM has grown fast because people sent code, fixes and console test
+Thank you for helping. Playtendoh has grown fast because people sent code, fixes and console test
 reports, and every one of them is welcome. This page is the project's direction and the few habits
 that let many people's work fit together as one app. It is written for people and for the AI
 assistants they work with alike ([AGENTS.md](AGENTS.md) points assistants here).
@@ -10,7 +10,7 @@ If something here does not fit what you want to build, open an issue or ask the 
 
 ## The vision: one app, every Nintendo system, one way of working
 
-PS5-ECAM is **one app** that plays every Nintendo system there is an emulator for, the obscure ones
+Playtendoh is **one app** that plays every Nintendo system there is an emulator for, the obscure ones
 and the arcade boards too ([ROADMAP.md, Every Nintendo system](docs/ROADMAP.md#every-nintendo-system)).
 What makes it worth using over a folder of separate homebrew apps is that **every system looks and
 works the same**:
@@ -18,14 +18,14 @@ works the same**:
 - its side in the carousel, its library with box art, its game menu;
 - the same in-game menu (Touchpad click + Options): its screens, picture, volume, controls, save
   states, back to the library;
-- its settings in PS5-ECAM's Settings, with the same few pages as the other sides;
+- its settings in Playtendoh's Settings, with the same few pages as the other sides;
 - its saves where Settings > Saves finds them, its strings in every language.
 
 So the question for any change is: **does this make the systems feel more like one app?**
 
-### How new systems come in: libretro cores behind PS5-ECAM's own UI
+### How new systems come in: libretro cores behind Playtendoh's own UI
 
-- New systems run on **libretro cores linked into the app**, through PS5-ECAM's own libretro
+- New systems run on **libretro cores linked into the app**, through Playtendoh's own libretro
   frontend (`port/libretro`, built by `tools/build-libretro.py`). The core does the emulation; the
   app does everything the player sees.
 - A system is **a row in `ps5retro::kSystems`** (`port/retro/registry.h`), its `ps5launcher::System`
@@ -50,7 +50,7 @@ they work. They are **transitional**:
 - the N64, NES, GB, GBC and GBA move onto the libretro frontend one at a time, as their best core
   runs there; the program it replaces stays a choice until then;
 - please **don't add more standalone programs**, and don't build new features around one (its own
-  folder layouts, title IDs or settings files): build them in PS5-ECAM's frontend, where every
+  folder layouts, title IDs or settings files): build them in Playtendoh's frontend, where every
   system gets them;
 - **Porpoise stays** for the GameCube and Wii. Changes to Porpoise itself go to
   [premohq/Porpoise-X](https://github.com/premohq/Porpoise-X), not as patches kept in this repository.
@@ -62,7 +62,7 @@ stay as they are.
 
 The app can open on EmulationStation (ES-DE, `port/esde`) instead of its launcher, for people who like
 its menus and themes. It is **a frontend, not another set of emulators**: it lists the launcher's
-libraries and every game it starts plays in PS5-ECAM (`port/esde/handoff.h`). A system or a feature is
+libraries and every game it starts plays in Playtendoh (`port/esde/handoff.h`). A system or a feature is
 added to the app, and EmulationStation shows it; nothing is added to EmulationStation alone.
 
 ## Working together

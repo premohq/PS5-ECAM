@@ -507,7 +507,7 @@ namespace ps5ingamenx
 				draw->AddRectFilled(canvas.At(tx + barWidth * a, by + 44), canvas.At(tx + barWidth * b, by + 50), colours.accent, 3 * scale);
 			}
 			// the app's name, small, in the corner
-			canvas.TextRight(g.small, ps5menu::kCaption, 1920 - 64, 1080 - 64, colours.copy, "PS5-ECAM");
+			canvas.TextRight(g.small, ps5menu::kCaption, 1920 - 64, 1080 - 64, colours.copy, "Playtendoh");
 		}
 
 		// -- the menu --------------------------------------------------------------------------------
@@ -638,7 +638,7 @@ namespace ps5ingamenx
 			// a home screen tile's game closes the app instead, as the row says (#48)
 			Row leave = exitAfterGame ?
 				Row{"leave", Tr("Quit to the home screen"), "", false,
-					Tr("Leaves the game and closes PS5-ECAM, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held.")} :
+					Tr("Leaves the game and closes Playtendoh, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held.")} :
 				Row{"leave", Tr("Quit to the library"), "", false,
 					Tr("Leaves the game for the library. What you have not saved in the game is lost, so Cross is held.")};
 			leave.apart = true;
@@ -869,7 +869,7 @@ namespace ps5ingamenx
 			s_loading = session;
 		}
 		ps5log::Line("[ingamenx] {}: {}", session ? title : std::string("no session file"),
-			session ? "PS5-ECAM's loading screen and menu" : "Eden's own loading screen, no menu");
+			session ? "Playtendoh's loading screen and menu" : "Eden's own loading screen, no menu");
 		// from here until Eden's program says otherwise, a session that never ends was a crash
 		if (session)
 			WriteResult("running");

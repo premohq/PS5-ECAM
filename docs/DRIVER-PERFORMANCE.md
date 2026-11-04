@@ -1,6 +1,6 @@
 # The Vulkan driver and Breath of the Wild at 4K60 and 8K30
 
-This is a read-through of the Vulkan driver PS5-ECAM links (Mihawk-99's RADV port: the
+This is a read-through of the Vulkan driver Playtendoh links (Mihawk-99's RADV port: the
 [PS5_Mesa](https://github.com/mihawk-99/PS5_Mesa) fork at `7b59ef27`, built with
 [PS5_Vulkan](https://github.com/mihawk-99/PS5_Vulkan)'s recipe at `fde9e37`), of how Cemu drives it,
 and of what could make Breath of the Wild run at 4K and 60 fps, and at 8K and 30. It ends with the
@@ -19,7 +19,7 @@ The app pinned PS5_Mesa `0b2d6d1a` until 2026-10-06. Upstream has since rewritte
 pins may stop being fetchable. `tools/deps.json` now pins upstream's current driver, `7b59ef27`
 (PS5_Vulkan `fde9e37` builds the same), which is `504adad` and four changes to the VideoOut swapchain:
 
-| Change | What it does | What PS5-ECAM does with it |
+| Change | What it does | What Playtendoh does with it |
 | --- | --- | --- |
 | `f46af72` `PS5_VIDEOOUT_PARAM_JSON` | The driver offers 119.88 Hz only to a title whose `param.json` declares it, and read only `/app0/sce_sys/param.json`. A process the HEN jailbreaks has no `/app0` (`port/app/paths.h`), so **119.88 Hz was never offered there, and "120 Hz output" did nothing** (the boot log said `VideoOut surface 3840x2160 at 59.94 Hz`). The variable names another file | With "120 Hz output" on, the app names its own `param.json` before a Wii U game starts. With it off, it names a file that does not exist: in a sandboxed process the driver used to find `/app0`'s and switch the display to 119.88 Hz whatever the setting said, since the 59.94 Hz mode Cemu then took was only a mode handle |
 | `12d0391` attribute3 bit 0x40 alone | 0x80000 (a 120 Hz mode that requires VRR) turned the system's VRR off; retail titles with VRR declare 0x40 with 0x40000 | `sce_sys/param.json` declares 0x40040 (was 0x80040). The driver reads the file either way; the home screen may keep the old value until the app is registered again |
@@ -213,7 +213,7 @@ This is where the port differs most from Linux.
 The fork has a layer of its own (`RADV_THREADED_RECORDING=1`): the application's `vkCmd*` calls
 are queued with their arguments copied, and a worker thread records them while the application
 goes on; `vkEndCommandBuffer` waits for the worker. It passed a 474,440-case CTS gate with every
-case unchanged, and stays off until it measures faster in a game. **PS5-ECAM never sets it.**
+case unchanged, and stays off until it measures faster in a game. **Playtendoh never sets it.**
 
 ## How Cemu drives it
 

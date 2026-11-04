@@ -79,7 +79,7 @@ namespace ps5shell
 	{
 		// what this is
 		canvas.PushAlpha(Enter(0));
-		canvas.Text(Style(kOverlineStyle), kSafeX, 92, TrF("PS5-ECAM {0}", ps5update::Readable(PS5CEMU_VERSION)), Secondary(), 1100, 1);
+		canvas.Text(Style(kOverlineStyle), kSafeX, 92, TrF("Playtendoh {0}", ps5update::Readable(PS5CEMU_VERSION)), Secondary(), 1100, 1);
 		// tr: the heading of the screen a new version opens on, once: what it brings
 		canvas.Text(Style({56, ui::Weight::Bold, 1.1f, -0.8f}), kSafeX, 122, Tr("What's new"), kText, 1100, 1);
 		canvas.Text(Style({24, ui::Weight::Regular, 1.3f}), kSafeX, 206,

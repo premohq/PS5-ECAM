@@ -112,7 +112,8 @@ def symbolize(elf, addresses):
 def show(elf, handlers, report, number):
     text = "\n".join(report)
     print(f"=== crash report {number}: {report[0]}")
-    own = "PS5-ECAM's own handler" in text or "PS5CEMU-HAR's own handler" in text  # before 5.0.0
+    own = ("Playtendoh's own handler" in text or "PS5-ECAM's own handler" in text  # before the rename
+           or "PS5CEMU-HAR's own handler" in text)  # before 5.0.0
     handler = re.search(r"handler at (0x[0-9a-f]+)", text)
     kind = "port" if own else "cemu"
     if not handler or kind not in handlers:

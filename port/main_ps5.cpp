@@ -151,7 +151,7 @@ namespace
 	std::vector<std::string> Diagnostics(const ps5privilege::Result& privileges)
 	{
 		return {
-			fmt::format("PS5-ECAM {}: Cemu at {}, Azahar at {}, melonDS at {}, Eden at {}", PS5CEMU_VERSION, PS5CEMU_CEMU_COMMIT,
+			fmt::format("Playtendoh {}: Cemu at {}, Azahar at {}, melonDS at {}, Eden at {}", PS5CEMU_VERSION, PS5CEMU_CEMU_COMMIT,
 				PS5CEMU_AZAHAR_COMMIT, PS5CEMU_MELONDS_COMMIT, PS5CEMU_EDEN_COMMIT),
 			ps5lang::TrF("Firmware {0}", Firmware()),
 			privileges.summary,
@@ -306,7 +306,7 @@ int main(int argc, char* argv[])
 	// for it), which the console answers by ending the app before anything is shown (CE-108255-1). What
 	// the app makes is opened to every user by the files' walk at each start instead (app/file_modes.h,
 	// #55, #58).
-	ps5log::Line("[main] PS5-ECAM {} starting (Cemu at {}, Azahar at {}, melonDS at {}, Eden at {})", PS5CEMU_VERSION, PS5CEMU_CEMU_COMMIT,
+	ps5log::Line("[main] Playtendoh {} starting (Cemu at {}, Azahar at {}, melonDS at {}, Eden at {})", PS5CEMU_VERSION, PS5CEMU_CEMU_COMMIT,
 		PS5CEMU_AZAHAR_COMMIT, PS5CEMU_MELONDS_COMMIT, PS5CEMU_EDEN_COMMIT);
 	// before any thread starts: the HEN jailbreaks the process as it is. The game folders are read
 	// first, so a HEN is asked only when something the app needs is out of reach without one
@@ -595,7 +595,7 @@ int main(int argc, char* argv[])
 	if (!privileges.filesystem)
 	{
 		status.notice = status.notice3ds = status.noticeDs = status.noticeSwitch =
-			ps5lang::Tr("PS5-ECAM cannot reach /data. Load a HEN with PPSA99360 in its app jailbreak list, or elfldr, then restart PS5-ECAM.");
+			ps5lang::Tr("Playtendoh cannot reach /data. Load a HEN with PPSA99360 in its app jailbreak list, or elfldr, then restart Playtendoh.");
 		ps5log::Line("[main] {}", status.notice);
 		ps5notify::Send(status.notice);
 	}
@@ -700,7 +700,7 @@ int main(int argc, char* argv[])
 		if (ps5retro::IsRetro((int)system))
 		{
 			const int index = (int)system;
-			status.noticeRetro[ps5retro::Slot(index)] = ps5retro::Available(index, settings.retro[ps5retro::Slot(index)].retroBackend) ? std::string() : ps5lang::Tr("This side's emulator is not in this copy of PS5-ECAM.");
+			status.noticeRetro[ps5retro::Slot(index)] = ps5retro::Available(index, settings.retro[ps5retro::Slot(index)].retroBackend) ? std::string() : ps5lang::Tr("This side's emulator is not in this copy of Playtendoh.");
 			if (!keepList(system, settings.retro[ps5retro::Slot(index)].gamesFolder)) ps5retro::StartScan(index, settings.retro[ps5retro::Slot(index)].gamesFolder);
 			return;
 		}
@@ -773,7 +773,7 @@ int main(int argc, char* argv[])
 		{
 			// after a game in this process the launcher could not draw again: from a fresh process, as
 			// before it came back in place
-			ps5log::Line("[main] the launcher could not start again after the game: starting PS5-ECAM over");
+			ps5log::Line("[main] the launcher could not start again after the game: starting Playtendoh over");
 			RememberSide(ps5launcher::SideName(*gameRan));
 			ps5emu::RestartToLibrary();
 		}
@@ -809,14 +809,14 @@ int main(int argc, char* argv[])
 		if (gameRan && choice->system != *gameRan && choice->system != ps5launcher::System::Switch && !ps5retro::IsRetro((int)choice->system) &&
 			!ps5azahar::IsArtic(game.path.string()))
 		{
-			ps5log::Line("[main] {} is the {} side's, after a {} game here: starting PS5-ECAM over for it", game.name,
+			ps5log::Line("[main] {} is the {} side's, after a {} game here: starting Playtendoh over for it", game.name,
 				ps5launcher::SideTitle(choice->system), ps5launcher::SideTitle(*gameRan));
 			RememberSide(side);
 			std::vector<std::string> args = {"--rom", game.path.string()};
 			if (choice->resume)
 				args.push_back("--resume");
 			ps5emu::LoadExecApp("eboot.bin", args, false);
-			ps5log::Line("[main] PS5-ECAM did not start again: {} starts in this process", game.name);
+			ps5log::Line("[main] Playtendoh did not start again: {} starts in this process", game.name);
 		}
 		// a tile's game that closes the app after it: its in-game menu says so instead of the library (#48)
 		ps5emu::SetExitAfterGame(tile.exitAfterGame && IsTileGame(tile, game));

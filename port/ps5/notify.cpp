@@ -9,7 +9,7 @@ namespace ps5notify
 	void Send(const std::string& message)
 	{
 		SceNotificationRequest request{};
-		std::strncpy(request.message, ("PS5-ECAM: " + message).c_str(), sizeof(request.message) - 1);
+		std::strncpy(request.message, ("Playtendoh: " + message).c_str(), sizeof(request.message) - 1);
 		sceKernelSendNotificationRequest(0, &request, sizeof(request), 0);
 	}
 }

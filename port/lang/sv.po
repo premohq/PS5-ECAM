@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: PS5-ECAM\n"
+"Project-Id-Version: Playtendoh\n"
 "Language: sv\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -101,12 +101,12 @@ msgid "the PS5 Vulkan driver did not start"
 msgstr "PS5:ans Vulkan-drivrutin startade inte"
 
 #: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2838 port/frontend/shell/shell.cpp:1965
-msgid "PS5-ECAM cannot write to {0}. Is the HEN loaded?"
-msgstr "PS5-ECAM kan inte skriva till {0}. Är HEN laddad?"
+msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
+msgstr "Playtendoh kan inte skriva till {0}. Är HEN laddad?"
 
 #: port/app/emulator.cpp:555
-msgid "PS5-ECAM cannot create the MLC folder {0}"
-msgstr "PS5-ECAM kan inte skapa MLC-mappen {0}"
+msgid "Playtendoh cannot create the MLC folder {0}"
+msgstr "Playtendoh kan inte skapa MLC-mappen {0}"
 
 #. why a Wii U game did not start
 #: port/app/emulator.cpp:766
@@ -123,8 +123,8 @@ msgid "The game could not be started."
 msgstr "Spelet kunde inte startas."
 
 #: port/app/emulator.cpp:786
-msgid "This is not a Wii U game PS5-ECAM can start."
-msgstr "Det här är inget Wii U-spel som PS5-ECAM kan starta."
+msgid "This is not a Wii U game Playtendoh can start."
+msgstr "Det här är inget Wii U-spel som Playtendoh kan starta."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
 #: port/app/emulator.cpp:789
@@ -149,8 +149,8 @@ msgid "Touchpad click + Options: the in-game menu (screens, picture, volume, con
 msgstr "Styrplattsklick + OPTIONS: spelmenyn (skärmar, bild, volym, kontroller, biblioteket)"
 
 #: port/app/emulator.cpp:1102
-msgid "PS5-ECAM could not start itself again to show the library: start it again from the home screen."
-msgstr "PS5-ECAM kunde inte starta om sig själv för att visa biblioteket: starta det igen från hemskärmen."
+msgid "Playtendoh could not start itself again to show the library: start it again from the home screen."
+msgstr "Playtendoh kunde inte starta om sig själv för att visa biblioteket: starta det igen från hemskärmen."
 
 #: port/app/forwarders.cpp:151
 msgid "elfldr does not answer on port 9021. Home screen tiles need it, to be put in /data/homebrew and to start their games: load elfldr, then try again."
@@ -1223,8 +1223,8 @@ msgstr "Avsluta till hemskärmen"
 
 #: port/app/ingame.cpp:330 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:641
 #, menu
-msgid "Leaves the game and closes PS5-ECAM, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held."
-msgstr "Lämnar spelet och stänger PS5-ECAM, som spelets ikon på hemskärmen ber om. Det du inte har sparat i spelet går förlorat, därför hålls Kryss in."
+msgid "Leaves the game and closes Playtendoh, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held."
+msgstr "Lämnar spelet och stänger Playtendoh, som spelets ikon på hemskärmen ber om. Det du inte har sparat i spelet går förlorat, därför hålls Kryss in."
 
 #: port/app/ingame.cpp:331 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:642
 #, menu
@@ -2376,8 +2376,8 @@ msgstr "{0} kunde inte skrivas (är /data fullt?)"
 
 #. at a start after an update: {0} the release installed, {1} the folder, {2} this release
 #: port/app/updates.cpp:321
-msgid "{0} was installed in {1}, but the PS5 started {2} again. Close PS5-ECAM and start it from the home screen; if it is still {2}, copy the release's PPSA99360 folder over by hand."
-msgstr "{0} installerades i {1}, men PS5 startade {2} igen. Stäng PS5-ECAM och starta det från hemskärmen; om det fortfarande är {2}, kopiera versionens PPSA99360-mapp över för hand."
+msgid "{0} was installed in {1}, but the PS5 started {2} again. Close Playtendoh and start it from the home screen; if it is still {2}, copy the release's PPSA99360 folder over by hand."
+msgstr "{0} installerades i {1}, men PS5 startade {2} igen. Stäng Playtendoh och starta det från hemskärmen; om det fortfarande är {2}, kopiera versionens PPSA99360-mapp över för hand."
 
 #: port/app/updates.cpp:429
 msgid "The latest release's version ({0}) is not one this can read"
@@ -2404,8 +2404,8 @@ msgid "The download is damaged (SHA-256 {0}, not {1})"
 msgstr "Nedladdningen är skadad (SHA-256 {0}, inte {1})"
 
 #: port/app/updates.cpp:543
-msgid "PS5-ECAM runs from an image, whose files can't be replaced: install the new release by hand"
-msgstr "PS5-ECAM körs från en avbildning vars filer inte kan ersättas: installera den nya versionen för hand"
+msgid "Playtendoh runs from an image, whose files can't be replaced: install the new release by hand"
+msgstr "Playtendoh körs från en avbildning vars filer inte kan ersättas: installera den nya versionen för hand"
 
 #: port/app/updates.cpp:556
 msgid "It could not be unpacked: {0}"
@@ -2425,8 +2425,8 @@ msgstr "{0} kunde inte läggas tillbaka ({1}): kopiera den versionens PPSA99360-
 
 #. an update is installed, but the app could not start itself again to run it
 #: port/app/updates.cpp:790
-msgid "The PS5 did not start PS5-ECAM again. Close it and start it from the home screen to finish the update."
-msgstr "PS5 startade inte om PS5-ECAM. Stäng det och starta det från hemskärmen för att slutföra uppdateringen."
+msgid "The PS5 did not start Playtendoh again. Close it and start it from the home screen to finish the update."
+msgstr "PS5 startade inte om Playtendoh. Stäng det och starta det från hemskärmen för att slutföra uppdateringen."
 
 #. the places on the toys' portals that a figure goes on
 #: port/app/usb_devices.cpp:61
@@ -3008,33 +3008,33 @@ msgid_plural "{0} players"
 msgstr[0] "{0} spelare"
 msgstr[1] "{0} spelare"
 
-#: port/eden/launch.cpp:117 port/main_ps5.cpp:722
+#: port/eden/launch.cpp:124 port/main_ps5.cpp:722
 msgid "This build has no Switch emulator: eden/eboot.bin is not in the app's folder."
 msgstr "Den här versionen har ingen Switch-emulator: eden/eboot.bin finns inte i appens mapp."
 
-#: port/eden/launch.cpp:124
+#: port/eden/launch.cpp:131
 msgid "Eden cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
 msgstr "Eden kan inte läsa spel på en nätverksresurs. Kopiera spelet till PS5:an eller en USB-enhet för att spela det."
 
-#: port/eden/launch.cpp:131 port/eden/launch.cpp:299
+#: port/eden/launch.cpp:139 port/eden/launch.cpp:316
 msgid "The console did not start Eden. The boot log says what it answered."
 msgstr "Konsolen startade inte Eden. Startloggen säger vad den svarade."
 
-#: port/eden/launch.cpp:235
+#: port/eden/launch.cpp:243
 msgid "The Switch game stopped: Eden closed while it ran. Its logs are in {0}."
 msgstr "Switch-spelet stoppades: Eden stängdes medan det kördes. Dess loggar finns i {0}."
 
 #. a Switch game's room (Settings > Online > Multiplayer) could not be joined: its name ({0}) and why ({1}, in English)
-#: port/eden/launch.cpp:245
+#: port/eden/launch.cpp:253
 msgid "The room {0} could not be joined: {1} Choose another in Settings > Online > Multiplayer, or play offline."
 msgstr "Kunde inte gå med i rummet {0}: {1} Välj ett annat i Inställningar > Online > Flerspelare, eller spela offline."
 
-#: port/eden/launch.cpp:248
+#: port/eden/launch.cpp:256
 msgid "Eden could not find the game's file. Is the drive with it plugged in?"
 msgstr "Eden hittade inte spelets fil. Är enheten med den ansluten?"
 
 #. why a Switch game stopped or did not start, in Eden's own words (English)
-#: port/eden/launch.cpp:250
+#: port/eden/launch.cpp:258
 msgid "The Switch game did not start or stopped: {0}"
 msgstr "Switch-spelet startade inte eller stoppades: {0}"
 
@@ -3863,13 +3863,13 @@ msgstr "Klar"
 msgid ""
 "What the game sees in this player's hands.\n"
 "\n"
-"Most games want the Wii U GamePad for player 1: its screen is the second one PS5-ECAM shows, and the touchpad touches it. Others take Pro Controllers, or Wii Remotes for games such as New Super Mario Bros. U.\n"
+"Most games want the Wii U GamePad for player 1: its screen is the second one Playtendoh shows, and the touchpad touches it. Others take Pro Controllers, or Wii Remotes for games such as New Super Mario Bros. U.\n"
 "A Wii Remote points where a finger rests on the touchpad, or where you aim the DualSense.\n"
 "Cemu has two GamePads at most."
 msgstr ""
 "Vad spelet ser i den här spelarens händer.\n"
 "\n"
-"De flesta spel vill ha Wii U GamePad för spelare 1: dess skärm är den andra som PS5-ECAM visar, och styrplattan rör vid den. Andra tar Pro Controller eller Wii-fjärrkontroller, för spel som New Super Mario Bros. U.\n"
+"De flesta spel vill ha Wii U GamePad för spelare 1: dess skärm är den andra som Playtendoh visar, och styrplattan rör vid den. Andra tar Pro Controller eller Wii-fjärrkontroller, för spel som New Super Mario Bros. U.\n"
 "En Wii-fjärrkontroll pekar dit ett finger vilar på styrplattan, eller dit du riktar DualSense.\n"
 "Cemu hanterar högst två GamePads."
 
@@ -4126,8 +4126,8 @@ msgid "The folder could not be saved. Please try again."
 msgstr "Mappen kunde inte sparas. Försök igen."
 
 #: port/frontend/shell/pages.cpp:1118
-msgid "Saved. PS5-ECAM is looking for games there."
-msgstr "Sparat. PS5-ECAM letar efter spel där."
+msgid "Saved. Playtendoh is looking for games there."
+msgstr "Sparat. Playtendoh letar efter spel där."
 
 #: port/frontend/shell/pages.cpp:1119
 msgid "Saved. That side looks for games there when it opens."
@@ -4644,20 +4644,20 @@ msgid "Online"
 msgstr "Online"
 
 #: port/frontend/shell/settings.cpp:247
-msgid "Box art, graphic packs and PS5-ECAM's updates."
-msgstr "Omslag, grafikpaket och uppdateringar av PS5-ECAM."
+msgid "Box art, graphic packs and Playtendoh's updates."
+msgstr "Omslag, grafikpaket och uppdateringar av Playtendoh."
 
 #: port/frontend/shell/settings.cpp:248
-msgid "Box art, RetroAchievements and PS5-ECAM's updates."
-msgstr "Omslag, RetroAchievements och uppdateringar av PS5-ECAM."
+msgid "Box art, RetroAchievements and Playtendoh's updates."
+msgstr "Omslag, RetroAchievements och uppdateringar av Playtendoh."
 
 #: port/frontend/shell/settings.cpp:249
-msgid "Box art, Artic Base and PS5-ECAM's updates."
-msgstr "Omslag, Artic Base och uppdateringar av PS5-ECAM."
+msgid "Box art, Artic Base and Playtendoh's updates."
+msgstr "Omslag, Artic Base och uppdateringar av Playtendoh."
 
 #: port/frontend/shell/settings.cpp:250
-msgid "Box art, multiplayer rooms and PS5-ECAM's updates."
-msgstr "Omslag, flerspelarrum och uppdateringar av PS5-ECAM."
+msgid "Box art, multiplayer rooms and Playtendoh's updates."
+msgstr "Omslag, flerspelarrum och uppdateringar av Playtendoh."
 
 #: port/frontend/shell/settings.cpp:252
 msgid "Launcher"
@@ -4884,8 +4884,8 @@ msgid "The menus' language, and the games' names where they have one in it."
 msgstr "Menyernas språk, och spelens namn där spelet har ett på språket."
 
 #: port/frontend/shell/settings.cpp:550
-msgid "PS5-ECAM speaks the PS5's own language unless you choose another here; the first start's Setup check has the same choice. A game's name follows it where the game has one in that language, as on a console set to it; otherwise it is the English one. Descriptions come from GameTDB in English, and graphic packs from their authors, as they wrote them."
-msgstr "PS5-ECAM talar PS5:ans språk om du inte väljer ett annat här; konfigurationskontrollen vid första starten erbjuder samma val. Ett spels namn följer det där spelet har ett namn på språket, som på en konsol inställd på det; annars är det det engelska. Beskrivningar kommer från GameTDB på engelska och grafikpaket från sina upphovspersoner, som de skrev dem."
+msgid "Playtendoh speaks the PS5's own language unless you choose another here; the first start's Setup check has the same choice. A game's name follows it where the game has one in that language, as on a console set to it; otherwise it is the English one. Descriptions come from GameTDB in English, and graphic packs from their authors, as they wrote them."
+msgstr "Playtendoh talar PS5:ans språk om du inte väljer ett annat här; konfigurationskontrollen vid första starten erbjuder samma val. Ett spels namn följer det där spelet har ett namn på språket, som på en konsol inställd på det; annars är det det engelska. Beskrivningar kommer från GameTDB på engelska och grafikpaket från sina upphovspersoner, som de skrev dem."
 
 #: port/frontend/shell/settings.cpp:556 port/frontend/shell/settings.cpp:677
 msgid "How the picture is scaled to the TV."
@@ -5706,12 +5706,12 @@ msgid "Eden can read your games."
 msgstr "Eden kan läsa dina spel."
 
 #: port/frontend/shell/settings.cpp:1082 port/frontend/shell/setup.cpp:304
-msgid "Eden reads Switch games with your own console's keys: prod.keys (and title.keys), dumped from your Switch, in {0}/keys. No keys come with PS5-ECAM."
-msgstr "Eden läser Switch-spel med din egen konsols nycklar: prod.keys (och title.keys), dumpade från din Switch, i {0}/keys. PS5-ECAM innehåller inga nycklar."
+msgid "Eden reads Switch games with your own console's keys: prod.keys (and title.keys), dumped from your Switch, in {0}/keys. No keys come with Playtendoh."
+msgstr "Eden läser Switch-spel med din egen konsols nycklar: prod.keys (och title.keys), dumpade från din Switch, i {0}/keys. Playtendoh innehåller inga nycklar."
 
 #: port/frontend/shell/settings.cpp:1086 port/frontend/shell/setup.cpp:315
-msgid "Many Switch games need the console's own system files: its firmware's .nca files, dumped from your Switch, in {0}/firmware. No firmware comes with PS5-ECAM."
-msgstr "Många Switch-spel behöver konsolens egna systemfiler: dess firmwares .nca-filer, dumpade från din Switch, i {0}/firmware. PS5-ECAM innehåller ingen firmware."
+msgid "Many Switch games need the console's own system files: its firmware's .nca files, dumped from your Switch, in {0}/firmware. No firmware comes with Playtendoh."
+msgstr "Många Switch-spel behöver konsolens egna systemfiler: dess firmwares .nca-filer, dumpade från din Switch, i {0}/firmware. Playtendoh innehåller ingen firmware."
 
 #: port/frontend/shell/settings.cpp:1094 port/frontend/shell/shares.cpp:536
 msgid "Network shares"
@@ -5821,13 +5821,13 @@ msgid "Your files from before into a folder for each system."
 msgstr "Dina filer från tidigare in i en mapp för varje system."
 
 #: port/frontend/shell/settings.cpp:1140
-msgid "Puts each system's files back into {0}, where they were before. Going back to an earlier version needs them there, as it looks for them there. PS5-ECAM starts again to do it."
-msgstr "Lägger tillbaka varje systems filer i {0}, där de låg förut. Att gå tillbaka till en tidigare version kräver dem där, eftersom den letar efter dem där. PS5-ECAM startar om för att göra det."
+msgid "Puts each system's files back into {0}, where they were before. Going back to an earlier version needs them there, as it looks for them there. Playtendoh starts again to do it."
+msgstr "Lägger tillbaka varje systems filer i {0}, där de låg förut. Att gå tillbaka till en tidigare version kräver dem där, eftersom den letar efter dem där. Playtendoh startar om för att göra det."
 
 #. {0} is the app's data folder, /data/ps5cemu; {1} lists the four folders: /data/cemu, /data/azahar, ...
 #: port/frontend/shell/settings.cpp:1144
-msgid "Moves each system's files from {0} into a folder of its own: {1}. They are renamed on the same drive, never copied, so it takes a moment whatever their size, and nothing is deleted. PS5-ECAM starts again to do it; a system that cannot move stays as it was. This row puts them back."
-msgstr "Flyttar varje systems filer från {0} till en egen mapp: {1}. De byter namn på samma enhet och kopieras aldrig, så det tar ett ögonblick oavsett storlek och inget raderas. PS5-ECAM startar om för att göra det; ett system som inte kan flyttas stannar som det var. Den här raden lägger tillbaka dem."
+msgid "Moves each system's files from {0} into a folder of its own: {1}. They are renamed on the same drive, never copied, so it takes a moment whatever their size, and nothing is deleted. Playtendoh starts again to do it; a system that cannot move stays as it was. This row puts them back."
+msgstr "Flyttar varje systems filer från {0} till en egen mapp: {1}. De byter namn på samma enhet och kopieras aldrig, så det tar ett ögonblick oavsett storlek och inget raderas. Playtendoh startar om för att göra det; ett system som inte kan flyttas stannar som det var. Den här raden lägger tillbaka dem."
 
 #: port/frontend/shell/settings.cpp:1171
 msgid "Account games start on"
@@ -5850,8 +5850,8 @@ msgid "One account for each PS5 user"
 msgstr "Ett konto per PS5-användare"
 
 #: port/frontend/shell/settings.cpp:1179
-msgid "Whoever starts PS5-ECAM plays on their own saves."
-msgstr "Den som startar PS5-ECAM spelar med sina egna sparfiler."
+msgid "Whoever starts Playtendoh plays on their own saves."
+msgstr "Den som startar Playtendoh spelar med sina egna sparfiler."
 
 #: port/frontend/shell/settings.cpp:1180
 msgid "The PS5 user who starts the app plays on a Wii U account of their own, made the first time with their PS5 name, so brothers and sisters each keep their own saves just by starting the app from their own PS5 user."
@@ -5965,8 +5965,8 @@ msgstr "Vänster och Höger väljer säkerhetskopia, den nyaste först."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
 #: port/frontend/shell/settings.cpp:1262
-msgid "Puts the chosen backup's saves back where they came from. The saves there now are moved first to {0}/saves-before, so nothing is lost; saves the backup does not have stay as they are. Its settings come back too, and PS5-ECAM starts again to use them."
-msgstr "Lägger tillbaka sparfilerna från den valda säkerhetskopian där de kom ifrån. Sparfilerna som finns där nu flyttas först till {0}/saves-before, så inget går förlorat; sparfiler som säkerhetskopian saknar förblir som de är. Dess inställningar kommer också tillbaka, och PS5-ECAM startar om för att använda dem."
+msgid "Puts the chosen backup's saves back where they came from. The saves there now are moved first to {0}/saves-before, so nothing is lost; saves the backup does not have stay as they are. Its settings come back too, and Playtendoh starts again to use them."
+msgstr "Lägger tillbaka sparfilerna från den valda säkerhetskopian där de kom ifrån. Sparfilerna som finns där nu flyttas först till {0}/saves-before, så inget går förlorat; sparfiler som säkerhetskopian saknar förblir som de är. Dess inställningar kommer också tillbaka, och Playtendoh startar om för att använda dem."
 
 #: port/frontend/shell/settings.cpp:1278
 msgid "Downloading: {0} left"
@@ -6219,16 +6219,16 @@ msgid "An achievement earned, and the count as a game starts, shown as the PS5's
 msgstr "En upplåst prestation, och antalet när ett spel startar, som PS5:ans egna aviseringar. Av: de finns bara under Prestationer i spelmenyn."
 
 #: port/frontend/shell/settings.cpp:1387
-msgid "PS5-ECAM updates"
-msgstr "PS5-ECAM-uppdateringar"
+msgid "Playtendoh updates"
+msgstr "Playtendoh-uppdateringar"
 
 #: port/frontend/shell/settings.cpp:1387
 msgid "Cross checks GitHub for a newer version."
 msgstr "Kryss letar efter en nyare version på GitHub."
 
 #: port/frontend/shell/settings.cpp:1388
-msgid "PS5-ECAM asks GitHub for its latest release each time it starts. Cross asks again, or installs the newer version it found: the release's files are downloaded, checked and put in place of these, and the app starts again. Your games, saves and settings stay as they are."
-msgstr "PS5-ECAM frågar GitHub efter sin senaste version varje gång den startar. Kryss frågar igen, eller installerar den nyare version den hittade: versionens filer laddas ned, kontrolleras och läggs i stället för dessa, och appen startar om. Dina spel, sparfiler och inställningar förblir som de är."
+msgid "Playtendoh asks GitHub for its latest release each time it starts. Cross asks again, or installs the newer version it found: the release's files are downloaded, checked and put in place of these, and the app starts again. Your games, saves and settings stay as they are."
+msgstr "Playtendoh frågar GitHub efter sin senaste version varje gång den startar. Kryss frågar igen, eller installerar den nyare version den hittade: versionens filer laddas ned, kontrolleras och läggs i stället för dessa, och appen startar om. Dina spel, sparfiler och inställningar förblir som de är."
 
 #. {0} is the version the last update replaced, as in 5.0.0
 #: port/frontend/shell/settings.cpp:1395
@@ -6240,8 +6240,8 @@ msgid "The version before the last update, kept as it was."
 msgstr "Versionen före den senaste uppdateringen, sparad som den var."
 
 #: port/frontend/shell/settings.cpp:1397
-msgid "The last update kept the version it replaced. Holding Cross puts its files back in place of these, and PS5-ECAM starts again as that version. Your games, saves and settings stay as they are. The newer version is not offered at start again; this page still finds it."
-msgstr "Den senaste uppdateringen sparade versionen den ersatte. Håll in Kryss för att lägga tillbaka dess filer i stället för de här, så startar PS5-ECAM om som den versionen. Dina spel, sparfiler och inställningar förblir som de är. Den nyare versionen erbjuds inte igen vid start; den här sidan hittar den fortfarande."
+msgid "The last update kept the version it replaced. Holding Cross puts its files back in place of these, and Playtendoh starts again as that version. Your games, saves and settings stay as they are. The newer version is not offered at start again; this page still finds it."
+msgstr "Den senaste uppdateringen sparade versionen den ersatte. Håll in Kryss för att lägga tillbaka dess filer i stället för de här, så startar Playtendoh om som den versionen. Dina spel, sparfiler och inställningar förblir som de är. Den nyare versionen erbjuds inte igen vid start; den här sidan hittar den fortfarande."
 
 #: port/frontend/shell/settings.cpp:1404
 msgid "Put each system's files back first: Settings > Game files > A folder for each system."
@@ -6358,8 +6358,8 @@ msgid "ES-DE's menus and themes over the same games, played here."
 msgstr "ES-DE:s menyer och teman över samma spel, spelade här."
 
 #: port/frontend/shell/settings.cpp:1467
-msgid "PS5-ECAM opens on EmulationStation (ES-DE) instead of its own launcher: the sides the bar shows, with the games their libraries list, and every game plays here with its settings, saves and in-game menu, then goes back to EmulationStation. Hold L1 as PS5-ECAM starts, or quit EmulationStation, for this launcher."
-msgstr "PS5-ECAM öppnas i EmulationStation (ES-DE) i stället för sitt eget startprogram: sidorna som fältet visar, med spelen i deras bibliotek, och varje spel spelas här med sina inställningar, sparfiler och sin spelmeny och går sedan tillbaka till EmulationStation. Håll L1 medan PS5-ECAM startar, eller avsluta EmulationStation, för det här startprogrammet."
+msgid "Playtendoh opens on EmulationStation (ES-DE) instead of its own launcher: the sides the bar shows, with the games their libraries list, and every game plays here with its settings, saves and in-game menu, then goes back to EmulationStation. Hold L1 as Playtendoh starts, or quit EmulationStation, for this launcher."
+msgstr "Playtendoh öppnas i EmulationStation (ES-DE) i stället för sitt eget startprogram: sidorna som fältet visar, med spelen i deras bibliotek, och varje spel spelas här med sina inställningar, sparfiler och sin spelmeny och går sedan tillbaka till EmulationStation. Håll L1 medan Playtendoh startar, eller avsluta EmulationStation, för det här startprogrammet."
 
 #: port/frontend/shell/settings.cpp:1477 port/frontend/shell/settings.cpp:1488
 msgid "Larger text"
@@ -6776,8 +6776,8 @@ msgstr "Figurdumpar läggs i {0}/figures: skylanders, infinity och dimensions. S
 
 #. premohq and JMUtechnologies are GitHub names: keep them as they are
 #: port/frontend/shell/settings.cpp:1968
-msgid "PS5-ECAM is made by its co-founders, premohq and JMUtechnologies."
-msgstr "PS5-ECAM görs av sina medgrundare, premohq och JMUtechnologies."
+msgid "Playtendoh is made by its co-founders, premohq and JMUtechnologies."
+msgstr "Playtendoh görs av sina medgrundare, premohq och JMUtechnologies."
 
 #. {0} is the app's version; {1} its data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on; {2} Eden's game files folder; {3} Cemu's selected data folder; {4} its default games folder; {5} Azahar's selected folder; {6} melonDS's selected folder
 #: port/frontend/shell/settings.cpp:1970
@@ -6953,8 +6953,8 @@ msgid "Downloading in the background"
 msgstr "Laddar ned i bakgrunden"
 
 #: port/frontend/shell/settings.cpp:2845 port/frontend/shell/shell.cpp:436
-msgid "Close PS5-ECAM and start it again from the home screen: the folders move as it starts."
-msgstr "Stäng PS5-ECAM och starta det igen från hemskärmen: mapparna flyttas när det startar."
+msgid "Close Playtendoh and start it again from the home screen: the folders move as it starts."
+msgstr "Stäng Playtendoh och starta det igen från hemskärmen: mapparna flyttas när det startar."
 
 #: port/frontend/shell/settings.cpp:2887
 msgid "{0} is deleted; its saves stay"
@@ -6994,12 +6994,12 @@ msgid "Same network as the PS5. Nothing to install: the browser is enough. Sound
 msgstr "Samma nätverk som PS5:an. Inget att installera: webbläsaren räcker. Ljudet stannar på PS5:an. Vilken webbläsare som helst i nätverket kan se den och röra vid den."
 
 #: port/frontend/shell/settings.cpp:3180
-msgid "Support PS5-ECAM"
-msgstr "Stöd PS5-ECAM"
+msgid "Support Playtendoh"
+msgstr "Stöd Playtendoh"
 
 #: port/frontend/shell/settings.cpp:3191
-msgid "PS5-ECAM is free. If it brings your games back, you can support its work here."
-msgstr "PS5-ECAM är gratis. Om den ger dig dina spel tillbaka kan du stödja arbetet här."
+msgid "Playtendoh is free. If it brings your games back, you can support its work here."
+msgstr "Playtendoh är gratis. Om den ger dig dina spel tillbaka kan du stödja arbetet här."
 
 #. above Settings' pages: whose settings they are ({0}: Wii U, Nintendo 3DS or Nintendo DS)
 #: port/frontend/shell/settings.cpp:3231
@@ -7029,20 +7029,20 @@ msgid "Where everything is kept"
 msgstr "Där allt sparas"
 
 #: port/frontend/shell/setup.cpp:129
-msgid "Settings, saves, caches and logs live in {0}, which your HEN opens to PS5-ECAM: its app jailbreak, or elfldr with the helper that comes with the app."
-msgstr "Inställningar, sparfiler, cacheminnen och loggar finns i {0}, som din HEN öppnar för PS5-ECAM: dess app-jailbreak, eller elfldr med hjälpprogrammet som följer med appen."
+msgid "Settings, saves, caches and logs live in {0}, which your HEN opens to Playtendoh: its app jailbreak, or elfldr with the helper that comes with the app."
+msgstr "Inställningar, sparfiler, cacheminnen och loggar finns i {0}, som din HEN öppnar för Playtendoh: dess app-jailbreak, eller elfldr med hjälpprogrammet som följer med appen."
 
 #: port/frontend/shell/setup.cpp:136
 msgid "/data is out of reach: nothing can be kept"
 msgstr "/data går inte att nå: inget kan sparas"
 
 #: port/frontend/shell/setup.cpp:137
-msgid "Let PS5-ECAM out of its sandbox"
-msgstr "Släpp ut PS5-ECAM ur sin sandlåda"
+msgid "Let Playtendoh out of its sandbox"
+msgstr "Släpp ut Playtendoh ur sin sandlåda"
 
 #: port/frontend/shell/setup.cpp:138
-msgid "Add PPSA99360 to your HEN's app jailbreak list (etaHEN: its app jailbreak list; OnionHEN: the end of exact_title_ids in config.ini, with no comma after it), or have elfldr listening on port 9021. Then start PS5-ECAM again."
-msgstr "Lägg till PPSA99360 i din HEN:s app-jailbreak-lista (etaHEN: dess app-jailbreak-lista; OnionHEN: sist i exact_title_ids i config.ini, utan komma efter), eller låt elfldr lyssna på port 9021. Starta sedan PS5-ECAM igen."
+msgid "Add PPSA99360 to your HEN's app jailbreak list (etaHEN: its app jailbreak list; OnionHEN: the end of exact_title_ids in config.ini, with no comma after it), or have elfldr listening on port 9021. Then start Playtendoh again."
+msgstr "Lägg till PPSA99360 i din HEN:s app-jailbreak-lista (etaHEN: dess app-jailbreak-lista; OnionHEN: sist i exact_title_ids i config.ini, utan komma efter), eller låt elfldr lyssna på port 9021. Starta sedan Playtendoh igen."
 
 #: port/frontend/shell/setup.cpp:145
 msgid "Recompilers"
@@ -7061,20 +7061,20 @@ msgid "Executable memory: games run at full speed, no HEN grant needed"
 msgstr "Körbart minne: spelen går i full fart, inget HEN-tillstånd behövs"
 
 #: port/frontend/shell/setup.cpp:154
-msgid "Cemu's and Azahar's recompilers turn the games' code into the PS5's as they run. They need memory they can write code into and run it from: your HEN's JIT memory, or executable memory PS5-ECAM makes itself."
-msgstr "Cemus och Azahars omkompilatorer gör om spelens kod till PS5:ans medan de körs. De behöver minne som de kan skriva kod i och köra den från: din HEN:s JIT-minne, eller körbart minne som PS5-ECAM skapar själv."
+msgid "Cemu's and Azahar's recompilers turn the games' code into the PS5's as they run. They need memory they can write code into and run it from: your HEN's JIT memory, or executable memory Playtendoh makes itself."
+msgstr "Cemus och Azahars omkompilatorer gör om spelens kod till PS5:ans medan de körs. De behöver minne som de kan skriva kod i och köra den från: din HEN:s JIT-minne, eller körbart minne som Playtendoh skapar själv."
 
 #: port/frontend/shell/setup.cpp:160
 msgid "No JIT or executable memory: Wii U games run on the much slower interpreter"
 msgstr "Inget JIT- eller körbart minne: Wii U-spel körs i den mycket långsammare tolken"
 
 #: port/frontend/shell/setup.cpp:161
-msgid "Neither your HEN's JIT memory nor executable memory could be made, so Wii U games fall back to Cemu's interpreter. Add PPSA99360 to your HEN's app jailbreak list, then start PS5-ECAM again; Settings > Diagnostics says what it got."
-msgstr "Varken din HEN:s JIT-minne eller körbart minne kunde skapas, så Wii U-spel faller tillbaka på Cemus tolk. Lägg till PPSA99360 i din HEN:s app-jailbreak-lista och starta sedan PS5-ECAM igen; Inställningar > Diagnostik visar vad den fick."
+msgid "Neither your HEN's JIT memory nor executable memory could be made, so Wii U games fall back to Cemu's interpreter. Add PPSA99360 to your HEN's app jailbreak list, then start Playtendoh again; Settings > Diagnostics says what it got."
+msgstr "Varken din HEN:s JIT-minne eller körbart minne kunde skapas, så Wii U-spel faller tillbaka på Cemus tolk. Lägg till PPSA99360 i din HEN:s app-jailbreak-lista och starta sedan Playtendoh igen; Inställningar > Diagnostik visar vad den fick."
 
 #: port/frontend/shell/setup.cpp:190 port/frontend/shell/shell.cpp:731 port/libretro/game.cpp:588 port/main_ps5.cpp:703 port/retro/launch.cpp:38 port/retro/launch.cpp:48
-msgid "This side's emulator is not in this copy of PS5-ECAM."
-msgstr "Den här sidans emulator finns inte i den här kopian av PS5-ECAM."
+msgid "This side's emulator is not in this copy of Playtendoh."
+msgstr "Den här sidans emulator finns inte i den här kopian av Playtendoh."
 
 #. {1} is a folder
 #: port/frontend/shell/setup.cpp:191 port/frontend/shell/setup.cpp:216
@@ -7180,8 +7180,8 @@ msgid "Your DS's own BIOS and firmware"
 msgstr "Din egen DS:s BIOS och firmware"
 
 #: port/frontend/shell/setup.cpp:286
-msgid "melonDS runs DS games on its own BIOS (FreeBIOS) and firmware, which most games are happy with. The few that are not run on your own DS's: bios7.bin, bios9.bin and firmware.bin, dumped from it, in {0}/bios. No BIOS comes with PS5-ECAM."
-msgstr "melonDS kör DS-spel på sin egen BIOS (FreeBIOS) och firmware, som de flesta spel klarar sig med. De få som inte gör det körs på din egen DS:s: bios7.bin, bios9.bin och firmware.bin, dumpade från den, i {0}/bios. Ingen BIOS följer med PS5-ECAM."
+msgid "melonDS runs DS games on its own BIOS (FreeBIOS) and firmware, which most games are happy with. The few that are not run on your own DS's: bios7.bin, bios9.bin and firmware.bin, dumped from it, in {0}/bios. No BIOS comes with Playtendoh."
+msgstr "melonDS kör DS-spel på sin egen BIOS (FreeBIOS) och firmware, som de flesta spel klarar sig med. De få som inte gör det körs på din egen DS:s: bios7.bin, bios9.bin och firmware.bin, dumpade från den, i {0}/bios. Ingen BIOS följer med Playtendoh."
 
 #: port/frontend/shell/setup.cpp:291
 msgid "the DS page"
@@ -7216,8 +7216,8 @@ msgid "Your Switch's firmware"
 msgstr "Din Switchs firmware"
 
 #: port/frontend/shell/setup.cpp:329
-msgid "what PS5-ECAM fetches online"
-msgstr "vad PS5-ECAM hämtar på nätet"
+msgid "what Playtendoh fetches online"
+msgstr "vad Playtendoh hämtar på nätet"
 
 #: port/frontend/shell/setup.cpp:330
 msgid "Covers from GameTDB"
@@ -7260,8 +7260,8 @@ msgid "Checked again"
 msgstr "Kontrollerat igen"
 
 #: port/frontend/shell/setup.cpp:451 port/frontend/shell/welcome.cpp:207
-msgid "Welcome to PS5-ECAM"
-msgstr "Välkommen till PS5-ECAM"
+msgid "Welcome to Playtendoh"
+msgstr "Välkommen till Playtendoh"
 
 #: port/frontend/shell/setup.cpp:451
 msgid "Help"
@@ -7309,8 +7309,8 @@ msgid "The menus' language"
 msgstr "Menyernas språk"
 
 #: port/frontend/shell/setup.cpp:540
-msgid "PS5-ECAM speaks the language your PS5 is set to. Cross chooses another; Settings > Language changes it at any time."
-msgstr "PS5-ECAM talar det språk som din PS5 är inställd på. Kryss väljer ett annat; Inställningar > Språk ändrar det när som helst."
+msgid "Playtendoh speaks the language your PS5 is set to. Cross chooses another; Settings > Language changes it at any time."
+msgstr "Playtendoh talar det språk som din PS5 är inställd på. Kryss väljer ett annat; Inställningar > Språk ändrar det när som helst."
 
 #: port/frontend/shell/setup.cpp:608
 msgid "The guide, on your phone"
@@ -7557,13 +7557,13 @@ msgid "The launcher's settings file, ps5cemu.json, has a mistake in it, so every
 msgstr "Startprogrammets inställningsfil, ps5cemu.json, innehåller ett fel, så alla inställningar är tillbaka på standard. Filen som den var sparas som {0}: rätta den på en dator och lägg tillbaka den som ps5cemu.json, eller låt den vara."
 
 #: port/frontend/shell/shell.cpp:232
-msgid "PS5-ECAM closed after a crash"
-msgstr "PS5-ECAM stängdes efter en krasch"
+msgid "Playtendoh closed after a crash"
+msgstr "Playtendoh stängdes efter en krasch"
 
 #. {0} is the crash report's first line in the log, as it is: "signal 11 at 0x7f3a..."
 #: port/frontend/shell/shell.cpp:234
-msgid "The last time, PS5-ECAM stopped with a crash: {0}. Its log is kept: Settings > Diagnostics > Copy logs to USB puts it on a drive, with the sessions before it, to attach to a report on GitHub."
-msgstr "Förra gången stannade PS5-ECAM med en krasch: {0}. Loggen finns kvar: Inställningar > Diagnostik > Kopiera loggar till USB lägger den på en enhet tillsammans med sessionerna före, så att du kan bifoga den till en rapport på GitHub."
+msgid "The last time, Playtendoh stopped with a crash: {0}. Its log is kept: Settings > Diagnostics > Copy logs to USB puts it on a drive, with the sessions before it, to attach to a report on GitHub."
+msgstr "Förra gången stannade Playtendoh med en krasch: {0}. Loggen finns kvar: Inställningar > Diagnostik > Kopiera loggar till USB lägger den på en enhet tillsammans med sessionerna före, så att du kan bifoga den till en rapport på GitHub."
 
 #: port/frontend/shell/shell.cpp:248
 msgid "Some files could not move"
@@ -7679,8 +7679,8 @@ msgid "The tile is made"
 msgstr "Ikonen är skapad"
 
 #: port/frontend/shell/shell.cpp:1157
-msgid "It is in {0}. ShadowMount Plus puts it on the PS5's home screen as it does any homebrew: if it does not show, restart ShadowMount Plus or the console. The tile starts the game in PS5-ECAM, and closing the game closes the app."
-msgstr "Den finns i {0}. ShadowMount Plus lägger den på PS5:ans hemskärm som all annan homebrew: om den inte syns, starta om ShadowMount Plus eller konsolen. Ikonen startar spelet i PS5-ECAM, och när du stänger spelet stängs appen."
+msgid "It is in {0}. ShadowMount Plus puts it on the PS5's home screen as it does any homebrew: if it does not show, restart ShadowMount Plus or the console. The tile starts the game in Playtendoh, and closing the game closes the app."
+msgstr "Den finns i {0}. ShadowMount Plus lägger den på PS5:ans hemskärm som all annan homebrew: om den inte syns, starta om ShadowMount Plus eller konsolen. Ikonen startar spelet i Playtendoh, och när du stänger spelet stängs appen."
 
 #: port/frontend/shell/shell.cpp:1172
 msgid "The tile's game could not start"
@@ -7891,8 +7891,8 @@ msgid "Hidden. Search finds it."
 msgstr "Dolt. Sök hittar det."
 
 #: port/frontend/shell/shell.cpp:2535
-msgid "PS5-ECAM {0} is out"
-msgstr "PS5-ECAM {0} har släppts"
+msgid "Playtendoh {0} is out"
+msgstr "Playtendoh {0} har släppts"
 
 #: port/frontend/shell/shell.cpp:2536
 msgid "This is {0}. Download and install it now? Your games, saves and settings stay as they are."
@@ -7931,32 +7931,32 @@ msgid "{0} is installed"
 msgstr "{0} är installerad"
 
 #: port/frontend/shell/shell.cpp:2557 port/frontend/shell/shell.cpp:2614
-msgid "Starting PS5-ECAM again…"
-msgstr "Startar om PS5-ECAM…"
+msgid "Starting Playtendoh again…"
+msgstr "Startar om Playtendoh…"
 
 #: port/frontend/shell/shell.cpp:2561 port/frontend/shell/shell.cpp:2566
 msgid "Restart now"
 msgstr "Starta om nu"
 
 #: port/frontend/shell/shell.cpp:2565
-msgid "PS5-ECAM starts again to finish the update."
-msgstr "PS5-ECAM startar om för att slutföra uppdateringen."
+msgid "Playtendoh starts again to finish the update."
+msgstr "Playtendoh startar om för att slutföra uppdateringen."
 
 #: port/frontend/shell/shell.cpp:2570
 msgid "The update did not finish"
 msgstr "Uppdateringen blev inte klar"
 
 #: port/frontend/shell/shell.cpp:2571
-msgid "PS5-ECAM is still {0}."
-msgstr "PS5-ECAM är fortfarande {0}."
+msgid "Playtendoh is still {0}."
+msgstr "Playtendoh är fortfarande {0}."
 
 #: port/frontend/shell/shell.cpp:2574
 msgid "Checking for updates"
 msgstr "Söker efter uppdateringar"
 
 #: port/frontend/shell/shell.cpp:2580
-msgid "PS5-ECAM update"
-msgstr "PS5-ECAM-uppdatering"
+msgid "Playtendoh update"
+msgstr "Playtendoh-uppdatering"
 
 #: port/frontend/shell/shell.cpp:2600 port/frontend/shell/shell.cpp:2640
 msgid "Select"
@@ -7968,8 +7968,8 @@ msgstr "Starta om"
 
 #. {0} lists the four folders: /data/cemu, /data/azahar, /data/melonds, /data/eden
 #: port/frontend/shell/shell.cpp:2617
-msgid "Your Wii U, 3DS, DS and Switch files go into folders of their own: {0}. They are moved on the same drive, never copied, so it takes a moment whatever their size. PS5-ECAM starts again to do it."
-msgstr "Dina Wii U-, 3DS-, DS- och Switch-filer hamnar i egna mappar: {0}. De flyttas på samma enhet och kopieras aldrig, så det tar ett ögonblick oavsett storlek. PS5-ECAM startar om för att göra det."
+msgid "Your Wii U, 3DS, DS and Switch files go into folders of their own: {0}. They are moved on the same drive, never copied, so it takes a moment whatever their size. Playtendoh starts again to do it."
+msgstr "Dina Wii U-, 3DS-, DS- och Switch-filer hamnar i egna mappar: {0}. De flyttas på samma enhet och kopieras aldrig, så det tar ett ögonblick oavsett storlek. Playtendoh startar om för att göra det."
 
 #: port/frontend/shell/shell.cpp:2623
 msgid "Reorganize"
@@ -8113,8 +8113,8 @@ msgid "Continues. Nothing here has to be chosen now: every row of this page is a
 msgstr "Fortsätter. Inget här behöver väljas nu: varje rad på den här sidan finns även i Inställningar, på sin egen sida."
 
 #: port/frontend/shell/welcome.cpp:207 port/frontend/shell/whatsnew.cpp:82
-msgid "PS5-ECAM {0}"
-msgstr "PS5-ECAM {0}"
+msgid "Playtendoh {0}"
+msgstr "Playtendoh {0}"
 
 #: port/frontend/shell/welcome.cpp:208
 msgid "New in this version"
@@ -8233,8 +8233,8 @@ msgid "Boot log not written (/data is unreachable)"
 msgstr "Startloggen skrevs inte (/data går inte att nå)"
 
 #: port/main_ps5.cpp:598
-msgid "PS5-ECAM cannot reach /data. Load a HEN with PPSA99360 in its app jailbreak list, or elfldr, then restart PS5-ECAM."
-msgstr "PS5-ECAM når inte /data. Ladda en HEN med PPSA99360 i sin app-jailbreak-lista, eller elfldr, och starta sedan om PS5-ECAM."
+msgid "Playtendoh cannot reach /data. Load a HEN with PPSA99360 in its app jailbreak list, or elfldr, then restart Playtendoh."
+msgstr "Playtendoh når inte /data. Ladda en HEN med PPSA99360 i sin app-jailbreak-lista, eller elfldr, och starta sedan om Playtendoh."
 
 #: port/main_ps5.cpp:710
 msgid "This session: Azahar (3DS); Cemu's emulated Wii U is not started"
@@ -8331,12 +8331,12 @@ msgstr ""
 "Dess inställningar och sparlägen är bara dess egna: ingen annan emulator läser dem."
 
 #: port/retro/launch.cpp:34
-msgid "in this copy of PS5-ECAM"
-msgstr "finns i den här kopian av PS5-ECAM"
+msgid "in this copy of Playtendoh"
+msgstr "finns i den här kopian av Playtendoh"
 
 #: port/retro/launch.cpp:34
-msgid "not in this copy of PS5-ECAM"
-msgstr "finns inte i den här kopian av PS5-ECAM"
+msgid "not in this copy of Playtendoh"
+msgstr "finns inte i den här kopian av Playtendoh"
 
 #: port/retro/launch.cpp:42
 msgid "The emulator could not be started."

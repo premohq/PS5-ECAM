@@ -106,8 +106,8 @@ int main(int argc, char** argv)
 	Check(std::string(nds.child_value("fullname")) == "Nintendo DS (ES-DE)" && std::string(nds.child_value("theme")) == "nds" &&
 			  std::string(nds.child_value("path")) == ds,
 		"a system's full name and theme from ES-DE's own file, its folder the games'");
-	Check(std::string(nds.child_value("command")) == eboot + " --rom %ROM%" && std::string(nds.child("command").attribute("label").value()) == "PS5-ECAM",
-		"its command names PS5-ECAM's eboot, which ES-DE looks for, with the game");
+	Check(std::string(nds.child_value("command")) == eboot + " --rom %ROM%" && std::string(nds.child("command").attribute("label").value()) == "Playtendoh",
+		"its command names Playtendoh's eboot, which ES-DE looks for, with the game");
 
 	pugi::xml_document list;
 	Check(list.load_file((home / "ES-DE/gamelists/nds/gamelist.xml").string().c_str()), "the DS's game list is XML");

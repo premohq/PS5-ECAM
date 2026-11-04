@@ -205,7 +205,7 @@ static void install(const char* id)
 	snprintf(to, sizeof(to), "%s/%s", HOMEBREW, id);
 	if (!our_tile(from))
 	{
-		report(PENDING, id, EINVAL, "not a PS5-ECAM tile");
+		report(PENDING, id, EINVAL, "not a Playtendoh tile");
 		return;
 	}
 	if (exists(to))
@@ -261,7 +261,7 @@ static void take_away(const char* id)
 	}
 	if (!our_tile(path))
 	{
-		report(REMOVE, id, EPERM, "not a PS5-ECAM tile");
+		report(REMOVE, id, EPERM, "not a Playtendoh tile");
 		return;
 	}
 	if (remove_tree(path) != 0)

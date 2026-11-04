@@ -123,7 +123,7 @@ namespace ps5esde
 		}
 		// it comes back here (--return) when it is quit
 		ps5emu::LoadExecApp(kProgram, {"--ecam-root", ps5paths::Root()}, true, ArgumentsFile());
-		ps5log::Line("[es-de] ES-DE did not start: PS5-ECAM's own launcher instead");
+		ps5log::Line("[es-de] ES-DE did not start: Playtendoh's own launcher instead");
 	}
 
 	std::string TakeRequest()

@@ -1,11 +1,11 @@
 <p align="center">
-  <img src="docs/banner.png" alt="PS5-ECAM: the Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch on PlayStation 5 homebrew, with Cemu, Azahar, melonDS and Eden" width="100%">
+  <img src="docs/banner.png" alt="Playtendoh: the Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch on PlayStation 5 homebrew, with Cemu, Azahar, melonDS and Eden" width="100%">
 </p>
 
 <p align="center">
   <a href="https://github.com/premohq/PS5-ECAM/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/premohq/PS5-ECAM?label=release&color=3b8cff"></a>
   <a href="https://discord.gg/grrqkv4xWw"><img alt="Discord: join the server" src="https://img.shields.io/badge/discord-join%20the%20server-5865F2?logo=discord&logoColor=white"></a>
-  <a href="https://ko-fi.com/premohq"><img alt="Ko-fi: support PS5-ECAM" src="https://img.shields.io/badge/ko--fi-support%20PS5--ECAM-FF5E5B?logo=kofi&logoColor=white"></a>
+  <a href="https://ko-fi.com/premohq"><img alt="Ko-fi: support Playtendoh" src="https://img.shields.io/badge/ko--fi-support%20Playtendoh-FF5E5B?logo=kofi&logoColor=white"></a>
   <img alt="Platform: PS5 homebrew" src="https://img.shields.io/badge/platform-PS5%20homebrew-1f5fd6">
   <img alt="Emulation: Cemu, Azahar, melonDS and Eden" src="https://img.shields.io/badge/emulation-Cemu%20%C2%B7%20Azahar%20%C2%B7%20melonDS%20%C2%B7%20Eden-5cd3ff">
   <img alt="Languages: 31" src="https://img.shields.io/badge/languages-31-62c454">
@@ -13,7 +13,7 @@
 </p>
 
 <p align="center">
-  <b>PS5-ECAM</b> plays your Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch games on a jailbroken PS5,<br>
+  <b>Playtendoh</b> plays your Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch games on a jailbroken PS5,<br>
   with <a href="https://github.com/cemu-project/Cemu">Cemu</a>, <a href="https://github.com/azahar-emu/azahar">Azahar</a>,
   <a href="https://github.com/melonDS-emu/melonDS">melonDS</a> and <a href="https://github.com/eden-emu/mirror">Eden</a> in one launcher made for the TV and the DualSense.<br>
   Made by its co-founders, <a href="https://github.com/premohq">premohq</a> and <a href="https://github.com/JMUtechnologies">JMUtechnologies</a>. It was called PS5CEMU-HAR until 5.0.0.
@@ -68,7 +68,7 @@ Changes in earlier versions are in their [release notes](https://github.com/prem
 
 ## Support
 
-PS5-ECAM is free. If it brings your games back, you can support it:
+Playtendoh is free. If it brings your games back, you can support it:
 
 - **Ko-fi:** [ko-fi.com/premohq](https://ko-fi.com/premohq), for a one-off tip or the
   [$3 a month Early Access tier](https://ko-fi.com/premohq/tiers): highly experimental builds, builds of
@@ -102,7 +102,7 @@ PS5-ECAM is free. If it brings your games back, you can support it:
 3. **Let your HEN in.** etaHEN: add `PPSA99360` to its app jailbreak list. OnionHEN: add `PPSA99360`
    at the end of `exact_title_ids` in `config.ini`, with no comma after it. Any other: have an ELF
    loader on port 9021.
-4. **Add your games** (below), and start PS5-ECAM from the home screen. The Setup check shows
+4. **Add your games** (below), and start Playtendoh from the home screen. The Setup check shows
    what's ready and what to do about the rest.
 
 Each system keeps its files in a folder of its own: `/data/cemu`, `/data/azahar`, `/data/melonds`
@@ -163,7 +163,7 @@ app to `build/app/PPSA99360` and a ZIP to `dist/`. See [docs/BUILDING.md](docs/B
 
 ## Join the Discord
 
-<a href="https://discord.gg/grrqkv4xWw"><img alt="Join the PS5-ECAM Discord server" src="https://img.shields.io/badge/Discord-Join%20the%20server-5865F2?style=for-the-badge&logo=discord&logoColor=white"></a>
+<a href="https://discord.gg/grrqkv4xWw"><img alt="Join the Playtendoh Discord server" src="https://img.shields.io/badge/Discord-Join%20the%20server-5865F2?style=for-the-badge&logo=discord&logoColor=white"></a>
 
 The server at [discord.gg/grrqkv4xWw](https://discord.gg/grrqkv4xWw) is the quickest way to get help and to hear about new versions:
 
@@ -188,7 +188,7 @@ Bugs still go in [GitHub issues](https://github.com/premohq/PS5-ECAM/issues/new/
 
 ### Contributors
 
-Big thanks to the people who sent code and fixes to PS5-ECAM itself. Want to join them? [CONTRIBUTING.md](CONTRIBUTING.md)
+Big thanks to the people who sent code and fixes to Playtendoh itself. Want to join them? [CONTRIBUTING.md](CONTRIBUTING.md)
 says where the app is going and how to fit in.
 
 
@@ -259,7 +259,7 @@ GPL-3.0-or-later (in its `eglantine/` folder), and the app that
 includes them is distributed under GPL-3.0-or-later. Other third-party components keep their own
 licenses.
 
-PS5-ECAM is an independent homebrew project, not affiliated with or endorsed by Sony Interactive
+Playtendoh is an independent homebrew project, not affiliated with or endorsed by Sony Interactive
 Entertainment, Nintendo, or the Cemu, Azahar, melonDS, Eden or ProsperoEden projects. "PlayStation"
 and "PS5" are trademarks of Sony Interactive Entertainment Inc.; "Wii U", "Nintendo 3DS", "Nintendo
 DS" and "Nintendo Switch" are trademarks of Nintendo. No firmware, keys, games or SDK material is included. It is provided as is,

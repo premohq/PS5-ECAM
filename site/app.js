@@ -1,4 +1,4 @@
-// PS5-ECAM's site: the latest release from GitHub, the theme button, and sections appearing.
+// Playtendoh's site: the latest release from GitHub, the theme button, and sections appearing.
 //
 // The release in the page (#release-data) is the one that was latest when the site was built
 // (site/build.py); the page shows it at once, then asks GitHub's API for the latest, which is what a
@@ -29,7 +29,7 @@
     var version = tag.replace(/^v/i, '');
     var parts = splitDownload(rel.body);
     var section = parts.download;
-    var zip = 'PS5-ECAM-' + tag + '.zip';
+    var zip = 'Playtendoh-' + tag + '.zip';
     var assets = Array.isArray(rel.assets) ? rel.assets : [];
     var asset = assets.filter(function (a) { return a.name === zip; })[0] ||
       assets.filter(function (a) { return /\.zip$/i.test(a.name || ''); })[0];
@@ -47,7 +47,7 @@
     return {
       tag: tag,
       version: version,
-      name: rel.name || 'PS5-ECAM ' + version,
+      name: rel.name || 'Playtendoh ' + version,
       url: url,
       file: decodeURIComponent(url.split('/').pop()),
       size: size,

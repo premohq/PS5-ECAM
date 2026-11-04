@@ -711,8 +711,8 @@ namespace ps5melonds::screens
 		if (!vk.CreateInstance)
 			return Fail(error, "the driver has no vkCreateInstance");
 		VkApplicationInfo app{VK_STRUCTURE_TYPE_APPLICATION_INFO};
-		app.pApplicationName = "PS5-ECAM";
-		app.pEngineName = "PS5-ECAM DS";
+		app.pApplicationName = "Playtendoh";
+		app.pEngineName = "Playtendoh DS";
 		app.apiVersion = VK_API_VERSION_1_1;
 		VkInstanceCreateInfo instanceInfo{VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO};
 		instanceInfo.pApplicationInfo = &app;

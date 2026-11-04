@@ -1,4 +1,4 @@
-# PS5-ECAM guide
+# Playtendoh guide
 
 Everything the [README](../README.md) leaves out: the launcher, each system, where games and files go,
 the controls and in-game menus, the remote touch screen, saves, mods and what to do when something goes
@@ -82,15 +82,15 @@ default) and its scraper for box art, screenshots and videos, in Mihawk's PS5 po
 
 - Its themes, in its UI Settings: Alekfull NX (the default), Art Book Next, Artflix Revisited, Colorful
   Revisited, Colorful Simplified, PlayStation X and RetroFix Revisited, each with art for every one of
-  PS5-ECAM's systems (the build checks it).
+  Playtendoh's systems (the build checks it).
 - It shows the sides the bar shows, as ES-DE's own systems (so its themes have their art), with the
-  games each side's library lists: open a side once in PS5-ECAM, or **Look for games now**, for its
+  games each side's library lists: open a side once in Playtendoh, or **Look for games now**, for its
   games to be there. Favourites follow whichever of the two you changed last; hidden games stay hidden.
-- Every game plays in PS5-ECAM, with its side's emulator, settings, saves and in-game menu. When it
+- Every game plays in Playtendoh, with its side's emulator, settings, saves and in-game menu. When it
   ends, EmulationStation opens again on that game, its play count and time added. A game that cannot
   start says why there.
-- **Hold L1** as PS5-ECAM starts for this launcher instead, or quit EmulationStation (its menu's
-  **Quit**): PS5-ECAM's own launcher opens, with its Settings.
+- **Hold L1** as Playtendoh starts for this launcher instead, or quit EmulationStation (its menu's
+  **Quit**): Playtendoh's own launcher opens, with its Settings.
 - ES-DE's settings, game lists and scraped media are in `/data/ps5cemu/es-de` (on the app's drive, with
   the rest of its data, when it is there); its interface is in English.
 
@@ -141,7 +141,7 @@ default) and its scraper for box art, screenshots and videos, in Mihawk's PS5 po
   glasses, with the 3D slider all the way up.
 - Screen layouts: a large top screen with the bottom one beside it, the top screen only, side by
   side, or stacked; either screen can take the main spot.
-- **Borders:** Midnight, Waves, Aurora, Shell or PS5-ECAM artwork around the screens in every layout, from
+- **Borders:** Midnight, Waves, Aurora, Shell or Playtendoh artwork around the screens in every layout, from
   **Settings > Screens** or the in-game menu.
 - **Screen rotation** (**Settings > Screens** or the in-game menu's Screens and border), as on the DS
   side: upright, 90° right, upside down or 90° left, for the games held on their side like a book,
@@ -221,7 +221,7 @@ New in 5.0.0: a side of its own, in the Switch's red, to the right of the DS.
 - [Eden](https://github.com/eden-emu/mirror), the Switch emulator, in Sword's PS5 port,
   [ProsperoEden](https://github.com/Swordpdf/ProsperoEden) (with this repository's `patches/eden`). It
   is a program of its own in the app's `eden/` folder: Play starts it with the game, and when the
-  game ends it starts PS5-ECAM again, on the Switch side. A game's home screen tile closes the app
+  game ends it starts Playtendoh again, on the Switch side. A game's home screen tile closes the app
   instead, as on the other sides.
 - **Settings** on the Switch side: the internal resolution (0.5x to 4x of the game's own 720p
   handheld or 1080p docked), upscaling to 4K (FSR 1 among them), ASTC textures (compressed, or full
@@ -234,7 +234,7 @@ New in 5.0.0: a side of its own, in the Switch's red, to the right of the DS.
   Joy-Con pair or a single Joy-Con) and the **speed limit** (100% to 300%, or none: a game held to 30
   fps can reach 60 where the PS5 has the time to spare). A game can have its own of each (**Game
   settings**), as on the other sides.
-- **The loading screen and the in-game menu are PS5-ECAM's**: a Switch game starts with the app's
+- **The loading screen and the in-game menu are Playtendoh's**: a Switch game starts with the app's
   loading screen from its first moment (its cover, its name, what is loading), and **touchpad click
   + Options** opens the same in-game menu as on the other sides: graphics (the upscaling filter, FSR
   sharpening, anti-aliasing, frame generation when the game started with it on, the performance
@@ -249,12 +249,12 @@ New in 5.0.0: a side of its own, in the Switch's red, to the right of the DS.
   choose Local Wireless (or local play) in the game to play with the others in it. A room that
   cannot be joined brings you back to the library with why.
 - **ProsperoEden's own screens never show**: its launcher is not opened from the app. A game that
-  does not start, stops with an error or crashes comes back to PS5-ECAM's library, which says why,
+  does not start, stops with an error or crashes comes back to Playtendoh's library, which says why,
   a home screen tile's game too.
 - **Covers**: GameTDB's box art, or each game's own icon (**Settings > Online > Box art > Switch covers**).
 - Your Switch's **keys** and **firmware** are needed, dumped from your own console: see
   [Game files](#nintendo-switch).
-- Eden reaches `/data` as PS5-ECAM does: through etaHEN with `PPSA99360` in its app jailbreak list
+- Eden reaches `/data` as Playtendoh does: through etaHEN with `PPSA99360` in its app jailbreak list
   (or OnionHEN's `exact_title_ids`), else through its own helper and the console's ELF loader on port
   9021. Without it Eden reads no keys or games, and its launcher says so.
 - **Mods and cheats**, each on or off (a game's **Game settings > Mods** and **Cheats**): the ones in
@@ -524,7 +524,7 @@ WUD or WUX files, or an unpacked game in an archive; a 3DS CIA sent this way is 
 - **Resume where you left off (3DS and DS).** **Quit to the library** saves a state of its own first
   (a moment longer), and the game's Options menu then has **Resume where you left off**, which starts
   the game and goes on from there. **Play** starts it as before. Not for Artic Base games.
-  States made by earlier PS5-ECAM builds load too. Keep saving in the game as well.
+  States made by earlier Playtendoh builds load too. Keep saving in the game as well.
 - **Cheats (3DS).** Put a game's cheats in `/data/azahar/cheats/<title ID>.txt` (16 hex
   digits, shown in the in-game menu), in the Gateway format desktop Azahar uses, and turn them on and
   off from the menu.
@@ -563,7 +563,7 @@ plugins) don't: look for the Cemu version of a mod.
                    └── content/...
    ```
 
-3. Plug the drive into the PS5 and start PS5-ECAM on the Wii U side.
+3. Plug the drive into the PS5 and start Playtendoh on the Wii U side.
 4. Either:
    - press **Options** on the game and choose **Add mods from USB**: a mod without a `rules.txt`
      and outside a title ID folder is given that game; or
@@ -649,11 +649,11 @@ With the data on the app's drive, these folders are in the `azahar` folder besid
   later; a cover GameTDB doesn't have is asked for again after two weeks. **Settings > Online > Box art**
   turns the downloads off, and has *Download missing box art* and *Download all box art again*.
 - **Updates:** when the app starts fresh, it asks GitHub for the latest release. When a newer
-  PS5-ECAM is out, it asks whether to install it: **Update now** downloads the release, checks it
+  Playtendoh is out, it asks whether to install it: **Update now** downloads the release, checks it
   against the release's SHA-256, puts its files in place of the old ones and starts the app again.
   Your games, saves and settings in `/data/ps5cemu` stay as they are. Circle stops a download, and
   one that stalls for 30 seconds stops by itself. If the PS5 doesn't start the app again, the app says
-  so: close it and start it from the home screen. **Settings > Online > PS5-ECAM updates** checks
+  so: close it and start it from the home screen. **Settings > Online > Playtendoh updates** checks
   again. **Skip this version** stops the start from asking about that release (Settings > Online
   still finds it).
 - **Graphic packs (Wii U):** the Cemu community graphic packs come from GitHub
@@ -735,7 +735,7 @@ drive: [below](#everything-on-the-apps-drive)). Your game files are wherever you
 its top, the 3DS's, DS's and Switch's in its `azahar`, `melonds` and `eden` folders. The app finds
 them there and moves nothing; `boot.log`'s `[paths]` line says which folder each system uses. At a
 start it offers to give each system its folder (**Reorganize** or **Later**), and **Settings > Game
-files > A folder for each system** does the same at any time (hold Cross): PS5-ECAM starts again and
+files > A folder for each system** does the same at any time (hold Cross): Playtendoh starts again and
 renames the files into the folders as it starts, so it takes a moment, copies nothing and deletes
 nothing. The same row puts them back, which **Go back** to a version from before needs first.
 [System folders](SYSTEM-FOLDERS.md) has the details, and a way to copy them on a computer instead,
@@ -782,7 +782,7 @@ states, the Wii U's accounts and the Switch's user profiles (never the games) to
 `PS5CEMU-HAR-saves/<date and time>` on the first USB drive plugged in, with the settings:
 `ps5cemu.json` (every side's and each game's own), Cemu's `settings.xml`, the controller profiles and
 your themes. **Restore from USB** puts a backup back, moving what is there now to
-the owning system's `saves-before` folder first; when the backup has settings, PS5-ECAM then starts again to use
+the owning system's `saves-before` folder first; when the backup has settings, Playtendoh then starts again to use
 them. A game's own backup (its **Saves** page) holds its saves alone.
 
 **Wii U saves from Cemu on PC:** with the game closed, copy

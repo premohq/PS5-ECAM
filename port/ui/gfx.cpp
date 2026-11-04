@@ -195,8 +195,8 @@ namespace ui
 		if (!vk::LoadGlobal(gipa))
 			return Fail(error, "no vkCreateInstance");
 		VkApplicationInfo app{VK_STRUCTURE_TYPE_APPLICATION_INFO};
-		app.pApplicationName = "PS5-ECAM";
-		app.pEngineName = "PS5-ECAM UI";
+		app.pApplicationName = "Playtendoh";
+		app.pEngineName = "Playtendoh UI";
 		app.apiVersion = VK_API_VERSION_1_1;
 		VkInstanceCreateInfo instanceInfo{VK_STRUCTURE_TYPE_INSTANCE_CREATE_INFO};
 		instanceInfo.pApplicationInfo = &app;

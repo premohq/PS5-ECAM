@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// PS5-ECAM: the remote touch screen (#38, from dolphin78's idea
+// Playtendoh: the remote touch screen (#38, from dolphin78's idea
 // and prototype). A small HTTP server on the local network shows the game's second screen (the Wii
 // U GamePad's, the 3DS's bottom screen, the DS's touch screen) in any browser, and takes its
 // touches back: the page is browser.h, a WebSocket each for touches (/input) and pictures (/video).

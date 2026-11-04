@@ -1,6 +1,6 @@
 # Roadmap
 
-What PS5-ECAM is working towards: first the rebuild and stability work still open (the launcher
+What Playtendoh is working towards: first the rebuild and stability work still open (the launcher
 rewrite of October 2026 and the issues around it), then a release that gives each emulator a folder of
 its own, then the longer list of ideas to pick from. Written 23 October 2026.
 
@@ -166,14 +166,14 @@ checked by reading and compiling. Before a release:
 
 ### Every Nintendo system
 
-The owner, 29 October 2026: **PS5-ECAM's scope is every Nintendo system there is an emulator for,
+The owner, 29 October 2026: **Playtendoh's scope is every Nintendo system there is an emulator for,
 the obscure ones too, and Nintendo's arcade hardware.** The side switch is a carousel now, so the bar
 takes any number of systems.
 
-**How: libretro cores behind PS5-ECAM's own UI.** One libretro frontend of the app's runs every
+**How: libretro cores behind Playtendoh's own UI.** One libretro frontend of the app's runs every
 core, and each system looks and works as the others do: its side in the carousel, its library with
 box art, the game menu, the in-game menu (its screens, picture, volume, controls, save states, back
-to the library) and its settings, all PS5-ECAM's. Adding a system is then mostly a core and a
+to the library) and its settings, all Playtendoh's. Adding a system is then mostly a core and a
 library entry (its file types, its box art's source, its default folder), so more or less every
 emulator libretro has comes in the same way. What the frontend has to do once, for all of them:
 
@@ -253,37 +253,37 @@ Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
 ### GameCube and Wii: Porpoise X as Eden is
 
 The owner, 31 October 2026: Porpoise X (premohq/Porpoise-X) goes the way ProsperoEdenX went for the
-Switch side: its UI taken out, PS5-ECAM's in its place, every one of its settings and features kept.
+Switch side: its UI taken out, Playtendoh's in its place, every one of its settings and features kept.
 Its work is on its `ps5-ecam` branch (as ProsperoEdenX's `ps5`), which `tools/retro/sources.json` pins;
 its `main` stays upstream's (4.0 now).
 
-1. **Started by PS5-ECAM, back to it.** **Done:** `c855be7` (the bridge in Porpoise X itself, no longer
+1. **Started by Playtendoh, back to it.** **Done:** `c855be7` (the bridge in Porpoise X itself, no longer
    applied by `tools/retro/prepare.py`, which finds it there and changes nothing).
-2. **None of its own screens** when PS5-ECAM starts it: no library, settings, memory cards, setup or
+2. **None of its own screens** when Playtendoh starts it: no library, settings, memory cards, setup or
    update check; its UI's assets (fonts, images, sounds, themes) neither loaded nor packaged, only what
    the emulation reads (Dolphin's `Sys`, `recommended.ini`, the per-game profiles). **Started:** `3b36a08` (no menu
    music, sounds, jingle or cover downloads; Porpoise checks for updates only when its own Settings
    asks). Its fonts and theme stay until step 4's menu replaces its in-game one, which draws with them.
-3. **Its settings in PS5-ECAM's Settings**, the GameCube and Wii sides' and a game's own: every row of
+3. **Its settings in Playtendoh's Settings**, the GameCube and Wii sides' and a game's own: every row of
    its `add_game_rows` (Video, Enhancements, Graphics, Audio, Controls, System, Wii Remote), with its
    controller layouts and Wii Remote setup, written to its own files by `port/retro/porpoise_settings.cpp`
    (**done:** the files), in every language. Its menus' own (themes, library views, menu music) are
-   PS5-ECAM's launcher's.
-4. **PS5-ECAM's loading screen and in-game menu** drawn by Porpoise's program over its frames, as Eden's
+   Playtendoh's launcher's.
+4. **Playtendoh's loading screen and in-game menu** drawn by Porpoise's program over its frames, as Eden's
    (`port/eden/ingame.cpp` built into it): a `port/porpoise/ingame.cpp` with the session file the
    launcher writes (`ps5eden::WriteSession`'s), recording into Porpoise's present pass
    (`src/porpoise_vk.cpp`), its rows Porpoise's in-game actions (save states, the game's settings,
    controllers and the Wii Remote's pointer, fast forward, screenshot, cheats, back to the library).
 5. **To check on a console** at each step: a GameCube and a Wii game started, played, quit back to the
-   library; a setting changed in PS5-ECAM seen in the game.
+   library; a setting changed in Playtendoh seen in the game.
 
 ### EmulationStation, the other frontend
 
 **Started, 30 October 2026, not built yet.** ES-DE as a choice beside the launcher (Settings > Launcher >
 Start in EmulationStation, when the app has it): Mihawk's PS5 port of ES-DE 3.5.0 (`esde-port` in
-`tools/deps.json`: his patches/0001 and his PS5 glue), with PS5-ECAM's glue in place of his
-(`port/esde/ps5`), only what PS5-ECAM's ES-DE uses linked into the program, and `patches/esde` (ES-DE's
-scraper in its menu, its notes and log lines saying what PS5-ECAM does). The
+`tools/deps.json`: his patches/0001 and his PS5 glue), with Playtendoh's glue in place of his
+(`port/esde/ps5`), only what Playtendoh's ES-DE uses linked into the program, and `patches/esde` (ES-DE's
+scraper in its menu, its notes and log lines saying what Playtendoh does). The
 launcher writes ES-DE's systems and game lists from its library before each start (`port/esde/esde.cpp`),
 and every game ES-DE starts plays here and goes back to it (`port/esde/handoff.h`). Checked on the host:
 the files ES-DE reads (`tools/tests/test-esde.sh`, and against ES-DE's own systems file), the handoff,
@@ -313,13 +313,13 @@ frontend as ProsperoEdenX is. It comes in as ProsperoEdenX came in, pinned in `t
 (`.deps/eglantine`, its inputs beside it) with `patches/eglantine` (`tools/eglantine-patches.sh`), built by
 `tools/build-eglantine.sh` (`make eglantine`) into the app's `eglantine/`. A Switch 2 title starts there
 (port/eden/launch.cpp), with the same arguments and request file as Eden's (`/data/eglantine`), and the
-program goes back to PS5-ECAM when its game ends. Its keys, firmware and games are the Switch side's
+program goes back to Playtendoh when its game ends. Its keys, firmware and games are the Switch side's
 folder's. Eden's eden-nx2 still plays a Switch 2 title where the app has no `eglantine/`. Nothing has run
 on a console yet. Next:
 
 - **A first console run** with a tester's own dump (Pokopia, Splatoon Raiders): the logs say how far
   (`/data/eglantine/logs`).
-- **PS5-ECAM's loading screen and in-game menu in it**, as patches/eden 0007 to 0009 put them in Eden's,
+- **Playtendoh's loading screen and in-game menu in it**, as patches/eden 0007 to 0009 put them in Eden's,
   with the result file the Switch side reads and the --set settings it knows: until then it shows its
   own, and its launcher when a game stops with an error (Circle there goes back). Those patches lean on
   what ProsperoEdenX has and EglantinePS5 does not (MihawkGen, the speed limit, game folders), so each
@@ -336,13 +336,13 @@ on a console yet. Next:
 
 - **Eden's `ui/` folder** (about 26 MB, 62 files in 5.0.1's ZIP): **done**, none of it is packaged now.
   Only ProsperoEden's own launcher reads it (`frontend.cpp`: its font, art, sounds and translations);
-  PS5-ECAM's loading screen and in-game menu take PS5-ECAM's fonts, Eden's own overlay text is baked
+  Playtendoh's loading screen and in-game menu take Playtendoh's fonts, Eden's own overlay text is baked
   into its shaders, and the keyboard is the PS5's. That launcher was still reached by a start of
-  `eden/eboot.bin` without PS5-ECAM's launch request (unreadable without filesystem access, or the
-  crash restart when PS5-ECAM's eboot is refused): it goes back to PS5-ECAM now, which says why
+  `eden/eboot.bin` without Playtendoh's launch request (unreadable without filesystem access, or the
+  crash restart when Playtendoh's eboot is refused): it goes back to Playtendoh now, which says why
   (`patches/eden/0015`), rather than to a launcher with no font. An update from 5.0.1 moves `eden/ui`
   into the kept release, for Go back. To check on a console: a Switch game, its in-game menu and its
-  keyboard; a game whose file is gone (back to PS5-ECAM, as before); an update from 5.0.1 (`eden/ui is
+  keyboard; a game whose file is gone (back to Playtendoh, as before); an update from 5.0.1 (`eden/ui is
   no longer the app's` in the boot log), then Go back to 5.0.1.
 - **`sce_sys/pic1.dds`** is a copy of `pic0.dds` (8 MB): check whether the console needs it.
 - **Package size in the README** for the next release, and its notes.
@@ -365,7 +365,7 @@ drive.
 ### Where it stands
 
 The paths are in the code now, on this branch, with a layout that differs from the plan below: the
-four folders sit beside `/data/ps5cemu` rather than inside a new `/data/PS5-ECAM`, and the
+four folders sit beside `/data/ps5cemu` rather than inside a new `/data/Playtendoh`, and the
 launcher's own files stay in `/data/ps5cemu`.
 
 - **Done**, by JMUtechnologies (`3cb8349`, his patch; he is in the README's contributors):
@@ -385,10 +385,10 @@ launcher's own files stay in `/data/ps5cemu`.
   folder settings, Cemu's game folders and MLC, and home screen tiles (`ps5paths::Moved`).
 - **Also there:** `tools/separate-systems.py`, which copies instead, on a computer, with a full backup
   checked by hashes first; the app takes its copies by the same markers.
-- **Still to do:** the `PS5-ECAM` names below (the data folder, `PS5CEMU-HAR-data`, `ps5cemu.json`,
+- **Still to do:** the `Playtendoh` names below (the data folder, `PS5CEMU-HAR-data`, `ps5cemu.json`,
   the macros). **Go back** is held back after Reorganize even to a version that has the folders too:
   once one is out, compare versions there. Whether the folders stay beside `ps5cemu` or move inside a
-  `/data/PS5-ECAM` is still the owner's choice.
+  `/data/Playtendoh` is still the owner's choice.
 - **Checked on a PC only:** host tests (`test-reorganize.sh`, `test-paths.sh`, `test-saves-paths.sh`,
   `test-eden-paths.sh`, `test-separate-systems.py`), the launcher preview's prompt and row, and a
   compile of every port source and Eden's changed files with the PS5 build's flags. To check on a
@@ -416,7 +416,7 @@ in the code the `PS5CEMU_` macros and the `ps5cemu` names.
 
 **What stays:** the app's title ID, `PPSA99360`. Every home screen tile starts the app by it, so a new
 one would break them all, and a title ID can only be four letters and five digits anyway. The name on
-the home screen is already PS5-ECAM. With the same app, an update needs no new install and leaves no
+the home screen is already Playtendoh. With the same app, an update needs no new install and leaves no
 old app to delete: the in-app update replaces the files in place as it does now.
 
 ### How it goes
@@ -455,7 +455,7 @@ old app to delete: the in-app update replaces the files in place as it does now.
 
 ## Ideas
 
-A list of things PS5-ECAM could do next: fixes, quality of life, new features and a few long shots.
+A list of things Playtendoh could do next: fixes, quality of life, new features and a few long shots.
 Written 22 October 2026, against the code at `184f41f` (5.0.1 in progress). Nothing here is planned or
 promised; it is a list to pick from.
 
@@ -676,7 +676,7 @@ The other sides play from an SMB or NFS share because their emulators run in the
 calls go through `port/ps5/netfs_files.cpp`. Eden is a program of its own, so a `/net/...` game is out
 of its reach: the Switch side's folder picker no longer offers shares, and starting such a game says
 to copy it to the PS5 or a USB drive. To play from a share: link the same netfs layer into Eden's
-program (`headless/ecam.cmake` already builds PS5-ECAM sources into it), or have the launcher copy the
+program (`headless/ecam.cmake` already builds Playtendoh sources into it), or have the launcher copy the
 game to the PS5 before Eden starts, with its progress shown. Either needs a console to try on.
 
 <a id="n1"></a>**N1. Buttons and controllers** (M)

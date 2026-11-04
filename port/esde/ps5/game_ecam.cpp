@@ -52,7 +52,7 @@ extern "C" int ps5_esde_launch_game(const char* command, const char* system, con
 		const int result = sceSystemServiceLoadExec(ecam_frontend::Eboot().c_str(), argv);
 		// it does not come back when PS5-ECAM starts
 		std::remove(request.c_str());
-		std::snprintf(error, errorSize, "PS5-ECAM did not start (LoadExec %#x)", (unsigned)result);
+		std::snprintf(error, errorSize, "Playtendoh did not start (LoadExec %#x)", (unsigned)result);
 	}
 	return -1;
 }
