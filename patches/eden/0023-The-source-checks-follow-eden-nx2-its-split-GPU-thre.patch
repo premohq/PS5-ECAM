@@ -1,0 +1,75 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Tue, 3 Nov 2026 23:12:31 -0500
+Subject: [PATCH] The source checks follow eden-nx2: its split GPU thread and
+ its six cores
+
+The release build stopped at three of the checks build-headless-native.sh runs, which 0021 and 0022
+left as they were for Eden master:
+- check-native-gpu-thread.py: eden-nx2's worker dispatches in two places, its split GPU thread's and
+  its own, each traced; and the worker's Stop ends the split thread (VideoCommon::GpuSplit), which the
+  harness now has.
+- check-gpu-sync-stop.py: eden-nx2's semaphore acquire first waits for the split thread's work
+  (DrainBack, engines/puller.cpp), which the harness now has.
+- check-startup-performance.py: a progress line for each of the six emulated cores (kGuestCores).
+---
+ tools/check-gpu-sync-stop.py       |  2 ++
+ tools/check-native-gpu-thread.py   | 10 +++++++++-
+ tools/check-startup-performance.py |  3 ++-
+ 3 files changed, 13 insertions(+), 2 deletions(-)
+
+diff --git a/tools/check-gpu-sync-stop.py b/tools/check-gpu-sync-stop.py
+index 9ba878a..a0ed278 100644
+--- a/tools/check-gpu-sync-stop.py
++++ b/tools/check-gpu-sync-stop.py
+@@ -77,6 +77,8 @@ bool Wait(){
+ struct Memory {std::atomic<u32> value{};template<class T>T Read(unsigned){return value.load();}};
+ struct Raster {std::atomic_uint calls{};void ReleaseFences(){++calls;}};
+ struct DmaPusher {System system;Memory memory_manager;Raster raster;Raster*rasterizer=&raster;};
++// eden-nx2's wait for its split GPU thread's work (engines/puller.cpp), which the acquire starts with
++void DrainBack(){}
+ struct Puller {struct Regs {struct Address{unsigned SemaphoreAddress(){return 0;}}semaphore_address;u32 semaphore_acquire=4,acquire_value{};bool acquire_active{},acquire_mode{},acquire_source{};}regs;
+ void ProcessSemaphoreAcquire(DmaPusher&dma_pusher){
+ '''+acquire+r'''
+diff --git a/tools/check-native-gpu-thread.py b/tools/check-native-gpu-thread.py
+index 314d1c8..5869cd3 100644
+--- a/tools/check-native-gpu-thread.py
++++ b/tools/check-native-gpu-thread.py
+@@ -41,7 +41,8 @@ dispatch_trace = ('                const auto count = ++dispatches;\n'
+                   f'                if ({trace_when}) LOG_INFO(Render_OpenGL, "EDEN_GPU_DISPATCH_BEGIN count={{}}", count);\n'
+                   + dispatch_call + '\n'
+                   f'                if ({trace_when}) LOG_INFO(Render_OpenGL, "EDEN_GPU_DISPATCH_END count={{}}", count);')
+-assert worker.count(dispatch_trace) == 1
++# eden-nx2 dispatches in two places, its split GPU thread's and the worker's own: each is traced
++assert worker.count(dispatch_trace) == 2
+ untraced = worker.replace(dispatch_trace, dispatch_call).replace('        unsigned dispatches = 0;\n', '')
+ loading_wait = """            if (Eden::LoadingTick(renderer, false)) {
+                 if (!state.queue.TryPop(next)) {
+@@ -132,6 +133,13 @@ private:
+     bool thread_joinable{};
+ };
+ }
++// eden-nx2's second GPU thread (video_core/gpu_split.h), which the worker's Stop ends with
++namespace VideoCommon {
++struct GpuSplit {
++    static GpuSplit& Get() { static GpuSplit split; return split; }
++    void Stop() {}
++};
++}
+ #define pthread_attr_init init
+ #define pthread_attr_setstacksize stack
+ #define pthread_attr_destroy destroy
+diff --git a/tools/check-startup-performance.py b/tools/check-startup-performance.py
+index 2b6f6a8..986390e 100644
+--- a/tools/check-startup-performance.py
++++ b/tools/check-startup-performance.py
+@@ -120,7 +120,8 @@ with tempfile.TemporaryDirectory(prefix='eden-startup-') as directory:
+     snapshots = output.split('EDEN_PERF_SAMPLE ')[1:]
+     assert len(snapshots) == 5
+     for sample in snapshots:
+-        assert sample.count('EDEN_PERF_WORKER ') == 7 and sample.count('EDEN_PERF_PROGRESS ') == 4
++        # a progress line for each emulated core: six since eden-nx2 (performance.h, kGuestCores)
++        assert sample.count('EDEN_PERF_WORKER ') == 7 and sample.count('EDEN_PERF_PROGRESS ') == 6
+         assert 'core=1 compilations=1 ' in sample
+         assert re.search(r'name=CPUCore_2 cpu_ns=-\d+', sample)
+     assert int(re.search(r'name=CPUCore_1 cpu_ns=(\d+)', snapshots[0])[1]) > 0
