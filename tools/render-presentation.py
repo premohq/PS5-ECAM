@@ -1,15 +1,19 @@
 #!/usr/bin/env python3
 # SPDX-License-Identifier: GPL-3.0-or-later
-"""Draw PS5-ECAM's art: its logo with its name, as the home screen's background (sce_sys/pic0.dds),
+"""Draw Playtendoh's art: its logo with its name, as the home screen's background (sce_sys/pic0.dds),
 its tile (sce_sys/icon0.png) and the README's banner (docs/banner.png).
 
-    render-presentation.py [--title-font FONT] [--banner PNG] SCE_SYS_DIR [PREVIEW_PNG]
+    render-presentation.py [--title-font FONT] [--tail-font FONT] [--banner PNG] [--wordmark PNG]
+                           SCE_SYS_DIR [PREVIEW_PNG]
 
 The logo is four flat rounded squares as a window's four panes, the Wii U's top left, the 3DS's top
 right, the DS's bottom left and the Switch's bottom right, each in its side's colour with its console
 in white (tools/render-icons.py's FLAT and GLYPHS, which the launcher's bar shows too). The name,
-PS5-ECAM, is beside it on the banner and the background, over the tagline, and under it on the
-square tile; all of it on the launcher's ink.
+Playtendoh, is beside it on the banner and the background, over the tagline, and under it on the
+square tile; all of it on the launcher's ink. The name is one word in two faces (the owner's, 3
+November 2026): "Play" in the PlayStation logo's lettering (--title-font), "tendoh" in a
+Nintendo-like face (--tail-font) at the size at which its d stands as tall as Play's l, on Play's
+baseline.
 
 The PS5 shows pic0.dds behind the app while it is selected on the home screen, and pic1.dds while it
 starts; tools/package.sh installs this one image as both. The logo sits above the middle there: the
@@ -21,8 +25,11 @@ is a 512x512 opaque PNG; the console rounds its corners.
 
 This needs Pillow and numpy, and the fonts: the name's is Typodermic's Zrnic, which its licence lets
 the developer use for fixed artwork like these images but not share, so it is not in this
-repository: --title-font names the developer's own copy (zrnic rg.otf; without it, Segoe UI Black
-from Windows, or DejaVu Sans Bold, stand in); the tagline's is Segoe UI Semibold (the launcher's
+repository: --title-font names the developer's own copy (--wordmark: the name alone, white on clear, which the site's page masks;
+zrnic rg.otf; without it, Segoe UI Black
+from Windows, or DejaVu Sans Bold, stand in), and --tail-font the owner's copy of tendoh's (Sayunu's
+Nu Hanafudaya, whose terms allow images made with it but not sharing the font; without one, the
+title's font draws the whole name); the tagline's is Segoe UI Semibold (the launcher's
 Lexend SemiBold, tools/fonts, elsewhere). The output is committed, so the build needs none of them.
 It prints where the background has each side's square, for shell/eden.cpp's kConsoles.
 """
@@ -42,7 +49,9 @@ HEAVY = [os.path.join(d, "seguibl.ttf") for d in FONT_DIRS] + ["/usr/share/fonts
 LEXEND = os.path.join(os.path.dirname(os.path.abspath(__file__)), "fonts", "Lexend[wght].ttf")
 SEMIBOLD = [os.path.join(d, "seguisb.ttf") for d in FONT_DIRS] + [LEXEND, "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf"]
 NAME = "Playtendoh"
-TAGLINE = "Wii U, 3DS, DS and Switch on PlayStation 5"
+HEAD, TAIL = "Play", "tendoh"  # the name's two faces' parts
+TAIL_FONTS = []  # --tail-font
+TAGLINE = "Nintendo systems on PlayStation 5"
 TAGLINE_COLOUR = (0xc9, 0xd3, 0xe0)
 SIDES = ("wiiu", "3ds", "ds", "switch")  # the panes in the launcher's order: top left, top right, bottom left, bottom right
 SUPERSAMPLE = 4
@@ -70,12 +79,31 @@ def font(candidates, size):
     sys.exit("no font found: " + ", ".join(candidates))
 
 
-def fit(candidates, text, width, start):
-    """The font at the largest size up to start at which text is at most width wide."""
-    size = start
-    while size > 8 and font(candidates, size).getlength(text) > width:
-        size -= 1
-    return font(candidates, size)
+def rise(face, text):
+    """How far text's tallest letter rises above the baseline, and its lowest falls below it, in pixels."""
+    _, top, _, bottom = face.getbbox(text, anchor="ls")
+    return -top, bottom
+
+
+def wordmark(size):
+    """The name's two parts as one word: HEAD in the title's face at size, TAIL in the tail's at the
+    size at which its d stands as tall as HEAD's l. Returns (width, ascent, descent, draw),
+    draw(drawing, x, baseline, fill) putting it there."""
+    head = font(HEAVY, size)
+    if not TAIL_FONTS:
+        ascent, descent = rise(head, NAME)
+        return head.getlength(NAME), ascent, descent, lambda d, x, y, fill: d.text((x, y), NAME, font=head, fill=fill, anchor="ls")
+    tail = font(TAIL_FONTS, size)
+    tail = font(TAIL_FONTS, max(8, round(size * rise(head, "l")[0] / max(1, rise(tail, "d")[0]))))
+    gap = round(size * 0.04)
+    width = head.getlength(HEAD) + gap + tail.getlength(TAIL)
+    ascent = max(rise(head, HEAD)[0], rise(tail, TAIL)[0])
+    descent = max(rise(head, HEAD)[1], rise(tail, TAIL)[1])
+
+    def draw(d, x, y, fill):
+        d.text((x, y), HEAD, font=head, fill=fill, anchor="ls")
+        d.text((x + head.getlength(HEAD) + gap, y), TAIL, font=tail, fill=fill, anchor="ls")
+    return width, ascent, descent, draw
 
 
 def square(size, side):
@@ -139,8 +167,15 @@ def lockup(size, scale, centre_y):
     square's centre."""
     pane, gap, space = round(104 * scale), round(10 * scale), 48 * scale
     logo, centres = window(pane, gap)
-    name, tag = font(HEAVY, round(150 * scale)), font(SEMIBOLD, round(30 * scale))
-    text_width = max(name.getlength(NAME), tag.getlength(TAGLINE) + 4 * scale)
+    (name_width, ascent, descent, name), tag = wordmark(round(150 * scale)), font(SEMIBOLD, round(30 * scale))
+    text_width = max(name_width, tag.getlength(TAGLINE) + 4 * scale)
+    # the name over the tagline, the two together centred on the logo: the tagline under the name's
+    # lowest letter (Play's y)
+    tag_ascent, tag_descent = rise(tag, TAGLINE)
+    tag_gap = 18 * scale
+    block = ascent + descent + tag_gap + tag_ascent + tag_descent
+    name_y = centre_y - block / 2 + ascent
+    tag_y = name_y + descent + tag_gap + tag_ascent
     x = round((size[0] - (logo.width + space + text_width)) / 2)
     y = round(centre_y - logo.height / 2)
     layer = Image.new("RGBA", size, (0, 0, 0, 0))
@@ -148,8 +183,8 @@ def lockup(size, scale, centre_y):
     text = Image.new("RGBA", size, (0, 0, 0, 0))
     draw = ImageDraw.Draw(text)
     tx = x + logo.width + space
-    draw.text((tx, centre_y + 22 * scale), NAME, font=name, fill=WHITE, anchor="ls")
-    draw.text((tx + 4 * scale, centre_y + 78 * scale), TAGLINE, font=tag, fill=TAGLINE_COLOUR + (255,), anchor="ls")
+    name(draw, tx, name_y, WHITE)
+    draw.text((tx + 4 * scale, tag_y), TAGLINE, font=tag, fill=TAGLINE_COLOUR + (255,), anchor="ls")
     layer = shadowed(Image.alpha_composite(layer, text), 6 * scale, 0.5, max(1, round(3 * scale)))
     return layer, [(x + cx, y + cy) for cx, cy in centres]
 
@@ -169,8 +204,20 @@ def tile():
     logo, _ = window(140, 12)
     layer = Image.new("RGBA", (size, size), (0, 0, 0, 0))
     layer.alpha_composite(logo, ((size - logo.width) // 2, 44))
-    ImageDraw.Draw(layer).text((size // 2, 448), NAME, font=fit(HEAVY, NAME, 420, 140), fill=WHITE, anchor="ms")
+    name_size = 140
+    while name_size > 8 and wordmark(name_size)[0] > 420:
+        name_size -= 1
+    name_width, _, descent, name = wordmark(name_size)
+    name(ImageDraw.Draw(layer), (size - name_width) / 2, min(448, size - 28 - descent), WHITE)
     return Image.alpha_composite(image, shadowed(layer, 4, 0.5, 2)).convert("RGB")
+
+
+def name_alone():
+    """The name alone, white on clear and cut to its letters, as the site's page masks it (site/style.css)."""
+    width, ascent, descent, name = wordmark(240)
+    layer = Image.new("RGBA", (round(width) + 40, round(ascent + descent) + 40), (255, 255, 255, 0))
+    name(ImageDraw.Draw(layer), 20, 20 + ascent, WHITE)
+    return layer.crop(layer.getchannel("A").getbbox())
 
 
 def banner():
@@ -264,12 +311,14 @@ def write_dds(path, blocks):
 
 def main():
     args = sys.argv[1:]
-    banner_path = None
-    while len(args) >= 2 and args[0] in ("--title-font", "--banner"):
-        if args[0] == "--title-font":
+    banner_path = wordmark_path = None
+    while len(args) >= 2 and args[0] in ("--title-font", "--tail-font", "--banner", "--wordmark"):
+        if args[0] in ("--title-font", "--tail-font"):
             if not os.path.isfile(args[1]):
                 sys.exit("no font at " + args[1])
-            HEAVY.insert(0, args[1])
+            (HEAVY if args[0] == "--title-font" else TAIL_FONTS).insert(0, args[1])
+        elif args[0] == "--wordmark":
+            wordmark_path = args[1]
         else:
             banner_path = args[1]
         args = args[2:]
@@ -290,6 +339,10 @@ def main():
     if banner_path:
         banner().save(banner_path)
         print(f"{banner_path}: 2560x640")
+    if wordmark_path:
+        mark = name_alone()
+        mark.save(wordmark_path)
+        print(f"{wordmark_path}: {mark.width}x{mark.height}")
 
 
 if __name__ == "__main__":

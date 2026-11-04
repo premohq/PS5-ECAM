@@ -174,7 +174,7 @@ code { font-size: 0.86em; background: var(--code); border-radius: 6px; padding: 
 .hero-inner { position: relative; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .lockup { display: flex; flex-direction: column; align-items: center; gap: 22px; }
 .hero-mark { width: clamp(112px, 30vw, 172px); height: auto; aspect-ratio: 1; filter: drop-shadow(0 18px 40px rgba(10, 15, 27, 0.28)); animation: breathe 4.8s ease-in-out infinite; }
-.wordmark { width: min(86vw, 560px); aspect-ratio: 1071 / 214; background: var(--text); -webkit-mask: url("wordmark.png") center / contain no-repeat; mask: url("wordmark.png") center / contain no-repeat; }
+.wordmark { width: min(86vw, 560px); aspect-ratio: 1340 / 226; background: var(--text); -webkit-mask: url("wordmark.png") center / contain no-repeat; mask: url("wordmark.png") center / contain no-repeat; }
 .tagline { margin-top: 14px; color: var(--text-2); font-weight: 500; font-size: clamp(1rem, 0.9rem + 0.7vw, 1.4rem); letter-spacing: 0.005em; }
 .lede { max-width: 720px; margin-top: 30px; color: var(--text-2); font-size: clamp(1rem, 0.95rem + 0.3vw, 1.15rem); }
 .lede a { color: var(--text); text-decoration-color: var(--line-2); }
