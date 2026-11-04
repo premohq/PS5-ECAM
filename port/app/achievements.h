@@ -42,9 +42,13 @@ namespace ps5cheevos
 	// Reads size bytes of the DS's memory at an rcheevos address (its DS map: 0 to 0x3FFFFF the main
 	// RAM, 0x1000000 to 0x1003FFF the ARM9's data TCM); how many it read.
 	using ReadMemory = uint32_t (*)(uint32_t address, uint8_t* buffer, uint32_t size);
-	// As the game starts (from its loop), signed in: its ROM (path and contents), hashed here to find
-	// its set. False when no one is signed in, so the emulation need not call DoFrame.
-	bool StartGame(const std::string& romPath, ReadMemory read, const uint8_t* rom, size_t size);
+	// The game's RetroAchievements hash, from its ROM as its file has it: before melonDS takes the
+	// ROM, which re-encrypts the secure area in its copy and so changes the ARM9 code the hash reads
+	// (#107). Empty when no one is signed in, or the ROM cannot be hashed.
+	std::string HashDs(const uint8_t* rom, size_t size);
+	// As the game starts (from its loop), signed in: HashDs's hash finds its set. False when no one
+	// is signed in or there is no hash, so the emulation need not call DoFrame.
+	bool StartGame(ReadMemory read, const std::string& hash);
 	// The emulation's thread, after each DS frame (and while paused, now and then: Idle).
 	void DoFrame();
 	void Idle();

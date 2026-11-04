@@ -925,6 +925,8 @@ namespace ps5melonds
 		auto rom = std::make_unique<u8[]>(file.size());
 		std::copy(file.begin(), file.end(), rom.get());
 		const u32 romLength = (u32)file.size();
+		// RetroAchievements' hash from the file's bytes, before melonDS re-encrypts its copy (#107)
+		const std::string cheevosHash = ps5cheevos::HashDs(file.data(), file.size());
 		file = {};
 		std::vector<u8> save = ReadSave();
 		melonDS::NDSCart::NDSCartArgs cartArgs;
@@ -1086,10 +1088,8 @@ namespace ps5melonds
 		s_running = true;
 		s_framesEmulated = 0;
 		s_framesShown = 0;
-		// RetroAchievements, when someone has signed in: the game's ROM hashed to find its set
-		s_cheevos = false;
-		if (const melonDS::NDSCart::CartCommon* loaded = s_nds->GetNDSCart())
-			s_cheevos = ps5cheevos::StartGame(path, ReadDsMemory, loaded->GetROM(), loaded->GetROMLength());
+		// RetroAchievements, when someone has signed in: the ROM's hash finds the game's set
+		s_cheevos = ps5cheevos::StartGame(ReadDsMemory, cheevosHash);
 		ps5ingame3ds::SetAchievements(s_cheevos, {}, {});
 		s_emulation = std::thread(Emulate);
 		ps5log::Line("[ds] {} is running", game.name);

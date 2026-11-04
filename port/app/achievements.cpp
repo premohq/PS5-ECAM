@@ -15,6 +15,7 @@
 #include <rapidjson/writer.h>
 #include <rc_client.h>
 #include <rc_consoles.h>
+#include <rc_hash.h>
 
 #include <algorithm>
 #include <atomic>
@@ -406,12 +407,26 @@ namespace ps5cheevos
 			SaveAccount();
 	}
 
-	bool StartGame(const std::string& romPath, ReadMemory read, const uint8_t* rom, size_t size)
+	std::string HashDs(const uint8_t* rom, size_t size)
+	{
+		if (!Get().signedIn || !rom || !size)
+			return {};
+		char hash[33] = {};
+		if (!rc_hash_generate_from_buffer(hash, RC_CONSOLE_NINTENDO_DS, rom, size))
+		{
+			ps5log::Line("[cheevos] the ROM could not be hashed: no set looked for");
+			return {};
+		}
+		ps5log::Line("[cheevos] the ROM's hash: {}", hash);
+		return hash;
+	}
+
+	bool StartGame(ReadMemory read, const std::string& hash)
 	{
 		std::string user, token;
 		{
 			std::lock_guard lock(s_mutex);
-			if (!s_account.signedIn)
+			if (!s_account.signedIn || hash.empty())
 				return false;
 			user = s_account.user;
 			token = s_token;
@@ -429,8 +444,8 @@ namespace ps5cheevos
 		rc_client_set_event_handler(s_client, Event);
 		rc_client_set_hardcore_enabled(s_client, 0); // softcore: states, cheats and speed stay as they are
 		rc_client_begin_login_with_token(s_client, user.c_str(), token.c_str(), TokenSignIn, nullptr);
-		// the hash now, from the ROM in memory (a set's lookup waits for the sign-in)
-		rc_client_begin_identify_and_load_game(s_client, RC_CONSOLE_NINTENDO_DS, romPath.c_str(), rom, size, GameLoaded, nullptr);
+		// the set's lookup waits for the sign-in
+		rc_client_begin_load_game(s_client, hash.c_str(), GameLoaded, nullptr);
 		s_active = true;
 		ps5log::Line("[cheevos] signed in as {}: looking for the game's set", user);
 		return true;
