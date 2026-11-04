@@ -1,0 +1,114 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Tue, 3 Nov 2026 23:37:42 -0500
+Subject: [PATCH] Leaving a game: once its cores have stopped, the teardown
+ gets 30 seconds, not what is left of 10
+
+A stop gets ten seconds from the shortcut, then the app starts again (stop_limit.h): meant for a game
+whose threads or services never finish. Tears of the Kingdom with 12,861 pipelines (PS5-ECAM issue
+105) took 9.8 of them after 47 seconds of play, 8 in gpu_core.reset() alone: destroying the pipelines
+and writing the driver's pipeline cache (vulkan_pipelines.bin) when pipelines were added. A longer
+session went past the limit; the cache's .part was dropped and the previous file kept, so what the
+session built was built again at the next start, and the log said "The last game did not stop
+within ten seconds".
+
+- StopLimit::Extend: the deadline moves later (never earlier), during a stop only.
+- The derived core.cpp calls it with kTeardown (30 s) once kernel.ShutdownCores() is done: the
+  game's own threads are gone and what is left is the emulator's, which ends.
+- tools/check-stop-limit.py: the extension later only, and nothing outside a stop.
+---
+ headless/CMakeLists.txt   | 11 ++++++++++-
+ headless/stop_limit.cpp   | 10 ++++++++++
+ headless/stop_limit.h     |  8 ++++++++
+ tools/check-stop-limit.py | 12 ++++++++++--
+ 4 files changed, 38 insertions(+), 3 deletions(-)
+
+diff --git a/headless/CMakeLists.txt b/headless/CMakeLists.txt
+index ec6d2a4..982cb9f 100644
+--- a/headless/CMakeLists.txt
++++ b/headless/CMakeLists.txt
+@@ -1340,7 +1340,16 @@ if(PS5_NATIVE)
+         string(REPLACE ";" "" stage_label "${stage}")
+         string(REPLACE "${stage}" "${stage}\n        ::Eden::ReportStep(\"shutdown\", \"Completed ${stage_label}\");" system_source "${system_source}")
+     endforeach()
+-    string(PREPEND system_source "#include \"${EDEN_PORT_DIR}/diagnostics.h\"\n")
++    # The game's cores are stopped: the rest is the emulator's own teardown, which may outlast the
++    # ten seconds a stop gets (stop_limit.h, Extend)
++    set(cores_stopped "::Eden::ReportStep(\"shutdown\", \"Completed kernel.ShutdownCores()\");")
++    string(FIND "${system_source}" "${cores_stopped}" cores_stopped_offset)
++    if(cores_stopped_offset LESS 0)
++        message(FATAL_ERROR "Pinned shutdown changed; review where the stop limit is extended.")
++    endif()
++    string(REPLACE "${cores_stopped}" "${cores_stopped}\n        ::Eden::StopLimit::Extend(::Eden::StopLimit::kTeardown);"
++        system_source "${system_source}")
++    string(PREPEND system_source "#include \"${EDEN_PORT_DIR}/diagnostics.h\"\n#include \"${EDEN_PORT_DIR}/stop_limit.h\"\n")
+ endif()
+ # Failed Load still owns a Process wrapper whose destructor touches the kernel.
+ # Destroy it before kernel.Shutdown tears down its mutexes (both failure paths).
+diff --git a/headless/stop_limit.cpp b/headless/stop_limit.cpp
+index 839dfe1..112dfdd 100644
+--- a/headless/stop_limit.cpp
++++ b/headless/stop_limit.cpp
+@@ -73,6 +73,16 @@ void Begin() noexcept {
+     s.wake.notify_all();
+ }
+ 
++void Extend(std::chrono::milliseconds more) noexcept {
++    State& s = state();
++    std::lock_guard lock(s.mutex);
++    if (!s.armed) return;
++    const auto later = std::chrono::steady_clock::now() + more;
++    if (later <= s.deadline) return;
++    s.deadline = later;
++    s.wake.notify_all();
++}
++
+ void End() noexcept {
+     State& s = state();
+     std::lock_guard lock(s.mutex);
+diff --git a/headless/stop_limit.h b/headless/stop_limit.h
+index 1dc9483..4cd0ad1 100644
+--- a/headless/stop_limit.h
++++ b/headless/stop_limit.h
+@@ -21,6 +21,14 @@ void Start(std::string note) noexcept;
+ // A game's stop began: the shortcut was pressed, the game ended itself, or its session failed.
+ // A second call during the same stop keeps the first deadline.
+ void Begin() noexcept;
++// The game's own threads are gone (its cores stopped): what is left of the stop is the emulator's
++// teardown, which ends, but for a game with thousands of pipelines takes about the whole limit by
++// itself (destroying them, and writing the driver's pipeline cache once pipelines were added). A
++// stop cut off there kept the previous cache, so the pipelines a session added were built again at
++// every start (PS5-ECAM issue 105, Tears of the Kingdom: 9.8 s of the 10 after 47 s of play). The
++// deadline moves to `more` from now when that is later; nothing happens outside a stop.
++void Extend(std::chrono::milliseconds more) noexcept;
++inline constexpr std::chrono::seconds kTeardown{30};
+ // The game is gone and the app carries on: called before every launcher and every next game.
+ void End() noexcept;
+ // What happens at the limit, at once (development check of the restart itself).
+diff --git a/tools/check-stop-limit.py b/tools/check-stop-limit.py
+index d37932d..657c130 100644
+--- a/tools/check-stop-limit.py
++++ b/tools/check-stop-limit.py
+@@ -73,6 +73,14 @@ int main() {
+     Start("note");
+     Begin(); std::this_thread::sleep_for(500ms); REQUIRE(fired == 4);
+     End();
++    // The teardown's extension moves the deadline later, never earlier, and only during a stop.
++    Begin(); std::this_thread::sleep_for(200ms); Extend(400ms); std::this_thread::sleep_for(250ms); REQUIRE(fired == 4);
++    std::this_thread::sleep_for(250ms); REQUIRE(fired == 5);
++    End();
++    Begin(); Extend(50ms); std::this_thread::sleep_for(200ms); REQUIRE(fired == 5);
++    std::this_thread::sleep_for(200ms); REQUIRE(fired == 6);
++    End();
++    Extend(10ms); std::this_thread::sleep_for(100ms); REQUIRE(fired == 6);
+     std::puts("ok");
+ }
+ '''
+@@ -86,5 +94,5 @@ with tempfile.TemporaryDirectory(prefix='eden-stop-') as work:
+     if result.returncode != 0 or 'ok' not in result.stdout:
+         sys.stderr.write(result.stderr[-3000:])
+         sys.exit(f'stop limit check failed: exit {result.returncode}')
+-print('Stop limit PASS: in time, past the limit once, first deadline kept, a new stop a new deadline; armed at the '
+-      'shortcut and at the stop, disarmed before every launcher; no stdio in the restart')
++print('Stop limit PASS: in time, past the limit once, first deadline kept, a new stop a new deadline, the teardown\'s '
++      'extension later only; armed at the shortcut and at the stop, disarmed before every launcher; no stdio in the restart')
