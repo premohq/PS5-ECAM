@@ -65,7 +65,7 @@ melonds: deps ## Build melonDS's core (the DS side's) and its PS5 frontend: buil
 eden: deps ## Build ProsperoEdenX, the Switch side's program (Eden), with patches/eden: build/eden
 	bash tools/build-eden.sh
 
-eglantine: deps ## Build EglantinePS5, the program the Switch 2's games start in, with patches/eglantine: build/eglantine
+eglantine: deps ## Build EglantinePS5 as the Switch 2 child runtime, with patches/eglantine: build/eglantine/app
 	bash tools/build-eglantine.sh
 
 esde: ## Build EmulationStation (ES-DE), the optional other frontend, with PS5-ECAM's glue: build/esde/es-de
@@ -90,7 +90,7 @@ retro-upgrades: ## Build optional N64/NES alternative runtimes (prepared toolcha
 retro: ## Build the pinned Porpoise, N64 and NES runtimes (prepared donor toolchains required)
 	python3 tools/build-retro.py porpoise n64 nes
 
-package: build eden eglantine ## The app folder: build/app/PPSA99360 (with eden/ and eglantine/, the Switch side's programs)
+package: build eden eglantine ## The app folder: build/app/PPSA99360 (with Eden and Eglantine runtimes)
 	bash tools/package.sh
 
 # a release takes the emulators' patches only as they are: a checkout in .deps with commits not exported

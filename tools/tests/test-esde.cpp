@@ -8,6 +8,7 @@
 #include "esde/handoff.h"
 #include "app/paths.h"
 #include "frontend/settings.h"
+#include "frontend/launcher.h"
 #include "retro/registry.h"
 
 #include <pugixml.hpp>
@@ -48,14 +49,15 @@ int main(int argc, char** argv)
 	// the sides' systems, ES-DE's names for them (its themes' art)
 	bool named = true;
 	const int ique = (int)ps5launcher::System::Ique; // none of ES-DE's
-	for (int side = 0; side < ps5retro::kSideCount; side++)
+	for (int side = 0; side < ps5launcher::kSideCount; side++)
 		if (side != ique)
 			named = named && ps5esde::SystemName(side) && ps5esde::SideNamed(ps5esde::SystemName(side)) == side;
 	int virtualBoy = -1;
 	for (int side = ps5retro::kFirst; side < ps5retro::kSideCount; side++)
 		if (ps5retro::Of(side).key == std::string_view("vb"))
 			virtualBoy = side;
-	Check(named && !ps5esde::SystemName(ique) && !ps5esde::SystemName(ps5retro::kSideCount) && ps5esde::SideNamed("psx") == -1,
+	Check(named && !ps5esde::SystemName(ique) && !ps5esde::SystemName(ps5launcher::kSideCount) && ps5esde::SideNamed("psx") == -1 &&
+			  ps5esde::SideNamed("switch2") == (int)ps5launcher::System::Switch2,
 		"each registered side has an ES-DE system of its own, but the iQue Player, which ES-DE has none of");
 	Check(std::string(ps5esde::SystemName((int)ps5launcher::System::GameWatch)) == "gw" && std::string(ps5esde::SystemName((int)ps5launcher::System::VsSystem)) == "arcade",
 		"Game & Watch is ES-DE's gw, VS. System its arcade");

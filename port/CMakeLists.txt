@@ -19,7 +19,7 @@ string(JSON PS5CEMU_DEPS_COUNT LENGTH "${PS5CEMU_DEPS_JSON}" items)
 math(EXPR PS5CEMU_DEPS_LAST "${PS5CEMU_DEPS_COUNT} - 1")
 foreach(index RANGE ${PS5CEMU_DEPS_LAST})
 	string(JSON name GET "${PS5CEMU_DEPS_JSON}" items ${index} name)
-	if(name STREQUAL "cemu" OR name STREQUAL "azahar" OR name STREQUAL "melonds" OR name STREQUAL "prosperoedenx")
+	if(name STREQUAL "cemu" OR name STREQUAL "azahar" OR name STREQUAL "melonds" OR name STREQUAL "prosperoedenx" OR name STREQUAL "eglantineps5")
 		string(JSON commit GET "${PS5CEMU_DEPS_JSON}" items ${index} commit)
 		string(SUBSTRING "${commit}" 0 7 commit)
 		string(TOUPPER "${name}" name)
@@ -184,6 +184,7 @@ add_library(CemuPS5 STATIC
 	libretro/session.cpp
 	libretro/session.h
 	eden/launch.cpp
+	eglantine/launch.cpp
 	eden/library.cpp
 	eden/library.h
 	eden/nx_files.cpp
@@ -316,6 +317,7 @@ set_source_files_properties(
 	libretro/game.cpp
 	libretro/session.cpp
 	eden/launch.cpp
+	eglantine/launch.cpp
 	eden/extras.cpp
 	eden/library.cpp
 	eden/save_transfer.cpp

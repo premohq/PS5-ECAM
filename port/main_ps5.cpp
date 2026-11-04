@@ -28,6 +28,7 @@
 #include "azahar/library.h"
 #include "eden/eden.h"
 #include "eden/library.h"
+#include "eglantine/launch.h"
 #include "esde/esde.h"
 #include "frontend/launcher.h"
 #include "retro/library.h"
@@ -249,7 +250,7 @@ namespace
 				tile.side = ps5launcher::System::Switch;
 		// a game folder's ExeFS main (a Switch 2 title, eden/library.h)
 		if (ps5eden::IsExeFsMain(tile.rom))
-			tile.side = ps5launcher::System::Switch;
+			tile.side = ps5launcher::System::Switch2;
 		// the other sides' games, by their file type (a GameCube or Wii disc by its header)
 		if (const int retro = ps5retro::IdentifySystem(tile.rom); ps5retro::IsRetro(retro))
 			tile.side = (ps5launcher::System)retro;
@@ -594,7 +595,7 @@ int main(int argc, char* argv[])
 	std::string error;
 	if (!privileges.filesystem)
 	{
-		status.notice = status.notice3ds = status.noticeDs = status.noticeSwitch =
+		status.notice = status.notice3ds = status.noticeDs = status.noticeSwitch = status.noticeSwitch2 =
 			ps5lang::Tr("Playtendoh cannot reach /data. Load a HEN with PPSA99360 in its app jailbreak list, or elfldr, then restart Playtendoh.");
 		ps5log::Line("[main] {}", status.notice);
 		ps5notify::Send(status.notice);
@@ -604,7 +605,7 @@ int main(int argc, char* argv[])
 		// the last game failed after its renderer started, and the process was started over to show it
 		(settings.side == "3ds"		 ? status.launchError3ds :
 				settings.side == "ds"	 ? status.launchErrorDs :
-				settings.side == "switch" ? status.launchErrorSwitch :
+				settings.side == "switch2" ? status.launchErrorSwitch2 : settings.side == "switch" ? status.launchErrorSwitch :
 										   status.launchError) = settings.launchError;
 		settings.launchError.clear();
 		ps5settings::Save(settings);
@@ -617,7 +618,7 @@ int main(int argc, char* argv[])
 	// why, said once on the Switch side, and Eden's trace in the boot log when it got that far
 	if (privileges.filesystem)
 		if (std::string why = ps5eden::TakeStaleRequest(); !why.empty())
-			status.launchErrorSwitch = why;
+			(settings.side == "switch2" ? status.launchErrorSwitch2 : status.launchErrorSwitch) = why;
 	// what the Switch side's last game came to in Eden's program (port/eden/eden.h): why it did not start
 	// or stopped, said once on the Switch side, never in ProsperoEden's launcher; and what its in-game
 	// menu changed, kept as the other sides' menus keep theirs
@@ -625,16 +626,20 @@ int main(int argc, char* argv[])
 		if (const ps5eden::Result result = ps5eden::TakeResult(); result.found)
 		{
 			if (std::string why = ps5eden::ResultMessage(result); !why.empty())
-				status.launchErrorSwitch = why;
+				(settings.side == "switch2" ? status.launchErrorSwitch2 : status.launchErrorSwitch) = why;
 			// to when the game ended or was being left; a crash leaves "running", written as it started
 			if ((result.state == "ended" || result.state == "leaving") && result.written > 0)
-				if (const ps5catalog::Entry* entry = ps5catalog::Find(ps5catalog::System::Switch, result.titleId))
-					countPlayTime(ps5catalog::System::Switch, result.titleId, entry->game.name, result.written);
+			{
+				const ps5catalog::System side = settings.side == "switch2" ? ps5catalog::System::Switch2 : ps5catalog::System::Switch;
+				if (const ps5catalog::Entry* entry = ps5catalog::Find(side, result.titleId))
+					countPlayTime(side, result.titleId, entry->game.name, result.written);
+			}
 			if (result.changed)
 			{
 				ps5eden::KeepMenuChanges(result);
 				const ps5settings::Launcher kept = ps5settings::Load();
 				settings.nx = kept.nx;
+				settings.nx2 = kept.nx2;
 				settings.games = kept.games;
 				settings.rumble = kept.rumble;
 				ps5pad::SetVibrationEnabled(settings.rumble);
@@ -649,7 +654,7 @@ int main(int argc, char* argv[])
 		if (ps5esde::GameFromFrontend())
 		{
 			std::string why = status.lastCrash;
-			for (const std::string* error : {&status.launchError, &status.launchError3ds, &status.launchErrorDs, &status.launchErrorSwitch})
+			for (const std::string* error : {&status.launchError, &status.launchError3ds, &status.launchErrorDs, &status.launchErrorSwitch, &status.launchErrorSwitch2})
 				if (why.empty() && !error->empty())
 					why = *error;
 			ps5esde::BackToFrontend(settings, why);
@@ -713,15 +718,20 @@ int main(int argc, char* argv[])
 			ps5emu::LogMemory(); // the 3DS side's start, against Cemu's
 			return;
 		}
-		if (system == ps5launcher::System::Switch)
+		if (system == ps5launcher::System::Switch || system == ps5launcher::System::Switch2)
 		{
-			// Eden runs in a program of its own (eden/eboot.bin): this side only lists its games
-			ps5log::Line("[main] the Switch side: Cemu's emulated Wii U is not started (Eden runs in eden/eboot.bin)");
-			status.diagnostics.push_back(ps5lang::Tr("This session: Eden (Switch), in a program of its own; Cemu's emulated Wii U is not started"));
-			if (privileges.filesystem && !ps5eden::Available())
-				status.noticeSwitch = ps5lang::Tr("This build has no Switch emulator: eden/eboot.bin is not in the app's folder.");
-			if (!keepList(system, settings.nx.gamesFolder))
-				ps5eden::StartScan(settings.nx.gamesFolder);
+			const bool switch2 = system == ps5launcher::System::Switch2;
+			// Switch and Switch 2 keep independent game lists and settings while their runtime handoff is
+			// prepared. The Switch 2 scanner only accepts folders identified by their NPDM layout.
+			ps5log::Line("[main] the {} side: Cemu's emulated Wii U is not started", switch2 ? "Switch 2" : "Switch");
+			status.diagnostics.push_back(ps5lang::Tr(switch2 ? "This session: Switch 2; Cemu's emulated Wii U is not started" : "This session: Eden (Switch), in a program of its own; Cemu's emulated Wii U is not started"));
+			if (privileges.filesystem && (switch2 ? !ps5eglantine::Available() : !ps5eden::Available()))
+				(switch2 ? status.noticeSwitch2 : status.noticeSwitch) = ps5lang::Tr(switch2 ?
+					"This copy has no Switch 2 emulator: eglantine/eboot.bin is missing." :
+					"This build has no Switch emulator: eden/eboot.bin is not in the app's folder.");
+			const std::string& folder = switch2 ? settings.nx2.gamesFolder : settings.nx.gamesFolder;
+			if (!keepList(system, folder))
+				ps5eden::StartScan(folder);
 			return;
 		}
 		if (system == ps5launcher::System::Nds)
@@ -876,6 +886,15 @@ int main(int argc, char* argv[])
 			else ps5retro::Launch((int)choice->system, game.path.string(), error, settings.retro[ps5retro::Slot((int)choice->system)].retroBackend);
 			status.launchError = error;
 			settings.side = side;
+			continue;
+		}
+		if (choice->system == ps5launcher::System::Switch2)
+		{
+			RememberSide("switch2");
+			ps5eglantine::LaunchGame(game, forGame, error);
+			ps5log::Line("[main] {} did not start: {}", game.name, error);
+			status.launchErrorSwitch2 = error;
+			settings.side = "switch2";
 			continue;
 		}
 		if (choice->system == ps5launcher::System::Switch)

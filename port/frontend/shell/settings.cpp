@@ -22,6 +22,7 @@
 #include "../../eden/eden.h"
 #include "../../eden/library.h"
 #include "../../eden/rooms.h"
+#include "../../eglantine/launch.h"
 #include "../../eden/save_transfer.h"
 #include "../../esde/esde.h"
 #include "../../melonds/library.h"
@@ -667,6 +668,7 @@ namespace ps5shell
 		else if (page == "graphics" && IsSwitch())
 		{
 			own(choice("nx-resolution", Tr("Internal resolution"), Options(kNxResolutions), hand.nxResolution, Tr("Higher is sharper and asks more of the GPU."),
+					IsSwitch2() ? Tr("How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory.") :
 					Tr("How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p "
 					   "handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."),
 					Kind::Stepper),
@@ -675,9 +677,12 @@ namespace ps5shell
 			for (int filter : kNxFilters)
 				filters.push_back(Tr(kUpscaleFilters[filter]));
 			own(choice("nx-filter", Tr("Upscaling to 4K"), filters, hand.nxFilter, Tr("How the picture is scaled to the TV."),
+					IsSwitch2() ? Tr("Choose Bilinear, AMD FSR 1, Bicubic or Nearest neighbour. Applies when the next game starts.") :
 					Tr("Bilinear is soft, Bicubic sharper; Nearest neighbour keeps pixels square. AMD FSR 1 keeps edges clean for a game drawn "
 					   "below 4K, for a little more work by the GPU.")),
 				"nxFilter");
+			if (!IsSwitch2())
+			{
 			// FSR's sharpening, anti-aliasing and Eden's ReShade looks (switch_extras.cpp's, which SettingRows adds
 			// behind this row), what is done over the picture
 			const std::vector<std::string> antiAliasing{Tr("Off"), "FXAA", "SMAA"};
@@ -710,24 +715,29 @@ namespace ps5shell
 					   "blocky. Applies to the next game."),
 					Kind::Segmented),
 				"nxAstc");
-			// ProsperoEden's Settings > Video: the picture Eden hands the console, and the TV's refresh rate
+			}
+			// The picture this runtime hands the console, and the TV's refresh rate.
 			const char* outputs[] = {"1080p", "1440p", "2160p"};
 			std::string output = std::string(outputs[std::clamp(hand.nxOutput, 0, 2)]) + (hand.nxHighRefresh ? " · 120 Hz" : " · 60 Hz");
 			if (hand.nxFrameGeneration)
 				output += std::string(" · ") + Tr("Frame generation");
-			// tr: Settings > Graphics: a row that opens what Eden sends to the TV (output resolution, 120 Hz, frame generation)
+			// tr: Settings > Graphics: a row that opens the output resolution, refresh rate and frame generation
 			sub("output", Tr("Output to the TV"), output, Tr("The picture's size, 120 Hz and frame generation."),
+				IsSwitch2() ? Tr("Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game.") :
 				Tr("The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each "
 				   "applies to the next game."));
 			own(choice("nx-output", Tr("Output resolution"), {"1080p", "1440p", "2160p"}, std::clamp(hand.nxOutput, 0, 2),
+					IsSwitch2() ? Tr("The size of the picture EglantinePS5 sends to the TV. Applies to the next game.") :
 					Tr("The size of the picture Eden sends to the TV. Applies to the next game."),
+					IsSwitch2() ? Tr("The size of the picture EglantinePS5 sends to the TV. Applies to the next game.") :
 					Tr("The size of the picture Eden sends to the TV. Applies to the next game."), Kind::Segmented),
 				"nxOutput");
 			own(toggle("nx-120hz", Tr("120 Hz"), hand.nxHighRefresh, Tr("For a TV that takes 120 Hz. Applies to the next game."),
 					Tr("For a TV that takes 120 Hz. Applies to the next game.")),
 				"nxHighRefresh");
-			// ProsperoEden's own: Lossless Scaling's with the player's own Lossless.dll, else MihawkGen (#81)
+			// This runtime's own frame generation.
 			own(toggle("nx-framegeneration", Tr("Frame generation"), hand.nxFrameGeneration, Tr("A game held to 30 fps shown at 60."),
+					IsSwitch2() ? Tr("EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game.") :
 					// tr: {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 					TrF("ProsperoEden's own frame generation: a picture made between each two frames, so a game at 30 fps is shown at 60. "
 						"It is Lossless Scaling's when your own copy of its Lossless.dll is at {0}, else MihawkGen's. It asks more of the "
@@ -953,7 +963,7 @@ namespace ps5shell
 			for (int percent : {100, 150, 200, 300})
 				speeds.push_back(Percent(percent));
 			speeds.push_back(TrC("speed limit", "None"));
-			own(choice("nx-speedlimit", Tr("Speed limit"), speeds, std::clamp(hand.nxSpeedLimit, 0, 4), Tr("How fast the game may run."),
+			if (!IsSwitch2()) own(choice("nx-speedlimit", Tr("Speed limit"), speeds, std::clamp(hand.nxSpeedLimit, 0, 4), Tr("How fast the game may run."),
 					Tr("As a share of the Switch's own speed. Above 100%, a game held to 30 fps can reach 60 where the PS5 has the time to spare, "
 					   "and a game that keeps time by its frames plays faster. None runs as fast as the PS5 can. Applies to the next game.")),
 				"nxSpeedLimit");
@@ -969,7 +979,7 @@ namespace ps5shell
 		else if (page == "performance" && IsSwitch())
 		{
 			// ProsperoEden's Settings > Performance, each for every Switch game or one game's own
-			own(choice("nx-memory", Tr("Memory"), {"4 GB", "6 GB", "8 GB"}, std::clamp(hand.nxMemory, 0, 2),
+			if (!IsSwitch2()) own(choice("nx-memory", Tr("Memory"), {"4 GB", "6 GB", "8 GB"}, std::clamp(hand.nxMemory, 0, 2),
 					Tr("4 GB is the Switch's own. More, for mods that ask for it. Applies to the next game."),
 					Tr("4 GB is the Switch's own. More, for mods that ask for it. Applies to the next game."), Kind::Segmented),
 				"nxMemory");
@@ -998,12 +1008,12 @@ namespace ps5shell
 					&ps5settings::N3ds::nxSkipInvalidation, "nxSkipInvalidation"},
 			};
 			constexpr int kShortcuts = 2; // switches' first behind Accuracy
-			own(toggle(switches[0].id, Tr(switches[0].label), hand.*(switches[0].value), Tr(switches[0].about), Tr(switches[0].about)), switches[0].field);
+			if (!IsSwitch2()) own(toggle(switches[0].id, Tr(switches[0].label), hand.*(switches[0].value), Tr(switches[0].about), Tr(switches[0].about)), switches[0].field);
 			own(toggle("nx-async", Tr("Async shader compile"), hand.nxAsyncShaders, Tr("No stutter while new shaders build."),
 					Tr("On, a new shader is built while the game carries on, so it does not stutter, but some things may be missing for a moment. "
 					"Off, the game waits for each one: stutter, but nothing drawn wrong.")),
 				"nxAsyncShaders");
-			own(toggle(switches[1].id, Tr(switches[1].label), hand.*(switches[1].value), Tr(switches[1].about), Tr(switches[1].about)), switches[1].field);
+			if (!IsSwitch2()) own(toggle(switches[1].id, Tr(switches[1].label), hand.*(switches[1].value), Tr(switches[1].about), Tr(switches[1].about)), switches[1].field);
 			// how many shortcuts differ from Eden's own choice (all off, Reactive flushing on)
 			const ps5settings::N3ds defaults;
 			int changed = 0;
@@ -1043,8 +1053,8 @@ namespace ps5shell
 		else if (page == "files")
 		{
 			const std::string& folder = GamesFolder(m_side);
-			action(Kind::Link, "folder", Is3ds() ? Tr("3DS games") : IsDs() ? Tr("DS games") : IsSwitch() ? Tr("Switch games") : Tr("Wii U games"),
-				ShortPath(IsSwitch() ? ps5eden::ScanFolder(folder) : folder, 34),
+			action(Kind::Link, "folder", Is3ds() ? Tr("3DS games") : IsDs() ? Tr("DS games") : IsSwitch2() ? Tr("Switch 2 games") : IsSwitch() ? Tr("Switch games") : Tr("Wii U games"),
+				ShortPath(IsSwitch() && !IsSwitch2() ? ps5eden::ScanFolder(folder) : folder, 34),
 				Tr("Where your games are. Cross picks another."),
 				// tr: {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
 				IsWiiU() ? TrF("Your Wii U games: .wua, .wud, .wux, or folders with code, content and meta, alone or in .zip, .7z or .rar archives. "
@@ -1052,6 +1062,7 @@ namespace ps5shell
 				Is3ds()	 ? Tr("Your 3DS games: .3ds or .cci, .cxi, .3dsx and Azahar's compressed dumps, decrypted, alone or in .zip, .7z or .rar "
 						   "archives, here or in the folders in it. CIA files are installed (Install a CIA file). Encrypted dumps do not start, "
 						   "with keys or without: decrypt them on your 3DS first (GodMode9).") :
+				IsSwitch2() ? Tr("Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them.") :
 				IsSwitch() ? Tr("Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC.") :
 						   Tr("Your DS games: .nds files, alone or in .zip, .7z or .rar archives, here or in the folders in it."));
 			action(Kind::Action, "rescan", Tr("Look for games now"), m_scanning ? Tr("Looking…") : "", Tr("This side's folder, again."),
@@ -1066,6 +1077,19 @@ namespace ps5shell
 					   "through every time either way."));
 			if (IsSwitch())
 			{
+				if (IsSwitch2())
+				{
+					const bool keys = ps5eglantine::KeysFound(), firmware = ps5eglantine::FirmwareFound();
+					const std::string found = keys && firmware ? std::string(Tr("Found")) : keys ? std::string(Tr("Firmware missing")) :
+						firmware ? std::string(Tr("Keys missing")) : std::string(Tr("Missing"));
+					action(Kind::Action, "nxkeys", Tr("Keys and firmware"), found,
+						!keys ? Tr("prod.keys is missing: EglantinePS5 needs your own Switch keys") :
+						!firmware ? Tr("Firmware is missing: some games need it") : Tr("EglantinePS5 found keys and firmware."),
+						TrF("Put your own prod.keys in {0}/keys. Neither Playtendoh nor EglantinePS5 includes keys.", ps5eglantine::DataFolder()) +
+						"\n\n" + TrF("Put your own Switch firmware files in {0}/firmware. Neither app includes firmware.", ps5eglantine::DataFolder()));
+				}
+				else
+				{
 				// Eden's own files: the keys and firmware it needs
 				const std::string files = ps5eden::GameFilesFolder();
 				// the two in one row: what is missing first, Cross saying where each goes
@@ -1086,6 +1110,7 @@ namespace ps5shell
 						TrF("Many Switch games need the console's own system files: its firmware's .nca files, dumped from your Switch, "
 							"in {0}/firmware. No firmware comes with Playtendoh.",
 							files));
+				}
 			}
 			else
 			{

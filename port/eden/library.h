@@ -63,9 +63,9 @@ namespace ps5eden
 	void StartScan(const std::string& folder);
 	bool Scanning();
 	// What the last scan found, sorted by name
-	std::vector<ps5emu::Game> ListGames();
+	std::vector<ps5emu::Game> ListGames(bool switch2Only = false);
 	// The games in a folder, as the scan finds them: -1 when it cannot be read
-	int CountGames(const std::string& folder);
+	int CountGames(const std::string& folder, bool switch2Only = false);
 
 	// A game's cover as Eden keeps it (a TGA in its covers/), once it or the launcher has read the
 	// game's icon; else empty

@@ -1,13 +1,13 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: GPL-3.0-or-later
-# Builds the program the Switch 2's games start in (build/eglantine): EglantinePS5, heydemoura's PS5
-# port of Djihads80's Eglantine (Eden with Switch 2 support; GPL-3.0-or-later), from
-# .deps/eglantine/EglantinePS5 with patches/eglantine, by its own build (its Makefile's package: the
-# Eglantine submodule, its pinned inputs, RADV, FFmpeg, Eden). The app carries it as eglantine/
-# (tools/package.sh): the Switch side starts eglantine/eboot.bin with LoadExec for a Switch 2 game
-# (port/eden/launch.cpp), and it starts PS5-ECAM's eboot.bin again when the game ends
-# (patches/eglantine). Until PS5-ECAM's loading screen and in-game menu are in it, as they are in
-# Eden's, it shows its own, and its launcher when a game stops with an error.
+# Builds the Switch 2 side's child runtime (build/eglantine): EglantinePS5, heydemoura's PS5 port of
+# Djihads80's Eglantine (Eden with Switch 2 support; GPL-3.0-or-later), from .deps/eglantine/EglantinePS5
+# with patches/eglantine, by its own build (its Makefile's package: the Eglantine submodule, its pinned
+# inputs, RADV, FFmpeg, Eden) with EDEN_ECAM_CHILD on: PS5-ECAM's in-game menu compiled in from this
+# checkout (PS5ECAM_PORT, port/eden/ingame.h) and drawn in its Vulkan present pass, its Lapy helper built
+# for PPSA99360. The app carries it as eglantine/ (tools/package.sh): the Switch 2 side starts
+# eglantine/eboot.bin with LoadExec (port/eglantine/launch.cpp), and it starts PS5-ECAM's eboot.bin again
+# when the game ends.
 #
 #   tools/build-eglantine.sh    apply patches/eglantine if needed, build, copy the program to build/eglantine
 #
@@ -31,7 +31,8 @@ mkdir -p "$eglantine/.deps" "$out"
 export EDEN_HOST_PATH=${EDEN_CMAKE_DIR:-$HOME/hosttools/cmake-3.31.8/bin}
 [[ -x $EDEN_HOST_PATH/cmake ]] || { echo "no cmake in $EDEN_HOST_PATH (EDEN_CMAKE_DIR): EglantinePS5 wants 3.31 or later" >&2; exit 2; }
 export RADV_BUILD_JOBS=${RADV_BUILD_JOBS:-4}
-make -C "$eglantine" package JOBS="${EGLANTINE_JOBS:-5}"
+export PS5ECAM_PORT=$PS5CEMU_ROOT/port
+EDEN_ECAM_CHILD=ON EDEN_PS5_VULKAN=ON EDEN_VULKAN_DRIVER=RADV make -C "$eglantine" package JOBS="${EGLANTINE_JOBS:-5}"
 
 # The program and the files it reads from its own folder (storage_paths.h: AppDir() is the app's
 # eglantine/). Left out: its sce_sys and sce_module (the app's are PS5-ECAM's), its self-updater (the
@@ -49,6 +50,10 @@ mkdir -p "$out/app"
     -exec cp -a {} "$out/app/" \;)
 cp "$eglantine/LICENSE" "$out/app/LICENSE.EglantinePS5.txt"
 cp "$eglantine/THIRD_PARTY_NOTICES.md" "$out/app/THIRD_PARTY_NOTICES.md"
+# the in-game menu's fonts, as PS5-ECAM's own (port/ui/fonts, tools/fonts' licence)
+mkdir -p "$out/app/assets/ui/fonts"
+cp "$PS5CEMU_ROOT/port/ui/fonts/lexend.sdf" "$PS5CEMU_ROOT"/port/ui/fonts/Lexend-*.ttf "$PS5CEMU_ROOT/tools/fonts/OFL.txt" \
+    "$out/app/assets/ui/fonts/"
 # the unstripped program, for its crash reports (EglantinePS5's tools/symbolize-crash.py)
 cp "$eglantine/build/headless-native/llvm-pie.elf" "$out/eglantine.elf" 2>/dev/null || true
 git -C "$eglantine" rev-parse HEAD >"$out/commit"

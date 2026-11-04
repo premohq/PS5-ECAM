@@ -264,9 +264,10 @@ namespace ps5eden
 			return;
 		// into the game's own settings when it has some, else the side's, as the other sides' menus do
 		const ps5settings::Launcher all = ps5settings::Load();
-		const ps5settings::Launcher before = ps5settings::ForGame(all, "switch", result.titleId);
+		const std::string side = all.side == "switch2" ? "switch2" : "switch";
+		const ps5settings::Launcher before = ps5settings::ForGame(all, side, result.titleId);
 		ps5settings::Launcher after = before;
-		ps5settings::N3ds& nx = after.nx;
+		ps5settings::N3ds& nx = side == "switch2" ? after.nx2 : after.nx;
 		const Result::Settings& s = result.settings;
 		nx.nxFilter = std::clamp(s.filter, 0, 3);
 		nx.nxAntiAliasing = std::clamp(s.antiAliasing, 0, 2);
@@ -279,7 +280,7 @@ namespace ps5eden
 		nx.nxController = std::clamp(s.controller, -1, 4);
 		nx.nxDeadzone = std::clamp(s.deadzone, 0, 30);
 		after.rumble = s.vibration;
-		ps5settings::SaveChanges("switch", result.titleId, before, after);
+		ps5settings::SaveChanges(side, result.titleId, before, after);
 		ps5log::Line("[switch] the in-game menu's changes kept");
 	}
 

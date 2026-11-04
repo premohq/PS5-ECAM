@@ -24,7 +24,8 @@ namespace ps5shell
 		{
 			if (ps5retro::IsRetro((int)side))
 				return FromRgb(ps5retro::Of((int)side).colour);
-			return side == System::N3ds ? kN3dsDefault : side == System::Nds ? kNdsDefault : side == System::Switch ? kNxDefault : kWiiuDefault;
+			return side == System::N3ds ? kN3dsDefault : side == System::Nds ? kNdsDefault :
+				   (side == System::Switch || side == System::Switch2) ? kNxDefault : kWiiuDefault;
 		}
 	}
 
@@ -47,7 +48,7 @@ namespace ps5shell
 			shape(-0.37f, -0.12f, 0.09f, 0.09f, 0.045f, cut);
 			shape(0.37f, -0.12f, 0.09f, 0.09f, 0.045f, cut);
 		}
-		else if (side == System::Switch)
+		else if (side == System::Switch || side == System::Switch2)
 		{
 			// the two Joy-Con, each flat on the side that slides onto the console
 			shape(-0.25f, 0, 0.34f, 0.86f, 0.17f, second);
@@ -222,7 +223,7 @@ namespace ps5shell
 		canvas.LinearGradient(disc, radius, kGround, kGroundLow, cx, disc.y, cx, disc.Bottom());
 		canvas.Ring(disc, radius, 1.5f, kGlassEdge);
 		auto second = [](System side, uint32_t colour) {
-			return side == System::Switch ? kJoyConBlue : ps5retro::Is((int)side, "gb") ? ui::Mix(colour, 0xffffffff, 0.5f) : colour;
+			return side == System::Switch || side == System::Switch2 ? kJoyConBlue : ps5retro::Is((int)side, "gb") ? ui::Mix(colour, 0xffffffff, 0.5f) : colour;
 		};
 		const float ring = radius * 0.7f;
 		const float size = std::min(radius * 0.36f, 2 * ring * std::sin(kTau / 2 / kSides) * 0.95f);

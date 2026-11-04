@@ -27,7 +27,9 @@ int main(int argc, char** argv)
 	if (argc != 2) return 2;
 	fs::create_directories(argv[1]); const auto root = fs::canonical(argv[1]);
 	std::string error;
-	Check(ps5launcher::kSideCount == 20 && (int)ps5launcher::System::PokemonMini == 13 && (int)ps5launcher::System::Ique == 19, "twenty stable side indices, the later ones after the first fourteen");
+	Check(ps5launcher::kSideCount == 21 && (int)ps5launcher::System::PokemonMini == 13 && (int)ps5launcher::System::Ique == 19 &&
+			  (int)ps5launcher::System::Switch2 == 20,
+		"twenty-one stable side indices: the later ones after the first fourteen, then Switch 2 appended");
 	for (int i = 0; i < ps5launcher::kSideCount; i++) Check((int)ps5launcher::SideNamed(ps5launcher::SideName((ps5launcher::System)i)) == i, "side names round-trip without changing existing indices");
 	Put(root / "roms/A.NES", std::string("NES\x1a", 4) + std::string(12, '\0')); Put(root / "roms/B.z64"); Put(root / "roms/C.iso", DiscHeader(false)); Put(root / "roms/D.wad"); Put(root / "roms/not-a-game.txt");
 	Put(root / "roms/nested/E.unif"); Put(root / "roms/one/two/three/four/five/too-deep.nes"); fs::create_directory_symlink(root / "roms", root / "roms/loop");

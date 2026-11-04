@@ -24,25 +24,28 @@ namespace ps5launcher
 		Nds,	// melonDS
 		Switch, // Eden, in a program of its own (eden/eboot.bin: port/eden)
 		// the others, in ps5retro::kSystems' order
-		GameCube, Wii, N64, Nes, Gb, Gbc, Gba, Snes, VirtualBoy, PokemonMini, Fds, Sgb, GameWatch, Satellaview, VsSystem, Ique,
+		GameCube, Wii, N64, Nes, Gb, Gbc, Gba, Snes, VirtualBoy, PokemonMini, Fds, Sgb, GameWatch, Satellaview, VsSystem, Ique, Switch2,
 	};
 	// the sides, in the bar's order (their numbers)
-	constexpr int kSideCount = ps5retro::kSideCount;
-	static_assert((int)System::Ique + 1 == kSideCount, "a ps5retro::kSystems row for each System after the Switch");
+	constexpr int kSideCount = ps5retro::kSideCount + 1;
+	static_assert((int)System::Ique + 1 == ps5retro::kSideCount && (int)System::Switch2 + 1 == kSideCount,
+		"retro sides keep their stable indices; Switch 2 is appended");
 
 	// The side's name in ps5cemu.json ("wiiu", "3ds", "ds", "switch", ps5retro::kSystems' keys) and the one players read
 	inline const char* SideName(System side)
 	{
 		if (ps5retro::IsRetro((int)side))
 			return ps5retro::Of((int)side).key;
+		if (side == System::Switch2)
+			return "switch2";
 		return side == System::N3ds ? "3ds" : side == System::Nds ? "ds" : side == System::Switch ? "switch" : "wiiu";
 	}
 	inline System SideNamed(const std::string& name)
 	{
-		for (int side = ps5retro::kFirst; side < kSideCount; side++)
+		for (int side = ps5retro::kFirst; side < ps5retro::kSideCount; side++)
 			if (name == ps5retro::Of(side).key)
 				return (System)side;
-		return name == "3ds" ? System::N3ds : name == "ds" ? System::Nds : name == "switch" ? System::Switch : System::WiiU;
+		return name == "switch2" ? System::Switch2 : name == "3ds" ? System::N3ds : name == "ds" ? System::Nds : name == "switch" ? System::Switch : System::WiiU;
 	}
 	inline const char* SideTitle(System side)
 	{
@@ -51,7 +54,7 @@ namespace ps5launcher
 		static_assert(std::size(kRetroTitles) == ps5retro::kSystems.size());
 		if (ps5retro::IsRetro((int)side))
 			return kRetroTitles[(int)side - ps5retro::kFirst];
-		return side == System::N3ds ? "3DS" : side == System::Nds ? "DS" : side == System::Switch ? "Switch" : "Wii U";
+		return side == System::Switch2 ? "Switch 2" : side == System::N3ds ? "3DS" : side == System::Nds ? "DS" : side == System::Switch ? "Switch" : "Wii U";
 	}
 
 	struct Status
@@ -63,10 +66,12 @@ namespace ps5launcher
 		std::string noticeDs;	 // and on the DS side's
 		std::string noticeRetro[ps5retro::kSystems.size()]; // and on the other sides', in ps5retro::kSystems' order
 		std::string noticeSwitch; // and on the Switch side's
+		std::string noticeSwitch2; // and on the Switch 2 side's
 		std::string launchError; // why the last Wii U game did not start, said once (empty: it did)
 		std::string launchError3ds; // and the last 3DS game
 		std::string launchErrorDs;  // and the last DS game
 		std::string launchErrorSwitch; // and the last Switch game
+		std::string launchErrorSwitch2; // and the last Switch 2 game
 		std::vector<std::string> diagnostics; // the lines Settings > Diagnostics shows
 		// the session before this one ended in a crash: its first [crash] line (boot.prev.log), said once
 		// as the launcher starts; empty: it did not

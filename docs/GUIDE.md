@@ -373,13 +373,19 @@ the extended storage, `eden` is at the top of that drive instead (see
 
 #### Switch 2 games (experimental)
 
-The Switch side's Eden is Takoroka's [eden-nx2](https://git.eden-emu.dev/Takoroka/eden-nx2), Eden
-with early support for Switch 2 games, ported to the PS5 after Oliv3rmoon's
-[Nightshade](https://github.com/Oliv3rmoon/Nightshade). **No Switch 2 game has been run on a PS5
-yet**: expect crashes, missing graphics and low frame rates, and send the logs of what you try.
+Switch 2 has its own side and uses [EglantinePS5](https://github.com/heydemoura/EglantinePS5), pinned
+and built as a child runtime in the app. **This path is experimental and has not been verified on a
+PS5.** The Switch 2 side hands a game folder to EglantinePS5 and returns to the same Playtendoh side
+when the game exits. ECAM passes supported per-game resolution, upscaling, output, refresh,
+frame-generation, audio, HUD, vibration, controller, language and performance settings at launch.
+EglantinePS5's emulation core can pause and resume, but the child runtime does not yet present or
+integrate Playtendoh's in-game menu, so the shared menu is not available during a Switch 2 game.
+**Touchpad click + Options** or **Touchpad click + L1** ends
+the current game and returns to ECAM; unsaved progress is lost. Touchpad click + R1 toggles
+EglantinePS5's performance HUD.
 
-- eden-nx2 plays a Switch 2 game from its ExeFS and RomFS as folders (it does not read Switch 2 NSP
-  or XCI files). Dump your own game into a folder of its own in `roms/`:
+- ExeFS and RomFS game dumps are folders, not `.nsp` or `.xci` files. Put each dump in a separate
+  folder under the Switch 2 games folder (by default `/data/eglantineps5/roms`):
 
   ```text
   roms/
@@ -388,15 +394,15 @@ yet**: expect crashes, missing graphics and low frame rates, and send the logs o
       └── romfs/                      the whole RomFS
   ```
 
-- The library lists the folder by its name, with `Switch 2` as its format; its title ID is the one
-  in `main.npdm`. `cover.png` (or `.jpg`) in the folder, or `Pokopia.png` beside it, is its box art.
-  A Switch game dumped the same way plays too (format `ExeFS`).
-- Keys and firmware are your own, as for any game. A Switch 2 game starts with eden-nx2's own
-  settings (a 12 GiB console memory layout, the lowest GPU accuracy, ASTC decoded on the GPU, a
-  second GPU thread); Eden's settings file can change three of them (ProsperoEdenX's
-  `docs/SETTINGS.md`, *Switch 2 titles*).
-- The memory a Switch 2 game asks for is more than the PS5 has; it runs only while the game uses
-  less of it. Eden's log says `Switch 2 title (experimental)` with what the session got.
+- The Switch 2 library lists these folders separately from Switch games. `main.npdm` supplies the
+  title ID. `cover.png` or `.jpg` in the game folder, or a named picture beside it, can provide cover
+  art.
+- Supply your own `prod.keys` under `/data/eglantineps5/keys` and firmware under
+  `/data/eglantineps5/firmware`. Neither Playtendoh nor EglantinePS5 includes them. Keep updates and
+  DLC with the game folder as EglantinePS5 expects.
+- Switch 2 games show an **Experimental** marker on their game page. Do not assume compatibility or
+  performance from a successful build; add a console report with the game, firmware, logs, controls,
+  and what happened when returning to the launcher.
 
 ### Games in archives
 

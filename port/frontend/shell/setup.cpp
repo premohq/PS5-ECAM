@@ -11,6 +11,7 @@
 #include "../../app/updates.h"
 #include "../../azahar/azahar.h"
 #include "../../eden/library.h"
+#include "../../eglantine/launch.h"
 #include "../../melonds/melonds.h"
 #include "../../ps5/privilege.h"
 
@@ -196,18 +197,18 @@ namespace ps5shell
 				m_checks.push_back(games);
 				continue;
 			}
-			const bool n3ds = side == System::N3ds, nds = side == System::Nds, nx = side == System::Switch;
+			const bool n3ds = side == System::N3ds, nds = side == System::Nds, nx = side == System::Switch, nx2 = side == System::Switch2;
 			const std::string& folder = GamesFolder(side);
 			const int catalogued = (int)ps5catalog::Games((ps5catalog::System)SideIndex(side)).size();
 			int count = std::max(catalogued, side == System::WiiU ? m_settings.gameCount : Handheld(side).gameCount);
 			bool readable = true;
 			if (count <= 0)
 			{
-				count = n3ds ? Count3dsGames(folder) : nds ? CountDsGames(folder) : nx ? ps5eden::CountGames(folder) : CountGames(folder);
+				count = n3ds ? Count3dsGames(folder) : nds ? CountDsGames(folder) : nx ? ps5eden::CountGames(folder) : nx2 ? ps5eden::CountGames(folder, true) : CountGames(folder);
 				readable = count >= 0;
 			}
 			// the side's own words, so each keeps its translation
-			const char* gamesTitle = n3ds ? Tr("3DS games") : nds ? Tr("DS games") : nx ? Tr("Switch games") : Tr("Wii U games");
+			const char* gamesTitle = n3ds ? Tr("3DS games") : nds ? Tr("DS games") : nx ? Tr("Switch games") : nx2 ? Tr("Switch 2 games") : Tr("Wii U games");
 			Check games{std::string(ps5launcher::SideName(side)) + "-games", gamesTitle};
 			games.action = Tr("Choose a folder");
 			games.state = count > 0 ? 0 : 1;
@@ -237,6 +238,13 @@ namespace ps5shell
 				nx			   ? std::vector<std::string>{".nsp", ".xci"} :
 								 std::vector<std::string>{".wua", ".wud", ".wux", Tr("code · content · meta"), ".rpx", ".7z", ".zip"};
 			games.guide = std::string(kRepository) + (n3ds ? "#nintendo-3ds" : nds ? "#nintendo-ds-melonds" : nx ? "#nintendo-switch-eden" : "#wii-u");
+			if (nx2)
+			{
+				games.aboutTitle = Tr("Where your Switch 2 games go");
+				games.about = TrF("Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder.", folder);
+				games.chips = {"exefs/main", "romfs/", "base/", "updates/"};
+				games.guide = std::string(kRepository) + "#switch-2";
+			}
 			games.guideTitle = Tr("the game files page");
 			m_checks.push_back(games);
 		}
@@ -321,6 +329,27 @@ namespace ps5shell
 		{
 			m_checks.push_back(switchKeys);
 			m_checks.push_back(switchFirmware);
+		}
+		Check switch2Keys{"switch2-keys", Tr("Switch 2 keys")};
+		switch2Keys.state = ps5eglantine::KeysFound() ? 0 : 1;
+		switch2Keys.detail = ps5eglantine::KeysFound() ? Tr("prod.keys found for EglantinePS5") : Tr("prod.keys is missing: EglantinePS5 needs your own Switch keys");
+		switch2Keys.action = ps5eglantine::KeysFound() ? "" : Tr("How to");
+		switch2Keys.aboutTitle = Tr("Your Switch 2 emulator's keys");
+		switch2Keys.about = TrF("Put your own prod.keys in {0}/keys. Playtendoh and EglantinePS5 do not include keys.", ps5eglantine::DataFolder());
+		switch2Keys.guide = std::string(kRepository) + "#switch-2";
+		switch2Keys.guideTitle = Tr("the Switch 2 page");
+		Check switch2Firmware{"switch2-firmware", Tr("Switch 2 firmware")};
+		switch2Firmware.state = ps5eglantine::FirmwareFound() ? 0 : 1;
+		switch2Firmware.detail = ps5eglantine::FirmwareFound() ? Tr("Firmware found for EglantinePS5") : Tr("Firmware is missing: some games need it");
+		switch2Firmware.action = ps5eglantine::FirmwareFound() ? "" : Tr("How to");
+		switch2Firmware.aboutTitle = Tr("Your Switch 2 emulator's firmware");
+		switch2Firmware.about = TrF("Put your own Switch firmware files in {0}/firmware. No firmware comes with Playtendoh or EglantinePS5.", ps5eglantine::DataFolder());
+		switch2Firmware.guide = switch2Keys.guide;
+		switch2Firmware.guideTitle = switch2Keys.guideTitle;
+		if (SideShown(System::Switch2))
+		{
+			m_checks.push_back(switch2Keys);
+			m_checks.push_back(switch2Firmware);
 		}
 
 		// covers

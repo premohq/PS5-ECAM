@@ -21,6 +21,7 @@ namespace ps5catalog
 		Nds,
 		Switch,
 		GameCube, Wii, N64, Nes, Gb, Gbc, Gba, Snes, VirtualBoy, PokemonMini, Fds, Sgb, GameWatch, Satellaview, VsSystem, Ique, // ps5retro::kSystems' order
+		Switch2, // appended to preserve every existing side index
 	};
 
 	struct Entry

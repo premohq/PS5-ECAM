@@ -3,6 +3,7 @@
 // library_ps5.cpp of Mihawk's ES-DE port, which writes them from its own app's library.
 #include "esde.h"
 
+#include "../frontend/launcher.h"
 #include "../retro/registry.h"
 
 #include <pugixml.hpp>
@@ -40,6 +41,7 @@ namespace ps5esde
 			{"3ds", "n3ds", "Nintendo 3DS", ".3ds .cci .cxi .3dsx .cia .z3ds .zip .7z .rar .3DS .CCI .CXI .3DSX .CIA .Z3DS .ZIP .7Z .RAR"},
 			{"ds", "nds", "Nintendo DS", ".nds .srl .zip .7z .rar .NDS .SRL .ZIP .7Z .RAR"},
 			{"switch", "switch", "Nintendo Switch", ".nsp .xci .NSP .XCI"},
+			{"switch2", "switch2", "Nintendo Switch 2", ".nsp .xci .nsz .xcz .NSP .XCI .NSZ .XCZ"},
 			{"gamecube", "gc", "Nintendo GameCube", ".iso .gcm .rvz .ciso .gcz .wia .ISO .GCM .RVZ .CISO .GCZ .WIA"},
 			{"wii", "wii", "Nintendo Wii", ".iso .gcm .rvz .ciso .gcz .wia .wbfs .wad .dol .elf .ISO .GCM .RVZ .CISO .GCZ .WIA .WBFS .WAD .DOL .ELF"},
 			{"n64", "n64", "Nintendo 64", ".z64 .n64 .v64 .zip .rom .Z64 .N64 .V64 .ZIP .ROM"},
@@ -62,9 +64,9 @@ namespace ps5esde
 
 		const Known* KnownForSide(int side)
 		{
-			if (side < 0 || side >= ps5retro::kSideCount)
+			if (side < 0 || side >= ps5launcher::kSideCount)
 				return nullptr;
-			const char* key = side < ps5retro::kFirst ? kBaseKeys[side] : ps5retro::Of(side).key;
+			const char* key = side < ps5retro::kFirst ? kBaseKeys[side] : ps5retro::IsRetro(side) ? ps5retro::Of(side).key : "switch2";
 			for (const Known& system : kEsdeSystems)
 				if (std::string_view(system.key) == key)
 					return &system;
@@ -178,7 +180,7 @@ namespace ps5esde
 
 	int SideNamed(std::string_view name)
 	{
-		for (int side = 0; side < ps5retro::kSideCount; side++)
+		for (int side = 0; side < ps5launcher::kSideCount; side++)
 			if (const Known* system = KnownForSide(side); system && name == system->name)
 				return side;
 		return -1;

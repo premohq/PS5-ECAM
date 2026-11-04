@@ -144,5 +144,6 @@ rm -rf "$work/es-de"
 cp -a "$port/dist/$title/es-de" "$work/es-de"
 cp "$root/LICENSE" "$work/es-de/LICENSE-PS5-ECAM"
 # every theme it ships has art for every system PS5-ECAM gives ES-DE (port/esde/esde.cpp)
+python3 -B tools/add-esde-switch2-theme-alias.py "$work/es-de/themes"
 python3 -B tools/check-esde-themes.py "$work/es-de/themes"
 step "build/esde/es-de: $(du -sh "$work/es-de" | cut -f1) (es-de.bin $(stat -c %s "$work/es-de/es-de.bin") bytes)"

@@ -363,6 +363,8 @@ namespace ps5settings
 			settings.nds.gamesFolder = ps5paths::MelonDs() + "/games";
 		if (json.HasMember("switch") && json["switch"].IsObject())
 			ReadN3ds(json["switch"], settings.nx, false);
+		if (json.HasMember("switch2") && json["switch2"].IsObject())
+			ReadN3ds(json["switch2"], settings.nx2, false);
 		for (size_t i = 0; i < ps5retro::kSystems.size(); i++)
 			if (json.HasMember(ps5retro::kSystems[i].key) && json[ps5retro::kSystems[i].key].IsObject()) ReadN3ds(json[ps5retro::kSystems[i].key], settings.retro[i], false);
 
@@ -420,12 +422,16 @@ namespace ps5settings
 			ReadInt(ui, "holdMs", out.holdMs, 400, 1500);
 			ReadBool(ui, "gamePictures", out.gamePictures);
 			ReadBool(ui, "setupDone", out.setupDone);
-			ReadInt(ui, "sides", out.sides, 1, (1 << ps5retro::kSideCount) - 1);
+			ReadInt(ui, "sides", out.sides, 1, (1 << (ps5retro::kSideCount + 1)) - 1);
 			// sides chosen before the Switch had one (4.0.1 and earlier): it is shown once, as a new side
 			bool switchOffered = false;
 			ReadBool(ui, "switchOffered", switchOffered);
 			if (!switchOffered)
 				out.sides |= 8;
+			bool switch2Offered = false;
+			ReadBool(ui, "switch2Offered", switch2Offered);
+			if (!switch2Offered)
+				out.sides |= 1 << 14;
 			ReadString(ui, "lastVersion", out.lastVersion);
 			ReadString(ui, "skipVersion", out.skipVersion);
 			ReadInt(ui, "reorganizeAsked", out.reorganizeAsked, 0, 10000000);
@@ -438,9 +444,9 @@ namespace ps5settings
 			if (out.libraryFilter[1] == 3)
 				out.libraryFilter[1] = 0; // the 4.0.0 beta's DS games, which have a side of their own now
 			// filters: the Wii U's four (Graphic packs on), the handhelds' three; sorts: four on every side
-			auto readSides = [&](const char* key, int (&values)[ps5retro::kSideCount], int wiiuMost, int handheldMost) {
+			auto readSides = [&](const char* key, int (&values)[ps5retro::kSideCount + 1], int wiiuMost, int handheldMost) {
 				if (ui.HasMember(key) && ui[key].IsArray())
-					for (rapidjson::SizeType i = 0; i < ui[key].Size() && i < (rapidjson::SizeType)ps5retro::kSideCount; i++)
+					for (rapidjson::SizeType i = 0; i < ui[key].Size() && i < (rapidjson::SizeType)(ps5retro::kSideCount + 1); i++)
 						if (ui[key][i].IsInt())
 							values[i] = std::clamp(ui[key][i].GetInt(), 0, i == 0 ? wiiuMost : handheldMost);
 			};
@@ -553,6 +559,8 @@ namespace ps5settings
 		WriteN3ds(writer, settings.nds);
 		writer.Key("switch");
 		WriteN3ds(writer, settings.nx);
+		writer.Key("switch2");
+		WriteN3ds(writer, settings.nx2);
 		for (size_t i = 0; i < ps5retro::kSystems.size(); i++) { writer.Key(ps5retro::kSystems[i].key); WriteN3ds(writer, settings.retro[i]); }
 		writer.Key("games");
 		writer.StartObject();
@@ -612,6 +620,8 @@ namespace ps5settings
 		writer.Int(settings.ui.sides);
 		writer.Key("switchOffered");
 		writer.Bool(settings.ui.switchOffered);
+		writer.Key("switch2Offered");
+		writer.Bool(settings.ui.switch2Offered);
 		writer.Key("lastVersion");
 		writer.String(settings.ui.lastVersion.c_str());
 		writer.Key("skipVersion");
@@ -751,7 +761,7 @@ namespace ps5settings
 			for (size_t i = 0; i < ps5retro::kSystems.size(); i++)
 				if (side == ps5retro::kSystems[i].key)
 					return settings.retro[i];
-			return side == "ds" ? settings.nds : side == "switch" ? settings.nx : settings.n3ds;
+			return side == "ds" ? settings.nds : side == "switch2" ? settings.nx2 : side == "switch" ? settings.nx : settings.n3ds;
 		}
 
 		N3ds& Handheld(Launcher& settings, const std::string& side)
@@ -760,7 +770,7 @@ namespace ps5settings
 			for (size_t i = 0; i < ps5retro::kSystems.size(); i++)
 				if (side == ps5retro::kSystems[i].key)
 					return settings.retro[i];
-			return side == "ds" ? settings.nds : side == "switch" ? settings.nx : settings.n3ds;
+			return side == "ds" ? settings.nds : side == "switch2" ? settings.nx2 : side == "switch" ? settings.nx : settings.n3ds;
 		}
 	}
 
@@ -780,10 +790,12 @@ namespace ps5settings
 		static const std::vector<std::string> nx = {"nxResolution", "nxFilter", "nxAstc", "nxFrameGeneration", "nxDocked", "nxSpeedLimit", "volume",
 			"nxAntiAliasing", "nxSharpening", "nxController", "nxOutput", "nxHighRefresh", "nxLanguage", "nxMemory", "nxAsyncShaders", "nxFastGpu",
 			"nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation", "nxBlockList", "nxCompactMemory"};
+		static const std::vector<std::string> nx2 = {"nxResolution", "nxFilter", "nxFrameGeneration", "nxDocked", "volume", "nxController", "nxOutput",
+			"nxHighRefresh", "nxLanguage", "nxAsyncShaders", "nxFastGpu", "nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation"};
 		// the other sides' (their in-game menu's, port/libretro)
 		static const std::vector<std::string> retro = {"dsFilter", "border", "volume"};
 		static const std::vector<std::string> none;
-		return side == "wiiu" ? wiiu : side == "3ds" ? n3ds : side == "ds" ? nds : side == "switch" ? nx : ps5retro::Find(side) ? retro : none;
+		return side == "wiiu" ? wiiu : side == "3ds" ? n3ds : side == "ds" ? nds : side == "switch2" ? nx2 : side == "switch" ? nx : ps5retro::Find(side) ? retro : none;
 	}
 
 	bool Value(const Launcher& settings, const std::string& side, const std::string& name, int& value)
@@ -844,6 +856,8 @@ namespace ps5settings
 		if (found != settings.games.end())
 			for (const auto& [name, value] : found->second)
 				SetValue(game, side, name, value);
+		if (side == "switch2")
+			game.nx = game.nx2; // Keep the Switch 2 option values separate for the runtime launch.
 		return game;
 	}
 
@@ -869,7 +883,7 @@ namespace ps5settings
 			to.buttons = from.buttons;
 			to.nxDeadzone = from.nxDeadzone;
 			// the Switch menu's Vibration is Settings > Controls' own, every side's
-			if (side == "switch")
+			if (side == "switch" || side == "switch2")
 				merged.rumble = after.rumble;
 		}
 		const std::string key = GameKey(side, titleId);

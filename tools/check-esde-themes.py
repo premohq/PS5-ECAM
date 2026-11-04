@@ -22,10 +22,10 @@ PROBE = {"nes", "snes", "n64", "gba", "gc", "megadrive", "psx"}
 
 def systems():
     source = (ROOT / "port/esde/esde.cpp").read_text()
-    block = source[source.index("constexpr Known kSystems[] = {"):]
+    block = source[source.index("constexpr Known kEsdeSystems[] = {"):]
     block = block[:block.index("};")]
     names = re.findall(r'\{"([a-z0-9]+)", "', block)
-    if len(names) < 14:
+    if len(names) < 15:
         sys.exit(f"port/esde/esde.cpp: kSystems has {len(names)} systems, not read right")
     return names
 

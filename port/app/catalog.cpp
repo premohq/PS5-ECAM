@@ -19,13 +19,13 @@ namespace ps5catalog
 {
 	namespace
 	{
-		std::vector<Entry> s_games[ps5retro::kSideCount];
+		std::vector<Entry> s_games[ps5retro::kSideCount + 1];
 
 		// a side's key in the catalogue: the first four's, then ps5retro::kSystems'
 		const char* SideKey(int side)
 		{
 			static const char* const kFirstFour[] = {"wiiu", "3ds", "ds", "switch"};
-			return side < ps5retro::kFirst ? kFirstFour[side] : ps5retro::Of(side).key;
+			return side < ps5retro::kFirst ? kFirstFour[side] : side == ps5retro::kSideCount ? "switch2" : ps5retro::Of(side).key;
 		}
 		bool s_loaded = false;
 
@@ -70,7 +70,7 @@ namespace ps5catalog
 		rapidjson::Document json;
 		if (json.Parse(text.str().c_str()).HasParseError() || !json.IsObject())
 			return;
-		for (int side = 0; side < ps5retro::kSideCount; side++)
+		for (int side = 0; side < ps5retro::kSideCount + 1; side++)
 		{
 			if (!json.HasMember(SideKey(side)) || !json[SideKey(side)].IsArray())
 				continue;
@@ -118,7 +118,7 @@ namespace ps5catalog
 		writer.StartObject();
 		writer.Key("version");
 		writer.Int(1);
-		for (int side = 0; side < ps5retro::kSideCount; side++)
+		for (int side = 0; side < ps5retro::kSideCount + 1; side++)
 		{
 			writer.Key(SideKey(side));
 			writer.StartArray();

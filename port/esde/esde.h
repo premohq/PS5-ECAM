@@ -38,6 +38,7 @@ namespace ps5esde
 	struct Game
 	{
 		std::string path, name;
+		std::string cover; // launcher cover (TGA, PNG or JPEG), copied into ES-DE's downloaded_media when missing
 		uint64_t titleId = 0;
 		bool favourite = false, hidden = false;
 		int64_t lastPlayed = 0; // seconds since 1970; 0: never

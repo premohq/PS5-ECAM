@@ -314,39 +314,35 @@ both patches applying to ES-DE 3.5.0, the glue compiling. Next:
 
 ### Switch 2
 
-**Started, 30 October 2026: experimental.** The Switch side's Eden is Takoroka's eden-nx2 (Eden master
-with Switch 2 support) at `50fa86bbbc`, ported as Oliv3rmoon's Nightshade did (`feature/nx2`): the pin
-and the derivations moved (patches/eden 0021), and a game folder's ExeFS and RomFS play, a Switch 2
-title by its npdm, with eden-nx2's session settings (0022). Six emulated cores: what ProsperoEdenX counts
-per core has a place for each. The launcher lists such a folder as a Switch game, `Switch 2` its
-format (port/eden/exefs.h). Nothing has run on a console yet.
+**Experimental; source integration in progress.** The first Switch 2 experiment used Takoroka's
+eden-nx2 support in ProsperoEdenX to identify Switch 2 NPDMs and scan ExeFS/RomFS game folders. That
+code remains the library's format detector; it is not the Switch 2 runtime. Switch 2 games now have
+their own side and launch through the pinned EglantinePS5 child runtime. The game page marks Switch 2
+**Experimental**. The requested runtime is
+[EglantinePS5](https://github.com/heydemoura/EglantinePS5), not an expansion of Porpoise-X; its
+upstream commit is pinned in `tools/deps.json` and built by `make eglantine` in `.deps/eglantine`, with
+`patches/eglantine` (`tools/eglantine-patches.sh`). Source work now adds a separate Switch 2 side and
+catalogue, key/firmware setup checks, a child-runtime build/package step, staged game launch and
+return to ECAM, separate settings and launch-time forwarding of the supported video, audio, control
+and performance values. EmulationStation also receives the side and aliases existing Switch art.
+None of this has been built or run on the console yet.
 
-**EglantinePS5 for the Switch 2's games, 3 November 2026** (the owner's choice of 31 October):
-heydemoura's [EglantinePS5](https://github.com/heydemoura/EglantinePS5) (GPL-3.0, at `3c32faa`, which
-plays Pokopia from its library), the PS5 port of Djihads80's
-[Eglantine](https://github.com/Djihads80/Eglantine) (Eden with Switch 2 support), on ProsperoEden's
-frontend as ProsperoEdenX is. It comes in as ProsperoEdenX came in, pinned in `tools/deps.json`
-(`.deps/eglantine`, its inputs beside it) with `patches/eglantine` (`tools/eglantine-patches.sh`), built by
-`tools/build-eglantine.sh` (`make eglantine`) into the app's `eglantine/`. A Switch 2 title starts there
-(port/eden/launch.cpp), with the same arguments and request file as Eden's (`/data/eglantine`), and the
-program goes back to Playtendoh when its game ends. Its keys, firmware and games are the Switch side's
-folder's. Eden's eden-nx2 still plays a Switch 2 title where the app has no `eglantine/`. Nothing has run
-on a console yet. Next:
+Still to do:
 
-- **A first console run** with a tester's own dump (Pokopia, Splatoon Raiders): the logs say how far
-  (`/data/eglantine/logs`).
-- **Playtendoh's loading screen and in-game menu in it**, as patches/eden 0007 to 0009 put them in Eden's,
-  with the result file the Switch side reads and the --set settings it knows: until then it shows its
-  own, and its launcher when a game stops with an error (Circle there goes back). Those patches lean on
-  what ProsperoEdenX has and EglantinePS5 does not (MihawkGen, the speed limit, game folders), so each
-  is ported on its own.
-- **A side of its own** in the carousel, once a game plays: the Switch's Eden with Switch 2 games
-  only, its own settings page and in-game menu, as every system has.
-- **Its own words in the library** (an "experimental" warning on the game's page), in every language.
-- **eden-nx2's macro compiler** with the console's executable memory (Nightshade's next step), and
-  sparse images in the console's RADV for the largest textures.
-- **A newer EglantinePS5**: its pin moves as `make update` moves its Eglantine, patches/eglantine
-  rebased with tools/eglantine-patches.sh.
+- **Build and review the child runtime:** run the pinned EglantinePS5 build and Playtendoh packaging;
+  fix any upstream integration or toolchain failures. Do not describe this source work as a verified
+  build until the build is actually run.
+- **Unify the in-game experience:** ECAM now exits a child game back to the saved library on
+  Touchpad + Options or Touchpad + L1, and its supported saved settings are passed at launch.
+  EglantinePS5's emulation core can pause and resume, but its child runtime has no ECAM menu
+  presentation/integration yet. Add and review that UI path before claiming menu parity.
+  Unsupported Eden-only controls are hidden on the Switch 2 side.
+- **Console report:** testers report game-folder discovery on internal and external storage, a game
+  launch, keys/firmware handling, controller behavior, settings, exit/return, logs and performance.
+  Do not infer compatibility or performance from source review or a successful build.
+- **Performance work follows the runtime:** measure EglantinePS5 on hardware first. Revisit
+  eden-nx2-specific macro compiler and sparse-image work only if Eden-NX2 remains in use and a
+  console report demonstrates the need.
 
 ### Lighter
 

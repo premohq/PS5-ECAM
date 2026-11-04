@@ -164,13 +164,14 @@ namespace ps5shell
 			const int wiiuGames = std::max<int>(m_settings.gameCount, (int)ps5catalog::Games(ps5catalog::System::WiiU).size());
 			const int n3dsGames = std::max<int>(m_settings.n3ds.gameCount, (int)ps5catalog::Games(ps5catalog::System::N3ds).size());
 			const int ndsGames = std::max<int>(m_settings.nds.gameCount, (int)ps5catalog::Games(ps5catalog::System::Nds).size());
+			const int nx2Games = (int)ps5catalog::Games(ps5catalog::System::Switch2).size();
 			const int nxGames = std::max<int>(m_settings.nx.gameCount, (int)ps5catalog::Games(ps5catalog::System::Switch).size());
-			side = wiiuGames > 0 ? "wiiu" : n3dsGames > 0 ? "3ds" : ndsGames > 0 ? "ds" : nxGames > 0 ? "switch" : "wiiu";
+			side = wiiuGames > 0 ? "wiiu" : n3dsGames > 0 ? "3ds" : ndsGames > 0 ? "ds" : nx2Games > 0 ? "switch2" : nxGames > 0 ? "switch" : "wiiu";
 		}
 		// why the last game did not start (main_ps5.cpp's): said once here, not a state that keeps every
 		// game from starting
 		std::string launchError;
-		for (std::string* error : {&m_status.launchError, &m_status.launchError3ds, &m_status.launchErrorDs, &m_status.launchErrorSwitch})
+		for (std::string* error : {&m_status.launchError, &m_status.launchError3ds, &m_status.launchErrorDs, &m_status.launchErrorSwitch, &m_status.launchErrorSwitch2})
 			if (!error->empty())
 			{
 				launchError = *error;
@@ -723,7 +724,7 @@ namespace ps5shell
 		// as Settings > Online chooses (empty until it is there: the card with the icon, or the name)
 		if (std::string own = ps5eden::BoxArt(game); !own.empty())
 			return own;
-		return Handheld(System::Switch).nxCovers == 1 ? ps5eden::CoverPath(game) : ps5boxart::Path(ps5boxart::System::Switch, game.gameId);
+		return Handheld(m_side).nxCovers == 1 ? ps5eden::CoverPath(game) : ps5boxart::Path(ps5boxart::System::Switch, game.gameId);
 	}
 
 	void Shell::LoadGames()
@@ -733,7 +734,7 @@ namespace ps5shell
 		// a side not looked through this session (a network share's folder, #75) keeps the list of its last look
 		if (CoreReady() && !m_scanning && !m_status.lastLook[SideIndex()])
 		{
-			ps5catalog::Replace(CatalogSide(), IsRetro() ? ps5retro::ListGames(SideIndex()) : Is3ds() ? ps5azahar::ListGames() : IsDs() ? ps5melonds::ListGames() : IsSwitch() ? ps5eden::ListGames() : ps5emu::ListGames());
+			ps5catalog::Replace(CatalogSide(), IsRetro() ? ps5retro::ListGames(SideIndex()) : Is3ds() ? ps5azahar::ListGames() : IsDs() ? ps5melonds::ListGames() : IsSwitch() ? ps5eden::ListGames(IsSwitch2()) : ps5emu::ListGames());
 			ps5catalog::Migrate(CatalogSide(), RecentOf(m_side));
 			ps5catalog::Save();
 		}
@@ -962,7 +963,7 @@ namespace ps5shell
 	{
 		if (IsRetro()) return;
 		// the side's covers, from GameTDB's covers of its system (none for a Switch side showing the games' icons)
-		if (IsSwitch() && Handheld(System::Switch).nxCovers == 1)
+		if (IsSwitch() && Handheld(m_side).nxCovers == 1)
 			return;
 		std::vector<std::string> ids;
 		for (const Game& game : m_games)
@@ -1320,8 +1321,14 @@ namespace ps5shell
 		// each side's square with its console's glyph in it: the GamePad on blue, the 3DS on gold, the DS
 		// on green, the Switch on red (the app's own tiles, tools/render-icons.py); a later console's
 		// controller drawn on its colour (consoles.cpp), as every side's is until its picture has loaded
-		static const std::string kTiles[kSides] = {ps5paths::Assets() + "/ui/icons/ps5cemu-72.tga", ps5paths::Assets() + "/ui/icons/azahar-72.tga",
-			ps5paths::Assets() + "/ui/icons/melonds-72.tga", ps5paths::Assets() + "/ui/icons/eden-72.tga"};
+		static const std::array<std::string, kSides> kTiles = [] {
+			std::array<std::string, kSides> tiles;
+			tiles[(int)System::WiiU] = ps5paths::Assets() + "/ui/icons/ps5cemu-72.tga";
+			tiles[(int)System::N3ds] = ps5paths::Assets() + "/ui/icons/azahar-72.tga";
+			tiles[(int)System::Nds] = ps5paths::Assets() + "/ui/icons/melonds-72.tga";
+			tiles[(int)System::Switch] = tiles[(int)System::Switch2] = ps5paths::Assets() + "/ui/icons/eden-72.tga";
+			return tiles;
+		}();
 		auto tile = [&](int side, const Box& box, float radius, uint32_t tint) {
 			const ui::Picture& picture = m_images->Get(kTiles[side]);
 			if (picture.texture)

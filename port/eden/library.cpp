@@ -544,13 +544,19 @@ namespace ps5eden
 		return s_scanning;
 	}
 
-	std::vector<ps5emu::Game> ListGames()
+	std::vector<ps5emu::Game> ListGames(bool switch2Only)
 	{
 		std::lock_guard lock(s_mutex);
-		return s_games;
+		if (!switch2Only)
+			return s_games;
+		std::vector<ps5emu::Game> games;
+		for (const auto& game : s_games)
+			if (game.format == "Switch 2")
+				games.push_back(game);
+		return games;
 	}
 
-	int CountGames(const std::string& folder)
+	int CountGames(const std::string& folder, bool switch2Only)
 	{
 		std::error_code ec;
 		const std::string scanned = ScanFolder(folder);
@@ -558,6 +564,8 @@ namespace ps5eden
 			return -1;
 		std::vector<ps5emu::Game> games;
 		Scan(scanned, games);
+		if (switch2Only)
+			return (int)std::count_if(games.begin(), games.end(), [](const ps5emu::Game& game) { return game.format == "Switch 2"; });
 		return (int)games.size();
 	}
 

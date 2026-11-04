@@ -181,14 +181,15 @@ elif ((!check)); then
     [[ ${PS5CEMU_RELEASE:-0} == 1 ]] && exit 2
 fi
 
-# The program the Switch 2's games start in (tools/build-eglantine.sh): EglantinePS5's eboot.bin and the
-# files it reads from its own folder, with the boilerplate's libc.prx beside it as Eden's has
+# Switch 2's EglantinePS5 child runtime (tools/build-eglantine.sh), without its standalone title
+# metadata: it reads its assets from /app0/eglantine and returns to /app0/eboot.bin. The boilerplate's
+# libc.prx goes beside it, as in the app's own sce_module and Eden's.
 if [[ -f $PS5CEMU_BUILD/eglantine/app/eboot.bin ]]; then
     cp -a "$PS5CEMU_BUILD/eglantine/app" "$app/eglantine"
     mkdir -p "$app/eglantine/sce_module"
     cp "$boilerplate/runtime/libc.prx" "$app/eglantine/sce_module/libc.prx"
 elif ((!check)); then
-    echo "build/eglantine is missing (make eglantine): Switch 2 games start in Eden's program" >&2
+    echo "build/eglantine is missing (make eglantine): the Switch 2 side cannot start games" >&2
     [[ ${PS5CEMU_RELEASE:-0} == 1 ]] && exit 2
 fi
 

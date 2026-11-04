@@ -133,6 +133,13 @@ namespace ps5settings
 		return nx;
 	}
 
+	inline N3ds Switch2Defaults()
+	{
+		N3ds nx;
+		nx.gamesFolder = "/data/eglantineps5/roms";
+		return nx;
+	}
+
 	// A game's own settings: a setting's name in ps5cemu.json and its value (on and off as 1 and 0)
 	using GameValues = std::map<std::string, int>;
 
@@ -149,8 +156,9 @@ namespace ps5settings
 		bool setupDone = false;		 // the Setup check was shown once
 		// the sides the bar offers, Wii U 1, 3DS 2, DS 4, Switch 8 (Settings > Launcher > Sides, and the
 		// first start's Make it yours); at least one
-		int sides = 15;
+		int sides = 15 | (1 << 14);
 		bool switchOffered = true;	 // the Switch side was offered: those whose sides predate it (4.0.2) see it once
+		bool switch2Offered = true;
 		std::string lastVersion;	 // the version that ran last: a newer one says what it brings, once (Make it yours)
 		// a release the start does not offer (the update's Skip this version, or one gone back from), as
 		// ps5update::Readable writes it; Settings > Online still finds it
@@ -162,8 +170,8 @@ namespace ps5settings
 		// the app opens on EmulationStation (ES-DE, port/esde/esde.h) instead of the launcher, when it has
 		// ES-DE; L1 held at the start opens the launcher all the same (Settings > Launcher)
 		bool emulationStation = false;
-		int libraryFilter[ps5retro::kSideCount] = {}; // per side: All, Recently added, Favourites, Graphic packs on (Wii U)
-		int librarySort[ps5retro::kSideCount] = {}; // Recently played (the default: the Library is where a side opens), A to Z, Release year, How it runs
+		int libraryFilter[ps5retro::kSideCount + 1] = {}; // per side: All, Recently added, Favourites, Graphic packs on (Wii U)
+		int librarySort[ps5retro::kSideCount + 1] = {}; // Recently played (the default: the Library is where a side opens), A to Z, Release year, How it runs
 	};
 
 	struct Launcher
@@ -315,6 +323,7 @@ namespace ps5settings
 		N3ds n3ds;
 		N3ds nds = DsDefaults();
 		N3ds nx = SwitchDefaults();
+		N3ds nx2 = Switch2Defaults(); // Switch 2's side settings, separate from Switch
 		// the other sides', in ps5retro::kSystems' order, each with its default games folder
 		std::array<N3ds, ps5retro::kSystems.size()> retro = [] { std::array<N3ds, ps5retro::kSystems.size()> values{}; for (size_t i = 0; i < values.size(); i++) values[i].gamesFolder = ps5retro::kSystems[i].games; return values; }();
 		// games' own settings, by GameKey: "3ds:0004000000055d00" -> {"resolution": 3}

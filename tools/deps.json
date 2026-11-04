@@ -163,11 +163,12 @@
     },
     {
       "name": "eglantineps5",
-      "about": "EglantinePS5, heydemoura's PS5 port of Djihads80's Eglantine (Eden with Switch 2 support; GPL-3.0-or-later), on ProsperoEden's frontend as ProsperoEdenX is: the program the Switch 2's games start in. patches/eglantine holds the port's changes (tools/eglantine-patches.sh): it lives in the app's eglantine/, keeps its data in /data/eglantine, takes its keys, firmware and games from the Switch side's folder, and goes back to PS5-ECAM when its game ends. tools/build-eglantine.sh builds it with its own Makefile, which fetches the Eglantine submodule and its inputs at their pins beside it (.deps/eglantine)",
+      "about": "heydemoura/EglantinePS5, the PS5 port of Djihads80's Eglantine (Eden with Switch 2 support; GPL-3.0-or-later), on ProsperoEden's frontend as ProsperoEdenX is: the Switch 2 side's child runtime. patches/eglantine (tools/eglantine-patches.sh) holds the port's changes: PS5-ECAM's launch request, its in-game menu, and back to PS5-ECAM when a game ends. tools/build-eglantine.sh builds it with its own Makefile, which fetches its inputs at their pins beside it (.deps/eglantine)",
       "kind": "git",
       "url": "https://github.com/heydemoura/EglantinePS5.git",
       "commit": "3c32faa6589b5961c8b9a3f9618f473551e98495",
       "path": ".deps/eglantine/EglantinePS5",
+      "submodules": ["Eglantine"],
       "creates": ".deps/eglantine/EglantinePS5/headless/main.cpp"
     },
     {

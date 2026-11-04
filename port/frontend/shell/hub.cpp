@@ -221,6 +221,8 @@ namespace ps5shell
 			cx += Chip(canvas, cx, cy, g.publisher) + 10;
 		if (!g.format.empty())
 			cx += Chip(canvas, cx, cy, g.format) + 10;
+		if (g.format == "Switch 2")
+			cx += Chip(canvas, cx, cy, Tr("Experimental"), "warn") + 10;
 		if (!Played(game).empty())
 			cx += Chip(canvas, cx, cy, Played(game)) + 10;
 		if (game.entry.favourite)
