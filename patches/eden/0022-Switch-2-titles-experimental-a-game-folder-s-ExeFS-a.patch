@@ -278,7 +278,7 @@ index 0000000..d349a9e
 +}
 +} // namespace Eden
 diff --git a/headless/main.cpp b/headless/main.cpp
-index c203183..4948052 100644
+index c203183..54d0916 100644
 --- a/headless/main.cpp
 +++ b/headless/main.cpp
 @@ -52,6 +52,7 @@ extern "C" void eden_stay_closed(void);
@@ -357,15 +357,15 @@ index c203183..4948052 100644
              // The report reads the values back: what the emulator has, whoever set it.
              const auto on = [](bool value) { return value ? "on" : "off"; };
              Eden::Report("launch", (std::string("Performance: block list ") + on(Eden::JitList::enabled) +
-@@ -1915,6 +1954,8 @@ int main(int argc, char** argv) {
+@@ -1914,6 +1953,8 @@ int main(int argc, char** argv) {
+ #endif
                  Eden::Loading::Set(Eden::Loading::Step::game);
                  Eden::BootTrace::Line("loading the game");
-                 Core::SystemResultStatus loaded;
 +                // eden-nx2's process-wide Switch 2 state from an earlier session (nx2_session.h).
 +                Eden::Nx2::ResetForSession();
+                 Core::SystemResultStatus loaded;
                  try {
                      loaded = system.Load(window, guest, params);
-                 } catch (const std::exception& error) {
 diff --git a/headless/metadata_bridge.cpp b/headless/metadata_bridge.cpp
 index a5fe8c9..db0fe26 100644
 --- a/headless/metadata_bridge.cpp
