@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="docs/banner.png" alt="Playtendoh: the Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch on PlayStation 5 homebrew, with Cemu, Azahar, melonDS and Eden" width="100%">
+  <img src="docs/banner.png" alt="Playtendoh: an all-in-one emulator for PS5, every console's controller in a ring around the NES pad" width="100%">
 </p>
 
 <p align="center">
@@ -7,16 +7,21 @@
   <a href="https://discord.gg/grrqkv4xWw"><img alt="Discord: join the server" src="https://img.shields.io/badge/discord-join%20the%20server-5865F2?logo=discord&logoColor=white"></a>
   <a href="https://ko-fi.com/premohq"><img alt="Ko-fi: support Playtendoh" src="https://img.shields.io/badge/ko--fi-support%20Playtendoh-FF5E5B?logo=kofi&logoColor=white"></a>
   <img alt="Platform: PS5 homebrew" src="https://img.shields.io/badge/platform-PS5%20homebrew-1f5fd6">
-  <img alt="Emulation: Cemu, Azahar, melonDS and Eden" src="https://img.shields.io/badge/emulation-Cemu%20%C2%B7%20Azahar%20%C2%B7%20melonDS%20%C2%B7%20Eden-5cd3ff">
+  <img alt="Emulation: Cemu, Azahar, melonDS, Eden, Eglantine, Dolphin and libretro cores" src="https://img.shields.io/badge/emulation-Cemu%20%C2%B7%20Azahar%20%C2%B7%20melonDS%20%C2%B7%20Eden%20%C2%B7%20Eglantine%20%C2%B7%20Dolphin%20%C2%B7%20libretro-5cd3ff">
+  <img alt="Systems: 21" src="https://img.shields.io/badge/systems-21-f2434f">
   <img alt="Languages: 31" src="https://img.shields.io/badge/languages-31-62c454">
   <a href="LICENSE"><img alt="License: GPL-3.0-or-later" src="https://img.shields.io/badge/license-GPL--3.0--or--later-a9a6ff"></a>
 </p>
 
 <p align="center">
-  <b>Playtendoh</b> plays your Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch games on a jailbroken PS5,<br>
-  with <a href="https://github.com/cemu-project/Cemu">Cemu</a>, <a href="https://github.com/azahar-emu/azahar">Azahar</a>,
-  <a href="https://github.com/melonDS-emu/melonDS">melonDS</a> and <a href="https://github.com/eden-emu/mirror">Eden</a> in one launcher made for the TV and the DualSense.<br>
-  Made by its co-founders, <a href="https://github.com/premohq">premohq</a> and <a href="https://github.com/JMUtechnologies">JMUtechnologies</a>. It was called PS5CEMU-HAR until 5.0.0.
+  <b>Playtendoh</b> is an all-in-one emulator for the PS5: your Nintendo games, from the Game &amp; Watch to the
+  Switch 2, on a jailbroken PS5, in one launcher made for the TV and the DualSense.<br>
+  Wii U on <a href="https://github.com/cemu-project/Cemu">Cemu</a>, 3DS on <a href="https://github.com/azahar-emu/azahar">Azahar</a>,
+  DS on <a href="https://github.com/melonDS-emu/melonDS">melonDS</a>, Switch on <a href="https://github.com/eden-emu/mirror">Eden</a>,
+  Switch 2 on <a href="https://github.com/heydemoura/EglantinePS5">EglantinePS5</a>, GameCube and Wii on Dolphin, and the classics on
+  libretro cores behind the app's own menus.<br>
+  Made by its co-founders, <a href="https://github.com/premohq">premohq</a> and <a href="https://github.com/JMUtechnologies">JMUtechnologies</a>.
+  It was PS5CEMU-HAR until 5.0.0 and PS5-ECAM until 6.0.
 </p>
 
 <p align="center">
@@ -32,39 +37,26 @@
 
 ---
 
-## What's new in 5.1.0
+## Coming in 6.0
 
-A folder for each system, everything on a USB drive, and the Switch's updates and DLC wherever they are.
-The details are in the [release notes](https://github.com/premohq/PS5-ECAM/releases/tag/v5.1.0).
+Playtendoh 6.0 is being finished on the `PS5-ECAM` branch; the download above is still 5.1.0, the latest
+release, until 6.0 is out. What it brings:
 
-- **A folder for each system:** `/data/cemu`, `/data/azahar`, `/data/melonds` and `/data/eden`. An install
-  from before keeps working where it is, and **Reorganize** moves it in a moment, and back
-  ([System folders](docs/SYSTEM-FOLDERS.md)).
-- **Everything on your USB drive:** with the app on a drive, every system's files go beside it there, the
-  Switch's too (its keys and saves on the console stay in use). An older copy of the app left in
-  `/data/homebrew` is no longer started or updated in place of the one you run.
-- **Switch:** updates and DLC are found beside a game in any games folder, a USB drive's too, and its page
-  shows the update's version and DLC; frame generation with Lossless Scaling and your own `Lossless.dll`
-  ([#81](https://github.com/premohq/PS5-ECAM/issues/81)); mods, cheats, players, and saves to USB and back (Ryujinx's too), from JMUtechnologies
-  ([#86](https://github.com/premohq/PS5-ECAM/pull/86)); a game with a mods folder starts ([#77](https://github.com/premohq/PS5-ECAM/issues/77)); fixes from ProsperoEden's open pull
-  requests (several updates of one game, a full audio buffer, Metal Gear Solid: Master Collection).
-- **Updates in a minute** ([#78](https://github.com/premohq/PS5-ECAM/issues/78), [#73](https://github.com/premohq/PS5-ECAM/issues/73), [#72](https://github.com/premohq/PS5-ECAM/issues/72)): Check for updates answers at once, and
-  an update installs in about a minute and can be cancelled.
-- **Library:** 3DS and DS games come back to it without the app starting over; each game's play time, and
-  **Settings > Play time** with each side's time and the most played games; **Hide from the Library** and
-  **Surprise me** in a game's Options and Sort; Library and Settings beside the players and the clock; one
-  layout, Light by default; graphic packs downloaded when Cemu first needs them, so the app is smaller
-  ([#74](https://github.com/premohq/PS5-ECAM/issues/74)); network shares looked through only when you ask ([#75](https://github.com/premohq/PS5-ECAM/issues/75)); Azahar's compressed 3DS
-  files with their names and box art.
-- **Settings:** fewer pages down the left, and related rows behind one row (›), every setting kept.
-- **Remove its update or DLC** from a Wii U ([#58](https://github.com/premohq/PS5-ECAM/issues/58)) or 3DS ([#80](https://github.com/premohq/PS5-ECAM/issues/80)) game's Options menu.
-- **DS:** the right stick as the stylus; from [#86](https://github.com/premohq/PS5-ECAM/pull/86), a GBA game in Slot-2 for Pal Park, a recorded microphone, touch calibration.
-- **Wii U:** each player's DualSense light bar in a colour of its own. **Switch:** Saves in a game's Options.
-- **Fixes:** stripes on empty screens ([#76](https://github.com/premohq/PS5-ECAM/issues/76)); one label size in Cyrillic ([#79](https://github.com/premohq/PS5-ECAM/issues/79)); a renamed
-  Wii U account's name is the one games show; a Switch shader the driver refuses no longer crashes the game
-  (This War of Mine); the Swedish menus reviewed by yeager ([#83](https://github.com/premohq/PS5-ECAM/pull/83)).
+- **A new name and a new look:** Playtendoh, with a mark of every console's controller in a ring, on the
+  PS5's home screen and at the launcher's top left.
+- **Twenty-one systems** (below): the GameCube and the Wii on Dolphin (Porpoise), the iQue Player, and
+  thirteen classics on libretro cores inside the app (the NES, SNES, Game Boys, N64, Virtual Boy, Pokémon
+  mini, Famicom Disk System, Super Game Boy, Game &amp; Watch, Satellaview and VS. System), each a side of
+  its own with its colour, its controller and its backdrop.
+- **Switch 2 (experimental):** a side of its own on [EglantinePS5](https://github.com/heydemoura/EglantinePS5),
+  with Playtendoh's in-game menu, from JMUtechnologies ([#109](https://github.com/premohq/PS5-ECAM/pull/109)).
+- **EmulationStation (ES-DE)** as the other frontend, its games played here.
+- **Switch:** games no longer end after 6 to 10 minutes ([#97](https://github.com/premohq/PS5-ECAM/issues/97));
+  Wii U installs no longer stop at 0 % ([#96](https://github.com/premohq/PS5-ECAM/issues/96)); the touchpad's
+  shortcuts with a Pro Controller on the Wii U ([#93](https://github.com/premohq/PS5-ECAM/issues/93)).
 
-Changes in earlier versions are in their [release notes](https://github.com/premohq/PS5-ECAM/releases).
+None of 6.0 has run on a console yet: the [roadmap](docs/ROADMAP.md) says what is being checked. Changes in
+earlier versions are in their [release notes](https://github.com/premohq/PS5-ECAM/releases).
 
 ## Support
 
@@ -78,19 +70,32 @@ Playtendoh is free. If it brings your games back, you can support it:
 
 <a href="https://www.paypal.com/paypalme/empthe"><img src="docs/support-qr.svg" width="120" alt="QR code for paypal.me/empthe"></a>
 
-## Features
+## Systems
 
-| | Wii U | Nintendo 3DS | Nintendo DS | Nintendo Switch |
-|---|---|---|---|---|
-| **Emulator** | Cemu, x64 recompiler, Vulkan | Azahar, dynarmic recompiler, Vulkan | melonDS, ARM recompiler | Eden (ProsperoEden), dynarmic, Vulkan |
-| **Plays** | `.wua`, `.wud`, `.wux`, unpacked games (also in `.zip`, `.7z` and `.rar` archives) | `.3ds`, `.cci`, `.cxi`, `.app`, `.3dsx`, `.elf`, compressed `.z*`, also in `.zip`, `.7z` and `.rar` archives; installed `.cia` | `.nds`, also in `.zip`, `.7z` and `.rar` archives | `.nsp`, `.xci`, each alone or in a folder with its update and DLC |
-| **Picture** | 4K output, 120 Hz, FSR 1, graphic packs, ReShade, frame generation | up to 10x resolution, texture filters, layouts, borders, red-cyan 3D, frame generation | sharp, smooth or square pixels, layouts, borders | up to 4x resolution, FSR 1, anti-aliasing, docked or handheld, frame generation |
-| **Extras** | mods, accounts, amiibo, Skylanders portals, updates and DLC | save states, cheats, amiibo, mods, cameras, Artic Base | save states, cheats, RetroAchievements | amiibo, online rooms, mods, cheats, updates and DLC (from their folders) |
+| System | Emulator | Plays |
+|---|---|---|
+| **Wii U** | Cemu: x64 recompiler, Vulkan | `.wua`, `.wud`, `.wux`, unpacked games, also in `.zip`, `.7z` and `.rar` |
+| **Nintendo 3DS** | Azahar: dynarmic recompiler, Vulkan | `.3ds`, `.cci`, `.cxi`, `.app`, `.3dsx`, `.elf`, compressed `.z*`, archives; installed `.cia` |
+| **Nintendo DS** | melonDS: ARM recompiler | `.nds`, also in archives |
+| **Nintendo Switch** | Eden (ProsperoEden), its own program | `.nsp`, `.xci`, each alone or with its update and DLC |
+| **Switch 2** (experimental) | EglantinePS5 (Eglantine), its own program | game folders with ExeFS and RomFS |
+| **GameCube**, **Wii** | Dolphin (Porpoise X), its own program | `.iso`, `.gcm`, `.rvz`, `.ciso`, `.gcz`, `.wia`; Wii `.wbfs`, `.wad` |
+| **Nintendo 64** | ParaLLEl-N64 core | `.z64`, `.n64`, `.v64` |
+| **NES**, **Famicom Disk System**, **VS. System** | Mesen core | `.nes`, `.unf`, `.fds` |
+| **Super Nintendo**, **Satellaview** | Mesen-S core | `.sfc`, `.smc`, `.bs` |
+| **Game Boy**, **Game Boy Color**, **Game Boy Advance**, **Super Game Boy** | mGBA core | `.gb`, `.gbc`, `.gba` |
+| **Virtual Boy** | Beetle VB core | `.vb`, `.vboy` |
+| **Pokémon mini** | PokeMini core | `.min` |
+| **Game &amp; Watch** | gw-libretro core | `.mgw` |
+| **iQue Player** | the N64's program | decrypted iQue games |
 
-- **One launcher for all four:** box art and game info from GameTDB, search, sorting and favourites,
-  a page for each game, settings for each game, and an in-game menu on every system.
-- **Made for the DualSense:** every button remappable, motion controls, rumble, the touchpad as the
-  touch screen, and up to four players on the Wii U.
+- **One launcher for all of them:** a side for each system, with box art, search, sorting, favourites, a page
+  and settings for each game, and Playtendoh's own in-game menu on every system (the GameCube's and Wii's
+  Porpoise still shows some of its own, which 6.0 is taking out).
+- **Made for the DualSense:** every button remappable, motion controls, rumble, the touchpad as the touch
+  screen, up to four players.
+- **Picture:** up to 4K and 120 Hz on the Wii U, up to 10x on the 3DS, FSR 1, anti-aliasing, borders and
+  layouts, frame generation.
 - **Updates itself:** a new release installs from inside the app.
 
 ## Install
@@ -105,8 +110,9 @@ Playtendoh is free. If it brings your games back, you can support it:
 4. **Add your games** (below), and start Playtendoh from the home screen. The Setup check shows
    what's ready and what to do about the rest.
 
-Each system keeps its files in a folder of its own: `/data/cemu`, `/data/azahar`, `/data/melonds`
-and `/data/eden`, with the launcher's settings, covers and logs in `/data/ps5cemu`.
+Each system keeps its files in a folder of its own (`/data/cemu`, `/data/azahar`, `/data/melonds`,
+`/data/eden`, `/data/eglantineps5`, `/data/porpoise` and one for each classic), with the launcher's settings,
+covers and logs in `/data/ps5cemu`.
 
 Updating, from PS5CEMU-HAR too: the app offers new releases itself, and the title ID stays
 `PPSA99360`. An install from before keeps everything where it is, in `/data/ps5cemu`, and goes on
@@ -128,6 +134,9 @@ they are there already).
 | **3DS** | `/data/azahar/games` | nothing: games must be decrypted dumps; `.cia` files install from Settings |
 | **DS** | `/data/melonds/games` | nothing: your own BIOS and firmware in `/data/melonds/bios` are optional |
 | **Switch** | `/data/eden/roms` | your Switch's `prod.keys` (and `title.keys`) in `/data/eden/keys`, and its firmware in `/data/eden/firmware` |
+| **Switch 2** | `/data/eglantineps5/roms`, a folder per game | `prod.keys` in `/data/eglantineps5/keys`, firmware in `/data/eglantineps5/firmware` |
+| **GameCube**, **Wii** | `/data/porpoise/games/GameCube`, `/data/porpoise/games/Wii` | nothing |
+| **The classics** | `/data/PS5NES/games`, `/data/PS5SNES/games`, `/data/PS5GBC/games` and so on: each side's **Settings > Game files** says where | a BIOS for the Famicom Disk System (`disksys.rom`) and Satellaview (`BS-X.bin`) |
 
 An install from before has these in `/data/ps5cemu` (`games`, `keys.txt`, `azahar/games`, and so on)
 until it is separated. [System folders](docs/SYSTEM-FOLDERS.md) has each system's whole folder.
@@ -157,9 +166,10 @@ Every shortcut, the in-game menu and the rest are in the [guide](docs/GUIDE.md).
 
 ## Building
 
-`make release` on Ubuntu 24.04 (WSL works) downloads every dependency at its pinned version, builds
-the four emulators (Eden as a program of its own, `eden/eboot.bin`) and the launcher, and writes the
-app to `build/app/PPSA99360` and a ZIP to `dist/`. See [docs/BUILDING.md](docs/BUILDING.md).
+`make release` on Ubuntu 24.04 (WSL and distrobox work) downloads every dependency at its pinned version,
+builds the emulators, the libretro cores and the launcher (Eden and EglantinePS5 as programs of their own,
+`eden/eboot.bin` and `eglantine/eboot.bin`), and writes the app to `build/app/PPSA99360` and a ZIP to
+`dist/`. See [docs/BUILDING.md](docs/BUILDING.md).
 
 ## Join the Discord
 
@@ -228,6 +238,18 @@ says where the app is going and how to fit in.
   PS5 port by **heydemoura** (**Heyde Moura**) with **darkxex** and **swizard** (GPL-3.0-or-later): the
   Switch 2 side's child runtime (`patches/eglantine`), brought in with the shared in-game menu by
   **JMUtechnologies** ([#109](https://github.com/premohq/PS5-ECAM/pull/109))
+- [Dolphin](https://github.com/dolphin-emu/dolphin) by the Dolphin team (GPL-2.0-or-later), in
+  [Porpoise](https://github.com/elripalda/Porpoise-Dolphin-Emulator-for-PS5), its PS5 port by **elripalda**,
+  as [Porpoise X](https://github.com/premohq/Porpoise-X): the GameCube and the Wii
+- The libretro cores the classics play on: [Mesen](https://github.com/libretro/Mesen) and
+  [Mesen-S](https://github.com/libretro/Mesen-S) by Sour (GPL-3.0), [mGBA](https://github.com/libretro/mgba) by
+  endrift (MPL-2.0), [Beetle VB](https://github.com/libretro/beetle-vb-libretro) (Mednafen, GPL-2.0-or-later),
+  [PokeMini](https://github.com/libretro/PokeMini) (GPL-3.0-or-later),
+  [ParaLLEl-N64](https://github.com/libretro/parallel-n64) (GPL-2.0-or-later) and
+  [gw-libretro](https://github.com/libretro/gw-libretro) (zlib), with
+  [libretro-common](https://github.com/libretro/libretro-common) (MIT)
+- **Yahballon** for the PS5's N64, NES, Game Boy Color and Game Boy Advance programs (PS5N64X, PS5NESX,
+  PS5GBCX, PS5GBAX), **TheRealRetro** for Mupen64Plus and **MisterTemaki** for FCEUmm on the PS5
 - **Mihawk** for RADV on PS5 ([PS5_Mesa](https://github.com/mihawk-99/PS5_Mesa),
   [PS5_Vulkan](https://github.com/mihawk-99/PS5_Vulkan), the payload SDK fork and its platform layer)
   and the PS5 ports of Azahar and dynarmic ([PS5_Azahar](https://github.com/mihawk-99/PS5_Azahar)),
@@ -256,12 +278,13 @@ says where the app is going and how to fit in.
 The app's own code is GPL-3.0-or-later (see [LICENSE](LICENSE)). Files derived from Cemu keep Cemu's
 MPL-2.0, as their headers say; Azahar is GPL-2.0-or-later, melonDS GPL-3.0, and Eden and
 ProsperoEden GPL-3.0-or-later (their notices are in the app's `eden/` folder), Eglantine and EglantinePS5
-GPL-3.0-or-later (in its `eglantine/` folder), and the app that
+GPL-3.0-or-later (in its `eglantine/` folder), Dolphin GPL-2.0-or-later, and each libretro core its own
+licence (above), and the app that
 includes them is distributed under GPL-3.0-or-later. Other third-party components keep their own
 licenses.
 
 Playtendoh is an independent homebrew project, not affiliated with or endorsed by Sony Interactive
-Entertainment, Nintendo, or the Cemu, Azahar, melonDS, Eden or ProsperoEden projects. "PlayStation"
-and "PS5" are trademarks of Sony Interactive Entertainment Inc.; "Wii U", "Nintendo 3DS", "Nintendo
-DS" and "Nintendo Switch" are trademarks of Nintendo. No firmware, keys, games or SDK material is included. It is provided as is,
+Entertainment, Nintendo, or the Cemu, Azahar, melonDS, Eden, ProsperoEden, Eglantine, Dolphin, Porpoise or libretro projects. "PlayStation"
+and "PS5" are trademarks of Sony Interactive Entertainment Inc.; "Nintendo", "Wii U", "Nintendo 3DS",
+"Nintendo DS", "Nintendo Switch" and the names of Nintendo's other systems are trademarks of Nintendo. No firmware, keys, games or SDK material is included. It is provided as is,
 without warranty, for use with hardware and games you own.

@@ -468,6 +468,23 @@ old app to delete: the in-app update replaces the files in place as it does now.
   before; Go back after reorganizing; Not now, then Reorganize from Settings; an update from the
   release before straight to this one.
 
+## Later: Playtendoh beyond the PS5
+
+The owner, 4 November 2026: **builds of the app for other platforms, down the road**: the PS4, Xbox
+(UWP), PC (Windows), Linux, macOS, iOS and Android, and the Switch and Switch 2 themselves. The same
+app on each, its launcher, library, in-game menus, settings and saves as they are here, its emulators
+the ones each platform can run. Nothing is started; the PS5 comes first. What it needs, to look at
+when it starts:
+
+- **The launcher and menus away from the PS5's own calls:** its Vulkan drawing (port/ui), the
+  DualSense, the PS5's sound, files and notifications behind one small layer per platform, as
+  `port/ps5` is the PS5's.
+- **Each emulator's own builds for that platform** (Cemu, Azahar, melonDS, Eden, the libretro cores,
+  Dolphin), pinned as here, where the platform allows them: Xbox's UWP and iOS limit JIT and
+  executable memory, the Switches have their own homebrew toolchains, and the PS4 has less memory and
+  an older GPU.
+- **A package for each**, and the update check and its releases per platform.
+
 ## Ideas
 
 A list of things Playtendoh could do next: fixes, quality of life, new features and a few long shots.

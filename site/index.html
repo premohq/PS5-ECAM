@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Playtendoh</title>
-<meta name="description" content="Playtendoh plays your Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch games on a jailbroken PS5, with Cemu, Azahar, melonDS and Eden in one launcher made for the TV and the DualSense.">
+<meta name="description" content="Playtendoh is an all-in-one emulator for the PS5: your Nintendo games, from the Game &amp; Watch to the Switch 2, on a jailbroken PS5, in one launcher made for the TV and the DualSense.">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://cdn.jsdelivr.net; style-src 'self'; img-src 'self' data: https:; font-src 'self'; connect-src https://api.github.com; base-uri 'none'; form-action 'none'; object-src 'none'">
 <meta name="referrer" content="strict-origin-when-cross-origin">
 <meta name="color-scheme" content="light dark">
@@ -15,8 +15,8 @@
 <link rel="apple-touch-icon" href="icon.png">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Playtendoh">
-<meta property="og:title" content="Playtendoh: Wii U, 3DS, DS and Switch on PlayStation 5">
-<meta property="og:description" content="Cemu, Azahar, melonDS and Eden in one launcher made for the TV and the DualSense, on a jailbroken PS5.">
+<meta property="og:title" content="Playtendoh: an all-in-one emulator for PS5">
+<meta property="og:description" content="Twenty-one Nintendo systems in one launcher made for the TV and the DualSense, on a jailbroken PS5.">
 <meta property="og:image" content="https://premohq.github.io/PS5-ECAM/banner.png">
 <meta property="og:url" content="https://premohq.github.io/PS5-ECAM/">
 <meta name="twitter:card" content="summary_large_image">
@@ -75,10 +75,10 @@
       <svg class="hero-mark" role="img" aria-label="Playtendoh's logo: every console's controller in a ring, the NES pad in the middle"><use href="#mark"/></svg>
       <div class="lockup-text">
         <h1 class="wordmark"><span class="sr">Playtendoh</span></h1>
-        <p class="tagline">Wii U, 3DS, DS and Switch on PlayStation 5</p>
+        <p class="tagline">An all-in-one emulator for PS5</p>
       </div>
     </div>
-    <p class="lede">Playtendoh plays your Wii U, Nintendo 3DS, Nintendo DS and Nintendo Switch games on a jailbroken PS5, with <a href="https://github.com/cemu-project/Cemu">Cemu</a>, <a href="https://github.com/azahar-emu/azahar">Azahar</a>, <a href="https://github.com/melonDS-emu/melonDS">melonDS</a> and <a href="https://github.com/eden-emu/mirror">Eden</a> in one launcher made for the TV and the DualSense.</p>
+    <p class="lede">Playtendoh is an all-in-one emulator for the PS5: your Nintendo games, from the Game &amp; Watch to the Switch 2, in one launcher made for the TV and the DualSense. The Wii U on <a href="https://github.com/cemu-project/Cemu">Cemu</a>, the 3DS on <a href="https://github.com/azahar-emu/azahar">Azahar</a>, the DS on <a href="https://github.com/melonDS-emu/melonDS">melonDS</a>, the Switch on <a href="https://github.com/eden-emu/mirror">Eden</a>, the Switch 2 on <a href="https://github.com/heydemoura/EglantinePS5">EglantinePS5</a>, the GameCube and the Wii on Dolphin, and the classics on libretro cores, all behind the app's own menus.</p>
     <div class="cta">
       <a class="btn primary" href="%ZIP_URL%" data-zip><svg aria-hidden="true"><use href="#i-download"/></svg><span>Download <span data-version>%VERSION%</span></span></a>
       <a class="btn" href="#release">What's new</a>
@@ -91,7 +91,7 @@
 <section class="section" id="systems">
   <div class="wrap">
     <header class="section-head reveal">
-      <p class="eyebrow">Four systems, one launcher</p>
+      <p class="eyebrow">Twenty-one systems, one launcher</p>
       <h2>Every side in its own colour, all of them one app</h2>
       <p class="section-lede">Box art and game info from GameTDB, search, sorting and favourites, a page for each game, settings for each game, and an in-game menu on every system.</p>
     </header>
@@ -128,9 +128,31 @@
           <dt>Extras</dt><dd>Amiibo, online rooms, mods, cheats, updates and DLC (from their folders)</dd>
         </dl>
       </article>
+      <article class="system nx reveal">
+        <header><svg class="pane" aria-hidden="true"><use href="#pane-switch"/></svg><div><h3>Switch 2 <small>experimental</small></h3><p class="emu"><a href="https://github.com/heydemoura/EglantinePS5">EglantinePS5</a> (<a href="https://github.com/Djihads80/Eglantine">Eglantine</a>), Vulkan</p></div></header>
+        <dl>
+          <dt>Plays</dt><dd>Game folders with ExeFS and RomFS</dd>
+          <dt>Picture</dt><dd>Resolution, FSR 1, output size, 120 Hz, frame generation</dd>
+          <dt>Extras</dt><dd>Its own side, keys and firmware, and Playtendoh's in-game menu</dd>
+        </dl>
+      </article>
+      <article class="system wiiu reveal">
+        <header><svg class="pane" aria-hidden="true"><use href="#pane-wiiu"/></svg><div><h3>GameCube and Wii</h3><p class="emu">Dolphin (<a href="https://github.com/premohq/Porpoise-X">Porpoise X</a>)</p></div></header>
+        <dl>
+          <dt>Plays</dt><dd><code>.iso</code> <code>.gcm</code> <code>.rvz</code> <code>.ciso</code> <code>.gcz</code> <code>.wia</code>; Wii <code>.wbfs</code> <code>.wad</code></dd>
+          <dt>Extras</dt><dd>Its settings on the sides' own pages</dd>
+        </dl>
+      </article>
+      <article class="system nds reveal">
+        <header><svg class="pane" aria-hidden="true"><use href="#pane-ds"/></svg><div><h3>The classics</h3><p class="emu">libretro cores, inside the app</p></div></header>
+        <dl>
+          <dt>Systems</dt><dd>NES, Famicom Disk System, VS. System, SNES, Satellaview, Nintendo 64, Game Boy, Game Boy Color, Game Boy Advance, Super Game Boy, Virtual Boy, Pokémon mini, Game &amp; Watch, and the iQue Player</dd>
+          <dt>Extras</dt><dd>Save states, Resume where you left off, borders and filters in the in-game menu</dd>
+        </dl>
+      </article>
     </div>
     <ul class="perks">
-      <li class="reveal"><h3>One launcher for all four</h3><p>Box art and game info, a page and settings for each game, and the same in-game menu on every system.</p></li>
+      <li class="reveal"><h3>One launcher for all of them</h3><p>Box art and game info, a page and settings for each game, and the same in-game menu on every system.</p></li>
       <li class="reveal"><h3>Made for the DualSense</h3><p>Every button remappable, motion controls, rumble, the touchpad as the touch screen, and up to four players on the Wii U.</p></li>
       <li class="reveal"><h3>Updates itself</h3><p>A new release installs from inside the app, in about a minute, and can be cancelled.</p></li>
       <li class="reveal"><h3>In 31 languages</h3><p>Every menu of the launcher, on every system.</p></li>
