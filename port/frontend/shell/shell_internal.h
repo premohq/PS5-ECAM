@@ -178,7 +178,11 @@ namespace ps5shell
 		static int SideIndex(System side) { return (int)side; } // 0 Wii U, 1 3DS, 2 DS, 3 Switch: its bit in ui.sides, its catalogue
 		int SideIndex() const { return SideIndex(m_side); }
 		// the bar's order (the owner's, 2026-10-22): Wii U, Switch, DS, 3DS; m_barFocus counts in it
-		static constexpr System kBarOrder[kSides] = {System::WiiU, System::Switch, System::Nds, System::N3ds, System::GameCube, System::Wii, System::N64, System::Snes, System::Nes, System::Gba, System::Gbc, System::Gb, System::VirtualBoy, System::PokemonMini};
+		// (a later side beside its family's: the iQue Player after the N64, Satellaview after the SNES, the Famicom Disk
+		// System and VS. System after the NES, the Super Game Boy after the Game Boy, Game & Watch last)
+		static constexpr System kBarOrder[kSides] = {System::WiiU, System::Switch, System::Nds, System::N3ds, System::GameCube, System::Wii,
+			System::N64, System::Ique, System::Snes, System::Satellaview, System::Nes, System::Fds, System::VsSystem, System::Gba, System::Gbc,
+			System::Gb, System::Sgb, System::VirtualBoy, System::PokemonMini, System::GameWatch};
 		static int BarIndex(System side)
 		{
 			for (int i = 0; i < kSides; i++)

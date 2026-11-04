@@ -11,7 +11,7 @@ msgstr ""
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements ne répond pas. La PS5 est-elle en ligne?"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2838 port/frontend/shell/shell.cpp:1965
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2838 port/frontend/shell/shell.cpp:1969
 msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
 msgstr "Playtendoh ne peut pas écrire dans {0}. Le HEN est-il chargé?"
 
@@ -90,37 +90,37 @@ msgstr "Gauche et Droite choisissent une figurine, Croix la pose; Vide retire ce
 msgid "Left and Right choose an amiibo dump; Cross touches it to the GamePad when the game asks for one."
 msgstr "Gauche et Droite choisissent un dump d’amiibo; Croix le pose sur le GamePad quand le jeu en demande un."
 
-#: port/app/ingame3ds.cpp:512
+#: port/app/ingame3ds.cpp:513
 #, menu
 msgid "How the game's picture is scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them together; Square pixels takes the nearest, uneven at most sizes."
 msgstr "Comment l’image du jeu est mise à l’échelle du téléviseur. Net garde chaque pixel carré et régulier; Lissé les fond ensemble; Pixels carrés prend le plus proche, irrégulier à la plupart des tailles."
 
-#: port/app/ingame3ds.cpp:520
+#: port/app/ingame3ds.cpp:521
 #, menu
 msgid "How the DS's 256 x 192 screens are scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them together; Square pixels takes the nearest, uneven at most sizes."
 msgstr "Comment les écrans 256 x 192 de la DS sont mis à l’échelle sur la TV. Net garde chaque pixel carré et régulier; Lissé les fond entre eux; Pixels carrés prend le plus proche, irrégulier à la plupart des tailles."
 
-#: port/app/ingame3ds.cpp:541 port/eden/ingame.cpp:583
+#: port/app/ingame3ds.cpp:542 port/eden/ingame.cpp:583
 #, menu
 msgid "Above 100% hurries through slow scenes; None runs as fast as the PS5 can. For this game only."
 msgstr "Au-dessus de 100 %, les scènes lentes passent plus vite; Aucune tourne aussi vite que la PS5 le peut. Pour ce jeu seulement."
 
-#: port/app/ingame3ds.cpp:550
+#: port/app/ingame3ds.cpp:551
 #, menu
 msgid "Below 100% can bring a slow game to full speed; above it smooths games that dropped frames on the 3DS."
 msgstr "Sous 100 %, un jeu lent peut retrouver sa pleine vitesse; au-dessus, les jeux qui perdaient des images sur 3DS sont plus fluides."
 
-#: port/app/ingame3ds.cpp:570
+#: port/app/ingame3ds.cpp:571
 #, menu
 msgid "Cross, Left or Right turns it on or off, at once; it is kept for next time."
 msgstr "Croix, Gauche ou Droite l’active ou le désactive aussitôt; c’est conservé pour la prochaine fois."
 
-#: port/app/ingame3ds.cpp:608
+#: port/app/ingame3ds.cpp:609
 #, menu
 msgid "Left and Right choose an amiibo dump; Cross holds it to the reader."
 msgstr "Gauche et Droite choisissent un dump d’amiibo; Croix le présente au lecteur."
 
-#: port/app/ingame3ds.cpp:626
+#: port/app/ingame3ds.cpp:627
 #, menu
 msgid "Closes the DS's lid, for games that ask you to; the DS sleeps until it is opened. Choose it again to open it."
 msgstr "Ferme le couvercle de la DS, pour les jeux qui vous le demandent; la DS se met en veille jusqu’à ce qu’on l’ouvre. Choisissez-le à nouveau pour l’ouvrir."
@@ -316,7 +316,7 @@ msgstr[1] "L’ordinateur partage {0} dossiers. Gauche et Droite choisissent; Cr
 msgid "Turn on file sharing for a folder on your computer or NAS, then add it here. The PS5 reads games from it; it never writes to it. A cable does better than Wi-Fi for Wii U games."
 msgstr "Activez le partage de fichiers pour un dossier de votre ordinateur ou NAS, puis ajoutez-le ici. La PS5 y lit les jeux; elle n’y écrit jamais. Pour les jeux Wii U, un câble vaut mieux que le Wi-Fi."
 
-#: port/frontend/shell/shell.cpp:2536
+#: port/frontend/shell/shell.cpp:2540
 msgid "This is {0}. Download and install it now? Your games, saves and settings stay as they are."
 msgstr "Vous avez {0}. Télécharger et installer la nouvelle version maintenant? Vos jeux, sauvegardes et paramètres restent tels quels."
 

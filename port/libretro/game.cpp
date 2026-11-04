@@ -605,6 +605,15 @@ namespace ps5libretro
 		setup.system = data + "/system";
 		setup.saves = data + "/saves";
 		setup.states = data + "/states";
+		// what the side always gives its core ("key=value;key=value": the Super Game Boy's model, ps5retro::kSystems)
+		for (std::string_view rest = system.options; !rest.empty();)
+		{
+			const size_t end = rest.find(';');
+			const std::string_view pair = rest.substr(0, end);
+			if (const size_t equals = pair.find('='); equals != std::string_view::npos)
+				setup.options[std::string(pair.substr(0, equals))] = std::string(pair.substr(equals + 1));
+			rest = end == std::string_view::npos ? std::string_view{} : rest.substr(end + 1);
+		}
 		// the launcher's language, as libretro numbers them, for the cores that have their own words
 		const std::string language = ps5lang::Current();
 		setup.language = language == "ja" ? RETRO_LANGUAGE_JAPANESE : language.rfind("fr", 0) == 0 ? RETRO_LANGUAGE_FRENCH :

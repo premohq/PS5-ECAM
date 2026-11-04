@@ -27,7 +27,7 @@ int main(int argc, char** argv)
 	if (argc != 2) return 2;
 	fs::create_directories(argv[1]); const auto root = fs::canonical(argv[1]);
 	std::string error;
-	Check(ps5launcher::kSideCount == 14, "fourteen stable side indices");
+	Check(ps5launcher::kSideCount == 20 && (int)ps5launcher::System::PokemonMini == 13 && (int)ps5launcher::System::Ique == 19, "twenty stable side indices, the later ones after the first fourteen");
 	for (int i = 0; i < ps5launcher::kSideCount; i++) Check((int)ps5launcher::SideNamed(ps5launcher::SideName((ps5launcher::System)i)) == i, "side names round-trip without changing existing indices");
 	Put(root / "roms/A.NES", std::string("NES\x1a", 4) + std::string(12, '\0')); Put(root / "roms/B.z64"); Put(root / "roms/C.iso", DiscHeader(false)); Put(root / "roms/D.wad"); Put(root / "roms/not-a-game.txt");
 	Put(root / "roms/nested/E.unif"); Put(root / "roms/one/two/three/four/five/too-deep.nes"); fs::create_directory_symlink(root / "roms", root / "roms/loop");
@@ -169,7 +169,26 @@ int main(int argc, char** argv)
 	Put(root / "pokemini/Game.min");
 	ps5retro::StartScan((int)ps5launcher::System::PokemonMini, (root / "pokemini").string());
 	ps5retro::FinishScans();
-	Check(ps5retro::ListGames((int)ps5launcher::System::PokemonMini).size() == 1, "the last side has a scanner slot of its own");
+	Check(ps5retro::ListGames((int)ps5launcher::System::PokemonMini).size() == 1, "the Pokemon mini has a scanner slot of its own");
+	Put(root / "ique/Game.z64");
+	ps5retro::StartScan((int)ps5launcher::System::Ique, (root / "ique").string());
+	ps5retro::FinishScans();
+	Check(ps5retro::ListGames((int)ps5launcher::System::Ique).size() == 1, "the last side has a scanner slot of its own");
+	// the later sides: their files, the older side keeping a file both read, their BIOS, their core's options
+	const int fds = (int)ps5launcher::System::Fds, sgb = (int)ps5launcher::System::Sgb, gw = (int)ps5launcher::System::GameWatch;
+	const int bsx = (int)ps5launcher::System::Satellaview, vs = (int)ps5launcher::System::VsSystem;
+	Check(ps5retro::IdentifySystem("/games/Game.mgw") == gw && ps5retro::IdentifySystem("/games/Game.fds") == 7 && ps5retro::IdentifySystem("/games/Game.bs") == (int)ps5launcher::System::Snes,
+		"a Game & Watch file is its side's; an FDS or Satellaview game started by its path goes to the NES and SNES sides as before");
+	Check(ps5retro::HasExtension("fds", "Zelda.fds") && ps5retro::HasExtension("sgb", "Pokemon.gb") && ps5retro::HasExtension("satellaview", "BS Zelda.bs") &&
+		ps5retro::HasExtension("vs", "VS Excitebike.nes") && ps5retro::HasExtension("ique", "Sin and Punishment.z64") && !ps5retro::HasExtension("gw", "Ball.zip"),
+		"each later side's files");
+	Put(root / "carts/Disk.fds", std::string(65500, '\0')); Put(root / "carts/Broadcast.bs", std::string(0x8000, '\0'));
+	Check(!ps5retro::ValidateRom(fds, (root / "carts/Disk.fds").string(), error) && error.find("disksys.rom") != std::string::npos &&
+		error.find(std::string(ps5retro::Of(fds).data) + "/system") != std::string::npos, "an FDS game on its core asks for its BIOS in the core's folder");
+	Check(!ps5retro::ValidateRom(bsx, (root / "carts/Broadcast.bs").string(), error) && error.find("BS-X.bin") != std::string::npos, "a Satellaview game asks for BS-X.bin");
+	Check(std::string(ps5retro::Of(sgb).core) == "mgba" && std::string(ps5retro::Of(sgb).options).find("mgba_gb_model=Super Game Boy") != std::string::npos &&
+		std::string(ps5retro::Of(vs).core) == "mesen" && std::string(ps5retro::Of(gw).core) == "gw" && !*ps5retro::Of(fds).options,
+		"the Super Game Boy is mGBA's Super Game Boy; VS. System Mesen's; Game & Watch gw-libretro's");
 	for (int i = 0; i < 200; ++i) Put(root / "busy-scan" / (std::to_string(i) + ".nes"));
 	Put(root / "latest-scan/Latest.nes");
 	ps5retro::StartScan(7, (root / "busy-scan").string());

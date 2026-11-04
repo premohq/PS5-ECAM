@@ -225,22 +225,31 @@ Porpoise), and not the four sides the app began with (Wii U, 3DS, DS, Switch).
 | GB, GBC | PS5GBCX (mGBA 0.10.5's GB core) | SameBoy, the most accurate; Gambatte next |
 | GBA | PS5GBAX (mGBA 0.10.5) | mGBA stays, at its newest |
 
+**Added, 31 October 2026** (sides of their own, not run on a console yet): the **Famicom Disk System**
+on Mesen (its BIOS, disksys.rom, in `<data>/system`), the **Super Game Boy** on mGBA as its Super Game Boy
+with its borders (the side's core options in its `kSystems` row), **Game & Watch** on gw-libretro (`.mgw`
+files; built for the PS5 with the public payload SDK v0.42), **Satellaview** on Mesen-S (BS-X.bin in
+`<data>/system`), **VS. System** on Mesen (L2 and R2 its coins; ES-DE's arcade), and the **iQue Player**
+on the N64's program (its decrypted games; it may not run them).
+
 **Still to add**, with the emulators to look at first (to check, each, for what it runs today):
 
 | System | Emulators |
 |---|---|
-| SNES / Super Famicom, with Satellaview and Sufami Turbo | bsnes (the most accurate), Mesen 2, Snes9x for speed |
-| Famicom Disk System | Mesen, which the NES's choice may cover already |
-| Super Game Boy | bsnes; SameBoy's SGB mode |
-| Nintendo 64DD | ares, Mupen64Plus-Next |
-| Virtual Boy | Beetle VB (Mednafen) |
-| Pokémon mini | PokeMini |
-| Game & Watch | MAME's handhelds; the gw-libretro simulator |
-| e-Reader | mGBA, with the GBA |
-| iQue Player, Color TV-Game | MAME, where it runs them |
+| SNES / Super Famicom, with Satellaview and Sufami Turbo | bsnes (the most accurate), Mesen 2, Snes9x for speed; Sufami Turbo needs Mesen 2 (the pinned Mesen-S has none) or a core loaded with its BIOS and two carts (subsystems, which the frontend does not have yet) |
+| Super Game Boy | bsnes; SameBoy's SGB mode (mGBA's plays it now) |
+| Nintendo 64DD | ares, Mupen64Plus-Next: an N64 core in the frontend first (ParaLLEl-RDP wants a Vulkan context, which the frontend does not give cores yet) |
+| Game & Watch | MAME's handhelds (gw-libretro's simulator plays them now) |
+| e-Reader | mGBA, with the GBA: its libretro core cannot be given cards to scan |
+| iQue Player | MAME, where it runs it, or the N64's core once the frontend has one |
+| Color TV-Game | none: discrete logic no emulator has |
 | Arcade: Donkey Kong, Donkey Kong Jr., Mario Bros., Popeye, Punch-Out!!, Radar Scope, Sheriff, Space Fever and the rest of Nintendo's own boards | MAME |
 | Arcade: VS. System and VS. UniSystem, PlayChoice-10, Nintendo Super System | Mesen and FCEUmm (VS.), MAME |
-| Arcade: Aleck64 (N64-based), Triforce (GameCube-based) | MAME (Aleck64); Dolphin's Triforce work, if any is current |
+| Arcade: Aleck64 (N64-based), Triforce (GameCube-based) | MAME (Aleck64); Dolphin's Triforce work, if any is current (upstream Dolphin has none) |
+
+The arcade boards wait on **MAME** (GPL-2.0-or-later, so it can be linked; FBNeo's licence forbids that),
+built with only Nintendo's drivers: its own build system and the libretro OSD made to work with the PS5's C
+library, a piece of work of its own.
 
 - **The donor apps give way to the frontend**: PR #87's and PR #91's systems move onto it, one at a
   time, as their best core runs there. Porpoise already runs Dolphin as a libretro core, so its

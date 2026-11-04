@@ -22,7 +22,8 @@ namespace ps5esde
 	{
 		// ES-DE's systems (its resources/systems/unix/es_systems.xml), in the launcher's sides' order:
 		// Wii U, 3DS, DS, Switch, then ps5retro::kSystems' (GameCube, Wii, N64, NES, GB, GBC, GBA, SNES,
-		// Virtual Boy, Pokemon mini). The extensions are each side's (ES-DE scans for none here: its
+		// Virtual Boy, Pokemon mini, Famicom Disk System, Super Game Boy, Game & Watch, Satellaview, VS. System
+		// as ES-DE's arcade; a side after these is left out of ES-DE). The extensions are each side's (ES-DE scans for none here: its
 		// systems file wants them all the same). Every theme the app ships has art for each of these
 		// names (tools/check-esde-themes.py, run by tools/build-esde.sh): a new one is checked there.
 		struct Known
@@ -46,6 +47,12 @@ namespace ps5esde
 			{"snes", "Nintendo SNES (Super Nintendo)", ".sfc .smc .swc .fig .bs .st .SFC .SMC .SWC .FIG .BS .ST"},
 			{"virtualboy", "Nintendo Virtual Boy", ".vb .vboy .VB .VBOY"},
 			{"pokemini", "Nintendo Pokemon Mini", ".min .MIN"},
+			{"fds", "Nintendo Famicom Disk System", ".fds .FDS"},
+			{"sgb", "Nintendo Super Game Boy", ".gb .gbc .GB .GBC"},
+			{"gw", "Nintendo Game and Watch", ".mgw .MGW"},
+			{"satellaview", "Nintendo Satellaview", ".bs .BS"},
+			{"arcade", "Arcade", ".nes .zip .7z .NES .ZIP .7Z"}, // the VS. System's
+			// (the iQue Player, after these, has no system of ES-DE's)
 		};
 		constexpr int kKnown = (int)(sizeof(kSystems) / sizeof(kSystems[0]));
 

@@ -27,7 +27,7 @@ namespace ps5retro
 		// the cartridge's name in the N64, NES and GB runtimes' own covers: <its name>-<a hash of the path>
 		const char* SerialPrefix(int side)
 		{
-			return Is(side, "n64") ? "N64" : Is(side, "nes") ? "NES" : Is(side, "gba") ? "GBA" : Is(side, "gb") || Is(side, "gbc") ? "GBC" : nullptr;
+			return Is(side, "n64") || Is(side, "ique") ? "N64" : Is(side, "nes") ? "NES" : Is(side, "gba") ? "GBA" : Is(side, "gb") || Is(side, "gbc") ? "GBC" : nullptr;
 		}
 	}
 	namespace
@@ -68,6 +68,12 @@ namespace ps5retro
 		if (side == "snes") return ext == ".sfc" || ext == ".smc" || ext == ".swc" || ext == ".fig" || ext == ".bs" || ext == ".st";
 		if (side == "vb") return ext == ".vb" || ext == ".vboy";
 		if (side == "pokemini") return ext == ".min";
+		if (side == "fds") return ext == ".fds";
+		if (side == "sgb") return ext == ".gb" || ext == ".gbc";
+		if (side == "gw") return ext == ".mgw";
+		if (side == "satellaview") return ext == ".bs";
+		if (side == "vs") return ext == ".nes" || ext == ".zip" || ext == ".7z";
+		if (side == "ique") return ext == ".z64" || ext == ".n64" || ext == ".v64" || ext == ".zip";
 		if (side == "n64") return ext == ".z64" || ext == ".n64" || ext == ".v64" || ext == ".zip" || ext == ".rom";
 		if (side == "gamecube" || side == "wii")
 			return ext == ".iso" || ext == ".gcm" || ext == ".rvz" || ext == ".ciso" || ext == ".gcz" || ext == ".wia" || (side == "wii" && (ext == ".wbfs" || ext == ".wad" || ext == ".dol" || ext == ".elf"));
@@ -164,8 +170,10 @@ namespace ps5retro
 		const char* tooLarge = Tr("This game is larger than this side's emulator can load.");
 		std::string ext = fs::path(path).extension().string();
 		for (char& c : ext) c = char(std::tolower((unsigned char)c));
-		// the N64's and the NES's emulators have their limits below; the others' are a handheld's
-		const bool n64OrNes = Is(side, "n64") || Is(side, "nes");
+		// the N64's and the NES's emulators have their limits below (the iQue Player's is the N64's); the
+		// others' are a handheld's
+		const bool n64 = Is(side, "n64") || Is(side, "ique");
+		const bool n64OrNes = n64 || Is(side, "nes");
 		if (!n64OrNes)
 		{
 			const uint64_t maximum = (ext == ".zip" || ext == ".7z") ? 64ull * 1024 * 1024 : 32ull * 1024 * 1024;
@@ -179,7 +187,7 @@ namespace ps5retro
 			}
 		}
 		if (n64OrNes && backend == 0 && (ext == ".7z" || ext == ".rom")) { error = Tr("This side's first emulator cannot read this kind of file: the other one, chosen in its Settings, can."); return false; }
-		const uint64_t limit = Is(side, "n64") ? (backend == 1 ? 252ull : 64ull) * 1024 * 1024 : 64ull * 1024 * 1024;
+		const uint64_t limit = n64 ? (backend == 1 ? 252ull : 64ull) * 1024 * 1024 : 64ull * 1024 * 1024;
 		if (size > limit && ext != ".zip" && ext != ".7z") { error = tooLarge; return false; }
 		unsigned char h[16]{}; std::ifstream in(path, std::ios::binary); in.read(reinterpret_cast<char*>(h), sizeof(h));
 		if (ext == ".zip")
@@ -191,7 +199,7 @@ namespace ps5retro
 		{
 			if (size < 32 || size > 512ull * 1024 * 1024 || h[0] != '7' || h[1] != 'z' || h[2] != 0xbc || h[3] != 0xaf || h[4] != 0x27 || h[5] != 0x1c) { error = TrF("This {0} archive is damaged or too large.", "7-Zip"); return false; }
 		}
-		else if (Is(side, "n64"))
+		else if (n64)
 		{
 			const bool magic = (h[0] == 0x80 && h[1] == 0x37 && h[2] == 0x12 && h[3] == 0x40) ||
 				(h[0] == 0x37 && h[1] == 0x80 && h[2] == 0x40 && h[3] == 0x12) || (h[0] == 0x40 && h[1] == 0x12 && h[2] == 0x37 && h[3] == 0x80);
@@ -203,9 +211,21 @@ namespace ps5retro
 		{ error = damaged; return false; }
 		else if (ext == ".fds")
 		{
+			// a side on its core finds it in the core's own folder (port/libretro/game.cpp: <data>/system)
 			const fs::path data = BackendFor(side, backend).data;
-			const fs::path bios = backend == 1 ? data / "bios/disksys.rom" : data / "disksys.rom";
+			const fs::path bios = !*BackendFor(side, backend).runtime ? data / "system/disksys.rom" : backend == 1 ? data / "bios/disksys.rom" : data / "disksys.rom";
 			if (!fs::is_regular_file(bios, ec) || fs::file_size(bios, ec) != 8192 || ec) { error = TrF("Famicom Disk System games need its BIOS, disksys.rom (8192 bytes), in {0}.", bios.parent_path().string()); return false; }
+		}
+		else if (ext == ".bs")
+		{
+			// Mesen-S's Satellaview, in the core's own folder
+			const fs::path bios = fs::path(BackendFor(side, backend).data) / "system/BS-X.bin";
+			if (!fs::is_regular_file(bios, ec) || ec)
+			{
+				// tr: {0} is the folder BS-X.bin goes in
+				error = TrF("Satellaview games need its BIOS, BS-X.bin, in {0}.", bios.parent_path().string());
+				return false;
+			}
 		}
 		error.clear(); return true;
 	}

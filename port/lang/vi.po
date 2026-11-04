@@ -99,7 +99,7 @@ msgstr "Không chạy"
 msgid "the PS5 Vulkan driver did not start"
 msgstr "trình điều khiển Vulkan của PS5 không khởi động được"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2838 port/frontend/shell/shell.cpp:1965
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2838 port/frontend/shell/shell.cpp:1969
 msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
 msgstr "Playtendoh không thể ghi vào {0}. HEN đã được nạp chưa?"
 
@@ -143,7 +143,7 @@ msgid "The Vulkan renderer did not start: {0}"
 msgstr "Trình kết xuất Vulkan không khởi động được: {0}"
 
 #. the PS5's notification as a Wii U game starts
-#: port/app/emulator.cpp:867 port/libretro/game.cpp:663
+#: port/app/emulator.cpp:867 port/libretro/game.cpp:672
 msgid "Touchpad click + Options: the in-game menu (screens, picture, volume, controls, the library)"
 msgstr "Nhấn bàn di cảm ứng + OPTIONS: menu trong trò chơi (màn hình, hình ảnh, âm lượng, điều khiển, thư viện)"
 
@@ -707,7 +707,7 @@ msgstr "Bilinear"
 #. how a game's picture is scaled: the methods' names
 #. texture filters: None, then the filters' own names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/app/ingame3ds.cpp:142 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:61 port/frontend/shell/settings.cpp:74
+#: port/app/ingame.cpp:168 port/app/ingame3ds.cpp:143 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:61 port/frontend/shell/settings.cpp:74
 #, menu
 msgid "Bicubic"
 msgstr "Bicubic"
@@ -734,7 +734,7 @@ msgstr "AMD FSR 1"
 
 #. the quick action that puts a gap between the two screens, and its state
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:474 port/frontend/shell/settings.cpp:1600 port/frontend/shell/switch_extras.cpp:54
+#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:474 port/frontend/shell/settings.cpp:1600 port/frontend/shell/switch_extras.cpp:54
 #, menu
 msgid "On"
 msgstr "Bật"
@@ -744,7 +744,7 @@ msgstr "Bật"
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:476 port/app/ingame3ds.cpp:690 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:75 port/frontend/shell/settings.cpp:474 port/frontend/shell/settings.cpp:683 port/frontend/shell/settings.cpp:1283 port/frontend/shell/settings.cpp:1572 port/frontend/shell/settings.cpp:1600 port/frontend/shell/settings.cpp:1628 port/frontend/shell/settings.cpp:1636 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
+#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:75 port/frontend/shell/settings.cpp:474 port/frontend/shell/settings.cpp:683 port/frontend/shell/settings.cpp:1283 port/frontend/shell/settings.cpp:1572 port/frontend/shell/settings.cpp:1600 port/frontend/shell/settings.cpp:1628 port/frontend/shell/settings.cpp:1636 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
 #, menu
 msgid "Off"
 msgstr "Tắt"
@@ -762,7 +762,7 @@ msgid "GamePad"
 msgstr "GamePad"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:185 port/app/ingame.cpp:344 port/app/ingame3ds.cpp:688 port/frontend/shell/settings.cpp:212
+#: port/app/ingame.cpp:185 port/app/ingame.cpp:344 port/app/ingame3ds.cpp:689 port/frontend/shell/settings.cpp:212
 #, menu
 msgid "Screens"
 msgstr "Màn hình"
@@ -783,7 +783,7 @@ msgid "The TV's and the GamePad's pictures, and how they fill the screen."
 msgstr "Hình của TV và của GamePad, và cách chúng lấp đầy màn hình."
 
 #. the 3DS's top and bottom screens
-#: port/app/ingame.cpp:187 port/app/ingame3ds.cpp:488
+#: port/app/ingame.cpp:187 port/app/ingame3ds.cpp:489
 #, menu
 msgid "Main screen"
 msgstr "Màn hình chính"
@@ -823,7 +823,7 @@ msgstr "Tỷ lệ gốc"
 msgid "Its own shape keeps the picture's proportions, with bars where they differ from the screen's; Stretched fills it."
 msgstr "Tỷ lệ gốc giữ nguyên tỷ lệ của hình, có viền đen ở phần khác với màn hình; Kéo giãn lấp đầy màn hình."
 
-#: port/app/ingame.cpp:194 port/app/ingame3ds.cpp:510 port/app/ingame3ds.cpp:518 port/app/ingame3ds.cpp:527 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:210
+#: port/app/ingame.cpp:194 port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/app/ingame3ds.cpp:528 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:210
 #, menu
 msgid "Graphics"
 msgstr "Đồ họa"
@@ -874,12 +874,12 @@ msgid "Holds the game to an even rate: 60 fps for 4K at 120 Hz, 30 for 8K at 60 
 msgstr "Giữ trò chơi ở tốc độ đều: 60 fps cho 4K ở 120 Hz, 30 cho 8K ở 60 Hz. Khi tắt, mỗi khung hình hiện ngay khi xong."
 
 #. What's new: Lossless Scaling's frame generation for Switch games; Lossless.dll and MihawkGen are names, left as they are
-#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:533 port/eden/ingame.cpp:576 port/frontend/shell/settings.cpp:565 port/frontend/shell/settings.cpp:583 port/frontend/shell/settings.cpp:654 port/frontend/shell/settings.cpp:717 port/frontend/shell/settings.cpp:730 port/frontend/shell/whatsnew.cpp:36
+#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:576 port/frontend/shell/settings.cpp:565 port/frontend/shell/settings.cpp:583 port/frontend/shell/settings.cpp:654 port/frontend/shell/settings.cpp:717 port/frontend/shell/settings.cpp:730 port/frontend/shell/whatsnew.cpp:36
 #, menu
 msgid "Frame generation"
 msgstr "Tạo khung hình"
 
-#: port/app/ingame.cpp:205 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:577
+#: port/app/ingame.cpp:205 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:577
 #, menu
 msgid "A picture made between each two frames of a game at 30 fps, so it is shown at 60. It changes at once."
 msgstr "Một khung hình được tạo giữa mỗi hai khung hình của trò chơi 30 fps, nên nó hiển thị ở 60. Đổi ngay lập tức."
@@ -894,7 +894,7 @@ msgstr "ReShade"
 msgid "Your ReShade preset over the game's picture (Settings > Graphics says where it goes). It changes at once."
 msgstr "Preset ReShade của bạn trên hình ảnh trò chơi (Cài đặt > Đồ họa cho biết nó đặt ở đâu). Thay đổi ngay."
 
-#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:514 port/app/ingame3ds.cpp:522 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:596 port/frontend/shell/settings.cpp:664 port/frontend/shell/settings.cpp:738 port/frontend/shell/settings.cpp:756
+#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:596 port/frontend/shell/settings.cpp:664 port/frontend/shell/settings.cpp:738 port/frontend/shell/settings.cpp:756
 #, menu
 msgid "Performance overlay"
 msgstr "Lớp phủ hiệu năng"
@@ -954,12 +954,12 @@ msgstr "Đang đọc các gói…"
 msgid "The community graphic packs have none for this game."
 msgstr "Gói đồ họa cộng đồng không có gói nào cho trò chơi này."
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:345 port/frontend/shell/hub.cpp:240 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1868
+#: port/app/ingame.cpp:243 port/app/ingame.cpp:345 port/frontend/shell/hub.cpp:240 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1872
 #, menu
 msgid "Graphic packs"
 msgstr "Gói đồ họa"
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:287 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:467 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:243 port/app/ingame.cpp:287 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:468 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
 #, menu
 msgid "None"
 msgstr "Không có"
@@ -986,7 +986,7 @@ msgstr "Trò chơi nhận thay đổi khi khởi động lại: cổng được 
 msgid "Plugged in as a game starts, as in Cemu. Its figures are below while it is on."
 msgstr "Được cắm vào khi trò chơi khởi động, như trong Cemu. Khi bật, các mô hình của cổng nằm bên dưới."
 
-#: port/app/ingame.cpp:261 port/app/ingame3ds.cpp:652
+#: port/app/ingame.cpp:261 port/app/ingame3ds.cpp:653
 #, menu
 msgid "Empty"
 msgstr "Trống"
@@ -1023,24 +1023,24 @@ msgstr "Thiết bị USB"
 msgid "Skylanders, Disney Infinity and LEGO Dimensions figures on Cemu's emulated portals, as amiibo are scanned."
 msgstr "Mô hình Skylanders, Disney Infinity và LEGO Dimensions trên các cổng giả lập của Cemu, dùng như khi quét amiibo."
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:554 port/eden/ingame.cpp:585
+#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
 #, menu
 msgid "Volume"
 msgstr "Âm lượng"
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:554 port/eden/ingame.cpp:585
+#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
 #, menu
 msgid "The game's sound. Left and Right change it by 10%."
 msgstr "Âm thanh của trò chơi. Nhấn trái/phải để đổi 10% mỗi lần."
 
 #. amiibo is Nintendo's name for its figures, as it writes it in the language
-#: port/app/ingame.cpp:289 port/app/ingame.cpp:295 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:604 port/app/ingame3ds.cpp:605 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:289 port/app/ingame.cpp:295 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:605 port/app/ingame3ds.cpp:606 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
 #, menu
 msgid "Amiibo"
 msgstr "amiibo"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/app/ingame.cpp:291 port/app/ingame3ds.cpp:607 port/eden/ingame.cpp:606
+#: port/app/ingame.cpp:291 port/app/ingame3ds.cpp:608 port/eden/ingame.cpp:606
 #, menu
 msgid "Put amiibo dumps (.bin) in {0}/amiibo to scan them here."
 msgstr "Đặt bản dump amiibo (.bin) vào {0}/amiibo để quét tại đây."
@@ -1062,7 +1062,7 @@ msgid "Left and Right choose a series: a folder of dumps in {0}/amiibo."
 msgstr "Trái và Phải chọn một dòng: một thư mục chứa bản dump trong {0}/amiibo."
 
 #. the DS's lid, closed or open
-#: port/app/ingame.cpp:303 port/app/ingame3ds.cpp:615 port/app/ingame3ds.cpp:623 port/app/ingame3ds.cpp:634 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:830 port/frontend/shell/settings.cpp:215
+#: port/app/ingame.cpp:303 port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:624 port/app/ingame3ds.cpp:635 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:830 port/frontend/shell/settings.cpp:215
 #, menu
 msgid "Controls"
 msgstr "Điều khiển"
@@ -1097,7 +1097,7 @@ msgstr "Tay cầm giả lập"
 msgid "What the game sees in this player's hands. Most games want the GamePad for player 1."
 msgstr "Thứ trò chơi thấy trong tay người chơi này. Phần lớn trò chơi cần GamePad cho người chơi 1."
 
-#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:635 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:878
+#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:636 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:878
 #, menu
 msgid "Motion controls"
 msgstr "Điều khiển chuyển động"
@@ -1142,17 +1142,17 @@ msgstr "Vùng chết cần phải"
 msgid "How far the right stick moves before the game sees it. Raise it if the camera drifts."
 msgstr "Cần phải phải di chuyển bao xa thì trò chơi mới nhận. Tăng lên nếu camera tự trôi."
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:618 port/app/ingame3ds.cpp:629 port/app/ingame3ds.cpp:639 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:872 port/frontend/shell/welcome.cpp:58
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:619 port/app/ingame3ds.cpp:630 port/app/ingame3ds.cpp:640 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:872 port/frontend/shell/welcome.cpp:58
 #, menu
 msgid "A and B"
 msgstr "A và B"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:872 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:872 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Circle"
 msgstr "A ở nút Tròn"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:613 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:872 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:872 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Cross"
 msgstr "A ở nút Chữ thập"
@@ -1214,29 +1214,29 @@ msgstr "Chạm màn hình GamePad, hoặc nhấn nút được gán cho Bàn di 
 msgid "The GamePad's screen"
 msgstr "Màn hình GamePad"
 
-#: port/app/ingame.cpp:329 port/app/ingame3ds.cpp:645 port/eden/ingame.cpp:640
+#: port/app/ingame.cpp:329 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:640
 #, menu
 msgid "Quit to the home screen"
 msgstr "Thoát về màn hình chính"
 
-#: port/app/ingame.cpp:330 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:641
+#: port/app/ingame.cpp:330 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:641
 #, menu
 msgid "Leaves the game and closes Playtendoh, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held."
 msgstr "Rời trò chơi và đóng Playtendoh, theo biểu tượng của trò chơi trên màn hình chính. Những gì chưa lưu trong trò chơi sẽ mất, nên cần giữ nút Chữ thập."
 
-#: port/app/ingame.cpp:331 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:642
+#: port/app/ingame.cpp:331 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:642
 #, menu
 msgid "Quit to the library"
 msgstr "Thoát về thư viện"
 
-#: port/app/ingame.cpp:332 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:643
+#: port/app/ingame.cpp:332 port/app/ingame3ds.cpp:649 port/eden/ingame.cpp:643
 #, menu
 msgid "Leaves the game for the library. What you have not saved in the game is lost, so Cross is held."
 msgstr "Rời trò chơi để về thư viện. Những gì chưa lưu trong trò chơi sẽ mất, nên cần giữ nút Chữ thập."
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
 #. the quick actions: big tiles at the top of the in-game menu, a word or two each
-#: port/app/ingame.cpp:344 port/app/ingame3ds.cpp:685 port/eden/ingame.cpp:655
+#: port/app/ingame.cpp:344 port/app/ingame3ds.cpp:686 port/eden/ingame.cpp:655
 #, menu
 msgid "Resume"
 msgstr "Tiếp tục"
@@ -1276,22 +1276,22 @@ msgstr "Chưa quét được (lỗi {0})"
 msgid "Running"
 msgstr "Đang chạy"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:849 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1503 port/frontend/shell/shell.cpp:1507 port/frontend/shell/shell.cpp:1534 port/frontend/shell/shell.cpp:1543 port/frontend/shell/shell.cpp:1551 port/frontend/shell/shell.cpp:1559 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:2600 port/frontend/shell/shell.cpp:2640
+#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1505 port/frontend/shell/shell.cpp:1509 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:1545 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1564 port/frontend/shell/shell.cpp:2604 port/frontend/shell/shell.cpp:2644
 #, menu
 msgid "Choose"
 msgstr "Chọn"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:849 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1516 port/frontend/shell/shell.cpp:1552 port/frontend/shell/shell.cpp:1556 port/frontend/shell/shell.cpp:1559 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1573
+#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1518 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1558 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1564 port/frontend/shell/shell.cpp:1575
 #, menu
 msgid "Change"
 msgstr "Đổi"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:849 port/eden/ingame.cpp:799
+#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799
 #, menu
 msgid "Back to the game"
 msgstr "Quay lại trò chơi"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:849 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1526 port/frontend/shell/shell.cpp:1544 port/frontend/shell/shell.cpp:1551 port/frontend/shell/shell.cpp:1552 port/frontend/shell/shell.cpp:1556 port/frontend/shell/shell.cpp:1560 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1570 port/frontend/shell/shell.cpp:1574
+#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1519 port/frontend/shell/shell.cpp:1528 port/frontend/shell/shell.cpp:1546 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1558 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1564 port/frontend/shell/shell.cpp:1568 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1576
 #, menu
 msgid "Back"
 msgstr "Quay lại"
@@ -1303,516 +1303,516 @@ msgid "{0}'s saves"
 msgstr "Bản lưu của {0}"
 
 #. the 3DS's screen layouts
-#: port/app/ingame3ds.cpp:140 port/frontend/shell/settings.cpp:59
+#: port/app/ingame3ds.cpp:141 port/frontend/shell/settings.cpp:59
 #, menu
 msgid "Top above bottom"
 msgstr "Xếp chồng"
 
 #. the 3DS's screen layouts
-#: port/app/ingame3ds.cpp:140 port/frontend/shell/settings.cpp:59
+#: port/app/ingame3ds.cpp:141 port/frontend/shell/settings.cpp:59
 #, menu
 msgid "Top screen only"
 msgstr "Chỉ màn hình trên"
 
 #. the 3DS's screen layouts
-#: port/app/ingame3ds.cpp:140 port/frontend/shell/settings.cpp:59
+#: port/app/ingame3ds.cpp:141 port/frontend/shell/settings.cpp:59
 #, menu
 msgid "Large top screen"
 msgstr "Màn hình trên lớn"
 
 #. the 3DS's screen layouts
-#: port/app/ingame3ds.cpp:140 port/frontend/shell/settings.cpp:59
+#: port/app/ingame3ds.cpp:141 port/frontend/shell/settings.cpp:59
 #, menu
 msgid "Side by side"
 msgstr "Cạnh nhau"
 
 #. texture filters: None, then the filters' own names
-#: port/app/ingame3ds.cpp:142 port/frontend/shell/settings.cpp:61
+#: port/app/ingame3ds.cpp:143 port/frontend/shell/settings.cpp:61
 #, menu
 msgctxt "texture filter"
 msgid "None"
 msgstr "Không"
 
-#: port/app/ingame3ds.cpp:478
+#: port/app/ingame3ds.cpp:479
 #, menu
 msgid "Screen and border"
 msgstr "Màn hình và viền"
 
-#: port/app/ingame3ds.cpp:478
+#: port/app/ingame3ds.cpp:479
 #, menu
 msgid "The border around the screen."
 msgstr "Viền quanh màn hình."
 
-#: port/app/ingame3ds.cpp:479 port/app/ingame3ds.cpp:490 port/frontend/shell/settings.cpp:787
+#: port/app/ingame3ds.cpp:480 port/app/ingame3ds.cpp:491 port/frontend/shell/settings.cpp:787
 #, menu
 msgid "Border"
 msgstr "Viền"
 
-#: port/app/ingame3ds.cpp:479
+#: port/app/ingame3ds.cpp:480
 #, menu
 msgid "Artwork around the screen, never over it."
 msgstr "Hình minh họa quanh màn hình, không bao giờ đè lên."
 
-#: port/app/ingame3ds.cpp:483
+#: port/app/ingame3ds.cpp:484
 #, menu
 msgid "Screens and border"
 msgstr "Màn hình và viền"
 
-#: port/app/ingame3ds.cpp:484
+#: port/app/ingame3ds.cpp:485
 #, menu
 msgid "The screens' layout, which one is the main one, and the border."
 msgstr "Bố cục màn hình, màn hình chính và viền."
 
-#: port/app/ingame3ds.cpp:485
+#: port/app/ingame3ds.cpp:486
 #, menu
 msgid "Layout"
 msgstr "Bố cục"
 
-#: port/app/ingame3ds.cpp:486
+#: port/app/ingame3ds.cpp:487
 #, menu
 msgid "How the two screens share the TV. In the game, touchpad click + R1 goes to the next."
 msgstr "Cách hai màn hình chia nhau TV. Trong trò chơi, nhấn bàn di cảm ứng + R1 để sang bố cục tiếp theo."
 
 #. the 3DS's top and bottom screens
-#: port/app/ingame3ds.cpp:488
+#: port/app/ingame3ds.cpp:489
 #, menu
 msgid "Bottom"
 msgstr "Dưới"
 
 #. the 3DS's top and bottom screens
-#: port/app/ingame3ds.cpp:488
+#: port/app/ingame3ds.cpp:489
 #, menu
 msgid "Top"
 msgstr "Trên"
 
-#: port/app/ingame3ds.cpp:489
+#: port/app/ingame3ds.cpp:490
 #, menu
 msgid "Which screen takes the top screen's place. In the game, touchpad click + L1 swaps them."
 msgstr "Màn hình nào chiếm chỗ của màn hình trên. Trong trò chơi, nhấn bàn di cảm ứng + L1 để hoán đổi."
 
-#: port/app/ingame3ds.cpp:491
+#: port/app/ingame3ds.cpp:492
 #, menu
 msgid "Artwork around the screens, never over them. Also in the launcher's Settings > Screens."
 msgstr "Hình trang trí quanh màn hình, không bao giờ đè lên. Cũng có trong Cài đặt > Màn hình của trình khởi chạy."
 
-#: port/app/ingame3ds.cpp:495 port/frontend/shell/settings.cpp:766
+#: port/app/ingame3ds.cpp:496 port/frontend/shell/settings.cpp:766
 #, menu
 msgid "Screen rotation"
 msgstr "Xoay màn hình"
 
-#: port/app/ingame3ds.cpp:496
+#: port/app/ingame3ds.cpp:497
 #, menu
 msgid "For the games played with the DS held on its side, like a book (Hotel Dusk): both screens turn together."
 msgstr "Cho các trò chơi cầm DS nghiêng như cầm sách (Hotel Dusk): cả hai màn hình xoay cùng nhau."
 
-#: port/app/ingame3ds.cpp:497
+#: port/app/ingame3ds.cpp:498
 #, menu
 msgid "For the games played with the 3DS held on its side, like a book: both screens turn together, and the touch screen with them."
 msgstr "Cho các trò chơi cầm 3DS nghiêng như cầm sách: hai màn hình xoay cùng nhau, cả màn hình cảm ứng cũng vậy."
 
 #. the quick action that puts a gap between the two screens, and its state
-#: port/app/ingame3ds.cpp:501 port/app/ingame3ds.cpp:690 port/frontend/shell/settings.cpp:776
+#: port/app/ingame3ds.cpp:502 port/app/ingame3ds.cpp:691 port/frontend/shell/settings.cpp:776
 #, menu
 msgid "Screen gap"
 msgstr "Khoảng cách màn hình"
 
-#: port/app/ingame3ds.cpp:502
+#: port/app/ingame3ds.cpp:503
 #, menu
 msgid "A gap between the two screens where both show, as the console's hinge makes: one above the other, side by side, or turned like a book."
 msgstr "Một khoảng hở giữa hai màn hình khi cả hai cùng hiện, như bản lề của máy tạo ra: trên dưới, cạnh nhau hoặc xoay như cầm sách."
 
-#: port/app/ingame3ds.cpp:506 port/frontend/shell/settings.cpp:781
+#: port/app/ingame3ds.cpp:507 port/frontend/shell/settings.cpp:781
 #, menu
 msgid "Touch without the bottom screen"
 msgstr "Chạm mà không hiện màn hình dưới"
 
-#: port/app/ingame3ds.cpp:507
+#: port/app/ingame3ds.cpp:508
 #, menu
 msgid "With the top screen alone, the touchpad still touches the bottom screen, its cursor over the top one (Star Fox 64 3D)."
 msgstr "Khi chỉ có màn hình trên, bàn di cảm ứng vẫn chạm vào màn hình dưới, con trỏ nằm trên màn hình trên (Star Fox 64 3D)."
 
-#: port/app/ingame3ds.cpp:510 port/app/ingame3ds.cpp:518
+#: port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519
 #, menu
 msgid "The screen filter and the performance overlay."
 msgstr "Bộ lọc màn hình và lớp phủ hiệu năng."
 
-#: port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/frontend/shell/settings.cpp:743
+#: port/app/ingame3ds.cpp:512 port/app/ingame3ds.cpp:520 port/frontend/shell/settings.cpp:743
 #, menu
 msgid "Screen filter"
 msgstr "Bộ lọc màn hình"
 
-#: port/app/ingame3ds.cpp:512
+#: port/app/ingame3ds.cpp:513
 #, menu
 msgid "How the game's picture is scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them together; Square pixels takes the nearest, uneven at most sizes."
 msgstr "Cách hình ảnh trò chơi được co giãn lên TV. Sắc nét giữ mỗi điểm ảnh vuông và đều; Mượt làm chúng nhòe vào nhau; Điểm ảnh vuông lấy điểm gần nhất, không đều ở hầu hết các kích thước."
 
-#: port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/frontend/shell/settings.cpp:664 port/frontend/shell/settings.cpp:665 port/frontend/shell/settings.cpp:738 port/frontend/shell/settings.cpp:739 port/frontend/shell/settings.cpp:756 port/frontend/shell/settings.cpp:757
+#: port/app/ingame3ds.cpp:516 port/app/ingame3ds.cpp:524 port/app/ingame3ds.cpp:537 port/frontend/shell/settings.cpp:664 port/frontend/shell/settings.cpp:665 port/frontend/shell/settings.cpp:738 port/frontend/shell/settings.cpp:739 port/frontend/shell/settings.cpp:756 port/frontend/shell/settings.cpp:757
 #, menu
 msgid "The frame rate and the emulation's speed, in the top left corner."
 msgstr "Tốc độ khung hình và tốc độ giả lập, ở góc trên bên trái."
 
-#: port/app/ingame3ds.cpp:520
+#: port/app/ingame3ds.cpp:521
 #, menu
 msgid "How the DS's 256 x 192 screens are scaled to the TV. Sharp keeps every pixel square and even; Smooth blurs them together; Square pixels takes the nearest, uneven at most sizes."
 msgstr "Cách co giãn màn hình 256 x 192 của DS lên TV. Sắc nét giữ mọi điểm ảnh vuông và đều; Mượt làm chúng hòa vào nhau; Điểm ảnh vuông lấy điểm gần nhất, không đều ở hầu hết kích cỡ."
 
-#: port/app/ingame3ds.cpp:528
+#: port/app/ingame3ds.cpp:529
 #, menu
 msgid "Internal resolution, texture filter and the performance overlay."
 msgstr "Độ phân giải nội bộ, bộ lọc kết cấu và lớp phủ hiệu năng."
 
-#: port/app/ingame3ds.cpp:529 port/frontend/shell/settings.cpp:613 port/frontend/shell/settings.cpp:669
+#: port/app/ingame3ds.cpp:530 port/frontend/shell/settings.cpp:613 port/frontend/shell/settings.cpp:669
 #, menu
 msgid "Internal resolution"
 msgstr "Độ phân giải nội bộ"
 
-#: port/app/ingame3ds.cpp:530
+#: port/app/ingame3ds.cpp:531
 #, menu
 msgid "How large the 3D scenes are drawn before they are scaled to the TV. Higher is sharper and asks more of the GPU."
 msgstr "Kích thước vẽ cảnh 3D trước khi co giãn lên TV. Càng cao càng nét và càng nặng cho GPU."
 
-#: port/app/ingame3ds.cpp:531 port/frontend/shell/settings.cpp:624
+#: port/app/ingame3ds.cpp:532 port/frontend/shell/settings.cpp:624
 #, menu
 msgid "Texture filter"
 msgstr "Bộ lọc kết cấu"
 
-#: port/app/ingame3ds.cpp:532
+#: port/app/ingame3ds.cpp:533
 #, menu
 msgid "Smooths textures as they are scaled up. The costliest setting here: if a game stutters, try None first."
 msgstr "Làm mượt kết cấu khi phóng to. Mục tốn nhất ở đây: nếu trò chơi bị giật, thử Không trước."
 
 #. no speed limit
-#: port/app/ingame3ds.cpp:540 port/eden/ingame.cpp:582 port/frontend/shell/settings.cpp:956
+#: port/app/ingame3ds.cpp:541 port/eden/ingame.cpp:582 port/frontend/shell/settings.cpp:956
 #, menu
 msgid "Speed limit"
 msgstr "Giới hạn tốc độ"
 
 #. no speed limit
-#: port/app/ingame3ds.cpp:540 port/app/ingame3ds.cpp:543 port/eden/ingame.cpp:524 port/frontend/shell/settings.cpp:955
+#: port/app/ingame3ds.cpp:541 port/app/ingame3ds.cpp:544 port/eden/ingame.cpp:524 port/frontend/shell/settings.cpp:955
 #, menu
 msgctxt "speed limit"
 msgid "None"
 msgstr "Không"
 
-#: port/app/ingame3ds.cpp:541 port/eden/ingame.cpp:583
+#: port/app/ingame3ds.cpp:542 port/eden/ingame.cpp:583
 #, menu
 msgid "Above 100% hurries through slow scenes; None runs as fast as the PS5 can. For this game only."
 msgstr "Trên 100% giúp vượt nhanh cảnh chậm; Không chạy nhanh hết mức PS5 có thể. Chỉ cho trò chơi này."
 
-#: port/app/ingame3ds.cpp:545 port/app/ingame3ds.cpp:548 port/eden/ingame.cpp:581
+#: port/app/ingame3ds.cpp:546 port/app/ingame3ds.cpp:549 port/eden/ingame.cpp:581
 #, menu
 msgid "Speed"
 msgstr "Tốc độ"
 
-#: port/app/ingame3ds.cpp:545 port/eden/ingame.cpp:581 port/frontend/shell/settings.cpp:956
+#: port/app/ingame3ds.cpp:546 port/eden/ingame.cpp:581 port/frontend/shell/settings.cpp:956
 #, menu
 msgid "How fast the game may run."
 msgstr "Trò chơi được chạy nhanh đến mức nào."
 
-#: port/app/ingame3ds.cpp:548
+#: port/app/ingame3ds.cpp:549
 #, menu
 msgid "The emulated CPU's clock, and how fast the game may run."
 msgstr "Xung nhịp CPU giả lập, và trò chơi được chạy nhanh đến mức nào."
 
-#: port/app/ingame3ds.cpp:549 port/frontend/shell/settings.cpp:925
+#: port/app/ingame3ds.cpp:550 port/frontend/shell/settings.cpp:925
 #, menu
 msgid "CPU clock"
 msgstr "Xung nhịp CPU"
 
-#: port/app/ingame3ds.cpp:550
+#: port/app/ingame3ds.cpp:551
 #, menu
 msgid "Below 100% can bring a slow game to full speed; above it smooths games that dropped frames on the 3DS."
 msgstr "Dưới 100% có thể giúp trò chơi chậm đạt đủ tốc độ; trên 100% làm mượt các trò chơi từng bị rớt khung hình trên 3DS."
 
-#: port/app/ingame3ds.cpp:556
+#: port/app/ingame3ds.cpp:557
 #, menu
 msgid "Save states"
 msgstr "Trạng thái đã lưu"
 
-#: port/app/ingame3ds.cpp:556 port/app/ingame3ds.cpp:686 port/app/ingame3ds.cpp:687
+#: port/app/ingame3ds.cpp:557 port/app/ingame3ds.cpp:687 port/app/ingame3ds.cpp:688
 #, menu
 msgid "Slot {0}"
 msgstr "Ô {0}"
 
-#: port/app/ingame3ds.cpp:557
+#: port/app/ingame3ds.cpp:558
 #, menu
 msgid "Five slots for this game: save exactly where you are, and come back to it."
 msgstr "Năm ô cho trò chơi này: lưu đúng chỗ bạn đang chơi và quay lại sau."
 
 #. a save state slot's number, then when it was saved (or empty)
-#: port/app/ingame3ds.cpp:559
+#: port/app/ingame3ds.cpp:560
 #, menu
 msgid "Slot"
 msgstr "Ô"
 
 #. a save state slot's number, then when it was saved (or empty)
-#: port/app/ingame3ds.cpp:559
+#: port/app/ingame3ds.cpp:560
 #, menu
 msgid "(empty)"
 msgstr "(trống)"
 
-#: port/app/ingame3ds.cpp:560
+#: port/app/ingame3ds.cpp:561
 #, menu
 msgid "Which of this game's five slots to save to or load from. In the game, touchpad click + Square saves to it, and touchpad click + Triangle held loads it."
 msgstr "Lưu vào hoặc tải từ ô nào trong năm ô của trò chơi này. Trong trò chơi, nhấn bàn di cảm ứng + Vuông để lưu vào ô này, và nhấn bàn di cảm ứng + giữ Tam giác để tải từ ô này."
 
-#: port/app/ingame3ds.cpp:562
+#: port/app/ingame3ds.cpp:563
 #, menu
 msgid "Save to this slot"
 msgstr "Lưu vào ô này"
 
-#: port/app/ingame3ds.cpp:563
+#: port/app/ingame3ds.cpp:564
 #, menu
 msgid "Saves the game as it is now, replacing what the slot had. Newer app versions may not load it: keep saving in the game too."
 msgstr "Lưu trò chơi như hiện tại, thay thế nội dung cũ của ô. Phiên bản ứng dụng mới hơn có thể không tải được: vẫn nên lưu trong trò chơi."
 
-#: port/app/ingame3ds.cpp:565 port/frontend/shell/settings.cpp:280
+#: port/app/ingame3ds.cpp:566 port/frontend/shell/settings.cpp:280
 #, menu
 msgid "Cheats"
 msgstr "Mã gian lận"
 
-#: port/app/ingame3ds.cpp:566
+#: port/app/ingame3ds.cpp:567
 #, menu
 msgid "The game's cheats, from melonds/cheats/<game file>.mch (melonDS's format)."
 msgstr "Mã gian lận của trò chơi, từ melonds/cheats/<tệp trò chơi>.mch (định dạng của melonDS)."
 
-#: port/app/ingame3ds.cpp:567
+#: port/app/ingame3ds.cpp:568
 #, menu
 msgid "The game's cheats, from azahar/cheats/<title ID>.txt (Gateway format)."
 msgstr "Mã gian lận của trò chơi, từ azahar/cheats/<title ID>.txt (định dạng Gateway)."
 
-#: port/app/ingame3ds.cpp:570
+#: port/app/ingame3ds.cpp:571
 #, menu
 msgid "Cross, Left or Right turns it on or off, at once; it is kept for next time."
 msgstr "Nhấn Chữ thập, trái hoặc phải để bật hoặc tắt ngay; lựa chọn được giữ cho lần sau."
 
-#: port/app/ingame3ds.cpp:572
+#: port/app/ingame3ds.cpp:573
 #, menu
 msgid "No cheats for this game"
 msgstr "Trò chơi này không có mã gian lận"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/app/ingame3ds.cpp:574
+#: port/app/ingame3ds.cpp:575
 #, menu
 msgid "Put them in {0}/melonds/cheats/<game file>.mch (the game's file name, .mch for .nds), then start the game again."
 msgstr "Đặt chúng vào {0}/melonds/cheats/<tệp trò chơi>.mch (tên tệp của trò chơi, .mch thay cho .nds), rồi khởi động lại trò chơi."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/app/ingame3ds.cpp:577
+#: port/app/ingame3ds.cpp:578
 #, menu
 msgid "Put them in {0}/azahar/cheats/<title ID>.txt, then start the game again."
 msgstr "Đặt chúng vào {0}/azahar/cheats/<title ID>.txt, rồi khởi động lại trò chơi."
 
 #. how many of the game's cheats are on: {0} of {1}
-#: port/app/ingame3ds.cpp:580
+#: port/app/ingame3ds.cpp:581
 #, menu
 msgid "{0} of {1} on"
 msgstr "Bật {0}/{1}"
 
-#: port/app/ingame3ds.cpp:587
+#: port/app/ingame3ds.cpp:588
 #, menu
 msgid "Achievements"
 msgstr "Thành tựu"
 
-#: port/app/ingame3ds.cpp:587 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:841 port/frontend/shell/pages.cpp:1234 port/frontend/shell/shell.cpp:2669
+#: port/app/ingame3ds.cpp:588 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:841 port/frontend/shell/pages.cpp:1234 port/frontend/shell/shell.cpp:2673
 #, menu
 msgid "{0} of {1}"
 msgstr "{0}/{1}"
 
-#: port/app/ingame3ds.cpp:588
+#: port/app/ingame3ds.cpp:589
 #, menu
 msgid "This game's RetroAchievements."
 msgstr "Thành tựu RetroAchievements của trò chơi này."
 
-#: port/app/ingame3ds.cpp:594
+#: port/app/ingame3ds.cpp:595
 #, menu
 msgid "Earned"
 msgstr "Đã đạt"
 
-#: port/app/ingame3ds.cpp:594
+#: port/app/ingame3ds.cpp:595
 #, menu
 msgid "Earned {0}"
 msgstr "Đạt {0}"
 
-#: port/app/ingame3ds.cpp:594
+#: port/app/ingame3ds.cpp:595
 #, menu
 msgid "{0} point"
 msgid_plural "{0} points"
 msgstr[0] "{0} điểm"
 
-#: port/app/ingame3ds.cpp:598
+#: port/app/ingame3ds.cpp:599
 #, menu
 msgid "No achievements"
 msgstr "Không có thành tựu"
 
-#: port/app/ingame3ds.cpp:599
+#: port/app/ingame3ds.cpp:600
 #, menu
 msgid "RetroAchievements lists a game's achievements once it has a set for it."
 msgstr "RetroAchievements liệt kê thành tựu của một trò chơi khi đã có bộ thành tựu cho trò chơi đó."
 
-#: port/app/ingame3ds.cpp:604
+#: port/app/ingame3ds.cpp:605
 #, menu
 msgid "Hold an amiibo dump to the 3DS's reader when the game asks for one."
 msgstr "Đưa bản dump amiibo lại gần đầu đọc của 3DS khi trò chơi yêu cầu."
 
-#: port/app/ingame3ds.cpp:608
+#: port/app/ingame3ds.cpp:609
 #, menu
 msgid "Left and Right choose an amiibo dump; Cross holds it to the reader."
 msgstr "Nhấn trái/phải để chọn bản dump amiibo; nút Chữ thập đưa nó lại gần đầu đọc."
 
-#: port/app/ingame3ds.cpp:609
+#: port/app/ingame3ds.cpp:610
 #, menu
 msgid "Take the amiibo away"
 msgstr "Bỏ amiibo ra"
 
-#: port/app/ingame3ds.cpp:609
+#: port/app/ingame3ds.cpp:610
 #, menu
 msgid "Takes the amiibo off the reader, as lifting it off would."
 msgstr "Bỏ amiibo khỏi đầu đọc, như khi nhấc nó ra."
 
-#: port/app/ingame3ds.cpp:615
+#: port/app/ingame3ds.cpp:616
 #, menu
 msgid "The left stick's deadzone and where A and B are."
 msgstr "Vùng chết của cần trái và vị trí của A và B."
 
-#: port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:627 port/app/ingame3ds.cpp:637 port/eden/ingame.cpp:600 port/frontend/shell/settings.cpp:826 port/frontend/shell/settings.cpp:880
+#: port/app/ingame3ds.cpp:617 port/app/ingame3ds.cpp:628 port/app/ingame3ds.cpp:638 port/eden/ingame.cpp:600 port/frontend/shell/settings.cpp:826 port/frontend/shell/settings.cpp:880
 #, menu
 msgid "Stick deadzone"
 msgstr "Vùng chết cần"
 
-#: port/app/ingame3ds.cpp:617 port/app/ingame3ds.cpp:628
+#: port/app/ingame3ds.cpp:618 port/app/ingame3ds.cpp:629
 #, menu
 msgid "How far the left stick moves before it presses the D-pad. Raise it if something drifts when you let go."
 msgstr "Cần trái phải di chuyển bao xa thì mới nhấn D-pad. Tăng lên nếu có gì tự trôi khi bạn thả tay."
 
-#: port/app/ingame3ds.cpp:619
+#: port/app/ingame3ds.cpp:620
 #, menu
 msgid "A on Circle and B on Cross, where Nintendo puts them, or the other way round, with X and Y swapped to match."
 msgstr "A ở nút Tròn và B ở nút X, như Nintendo đặt, hoặc ngược lại, với X và Y đổi chỗ cho khớp."
 
 #. the DS's lid, closed or open
-#: port/app/ingame3ds.cpp:623
+#: port/app/ingame3ds.cpp:624
 #, menu
 msgid "Lid closed"
 msgstr "Đã gập nắp"
 
-#: port/app/ingame3ds.cpp:624
+#: port/app/ingame3ds.cpp:625
 #, menu
 msgid "The lid, the left stick's deadzone and where A and B are. Hold R3 to blow into the microphone."
 msgstr "Nắp máy, vùng chết của cần trái và vị trí của A và B. Giữ R3 để thổi vào micrô."
 
-#: port/app/ingame3ds.cpp:625
+#: port/app/ingame3ds.cpp:626
 #, menu
 msgid "Lid"
 msgstr "Nắp"
 
-#: port/app/ingame3ds.cpp:625
+#: port/app/ingame3ds.cpp:626
 #, menu
 msgid "Closed"
 msgstr "Gập"
 
-#: port/app/ingame3ds.cpp:625 port/frontend/shell/shell.cpp:1509 port/frontend/shell/shell.cpp:1538 port/frontend/shell/shell.cpp:1549 port/frontend/shell/shell.cpp:1555 port/frontend/shell/shell.cpp:1570
+#: port/app/ingame3ds.cpp:626 port/frontend/shell/shell.cpp:1511 port/frontend/shell/shell.cpp:1540 port/frontend/shell/shell.cpp:1551 port/frontend/shell/shell.cpp:1557 port/frontend/shell/shell.cpp:1572
 #, menu
 msgid "Open"
 msgstr "Mở"
 
-#: port/app/ingame3ds.cpp:626
+#: port/app/ingame3ds.cpp:627
 #, menu
 msgid "Closes the DS's lid, for games that ask you to; the DS sleeps until it is opened. Choose it again to open it."
 msgstr "Gập nắp DS, cho các trò chơi yêu cầu điều đó; DS ngủ cho đến khi mở ra. Chọn lại để mở."
 
-#: port/app/ingame3ds.cpp:630
+#: port/app/ingame3ds.cpp:631
 #, menu
 msgid "A on Circle and B on Cross, where the DS has them, or the other way round, with X and Y swapped to match."
 msgstr "A ở nút Tròn và B ở nút Chữ thập, như vị trí trên DS, hoặc ngược lại, với X và Y đổi chỗ cho khớp."
 
-#: port/app/ingame3ds.cpp:634
+#: port/app/ingame3ds.cpp:635
 #, menu
 msgid "Motion controls, the sticks' deadzone and where A and B are."
 msgstr "Điều khiển chuyển động, vùng chết của cần và vị trí của A và B."
 
-#: port/app/ingame3ds.cpp:636
+#: port/app/ingame3ds.cpp:637
 #, menu
 msgid "The DualSense's gyroscope and accelerometer as the 3DS's, for the games that aim or steer by tilting."
 msgstr "Con quay hồi chuyển và gia tốc kế của DualSense thay cho của 3DS, cho các trò chơi ngắm hoặc lái bằng cách nghiêng."
 
-#: port/app/ingame3ds.cpp:638
+#: port/app/ingame3ds.cpp:639
 #, menu
 msgid "How far a stick moves before the game sees it. Raise it if something drifts when you let go."
 msgstr "Cần phải di chuyển bao xa thì trò chơi mới nhận. Tăng lên nếu có gì tự trôi khi bạn thả tay."
 
-#: port/app/ingame3ds.cpp:640
+#: port/app/ingame3ds.cpp:641
 #, menu
 msgid "A on Circle and B on Cross, where the 3DS has them, or the other way round, with X and Y swapped to match."
 msgstr "A ở nút Tròn và B ở nút Chữ thập, như vị trí trên 3DS, hoặc ngược lại, với X và Y đổi chỗ cho khớp."
 
-#: port/app/ingame3ds.cpp:652
+#: port/app/ingame3ds.cpp:653
 #, menu
 msgid "Load this slot"
 msgstr "Tải ô này"
 
-#: port/app/ingame3ds.cpp:653
+#: port/app/ingame3ds.cpp:654
 #, menu
 msgid "Goes back to the moment the slot was saved. What you did since is lost, so Cross is held."
 msgstr "Quay về lúc ô được lưu. Những gì đã làm từ đó sẽ mất, nên cần giữ nút Chữ thập."
 
-#: port/app/ingame3ds.cpp:656
+#: port/app/ingame3ds.cpp:657
 #, menu
 msgid "Undo the last load"
 msgstr "Hoàn tác lần tải gần nhất"
 
-#: port/app/ingame3ds.cpp:657
+#: port/app/ingame3ds.cpp:658
 #, menu
 msgid "Goes back to the moment before the last load, as if it had not been made. What you did since the load is lost, so Cross is held."
 msgstr "Quay về lúc trước lần tải gần nhất, như thể chưa từng tải. Những gì đã làm từ lúc tải sẽ mất, nên cần giữ nút Chữ thập."
 
-#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1591
+#: port/app/ingame3ds.cpp:669 port/frontend/shell/settings.cpp:1591
 #, menu
 msgid "The touch screen"
 msgstr "Màn hình cảm ứng"
 
-#: port/app/ingame3ds.cpp:668 port/frontend/shell/settings.cpp:1591
+#: port/app/ingame3ds.cpp:669 port/frontend/shell/settings.cpp:1591
 #, menu
 msgid "The bottom screen"
 msgstr "Màn hình dưới"
 
-#: port/app/ingame3ds.cpp:686
+#: port/app/ingame3ds.cpp:687
 #, menu
 msgid "Save state"
 msgstr "Lưu trạng thái"
 
-#: port/app/ingame3ds.cpp:687
+#: port/app/ingame3ds.cpp:688
 #, menu
 msgid "Load state"
 msgstr "Tải trạng thái"
 
-#: port/app/ingame3ds.cpp:687
+#: port/app/ingame3ds.cpp:688
 #, menu
 msgid "Slot {0} empty"
 msgstr "Ô {0} trống"
 
-#: port/app/ingame3ds.cpp:698
+#: port/app/ingame3ds.cpp:699
 #, menu
 msgid "Slot {0}: {1}"
 msgstr "Ô {0}: {1}"
 
-#: port/app/ingame3ds.cpp:775 port/app/ingame3ds.cpp:1064
+#: port/app/ingame3ds.cpp:776 port/app/ingame3ds.cpp:1068
 #, menu
 msgid "Slot {0} is empty"
 msgstr "Ô {0} đang trống"
 
-#: port/app/ingame3ds.cpp:783 port/app/ingame3ds.cpp:1069
+#: port/app/ingame3ds.cpp:784 port/app/ingame3ds.cpp:1073
 #, menu
 msgid "Saving…"
 msgstr "Đang lưu…"
 
-#: port/app/ingame3ds.cpp:783 port/app/ingame3ds.cpp:789 port/app/ingame3ds.cpp:1069 port/eden/ingame.cpp:434 port/eden/ingame.cpp:436
+#: port/app/ingame3ds.cpp:784 port/app/ingame3ds.cpp:790 port/app/ingame3ds.cpp:1073 port/eden/ingame.cpp:434 port/eden/ingame.cpp:436
 #, menu
 msgid "Loading…"
 msgstr "Đang tải…"
 
 #. the in-game menu's badge: the game waits behind the menu
-#: port/app/ingame3ds.cpp:842
+#: port/app/ingame3ds.cpp:843
 #, menu
 msgid "Paused"
 msgstr "Tạm dừng"
@@ -1918,7 +1918,7 @@ msgstr "Nội dung đã được cài ở đây rồi."
 msgid "An install is already running."
 msgstr "Đang cài một nội dung khác."
 
-#: port/app/keyboard_menu.h:61 port/frontend/shell/shell.cpp:2572 port/frontend/shell/shell.cpp:2601 port/frontend/shell/shell.cpp:2623 port/frontend/shell/shell.cpp:2642
+#: port/app/keyboard_menu.h:61 port/frontend/shell/shell.cpp:2576 port/frontend/shell/shell.cpp:2605 port/frontend/shell/shell.cpp:2627 port/frontend/shell/shell.cpp:2646
 #, menu
 msgid "OK"
 msgstr "OK"
@@ -1934,37 +1934,37 @@ msgstr "Trò chơi cần nhập"
 msgid "Some text"
 msgstr "Văn bản"
 
-#: port/app/keyboard_menu.h:96 port/frontend/shell/shell.cpp:2490
+#: port/app/keyboard_menu.h:96 port/frontend/shell/shell.cpp:2494
 #, menu
 msgid "L1 R1: {0}"
 msgstr "L1 R1: {0}"
 
 #. the in-game keyboard's keys
-#: port/app/keyboard_menu.h:153 port/frontend/shell/shell.cpp:2513
+#: port/app/keyboard_menu.h:153 port/frontend/shell/shell.cpp:2517
 #, menu
 msgid "Shift: on"
 msgstr "Shift: bật"
 
 #. the in-game keyboard's keys
 #. the in-game keyboard's hints: Cross types the focused key
-#: port/app/keyboard_menu.h:153 port/app/keyboard_menu.h:173 port/frontend/shell/shell.cpp:1501 port/frontend/shell/shell.cpp:2513
+#: port/app/keyboard_menu.h:153 port/app/keyboard_menu.h:173 port/frontend/shell/shell.cpp:1503 port/frontend/shell/shell.cpp:2517
 #, menu
 msgid "Shift"
 msgstr "Shift"
 
-#: port/app/keyboard_menu.h:155 port/frontend/shell/shell.cpp:2513
+#: port/app/keyboard_menu.h:155 port/frontend/shell/shell.cpp:2517
 #, menu
 msgid "Space"
 msgstr "Dấu cách"
 
 #. the in-game keyboard's hints: Cross types the focused key
-#: port/app/keyboard_menu.h:157 port/app/keyboard_menu.h:173 port/frontend/shell/shell.cpp:1501 port/frontend/shell/shell.cpp:2513
+#: port/app/keyboard_menu.h:157 port/app/keyboard_menu.h:173 port/frontend/shell/shell.cpp:1503 port/frontend/shell/shell.cpp:2517
 #, menu
 msgid "Delete"
 msgstr "Xóa"
 
 #. the in-game keyboard's hints: Cross types the focused key
-#: port/app/keyboard_menu.h:173 port/frontend/shell/shares.cpp:300 port/frontend/shell/shell.cpp:1501
+#: port/app/keyboard_menu.h:173 port/frontend/shell/shares.cpp:300 port/frontend/shell/shell.cpp:1503
 #, menu
 msgid "Type"
 msgstr "Gõ"
@@ -3362,11 +3362,11 @@ msgid "{0} DLC"
 msgid_plural "{0} DLC"
 msgstr[0] "{0} DLC"
 
-#: port/frontend/shell/hub.cpp:227 port/frontend/shell/shell.cpp:1879
+#: port/frontend/shell/hub.cpp:227 port/frontend/shell/shell.cpp:1883
 msgid "Favourite"
 msgstr "Yêu thích"
 
-#: port/frontend/shell/hub.cpp:234 port/frontend/shell/shell.cpp:1540 port/frontend/shell/shell.cpp:1541 port/frontend/shell/shell.cpp:1845
+#: port/frontend/shell/hub.cpp:234 port/frontend/shell/shell.cpp:1542 port/frontend/shell/shell.cpp:1543 port/frontend/shell/shell.cpp:1849
 msgid "Play"
 msgstr "Chơi"
 
@@ -3379,7 +3379,7 @@ msgstr[0] "Gói đồ họa · {0} đang bật"
 msgid "Game settings · custom"
 msgstr "Cài đặt trò chơi · tùy chỉnh"
 
-#: port/frontend/shell/hub.cpp:245 port/frontend/shell/shell.cpp:1862
+#: port/frontend/shell/hub.cpp:245 port/frontend/shell/shell.cpp:1866
 msgid "Game settings"
 msgstr "Cài đặt trò chơi"
 
@@ -3484,7 +3484,7 @@ msgstr[0] "Đã cài {0}"
 msgid "Everything found is installed already"
 msgstr "Mọi thứ tìm thấy đều đã được cài"
 
-#: port/frontend/shell/installs.cpp:319 port/frontend/shell/shell.cpp:2669
+#: port/frontend/shell/installs.cpp:319 port/frontend/shell/shell.cpp:2673
 msgid "Stopping…"
 msgstr "Đang dừng…"
 
@@ -3492,7 +3492,7 @@ msgstr "Đang dừng…"
 msgid "Stop"
 msgstr "Dừng"
 
-#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1192 port/frontend/shell/shell.cpp:1570
+#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1192 port/frontend/shell/shell.cpp:1572
 msgid "Install"
 msgstr "Cài"
 
@@ -3527,12 +3527,12 @@ msgstr[0] "{0} mục mới để cài."
 msgid "Everything found is installed."
 msgstr "Mọi thứ tìm thấy đều đã được cài."
 
-#: port/frontend/shell/installs.cpp:361 port/frontend/shell/settings.cpp:230 port/frontend/shell/shares.cpp:535 port/frontend/shell/shell.cpp:2628
+#: port/frontend/shell/installs.cpp:361 port/frontend/shell/settings.cpp:230 port/frontend/shell/shares.cpp:535 port/frontend/shell/shell.cpp:2632
 msgid "Game files"
 msgstr "Tệp trò chơi"
 
 #. What's new: a Switch game's update and DLC files are found next to it, and its page shows them
-#: port/frontend/shell/installs.cpp:362 port/frontend/shell/settings.cpp:1112 port/frontend/shell/shell.cpp:1870 port/frontend/shell/whatsnew.cpp:32
+#: port/frontend/shell/installs.cpp:362 port/frontend/shell/settings.cpp:1112 port/frontend/shell/shell.cpp:1874 port/frontend/shell/whatsnew.cpp:32
 msgid "Updates and DLC"
 msgstr "Bản cập nhật và DLC"
 
@@ -3648,7 +3648,7 @@ msgstr "Kiểm tra thiết lập"
 msgid "Diagnostics"
 msgstr "Chẩn đoán"
 
-#: port/frontend/shell/library.cpp:142 port/frontend/shell/shell.cpp:1039 port/frontend/shell/shell.cpp:2659
+#: port/frontend/shell/library.cpp:142 port/frontend/shell/shell.cpp:1039 port/frontend/shell/shell.cpp:2663
 msgid "Starting Cemu"
 msgstr "Đang khởi động Cemu"
 
@@ -3710,12 +3710,12 @@ msgid "Surprise me"
 msgstr "Chọn ngẫu nhiên"
 
 #. the launcher's tabs
-#: port/frontend/shell/library.cpp:383 port/frontend/shell/library.cpp:679 port/frontend/shell/shell.cpp:1365
+#: port/frontend/shell/library.cpp:383 port/frontend/shell/library.cpp:679 port/frontend/shell/shell.cpp:1367
 msgctxt "tab"
 msgid "Library"
 msgstr "Thư viện"
 
-#: port/frontend/shell/library.cpp:383 port/frontend/shell/shell.cpp:1536
+#: port/frontend/shell/library.cpp:383 port/frontend/shell/shell.cpp:1538
 msgid "Sort"
 msgstr "Sắp xếp"
 
@@ -3749,7 +3749,7 @@ msgstr "Đang tìm trò chơi mới…"
 msgid "As found last time"
 msgstr "Như lần trước tìm thấy"
 
-#: port/frontend/shell/library.cpp:690 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:2484
+#: port/frontend/shell/library.cpp:690 port/frontend/shell/shell.cpp:1538 port/frontend/shell/shell.cpp:2488
 msgid "Search"
 msgstr "Tìm kiếm"
 
@@ -3832,7 +3832,7 @@ msgstr "Gói này không có mô tả."
 msgid "No presets"
 msgstr "Không có cấu hình sẵn"
 
-#: port/frontend/shell/pages.cpp:361 port/frontend/shell/shell.cpp:1560
+#: port/frontend/shell/pages.cpp:361 port/frontend/shell/shell.cpp:1562
 msgid "Presets"
 msgstr "Cấu hình sẵn"
 
@@ -4284,7 +4284,7 @@ msgstr "Đã tìm thấy trong {0}"
 msgid "Missing (only .wud/.wux need it)"
 msgstr "Thiếu (chỉ .wud/.wux mới cần)"
 
-#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/shell.cpp:2368 port/frontend/shell/shell.cpp:2395
+#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/shell.cpp:2372 port/frontend/shell/shell.cpp:2399
 msgid "In use"
 msgstr "Đang dùng"
 
@@ -4607,7 +4607,7 @@ msgstr "Tài khoản và bản lưu"
 msgid "Players and saves"
 msgstr "Người chơi và bản lưu"
 
-#: port/frontend/shell/settings.cpp:241 port/frontend/shell/settings.cpp:276 port/frontend/shell/shell.cpp:1865
+#: port/frontend/shell/settings.cpp:241 port/frontend/shell/settings.cpp:276 port/frontend/shell/shell.cpp:1869
 msgid "Saves"
 msgstr "Bản lưu"
 
@@ -4734,7 +4734,7 @@ msgstr "Nhấn Chữ thập để tải xuống"
 msgid "{0}: Cross to install"
 msgstr "{0}: nhấn Chữ thập để cài"
 
-#: port/frontend/shell/settings.cpp:332 port/frontend/shell/settings.cpp:1334 port/frontend/shell/shell.cpp:2541
+#: port/frontend/shell/settings.cpp:332 port/frontend/shell/settings.cpp:1334 port/frontend/shell/shell.cpp:2545
 msgid "Downloading…"
 msgstr "Đang tải xuống…"
 
@@ -5245,7 +5245,7 @@ msgstr "Chạm"
 #. Settings > Screens: a row that opens the touch screen's settings (where the touchpad's cursor lands, the right stick as the stylus)
 #. Settings > Performance: a row that opens Eden's accuracy shortcuts (Fast GPU, Unsafe CPU, ...); its value: how many are changed
 #. Settings > Launcher: a row that opens Larger text, High contrast, Reduce motion and Hold to confirm
-#: port/frontend/shell/settings.cpp:806 port/frontend/shell/settings.cpp:1013 port/frontend/shell/settings.cpp:1484 port/frontend/shell/shell.cpp:1552 port/frontend/shell/switch_extras.cpp:73 port/frontend/shell/widgets.cpp:349
+#: port/frontend/shell/settings.cpp:806 port/frontend/shell/settings.cpp:1013 port/frontend/shell/settings.cpp:1484 port/frontend/shell/shell.cpp:1554 port/frontend/shell/switch_extras.cpp:73 port/frontend/shell/widgets.cpp:349
 msgid "Default"
 msgstr "Mặc định"
 
@@ -5777,7 +5777,7 @@ msgid "Installs a CIA into the 3DS's storage, as Azahar's Install CIA does: an u
 msgstr "Cài một tệp CIA vào bộ lưu trữ của 3DS, như mục Install CIA của Azahar: bản cập nhật hoặc DLC đi cùng trò chơi của nó, còn trò chơi vào thư viện. Nhấn nút Tròn để hủy khi đang chạy."
 
 #. What's new: each system's files in a folder of its own (/data/cemu, /data/azahar...), which Reorganize moves an install from before into
-#: port/frontend/shell/settings.cpp:1134 port/frontend/shell/shell.cpp:2629 port/frontend/shell/whatsnew.cpp:28
+#: port/frontend/shell/settings.cpp:1134 port/frontend/shell/shell.cpp:2633 port/frontend/shell/whatsnew.cpp:28
 msgid "A folder for each system"
 msgstr "Một thư mục cho mỗi hệ máy"
 
@@ -7056,7 +7056,7 @@ msgstr[0] "{0} trò chơi trong {1}"
 msgid "None in {0} yet"
 msgstr "Chưa có trò chơi nào trong {0}"
 
-#: port/frontend/shell/setup.cpp:193 port/frontend/shell/setup.cpp:218 port/retro/library.cpp:217
+#: port/frontend/shell/setup.cpp:193 port/frontend/shell/setup.cpp:218 port/retro/library.cpp:237
 msgid "{0} cannot be read"
 msgstr "Không đọc được {0}"
 
@@ -7593,7 +7593,7 @@ msgstr "Đang khởi động trình giả lập"
 msgid "Starting melonDS"
 msgstr "Đang khởi động melonDS"
 
-#: port/frontend/shell/shell.cpp:1037 port/frontend/shell/shell.cpp:2659
+#: port/frontend/shell/shell.cpp:1037 port/frontend/shell/shell.cpp:2663
 msgid "Starting Azahar"
 msgstr "Đang khởi động Azahar"
 
@@ -7648,292 +7648,292 @@ msgid "It is not in the library: {0}"
 msgstr "Không có trong thư viện: {0}"
 
 #. the launcher's tabs
-#: port/frontend/shell/shell.cpp:1365
+#: port/frontend/shell/shell.cpp:1367
 msgctxt "tab"
 msgid "Settings"
 msgstr "Cài đặt"
 
-#: port/frontend/shell/shell.cpp:1501 port/frontend/shell/shell.cpp:1549 port/frontend/shell/shell.cpp:2513
+#: port/frontend/shell/shell.cpp:1503 port/frontend/shell/shell.cpp:1551 port/frontend/shell/shell.cpp:2517
 msgid "Done"
 msgstr "Xong"
 
-#: port/frontend/shell/shell.cpp:1503 port/frontend/shell/shell.cpp:1565 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:2603 port/frontend/shell/shell.cpp:2673
+#: port/frontend/shell/shell.cpp:1505 port/frontend/shell/shell.cpp:1567 port/frontend/shell/shell.cpp:1571 port/frontend/shell/shell.cpp:2607 port/frontend/shell/shell.cpp:2677
 msgid "Cancel"
 msgstr "Hủy"
 
-#: port/frontend/shell/shell.cpp:1505 port/frontend/shell/shell.cpp:1507 port/frontend/shell/shell.cpp:1555
+#: port/frontend/shell/shell.cpp:1507 port/frontend/shell/shell.cpp:1509 port/frontend/shell/shell.cpp:1557
 msgid "Close"
 msgstr "Đóng"
 
-#: port/frontend/shell/shell.cpp:1509 port/frontend/shell/shell.cpp:1540
+#: port/frontend/shell/shell.cpp:1511 port/frontend/shell/shell.cpp:1542
 msgid "Move"
 msgstr "Di chuyển"
 
-#: port/frontend/shell/shell.cpp:1509
+#: port/frontend/shell/shell.cpp:1511
 msgid "Switch"
 msgstr "Đổi bên"
 
-#: port/frontend/shell/shell.cpp:1514
+#: port/frontend/shell/shell.cpp:1516
 msgid "Continue"
 msgstr "Tiếp tục"
 
-#: port/frontend/shell/shell.cpp:1516 port/frontend/shell/shell.cpp:1551 port/frontend/shell/shell.cpp:1552 port/frontend/shell/shell.cpp:1556 port/frontend/shell/shell.cpp:1562
+#: port/frontend/shell/shell.cpp:1518 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1558 port/frontend/shell/shell.cpp:1564
 msgid "More about it"
 msgstr "Xem thêm"
 
-#: port/frontend/shell/shell.cpp:1517 port/frontend/shell/welcome.cpp:104
+#: port/frontend/shell/shell.cpp:1519 port/frontend/shell/welcome.cpp:104
 msgid "Continue to the Setup check"
 msgstr "Tiếp tục đến Kiểm tra thiết lập"
 
-#: port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1526 port/frontend/shell/welcome.cpp:104
+#: port/frontend/shell/shell.cpp:1519 port/frontend/shell/shell.cpp:1528 port/frontend/shell/welcome.cpp:104
 msgid "Continue to the Library"
 msgstr "Tiếp tục đến Thư viện"
 
-#: port/frontend/shell/shell.cpp:1522
+#: port/frontend/shell/shell.cpp:1524
 msgid "Change the language"
 msgstr "Đổi ngôn ngữ"
 
-#: port/frontend/shell/shell.cpp:1525
+#: port/frontend/shell/shell.cpp:1527
 msgid "Check again"
 msgstr "Kiểm tra lại"
 
-#: port/frontend/shell/shell.cpp:1536
+#: port/frontend/shell/shell.cpp:1538
 msgid "Filters"
 msgstr "Bộ lọc"
 
-#: port/frontend/shell/shell.cpp:1540 port/frontend/shell/shell.cpp:1541 port/frontend/shell/shell.cpp:1543
+#: port/frontend/shell/shell.cpp:1542 port/frontend/shell/shell.cpp:1543 port/frontend/shell/shell.cpp:1545
 msgid "Options"
 msgstr "Tùy chọn"
 
-#: port/frontend/shell/shell.cpp:1541
+#: port/frontend/shell/shell.cpp:1543
 msgid "Jump by letter"
 msgstr "Nhảy theo chữ cái"
 
-#: port/frontend/shell/shell.cpp:1543
+#: port/frontend/shell/shell.cpp:1545
 msgid "Back to the buttons"
 msgstr "Quay lại các nút"
 
-#: port/frontend/shell/shell.cpp:1544
+#: port/frontend/shell/shell.cpp:1546
 msgid "Scroll"
 msgstr "Cuộn"
 
-#: port/frontend/shell/shell.cpp:1549 port/frontend/shell/shell.cpp:1555
+#: port/frontend/shell/shell.cpp:1551 port/frontend/shell/shell.cpp:1557
 msgid "Pages"
 msgstr "Trang"
 
-#: port/frontend/shell/shell.cpp:1559
+#: port/frontend/shell/shell.cpp:1561
 msgid "Back to the packs"
 msgstr "Quay lại các gói"
 
-#: port/frontend/shell/shell.cpp:1560
+#: port/frontend/shell/shell.cpp:1562
 msgid "On / off"
 msgstr "Bật/tắt"
 
-#: port/frontend/shell/shell.cpp:1566
+#: port/frontend/shell/shell.cpp:1568
 msgid "Assign"
 msgstr "Gán"
 
-#: port/frontend/shell/shell.cpp:1566
+#: port/frontend/shell/shell.cpp:1568
 msgid "Clear"
 msgstr "Xóa"
 
-#: port/frontend/shell/shell.cpp:1570
+#: port/frontend/shell/shell.cpp:1572
 msgid "Use this folder"
 msgstr "Dùng thư mục này"
 
-#: port/frontend/shell/shell.cpp:1573
+#: port/frontend/shell/shell.cpp:1575
 msgid "Number"
 msgstr "Chữ số"
 
-#: port/frontend/shell/shell.cpp:1573
+#: port/frontend/shell/shell.cpp:1575
 msgid "Keep"
 msgstr "Lưu"
 
-#: port/frontend/shell/shell.cpp:1574
+#: port/frontend/shell/shell.cpp:1576
 msgid "Edit"
 msgstr "Sửa"
 
-#: port/frontend/shell/shell.cpp:1574
+#: port/frontend/shell/shell.cpp:1576
 msgid "Connect"
 msgstr "Kết nối"
 
-#: port/frontend/shell/shell.cpp:1574
+#: port/frontend/shell/shell.cpp:1576
 msgid "Hold to set up"
 msgstr "Giữ để thiết lập"
 
-#: port/frontend/shell/shell.cpp:1856
+#: port/frontend/shell/shell.cpp:1860
 msgid "Resume where you left off"
 msgstr "Tiếp tục từ chỗ đã dừng"
 
-#: port/frontend/shell/shell.cpp:1859
+#: port/frontend/shell/shell.cpp:1863
 msgid "Game hub"
 msgstr "Trang trò chơi"
 
-#: port/frontend/shell/shell.cpp:1862
+#: port/frontend/shell/shell.cpp:1866
 msgid "Game settings: custom"
 msgstr "Cài đặt trò chơi: tùy chỉnh"
 
-#: port/frontend/shell/shell.cpp:1869
+#: port/frontend/shell/shell.cpp:1873
 msgid "Add mods from USB"
 msgstr "Thêm mod từ USB"
 
 #. What's new: an installed update or DLC can be taken out again from a game's Options menu
-#: port/frontend/shell/shell.cpp:1878 port/frontend/shell/shell.cpp:2270 port/frontend/shell/shell.cpp:2285 port/frontend/shell/whatsnew.cpp:44
+#: port/frontend/shell/shell.cpp:1882 port/frontend/shell/shell.cpp:2274 port/frontend/shell/shell.cpp:2289 port/frontend/shell/whatsnew.cpp:44
 msgid "Remove its update or DLC"
 msgstr "Gỡ bản cập nhật hoặc DLC"
 
-#: port/frontend/shell/shell.cpp:1879
+#: port/frontend/shell/shell.cpp:1883
 msgid "Not a favourite"
 msgstr "Bỏ yêu thích"
 
 #. the game menu: a game left out of the Library's list (for demos and clutter), or put back
-#: port/frontend/shell/shell.cpp:1881 port/frontend/shell/shell.cpp:2320
+#: port/frontend/shell/shell.cpp:1885 port/frontend/shell/shell.cpp:2324
 msgid "Back in the Library"
 msgstr "Đã trở lại Thư viện"
 
 #. the game menu: a game left out of the Library's list (for demos and clutter), or put back
-#: port/frontend/shell/shell.cpp:1881
+#: port/frontend/shell/shell.cpp:1885
 msgid "Hide from the Library"
 msgstr "Ẩn khỏi Thư viện"
 
-#: port/frontend/shell/shell.cpp:1883
+#: port/frontend/shell/shell.cpp:1887
 msgid "Remove from home screen"
 msgstr "Gỡ khỏi màn hình chính"
 
-#: port/frontend/shell/shell.cpp:1885
+#: port/frontend/shell/shell.cpp:1889
 msgid "Add to home screen"
 msgstr "Thêm vào màn hình chính"
 
-#: port/frontend/shell/shell.cpp:2256
+#: port/frontend/shell/shell.cpp:2260
 msgid "The update"
 msgstr "Bản cập nhật"
 
-#: port/frontend/shell/shell.cpp:2261
+#: port/frontend/shell/shell.cpp:2265
 msgid "The DLC"
 msgstr "DLC"
 
-#: port/frontend/shell/shell.cpp:2266
+#: port/frontend/shell/shell.cpp:2270
 msgid "The update and the DLC"
 msgstr "Bản cập nhật và DLC"
 
 #. after a Wii U game's update or DLC is removed: Updates and DLC (the game's Options) installs it again
-#: port/frontend/shell/shell.cpp:2277
+#: port/frontend/shell/shell.cpp:2281
 msgid "Removed. Updates and DLC puts it back."
 msgstr "Đã gỡ. Bản cập nhật và DLC sẽ đưa lại."
 
-#: port/frontend/shell/shell.cpp:2279
+#: port/frontend/shell/shell.cpp:2283
 msgid "Removed. Install a CIA file puts it back."
 msgstr "Đã gỡ. Cài một tệp CIA sẽ đưa lại."
 
 #. {0} is the system's reason, as it gives it
-#: port/frontend/shell/shell.cpp:2284
+#: port/frontend/shell/shell.cpp:2288
 msgid "It could not all be removed: {0}"
 msgstr "Không gỡ được hết: {0}"
 
-#: port/frontend/shell/shell.cpp:2309
+#: port/frontend/shell/shell.cpp:2313
 msgid "Added to Favourites"
 msgstr "Đã thêm vào Yêu thích"
 
-#: port/frontend/shell/shell.cpp:2309
+#: port/frontend/shell/shell.cpp:2313
 msgid "Taken out of Favourites"
 msgstr "Đã bỏ khỏi Yêu thích"
 
-#: port/frontend/shell/shell.cpp:2322
+#: port/frontend/shell/shell.cpp:2326
 msgid "Hidden. The Library's Hidden filter has it, and Search finds it."
 msgstr "Đã ẩn. Bộ lọc Đã ẩn của Thư viện có nó, và Tìm kiếm cũng tìm thấy."
 
 #. a game just hidden from the Library while its filters' row is off: Search still lists it
-#: port/frontend/shell/shell.cpp:2325
+#: port/frontend/shell/shell.cpp:2329
 msgid "Hidden. Search finds it."
 msgstr "Đã ẩn. Tìm kiếm vẫn tìm thấy."
 
-#: port/frontend/shell/shell.cpp:2535
+#: port/frontend/shell/shell.cpp:2539
 msgid "Playtendoh {0} is out"
 msgstr "Đã có Playtendoh {0}"
 
-#: port/frontend/shell/shell.cpp:2536
+#: port/frontend/shell/shell.cpp:2540
 msgid "This is {0}. Download and install it now? Your games, saves and settings stay as they are."
 msgstr "Đây là {0}. Tải xuống và cài ngay? Trò chơi, bản lưu và cài đặt giữ nguyên."
 
-#: port/frontend/shell/shell.cpp:2537
+#: port/frontend/shell/shell.cpp:2541
 msgid "Update now"
 msgstr "Cập nhật ngay"
 
-#: port/frontend/shell/shell.cpp:2537 port/frontend/shell/shell.cpp:2561 port/frontend/shell/shell.cpp:2600 port/frontend/shell/shell.cpp:2623 port/frontend/shell/shell.cpp:2640
+#: port/frontend/shell/shell.cpp:2541 port/frontend/shell/shell.cpp:2565 port/frontend/shell/shell.cpp:2604 port/frontend/shell/shell.cpp:2627 port/frontend/shell/shell.cpp:2644
 msgid "Later"
 msgstr "Để sau"
 
-#: port/frontend/shell/shell.cpp:2537
+#: port/frontend/shell/shell.cpp:2541
 msgid "Skip this version"
 msgstr "Bỏ qua phiên bản này"
 
-#: port/frontend/shell/shell.cpp:2540 port/frontend/shell/shell.cpp:2545 port/frontend/shell/shell.cpp:2550
+#: port/frontend/shell/shell.cpp:2544 port/frontend/shell/shell.cpp:2549 port/frontend/shell/shell.cpp:2554
 msgid "Updating to {0}"
 msgstr "Đang cập nhật lên {0}"
 
-#: port/frontend/shell/shell.cpp:2541
+#: port/frontend/shell/shell.cpp:2545
 msgid "Downloading: {0} of {1} MB"
 msgstr "Đang tải xuống: {0}/{1} MB"
 
-#: port/frontend/shell/shell.cpp:2546
+#: port/frontend/shell/shell.cpp:2550
 msgid "Checking the download"
 msgstr "Đang kiểm tra tệp tải xuống"
 
-#: port/frontend/shell/shell.cpp:2551
+#: port/frontend/shell/shell.cpp:2555
 msgid "Installing"
 msgstr "Đang cài"
 
-#: port/frontend/shell/shell.cpp:2555
+#: port/frontend/shell/shell.cpp:2559
 msgid "{0} is installed"
 msgstr "Đã cài {0}"
 
-#: port/frontend/shell/shell.cpp:2557 port/frontend/shell/shell.cpp:2614
+#: port/frontend/shell/shell.cpp:2561 port/frontend/shell/shell.cpp:2618
 msgid "Starting Playtendoh again…"
 msgstr "Đang khởi động lại Playtendoh…"
 
-#: port/frontend/shell/shell.cpp:2561 port/frontend/shell/shell.cpp:2566
+#: port/frontend/shell/shell.cpp:2565 port/frontend/shell/shell.cpp:2570
 msgid "Restart now"
 msgstr "Khởi động lại ngay"
 
-#: port/frontend/shell/shell.cpp:2565
+#: port/frontend/shell/shell.cpp:2569
 msgid "Playtendoh starts again to finish the update."
 msgstr "Playtendoh khởi động lại để hoàn tất cập nhật."
 
-#: port/frontend/shell/shell.cpp:2570
+#: port/frontend/shell/shell.cpp:2574
 msgid "The update did not finish"
 msgstr "Cập nhật chưa hoàn tất"
 
-#: port/frontend/shell/shell.cpp:2571
+#: port/frontend/shell/shell.cpp:2575
 msgid "Playtendoh is still {0}."
 msgstr "Playtendoh vẫn là {0}."
 
-#: port/frontend/shell/shell.cpp:2574
+#: port/frontend/shell/shell.cpp:2578
 msgid "Checking for updates"
 msgstr "Đang kiểm tra cập nhật"
 
-#: port/frontend/shell/shell.cpp:2580
+#: port/frontend/shell/shell.cpp:2584
 msgid "Playtendoh update"
 msgstr "Bản cập nhật Playtendoh"
 
-#: port/frontend/shell/shell.cpp:2600 port/frontend/shell/shell.cpp:2640
+#: port/frontend/shell/shell.cpp:2604 port/frontend/shell/shell.cpp:2644
 msgid "Select"
 msgstr "Xác nhận"
 
-#: port/frontend/shell/shell.cpp:2601
+#: port/frontend/shell/shell.cpp:2605
 msgid "Restart"
 msgstr "Khởi động lại"
 
 #. {0} lists the four folders: /data/cemu, /data/azahar, /data/melonds, /data/eden
-#: port/frontend/shell/shell.cpp:2617
+#: port/frontend/shell/shell.cpp:2621
 msgid "Your Wii U, 3DS, DS and Switch files go into folders of their own: {0}. They are moved on the same drive, never copied, so it takes a moment whatever their size. Playtendoh starts again to do it."
 msgstr "Tệp Wii U, 3DS, DS và Switch của bạn được chuyển vào thư mục riêng: {0}. Chúng được chuyển trên cùng ổ đĩa, không bao giờ sao chép, nên chỉ mất một lát dù lớn đến đâu. Playtendoh sẽ khởi động lại để làm việc này."
 
-#: port/frontend/shell/shell.cpp:2623
+#: port/frontend/shell/shell.cpp:2627
 msgid "Reorganize"
 msgstr "Sắp xếp lại"
 
 #. under an archived game's name while it is unpacked, the first time it starts
-#: port/frontend/shell/shell.cpp:2662
+#: port/frontend/shell/shell.cpp:2666
 msgid "Unpacking the game from its archive. This is done once: the copy is kept for the next start."
 msgstr "Đang giải nén trò chơi từ tệp nén. Việc này chỉ làm một lần: bản sao được giữ cho lần khởi động sau."
 
@@ -8307,43 +8307,48 @@ msgstr "Trò chơi này không còn ở chỗ cũ, hoặc không phải trò ch�
 msgid "This game's folder or name cannot be handed to its emulator: move it or rename it."
 msgstr "Không thể chuyển thư mục hoặc tên của trò chơi này cho trình giả lập: hãy di chuyển hoặc đổi tên nó."
 
-#: port/retro/library.cpp:154
+#: port/retro/library.cpp:160
 msgid "This is not a game this side can start."
 msgstr "Đây không phải trò chơi mà bên này khởi động được."
 
-#: port/retro/library.cpp:157 port/retro/library.cpp:177
+#: port/retro/library.cpp:163 port/retro/library.cpp:185
 msgid "The game file is empty or cannot be read."
 msgstr "Tệp trò chơi trống hoặc không đọc được."
 
-#: port/retro/library.cpp:160
+#: port/retro/library.cpp:166
 msgid "This disc is not a {0} game, or it cannot be read."
 msgstr "Đĩa này không phải trò chơi {0}, hoặc không đọc được."
 
-#: port/retro/library.cpp:163
+#: port/retro/library.cpp:169
 msgid "This game's file is damaged or incomplete: its header is not a cartridge's."
 msgstr "Tệp của trò chơi này bị hỏng hoặc không đầy đủ: phần đầu tệp không phải của một băng game."
 
-#: port/retro/library.cpp:164
+#: port/retro/library.cpp:170
 msgid "This game is larger than this side's emulator can load."
 msgstr "Trò chơi này lớn hơn mức trình giả lập của bên này tải được."
 
-#: port/retro/library.cpp:181
+#: port/retro/library.cpp:189
 msgid "This side's first emulator cannot read this kind of file: the other one, chosen in its Settings, can."
 msgstr "Trình giả lập thứ nhất của bên này không đọc được loại tệp này: trình còn lại, chọn trong cài đặt của bên này, thì được."
 
-#: port/retro/library.cpp:187 port/retro/library.cpp:192
+#: port/retro/library.cpp:195 port/retro/library.cpp:200
 msgid "This {0} archive is damaged or too large."
 msgstr "Tệp nén {0} này bị hỏng hoặc quá lớn."
 
-#: port/retro/library.cpp:208
+#: port/retro/library.cpp:217
 msgid "Famicom Disk System games need its BIOS, disksys.rom (8192 bytes), in {0}."
 msgstr "Trò chơi Famicom Disk System cần BIOS của nó, disksys.rom (8192 byte), trong {0}."
 
-#: port/retro/library.cpp:222
+#. {0} is the folder BS-X.bin goes in
+#: port/retro/library.cpp:226
+msgid "Satellaview games need its BIOS, BS-X.bin, in {0}."
+msgstr "Trò chơi Satellaview cần BIOS của nó, BS-X.bin, trong {0}."
+
+#: port/retro/library.cpp:242
 msgid "Only the first {0} files in {1} were looked through: choose a folder with fewer."
 msgstr "Chỉ {0} tệp đầu tiên trong {1} được xem: hãy chọn thư mục có ít tệp hơn."
 
-#: port/retro/library.cpp:236
+#: port/retro/library.cpp:256
 msgid "Not all of {0} could be read: {1}"
 msgstr "Không đọc được toàn bộ {0}: {1}"
 

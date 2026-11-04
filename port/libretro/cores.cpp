@@ -51,6 +51,7 @@ PS5LIBRETRO_CORE(mgba)
 PS5LIBRETRO_CORE(beetlevb)
 PS5LIBRETRO_CORE(pokemini)
 PS5LIBRETRO_CORE(paralleln64)
+PS5LIBRETRO_CORE(gw)
 
 namespace ps5libretro
 {
@@ -63,6 +64,7 @@ namespace ps5libretro
 			PS5LIBRETRO_ENTRY(beetlevb),
 			PS5LIBRETRO_ENTRY(pokemini),
 			PS5LIBRETRO_ENTRY(paralleln64),
+			PS5LIBRETRO_ENTRY(gw),
 		};
 
 		// a side's program of its own (PR #87's and #91's), when this copy of the app has it

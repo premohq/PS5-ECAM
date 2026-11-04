@@ -12,9 +12,14 @@
 namespace ps5retro
 {
 	// colour: the side's own (0xRRGGBB), as the first four have theirs (ui/tokens.h): the launcher's accent
-	// on its side, its tile and its controller in the mark, and its in-game menu's
-	struct System { const char* key; const char* name; const char* runtime; const char* games; const char* data; const char* core = ""; uint32_t colour = 0xbca375; };
-	inline constexpr std::array<System, 10> kSystems{{
+	// on its side, its tile and its controller in the mark, and its in-game menu's. options: what the side
+	// always gives its core's options ("key=value;key=value", over the core's defaults: port/libretro/game.cpp)
+	struct System
+	{
+		const char* key; const char* name; const char* runtime; const char* games; const char* data; const char* core = "";
+		uint32_t colour = 0xbca375; const char* options = "";
+	};
+	inline constexpr std::array<System, 16> kSystems{{
 		{"gamecube", "GameCube", "retro/porpoise/eboot.bin", "/data/porpoise/games/GameCube", "/data/porpoise", "", 0x6f6cff}, // indigo
 		{"wii", "Wii", "retro/porpoise/eboot.bin", "/data/porpoise/games/Wii", "/data/porpoise", "", 0x3fcff0},                // the Wii Menu's sky
 		{"n64", "Nintendo 64", "retro/n64/eboot.bin", "/data/PS5N64/games", "/data/PS5N64", "paralleln64", 0x2bc994},          // jungle green
@@ -25,6 +30,14 @@ namespace ps5retro
 		{"snes", "Super Nintendo", "", "/data/PS5SNES/games", "/data/PS5SNES", "mesens", 0xdb70f0},                            // the buttons' lavender
 		{"vb", "Virtual Boy", "", "/data/PS5VB/games", "/data/PS5VB", "beetlevb", 0xe02130},                                   // its red on black
 		{"pokemini", "Pokémon mini", "", "/data/PS5PokeMini/games", "/data/PS5PokeMini", "pokemini", 0xffe14d},                // electric yellow
+		{"fds", "Famicom Disk System", "", "/data/PS5FDS/games", "/data/PS5FDS", "mesen", 0xb8325a},                           // the Famicom's maroon
+		{"sgb", "Super Game Boy", "", "/data/PS5SGB/games", "/data/PS5SGB", "mgba", 0x34c46a,                                  // a border's green
+			"mgba_gb_model=Super Game Boy;mgba_sgb_borders=ON"},
+		{"gw", "Game & Watch", "", "/data/PS5GW/games", "/data/PS5GW", "gw", 0xff8c2e},                                        // the faceplates' orange
+		{"satellaview", "Satellaview", "", "/data/PS5Satellaview/games", "/data/PS5Satellaview", "mesens", 0xe05ad8},          // the broadcast's magenta
+		{"vs", "VS. System", "", "/data/PS5VS/games", "/data/PS5VS", "mesen", 0x22c2b3},                                       // the cabinets' teal
+		// the N64's program plays its decrypted games, as an N64's emulator can (its own folder, the N64's data)
+		{"ique", "iQue Player", "retro/n64/eboot.bin", "/data/PS5iQue/games", "/data/PS5N64", "", 0xff6f91},                   // its logo's red
 	}};
 	// the launcher's sides: the first four, then these
 	inline constexpr int kFirst = 4;

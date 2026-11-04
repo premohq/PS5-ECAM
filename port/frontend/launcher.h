@@ -24,11 +24,11 @@ namespace ps5launcher
 		Nds,	// melonDS
 		Switch, // Eden, in a program of its own (eden/eboot.bin: port/eden)
 		// the others, in ps5retro::kSystems' order
-		GameCube, Wii, N64, Nes, Gb, Gbc, Gba, Snes, VirtualBoy, PokemonMini,
+		GameCube, Wii, N64, Nes, Gb, Gbc, Gba, Snes, VirtualBoy, PokemonMini, Fds, Sgb, GameWatch, Satellaview, VsSystem, Ique,
 	};
 	// the sides, in the bar's order (their numbers)
 	constexpr int kSideCount = ps5retro::kSideCount;
-	static_assert((int)System::PokemonMini + 1 == kSideCount, "a ps5retro::kSystems row for each System after the Switch");
+	static_assert((int)System::Ique + 1 == kSideCount, "a ps5retro::kSystems row for each System after the Switch");
 
 	// The side's name in ps5cemu.json ("wiiu", "3ds", "ds", "switch", ps5retro::kSystems' keys) and the one players read
 	inline const char* SideName(System side)
@@ -46,7 +46,8 @@ namespace ps5launcher
 	}
 	inline const char* SideTitle(System side)
 	{
-		static constexpr const char* kRetroTitles[] = {"GameCube", "Wii", "N64", "NES", "GB", "GBC", "GBA", "SNES", "Virtual Boy", "Pokémon mini"};
+		static constexpr const char* kRetroTitles[] = {"GameCube", "Wii", "N64", "NES", "GB", "GBC", "GBA", "SNES", "Virtual Boy", "Pokémon mini",
+			"FDS", "SGB", "Game & Watch", "Satellaview", "VS. System", "iQue"};
 		static_assert(std::size(kRetroTitles) == ps5retro::kSystems.size());
 		if (ps5retro::IsRetro((int)side))
 			return kRetroTitles[(int)side - ps5retro::kFirst];

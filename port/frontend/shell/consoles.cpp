@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
-// Each console's look: its controller (or the handheld that is its controller) drawn in a few rounded
+// Each console's look: its controller (or the handheld that is its controller, or what stands for it: a Disk
+// Card, a cabinet, a dish) drawn in a few rounded
 // shapes, for its tile in the side switch and the mark at the top left, every console's in a ring; and the
 // later consoles' backdrop motifs, each its own, as the first four sides have theirs (shell.cpp: bubbles,
 // waves, pixels, bars in pairs). Its colour is its accent (AccentOf: ps5retro::kSystems' for the later ones).
@@ -147,6 +148,61 @@ namespace ps5shell
 			shape(0, 0, 0.74f, 0.62f, 0.14f, body);
 			shape(0, -0.06f, 0.44f, 0.3f, 0.03f, cut);
 			shape(0.24f, 0.17f, 0.08f, 0.08f, 0.04f, cut);
+		}
+		else if (key == "fds")
+		{
+			// the Disk Card: its label, and the window its disk shows through
+			shape(0, 0, 0.8f, 0.98f, 0.05f, body);
+			shape(0, -0.26f, 0.6f, 0.34f, 0.03f, cut);
+			shape(0, 0.24f, 0.24f, 0.34f, 0.03f, cut);
+		}
+		else if (key == "sgb")
+		{
+			// its cartridge, and the Game Boy's in the top of it
+			shape(0, -0.34f, 0.4f, 0.34f, 0.04f, body);
+			shape(0, -0.36f, 0.26f, 0.16f, 0.02f, cut);
+			shape(0, 0.14f, 0.92f, 0.62f, 0.1f, body);
+			shape(0, 0.17f, 0.6f, 0.32f, 0.03f, cut);
+		}
+		else if (key == "gw")
+		{
+			// one screen, a button either side of it, Game and Time above the right one
+			shape(0, 0, 1.0f, 0.64f, 0.08f, body);
+			shape(0, -0.02f, 0.5f, 0.42f, 0.02f, cut);
+			shape(-0.38f, 0.14f, 0.13f, 0.13f, 0.065f, cut);
+			shape(0.38f, 0.14f, 0.13f, 0.13f, 0.065f, cut);
+			shape(0.33f, -0.2f, 0.08f, 0.04f, 0.02f, cut);
+			shape(0.43f, -0.2f, 0.08f, 0.04f, 0.02f, cut);
+		}
+		else if (key == "satellaview")
+		{
+			// a dish turned to the sky, on its stand
+			shape(-0.06f, 0.4f, 0.1f, 0.16f, 0, body);
+			shape(-0.06f, 0.47f, 0.5f, 0.08f, 0.04f, body);
+			shape(-0.06f, -0.04f, 0.74f, 0.74f, 0.37f, body);
+			shape(0.06f, -0.16f, 0.62f, 0.62f, 0.31f, cut);
+			canvas.Line(cx - 0.06f * s, cy - 0.04f * s, cx + 0.3f * s, cy - 0.36f * s, 0.07f * s, body);
+			shape(0.32f, -0.38f, 0.13f, 0.13f, 0.065f, body);
+		}
+		else if (key == "vs")
+		{
+			// a cabinet: its marquee, screen, controls and coin slots
+			shape(0, 0.04f, 0.62f, 0.92f, 0.06f, body);
+			shape(0, -0.42f, 0.72f, 0.14f, 0.03f, body);
+			shape(0, -0.14f, 0.46f, 0.32f, 0.03f, cut);
+			shape(0, 0.12f, 0.52f, 0.06f, 0, cut);
+			shape(-0.08f, 0.31f, 0.06f, 0.12f, 0.02f, cut);
+			shape(0.08f, 0.31f, 0.06f, 0.12f, 0.02f, cut);
+		}
+		else if (key == "ique")
+		{
+			// the console that is a controller: its cross, buttons and stick
+			shape(0, 0.12f, 0.42f, 0.5f, 0.18f, body);
+			shape(0, -0.02f, 1.0f, 0.48f, 0.24f, body);
+			cross(-0.3f, -0.04f, 0.16f);
+			shape(0.26f, -0.08f, 0.09f, 0.09f, 0.045f, cut);
+			shape(0.36f, 0.0f, 0.09f, 0.09f, 0.045f, cut);
+			shape(0, 0.14f, 0.1f, 0.1f, 0.05f, cut);
 		}
 		else
 		{
@@ -367,6 +423,96 @@ namespace ps5shell
 				const float px[4] = {x - 0.25f * a, x + 0.18f * a, x - 0.12f * a, x + 0.25f * a}, py[4] = {y - a, y - 0.08f * a, y + 0.06f * a, y + a};
 				for (int k = 0; k < 3; k++)
 					canvas.Line(px[k], py[k], px[k + 1], py[k + 1], a * 0.22f, ui::SetAlpha(colour, faint(place, 0.9f)));
+			}
+		}
+		else if (key == "fds")
+		{
+			// Disk Cards rising, their labels along the top
+			for (size_t i = 0; i < m_bubbles.size(); i += 4)
+			{
+				Bubble& place = m_bubbles[i];
+				const float w = 14 + place.radius * 0.9f, h = w * 1.22f;
+				rise(place, 0.5f, h);
+				const Box card{place.x - w / 2, place.y - h / 2, w, h};
+				canvas.Ring(card, w * 0.08f, 2.5f, ui::SetAlpha(colour, faint(place, 0.6f)));
+				canvas.Rect({card.x + w * 0.16f, card.y + h * 0.1f, w * 0.68f, h * 0.3f}, w * 0.04f, ui::SetAlpha(colour, faint(place, 0.35f)));
+			}
+		}
+		else if (key == "sgb")
+		{
+			// a border round the picture, as its games drew round theirs, a light going round it
+			constexpr float kOuter = 30, kInner = 64, kStep = 40;
+			canvas.Ring({kOuter, kOuter, 1920 - 2 * kOuter, 1080 - 2 * kOuter}, 26, 3, ui::SetAlpha(colour, 0.14f * alpha));
+			canvas.Ring({kInner, kInner, 1920 - 2 * kInner, 1080 - 2 * kInner}, 18, 2, ui::SetAlpha(colour, 0.1f * alpha));
+			const float middle = (kOuter + kInner) / 2, square = 9;
+			const float perimeter = 2 * (1920 - 2 * middle) + 2 * (1080 - 2 * middle);
+			const float lit = std::fmod(t * 160, perimeter);
+			for (float d = 0; d < perimeter; d += kStep)
+			{
+				float x, y;
+				const float w = 1920 - 2 * middle, h = 1080 - 2 * middle;
+				if (d < w) x = middle + d, y = middle;
+				else if (d < w + h) x = 1920 - middle, y = middle + d - w;
+				else if (d < 2 * w + h) x = 1920 - middle - (d - w - h), y = 1080 - middle;
+				else x = middle, y = 1080 - middle - (d - 2 * w - h);
+				const float near = std::max(0.0f, 1 - std::fabs(d - lit) / 400);
+				canvas.Rect({x - square / 2, y - square / 2, square, square}, 2, ui::SetAlpha(colour, (0.08f + 0.22f * near) * alpha));
+			}
+		}
+		else if (key == "gw")
+		{
+			// a juggler's three arcs in LCD segments, each lit one stepping along as on its screen
+			const int step = still ? 2 : (int)(t * 2.5f);
+			for (int arc = 0; arc < 3; arc++)
+			{
+				const float radius = 170 + arc * 90;
+				const int lit = (step + arc * 2) % 7;
+				for (int k = 0; k < 7; k++)
+				{
+					const float angle = kTau * (0.56f + 0.065f * (k + (arc % 2 ? 0.5f : 0.0f)));
+					const float x = 1420 + std::cos(angle) * radius, y = 760 + std::sin(angle) * radius;
+					canvas.Rect({x - 12, y - 12, 24, 24}, 7, ui::SetAlpha(colour, (k == lit ? 0.32f : 0.06f) * alpha));
+				}
+			}
+		}
+		else if (key == "satellaview")
+		{
+			// the broadcast: rings spreading from a satellite above the top right corner
+			const float cx = 1780, cy = -120;
+			for (int k = 0; k < 7; k++)
+			{
+				const float f = still ? k / 7.0f : std::fmod(t * 0.06f + k / 7.0f, 1.0f);
+				const float r = 160 + f * 1900;
+				canvas.Ring({cx - r, cy - r, r * 2, r * 2}, r, 3, ui::SetAlpha(colour, 0.16f * alpha * (1 - f)));
+			}
+		}
+		else if (key == "vs")
+		{
+			// a cabinet's bulbs down both sides of the screen, their light chasing
+			const int step = still ? 0 : (int)(t * 6);
+			int bulb = 0;
+			for (float y = 150; y < 1060; y += 36, bulb++)
+				for (float x : {30.0f, 1890.0f})
+				{
+					const bool lit = (bulb + step) % 4 == 0;
+					canvas.Rect({x - 7, y - 7, 14, 14}, 7, ui::SetAlpha(colour, (lit ? 0.38f : 0.08f) * alpha));
+				}
+		}
+		else if (key == "ique")
+		{
+			// diamonds rising, drawn in their edges, a dot in each
+			for (size_t i = 0; i < m_bubbles.size(); i += 4)
+			{
+				Bubble& place = m_bubbles[i];
+				const float a = 10 + place.radius * 0.7f;
+				rise(place, 0.55f, a * 2);
+				const uint32_t edge = ui::SetAlpha(colour, faint(place, 0.6f));
+				const float x = place.x, y = place.y;
+				canvas.Line(x, y - a, x + a, y, 2.5f, edge);
+				canvas.Line(x + a, y, x, y + a, 2.5f, edge);
+				canvas.Line(x, y + a, x - a, y, 2.5f, edge);
+				canvas.Line(x - a, y, x, y - a, 2.5f, edge);
+				canvas.Rect({x - a * 0.18f, y - a * 0.18f, a * 0.36f, a * 0.36f}, a * 0.18f, edge);
 			}
 		}
 		else

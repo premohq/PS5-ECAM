@@ -102,6 +102,15 @@ def cores():
                              ["libretro", "libretro/libretro-common/include", "source", "resource", "freebios"],
                              ["__LIBRETRO__", "STATIC_LINKING", 'GIT_VERSION=""'])
 
+    # gw-libretro (zlib): Game & Watch, each handheld a .mgw file (its artwork and a Lua script); its Lua
+    # and bzip2 its own, its scripts' and pictures' headers in its tree already
+    folder = "gw-libretro"
+    sources = makefile_list(os.path.join(DEPS, folder, "build/Makefile.common"), {"CORE_DIR": "."},
+                            ("SOURCES_C", "SOURCES_LUA_C"))
+    found["gw"] = Core("gw", folder, sources, [".", "src", "gwrom", "gwlua", "bzip2", "lua/src", "retroluxury/src"],
+                       ["__LIBRETRO__", "rl_malloc=malloc", "rl_free=free", "gwlua_malloc=malloc", "gwlua_realloc=realloc",
+                        "gwlua_free=free", "gwrom_malloc=malloc", "gwrom_free=free", "BZ_NO_STDIO", "HAVE_STDINT_H"])
+
     # Mesen (GPL-3.0): the NES and the Famicom Disk System, VS. System
     folder = "Mesen"
     sources = makefile_list(os.path.join(DEPS, folder, "Libretro/Makefile.common"),
