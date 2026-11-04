@@ -215,6 +215,7 @@ add_library(CemuPS5 STATIC
 	frontend/shell/library.cpp
 	frontend/shell/pages.cpp
 	frontend/shell/settings.cpp
+	frontend/shell/consoles.cpp
 	frontend/shell/switch_extras.cpp
 	frontend/shell/setup.cpp
 	frontend/shell/shares.cpp
@@ -333,6 +334,7 @@ set_source_files_properties(
 	frontend/shell/library.cpp
 	frontend/shell/pages.cpp
 	frontend/shell/settings.cpp
+	frontend/shell/consoles.cpp
 	frontend/shell/switch_extras.cpp
 	frontend/shell/setup.cpp
 	frontend/shell/shares.cpp

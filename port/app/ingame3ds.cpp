@@ -57,11 +57,12 @@ namespace ps5ingame3ds
 		uint64_t s_titleId = 0;
 		Console s_console = Console::N3ds;
 		std::string s_system; // a libretro core's system ("NES"), for the badge
+		ps5menu::Palette s_systemColours = ps5menu::kBlue; // its colours, from its own (Start)
 
-		// the side's colours: the 3DS's sand, the DS's green, the other systems' blue
+		// the side's colours: the 3DS's sand, the DS's green, a libretro core's system's own
 		const ps5menu::Palette& Colours()
 		{
-			return s_console == Console::Nds ? ps5menu::kGreen : s_console == Console::Retro ? ps5menu::kBlue : ps5menu::kGold;
+			return s_console == Console::Nds ? ps5menu::kGreen : s_console == Console::Retro ? s_systemColours : ps5menu::kGold;
 		}
 		double s_fps = 0, s_speed = 0;
 		std::string s_breakdown;
@@ -911,13 +912,16 @@ namespace ps5ingame3ds
 		}
 	}
 
-	void Start(const std::string& name, uint64_t titleId, const Settings& settings, Console console, const std::string& system)
+	void Start(const std::string& name, uint64_t titleId, const Settings& settings, Console console, const std::string& system, uint32_t colour)
 	{
 		std::lock_guard lock(s_mutex);
 		s_name = name;
 		s_titleId = titleId;
 		s_console = console;
 		s_system = system;
+		// its colour, and the dark of it for what is written on it (as the sides' palettes have)
+		const uint32_t ink = (colour >> 16 & 0xff) * 12 / 100 << 16 | (colour >> 8 & 0xff) * 12 / 100 << 8 | (colour & 0xff) * 12 / 100;
+		s_systemColours = ps5menu::Side(colour, ink);
 		s_settings = settings;
 		s_changed = false;
 	}

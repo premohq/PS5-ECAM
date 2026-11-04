@@ -645,7 +645,7 @@ namespace ps5libretro
 			return false;
 		}
 		StartSound();
-		ps5ingame3ds::Start(s_name, s_titleId, MenuSettings(), ps5ingame3ds::Console::Retro, system.name);
+		ps5ingame3ds::Start(s_name, s_titleId, MenuSettings(), ps5ingame3ds::Console::Retro, system.name, system.colour);
 		ps5ingame3ds::LoadBorder(s_settings.border);
 		PublishScreens(AspectRatio());
 		ShowStateSlots();

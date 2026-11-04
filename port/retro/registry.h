@@ -6,22 +6,25 @@
 // a ps5launcher::System and its names (frontend/launcher.h), and its file types (HasExtension).
 #pragma once
 #include <array>
+#include <cstdint>
 #include <string>
 #include <string_view>
 namespace ps5retro
 {
-	struct System { const char* key; const char* name; const char* runtime; const char* games; const char* data; const char* core = ""; };
+	// colour: the side's own (0xRRGGBB), as the first four have theirs (ui/tokens.h): the launcher's accent
+	// on its side, its tile and its controller in the mark, and its in-game menu's
+	struct System { const char* key; const char* name; const char* runtime; const char* games; const char* data; const char* core = ""; uint32_t colour = 0xbca375; };
 	inline constexpr std::array<System, 10> kSystems{{
-		{"gamecube", "GameCube", "retro/porpoise/eboot.bin", "/data/porpoise/games/GameCube", "/data/porpoise"},
-		{"wii", "Wii", "retro/porpoise/eboot.bin", "/data/porpoise/games/Wii", "/data/porpoise"},
-		{"n64", "Nintendo 64", "retro/n64/eboot.bin", "/data/PS5N64/games", "/data/PS5N64", "paralleln64"},
-		{"nes", "NES", "retro/nes/eboot.bin", "/data/PS5NES/games", "/data/PS5NES", "mesen"},
-		{"gb", "Game Boy", "retro/gbc/eboot.bin", "/data/PS5GBC/games", "/data/PS5GBC", "mgba"},
-		{"gbc", "Game Boy Color", "retro/gbc/eboot.bin", "/data/PS5GBC/games", "/data/PS5GBC", "mgba"},
-		{"gba", "Game Boy Advance", "retro/gba/eboot.bin", "/data/PS5GBA/games", "/data/PS5GBA", "mgba"},
-		{"snes", "Super Nintendo", "", "/data/PS5SNES/games", "/data/PS5SNES", "mesens"},
-		{"vb", "Virtual Boy", "", "/data/PS5VB/games", "/data/PS5VB", "beetlevb"},
-		{"pokemini", "Pokémon mini", "", "/data/PS5PokeMini/games", "/data/PS5PokeMini", "pokemini"},
+		{"gamecube", "GameCube", "retro/porpoise/eboot.bin", "/data/porpoise/games/GameCube", "/data/porpoise", "", 0x6f6cff}, // indigo
+		{"wii", "Wii", "retro/porpoise/eboot.bin", "/data/porpoise/games/Wii", "/data/porpoise", "", 0x3fcff0},                // the Wii Menu's sky
+		{"n64", "Nintendo 64", "retro/n64/eboot.bin", "/data/PS5N64/games", "/data/PS5N64", "paralleln64", 0x2bc994},          // jungle green
+		{"nes", "NES", "retro/nes/eboot.bin", "/data/PS5NES/games", "/data/PS5NES", "mesen", 0xff7043},                        // the pad's red
+		{"gb", "Game Boy", "retro/gbc/eboot.bin", "/data/PS5GBC/games", "/data/PS5GBC", "mgba", 0xa8bf3a},                     // the screen's pea green
+		{"gbc", "Game Boy Color", "retro/gbc/eboot.bin", "/data/PS5GBC/games", "/data/PS5GBC", "mgba", 0xff5ca8},              // berry
+		{"gba", "Game Boy Advance", "retro/gba/eboot.bin", "/data/PS5GBA/games", "/data/PS5GBA", "mgba", 0xb98fff},            // violet
+		{"snes", "Super Nintendo", "", "/data/PS5SNES/games", "/data/PS5SNES", "mesens", 0xdb70f0},                            // the buttons' lavender
+		{"vb", "Virtual Boy", "", "/data/PS5VB/games", "/data/PS5VB", "beetlevb", 0xe02130},                                   // its red on black
+		{"pokemini", "Pokémon mini", "", "/data/PS5PokeMini/games", "/data/PS5PokeMini", "pokemini", 0xffe14d},                // electric yellow
 	}};
 	// the launcher's sides: the first four, then these
 	inline constexpr int kFirst = 4;

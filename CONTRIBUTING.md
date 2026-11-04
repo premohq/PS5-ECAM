@@ -31,6 +31,9 @@ So the question for any change is: **does this make the systems feel more like o
 - A system is **a row in `ps5retro::kSystems`** (`port/retro/registry.h`), its `ps5launcher::System`
   and names (`port/frontend/launcher.h`), and its file types (`HasExtension`). Every count of sides
   comes from that list.
+- Each system **looks like itself**, as the first four sides do: its row's colour (its side's accent, its
+  tile, its in-game menu) and its controller and backdrop motif in `port/frontend/shell/consoles.cpp`
+  (a pad and pixels until it has its own).
 - Each system gets **the best emulator there is for it**: the most accurate, actively maintained
   one, from its **official upstream repository** (the libretro organisation's or the emulator
   project's own), **pinned by commit in `tools/deps.json`**. The roadmap's tables name the first

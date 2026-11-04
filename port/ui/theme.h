@@ -27,7 +27,7 @@ namespace ui
 	// What moves behind the menus
 	enum class Motif
 	{
-		Side, // each side's own: bubbles (Wii U), waves (3DS), pixels (DS), bars in pairs (Switch)
+		Side, // each side's own: bubbles (Wii U), waves (3DS), pixels (DS), bars in pairs (Switch), the later consoles' (frontend/shell/consoles.cpp)
 		None, // still: the colours and the game's picture only
 		Eden, // the side's light drifting, its own motif faint, motes rising (ProsperoEden 1.001's look)
 	};

@@ -190,6 +190,13 @@ emulator libretro has comes in the same way. What the frontend has to do once, f
 - **Its own core per system first, the best one** (below), and a second core as a choice where one
   is faster.
 
+**Each its own look**, as the first four sides have theirs: its colour (its row in `kSystems`: the side's
+accent, its tile, the libretro in-game menu's), its controller drawn on its tile and in the mark at the
+top left (every console's in a ring), and a backdrop motif of its own (`port/frontend/shell/consoles.cpp`:
+the GameCube's cubes, the Wii's ripples, the N64's turning triangles, the SNES's four buttons, the NES's
+pad and scanlines, the GBA's streaks, the GBC's coloured pixels, the Game Boy's dot matrix, the Virtual
+Boy's red floor of lines, the Pokémon mini's bolts).
+
 **Where it stands:** the cores are built (`tools/build-libretro.py`: Mesen, Mesen-S, mGBA, Beetle VB,
 PokeMini) and the in-game menu has a core's game (`ps5ingame3ds::Console::Retro`), the screens its
 picture (`ps5dsscreens::Frame::picture`). `port/libretro/session.cpp` makes the core's calls: its

@@ -85,9 +85,9 @@ namespace ps5ingame3ds
 	};
 
 	// When the game starts: its name and title ID, the settings it starts with, and its console (a
-	// libretro core's: its system's name, for the menu's badge).
+	// libretro core's: its system's name, for the menu's badge, and its colour, 0xRRGGBB: ps5retro::kSystems').
 	void Start(const std::string& name, uint64_t titleId, const Settings& settings, Console console = Console::N3ds,
-		const std::string& system = "");
+		const std::string& system = "", uint32_t colour = 0x5aa9ff);
 	// The menu's top, once: GameTDB's facts on a line ("Nintendo  /  2015"), and the TGA of the
 	// game's box art or icon (empty: none).
 	void SetGame(const std::string& details, const std::string& coverPath);

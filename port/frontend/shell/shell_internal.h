@@ -133,6 +133,11 @@ namespace ps5shell
 		std::string opens;		 // Settings: a › row's page, whose rows it stands for
 	};
 
+	// A console's controller (or the handheld that is its controller), in a few rounded shapes centred on
+	// cx, cy and about s wide: body its colour, cut its screens and buttons, second the Switch's other
+	// Joy-Con and the Game Boy's screen (consoles.cpp)
+	void DrawConsole(Canvas& canvas, System side, float cx, float cy, float s, uint32_t body, uint32_t cut, uint32_t second);
+
 	struct SettingsPage
 	{
 		std::string id, title, subtitle;
@@ -155,8 +160,10 @@ namespace ps5shell
 		void DrawWaves(Canvas& canvas, float alpha);   // the 3DS side's, rolling
 		void DrawPixels(Canvas& canvas, float alpha);  // the DS side's, rounded pixels rising
 		void DrawJoyCons(Canvas& canvas, float alpha); // the Switch side's, rounded bars drifting in pairs
-		void DrawSideMotif(Canvas& canvas, float alpha); // the side's own of the four
+		void DrawConsoleMotif(Canvas& canvas, float alpha); // a later console's own (consoles.cpp)
+		void DrawSideMotif(Canvas& canvas, float alpha); // the side's own
 		void DrawBar(Canvas& canvas, bool tabs);
+		void DrawMark(Canvas& canvas, float cx, float cy, float radius); // the top left's: every console's controller in a ring
 		void DrawHints(Canvas& canvas, const std::vector<Hint>& hints);
 		void DrawOverlays(Canvas& canvas);
 		std::vector<Hint> Hints() const;
@@ -228,7 +235,15 @@ namespace ps5shell
 		uint32_t Accent() const { return AccentOf(m_side); }
 		static uint32_t AccentOf(System side)
 		{
-			return ps5retro::IsRetro((int)side) ? 0xffbca375 : side == System::N3ds ? ui::tokens::kN3ds : side == System::Nds ? ui::tokens::kNds : side == System::Switch ? ui::tokens::kNx : ui::tokens::kWiiu;
+			// a later side's own colour (ps5retro::kSystems), darker on a light theme's ground, as the first
+			// four's are there (ui/theme.cpp)
+			if (ps5retro::IsRetro((int)side))
+			{
+				const uint32_t rgb = ps5retro::Of((int)side).colour;
+				const uint32_t colour = 0xff000000 | (rgb & 0xff) << 16 | (rgb & 0xff00) | (rgb >> 16 & 0xff);
+				return ui::LightTheme() ? ui::Mix(colour, 0xff000000, 0.3f) : colour;
+			}
+			return side == System::N3ds ? ui::tokens::kN3ds : side == System::Nds ? ui::tokens::kNds : side == System::Switch ? ui::tokens::kNx : ui::tokens::kWiiu;
 		}
 		std::string& GamesFolder(System side) { return side == System::WiiU ? m_settings.gamesFolder : Handheld(side).gamesFolder; }
 		const std::string& GamesFolder(System side) const { return side == System::WiiU ? m_settings.gamesFolder : Handheld(side).gamesFolder; }

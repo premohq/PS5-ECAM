@@ -1318,22 +1318,24 @@ namespace ps5shell
 		const float appear = Enter(0);
 		canvas.PushAlpha(appear);
 		// each side's square with its console's glyph in it: the GamePad on blue, the 3DS on gold, the DS
-		// on green, the Switch on red (the app's own tiles, tools/render-icons.py), plain colour until the
-		// picture has loaded
+		// on green, the Switch on red (the app's own tiles, tools/render-icons.py); a later console's
+		// controller drawn on its colour (consoles.cpp), as every side's is until its picture has loaded
 		static const std::string kTiles[kSides] = {ps5paths::Assets() + "/ui/icons/ps5cemu-72.tga", ps5paths::Assets() + "/ui/icons/azahar-72.tga",
-			ps5paths::Assets() + "/ui/icons/melonds-72.tga", ps5paths::Assets() + "/ui/icons/eden-72.tga", "", "", "", ""};
+			ps5paths::Assets() + "/ui/icons/melonds-72.tga", ps5paths::Assets() + "/ui/icons/eden-72.tga"};
 		auto tile = [&](int side, const Box& box, float radius, uint32_t tint) {
 			const ui::Picture& picture = m_images->Get(kTiles[side]);
 			if (picture.texture)
+			{
 				canvas.Image(picture.texture, box, radius, tint);
-			else
-				canvas.Rect(box, radius, ui::SetAlpha(AccentOf((System)side), ((tint >> 24) & 0xff) / 255.0f));
+				return;
+			}
+			const float alpha = ((tint >> 24) & 0xff) / 255.0f;
+			const uint32_t colour = AccentOf((System)side), white = ui::SetAlpha(0xffffffff, alpha);
+			canvas.Rect(box, radius, ui::SetAlpha(colour, alpha));
+			DrawConsole(canvas, (System)side, box.CentreX(), box.CentreY(), box.w * 0.66f, white, ui::SetAlpha(colour, alpha), white);
 		};
-		// the mark: the four sides' squares
-		tile(0, {88, y + 2, 26, 26}, 7, 0xffffffff);
-		tile(1, {116, y + 2, 26, 26}, 7, 0xebffffff);
-		tile(2, {88, y + 30, 26, 26}, 7, 0xebffffff);
-		tile(3, {116, y + 30, 26, 26}, 7, 0xebffffff);
+		// the mark: every console's controller in a ring on a dark disc, the open side's in the middle
+		DrawMark(canvas, 115, y + h / 2, 30);
 		// the controllers and the clock, at the right (first: the side switch has the room they leave)
 		char clock[16] = "";
 		const std::time_t now = std::time(nullptr);
@@ -1663,7 +1665,7 @@ namespace ps5shell
 			picture(m_backdrop, pictureMix);
 		}
 		// the motif: bubbles rising on the Wii U side, waves rolling on the 3DS side, pixels rising on the
-		// DS side, bars drifting in pairs on the Switch side
+		// DS side, bars drifting in pairs on the Switch side, each later console's own (consoles.cpp)
 		// (the theme's own instead, or none: theme.h)
 		switch (ui::CurrentMotif())
 		{
@@ -1752,6 +1754,8 @@ namespace ps5shell
 			DrawWaves(canvas, alpha);
 		else if (IsSwitch())
 			DrawJoyCons(canvas, alpha);
+		else if (IsRetro())
+			DrawConsoleMotif(canvas, alpha);
 		else
 			DrawPixels(canvas, alpha);
 	}
