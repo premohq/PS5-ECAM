@@ -7,7 +7,7 @@ body:
       value: |
         Thanks for reporting. Almost every problem needs the logs, so please attach them: copy them
         off the console (FTP or a file manager) **right after the problem**, before starting the app
-        again. Check the [compatibility list](https://github.com/premohq/PS5-ECAM/blob/PS5-Cemu/docs/COMPATIBILITY.md)
+        again. Check the [compatibility list](https://github.com/premohq/PlayTendoh/blob/PS5-Cemu/docs/COMPATIBILITY.md)
         first to see whether the game is already known.
 
   - type: dropdown

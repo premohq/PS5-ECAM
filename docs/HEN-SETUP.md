@@ -152,7 +152,7 @@ OnionHEN answers the same jailbreak request as etaHEN, but its allowlist is a li
    OnionHEN drops the **whole list** if any entry is empty or isn't exactly 9 capital letters and
    digits. A trailing comma (`...,PPSA99360,`), a space-only entry or a lowercase ID all count, and
    then no app is jailbroken
-   ([#12](https://github.com/premohq/PS5-ECAM/issues/12)). It allows 20 entries at most.
+   ([#12](https://github.com/premohq/PlayTendoh/issues/12)). It allows 20 entries at most.
 4. Reload OnionHEN (or restart the console and load it again), so it reads the new list.
 5. Start Playtendoh. With the debug notifications on, OnionHEN says it jailbroke the app.
    Diagnostics should say `HEN: ok` and `/data reachable`.
@@ -185,7 +185,7 @@ If no ELF loader is running, the app can't reach `/data` and says so at start: l
 ## 6. Games on USB or extended storage
 
 Some HENs open `/data` but not the drives (seen on 13.x,
-[#16](https://github.com/premohq/PS5-ECAM/issues/16)). When a game folder or a plugged-in drive is
+[#16](https://github.com/premohq/PlayTendoh/issues/16)). When a game folder or a plugged-in drive is
 refused, the app runs `sandbox-elevator.elf` through elfldr to open it. Diagnostics then says
 `... opened by the elevation helper`. This also needs an ELF loader on port 9021. The app checks
 `/mnt/usb0`–`/mnt/usb7` and `/mnt/ext0`/`/mnt/ext1` as well as your chosen game folder.
@@ -267,7 +267,7 @@ one of the three needs above wasn't met in a way we can handle better. Please
 ## Reporting problems
 
 Check the [compatibility list](COMPATIBILITY.md) first, then
-[open an issue with the bug report form](https://github.com/premohq/PS5-ECAM/issues/new/choose).
+[open an issue with the bug report form](https://github.com/premohq/PlayTendoh/issues/new/choose).
 It asks for your **firmware, HEN, app version and logs**, which almost every problem needs — all of
 them are on the first lines of **Settings > Diagnostics**.
 

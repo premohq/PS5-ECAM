@@ -1,5 +1,5 @@
 blank_issues_enabled: true
 contact_links:
   - name: Compatibility list
-    url: https://github.com/premohq/PS5-ECAM/blob/PS5-Cemu/docs/COMPATIBILITY.md
+    url: https://github.com/premohq/PlayTendoh/blob/PS5-Cemu/docs/COMPATIBILITY.md
     about: Which games are known to work, and the problems already reported.

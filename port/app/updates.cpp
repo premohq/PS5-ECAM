@@ -40,7 +40,8 @@ namespace ps5update
 	{
 		// the repository by its name, then by its name before 5.0.0 (GitHub sends a renamed repository's
 		// old address on to the new one): the first that answers is asked for the rest
-		constexpr const char* kRepositories[] = {"premohq/PS5-ECAM", "premohq/PS5CEMU-HAR"};
+		// its name now, then its names before (GitHub redirects them)
+		constexpr const char* kRepositories[] = {"premohq/PlayTendoh", "premohq/PS5-ECAM", "premohq/PS5CEMU-HAR"};
 		std::string s_repository = kRepositories[0]; // under s_mutex: the one that answered
 		// the releases branch: each release's ZIP (PS5-ECAM-<tag>.zip, the PPSA99360 folder) and
 		// SHA256SUMS for all of them

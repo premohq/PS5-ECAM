@@ -804,7 +804,7 @@ them. A game's own backup (its **Saves** page) holds its saves alone.
 ## Reporting problems
 
 Check the [compatibility list](COMPATIBILITY.md) first, then
-[open an issue with the bug report form](https://github.com/premohq/PS5-ECAM/issues/new/choose).
+[open an issue with the bug report form](https://github.com/premohq/PlayTendoh/issues/new/choose).
 It asks for your firmware, HEN, app version and logs, which almost every problem needs.
 
 **Settings > Diagnostics** has what a report needs:
@@ -827,7 +827,7 @@ every 10 seconds with the frame rate, and `[crash]` lines if an emulator crashes
 - Going back to the library from a Wii U game restarts the app (Cemu keeps the screen), and a Wii U
   game keeps running behind the in-game menu.
 - Batman: Arkham Origins needs its 60 FPS graphic pack turned off; with it on, it glitches and
-  crashes once gameplay loads ([#15](https://github.com/premohq/PS5-ECAM/issues/15)).
+  crashes once gameplay loads ([#15](https://github.com/premohq/PlayTendoh/issues/15)).
 - The 3DS's microphone, local wireless and online play aren't supported, and its cameras see a
   picture, not the room ([3DS camera](#nintendo-3ds-azahar)).
 - 3DS texture filters are expensive at high internal resolutions; if a game stutters, try Texture

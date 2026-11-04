@@ -17,8 +17,8 @@
 <meta property="og:site_name" content="Playtendoh">
 <meta property="og:title" content="Playtendoh: an all-in-one emulator for PS5">
 <meta property="og:description" content="Twenty-one Nintendo systems in one launcher made for the TV and the DualSense, on a jailbroken PS5.">
-<meta property="og:image" content="https://premohq.github.io/PS5-ECAM/banner.png">
-<meta property="og:url" content="https://premohq.github.io/PS5-ECAM/">
+<meta property="og:image" content="https://premohq.github.io/PlayTendoh/banner.png">
+<meta property="og:url" content="https://premohq.github.io/PlayTendoh/">
 <meta name="twitter:card" content="summary_large_image">
 <link rel="preload" href="fonts/Lexend-Regular.ttf" as="font" type="font/ttf" crossorigin>
 <link rel="preload" href="fonts/Lexend-SemiBold.ttf" as="font" type="font/ttf" crossorigin>
@@ -59,7 +59,7 @@
       <a href="#credits">Credits</a>
     </nav>
     <div class="nav-actions">
-      <a class="icon-btn" href="https://github.com/premohq/PS5-ECAM" aria-label="Playtendoh on GitHub" title="GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
+      <a class="icon-btn" href="https://github.com/premohq/PlayTendoh" aria-label="Playtendoh on GitHub" title="GitHub"><svg aria-hidden="true"><use href="#i-github"/></svg></a>
       <a class="icon-btn" href="https://discord.gg/grrqkv4xWw" aria-label="Join the Playtendoh Discord" title="Discord"><svg aria-hidden="true"><use href="#i-discord"/></svg></a>
       <button class="icon-btn" id="theme-toggle" type="button" hidden><svg aria-hidden="true"><use href="#i-moon"/></svg></button>
     </div>
@@ -175,7 +175,7 @@
           <div class="sha"><dt>SHA-256</dt><dd><code id="release-sha">%SHA%</code><button class="copy" id="copy-sha" type="button">Copy</button></dd></div>
         </dl>
         <div class="update-note" id="release-note"></div>
-        <p class="side-links"><a href="%NOTES_URL%" data-notes>On GitHub</a><a href="https://github.com/premohq/PS5-ECAM/releases">Every release</a></p>
+        <p class="side-links"><a href="%NOTES_URL%" data-notes>On GitHub</a><a href="https://github.com/premohq/PlayTendoh/releases">Every release</a></p>
       </div></aside>
       <div class="notes-wrap">
         <article class="notes prose" id="release-notes">
@@ -194,7 +194,7 @@
       <h2>On your PS5 in four steps</h2>
     </header>
     <ol class="steps">
-      <li class="reveal"><h3>A PS5 that runs homebrew</h3><p>Any firmware up to 13.60, with etaHEN, OnionHEN, or an ELF loader on port 9021. See the <a href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/HEN-SETUP.md">firmware and setup guide</a>.</p></li>
+      <li class="reveal"><h3>A PS5 that runs homebrew</h3><p>Any firmware up to 13.60, with etaHEN, OnionHEN, or an ELF loader on port 9021. See the <a href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/HEN-SETUP.md">firmware and setup guide</a>.</p></li>
       <li class="reveal"><h3>Copy the app</h3><p>Download the <a href="%ZIP_URL%" data-zip><span data-version>%VERSION%</span> ZIP</a>, extract it and copy the <code>PPSA99360</code> folder to <code>/data/homebrew/PPSA99360</code>.</p></li>
       <li class="reveal"><h3>Let your HEN in</h3><p>etaHEN: add <code>PPSA99360</code> to its app jailbreak list. OnionHEN: add <code>PPSA99360</code> at the end of <code>exact_title_ids</code> in <code>config.ini</code>, with no comma after it. Any other: have an ELF loader on port 9021.</p></li>
       <li class="reveal"><h3>Add your games</h3><p>Put them in each system's folder (below) and start Playtendoh from the home screen. The Setup check shows what's ready and what to do about the rest.</p></li>
@@ -213,11 +213,11 @@
     <div class="callouts">
       <div class="callout reveal">
         <h3>Updating, from PS5CEMU-HAR too</h3>
-        <p>The app offers new releases itself, and the title ID stays <code>PPSA99360</code>. An install from before keeps everything where it is, in <code>/data/ps5cemu</code>, and goes on working. <b>Reorganize</b> (or later <b>Settings &gt; Game files</b>) gives each system its folder: the files are moved in a moment, never copied or deleted, and can be put back. <a href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/SYSTEM-FOLDERS.md">System folders</a> has the details.</p>
+        <p>The app offers new releases itself, and the title ID stays <code>PPSA99360</code>. An install from before keeps everything where it is, in <code>/data/ps5cemu</code>, and goes on working. <b>Reorganize</b> (or later <b>Settings &gt; Game files</b>) gives each system its folder: the files are moved in a moment, never copied or deleted, and can be put back. <a href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/SYSTEM-FOLDERS.md">System folders</a> has the details.</p>
       </div>
       <div class="callout reveal">
         <h3>On a USB drive or the extended storage</h3>
-        <p>A <code>PS5CEMU-HAR-data</code> folder at the top of that drive (its name from before 5.0.0, kept so nothing moves) keeps the launcher's files there instead of in <code>/data</code>, with <code>cemu</code>, <code>azahar</code>, <code>melonds</code> and <code>eden</code> beside it. <a href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/GUIDE.md#everything-on-the-apps-drive">The guide</a> says how.</p>
+        <p>A <code>PS5CEMU-HAR-data</code> folder at the top of that drive (its name from before 5.0.0, kept so nothing moves) keeps the launcher's files there instead of in <code>/data</code>, with <code>cemu</code>, <code>azahar</code>, <code>melonds</code> and <code>eden</code> beside it. <a href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/GUIDE.md#everything-on-the-apps-drive">The guide</a> says how.</p>
       </div>
     </div>
   </div>
@@ -228,7 +228,7 @@
     <header class="section-head reveal">
       <p class="eyebrow">Controls</p>
       <h2>Made for the DualSense</h2>
-      <p class="section-lede">Every shortcut, the in-game menu and the rest are in the <a href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/GUIDE.md">guide</a>.</p>
+      <p class="section-lede">Every shortcut, the in-game menu and the rest are in the <a href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/GUIDE.md">guide</a>.</p>
     </header>
     <ul class="controls">
       <li class="reveal"><span class="keys"><kbd class="key shoulder">L1</kbd><kbd class="key shoulder">R1</kbd></span><span>Library and Settings</span></li>
@@ -253,7 +253,7 @@
         <li><b>The developer and other players:</b> suggest features, share your setup and hear what's coming.</li>
       </ul>
       <a class="btn on-color" href="https://discord.gg/grrqkv4xWw"><svg aria-hidden="true"><use href="#i-discord"/></svg><span>discord.gg/grrqkv4xWw</span></a>
-      <p class="fine">Bugs still go in <a href="https://github.com/premohq/PS5-ECAM/issues/new/choose">GitHub issues</a>, with the log from <b>Settings &gt; Diagnostics &gt; Copy logs to USB</b>.</p>
+      <p class="fine">Bugs still go in <a href="https://github.com/premohq/PlayTendoh/issues/new/choose">GitHub issues</a>, with the log from <b>Settings &gt; Diagnostics &gt; Copy logs to USB</b>.</p>
     </div>
     <div class="support reveal" id="support">
       <p class="eyebrow">Support</p>
@@ -276,15 +276,15 @@
       <h2>Everything else, in the repository</h2>
     </header>
     <div class="doc-grid">
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/GUIDE.md"><b>Guide</b><span>The launcher, each system, controls, saves, mods, the remote touch screen and where files are kept</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/HEN-SETUP.md"><b>Firmware and setup</b><span>Which firmware, which HEN, and how to let the app in</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/COMPATIBILITY.md"><b>Compatibility</b><span>What runs, and how well</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/SYSTEM-FOLDERS.md"><b>System folders</b><span>Each system's whole folder, and Reorganize</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/GUIDE.md#mods"><b>Mods</b><span>Where mods go on each system</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/BUILDING.md"><b>Building from source</b><span><code>make release</code> on Ubuntu 24.04 (WSL works) builds the four emulators and the launcher</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/DRIVER-PERFORMANCE.md"><b>Driver performance</b><span>How the GPU driver is measured and tuned</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/docs/ROADMAP.md"><b>Roadmap</b><span>What's coming</span></a>
-      <a class="doc reveal" href="https://github.com/premohq/PS5-ECAM/issues/new/choose"><b>Problems</b><span><b>Settings &gt; Diagnostics &gt; Copy logs to USB</b>, then open an issue</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/GUIDE.md"><b>Guide</b><span>The launcher, each system, controls, saves, mods, the remote touch screen and where files are kept</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/HEN-SETUP.md"><b>Firmware and setup</b><span>Which firmware, which HEN, and how to let the app in</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/COMPATIBILITY.md"><b>Compatibility</b><span>What runs, and how well</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/SYSTEM-FOLDERS.md"><b>System folders</b><span>Each system's whole folder, and Reorganize</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/GUIDE.md#mods"><b>Mods</b><span>Where mods go on each system</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/BUILDING.md"><b>Building from source</b><span><code>make release</code> on Ubuntu 24.04 (WSL works) builds the four emulators and the launcher</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/DRIVER-PERFORMANCE.md"><b>Driver performance</b><span>How the GPU driver is measured and tuned</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/docs/ROADMAP.md"><b>Roadmap</b><span>What's coming</span></a>
+      <a class="doc reveal" href="https://github.com/premohq/PlayTendoh/issues/new/choose"><b>Problems</b><span><b>Settings &gt; Diagnostics &gt; Copy logs to USB</b>, then open an issue</span></a>
     </div>
   </div>
 </section>
@@ -308,7 +308,7 @@
             <li>Switch mods, cheats, ReShade presets and players</li>
             <li>Switch saves to and from a USB drive, Ryujinx's too</li>
             <li>DS: a GBA cartridge in Slot-2, a recorded microphone and touch screen calibration</li>
-            <li>Tools that compare performance captures (<a href="https://github.com/premohq/PS5-ECAM/pull/86">#86</a>, <a href="https://github.com/premohq/PS5-ECAM/pull/84">#84</a>)</li>
+            <li>Tools that compare performance captures (<a href="https://github.com/premohq/PlayTendoh/pull/86">#86</a>, <a href="https://github.com/premohq/PlayTendoh/pull/84">#84</a>)</li>
           </ul></div>
       </article>
     </div>
@@ -318,19 +318,19 @@
     <div class="people">
       <article class="person reveal">
         <img src="https://github.com/dolphin78.png?size=96" width="48" height="48" alt="" loading="lazy">
-        <div><h4><a href="https://github.com/dolphin78">dolphin78</a></h4><p>With a massive shoutout: Artic Setup works on the PS5 because of him (<a href="https://github.com/premohq/PS5-ECAM/pull/70">#70</a>). He found and fixed why the 3DS's system update failed and why a New 3DS's setup crashed, and tested it all on his own PS5 with a New 3DS XL. He also made crash reports survive a crash on the 3DS side (<a href="https://github.com/premohq/PS5-ECAM/pull/70">#70</a>), fixed Artic Base's connections (<a href="https://github.com/premohq/PS5-ECAM/issues/45">#45</a>), and came up with the remote touch screen and its first prototype (<a href="https://github.com/premohq/PS5-ECAM/issues/38">#38</a>).</p></div>
+        <div><h4><a href="https://github.com/dolphin78">dolphin78</a></h4><p>With a massive shoutout: Artic Setup works on the PS5 because of him (<a href="https://github.com/premohq/PlayTendoh/pull/70">#70</a>). He found and fixed why the 3DS's system update failed and why a New 3DS's setup crashed, and tested it all on his own PS5 with a New 3DS XL. He also made crash reports survive a crash on the 3DS side (<a href="https://github.com/premohq/PlayTendoh/pull/70">#70</a>), fixed Artic Base's connections (<a href="https://github.com/premohq/PlayTendoh/issues/45">#45</a>), and came up with the remote touch screen and its first prototype (<a href="https://github.com/premohq/PlayTendoh/issues/38">#38</a>).</p></div>
       </article>
       <article class="person reveal">
         <img src="https://github.com/Mafiacoding.png?size=96" width="48" height="48" alt="" loading="lazy">
-        <div><h4><a href="https://github.com/Mafiacoding">Mafiacoding</a></h4><p>For archived games: the ZIP support for the Wii U, 3DS and DS sides that 5.0.0's archives build on (<a href="https://github.com/premohq/PS5-ECAM/pull/53">#53</a>, <a href="https://github.com/premohq/PS5-ECAM/issues/50">#50</a>).</p></div>
+        <div><h4><a href="https://github.com/Mafiacoding">Mafiacoding</a></h4><p>For archived games: the ZIP support for the Wii U, 3DS and DS sides that 5.0.0's archives build on (<a href="https://github.com/premohq/PlayTendoh/pull/53">#53</a>, <a href="https://github.com/premohq/PlayTendoh/issues/50">#50</a>).</p></div>
       </article>
       <article class="person reveal">
         <img src="https://github.com/3lmerx503.png?size=96" width="48" height="48" alt="" loading="lazy">
-        <div><h4><a href="https://github.com/3lmerx503">3lmerx503</a></h4><p>For finding and testing the rumble fix (<a href="https://github.com/premohq/PS5-ECAM/issues/41">#41</a>).</p></div>
+        <div><h4><a href="https://github.com/3lmerx503">3lmerx503</a></h4><p>For finding and testing the rumble fix (<a href="https://github.com/premohq/PlayTendoh/issues/41">#41</a>).</p></div>
       </article>
       <article class="person reveal">
         <img src="https://github.com/yeager.png?size=96" width="48" height="48" alt="" loading="lazy">
-        <div><h4><a href="https://github.com/yeager">yeager</a></h4><p>Daniel Nylander, for his review of the Swedish translation (<a href="https://github.com/premohq/PS5-ECAM/pull/85">#85</a>).</p></div>
+        <div><h4><a href="https://github.com/yeager">yeager</a></h4><p>Daniel Nylander, for his review of the Swedish translation (<a href="https://github.com/premohq/PlayTendoh/pull/85">#85</a>).</p></div>
       </article>
     </div>
 
@@ -361,16 +361,16 @@
       <a class="brand" href="#top"><svg class="brand-mark" aria-hidden="true"><use href="#mark"/></svg><span>Playtendoh</span></a>
       <p>Made by <a href="https://github.com/premohq">premohq</a>, its creator, and <a href="https://github.com/JMUtechnologies">JMUtechnologies</a>, its co-founder. It was called PS5CEMU-HAR until 5.0.0.</p>
       <nav class="footer-links" aria-label="Links">
-        <a href="https://github.com/premohq/PS5-ECAM">GitHub</a>
-        <a href="https://github.com/premohq/PS5-ECAM/releases">Releases</a>
+        <a href="https://github.com/premohq/PlayTendoh">GitHub</a>
+        <a href="https://github.com/premohq/PlayTendoh/releases">Releases</a>
         <a href="https://discord.gg/grrqkv4xWw">Discord</a>
         <a href="https://ko-fi.com/premohq">Ko-fi</a>
-        <a href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/LICENSE">License</a>
+        <a href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/LICENSE">License</a>
       </nav>
     </div>
     <div class="license" id="license">
       <h2>License</h2>
-      <p>The app's own code is GPL-3.0-or-later (see <a href="https://github.com/premohq/PS5-ECAM/blob/PS5-ECAM/LICENSE">LICENSE</a>). Files derived from Cemu keep Cemu's MPL-2.0, as their headers say; Azahar is GPL-2.0-or-later, melonDS GPL-3.0, and Eden and ProsperoEden GPL-3.0-or-later (their notices are in the app's <code>eden/</code> folder), and the app that includes them is distributed under GPL-3.0-or-later. Other third-party components keep their own licenses.</p>
+      <p>The app's own code is GPL-3.0-or-later (see <a href="https://github.com/premohq/PlayTendoh/blob/PS5-ECAM/LICENSE">LICENSE</a>). Files derived from Cemu keep Cemu's MPL-2.0, as their headers say; Azahar is GPL-2.0-or-later, melonDS GPL-3.0, and Eden and ProsperoEden GPL-3.0-or-later (their notices are in the app's <code>eden/</code> folder), and the app that includes them is distributed under GPL-3.0-or-later. Other third-party components keep their own licenses.</p>
       <p>Playtendoh is an independent homebrew project, not affiliated with or endorsed by Sony Interactive Entertainment, Nintendo, or the Cemu, Azahar, melonDS, Eden or ProsperoEden projects. "PlayStation" and "PS5" are trademarks of Sony Interactive Entertainment Inc.; "Wii U", "Nintendo 3DS", "Nintendo DS" and "Nintendo Switch" are trademarks of Nintendo. No firmware, keys, games or SDK material is included. It is provided as is, without warranty, for use with hardware and games you own.</p>
       <p>This page sets no cookies and has no analytics. It asks GitHub for the latest release as it opens.</p>
     </div>

@@ -6,7 +6,7 @@
 (function () {
   'use strict';
 
-  var REPO = 'premohq/PS5-ECAM';
+  var REPO = 'premohq/PlayTendoh';
   var API = 'https://api.github.com/repos/' + REPO + '/releases/latest';
   var root = document.documentElement;
   var $ = function (id) { return document.getElementById(id); };

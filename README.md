@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/premohq/PS5-ECAM/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/premohq/PS5-ECAM?label=release&color=3b8cff"></a>
+  <a href="https://github.com/premohq/PlayTendoh/releases/latest"><img alt="Latest release" src="https://img.shields.io/github/v/release/premohq/PlayTendoh?label=release&color=3b8cff"></a>
   <a href="https://discord.gg/grrqkv4xWw"><img alt="Discord: join the server" src="https://img.shields.io/badge/discord-join%20the%20server-5865F2?logo=discord&logoColor=white"></a>
   <a href="https://ko-fi.com/premohq"><img alt="Ko-fi: support Playtendoh" src="https://img.shields.io/badge/ko--fi-support%20Playtendoh-FF5E5B?logo=kofi&logoColor=white"></a>
   <img alt="Platform: PS5 homebrew" src="https://img.shields.io/badge/platform-PS5%20homebrew-1f5fd6">
@@ -25,9 +25,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/premohq/PS5-ECAM/raw/releases/PS5-ECAM-v5.1.0.zip"><b>Download 5.1.0</b></a> (ZIP) ·
-  <a href="https://github.com/premohq/PS5-ECAM/releases/tag/v5.1.0">Release notes</a> ·
-  <a href="https://premohq.github.io/PS5-ECAM/">Website</a> ·
+  <a href="https://github.com/premohq/PlayTendoh/raw/releases/PS5-ECAM-v5.1.0.zip"><b>Download 5.1.0</b></a> (ZIP) ·
+  <a href="https://github.com/premohq/PlayTendoh/releases/tag/v5.1.0">Release notes</a> ·
+  <a href="https://premohq.github.io/PlayTendoh/">Website</a> ·
   <a href="#install">Install</a> ·
   <a href="docs/GUIDE.md">Guide</a> ·
   <a href="docs/COMPATIBILITY.md">Compatibility</a> ·
@@ -49,14 +49,14 @@ release, until 6.0 is out. What it brings:
   mini, Famicom Disk System, Super Game Boy, Game &amp; Watch, Satellaview and VS. System), each a side of
   its own with its colour, its controller and its backdrop.
 - **Switch 2 (experimental):** a side of its own on [EglantinePS5](https://github.com/heydemoura/EglantinePS5),
-  with Playtendoh's in-game menu, from JMUtechnologies ([#109](https://github.com/premohq/PS5-ECAM/pull/109)).
+  with Playtendoh's in-game menu, from JMUtechnologies ([#109](https://github.com/premohq/PlayTendoh/pull/109)).
 - **EmulationStation (ES-DE)** as the other frontend, its games played here.
-- **Switch:** games no longer end after 6 to 10 minutes ([#97](https://github.com/premohq/PS5-ECAM/issues/97));
-  Wii U installs no longer stop at 0 % ([#96](https://github.com/premohq/PS5-ECAM/issues/96)); the touchpad's
-  shortcuts with a Pro Controller on the Wii U ([#93](https://github.com/premohq/PS5-ECAM/issues/93)).
+- **Switch:** games no longer end after 6 to 10 minutes ([#97](https://github.com/premohq/PlayTendoh/issues/97));
+  Wii U installs no longer stop at 0 % ([#96](https://github.com/premohq/PlayTendoh/issues/96)); the touchpad's
+  shortcuts with a Pro Controller on the Wii U ([#93](https://github.com/premohq/PlayTendoh/issues/93)).
 
 None of 6.0 has run on a console yet: the [roadmap](docs/ROADMAP.md) says what is being checked. Changes in
-earlier versions are in their [release notes](https://github.com/premohq/PS5-ECAM/releases).
+earlier versions are in their [release notes](https://github.com/premohq/PlayTendoh/releases).
 
 ## Support
 
@@ -102,7 +102,7 @@ Playtendoh is free. If it brings your games back, you can support it:
 
 1. **A PS5 that runs homebrew.** Any firmware up to 13.60, with etaHEN, OnionHEN, or an ELF loader on
    port 9021. See the [firmware and setup guide](docs/HEN-SETUP.md).
-2. **Copy the app.** Download the [5.1.0 ZIP](https://github.com/premohq/PS5-ECAM/raw/releases/PS5-ECAM-v5.1.0.zip) ([release notes](https://github.com/premohq/PS5-ECAM/releases/tag/v5.1.0)),
+2. **Copy the app.** Download the [5.1.0 ZIP](https://github.com/premohq/PlayTendoh/raw/releases/PS5-ECAM-v5.1.0.zip) ([release notes](https://github.com/premohq/PlayTendoh/releases/tag/v5.1.0)),
    extract it and copy the `PPSA99360` folder to `/data/homebrew/PPSA99360`.
 3. **Let your HEN in.** etaHEN: add `PPSA99360` to its app jailbreak list. OnionHEN: add `PPSA99360`
    at the end of `exact_title_ids` in `config.ini`, with no comma after it. Any other: have an ELF
@@ -162,7 +162,7 @@ Every shortcut, the in-game menu and the rest are in the [guide](docs/GUIDE.md).
 - [Guide](docs/GUIDE.md): the launcher, each system, controls, saves, mods, the remote touch screen and where files are kept
 - [Firmware and setup](docs/HEN-SETUP.md) · [Mods](docs/GUIDE.md#mods) · [Compatibility](docs/COMPATIBILITY.md)
 - [Building from source](docs/BUILDING.md) · [Driver performance](docs/DRIVER-PERFORMANCE.md) · [Roadmap](docs/ROADMAP.md)
-- Problems: **Settings > Diagnostics > Copy logs to USB**, then [open an issue](https://github.com/premohq/PS5-ECAM/issues/new/choose)
+- Problems: **Settings > Diagnostics > Copy logs to USB**, then [open an issue](https://github.com/premohq/PlayTendoh/issues/new/choose)
 
 ## Building
 
@@ -182,7 +182,7 @@ The server at [discord.gg/grrqkv4xWw](https://discord.gg/grrqkv4xWw) is the quic
 - **New versions first:** every release is posted in announcements the moment it's published.
 - **The developer and other players:** suggest features, share your setup and hear what's coming.
 
-Bugs still go in [GitHub issues](https://github.com/premohq/PS5-ECAM/issues/new/choose), with the log from *Copy logs to USB*.
+Bugs still go in [GitHub issues](https://github.com/premohq/PlayTendoh/issues/new/choose), with the log from *Copy logs to USB*.
 
 ## Credits
 
@@ -194,7 +194,7 @@ Bugs still go in [GitHub issues](https://github.com/premohq/PS5-ECAM/issues/new/
   before still found, and the PC tool that separates one); the Switch side's mods, cheats, ReShade
   presets and players, and its saves to and from a USB drive, Ryujinx's too; the DS's GBA cartridge in
   Slot-2, its recorded microphone and touch screen calibration; and the tools that compare
-  performance captures ([#86](https://github.com/premohq/PS5-ECAM/pull/86), [#84](https://github.com/premohq/PS5-ECAM/pull/84))
+  performance captures ([#86](https://github.com/premohq/PlayTendoh/pull/86), [#84](https://github.com/premohq/PlayTendoh/pull/84))
 
 ### Contributors
 
@@ -203,15 +203,15 @@ says where the app is going and how to fit in.
 
 
 - **[dolphin78](https://github.com/dolphin78)**, with a massive shoutout: Artic Setup works on the PS5
-  because of him ([#70](https://github.com/premohq/PS5-ECAM/pull/70)). He found and fixed why the 3DS's system update failed and why a
+  because of him ([#70](https://github.com/premohq/PlayTendoh/pull/70)). He found and fixed why the 3DS's system update failed and why a
   New 3DS's setup crashed, and tested it all on his own PS5 with a New 3DS XL. He also made crash
-  reports survive a crash on the 3DS side ([#70](https://github.com/premohq/PS5-ECAM/pull/70)), fixed Artic Base's connections ([#45](https://github.com/premohq/PS5-ECAM/issues/45)), and
-  came up with the remote touch screen and its first prototype ([#38](https://github.com/premohq/PS5-ECAM/issues/38))
+  reports survive a crash on the 3DS side ([#70](https://github.com/premohq/PlayTendoh/pull/70)), fixed Artic Base's connections ([#45](https://github.com/premohq/PlayTendoh/issues/45)), and
+  came up with the remote touch screen and its first prototype ([#38](https://github.com/premohq/PlayTendoh/issues/38))
 - **[Mafiacoding](https://github.com/Mafiacoding)** for archived games: the ZIP support for the Wii U,
-  3DS and DS sides that 5.0.0's archives build on ([#53](https://github.com/premohq/PS5-ECAM/pull/53), [#50](https://github.com/premohq/PS5-ECAM/issues/50))
-- **[3lmerx503](https://github.com/3lmerx503)** for finding and testing the rumble fix ([#41](https://github.com/premohq/PS5-ECAM/issues/41))
+  3DS and DS sides that 5.0.0's archives build on ([#53](https://github.com/premohq/PlayTendoh/pull/53), [#50](https://github.com/premohq/PlayTendoh/issues/50))
+- **[3lmerx503](https://github.com/3lmerx503)** for finding and testing the rumble fix ([#41](https://github.com/premohq/PlayTendoh/issues/41))
 - **[yeager](https://github.com/yeager)** (Daniel Nylander) for his review of the Swedish translation
-  ([#85](https://github.com/premohq/PS5-ECAM/pull/85))
+  ([#85](https://github.com/premohq/PlayTendoh/pull/85))
 
 ### Built on
 
@@ -237,7 +237,7 @@ says where the app is going and how to fit in.
   Switch 2 support (GPL-3.0-or-later), in [EglantinePS5](https://github.com/heydemoura/EglantinePS5), its
   PS5 port by **heydemoura** (**Heyde Moura**) with **darkxex** and **swizard** (GPL-3.0-or-later): the
   Switch 2 side's child runtime (`patches/eglantine`), brought in with the shared in-game menu by
-  **JMUtechnologies** ([#109](https://github.com/premohq/PS5-ECAM/pull/109))
+  **JMUtechnologies** ([#109](https://github.com/premohq/PlayTendoh/pull/109))
 - [Dolphin](https://github.com/dolphin-emu/dolphin) by the Dolphin team (GPL-2.0-or-later), in
   [Porpoise](https://github.com/elripalda/Porpoise-Dolphin-Emulator-for-PS5), its PS5 port by **elripalda**,
   as [Porpoise X](https://github.com/premohq/Porpoise-X): the GameCube and the Wii

@@ -62,8 +62,8 @@ checked by reading and compiling. Before a release:
   the swapchain until the process ends). Find whether `LatteThread_Exit` can hand VideoOut back, as
   Azahar and melonDS do, so the Wii U side comes back in place too; until then the restart stays,
   with its known ways of failing (#60, #68).
-- **Updates and downloads that waited for minutes** ([#78](https://github.com/premohq/PS5-ECAM/issues/78),
-  the real cause of [#73](https://github.com/premohq/PS5-ECAM/issues/73) and #72's "update loop"):
+- **Updates and downloads that waited for minutes** ([#78](https://github.com/premohq/PlayTendoh/issues/78),
+  the real cause of [#73](https://github.com/premohq/PlayTendoh/issues/73) and #72's "update loop"):
   dolphin78 timed every step on a console. Each request finished in a second, then
   `curl_easy_cleanup` sat on the idle keep-alive connection until the server dropped it (probably
   curl's `fcntl` non-blocking, which the PS5's sockets ignore). **Done** with their fix, onto this
@@ -74,7 +74,7 @@ checked by reading and compiling. Before a release:
   install's remaining minute (1,852 files unpacked, kept for Go back and moved into place one at a
   time) is now shared out among four threads, as `port/app/install.cpp` copies a game, with
   `eboot.bin` still moved last; there are fewer files too, with no graphic packs.
-- **Switch games with a mods folder do not start** ([#77](https://github.com/premohq/PS5-ECAM/issues/77)):
+- **Switch games with a mods folder do not start** ([#77](https://github.com/premohq/PlayTendoh/issues/77)):
   **done**, `patches/eden/0011`: upstream ProsperoEden's PR #288 (Oliv3rmoon), confirmed on a PS5 by
   its reporter. A game folder's mods were laid over the game's DLC and update too; Mario Kart 8 Deluxe
   with its DLC crashed as it booted. Also the likely cause of the Discord's MK8 Deluxe loop after its
@@ -104,7 +104,7 @@ checked by reading and compiling. Before a release:
   game) and #298 (ExecuteProgram, for Metal Gear Solid: Master Collection's launcher). Check each on a
   console. Not taken yet: #285 (NSZ and XCZ games), #290 (a forwarded game moved into a game folder);
   take each once it is merged or tested on a console.
-- **Switch games on 8.60** ([#72](https://github.com/premohq/PS5-ECAM/issues/72)): one report that
+- **Switch games on 8.60** ([#72](https://github.com/premohq/PlayTendoh/issues/72)): one report that
   they did not start on an earlier version; no log yet.
 - **Wii U unpacked games found but not listed** (Discord: meundies 5 games in the folder, 2 listed;
   Sanji, Sx): no log yet. `patches/cemu/0046` makes Cemu's log say why each title it leaves out was
@@ -502,28 +502,28 @@ Each idea done is marked **Done** where it is listed below, with its commit.
 
 | Idea | Commit | What it changed |
 |---|---|---|
-| [S1](#s1) | [`bfb579e`](https://github.com/premohq/PS5-ECAM/commit/bfb579e) | An unreadable `ps5cemu.json` is kept as `ps5cemu.json.broken`, and the launcher says so once |
-| [S6](#s6) | [`5b870ea`](https://github.com/premohq/PS5-ECAM/commit/5b870ea) | **Back up to USB** takes the Switch's saves and Eden's user profiles, and restores them |
-| [S5](#s5) | [`f5fe945`](https://github.com/premohq/PS5-ECAM/commit/f5fe945) | GitHub Actions runs the string table check and the PC tests at every push and pull request |
-| [G1](#g1) | [`d70b44a`](https://github.com/premohq/PS5-ECAM/commit/d70b44a) | Touchpad click + Square saves a state, + Triangle held loads it (3DS and DS) |
-| [P1](#p1) | [`fdec151`](https://github.com/premohq/PS5-ECAM/commit/fdec151) | **Add files to the PS5** on the remote touch screen's page: games, Switch keys and firmware, amiibo and music from a phone's browser |
-| [S2](#s2) | [`431f28c`](https://github.com/premohq/PS5-ECAM/commit/431f28c) | The start after a crash says so once, with the crash's first line and Copy logs to USB |
-| [G9](#g9) | [`7224443`](https://github.com/premohq/PS5-ECAM/commit/7224443) | **Fast forward, on and off** in Controls > Buttons (3DS and DS) |
-| [G4](#g4) | [`18838c8`](https://github.com/premohq/PS5-ECAM/commit/18838c8) | **Undo the last load** in the in-game menu's Save states (3DS and DS) |
-| [T1](#t1) | [`f76c8ca`](https://github.com/premohq/PS5-ECAM/commit/f76c8ca) | The 3DS's cameras see the newest picture in `azahar/camera` (or sent from a phone), for QR codes |
-| [L7](#l7) | [`1e1515c`](https://github.com/premohq/PS5-ECAM/commit/1e1515c) | The launcher dims after five minutes with no button pressed; the waking press does nothing else |
-| [S7](#s7) | [`25e7f57`](https://github.com/premohq/PS5-ECAM/commit/25e7f57) | Backups hold the settings too (each game's own, Cemu's, controller profiles, themes); a restore starts the app again to use them |
-| [S8](#s8) | [`39c2657`](https://github.com/premohq/PS5-ECAM/commit/39c2657) | An update keeps the version it replaces; **Go back to** in Settings > Online; **Skip this version** on the prompt |
-| [I4](#i4) | [`507f825`](https://github.com/premohq/PS5-ECAM/commit/507f825) | **3D for red and cyan glasses** in the 3DS side's Graphics (and each game's) |
-| [G3](#g3) | [`074a280`](https://github.com/premohq/PS5-ECAM/commit/074a280) | Quit to the library saves a state; **Resume where you left off** in the game's Options menu (3DS and DS) |
+| [S1](#s1) | [`bfb579e`](https://github.com/premohq/PlayTendoh/commit/bfb579e) | An unreadable `ps5cemu.json` is kept as `ps5cemu.json.broken`, and the launcher says so once |
+| [S6](#s6) | [`5b870ea`](https://github.com/premohq/PlayTendoh/commit/5b870ea) | **Back up to USB** takes the Switch's saves and Eden's user profiles, and restores them |
+| [S5](#s5) | [`f5fe945`](https://github.com/premohq/PlayTendoh/commit/f5fe945) | GitHub Actions runs the string table check and the PC tests at every push and pull request |
+| [G1](#g1) | [`d70b44a`](https://github.com/premohq/PlayTendoh/commit/d70b44a) | Touchpad click + Square saves a state, + Triangle held loads it (3DS and DS) |
+| [P1](#p1) | [`fdec151`](https://github.com/premohq/PlayTendoh/commit/fdec151) | **Add files to the PS5** on the remote touch screen's page: games, Switch keys and firmware, amiibo and music from a phone's browser |
+| [S2](#s2) | [`431f28c`](https://github.com/premohq/PlayTendoh/commit/431f28c) | The start after a crash says so once, with the crash's first line and Copy logs to USB |
+| [G9](#g9) | [`7224443`](https://github.com/premohq/PlayTendoh/commit/7224443) | **Fast forward, on and off** in Controls > Buttons (3DS and DS) |
+| [G4](#g4) | [`18838c8`](https://github.com/premohq/PlayTendoh/commit/18838c8) | **Undo the last load** in the in-game menu's Save states (3DS and DS) |
+| [T1](#t1) | [`f76c8ca`](https://github.com/premohq/PlayTendoh/commit/f76c8ca) | The 3DS's cameras see the newest picture in `azahar/camera` (or sent from a phone), for QR codes |
+| [L7](#l7) | [`1e1515c`](https://github.com/premohq/PlayTendoh/commit/1e1515c) | The launcher dims after five minutes with no button pressed; the waking press does nothing else |
+| [S7](#s7) | [`25e7f57`](https://github.com/premohq/PlayTendoh/commit/25e7f57) | Backups hold the settings too (each game's own, Cemu's, controller profiles, themes); a restore starts the app again to use them |
+| [S8](#s8) | [`39c2657`](https://github.com/premohq/PlayTendoh/commit/39c2657) | An update keeps the version it replaces; **Go back to** in Settings > Online; **Skip this version** on the prompt |
+| [I4](#i4) | [`507f825`](https://github.com/premohq/PlayTendoh/commit/507f825) | **3D for red and cyan glasses** in the 3DS side's Graphics (and each game's) |
+| [G3](#g3) | [`074a280`](https://github.com/premohq/PlayTendoh/commit/074a280) | Quit to the library saves a state; **Resume where you left off** in the game's Options menu (3DS and DS) |
 | [N2](#n2) | `2aef5d4` | A Switch game's **Mods** and **Cheats**, each on or off, and **Picture effects** (JMUtechnologies, #86) |
 | [N4](#n4) | `2aef5d4` | A Switch game's **Saves**: its backup and restore, to a USB drive and back, Ryujinx's too; **Players** (JMUtechnologies, #86) |
 | [D1](#d1) | `2aef5d4`, `9f7fb68` | **A GBA cartridge in Slot-2** for the DS, off by default; the DS's microphone from a recording, and touch calibration (JMUtechnologies, #86) |
-| [L2](#l2) | [`7d7a7ca`](https://github.com/premohq/PS5-ECAM/commit/7d7a7ca) | **Hide from the Library** in a game's Options menu; Search and a **Hidden** filter still find it |
-| [L3](#l3) | [`7d7a7ca`](https://github.com/premohq/PS5-ECAM/commit/7d7a7ca) | **Surprise me**, Sort's last choice: a game of the list in focus, by chance |
-| [L9](#l9) | [`d40e252`](https://github.com/premohq/PS5-ECAM/commit/d40e252) | **Settings > Play time**: each side's time, all of them together, and the ten most played games |
-| [G6](#g6) | [`76ec5d8`](https://github.com/premohq/PS5-ECAM/commit/76ec5d8) | **The right stick as the stylus** on the DS (Settings > System), off by default, for Metroid Prime Hunters |
-| [H3](#h3) | [`5226870`](https://github.com/premohq/PS5-ECAM/commit/5226870) | In a Wii U game, each player's light bar in the PS5's colour for their number |
+| [L2](#l2) | [`7d7a7ca`](https://github.com/premohq/PlayTendoh/commit/7d7a7ca) | **Hide from the Library** in a game's Options menu; Search and a **Hidden** filter still find it |
+| [L3](#l3) | [`7d7a7ca`](https://github.com/premohq/PlayTendoh/commit/7d7a7ca) | **Surprise me**, Sort's last choice: a game of the list in focus, by chance |
+| [L9](#l9) | [`d40e252`](https://github.com/premohq/PlayTendoh/commit/d40e252) | **Settings > Play time**: each side's time, all of them together, and the ten most played games |
+| [G6](#g6) | [`76ec5d8`](https://github.com/premohq/PlayTendoh/commit/76ec5d8) | **The right stick as the stylus** on the DS (Settings > System), off by default, for Metroid Prime Hunters |
+| [H3](#h3) | [`5226870`](https://github.com/premohq/PlayTendoh/commit/5226870) | In a Wii U game, each player's light bar in the PS5's colour for their number |
 
 Being worked on separately (not here): the Switch side's in-game menu, its settings and button
 remapping ([N1](#n1)), its rooms ([I2](#i2)), ReShade on the Wii U side ([I1](#i1)), and the box art
@@ -546,13 +546,13 @@ The ten with the most value for the work, in order:
 
 ### Stability and fixes
 
-<a id="s1"></a>**S1. A broken `ps5cemu.json` is kept, not wiped** (S) · **Done:** [`bfb579e`](https://github.com/premohq/PS5-ECAM/commit/bfb579e)
+<a id="s1"></a>**S1. A broken `ps5cemu.json` is kept, not wiped** (S) · **Done:** [`bfb579e`](https://github.com/premohq/PlayTendoh/commit/bfb579e)
 `ps5settings::Load` returns the defaults when the file does not parse (`port/frontend/settings.cpp:200`),
 and the next `Save` writes over it. Many settings are "only in ps5cemu.json", so people do edit it by
 hand, and one missing comma then loses every game's own settings, the accounts by PS5 user, the theme
 and the rest. Move it to `ps5cemu.json.broken`, start on the defaults, and say so once.
 
-<a id="s2"></a>**S2. Say so when the last session crashed** (S to M) · **Done:** [`431f28c`](https://github.com/premohq/PS5-ECAM/commit/431f28c), without the QR code for now
+<a id="s2"></a>**S2. Say so when the last session crashed** (S to M) · **Done:** [`431f28c`](https://github.com/premohq/PlayTendoh/commit/431f28c), without the QR code for now
 `ps5/crash.cpp` writes `[crash]` lines to the boot log, but the next start says nothing. When
 `boot.prev.log` ends in a crash, offer **Copy logs to USB** and a QR code (`ui/qr.cpp` makes them already)
 for a GitHub issue filled in with the version, firmware, HEN, game and the crash's first lines. Dolphin
@@ -571,20 +571,20 @@ this: #15 (Batman's 60 FPS pack), #20 (3DS cheats), #24 (a graphic pack with `co
 write a `[bench]` summary from the `[perf]` lines, so Discord testers can send numbers. Then settle the
 defaults and delete the paths that lost.
 
-<a id="s5"></a>**S5. CI on every push** (S to M) · **Done:** [`f5fe945`](https://github.com/premohq/PS5-ECAM/commit/f5fe945)
+<a id="s5"></a>**S5. CI on every push** (S to M) · **Done:** [`f5fe945`](https://github.com/premohq/PlayTendoh/commit/f5fe945)
 `.github` has only the issue templates. A GitHub Actions job on Ubuntu 24.04 could run what already runs
 on a PC: `tools/tests` (archives, keyboard, music, netfs, stream), `tools/reshade-check.sh`,
 `tools/lang.py check` and the launcher preview's screenshots. The PS5 build itself can stay manual.
 
-<a id="s6"></a>**S6. Switch saves in the USB backups** (S) · **Done:** [`5b870ea`](https://github.com/premohq/PS5-ECAM/commit/5b870ea)
+<a id="s6"></a>**S6. Switch saves in the USB backups** (S) · **Done:** [`5b870ea`](https://github.com/premohq/PlayTendoh/commit/5b870ea)
 **Back up to USB** (`port/app/saves.cpp`) takes the Wii U's, 3DS's and DS's saves, but not Eden's
 (`eden/user/nand/user/save`). The guide says it does not "yet".
 
-<a id="s7"></a>**S7. Settings in the backups too** (S) · **Done:** [`25e7f57`](https://github.com/premohq/PS5-ECAM/commit/25e7f57)
+<a id="s7"></a>**S7. Settings in the backups too** (S) · **Done:** [`25e7f57`](https://github.com/premohq/PlayTendoh/commit/25e7f57)
 Add `ps5cemu.json` (each game's own settings), Cemu's `controllerProfiles/` and `themes/` to a backup, so
 a reinstall or a second PS5 starts where you were. They are small.
 
-<a id="s8"></a>**S8. Updates you can undo** (M) · **Done:** [`39c2657`](https://github.com/premohq/PS5-ECAM/commit/39c2657), all but the release notes before installing
+<a id="s8"></a>**S8. Updates you can undo** (M) · **Done:** [`39c2657`](https://github.com/premohq/PlayTendoh/commit/39c2657), all but the release notes before installing
 `port/app/updates.cpp` moves the new files over the old ones. Keep what it replaces in a `previous/`
 folder and offer **Settings > Online > Go back to 5.0.0**. While there: **Skip this version**, and the
 release notes shown before **Update now** (What's new only shows after). Dolphin has update tracks for
@@ -613,11 +613,11 @@ The Library's filters are All, Recently added, Favourites and Graphic packs on. 
 ("Couch co-op", "Finish next") and ones made from GameTDB's genre and players, which the app already has
 (`port/app/gameinfo.h`). ES-DE has custom collections and Daijishou has playlists.
 
-<a id="l2"></a>**L2. Hide a game** (S) · **Done:** [`7d7a7ca`](https://github.com/premohq/PS5-ECAM/commit/7d7a7ca)
+<a id="l2"></a>**L2. Hide a game** (S) · **Done:** [`7d7a7ca`](https://github.com/premohq/PlayTendoh/commit/7d7a7ca)
 For demos, homebrew and the clutter of a big folder. The game menu has no way to hide one. ES-DE has a
 hidden flag.
 
-<a id="l3"></a>**L3. Surprise me** (S) · **Done:** [`7d7a7ca`](https://github.com/premohq/PS5-ECAM/commit/7d7a7ca), from the list in view (no collections yet)
+<a id="l3"></a>**L3. Surprise me** (S) · **Done:** [`7d7a7ca`](https://github.com/premohq/PlayTendoh/commit/7d7a7ca), from the list in view (no collections yet)
 A random game from the side (or a collection). ES-DE and Daijishou both have one.
 
 <a id="l4"></a>**L4. More cover styles** (S to M)
@@ -634,15 +634,15 @@ The game menu has no delete. An installed 3DS CIA (and its update and DLC), or a
 `mlc01`, can only be removed by FTP today (#58 was about that). Hold Cross to delete, with the saves kept
 unless asked.
 
-<a id="l7"></a>**L7. A screensaver for OLED TVs** (S) · **Done:** [`1e1515c`](https://github.com/premohq/PS5-ECAM/commit/1e1515c), as a dim (no slideshow yet)
+<a id="l7"></a>**L7. A screensaver for OLED TVs** (S) · **Done:** [`1e1515c`](https://github.com/premohq/PlayTendoh/commit/1e1515c), as a dim (no slideshow yet)
 Nothing happens when the launcher sits idle. After a few minutes, dim it or show covers slowly. Midnight
 is made for OLED screens, but a still launcher burns in all the same. ES-DE has dim, slideshow and video
 screensavers.
 
-<a id="l8"></a>**L8. The time and the DualSense's battery in a corner** (S) · **Half done:** the time is in the bar's corner; for the battery, [`821a6e3`](https://github.com/premohq/PS5-ECAM/commit/821a6e3) logs the pad state's undescribed bytes, to find it on a console
+<a id="l8"></a>**L8. The time and the DualSense's battery in a corner** (S) · **Half done:** the time is in the bar's corner; for the battery, [`821a6e3`](https://github.com/premohq/PlayTendoh/commit/821a6e3) logs the pad state's undescribed bytes, to find it on a console
 As the PS5's home screen and Daijishou show them.
 
-<a id="l9"></a>**L9. Play time you can look at** (S) · **Done:** [`d40e252`](https://github.com/premohq/PS5-ECAM/commit/d40e252), without this week's (the catalogue keeps totals only)
+<a id="l9"></a>**L9. Play time you can look at** (S) · **Done:** [`d40e252`](https://github.com/premohq/PlayTendoh/commit/d40e252), without this week's (the catalogue keeps totals only)
 Each game's minutes are counted already (`port/app/catalog.h`). A page with totals by side, the most
 played, and this week's, as Playnite and Steam have.
 
@@ -662,7 +662,7 @@ GitHub and downloads one, as ES-DE's theme downloader does.
 
 ### Quality of life: in a game
 
-<a id="g1"></a>**G1. Quick save and quick load hotkeys** (S) · **Done:** [`d70b44a`](https://github.com/premohq/PS5-ECAM/commit/d70b44a)
+<a id="g1"></a>**G1. Quick save and quick load hotkeys** (S) · **Done:** [`d70b44a`](https://github.com/premohq/PlayTendoh/commit/d70b44a)
 The guide's shortcuts are touchpad click + Options, L1 and R1; Square and Triangle look free. Touchpad click + Square
 saves to the current slot and + Triangle loads it (held, as loading in the menu is), on the 3DS and DS.
 RetroArch, DuckStation and DraStic all have this.
@@ -671,11 +671,11 @@ RetroArch, DuckStation and DraStic all have this.
 The slots show a number and whether they are empty. A small picture of the game and when it was made, as
 RetroArch, Delta and DuckStation show them. The frame can be read as the remote screen reads it.
 
-<a id="g3"></a>**G3. Resume where you left off** (M) · **Done:** [`074a280`](https://github.com/premohq/PS5-ECAM/commit/074a280)
+<a id="g3"></a>**G3. Resume where you left off** (M) · **Done:** [`074a280`](https://github.com/premohq/PlayTendoh/commit/074a280)
 On **Quit to the library**, a 3DS or DS game makes an automatic save state, and its page offers
 **Resume** beside **Play**. RetroArch's auto save state and Delta's resume work this way.
 
-<a id="g4"></a>**G4. Undo the last load** (S) · **Done:** [`18838c8`](https://github.com/premohq/PS5-ECAM/commit/18838c8)
+<a id="g4"></a>**G4. Undo the last load** (S) · **Done:** [`18838c8`](https://github.com/premohq/PlayTendoh/commit/18838c8)
 Keep the state from just before a load, so loading the wrong slot is not the end of an hour. RetroArch
 and DuckStation have "Undo load state".
 
@@ -683,7 +683,7 @@ and DuckStation have "Undo load state".
 A DualSense button that touches one fixed point of the touch screen: a game's map, its item menu, its
 "Y" button on the bottom screen. Citra and Azahar call it "touch from button".
 
-<a id="g6"></a>**G6. The right stick as the stylus** (S to M) · **Done:** [`76ec5d8`](https://github.com/premohq/PS5-ECAM/commit/76ec5d8), on the DS (not the 3DS yet)
+<a id="g6"></a>**G6. The right stick as the stylus** (S to M) · **Done:** [`76ec5d8`](https://github.com/premohq/PlayTendoh/commit/76ec5d8), on the DS (not the 3DS yet)
 On the DS the right stick can only be given to buttons (`port/melonds/input.cpp`). As a stylus it makes
 Metroid Prime Hunters playable, and on the 3DS it does the same for Kid Icarus: Uprising. DraStic does
 this.
@@ -696,7 +696,7 @@ A/B. Dolphin and Cemu on a PC both have per-game controller profiles.
 A quick action or a hotkey that saves a PNG to `/data/ps5cemu/screenshots/<game>/`, a gallery on the
 game's page, and one picked as the game's background.
 
-<a id="g9"></a>**G9. Fast forward as a toggle** (S) · **Done:** [`7224443`](https://github.com/premohq/PS5-ECAM/commit/7224443)
+<a id="g9"></a>**G9. Fast forward as a toggle** (S) · **Done:** [`7224443`](https://github.com/premohq/PlayTendoh/commit/7224443)
 Today it works only while held. An option to press once for on and again for off, as RetroArch offers.
 
 ### The Switch side
@@ -779,7 +779,7 @@ needs an OpenGL context on the console beside the screens' Vulkan picture (`port
 and its frames handed over to it, as Eden's OpenGL build does with the PS5's OpenGL SDK. To measure on a
 console first: the software renderer is what runs everything today.
 
-<a id="t1"></a>**T1. The 3DS camera from a picture** (M) · **Done:** [`f76c8ca`](https://github.com/premohq/PS5-ECAM/commit/f76c8ca)
+<a id="t1"></a>**T1. The 3DS camera from a picture** (M) · **Done:** [`f76c8ca`](https://github.com/premohq/PlayTendoh/commit/f76c8ca)
 Azahar's cameras are set to `blank` (`port/azahar/core.cpp:429`). Azahar can show a still image as the
 camera instead: a picture from USB, or one sent from the phone page ([P1](#p1)), for the QR codes
 of Pokémon Sun and Moon, Miis, and Animal Crossing's designs.
@@ -799,7 +799,7 @@ flute, and the 3DS's and GamePad's microphones. First check that a HEN lets home
 A light stop halfway down, or resistance, set for each side or game, for racing games and shooters.
 Check first that the payload SDK reaches `scePadSetTriggerEffect`.
 
-<a id="h3"></a>**H3. A light bar that says something** (S) · **Done:** [`5226870`](https://github.com/premohq/PS5-ECAM/commit/5226870), as the player's number on the Wii U (no achievement flash or cover colour yet)
+<a id="h3"></a>**H3. A light bar that says something** (S) · **Done:** [`5226870`](https://github.com/premohq/PlayTendoh/commit/5226870), as the player's number on the Wii U (no achievement flash or cover colour yet)
 `ui/feedback.cpp` lights it in the side's colour. In a game it could show the player's number (Wii U,
 players 1 to 4), flash on an achievement, or take the cover's colour.
 
@@ -808,7 +808,7 @@ players 1 to 4), flash on an achievement, or take the cover's colour.
 The remote touch screen's HTTP server (`port/stream`) already reaches every phone on the network. It can
 do more.
 
-<a id="p1"></a>**P1. Add games, keys and saves from a browser** (M) · **Done:** [`fdec151`](https://github.com/premohq/PS5-ECAM/commit/fdec151), without the PIN or saves: the same network switch as the touch screen, and fixed folders
+<a id="p1"></a>**P1. Add games, keys and saves from a browser** (M) · **Done:** [`fdec151`](https://github.com/premohq/PlayTendoh/commit/fdec151), without the PIN or saves: the same network switch as the touch screen, and fixed folders
 An upload page, behind a PIN shown on the TV, that puts each file where it goes: a game in its side's
 folder, `prod.keys` in `eden/keys`, a CIA to install. No FTP client and no USB drive. Provenance on iOS
 has a built-in web server for the same thing.
@@ -842,7 +842,7 @@ or a PS5 and a PC, play local wireless games together.
 melonDS 1.0 has local multiplayer over a LAN. Two PS5s on one network as two DSes: Mario Kart DS,
 Pokémon trades and battles.
 
-<a id="i4"></a>**I4. The 3DS's 3D** (S to M) · **Done:** [`507f825`](https://github.com/premohq/PS5-ECAM/commit/507f825), red and cyan only (side by side for 3D TVs not yet)
+<a id="i4"></a>**I4. The 3DS's 3D** (S to M) · **Done:** [`507f825`](https://github.com/premohq/PlayTendoh/commit/507f825), red and cyan only (side by side for 3D TVs not yet)
 Azahar can draw the 3DS's stereo picture as red and cyan anaglyph, or side by side for a 3D TV. Cheap
 glasses, and the 3D slider back.
 

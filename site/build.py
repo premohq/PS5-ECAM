@@ -22,7 +22,7 @@ import sys
 
 SITE = os.path.dirname(os.path.abspath(__file__))
 REPO_ROOT = os.path.dirname(SITE)
-REPO = "premohq/PS5-ECAM"
+REPO = "premohq/PlayTendoh"
 ART = {  # the repository's own files the page uses, and their names in it
     "port/ui/fonts/Lexend-Regular.ttf": "fonts/Lexend-Regular.ttf",
     "port/ui/fonts/Lexend-Medium.ttf": "fonts/Lexend-Medium.ttf",
