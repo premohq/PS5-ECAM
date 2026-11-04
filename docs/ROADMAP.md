@@ -670,6 +670,19 @@ a game (or in the in-game menu) where each player presses Cross to take their pl
 Themes are JSON files in `/data/ps5cemu/themes`. A page that lists a community themes repository on
 GitHub and downloads one, as ES-DE's theme downloader does.
 
+<a id="l13"></a>**L13. Set up every emulator from a USB drive** (M to L) · asked for by the owner, 2026-11-04
+The Setup check (`port/frontend/shell/setup.cpp`) says what each side is missing and where to put it,
+but the files still have to be copied by hand. Instead, a **Set up from USB** action there looks through
+every connected drive (`ConnectedDrives()`) for what each emulator needs and puts each where it goes:
+the Wii U's `keys.txt` and online files, the Switch's `prod.keys`/`title.keys` and firmware (for Eden and
+EglantinePS5 alike), the 3DS's system files and `aes_keys.txt`, the DS's BIOS and firmware, the GameCube
+and Wii's IPL and DSP files, and the libretro cores' BIOS (`disksys.rom`, the Super Game Boy's, the
+Satellaview's), plus each side's game folders, offered as that side's games folder. Files are told
+apart by name and contents (size and checksum for BIOS dumps, the keys files' entries), never by guess;
+each found file is listed with where it will go before anything is copied, a file already there is kept
+unless it is chosen, and the check runs again after, so each side's status shows what changed. The
+first start's Setup offers it as soon as a drive is plugged in.
+
 ### Quality of life: in a game
 
 <a id="g1"></a>**G1. Quick save and quick load hotkeys** (S) · **Done:** [`d70b44a`](https://github.com/premohq/PlayTendoh/commit/d70b44a)
