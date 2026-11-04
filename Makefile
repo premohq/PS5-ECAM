@@ -14,7 +14,7 @@ APP := build/app/PPSA99360
 JOBS ?= $(shell nproc)
 export JOBS
 
-.PHONY: gameboy retro-upgrades retro test-retro help deps deps-status radv azahar melonds libretro eden eglantine build check package release clean distclean test-contribution esde
+.PHONY: gameboy retro-upgrades retro test-retro help deps deps-status radv azahar melonds libretro eden eglantine porpoise build check package release clean distclean test-contribution esde
 
 test-retro: ## Host verification for the additional system integration
 	bash tools/tests/test-retro.sh
@@ -68,6 +68,9 @@ eden: deps ## Build ProsperoEdenX, the Switch side's program (Eden), with patche
 eglantine: deps ## Build EglantinePS5 as the Switch 2 child runtime, with patches/eglantine: build/eglantine/app
 	bash tools/build-eglantine.sh
 
+porpoise: deps radv ## Build Porpoise X, the GameCube and Wii sides' program (Dolphin), at its pin: build/retro/porpoise
+	bash tools/build-porpoise.sh
+
 esde: ## Build EmulationStation (ES-DE), the optional other frontend, with PS5-ECAM's glue: build/esde/es-de
 	bash tools/build-esde.sh
 
@@ -90,7 +93,7 @@ retro-upgrades: ## Build optional N64/NES alternative runtimes (prepared toolcha
 retro: ## Build the pinned Porpoise, N64 and NES runtimes (prepared donor toolchains required)
 	python3 tools/build-retro.py porpoise n64 nes
 
-package: build eden eglantine ## The app folder: build/app/PPSA99360 (with Eden and Eglantine runtimes)
+package: build eden eglantine porpoise ## The app folder: build/app/PPSA99360 (with Eden, Eglantine and Porpoise)
 	bash tools/package.sh
 
 # a release takes the emulators' patches only as they are: a checkout in .deps with commits not exported

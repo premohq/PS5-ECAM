@@ -1,0 +1,45 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 12:43:51 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 side: never this program's launcher, back
+ to PS5-ECAM with why
+
+As a child runtime (EDEN_ECAM_CHILD) this program plays one game PS5-ECAM's Switch 2 side starts, and
+PS5-ECAM shows none of its own screens. A game that was not found, did not start or stopped with an
+error went to EglantinePS5's launcher, as did a start without PS5-ECAM's request. It goes back to
+PS5-ECAM instead, with the reason in PS5-ECAM's result file (ps5ingamenx::WriteResult), as Eden's
+program does for the Switch side (PS5-ECAM's patches/eden 0015).
+---
+ headless/main.cpp | 19 +++++++++++++++++++
+ 1 file changed, 19 insertions(+)
+
+diff --git a/headless/main.cpp b/headless/main.cpp
+index dfb6caa..b225fe3 100644
+--- a/headless/main.cpp
++++ b/headless/main.cpp
+@@ -618,6 +618,25 @@ int main(int argc, char** argv) {
+             return 0;
+ #endif
+         } else {
++#if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
++        // PS5-ECAM's Switch 2 side starts this program for one game and never shows its launcher: a game
++        // that was not found, did not start or stopped with an error, or a start without PS5-ECAM's
++        // request, goes back to PS5-ECAM with why in its result file, which it shows (as Eden's program
++        // does for the Switch side, PS5-ECAM's patches/eden 0015).
++        {
++            const std::string why = !launch_error.empty() ? launch_error :
++                forwarded.rom.empty() ? std::string{"EglantinePS5 was started without a game to play"} :
++                                        std::string{"The game ended"};
++#ifdef EDEN_ECAM
++            if (!launch_error.empty() || forwarded.rom.empty()) ps5ingamenx::WriteResult("failed", why);
++#endif
++            Eden::Report("exit", ("Back to PS5-ECAM: " + why).c_str());
++            std::fflush(nullptr);
++            const int result = sceSystemServiceLoadExec("/app0/eboot.bin", nullptr);
++            Eden::BootTrace::Line("PS5-ECAM return refused: %08x", static_cast<unsigned>(result));
++            return 1;
++        }
++#endif
+         guest_fault_retries = 0;
+         forwarded_session = false;
+ #if defined(EDEN_DEV_PROFILE) || defined(EDEN_DEV_ROM_ID)
