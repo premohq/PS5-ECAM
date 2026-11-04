@@ -56,25 +56,51 @@ msgstr "Control remoto Wii"
 msgid "Wii Remote + Nunchuk"
 msgstr "Control remoto Wii + Nunchuk"
 
-#: port/app/ingame.cpp:145 port/frontend/actions.cpp:375
+#. an original Wii Remote through a DolphinBar, not the DualSense playing one
+#: port/app/ingame.cpp:143 port/frontend/actions.cpp:374
+#, menu
+msgid "Real Wii Remote"
+msgstr "Control remoto Wii real"
+
+#: port/app/ingame.cpp:144 port/frontend/actions.cpp:375
+#, menu
+msgid "Real Wii Remote + Nunchuk"
+msgstr "Control remoto Wii real + Nunchuk"
+
+#: port/app/ingame.cpp:147 port/frontend/actions.cpp:378
 #, menu
 msgid "No controller"
 msgstr "Sin control"
 
-#: port/app/ingame.cpp:304
+#: port/app/ingame.cpp:314
 #, menu
 msgid "Each player's controller, motion, vibration, deadzones and A and B."
 msgstr "El control de cada jugador, movimiento, vibración, zonas muertas, y A y B."
 
-#: port/app/ingame.cpp:306
+#: port/app/ingame.cpp:316
+#, menu
+msgid "{0} (no Wii Remote found)"
+msgstr "{0} (no se encontró ningún control remoto Wii)"
+
+#: port/app/ingame.cpp:317
 #, menu
 msgid "Whose controller the settings below are: Left and Right choose the player."
 msgstr "De quién es el control de los ajustes de abajo: Izquierda y Derecha eligen el jugador."
 
-#: port/app/ingame.cpp:307 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:596
+#: port/app/ingame.cpp:318 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:501 port/frontend/shell/pages.cpp:611
 #, menu
 msgid "Emulated controller"
 msgstr "Control emulado"
+
+#: port/app/ingame.cpp:341 port/frontend/shell/pages.cpp:655
+#, menu
+msgid "Its own"
+msgstr "Del control"
+
+#: port/app/ingame.cpp:343 port/frontend/shell/pages.cpp:656
+#, menu
+msgid "A real Wii Remote has its own buttons, pointer, motion and rumble: this setting is for the DualSense."
+msgstr "Un control remoto Wii real tiene sus propios botones, puntero, movimiento y vibración: este ajuste es para el DualSense."
 
 #. the decimal separator, as in 0.4 (a comma in many languages)
 #: port/app/lang.cpp:440
@@ -158,20 +184,27 @@ msgstr ""
 msgid "The default buttons, vibration, motion and deadzones for this controller. Held to confirm."
 msgstr "Los botones, la vibración, el movimiento y las zonas muertas por defecto de este control. Se mantiene para confirmar."
 
-#. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:592
+#: port/frontend/shell/pages.cpp:456
+msgid "Real Wii Remote: an original Wii Remote or Wii Remote Plus through a Mayflash DolphinBar set to mode 4 in one of the PS5's USB ports, with its own pointer, motion, rumble and Nunchuk. The players with one take the Remotes in their order: the first of them the first Remote found."
+msgstr "Control remoto Wii real: un control remoto Wii original o un Wii Remote Plus mediante una Mayflash DolphinBar en el modo 4 en uno de los puertos USB de la PS5, con su propio puntero, movimiento, vibración y Nunchuk. Los jugadores que tengan uno reciben los controles en su orden: el primero de ellos, el primer control encontrado."
+
+#: port/frontend/shell/pages.cpp:605
 msgid "Controllers"
 msgstr "Controles"
 
-#: port/frontend/shell/pages.cpp:598
+#: port/frontend/shell/pages.cpp:607
+msgid "{0}: none found yet. Plug a DolphinBar set to mode 4 into the PS5 and sync a Wii Remote to it."
+msgstr "{0}: aún no se ha encontrado ninguno. Conecta una DolphinBar en el modo 4 a la PS5 y sincroniza un control remoto Wii con ella."
+
+#: port/frontend/shell/pages.cpp:613
 msgid "The DualSense's motion as the controller's."
 msgstr "El movimiento del DualSense como el del control."
 
-#: port/frontend/shell/pages.cpp:600
+#: port/frontend/shell/pages.cpp:615
 msgid "The {0} has no motion sensors. For motion, choose the GamePad or a Wii Remote."
 msgstr "El {0} no tiene sensores de movimiento. Para el movimiento, elige el GamePad o un Control remoto Wii."
 
-#: port/frontend/shell/pages.cpp:617
+#: port/frontend/shell/pages.cpp:632
 msgid "The Wii Remote's buttons are under Buttons."
 msgstr "Los botones del Control remoto Wii están en Botones."
 

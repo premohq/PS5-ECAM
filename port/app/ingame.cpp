@@ -140,6 +140,8 @@ namespace
 		case ps5emu::EmulatedType::Classic: return Tr("Classic Controller");
 		case ps5emu::EmulatedType::Wiimote: return Tr("Wii Remote");
 		case ps5emu::EmulatedType::Nunchuk: return Tr("Wii Remote + Nunchuk");
+		case ps5emu::EmulatedType::RealWiimote: return Tr("Real Wii Remote");
+		case ps5emu::EmulatedType::RealNunchuk: return Tr("Real Wii Remote + Nunchuk");
 		case ps5emu::EmulatedType::None: break;
 		}
 		return Tr("No controller");
@@ -155,9 +157,16 @@ namespace
 		std::vector<ps5emu::EmulatedType> types;
 		if (otherGamePads < 2)
 			types.push_back(ps5emu::EmulatedType::GamePad);
-		for (auto type : {ps5emu::EmulatedType::Pro, ps5emu::EmulatedType::Classic, ps5emu::EmulatedType::Wiimote, ps5emu::EmulatedType::Nunchuk})
+		for (auto type : {ps5emu::EmulatedType::Pro, ps5emu::EmulatedType::Classic, ps5emu::EmulatedType::Wiimote, ps5emu::EmulatedType::Nunchuk,
+				 ps5emu::EmulatedType::RealWiimote, ps5emu::EmulatedType::RealNunchuk})
 			types.push_back(type);
 		return types;
+	}
+
+	// The controls rows a real Wii Remote has of its own, not the DualSense's
+	bool RealRemoteOwn(const std::string& id)
+	{
+		return id == "motion" || id == "rumble" || id == "left" || id == "right" || id == "layout" || id == "touchpad";
 	}
 
 	// The menu's rows as things are now: a few settings, and categories that open in place
@@ -300,9 +309,11 @@ namespace
 			}});
 		else
 			rows.push_back(amiibo);
+		const bool realRemote = ps5emu::IsRealWiiRemote(controls.type);
 		rows.push_back({"controls", Tr("Controls"), TypeName(ps5emu::GetPlayerControls(0).type), false,
 			Tr("Each player's controller, motion, vibration, deadzones and A and B."), {
-			{"player", Tr("Player"), controls.connected ? std::to_string(player + 1) : TrF("{0} (no DualSense)", player + 1), true,
+			{"player", Tr("Player"), controls.connected ? std::to_string(player + 1) :
+				realRemote ? TrF("{0} (no Wii Remote found)", player + 1) : TrF("{0} (no DualSense)", player + 1), true,
 				Tr("Whose controller the settings below are: Left and Right choose the player.")},
 			{"type", Tr("Emulated controller"), TypeName(controls.type), true,
 				Tr("What the game sees in this player's hands. Most games want the GamePad for player 1.")},
@@ -322,6 +333,15 @@ namespace
 				true,
 				Tr("Touches the GamePad's screen, or presses the button set to Touchpad click (- if none is set). The shortcuts still work.")},
 		}});
+		if (realRemote)
+			// a real Wii Remote's own: the DualSense's settings are not for it
+			for (Row& row : rows.back().rows)
+				if (RealRemoteOwn(row.id))
+				{
+					row.value = Tr("Its own");
+					row.setting = false;
+					row.help = Tr("A real Wii Remote has its own buttons, pointer, motion and rumble: this setting is for the DualSense.");
+				}
 		// tr: the remote touch screen's row: which screen a phone or a tablet shows
 		rows.push_back(ps5menu::RemoteRow(Tr("The GamePad's screen")));
 		// a home screen tile's game closes the app instead, as the row says (#48)
@@ -354,6 +374,8 @@ namespace
 		const bool chosen = action.chosen;
 		const int player = s_controlsPlayer;
 		const auto controls = ps5emu::GetPlayerControls(player);
+		if (ps5emu::IsRealWiiRemote(controls.type) && RealRemoteOwn(id))
+			return;
 		if (id == "resume")
 			CloseMenu();
 		else if (id == "main")

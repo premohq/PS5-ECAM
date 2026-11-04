@@ -692,14 +692,25 @@ msgstr "Wii 리모컨"
 msgid "Wii Remote + Nunchuk"
 msgstr "Wii 리모컨 + 눈차크"
 
-#: port/app/ingame.cpp:145 port/frontend/actions.cpp:375
+#. an original Wii Remote through a DolphinBar, not the DualSense playing one
+#: port/app/ingame.cpp:143 port/frontend/actions.cpp:374
+#, menu
+msgid "Real Wii Remote"
+msgstr "실제 Wii 리모컨"
+
+#: port/app/ingame.cpp:144 port/frontend/actions.cpp:375
+#, menu
+msgid "Real Wii Remote + Nunchuk"
+msgstr "실제 Wii 리모컨 + 눈차크"
+
+#: port/app/ingame.cpp:147 port/frontend/actions.cpp:378
 #, menu
 msgid "No controller"
 msgstr "컨트롤러 없음"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bilinear"
 msgstr "바이리니어"
@@ -707,34 +718,34 @@ msgstr "바이리니어"
 #. how a game's picture is scaled: the methods' names
 #. texture filters: None, then the filters' own names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/app/ingame3ds.cpp:143 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:62 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/app/ingame3ds.cpp:143 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:62 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bicubic"
 msgstr "바이큐빅"
 
 #. how a game's picture is scaled: the methods' names
-#: port/app/ingame.cpp:168 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bicubic Hermite"
 msgstr "바이큐빅 에르미트"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Nearest neighbour"
 msgstr "최근접 이웃"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "AMD FSR 1"
 msgstr "AMD FSR 1"
 
 #. the quick action that puts a gap between the two screens, and its state
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:1648 port/frontend/shell/switch_extras.cpp:54
+#: port/app/ingame.cpp:191 port/app/ingame.cpp:263 port/app/ingame.cpp:263 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:612 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:1648 port/frontend/shell/switch_extras.cpp:54
 #, menu
 msgid "On"
 msgstr "켬"
@@ -744,442 +755,447 @@ msgstr "켬"
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/porpoise_rows.cpp:55 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:76 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:711 port/frontend/shell/settings.cpp:1331 port/frontend/shell/settings.cpp:1620 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1676 port/frontend/shell/settings.cpp:1684 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
+#: port/app/ingame.cpp:191 port/app/ingame.cpp:263 port/app/ingame.cpp:263 port/app/ingame.cpp:289 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:612 port/frontend/shell/pages.cpp:620 port/frontend/shell/porpoise_rows.cpp:55 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:76 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:711 port/frontend/shell/settings.cpp:1331 port/frontend/shell/settings.cpp:1620 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1676 port/frontend/shell/settings.cpp:1684 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
 #, menu
 msgid "Off"
 msgstr "끔"
 
 #. the screens in the Wii U's menu: the TV's picture and the GamePad's
-#: port/app/ingame.cpp:184
+#: port/app/ingame.cpp:193
 #, menu
 msgid "TV"
 msgstr "TV"
 
 #. the screens in the Wii U's menu: the TV's picture and the GamePad's
-#: port/app/ingame.cpp:184
+#: port/app/ingame.cpp:193
 #, menu
 msgid "GamePad"
 msgstr "GamePad"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:185 port/app/ingame.cpp:344 port/app/ingame3ds.cpp:689 port/frontend/shell/settings.cpp:213
+#: port/app/ingame.cpp:194 port/app/ingame.cpp:364 port/app/ingame3ds.cpp:689 port/frontend/shell/settings.cpp:213
 #, menu
 msgid "Screens"
 msgstr "화면"
 
-#: port/app/ingame.cpp:185 port/app/ingame.cpp:191
+#: port/app/ingame.cpp:194 port/app/ingame.cpp:200
 #, menu
 msgid "Stretched"
 msgstr "늘이기"
 
-#: port/app/ingame.cpp:185
+#: port/app/ingame.cpp:194
 #, menu
 msgid "Its shape"
 msgstr "원래 비율"
 
-#: port/app/ingame.cpp:186
+#: port/app/ingame.cpp:195
 #, menu
 msgid "The TV's and the GamePad's pictures, and how they fill the screen."
 msgstr "TV와 GamePad의 영상, 그리고 화면을 채우는 방식입니다."
 
 #. the 3DS's top and bottom screens
-#: port/app/ingame.cpp:187 port/app/ingame3ds.cpp:489
+#: port/app/ingame.cpp:196 port/app/ingame3ds.cpp:489
 #, menu
 msgid "Main screen"
 msgstr "메인 화면"
 
-#: port/app/ingame.cpp:188
+#: port/app/ingame.cpp:197
 #, menu
 msgid "Which picture fills the TV: the TV's or the GamePad's. In the game, touchpad click + L1 swaps them."
 msgstr "TV를 채울 영상: TV 영상 또는 GamePad 영상. 게임 중에 터치패드 버튼 + L1로 바꿉니다."
 
-#: port/app/ingame.cpp:189
+#: port/app/ingame.cpp:198
 #, menu
 msgid "TV in a corner"
 msgstr "구석에 TV"
 
-#: port/app/ingame.cpp:189
+#: port/app/ingame.cpp:198
 #, menu
 msgid "GamePad in a corner"
 msgstr "구석에 GamePad"
 
-#: port/app/ingame.cpp:190
+#: port/app/ingame.cpp:199
 #, menu
 msgid "The other screen, small in the bottom right corner. In the game, touchpad click + R1."
 msgstr "다른 화면을 오른쪽 아래 구석에 작게 표시합니다. 게임 중에는 터치패드 버튼 + R1."
 
-#: port/app/ingame.cpp:191
+#: port/app/ingame.cpp:200
 #, menu
 msgid "Picture"
 msgstr "영상"
 
-#: port/app/ingame.cpp:191
+#: port/app/ingame.cpp:200
 #, menu
 msgid "Its own shape"
 msgstr "원래 비율"
 
-#: port/app/ingame.cpp:192
+#: port/app/ingame.cpp:201
 #, menu
 msgid "Its own shape keeps the picture's proportions, with bars where they differ from the screen's; Stretched fills it."
 msgstr "원래 비율은 영상의 비율을 유지하고 화면과 다른 부분에 여백을 둡니다. 늘이기는 화면을 가득 채웁니다."
 
-#: port/app/ingame.cpp:194 port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/app/ingame3ds.cpp:528 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:211 port/frontend/shell/settings.cpp:267
+#: port/app/ingame.cpp:203 port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/app/ingame3ds.cpp:528 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:211 port/frontend/shell/settings.cpp:267
 #, menu
 msgid "Graphics"
 msgstr "그래픽"
 
-#: port/app/ingame.cpp:195
+#: port/app/ingame.cpp:204
 #, menu
 msgid "Upscaling, Cemu's accuracy settings and the performance overlay. Kept for the next games."
 msgstr "업스케일링, Cemu의 정확도 설정, 성능 오버레이입니다. 다음 게임에도 유지됩니다."
 
-#: port/app/ingame.cpp:196 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:702
+#: port/app/ingame.cpp:205 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:702
 #, menu
 msgid "Upscaling to 4K"
 msgstr "4K 업스케일링"
 
-#: port/app/ingame.cpp:197
+#: port/app/ingame.cpp:206
 #, menu
 msgid "How the picture is scaled to the screen: Bicubic is sharp, Hermite softer, Bilinear softer still."
 msgstr "영상을 화면에 맞게 키우는 방식입니다. 바이큐빅은 선명하고, 에르미트는 더 부드럽고, 바이리니어는 가장 부드럽습니다."
 
-#: port/app/ingame.cpp:198
+#: port/app/ingame.cpp:207
 #, menu
 msgid "Accurate barriers"
 msgstr "정확한 배리어"
 
-#: port/app/ingame.cpp:199
+#: port/app/ingame.cpp:208
 #, menu
 msgid "Off can raise the frame rate, but some games then flicker or show wrong shadows. It changes at once."
 msgstr "끄면 프레임 레이트가 오를 수 있지만, 일부 게임에서 화면이 깜박이거나 그림자가 잘못 표시됩니다. 바로 적용됩니다."
 
-#: port/app/ingame.cpp:200 port/frontend/shell/settings.cpp:626 port/frontend/shell/settings.cpp:673 port/frontend/shell/settings.cpp:1035
+#: port/app/ingame.cpp:209 port/frontend/shell/settings.cpp:626 port/frontend/shell/settings.cpp:673 port/frontend/shell/settings.cpp:1035
 #, menu
 msgid "Async shader compile"
 msgstr "비동기 셰이더 컴파일"
 
-#: port/app/ingame.cpp:201
+#: port/app/ingame.cpp:210
 #, menu
 msgid "On, new shaders build while the game carries on: no stutter, but things may be missing for a moment."
 msgstr "켜면 게임이 계속되는 동안 새 셰이더를 만듭니다. 끊기지 않지만 잠시 일부가 보이지 않을 수 있습니다."
 
-#: port/app/ingame.cpp:202 port/frontend/shell/settings.cpp:601
+#: port/app/ingame.cpp:211 port/frontend/shell/settings.cpp:601
 #, menu
 msgid "Frame pacing"
 msgstr "프레임 페이싱"
 
-#: port/app/ingame.cpp:203
+#: port/app/ingame.cpp:212
 #, menu
 msgid "Holds the game to an even rate: 60 fps for 4K at 120 Hz, 30 for 8K at 60 Hz. Off shows each frame when it is done."
 msgstr "게임을 일정한 속도로 유지합니다. 4K 120Hz에서는 60fps, 8K 60Hz에서는 30fps. 끄면 프레임이 완성될 때마다 표시합니다."
 
 #. What's new: Lossless Scaling's frame generation for Switch games; Lossless.dll and MihawkGen are names, left as they are
-#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:576 port/frontend/shell/porpoise_rows.cpp:73 port/frontend/shell/settings.cpp:589 port/frontend/shell/settings.cpp:607 port/frontend/shell/settings.cpp:678 port/frontend/shell/settings.cpp:746 port/frontend/shell/settings.cpp:762 port/frontend/shell/whatsnew.cpp:36
+#: port/app/ingame.cpp:213 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:576 port/frontend/shell/porpoise_rows.cpp:73 port/frontend/shell/settings.cpp:589 port/frontend/shell/settings.cpp:607 port/frontend/shell/settings.cpp:678 port/frontend/shell/settings.cpp:746 port/frontend/shell/settings.cpp:762 port/frontend/shell/whatsnew.cpp:36
 #, menu
 msgid "Frame generation"
 msgstr "프레임 생성"
 
-#: port/app/ingame.cpp:205 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:577
+#: port/app/ingame.cpp:214 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:577
 #, menu
 msgid "A picture made between each two frames of a game at 30 fps, so it is shown at 60. It changes at once."
 msgstr "30fps 게임의 두 프레임 사이마다 한 장을 만들어 60으로 보여 줍니다. 바로 바뀝니다."
 
-#: port/app/ingame.cpp:206 port/frontend/shell/settings.cpp:614 port/frontend/shell/switch_extras.cpp:72
+#: port/app/ingame.cpp:215 port/frontend/shell/settings.cpp:614 port/frontend/shell/switch_extras.cpp:72
 #, menu
 msgid "ReShade"
 msgstr "ReShade"
 
-#: port/app/ingame.cpp:207
+#: port/app/ingame.cpp:216
 #, menu
 msgid "Your ReShade preset over the game's picture (Settings > Graphics says where it goes). It changes at once."
 msgstr "게임 화면에 적용할 ReShade 프리셋(위치는 설정 > 그래픽에 나와 있습니다). 바로 바뀝니다."
 
-#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:620 port/frontend/shell/settings.cpp:688 port/frontend/shell/settings.cpp:771 port/frontend/shell/settings.cpp:789
+#: port/app/ingame.cpp:217 port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:620 port/frontend/shell/settings.cpp:688 port/frontend/shell/settings.cpp:771 port/frontend/shell/settings.cpp:789
 #, menu
 msgid "Performance overlay"
 msgstr "성능 오버레이"
 
-#: port/app/ingame.cpp:209
+#: port/app/ingame.cpp:218
 #, menu
 msgid "Frames per second, CPU and memory use in the top left corner, as Cemu shows them."
 msgstr "초당 프레임 수, CPU·메모리 사용량을 Cemu처럼 왼쪽 위 구석에 표시합니다."
 
-#: port/app/ingame.cpp:210 port/frontend/shell/settings.cpp:630
+#: port/app/ingame.cpp:219 port/frontend/shell/settings.cpp:630
 #, menu
 msgid "Shader notices"
 msgstr "셰이더 알림"
 
-#: port/app/ingame.cpp:211
+#: port/app/ingame.cpp:220
 #, menu
 msgid "Cemu's notes in a corner while the game builds shaders. Off hides them; they are built either way."
 msgstr "게임이 셰이더를 만드는 동안 구석에 표시되는 Cemu의 알림입니다. 끄면 숨겨지며, 셰이더는 어느 쪽이든 만들어집니다."
 
-#: port/app/ingame.cpp:224 port/app/ingame.cpp:254
+#: port/app/ingame.cpp:233 port/app/ingame.cpp:263
 #, menu
 msgid "{0} (next start)"
 msgstr "{0}(다음 실행 시)"
 
-#: port/app/ingame.cpp:225
+#: port/app/ingame.cpp:234
 #, menu
 msgid "This pack replaces textures: the game shows the change when it starts again."
 msgstr "이 팩은 텍스처를 교체합니다. 게임을 다시 실행하면 변경 사항이 보입니다."
 
-#: port/app/ingame.cpp:226
+#: port/app/ingame.cpp:235
 #, menu
 msgid "Cross turns it on or off; the game shows it at once."
 msgstr "엑스 버튼을 누르면 켜지거나 꺼집니다. 게임에 바로 적용됩니다."
 
-#: port/app/ingame.cpp:234 port/frontend/shell/pages.cpp:281 port/frontend/shell/pages.cpp:370
+#: port/app/ingame.cpp:243 port/frontend/shell/pages.cpp:281 port/frontend/shell/pages.cpp:370
 #, menu
 msgid "Preset"
 msgstr "프리셋"
 
-#: port/app/ingame.cpp:236
+#: port/app/ingame.cpp:245
 #, menu
 msgid "Left and Right choose another; the game shows it at once."
 msgstr "좌우로 다른 프리셋을 선택합니다. 게임에 바로 적용됩니다."
 
-#: port/app/ingame.cpp:240
+#: port/app/ingame.cpp:249
 #, menu
 msgid "None for this game"
 msgstr "이 게임에는 없음"
 
-#: port/app/ingame.cpp:240
+#: port/app/ingame.cpp:249
 #, menu
 msgid "Reading the packs…"
 msgstr "팩을 읽는 중…"
 
-#: port/app/ingame.cpp:241
+#: port/app/ingame.cpp:250
 #, menu
 msgid "The community graphic packs have none for this game."
 msgstr "커뮤니티 그래픽 팩에 이 게임용 팩이 없습니다."
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:345 port/frontend/shell/hub.cpp:242 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1882
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:365 port/frontend/shell/hub.cpp:242 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1882
 #, menu
 msgid "Graphic packs"
 msgstr "그래픽 팩"
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:287 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:468 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:296 port/app/ingame.cpp:365 port/app/ingame3ds.cpp:468 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
 #, menu
 msgid "None"
 msgstr "없음"
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1620
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:289 port/frontend/shell/settings.cpp:1620
 #, menu
 msgid "{0} on"
 msgid_plural "{0} on"
 msgstr[0] "{0}개 켜짐"
 
-#: port/app/ingame.cpp:244
+#: port/app/ingame.cpp:253
 #, menu
 msgid "The game's community graphic packs: resolution, frame rate and mods, as Cemu's Graphic Packs window has them."
 msgstr "이 게임의 커뮤니티 그래픽 팩입니다. 해상도, 프레임 레이트, 모드 등 Cemu의 Graphic Packs 창과 같습니다."
 
-#: port/app/ingame.cpp:255
+#: port/app/ingame.cpp:264
 #, menu
 msgid "The game sees the change when it starts again: the portal is plugged in as a game starts."
 msgstr "게임을 다시 실행하면 변경 사항이 적용됩니다. 포털은 게임이 실행될 때 연결됩니다."
 
-#: port/app/ingame.cpp:256
+#: port/app/ingame.cpp:265
 #, menu
 msgid "Plugged in as a game starts, as in Cemu. Its figures are below while it is on."
 msgstr "Cemu처럼 게임이 실행될 때 연결됩니다. 켜져 있는 동안 피규어가 아래에 표시됩니다."
 
-#: port/app/ingame.cpp:261 port/app/ingame3ds.cpp:653
+#: port/app/ingame.cpp:270 port/app/ingame3ds.cpp:653
 #, menu
 msgid "Empty"
 msgstr "비어 있음"
 
-#: port/app/ingame.cpp:270
+#: port/app/ingame.cpp:279
 #, menu
 msgid "{0} (Cross to put on)"
 msgstr "{0}(엑스 버튼으로 올리기)"
 
 #. {0} is a folder of figure dumps
-#: port/app/ingame.cpp:272
+#: port/app/ingame.cpp:281
 #, menu
 msgid "Put figure dumps in {0} to put them on here."
 msgstr "피규어 덤프를 {0}에 넣으면 여기서 올릴 수 있습니다."
 
-#: port/app/ingame.cpp:273
+#: port/app/ingame.cpp:282
 #, menu
 msgid "Left and Right choose a figure, Cross puts it on; Empty takes the one there off."
 msgstr "좌우로 피규어를 선택하고 엑스 버튼으로 올립니다. 비어 있음을 선택하면 그 자리의 피규어를 내립니다."
 
-#: port/app/ingame.cpp:278
+#: port/app/ingame.cpp:287
 #, menu
 msgid "The last figure could not be put on."
 msgstr "마지막 피규어를 올리지 못했습니다."
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1620
+#: port/app/ingame.cpp:289 port/frontend/shell/settings.cpp:1620
 #, menu
 msgid "USB devices"
 msgstr "USB 장치"
 
-#: port/app/ingame.cpp:281
+#: port/app/ingame.cpp:290
 #, menu
 msgid "Skylanders, Disney Infinity and LEGO Dimensions figures on Cemu's emulated portals, as amiibo are scanned."
 msgstr "Cemu의 에뮬레이트된 포털에 올리는 Skylanders, Disney Infinity, LEGO Dimensions 피규어입니다. amiibo를 읽는 것과 같은 방식입니다."
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585 port/frontend/shell/porpoise_rows.cpp:109
+#: port/app/ingame.cpp:292 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585 port/frontend/shell/porpoise_rows.cpp:109
 #, menu
 msgid "Volume"
 msgstr "볼륨"
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
+#: port/app/ingame.cpp:292 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
 #, menu
 msgid "The game's sound. Left and Right change it by 10%."
 msgstr "게임 소리입니다. 좌우로 10%씩 조절합니다."
 
 #. amiibo is Nintendo's name for its figures, as it writes it in the language
-#: port/app/ingame.cpp:289 port/app/ingame.cpp:295 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:605 port/app/ingame3ds.cpp:606 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:298 port/app/ingame.cpp:304 port/app/ingame.cpp:365 port/app/ingame3ds.cpp:605 port/app/ingame3ds.cpp:606 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
 #, menu
 msgid "Amiibo"
 msgstr "amiibo"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/app/ingame.cpp:291 port/app/ingame3ds.cpp:608 port/eden/ingame.cpp:606
+#: port/app/ingame.cpp:300 port/app/ingame3ds.cpp:608 port/eden/ingame.cpp:606
 #, menu
 msgid "Put amiibo dumps (.bin) in {0}/amiibo to scan them here."
 msgstr "amiibo 덤프(.bin)를 {0}/amiibo에 넣으면 여기서 읽을 수 있습니다."
 
-#: port/app/ingame.cpp:292
+#: port/app/ingame.cpp:301
 #, menu
 msgid "Left and Right choose an amiibo dump; Cross touches it to the GamePad when the game asks for one."
 msgstr "좌우로 amiibo 덤프를 선택하고, 게임이 요청하면 엑스 버튼으로 GamePad에 터치합니다."
 
 #. a folder of amiibo dumps, as they are shared: Kirby, Metroid...
-#: port/app/ingame.cpp:297 port/eden/ingame.cpp:613
+#: port/app/ingame.cpp:306 port/eden/ingame.cpp:613
 #, menu
 msgid "Amiibo series"
 msgstr "amiibo 시리즈"
 
-#: port/app/ingame.cpp:298 port/eden/ingame.cpp:614
+#: port/app/ingame.cpp:307 port/eden/ingame.cpp:614
 #, menu
 msgid "Left and Right choose a series: a folder of dumps in {0}/amiibo."
 msgstr "왼쪽과 오른쪽으로 시리즈를 고릅니다: {0}/amiibo 안의 덤프 폴더."
 
 #. the DS's lid, closed or open
-#: port/app/ingame.cpp:303 port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:624 port/app/ingame3ds.cpp:635 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:830 port/frontend/shell/settings.cpp:216 port/frontend/shell/settings.cpp:269
+#: port/app/ingame.cpp:313 port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:624 port/app/ingame3ds.cpp:635 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:853 port/frontend/shell/settings.cpp:216 port/frontend/shell/settings.cpp:269
 #, menu
 msgid "Controls"
 msgstr "조작"
 
-#: port/app/ingame.cpp:304
+#: port/app/ingame.cpp:314
 #, menu
 msgid "Each player's controller, motion, vibration, deadzones and A and B."
 msgstr "플레이어별 컨트롤러, 모션, 진동, 데드존, A와 B입니다."
 
-#: port/app/ingame.cpp:305 port/frontend/shell/switch_extras.cpp:87
+#: port/app/ingame.cpp:315 port/frontend/shell/switch_extras.cpp:87
 #, menu
 msgid "Player"
 msgstr "플레이어"
 
-#: port/app/ingame.cpp:305
+#: port/app/ingame.cpp:316
+#, menu
+msgid "{0} (no Wii Remote found)"
+msgstr "{0}(Wii 리모컨 없음)"
+
+#: port/app/ingame.cpp:316
 #, menu
 msgid "{0} (no DualSense)"
 msgstr "{0}(DualSense 없음)"
 
-#: port/app/ingame.cpp:306
+#: port/app/ingame.cpp:317
 #, menu
 msgid "Whose controller the settings below are: Left and Right choose the player."
 msgstr "아래 설정이 어느 플레이어의 컨트롤러인지 고릅니다. 좌우로 플레이어를 선택합니다."
 
-#: port/app/ingame.cpp:307 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:596
+#: port/app/ingame.cpp:318 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:501 port/frontend/shell/pages.cpp:611
 #, menu
 msgid "Emulated controller"
 msgstr "에뮬레이트된 컨트롤러"
 
-#: port/app/ingame.cpp:308
+#: port/app/ingame.cpp:319
 #, menu
 msgid "What the game sees in this player's hands. Most games want the GamePad for player 1."
 msgstr "이 플레이어가 들고 있다고 게임이 인식하는 컨트롤러입니다. 대부분의 게임은 플레이어 1에 GamePad가 필요합니다."
 
-#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:636 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:911
+#: port/app/ingame.cpp:320 port/app/ingame3ds.cpp:636 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:612 port/frontend/shell/settings.cpp:911
 #, menu
 msgid "Motion controls"
 msgstr "모션 조작"
 
-#: port/app/ingame.cpp:309 port/frontend/shell/pages.cpp:597
+#: port/app/ingame.cpp:320 port/frontend/shell/pages.cpp:612
 #, menu
 msgid "None on this one"
 msgstr "이 컨트롤러에는 없음"
 
-#: port/app/ingame.cpp:310
+#: port/app/ingame.cpp:321
 #, menu
 msgid "The DualSense's gyroscope and accelerometer, for the games that aim or steer by tilting."
 msgstr "DualSense의 자이로스코프와 가속도 센서입니다. 기울여서 조준하거나 조종하는 게임용입니다."
 
-#: port/app/ingame.cpp:311 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:605 port/frontend/shell/porpoise_rows.cpp:96 port/frontend/shell/settings.cpp:856
+#: port/app/ingame.cpp:322 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:620 port/frontend/shell/porpoise_rows.cpp:96 port/frontend/shell/settings.cpp:856
 #, menu
 msgid "Vibration"
 msgstr "진동"
 
-#: port/app/ingame.cpp:312
+#: port/app/ingame.cpp:323
 #, menu
 msgid "How strongly the DualSense rumbles. Left and Right change it by 10%."
 msgstr "DualSense의 진동 세기입니다. 좌우로 10%씩 조절합니다."
 
-#: port/app/ingame.cpp:313 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:608
+#: port/app/ingame.cpp:324 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:623
 #, menu
 msgid "Left stick deadzone"
 msgstr "왼쪽 스틱 데드존"
 
-#: port/app/ingame.cpp:314
+#: port/app/ingame.cpp:325
 #, menu
 msgid "How far the left stick moves before the game sees it. Raise it if a character drifts."
 msgstr "왼쪽 스틱을 얼마나 움직여야 게임이 인식하는지 정합니다. 캐릭터가 저절로 움직이면 높이세요."
 
-#: port/app/ingame.cpp:315 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:611
+#: port/app/ingame.cpp:326 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:626
 #, menu
 msgid "Right stick deadzone"
 msgstr "오른쪽 스틱 데드존"
 
-#: port/app/ingame.cpp:316
+#: port/app/ingame.cpp:327
 #, menu
 msgid "How far the right stick moves before the game sees it. Raise it if the camera drifts."
 msgstr "오른쪽 스틱을 얼마나 움직여야 게임이 인식하는지 정합니다. 카메라가 저절로 움직이면 높이세요."
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:619 port/app/ingame3ds.cpp:630 port/app/ingame3ds.cpp:640 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:58
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:619 port/app/ingame3ds.cpp:630 port/app/ingame3ds.cpp:640 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:632 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:58
 #, menu
 msgid "A and B"
 msgstr "A와 B"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Circle"
 msgstr "A는 원 버튼"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Cross"
 msgstr "A는 엑스 버튼"
 
-#: port/app/ingame.cpp:318
+#: port/app/ingame.cpp:329
 #, menu
 msgid "A on Circle as on the Wii U, or on Cross, with X and Y swapped to match. Every other button: Settings > Controls in the launcher."
 msgstr "A를 Wii U처럼 원 버튼에 두거나 엑스 버튼에 두고, X와 Y도 그에 맞게 바뀝니다. 다른 버튼은 런처의 설정 > 조작에서 바꿉니다."
 
-#: port/app/ingame.cpp:319 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:627 port/frontend/shell/welcome.cpp:87
+#: port/app/ingame.cpp:330 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:642 port/frontend/shell/welcome.cpp:87
 #, menu
 msgid "Touchpad click"
 msgstr "터치패드 버튼"
 
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:320 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:331 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Touches the screen"
 msgstr "화면 터치"
 
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Presses a button"
 msgstr "버튼 누르기"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "{0}: {1}"
 msgstr "{0}: {1}"
@@ -1188,116 +1204,126 @@ msgstr "{0}: {1}"
 #. the languages the emulated 3DS can be set to
 #. the Switch's controller types, as a game sees the DualSense (Automatic: what the game takes)
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/settings.cpp:51 port/frontend/shell/settings.cpp:54 port/frontend/shell/settings.cpp:127 port/frontend/shell/settings.cpp:994 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:332 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/settings.cpp:51 port/frontend/shell/settings.cpp:54 port/frontend/shell/settings.cpp:127 port/frontend/shell/settings.cpp:994 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Automatic"
 msgstr "자동"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "a button"
 msgstr "버튼"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "a touch"
 msgstr "터치"
 
-#: port/app/ingame.cpp:323
+#: port/app/ingame.cpp:334
 #, menu
 msgid "Touches the GamePad's screen, or presses the button set to Touchpad click (- if none is set). The shortcuts still work."
 msgstr "GamePad 화면을 터치하거나, 터치패드 버튼에 할당한 버튼을 누릅니다(없으면 -). 단축키는 그대로 작동합니다."
 
+#: port/app/ingame.cpp:341 port/frontend/shell/pages.cpp:655
+#, menu
+msgid "Its own"
+msgstr "리모컨 자체"
+
+#: port/app/ingame.cpp:343 port/frontend/shell/pages.cpp:656
+#, menu
+msgid "A real Wii Remote has its own buttons, pointer, motion and rumble: this setting is for the DualSense."
+msgstr "실제 Wii 리모컨은 버튼, 포인터, 모션, 진동을 자체적으로 가집니다. 이 설정은 DualSense용입니다."
+
 #. the remote touch screen's row: which screen a phone or a tablet shows
-#: port/app/ingame.cpp:326 port/frontend/shell/settings.cpp:1639
+#: port/app/ingame.cpp:346 port/frontend/shell/settings.cpp:1639
 #, menu
 msgid "The GamePad's screen"
 msgstr "GamePad 화면"
 
-#: port/app/ingame.cpp:329 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:640
+#: port/app/ingame.cpp:349 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:640
 #, menu
 msgid "Quit to the home screen"
 msgstr "홈 화면으로 나가기"
 
-#: port/app/ingame.cpp:330 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:641
+#: port/app/ingame.cpp:350 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:641
 #, menu
 msgid "Leaves the game and closes Playtendoh, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held."
 msgstr "게임을 끝내고, 홈 화면 아이콘이 요청한 대로 Playtendoh를 닫습니다. 게임에서 저장하지 않은 내용은 사라지므로 엑스 버튼을 길게 눌러야 합니다."
 
-#: port/app/ingame.cpp:331 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:642
+#: port/app/ingame.cpp:351 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:642
 #, menu
 msgid "Quit to the library"
 msgstr "라이브러리로 나가기"
 
-#: port/app/ingame.cpp:332 port/app/ingame3ds.cpp:649 port/eden/ingame.cpp:643
+#: port/app/ingame.cpp:352 port/app/ingame3ds.cpp:649 port/eden/ingame.cpp:643
 #, menu
 msgid "Leaves the game for the library. What you have not saved in the game is lost, so Cross is held."
 msgstr "게임을 끝내고 라이브러리로 나갑니다. 게임에서 저장하지 않은 내용은 사라지므로 엑스 버튼을 길게 눌러야 합니다."
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
 #. the quick actions: big tiles at the top of the in-game menu, a word or two each
-#: port/app/ingame.cpp:344 port/app/ingame3ds.cpp:686 port/eden/ingame.cpp:655
+#: port/app/ingame.cpp:364 port/app/ingame3ds.cpp:686 port/eden/ingame.cpp:655
 #, menu
 msgid "Resume"
 msgstr "계속하기"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:344
+#: port/app/ingame.cpp:364
 #, menu
 msgid "GamePad main"
 msgstr "GamePad 메인"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:344
+#: port/app/ingame.cpp:364
 #, menu
 msgid "TV main"
 msgstr "TV 메인"
 
-#: port/app/ingame.cpp:345 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:365 port/eden/ingame.cpp:657
 #, menu
 msgid "Scan"
 msgstr "읽기"
 
 #. {0} is an amiibo dump's file name
-#: port/app/ingame.cpp:425 port/azahar/core.cpp:293 port/eden/ingame.cpp:548
+#: port/app/ingame.cpp:447 port/azahar/core.cpp:293 port/eden/ingame.cpp:548
 #, menu
 msgid "Scanned {0}"
 msgstr "{0} 읽음"
 
 #. {0} is an amiibo dump's file name
-#: port/app/ingame.cpp:425
+#: port/app/ingame.cpp:447
 #, menu
 msgid "Not scanned (error {0})"
 msgstr "읽지 못함(오류 {0})"
 
 #. the in-game menu's badge: the game goes on behind the menu (Cemu cannot pause it)
-#: port/app/ingame.cpp:585 port/eden/ingame.cpp:792
+#: port/app/ingame.cpp:607 port/eden/ingame.cpp:792
 #, menu
 msgid "Running"
 msgstr "실행 중"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1513 port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1544 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:2614 port/frontend/shell/shell.cpp:2654
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1513 port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1544 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:2614 port/frontend/shell/shell.cpp:2654
 #, menu
 msgid "Choose"
 msgstr "선택"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1526 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1583
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1526 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1583
 #, menu
 msgid "Change"
 msgstr "변경"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799
 #, menu
 msgid "Back to the game"
 msgstr "게임으로 돌아가기"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1527 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1570 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1576 port/frontend/shell/shell.cpp:1580 port/frontend/shell/shell.cpp:1584
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1527 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1570 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1576 port/frontend/shell/shell.cpp:1580 port/frontend/shell/shell.cpp:1584
 #, menu
 msgid "Back"
 msgstr "뒤로"
 
 #. the in-game menu's top: the Wii U account the game runs on ({0}: its name)
-#: port/app/ingame.cpp:639
+#: port/app/ingame.cpp:661
 #, menu
 msgid "{0}'s saves"
 msgstr "{0}의 세이브 데이터"
@@ -1614,7 +1640,7 @@ msgstr "{1}개 중 {0}개 켜짐"
 msgid "Achievements"
 msgstr "도전 과제"
 
-#: port/app/ingame3ds.cpp:588 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:841 port/frontend/shell/pages.cpp:1234 port/frontend/shell/shell.cpp:2683
+#: port/app/ingame3ds.cpp:588 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:864 port/frontend/shell/pages.cpp:1257 port/frontend/shell/shell.cpp:2683
 #, menu
 msgid "{0} of {1}"
 msgstr "{1}개 중 {0}개"
@@ -2290,7 +2316,7 @@ msgstr "GitHub에서 릴리스를 받지 못했습니다"
 msgid "The download did not finish"
 msgstr "다운로드가 끝나지 않았습니다"
 
-#: port/app/pack_updates.cpp:283 port/frontend/shell/installs.cpp:197 port/frontend/shell/pages.cpp:1183
+#: port/app/pack_updates.cpp:283 port/frontend/shell/installs.cpp:197 port/frontend/shell/pages.cpp:1206
 msgid "It could not be installed: {0}"
 msgstr "설치하지 못했습니다: {0}"
 
@@ -3110,262 +3136,262 @@ msgid "Extended storage {0}"
 msgstr "확장 저장 공간 {0}"
 
 #. what an install is
-#: port/frontend/actions.cpp:383 port/frontend/actions.cpp:462
+#: port/frontend/actions.cpp:386 port/frontend/actions.cpp:465
 msgid "Game"
 msgstr "게임"
 
-#: port/frontend/actions.cpp:384 port/frontend/actions.cpp:463
+#: port/frontend/actions.cpp:387 port/frontend/actions.cpp:466
 msgid "Update"
 msgstr "업데이트"
 
 #. an update found to install ({0}: its version, as 208)
-#: port/frontend/actions.cpp:385 port/frontend/actions.cpp:464 port/frontend/shell/hub.cpp:209 port/frontend/shell/installs.cpp:42 port/frontend/shell/shell.cpp:914
+#: port/frontend/actions.cpp:388 port/frontend/actions.cpp:467 port/frontend/shell/hub.cpp:209 port/frontend/shell/installs.cpp:42 port/frontend/shell/shell.cpp:914
 msgid "DLC"
 msgstr "DLC"
 
-#: port/frontend/actions.cpp:386 port/frontend/actions.cpp:466
+#: port/frontend/actions.cpp:389 port/frontend/actions.cpp:469
 msgid "System title"
 msgstr "시스템 타이틀"
 
-#: port/frontend/actions.cpp:465
+#: port/frontend/actions.cpp:468
 msgid "Demo"
 msgstr "체험판"
 
-#: port/frontend/actions.cpp:466
+#: port/frontend/actions.cpp:469
 msgid "Title"
 msgstr "타이틀"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Cross"
 msgstr "엑스"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Circle"
 msgstr "원"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Square"
 msgstr "네모"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Triangle"
 msgstr "세모"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Create"
 msgstr "만들기"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Options"
 msgstr "옵션"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Touchpad"
 msgstr "터치패드"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad up"
 msgstr "십자 버튼 위"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad down"
 msgstr "십자 버튼 아래"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad left"
 msgstr "십자 버튼 왼쪽"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad right"
 msgstr "십자 버튼 오른쪽"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick up"
 msgstr "왼쪽 스틱 위"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick down"
 msgstr "왼쪽 스틱 아래"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick left"
 msgstr "왼쪽 스틱 왼쪽"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Left stick right"
 msgstr "왼쪽 스틱 오른쪽"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Left stick click"
 msgstr "왼쪽 스틱 누르기"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Right stick up"
 msgstr "오른쪽 스틱 위"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick down"
 msgstr "오른쪽 스틱 아래"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick left"
 msgstr "오른쪽 스틱 왼쪽"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick right"
 msgstr "오른쪽 스틱 오른쪽"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Right stick click"
 msgstr "오른쪽 스틱 누르기"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Circle pad up"
 msgstr "슬라이드 패드 위"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Circle pad down"
 msgstr "슬라이드 패드 아래"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "Circle pad left"
 msgstr "슬라이드 패드 왼쪽"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "Circle pad right"
 msgstr "슬라이드 패드 오른쪽"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "C-stick up"
 msgstr "C스틱 위"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick down"
 msgstr "C스틱 아래"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick left"
 msgstr "C스틱 왼쪽"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick right"
 msgstr "C스틱 오른쪽"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick up"
 msgstr "눈차크 스틱 위"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick down"
 msgstr "눈차크 스틱 아래"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick left"
 msgstr "눈차크 스틱 왼쪽"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk stick right"
 msgstr "눈차크 스틱 오른쪽"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk C"
 msgstr "눈차크 C"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk Z"
 msgstr "눈차크 Z"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Home"
 msgstr "HOME"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "Start"
 msgstr "START"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "Select"
 msgstr "SELECT"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "+ (Start)"
 msgstr "+ (START)"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "- (Select)"
 msgstr "- (SELECT)"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "Blow into the mic"
 msgstr "마이크에 바람 불기"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "Show the GamePad's screen"
 msgstr "GamePad 화면 보기"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "None"
 msgstr "없음"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Touch at the cursor"
 msgstr "커서 위치 터치"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Fast forward"
 msgstr "빨리 감기"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Fast forward, on and off"
 msgstr "빨리 감기 켜기/끄기"
 
-#: port/frontend/actions.cpp:491
+#: port/frontend/actions.cpp:494
 msgctxt "button"
 msgid "Rewind"
 msgstr "되감기"
@@ -3443,11 +3469,11 @@ msgstr "등급"
 msgid "Publisher"
 msgstr "퍼블리셔"
 
-#: port/frontend/shell/hub.cpp:285 port/frontend/shell/pages.cpp:654
+#: port/frontend/shell/hub.cpp:285 port/frontend/shell/pages.cpp:677
 msgid "Players"
 msgstr "플레이 인원"
 
-#: port/frontend/shell/hub.cpp:289 port/frontend/shell/installs.cpp:510 port/frontend/shell/pages.cpp:1276 port/frontend/shell/pages.cpp:1342
+#: port/frontend/shell/hub.cpp:289 port/frontend/shell/installs.cpp:510 port/frontend/shell/pages.cpp:1299 port/frontend/shell/pages.cpp:1365
 msgid "Title ID"
 msgstr "타이틀 ID"
 
@@ -3487,7 +3513,7 @@ msgstr "v{0} 설치됨: 이쪽이 최신"
 msgid "v{0} installed: this is older"
 msgstr "v{0} 설치됨: 이쪽이 이전 버전"
 
-#: port/frontend/shell/installs.cpp:57 port/frontend/shell/installs.cpp:211 port/frontend/shell/pages.cpp:1175
+#: port/frontend/shell/installs.cpp:57 port/frontend/shell/installs.cpp:211 port/frontend/shell/pages.cpp:1198
 msgid "Installed"
 msgstr "설치됨"
 
@@ -3516,7 +3542,7 @@ msgstr "중단하는 중…"
 msgid "Stop"
 msgstr "중단"
 
-#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1192 port/frontend/shell/shell.cpp:1580
+#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1215 port/frontend/shell/shell.cpp:1580
 msgid "Install"
 msgstr "설치"
 
@@ -3525,7 +3551,7 @@ msgstr "설치"
 msgid "Install every new one ({0})"
 msgstr "새로운 것 모두 설치({0})"
 
-#: port/frontend/shell/installs.cpp:329 port/frontend/shell/library.cpp:172 port/frontend/shell/pages.cpp:1198 port/frontend/shell/setup.cpp:188 port/frontend/shell/setup.cpp:213
+#: port/frontend/shell/installs.cpp:329 port/frontend/shell/library.cpp:172 port/frontend/shell/pages.cpp:1221 port/frontend/shell/setup.cpp:188 port/frontend/shell/setup.cpp:213
 msgid "Choose a folder"
 msgstr "폴더 선택"
 
@@ -3606,21 +3632,21 @@ msgstr "대기 중"
 msgid "Runs from where it is"
 msgstr "있는 곳에서 실행"
 
-#: port/frontend/shell/installs.cpp:502 port/frontend/shell/pages.cpp:1358
+#: port/frontend/shell/installs.cpp:502 port/frontend/shell/pages.cpp:1381
 msgid "To install"
 msgstr "설치 대상"
 
 #. a title's version to install ({0}), and the one installed now ({1})
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1277 port/frontend/shell/pages.cpp:1344 port/frontend/shell/settings.cpp:257
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1300 port/frontend/shell/pages.cpp:1367 port/frontend/shell/settings.cpp:257
 msgid "Version"
 msgstr "버전"
 
 #. a title's version to install ({0}), and the one installed now ({1})
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1344
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1367
 msgid "v{0}, not installed yet"
 msgstr "v{0}, 아직 설치 안 됨"
 
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1345
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1368
 msgid "v{0}, v{1} installed now"
 msgstr "v{0}, 지금은 v{1} 설치됨"
 
@@ -3759,7 +3785,7 @@ msgid "Earlier"
 msgstr "이전"
 
 #. how many games the Library has
-#: port/frontend/shell/library.cpp:682 port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/library.cpp:682 port/frontend/shell/pages.cpp:1317
 msgid "{0} game"
 msgid_plural "{0} games"
 msgstr[0] "게임 {0}개"
@@ -3940,164 +3966,174 @@ msgstr "이 컨트롤러의 버튼, 진동, 모션, 데드존을 기본값으로
 
 #. {0} is the player's number, {1} an emulated controller (Wii U GamePad)
 #. Settings > Controls: a row that opens the buttons' settings (each button, the defaults)
-#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:633 port/frontend/shell/pages.cpp:830 port/frontend/shell/pages.cpp:836 port/frontend/shell/settings.cpp:877 port/frontend/shell/settings.cpp:929
+#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:648 port/frontend/shell/pages.cpp:853 port/frontend/shell/pages.cpp:859 port/frontend/shell/settings.cpp:877 port/frontend/shell/settings.cpp:929
 msgid "Buttons"
 msgstr "버튼"
 
-#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938
+#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:649 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938
 msgid "Reset to defaults"
 msgstr "기본값으로 초기화"
 
-#. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:592 port/frontend/shell/settings.cpp:893
+#: port/frontend/shell/pages.cpp:456
+msgid "Real Wii Remote: an original Wii Remote or Wii Remote Plus through a Mayflash DolphinBar set to mode 4 in one of the PS5's USB ports, with its own pointer, motion, rumble and Nunchuk. The players with one take the Remotes in their order: the first of them the first Remote found."
+msgstr "실제 Wii 리모컨: PS5의 USB 포트에 연결한 모드 4의 Mayflash DolphinBar를 통한 정품 Wii 리모컨 또는 Wii 리모컨 플러스로, 포인터, 모션, 진동, 눈차크를 자체적으로 사용합니다. 이를 사용하는 플레이어는 순서대로 리모컨을 받으며, 그중 첫 번째 플레이어가 처음 찾은 리모컨을 받습니다."
+
+#: port/frontend/shell/pages.cpp:501 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:893
 msgid "Player {0}"
 msgstr "플레이어 {0}"
 
-#: port/frontend/shell/pages.cpp:566
+#: port/frontend/shell/pages.cpp:578
 msgid "Touchpad click: {0}"
 msgstr "터치패드 버튼: {0}"
 
-#. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:592
+#: port/frontend/shell/pages.cpp:605
 msgid "Controllers"
 msgstr "컨트롤러"
 
-#: port/frontend/shell/pages.cpp:593
+#: port/frontend/shell/pages.cpp:606
+msgid "{0}, found through the DolphinBar"
+msgstr "{0}, DolphinBar를 통해 찾음"
+
+#: port/frontend/shell/pages.cpp:607
+msgid "{0}: none found yet. Plug a DolphinBar set to mode 4 into the PS5 and sync a Wii Remote to it."
+msgstr "{0}: 아직 찾지 못했습니다. 모드 4로 설정한 DolphinBar를 PS5에 연결하고 Wii 리모컨을 동기화하세요."
+
+#: port/frontend/shell/pages.cpp:608
 msgid "{0}, on this player's DualSense"
 msgstr "{0}, 이 플레이어의 DualSense에서"
 
-#: port/frontend/shell/pages.cpp:594
+#: port/frontend/shell/pages.cpp:609
 msgid "{0}, on a DualSense that is not connected"
 msgstr "{0}, 연결되지 않은 DualSense에서"
 
-#: port/frontend/shell/pages.cpp:596
+#: port/frontend/shell/pages.cpp:611
 msgid "What the game sees in this player's hands."
 msgstr "이 플레이어가 들고 있다고 게임이 인식하는 컨트롤러입니다."
 
-#: port/frontend/shell/pages.cpp:598
+#: port/frontend/shell/pages.cpp:613
 msgid "The DualSense's motion as the controller's."
 msgstr "DualSense의 모션을 컨트롤러의 모션으로 씁니다."
 
-#: port/frontend/shell/pages.cpp:600
+#: port/frontend/shell/pages.cpp:615
 msgid "The {0} has no motion sensors. For motion, choose the GamePad or a Wii Remote."
 msgstr "{0}에는 모션 센서가 없습니다. 모션을 쓰려면 GamePad나 Wii 리모컨을 선택하세요."
 
-#: port/frontend/shell/pages.cpp:606
+#: port/frontend/shell/pages.cpp:621
 msgid "How strongly the DualSense rumbles."
 msgstr "DualSense의 진동 세기입니다."
 
-#: port/frontend/shell/pages.cpp:609
+#: port/frontend/shell/pages.cpp:624
 msgid "How far the left stick moves before it counts."
 msgstr "왼쪽 스틱을 얼마나 움직여야 인식되는지 정합니다."
 
-#: port/frontend/shell/pages.cpp:612
+#: port/frontend/shell/pages.cpp:627
 msgid "How far the right stick moves before it counts."
 msgstr "오른쪽 스틱을 얼마나 움직여야 인식되는지 정합니다."
 
-#: port/frontend/shell/pages.cpp:617
+#: port/frontend/shell/pages.cpp:632
 msgid "The Wii Remote's buttons are under Buttons."
 msgstr "Wii 리모컨의 버튼은 버튼 메뉴에 있습니다."
 
-#: port/frontend/shell/pages.cpp:618
+#: port/frontend/shell/pages.cpp:633
 msgid "Where A is: on Circle, as on the Wii U, or on Cross."
 msgstr "A의 위치: Wii U와 같이 원 버튼, 또는 엑스 버튼."
 
-#: port/frontend/shell/pages.cpp:621
+#: port/frontend/shell/pages.cpp:636
 msgid "Your own"
 msgstr "사용자 지정"
 
-#: port/frontend/shell/pages.cpp:629
+#: port/frontend/shell/pages.cpp:644
 msgid "The click presses the button set to Touchpad click."
 msgstr "터치패드 버튼을 누르면 터치패드 버튼에 할당한 버튼을 누릅니다."
 
-#: port/frontend/shell/pages.cpp:629
+#: port/frontend/shell/pages.cpp:644
 msgid "The click touches the GamePad's screen."
 msgstr "터치패드 버튼을 누르면 GamePad 화면을 터치합니다."
 
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:875 port/frontend/shell/settings.cpp:928
+#: port/frontend/shell/pages.cpp:648 port/frontend/shell/settings.cpp:875 port/frontend/shell/settings.cpp:928
 msgid "{0} button set"
 msgid_plural "{0} buttons set"
 msgstr[0] "버튼 {0}개 할당됨"
 
 #. Settings > Controls > Buttons: the row that opens the list of every button and the DualSense button on it
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:880 port/frontend/shell/settings.cpp:932
+#: port/frontend/shell/pages.cpp:648 port/frontend/shell/settings.cpp:880 port/frontend/shell/settings.cpp:932
 msgid "Which DualSense button presses each button."
 msgstr "각 버튼을 누를 DualSense 버튼입니다."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:634 port/frontend/shell/pages.cpp:1540 port/frontend/shell/pages.cpp:1544 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "엑스 버튼 길게 누르기"
 
-#: port/frontend/shell/pages.cpp:635
+#: port/frontend/shell/pages.cpp:650
 msgid "The default buttons, vibration, motion and deadzones."
 msgstr "버튼, 진동, 모션, 데드존을 기본값으로 되돌립니다."
 
-#: port/frontend/shell/pages.cpp:667 port/frontend/shell/shares.cpp:245
+#: port/frontend/shell/pages.cpp:690 port/frontend/shell/shares.cpp:245
 msgid "Connected"
 msgstr "연결됨"
 
-#: port/frontend/shell/pages.cpp:667
+#: port/frontend/shell/pages.cpp:690
 msgid "No DualSense"
 msgstr "DualSense 없음"
 
-#: port/frontend/shell/pages.cpp:747 port/frontend/shell/pages.cpp:810
+#: port/frontend/shell/pages.cpp:770 port/frontend/shell/pages.cpp:833
 msgid "Done."
 msgstr "완료했습니다."
 
-#: port/frontend/shell/pages.cpp:747
+#: port/frontend/shell/pages.cpp:770
 msgid "Cleared: no DualSense button is this one now."
 msgstr "해제했습니다. 이제 이 버튼을 누르는 DualSense 버튼이 없습니다."
 
-#: port/frontend/shell/pages.cpp:787
+#: port/frontend/shell/pages.cpp:810
 msgid "No button was pressed, so it stays as it was."
 msgstr "버튼을 누르지 않아 그대로 유지됩니다."
 
-#: port/frontend/shell/pages.cpp:794 port/frontend/shell/pages.cpp:801
+#: port/frontend/shell/pages.cpp:817 port/frontend/shell/pages.cpp:824
 msgid "Cancelled: it stays as it was."
 msgstr "취소했습니다. 그대로 유지됩니다."
 
-#: port/frontend/shell/pages.cpp:817
+#: port/frontend/shell/pages.cpp:840
 msgid "Done. The touchpad's click is now a button for this player, not a touch of the GamePad's screen: their Touchpad click setting changes it back."
 msgstr "완료했습니다. 이 플레이어의 터치패드 버튼은 이제 GamePad 화면 터치가 아니라 버튼입니다. 터치패드 버튼 설정에서 되돌릴 수 있습니다."
 
-#: port/frontend/shell/pages.cpp:831
+#: port/frontend/shell/pages.cpp:854
 msgid "Which DualSense button presses each {0} button"
 msgstr "{0}의 각 버튼을 누를 DualSense 버튼"
 
-#: port/frontend/shell/pages.cpp:837
+#: port/frontend/shell/pages.cpp:860
 msgid "Player {0}: the DualSense's buttons for the {1}"
 msgstr "플레이어 {0}: {1}용 DualSense 버튼"
 
-#: port/frontend/shell/pages.cpp:848 port/frontend/shell/pages.cpp:866
+#: port/frontend/shell/pages.cpp:871 port/frontend/shell/pages.cpp:889
 msgid "Not set"
 msgstr "할당 안 됨"
 
-#: port/frontend/shell/pages.cpp:859
+#: port/frontend/shell/pages.cpp:882
 msgid "This button"
 msgstr "이 버튼"
 
-#: port/frontend/shell/pages.cpp:866
+#: port/frontend/shell/pages.cpp:889
 msgid "Press a button"
 msgstr "버튼을 누르세요"
 
 #. {0} is a button of the Wii U's or the 3DS's controller
-#: port/frontend/shell/pages.cpp:873
+#: port/frontend/shell/pages.cpp:896
 msgid "Press the DualSense button, trigger or stick direction for {0} now."
 msgstr "지금 {0}에 쓸 DualSense 버튼, 트리거, 스틱 방향을 입력하세요."
 
-#: port/frontend/shell/pages.cpp:875
+#: port/frontend/shell/pages.cpp:898
 msgid "{0} second left; then it stays as it was. The touchpad's click counts too."
 msgid_plural "{0} seconds left; then it stays as it was. The touchpad's click counts too."
 msgstr[0] "{0}초 남았습니다. 시간이 지나면 그대로 유지됩니다. 터치패드 버튼도 입력으로 인식됩니다."
 
-#: port/frontend/shell/pages.cpp:877
+#: port/frontend/shell/pages.cpp:900
 msgid "{0} second left. A touchpad click cancels."
 msgid_plural "{0} seconds left. A touchpad click cancels."
 msgstr[0] "{0}초 남았습니다. 터치패드 버튼을 누르면 취소됩니다."
 
 #. a Switch button's mapping: each is on a DualSense button (the touchpad's click too), never on none
-#: port/frontend/shell/pages.cpp:883
+#: port/frontend/shell/pages.cpp:906
 msgid ""
 "Cross, then a DualSense button or the touchpad's click: it becomes this one. If another button already had it, the two swap.\n"
 "Square puts its default back."
@@ -4105,7 +4141,7 @@ msgstr ""
 "엑스 버튼을 누른 다음 DualSense 버튼이나 터치패드 클릭을 입력하면 이 버튼이 됩니다. 다른 버튼이 이미 쓰고 있었다면 두 버튼이 서로 바뀝니다.\n"
 "네모 버튼을 누르면 기본값으로 되돌립니다."
 
-#: port/frontend/shell/pages.cpp:885
+#: port/frontend/shell/pages.cpp:908
 msgid ""
 "Cross, then a DualSense button, trigger or stick direction: it becomes this one. If another button already had it, the two swap.\n"
 "Square clears it."
@@ -4113,48 +4149,48 @@ msgstr ""
 "엑스 버튼을 누른 다음 DualSense 버튼, 트리거, 스틱 방향을 입력하면 이 버튼이 됩니다. 다른 버튼이 이미 쓰고 있었다면 두 버튼이 서로 바뀝니다.\n"
 "네모 버튼을 누르면 해제합니다."
 
-#: port/frontend/shell/pages.cpp:991
+#: port/frontend/shell/pages.cpp:1014
 msgid "Cancelling: what it copied is removed…"
 msgstr "취소하는 중: 복사한 것을 삭제합니다…"
 
-#: port/frontend/shell/pages.cpp:996
+#: port/frontend/shell/pages.cpp:1019
 msgid "Cancelling: what was installed before is put back…"
 msgstr "취소하는 중: 이전에 설치된 것을 되돌립니다…"
 
-#: port/frontend/shell/pages.cpp:1023
+#: port/frontend/shell/pages.cpp:1046
 msgid "This drive cannot be opened."
 msgstr "이 드라이브를 열 수 없습니다."
 
-#: port/frontend/shell/pages.cpp:1060
+#: port/frontend/shell/pages.cpp:1083
 msgid "This folder cannot be opened."
 msgstr "이 폴더를 열 수 없습니다."
 
-#: port/frontend/shell/pages.cpp:1117
+#: port/frontend/shell/pages.cpp:1140
 msgid "The folder could not be saved. Please try again."
 msgstr "폴더를 저장하지 못했습니다. 다시 시도해 주세요."
 
-#: port/frontend/shell/pages.cpp:1118
+#: port/frontend/shell/pages.cpp:1141
 msgid "Saved. Playtendoh is looking for games there."
 msgstr "저장했습니다. Playtendoh에서 그곳의 게임을 찾고 있습니다."
 
-#: port/frontend/shell/pages.cpp:1119
+#: port/frontend/shell/pages.cpp:1142
 msgid "Saved. That side looks for games there when it opens."
 msgstr "저장했습니다. 해당 모드를 열 때 그곳에서 게임을 찾습니다."
 
-#: port/frontend/shell/pages.cpp:1122
+#: port/frontend/shell/pages.cpp:1145
 msgid "Looking for games in {0}"
 msgstr "{0}에서 게임을 찾는 중"
 
-#: port/frontend/shell/pages.cpp:1127
+#: port/frontend/shell/pages.cpp:1150
 msgid "Choose a CIA file first."
 msgstr "먼저 CIA 파일을 선택하세요."
 
-#: port/frontend/shell/pages.cpp:1140
+#: port/frontend/shell/pages.cpp:1163
 msgid "Cemu did not start, so nothing can be installed."
 msgstr "Cemu가 시작되지 않아 설치할 수 없습니다."
 
 #. {0} is a percentage, {1} and {2} sizes (2.4 GB)
-#: port/frontend/shell/pages.cpp:1160
+#: port/frontend/shell/pages.cpp:1183
 msgid ""
 "Installing: {0}, {1} of {2}.\n"
 "\n"
@@ -4164,204 +4200,204 @@ msgstr ""
 "\n"
 "원 버튼을 누르면 취소합니다."
 
-#: port/frontend/shell/pages.cpp:1162
+#: port/frontend/shell/pages.cpp:1185
 msgid "Installing: counting the files…"
 msgstr "설치 중: 파일 수를 세는 중…"
 
-#: port/frontend/shell/pages.cpp:1172
+#: port/frontend/shell/pages.cpp:1195
 msgid "Installed. The library has it with its game."
 msgstr "설치했습니다. 라이브러리에서 해당 게임과 함께 표시됩니다."
 
-#: port/frontend/shell/pages.cpp:1178
+#: port/frontend/shell/pages.cpp:1201
 msgid "Cancelled. What it copied was removed, with any earlier copy of the same title: install it again to play it. Its saves are kept."
 msgstr "취소했습니다. 복사한 것은 같은 타이틀의 이전 복사본과 함께 삭제되었으므로, 플레이하려면 다시 설치하세요. 세이브 데이터는 유지됩니다."
 
-#: port/frontend/shell/pages.cpp:1181
+#: port/frontend/shell/pages.cpp:1204
 msgid "Cancelled. What was installed before is as it was."
 msgstr "취소했습니다. 이전에 설치된 것은 그대로입니다."
 
-#: port/frontend/shell/pages.cpp:1193 port/frontend/shell/setup.cpp:187 port/frontend/shell/setup.cpp:195
+#: port/frontend/shell/pages.cpp:1216 port/frontend/shell/setup.cpp:187 port/frontend/shell/setup.cpp:195
 msgid "{0} games"
 msgstr "{0} 게임"
 
-#: port/frontend/shell/pages.cpp:1194 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1217 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "3DS games"
 msgstr "3DS 게임"
 
-#: port/frontend/shell/pages.cpp:1195 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1218 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "DS games"
 msgstr "DS 게임"
 
-#: port/frontend/shell/pages.cpp:1196 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1219 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "Switch games"
 msgstr "Switch 게임"
 
-#: port/frontend/shell/pages.cpp:1197 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1220 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "Wii U games"
 msgstr "Wii U 게임"
 
-#: port/frontend/shell/pages.cpp:1198
+#: port/frontend/shell/pages.cpp:1221
 msgid "Install CIA files"
 msgstr "CIA 파일 설치"
 
-#: port/frontend/shell/pages.cpp:1198
+#: port/frontend/shell/pages.cpp:1221
 msgid "Install updates and DLC"
 msgstr "업데이트 및 DLC 설치"
 
-#: port/frontend/shell/pages.cpp:1199
+#: port/frontend/shell/pages.cpp:1222
 msgid "Choose a CIA file: a game, an update or DLC"
 msgstr "CIA 파일 선택: 게임, 업데이트, DLC"
 
-#: port/frontend/shell/pages.cpp:1200
+#: port/frontend/shell/pages.cpp:1223
 msgid "Choose a folder with an update, DLC or game (code, content and meta)"
 msgstr "업데이트, DLC, 게임(code, content, meta)이 든 폴더 선택"
 
-#: port/frontend/shell/pages.cpp:1201
+#: port/frontend/shell/pages.cpp:1224
 msgid "Choose the folder that holds your {0} games"
 msgstr "{0} 게임이 있는 폴더를 선택하세요"
 
-#: port/frontend/shell/pages.cpp:1202
+#: port/frontend/shell/pages.cpp:1225
 msgid "Choose the folder that holds your 3DS games"
 msgstr "3DS 게임이 들어 있는 폴더 선택"
 
-#: port/frontend/shell/pages.cpp:1203
+#: port/frontend/shell/pages.cpp:1226
 msgid "Choose the folder that holds your DS games"
 msgstr "DS 게임이 들어 있는 폴더 선택"
 
-#: port/frontend/shell/pages.cpp:1204
+#: port/frontend/shell/pages.cpp:1227
 msgid "Choose the folder that holds your Switch games"
 msgstr "Switch 게임이 들어 있는 폴더 선택"
 
-#: port/frontend/shell/pages.cpp:1205
+#: port/frontend/shell/pages.cpp:1228
 msgid "Choose the folder that holds your Wii U games"
 msgstr "Wii U 게임이 들어 있는 폴더 선택"
 
-#: port/frontend/shell/pages.cpp:1218
+#: port/frontend/shell/pages.cpp:1241
 msgid "PS5"
 msgstr "PS5"
 
-#: port/frontend/shell/pages.cpp:1236
+#: port/frontend/shell/pages.cpp:1259
 msgid "This folder is empty."
 msgstr "이 폴더는 비어 있습니다."
 
-#: port/frontend/shell/pages.cpp:1244
+#: port/frontend/shell/pages.cpp:1267
 msgid "Parent folder"
 msgstr "상위 폴더"
 
-#: port/frontend/shell/pages.cpp:1246
+#: port/frontend/shell/pages.cpp:1269
 msgid "Drive"
 msgstr "드라이브"
 
-#: port/frontend/shell/pages.cpp:1275 port/frontend/shell/pages.cpp:1341
+#: port/frontend/shell/pages.cpp:1298 port/frontend/shell/pages.cpp:1364
 msgctxt "kind"
 msgid "Type"
 msgstr "종류"
 
-#: port/frontend/shell/pages.cpp:1275
+#: port/frontend/shell/pages.cpp:1298
 msgid "A folder"
 msgstr "폴더"
 
-#: port/frontend/shell/pages.cpp:1280
+#: port/frontend/shell/pages.cpp:1303
 msgid "Triangle installs it into the 3DS's storage: an update or DLC goes with its game, and a game joins the library."
 msgstr "세모 버튼을 누르면 3DS 저장 공간에 설치합니다. 업데이트나 DLC는 해당 게임에 추가되고, 게임은 라이브러리에 추가됩니다."
 
-#: port/frontend/shell/pages.cpp:1281
+#: port/frontend/shell/pages.cpp:1304
 msgid "Choose a CIA file to install: a game, an update or DLC."
 msgstr "설치할 CIA 파일을 선택하세요: 게임, 업데이트, DLC."
 
-#: port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/pages.cpp:1317
 msgid "Games here"
 msgstr "여기 있는 게임"
 
-#: port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/pages.cpp:1317
 msgid "Cannot be read"
 msgstr "읽을 수 없음"
 
 #. Settings > Game files' Keys and firmware row, its value when the firmware is missing and the keys are there
-#: port/frontend/shell/pages.cpp:1301 port/frontend/shell/pages.cpp:1308 port/frontend/shell/settings.cpp:1106 port/frontend/shell/settings.cpp:1121
+#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/pages.cpp:1331 port/frontend/shell/settings.cpp:1106 port/frontend/shell/settings.cpp:1121
 msgid "Found"
 msgstr "있음"
 
-#: port/frontend/shell/pages.cpp:1308
+#: port/frontend/shell/pages.cpp:1331
 msgid "Missing: Eden cannot read Switch games without it"
 msgstr "없음: 이것이 없으면 Eden이 Switch 게임을 읽을 수 없습니다"
 
-#: port/frontend/shell/pages.cpp:1314 port/frontend/shell/settings.cpp:1061
+#: port/frontend/shell/pages.cpp:1337 port/frontend/shell/settings.cpp:1061
 msgid "Your DS's BIOS"
 msgstr "DS의 BIOS"
 
-#: port/frontend/shell/pages.cpp:1314
+#: port/frontend/shell/pages.cpp:1337
 msgid "Found in melonds/bios"
 msgstr "melonds/bios에 있음"
 
-#: port/frontend/shell/pages.cpp:1314
+#: port/frontend/shell/pages.cpp:1337
 msgid "Not there (melonDS's built-in BIOS runs most games)"
 msgstr "없음(대부분의 게임은 melonDS 내장 BIOS로 실행)"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/pages.cpp:1321
+#: port/frontend/shell/pages.cpp:1344
 msgid "Found in {0}"
 msgstr "{0}에 있음"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/pages.cpp:1321
+#: port/frontend/shell/pages.cpp:1344
 msgid "Missing (only .wud/.wux need it)"
 msgstr "없음(.wud/.wux에만 필요)"
 
-#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/shell.cpp:2382 port/frontend/shell/shell.cpp:2409
+#: port/frontend/shell/pages.cpp:1347 port/frontend/shell/shell.cpp:2382 port/frontend/shell/shell.cpp:2409
 msgid "In use"
 msgstr "사용 중"
 
-#: port/frontend/shell/pages.cpp:1328
+#: port/frontend/shell/pages.cpp:1351
 msgid "Games can be .3ds or .cci, .cxi or .3dsx, decrypted, alone or in .zip, .7z or .rar archives, and .cia files, here or in the folders in it. Triangle uses the folder shown."
 msgstr "게임은 복호화된 .3ds, .cci, .cxi, .3dsx 파일(그대로 또는 .zip, .7z, .rar 압축 파일에 넣은 것)과 .cia 파일이며, 여기나 그 안의 폴더에 둡니다. 세모 버튼을 누르면 표시된 폴더를 사용합니다."
 
-#: port/frontend/shell/pages.cpp:1330
+#: port/frontend/shell/pages.cpp:1353
 msgid "Games are .nds files, alone or in .zip, .7z or .rar archives, here or in the folders in it. Triangle uses the folder shown."
 msgstr "게임은 .nds 파일 그대로 또는 .zip, .7z, .rar 압축 파일에 넣은 것이며, 여기나 그 안의 폴더에 둡니다. 세모 버튼을 누르면 표시된 폴더를 사용합니다."
 
-#: port/frontend/shell/pages.cpp:1331
+#: port/frontend/shell/pages.cpp:1354
 msgid "Games are .nsp and .xci files, here or each in a folder of its own with its update and DLC. Network shares are out of Eden's reach. Triangle uses the folder shown."
 msgstr "게임은 .nsp와 .xci 파일이며, 여기에 두거나 업데이트와 DLC를 함께 게임별 폴더에 둡니다. 네트워크 공유는 Eden이 읽을 수 없습니다. 세모 버튼을 누르면 표시된 폴더를 사용합니다."
 
-#: port/frontend/shell/pages.cpp:1333
+#: port/frontend/shell/pages.cpp:1356
 msgid "Games can be .wua, .wud, .wux, or folders with code, content and meta, alone or in .zip, .7z or .rar archives. Triangle uses the folder shown."
 msgstr "게임은 .wua, .wud, .wux 또는 code, content, meta가 든 폴더(그대로 또는 .zip, .7z, .rar 압축 파일에 넣은 것)입니다. 세모 버튼을 누르면 표시된 폴더를 사용합니다."
 
-#: port/frontend/shell/pages.cpp:1341
+#: port/frontend/shell/pages.cpp:1364
 msgid "Nothing to install"
 msgstr "설치할 것 없음"
 
-#: port/frontend/shell/pages.cpp:1349
+#: port/frontend/shell/pages.cpp:1372
 msgid "Triangle installs it into the Wii U's storage (mlc01). Updates and DLC in the game files folder work as they are, too."
 msgstr "세모 버튼을 누르면 Wii U 저장 공간(mlc01)에 설치합니다. 게임 폴더에 있는 업데이트와 DLC도 그대로 작동합니다."
 
-#: port/frontend/shell/pages.cpp:1358
+#: port/frontend/shell/pages.cpp:1381
 msgid "This folder"
 msgstr "이 폴더"
 
 #. {0} is a 3DS's network address
-#: port/frontend/shell/pages.cpp:1414
+#: port/frontend/shell/pages.cpp:1437
 msgid "Connecting to {0}"
 msgstr "{0}에 연결 중"
 
-#: port/frontend/shell/pages.cpp:1427
+#: port/frontend/shell/pages.cpp:1450
 msgid "Artic Setup Tool"
 msgstr "Artic Setup Tool"
 
-#: port/frontend/shell/pages.cpp:1506 port/frontend/shell/pages.cpp:1517 port/frontend/shell/settings.cpp:1353 port/frontend/shell/setup.cpp:278
+#: port/frontend/shell/pages.cpp:1529 port/frontend/shell/pages.cpp:1540 port/frontend/shell/settings.cpp:1353 port/frontend/shell/setup.cpp:278
 msgid "Artic Base"
 msgstr "Artic Base"
 
-#: port/frontend/shell/pages.cpp:1517
+#: port/frontend/shell/pages.cpp:1540
 msgid "Play a game from your 3DS over your network, or set Azahar up from it"
 msgstr "네트워크로 3DS의 게임을 플레이하거나 3DS로 Azahar를 구성합니다"
 
-#: port/frontend/shell/pages.cpp:1533
+#: port/frontend/shell/pages.cpp:1556
 msgid "3DS address"
 msgstr "3DS 주소"
 
-#: port/frontend/shell/pages.cpp:1534
+#: port/frontend/shell/pages.cpp:1557
 msgid ""
 "The address Artic Base shows on the 3DS's screen when it is ready.\n"
 "Cross edits it: Left and Right choose a number, Up and Down change it by 1, L1 and R1 by 10, and Cross again keeps it.\n"
@@ -4371,11 +4407,11 @@ msgstr ""
 "엑스 버튼으로 편집합니다. 좌우로 자리를 고르고, 상하로 1씩, L1과 R1로 10씩 바꾸며, 엑스 버튼을 다시 누르면 확정합니다.\n"
 "3DS와 PS5는 같은 네트워크에 있어야 합니다."
 
-#: port/frontend/shell/pages.cpp:1536
+#: port/frontend/shell/pages.cpp:1559
 msgid "Connect and play"
 msgstr "연결 후 플레이"
 
-#: port/frontend/shell/pages.cpp:1537
+#: port/frontend/shell/pages.cpp:1560
 msgid ""
 "On the 3DS, start the Artic Base app (homebrew, from Azahar's team) and choose a game in it: the cartridge or an installed one. Then connect from here: the game plays on the PS5 from the 3DS, and its saves stay on the 3DS.\n"
 "It is only as smooth as the network: a strong Wi-Fi signal for the 3DS and a wired PS5 help."
@@ -4383,11 +4419,11 @@ msgstr ""
 "3DS에서 Artic Base 앱(Azahar 팀이 만든 홈브루)을 시작하고, 앱에서 게임 카드나 설치된 게임을 선택합니다. 그다음 여기서 연결하면 3DS의 게임이 PS5에서 실행되며, 세이브 데이터는 3DS에 남습니다.\n"
 "네트워크가 좋을수록 부드럽습니다. 3DS의 Wi-Fi 신호가 강하고 PS5가 유선으로 연결되어 있으면 도움이 됩니다."
 
-#: port/frontend/shell/pages.cpp:1540
+#: port/frontend/shell/pages.cpp:1563
 msgid "Set up from an Old 3DS"
 msgstr "구형 3DS로 구성"
 
-#: port/frontend/shell/pages.cpp:1541
+#: port/frontend/shell/pages.cpp:1564
 msgid ""
 "With the Artic Setup Tool app running on an Old 3DS or 2DS: copies its system files and its own data (system settings, friend code, Mii and eShop data) into Azahar, so games that need the 3DS's system applets or files start, and the Home Menu can (Settings > System).\n"
 "That data is your console's: do not share Azahar's folder afterwards."
@@ -4395,11 +4431,11 @@ msgstr ""
 "구형 3DS나 2DS에서 Artic Setup Tool 앱을 실행한 상태로, 그 시스템 파일과 본체 데이터(본체 설정, 친구 코드, Mii, 닌텐도 e숍 데이터)를 Azahar에 복사합니다. 3DS의 시스템 애플릿이나 파일이 필요한 게임이 실행되고, HOME 메뉴도 실행할 수 있습니다(설정 > 시스템).\n"
 "이 데이터는 본인의 본체 데이터이므로, 이후 Azahar 폴더를 다른 사람과 공유하지 마세요."
 
-#: port/frontend/shell/pages.cpp:1544
+#: port/frontend/shell/pages.cpp:1567
 msgid "Set up from a New 3DS"
 msgstr "New 3DS로 구성"
 
-#: port/frontend/shell/pages.cpp:1544
+#: port/frontend/shell/pages.cpp:1567
 msgid "As above, from a New 3DS or New 2DS running the Artic Setup Tool app."
 msgstr "위와 같으며, Artic Setup Tool 앱을 실행하는 New 3DS나 New 2DS로 구성합니다."
 

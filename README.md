@@ -50,6 +50,9 @@ release, until 6.0 is out. What it brings:
   its own with its colour, its controller and its backdrop.
 - **Switch 2 (experimental):** a side of its own on [EglantinePS5](https://github.com/heydemoura/EglantinePS5),
   with Playtendoh's in-game menu, from JMUtechnologies ([#109](https://github.com/premohq/PlayTendoh/pull/109)).
+- **Real Wii Remotes on the Wii U side:** an original Wii Remote or Wii Remote Plus through a Mayflash
+  DolphinBar (mode 4), with its own pointer, motion and Nunchuk: choose **Real Wii Remote** as a player's
+  controller. It runs on Project Porpoise's USB layer, by CroCop86, as the Wii side does.
 - **EmulationStation (ES-DE)** as the other frontend, its games played here.
 - **Switch:** games no longer end after 6 to 10 minutes ([#97](https://github.com/premohq/PlayTendoh/issues/97));
   Wii U installs no longer stop at 0 % ([#96](https://github.com/premohq/PlayTendoh/issues/96)); the touchpad's
@@ -240,7 +243,8 @@ says where the app is going and how to fit in.
   **JMUtechnologies** ([#109](https://github.com/premohq/PlayTendoh/pull/109))
 - [Dolphin](https://github.com/dolphin-emu/dolphin) by the Dolphin team (GPL-2.0-or-later), in
   [Porpoise](https://github.com/elripalda/Porpoise-Dolphin-Emulator-for-PS5), its PS5 port by **elripalda**,
-  as [Porpoise X](https://github.com/premohq/Porpoise-X): the GameCube and the Wii
+  as [Porpoise X](https://github.com/premohq/Porpoise-X): the GameCube and the Wii; its USB layer for real
+  Wii Remotes through a DolphinBar, by **CroCop86** (GPL-3.0-or-later), on the Wii U side too (`port/ps5/porpoise_usbhid.cpp`)
 - The libretro cores the classics play on: [Mesen](https://github.com/libretro/Mesen) and
   [Mesen-S](https://github.com/libretro/Mesen-S) by Sour (GPL-3.0), [mGBA](https://github.com/libretro/mgba) by
   endrift (MPL-2.0), [Beetle VB](https://github.com/libretro/beetle-vb-libretro) (Mednafen, GPL-2.0-or-later),

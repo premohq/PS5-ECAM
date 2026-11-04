@@ -2,8 +2,9 @@
 // PS5Cemu: Cemu's controller settings for the launcher (emulator.h).
 //
 // Each player has an emulated controller (GamePad, Pro Controller, Classic Controller, Wii Remote)
-// fed by that player's DualSense (cemu/PS5PadController.h). What Cemu's Input Settings window sets
-// for it is set here the same way, on the emulated controller and the DualSense under it, and saved
+// fed by that player's DualSense (cemu/PS5PadController.h), or a real Wii Remote through a DolphinBar
+// (Cemu's NativeWiimoteController, on cemu/PS5HidWiimote.h). What Cemu's Input Settings window sets
+// for it is set here the same way, on the emulated controller and the controller under it, and saved
 // to the player's profile in controllerProfiles/, which Cemu loads at start.
 
 #include "emulator.h"
@@ -12,6 +13,7 @@
 #include "PS5PadController.h"
 
 #include "input/InputManager.h"
+#include "input/api/Wiimote/NativeWiimoteController.h"
 #include "input/emulated/ClassicController.h"
 #include "input/emulated/ProController.h"
 #include "input/emulated/VPADController.h"
@@ -146,8 +148,22 @@ namespace ps5emu
 			case EmulatedType::Classic: return kClassic;
 			case EmulatedType::Wiimote: return kWiimote;
 			case EmulatedType::Nunchuk: return kNunchuk;
+			// a real Wii Remote's buttons are its own (Cemu's mapping for it), nothing to set
+			case EmulatedType::RealWiimote:
+			case EmulatedType::RealNunchuk:
 			case EmulatedType::None: break;
 			}
+			return {};
+		}
+
+		// The player's real Wii Remote under the emulated controller, if it has one
+		std::shared_ptr<NativeWiimoteController> RealRemoteOf(const EmulatedControllerPtr& emulated)
+		{
+			if (!emulated)
+				return {};
+			for (const auto& controller : emulated->get_controllers())
+				if (controller->api() == InputAPI::Wiimote)
+					return std::static_pointer_cast<NativeWiimoteController>(controller);
 			return {};
 		}
 
@@ -163,7 +179,10 @@ namespace ps5emu
 			case EmulatedController::Type::Wiimote:
 			{
 				const auto wiimote = std::dynamic_pointer_cast<WiimoteController>(emulated);
-				return wiimote && wiimote->get_device_type() == kWAPDevFreestyle ? EmulatedType::Nunchuk : EmulatedType::Wiimote;
+				const bool nunchuk = wiimote && wiimote->get_device_type() == kWAPDevFreestyle;
+				if (RealRemoteOf(emulated))
+					return nunchuk ? EmulatedType::RealNunchuk : EmulatedType::RealWiimote;
+				return nunchuk ? EmulatedType::Nunchuk : EmulatedType::Wiimote;
 			}
 			default: return EmulatedType::None;
 			}
@@ -209,6 +228,12 @@ namespace ps5emu
 			case EmulatedType::Pro:
 				emulated->set_default_mapping(pad);
 				return;
+			case EmulatedType::RealWiimote:
+			case EmulatedType::RealNunchuk:
+				// the Remote's own buttons, and its Nunchuk's stick, as Cemu maps them
+				if (const auto remote = RealRemoteOf(emulated))
+					emulated->set_default_mapping(remote);
+				return;
 			case EmulatedType::Classic:
 				mapping = {
 					{ClassicController::kButtonId_A, PadInput::Circle}, {ClassicController::kButtonId_B, PadInput::Cross},
@@ -249,6 +274,43 @@ namespace ps5emu
 		// (DetachAbsentPlayers), kept to be put back as it comes
 		std::mutex s_detachedMutex;
 		std::array<EmulatedControllerPtr, ps5pad::kMaxPlayers> s_detached;
+
+		// A player's controller is there: their DualSense, or their real Wii Remote found
+		bool Present(int player, const EmulatedControllerPtr& emulated)
+		{
+			if (const auto remote = RealRemoteOf(emulated))
+				return remote->is_connected();
+			return ps5pad::IsConnected(player);
+		}
+
+		// The players with a real Wii Remote take the Remotes Cemu finds in their order (the first
+		// such player the first Remote), so one Remote is player 2's when player 1 has the GamePad.
+		// Each player's Remote is made again under its new number when one before it changes.
+		void NumberRealRemotes()
+		{
+			auto& input = InputManager::instance();
+			std::lock_guard lock(s_detachedMutex);
+			size_t next = 0;
+			for (int player = 0; player < ps5pad::kMaxPlayers; player++)
+			{
+				EmulatedControllerPtr emulated = input.get_controller((size_t)player);
+				if (!emulated)
+					emulated = s_detached[player];
+				const auto remote = RealRemoteOf(emulated);
+				if (!remote)
+					continue;
+				const size_t number = next++;
+				if (remote->uuid() == fmt::format("{}", number))
+					continue;
+				const auto renumbered = std::make_shared<NativeWiimoteController>(number);
+				emulated->clear_mappings();
+				emulated->remove_controller(remote);
+				emulated->add_controller(renumbered);
+				emulated->set_default_mapping(renumbered);
+				Save(player);
+				ps5log::Line("[controls] player {}: the real Wii Remote is Remote {} now", player + 1, number + 1);
+			}
+		}
 		// each player's touchpad click setting (ApplyTouchpadClick), for when their controller changes
 		std::array<int, ps5pad::kMaxPlayers> s_touchpadClick{};
 	}
@@ -258,8 +320,14 @@ namespace ps5emu
 		PlayerControls controls;
 		const auto emulated = InputManager::instance().get_controller((size_t)player);
 		controls.type = TypeOf(emulated);
+		// a real Wii Remote's motion is its own: the DualSense's settings below are not for it
 		controls.hasMotion = controls.type == EmulatedType::GamePad || controls.type == EmulatedType::Wiimote ||
 			controls.type == EmulatedType::Nunchuk;
+		if (const auto remote = RealRemoteOf(emulated))
+		{
+			controls.connected = remote->is_connected();
+			return controls;
+		}
 		if (const auto pad = PadOf(emulated))
 		{
 			const auto settings = pad->get_settings();
@@ -278,10 +346,18 @@ namespace ps5emu
 		const auto previous = input.get_controller((size_t)player);
 		if (TypeOf(previous) == type || type == EmulatedType::None)
 			return;
-		// the same DualSense, with its settings, under the new emulated controller
+		// the same DualSense, with its settings, under the new emulated controller, or a real Wii
+		// Remote (numbered below with the other players')
 		auto pad = PadOf(previous);
 		if (!pad)
 			pad = std::make_shared<PS5PadController>(player);
+		const bool real = IsRealWiiRemote(type);
+		std::shared_ptr<ControllerBase> controller = pad;
+		if (real)
+		{
+			input.ps5_start_wiimotes(); // Cemu's look for them starts with the first
+			controller = std::make_shared<NativeWiimoteController>(0);
+		}
 		input.delete_controller((size_t)player);
 		EmulatedController::Type cemuType = EmulatedController::Type::VPAD;
 		switch (type)
@@ -289,10 +365,12 @@ namespace ps5emu
 		case EmulatedType::Pro: cemuType = EmulatedController::Type::Pro; break;
 		case EmulatedType::Classic: cemuType = EmulatedController::Type::Classic; break;
 		case EmulatedType::Wiimote:
-		case EmulatedType::Nunchuk: cemuType = EmulatedController::Type::Wiimote; break;
+		case EmulatedType::Nunchuk:
+		case EmulatedType::RealWiimote:
+		case EmulatedType::RealNunchuk: cemuType = EmulatedController::Type::Wiimote; break;
 		default: break;
 		}
-		auto emulated = input.set_controller((size_t)player, cemuType, pad);
+		auto emulated = input.set_controller((size_t)player, cemuType, controller);
 		if (!emulated)
 		{
 			ps5log::Line("[controls] player {} cannot have that controller; keeping the one it had", player + 1);
@@ -301,10 +379,12 @@ namespace ps5emu
 			return;
 		}
 		if (const auto wiimote = std::dynamic_pointer_cast<WiimoteController>(emulated))
-			wiimote->set_device_type(type == EmulatedType::Nunchuk ? kWAPDevFreestyle : kWAPDevCore);
+			wiimote->set_device_type(type == EmulatedType::Nunchuk || type == EmulatedType::RealNunchuk ? kWAPDevFreestyle : kWAPDevCore);
 		DefaultMapping(emulated, pad);
 		Save(player);
-		PS5PadController::SetWiiRemote(player, cemuType == EmulatedController::Type::Wiimote); // it points
+		NumberRealRemotes(); // this player's, and those after it if they have one
+		// the DualSense points as a Wii Remote; a real one points itself
+		PS5PadController::SetWiiRemote(player, cemuType == EmulatedController::Type::Wiimote && !real);
 		ApplyTouchpadClick(player, s_touchpadClick[player]); // an automatic touchpad click follows the new controller
 		ps5log::Line("[controls] player {}: {}", player + 1, emulated->type_string());
 	}
@@ -344,6 +424,12 @@ namespace ps5emu
 	{
 		const auto emulated = InputManager::instance().get_controller((size_t)player);
 		const auto pad = PadOf(emulated);
+		if (RealRemoteOf(emulated))
+		{
+			DefaultMapping(emulated, pad); // the Remote's own buttons again
+			Save(player);
+			return;
+		}
 		if (!pad)
 			return;
 		pad->set_settings({});
@@ -471,7 +557,7 @@ namespace ps5emu
 		{
 			if (!taken[player])
 				continue;
-			if (ps5pad::IsConnected(player))
+			if (Present(player, taken[player]))
 			{
 				input.set_controller(taken[player]);
 				ps5log::Line("[controls] player {}: {} for the game", player + 1, taken[player]->type_string());
@@ -479,8 +565,12 @@ namespace ps5emu
 			else
 			{
 				s_detached[player] = std::move(taken[player]);
-				ps5log::Line("[controls] player {}: no DualSense, so no {} for the game until one signs in", player + 1,
-					s_detached[player]->type_string());
+				if (RealRemoteOf(s_detached[player]))
+					ps5log::Line("[controls] player {}: no real Wii Remote found yet, so no {} for the game until one is", player + 1,
+						s_detached[player]->type_string());
+				else
+					ps5log::Line("[controls] player {}: no DualSense, so no {} for the game until one signs in", player + 1,
+						s_detached[player]->type_string());
 			}
 		}
 	}
@@ -491,7 +581,7 @@ namespace ps5emu
 		std::lock_guard lock(s_detachedMutex);
 		for (int player = 1; player < ps5pad::kMaxPlayers; player++)
 		{
-			const bool present = ps5pad::IsConnected(player);
+			const bool present = Present(player, s_detached[player] ? s_detached[player] : input.get_controller((size_t)player));
 			if (s_detached[player] && present)
 			{
 				// a controller of its own set since (the in-game menu) wins over the one kept

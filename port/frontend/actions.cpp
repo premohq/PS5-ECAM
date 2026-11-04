@@ -370,6 +370,9 @@ namespace ps5actions
 		case ps5emu::EmulatedType::Classic: return Tr("Classic Controller");
 		case ps5emu::EmulatedType::Wiimote: return Tr("Wii Remote");
 		case ps5emu::EmulatedType::Nunchuk: return Tr("Wii Remote + Nunchuk");
+		// tr: an original Wii Remote through a DolphinBar, not the DualSense playing one
+		case ps5emu::EmulatedType::RealWiimote: return Tr("Real Wii Remote");
+		case ps5emu::EmulatedType::RealNunchuk: return Tr("Real Wii Remote + Nunchuk");
 		case ps5emu::EmulatedType::None: break;
 		}
 		return Tr("No controller");

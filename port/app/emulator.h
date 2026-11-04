@@ -196,7 +196,10 @@ namespace ps5emu
 
 	// Cemu's controller settings for the four players (controllers.cpp), saved in its controller
 	// profiles (controllerProfiles/controller0-3.xml) as its Input Settings window saves them. Each
-	// player's controller is that player's DualSense.
+	// player's controller is that player's DualSense, or a real Wii Remote: an original Wii Remote or
+	// Wii Remote Plus through a Mayflash DolphinBar (mode 4) in a USB port, read by Cemu's own Wii
+	// Remote code over Project Porpoise's USB layer (cemu/PS5HidWiimote.h). The players with one take
+	// the DolphinBar's Remotes in their order: the first such player the first Remote found.
 	enum class EmulatedType
 	{
 		None,		 // no controller for this player
@@ -205,11 +208,18 @@ namespace ps5emu
 		Classic,	 // the Classic Controller Pro
 		Wiimote,	 // the Wii Remote
 		Nunchuk,	 // the Wii Remote with a Nunchuk
+		RealWiimote, // a real Wii Remote, with its pointer, motion and speaker's rumble its own
+		RealNunchuk, // a real Wii Remote with its Nunchuk
 	};
+	inline bool IsRealWiiRemote(EmulatedType type) { return type == EmulatedType::RealWiimote || type == EmulatedType::RealNunchuk; }
+	inline bool IsWiiRemote(EmulatedType type)
+	{
+		return type == EmulatedType::Wiimote || type == EmulatedType::Nunchuk || IsRealWiiRemote(type);
+	}
 	struct PlayerControls
 	{
 		EmulatedType type = EmulatedType::None;
-		bool connected = false; // the player's DualSense
+		bool connected = false; // the player's DualSense, or their real Wii Remote
 		bool hasMotion = false; // the emulated controller has motion sensors (GamePad, Wii Remote)
 		bool motion = false;	// the DualSense's are its
 		int rumble = 0;			// vibration strength, percent

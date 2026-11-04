@@ -60,32 +60,32 @@ msgstr "Lutte"
 msgid "Wii U Pro Controller"
 msgstr "Manette Pro Wii U"
 
-#: port/app/ingame.cpp:192
+#: port/app/ingame.cpp:201
 #, menu
 msgid "Its own shape keeps the picture's proportions, with bars where they differ from the screen's; Stretched fills it."
 msgstr "Les proportions d’origine gardent celles de l’image, avec des bandes là où elles diffèrent de l’écran; Étirée le remplit."
 
-#: port/app/ingame.cpp:211
+#: port/app/ingame.cpp:220
 #, menu
 msgid "Cemu's notes in a corner while the game builds shaders. Off hides them; they are built either way."
 msgstr "Les notes de Cemu dans un coin pendant que le jeu compile ses shaders. Désactivé les masque; ils sont compilés dans tous les cas."
 
-#: port/app/ingame.cpp:226
+#: port/app/ingame.cpp:235
 #, menu
 msgid "Cross turns it on or off; the game shows it at once."
 msgstr "Croix l’active ou le désactive; le jeu l’applique aussitôt."
 
-#: port/app/ingame.cpp:236
+#: port/app/ingame.cpp:245
 #, menu
 msgid "Left and Right choose another; the game shows it at once."
 msgstr "Gauche et Droite en choisissent un autre; le jeu l’applique aussitôt."
 
-#: port/app/ingame.cpp:273
+#: port/app/ingame.cpp:282
 #, menu
 msgid "Left and Right choose a figure, Cross puts it on; Empty takes the one there off."
 msgstr "Gauche et Droite choisissent une figurine, Croix la pose; Vide retire celle qui s’y trouve."
 
-#: port/app/ingame.cpp:292
+#: port/app/ingame.cpp:301
 #, menu
 msgid "Left and Right choose an amiibo dump; Cross touches it to the GamePad when the game asks for one."
 msgstr "Gauche et Droite choisissent un dump d’amiibo; Croix le pose sur le GamePad quand le jeu en demande un."
@@ -169,7 +169,7 @@ msgstr ""
 "Automatique : un toucher avec le GamePad, une touche avec les autres manettes, qui n’ont pas d’écran.\n"
 "Dans tous les cas, clic du pavé tactile + OPTIONS, L1 ou R1 restent les raccourcis."
 
-#: port/frontend/shell/pages.cpp:875
+#: port/frontend/shell/pages.cpp:898
 msgid "{0} second left; then it stays as it was. The touchpad's click counts too."
 msgid_plural "{0} seconds left; then it stays as it was. The touchpad's click counts too."
 msgstr[0] "Encore {0} seconde; ensuite rien ne change. Le clic du pavé tactile compte aussi."

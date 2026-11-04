@@ -134,7 +134,8 @@ checked by reading and compiling. Before a release:
 - **Answered in code, the rest planned**: **#101** (Switch games on a share: `af8aeb4` says so and stops
   offering shares; playing them is [N0](#n0)), **#100** (the DS's 3D above its resolution: [D5](#d5)),
   **#99** (Lossless Scaling on the other sides: [F1](#f1)).
-- **Requests to keep open**: #95 (the second screen's transparency), #88 (DolphinBar), #82 (Dolphin:
+- **Requests to keep open**: #95 (the second screen's transparency), #88 (DolphinBar: 6.0 has real Wii Remotes
+  through one on the Wii U side and the Wii side, closed once a console has run them), #82 (Dolphin:
   GameCube and Wii run through Porpoise now, PR #87), #81, #72; #90 (3DS games' errors) waits on its
   reporter's answer.
 

@@ -694,14 +694,25 @@ msgstr "Wii Remote"
 msgid "Wii Remote + Nunchuk"
 msgstr "Wii Remote + Nunchuk"
 
-#: port/app/ingame.cpp:145 port/frontend/actions.cpp:375
+#. an original Wii Remote through a DolphinBar, not the DualSense playing one
+#: port/app/ingame.cpp:143 port/frontend/actions.cpp:374
+#, menu
+msgid "Real Wii Remote"
+msgstr "Skutečný Wii Remote"
+
+#: port/app/ingame.cpp:144 port/frontend/actions.cpp:375
+#, menu
+msgid "Real Wii Remote + Nunchuk"
+msgstr "Skutečný Wii Remote + Nunchuk"
+
+#: port/app/ingame.cpp:147 port/frontend/actions.cpp:378
 #, menu
 msgid "No controller"
 msgstr "Žádný ovladač"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bilinear"
 msgstr "Bilineární"
@@ -709,34 +720,34 @@ msgstr "Bilineární"
 #. how a game's picture is scaled: the methods' names
 #. texture filters: None, then the filters' own names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/app/ingame3ds.cpp:143 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:62 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/app/ingame3ds.cpp:143 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:62 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bicubic"
 msgstr "Bikubický"
 
 #. how a game's picture is scaled: the methods' names
-#: port/app/ingame.cpp:168 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bicubic Hermite"
 msgstr "Bikubický Hermite"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Nearest neighbour"
 msgstr "Nejbližší soused"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "AMD FSR 1"
 msgstr "AMD FSR 1"
 
 #. the quick action that puts a gap between the two screens, and its state
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:1648 port/frontend/shell/switch_extras.cpp:54
+#: port/app/ingame.cpp:191 port/app/ingame.cpp:263 port/app/ingame.cpp:263 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:612 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:1648 port/frontend/shell/switch_extras.cpp:54
 #, menu
 msgid "On"
 msgstr "Zap."
@@ -746,228 +757,228 @@ msgstr "Zap."
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/porpoise_rows.cpp:55 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:76 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:711 port/frontend/shell/settings.cpp:1331 port/frontend/shell/settings.cpp:1620 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1676 port/frontend/shell/settings.cpp:1684 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
+#: port/app/ingame.cpp:191 port/app/ingame.cpp:263 port/app/ingame.cpp:263 port/app/ingame.cpp:289 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:612 port/frontend/shell/pages.cpp:620 port/frontend/shell/porpoise_rows.cpp:55 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:76 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:711 port/frontend/shell/settings.cpp:1331 port/frontend/shell/settings.cpp:1620 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1676 port/frontend/shell/settings.cpp:1684 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
 #, menu
 msgid "Off"
 msgstr "Vyp."
 
 #. the screens in the Wii U's menu: the TV's picture and the GamePad's
-#: port/app/ingame.cpp:184
+#: port/app/ingame.cpp:193
 #, menu
 msgid "TV"
 msgstr "TV"
 
 #. the screens in the Wii U's menu: the TV's picture and the GamePad's
-#: port/app/ingame.cpp:184
+#: port/app/ingame.cpp:193
 #, menu
 msgid "GamePad"
 msgstr "GamePad"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:185 port/app/ingame.cpp:344 port/app/ingame3ds.cpp:689 port/frontend/shell/settings.cpp:213
+#: port/app/ingame.cpp:194 port/app/ingame.cpp:364 port/app/ingame3ds.cpp:689 port/frontend/shell/settings.cpp:213
 #, menu
 msgid "Screens"
 msgstr "Obrazovky"
 
-#: port/app/ingame.cpp:185 port/app/ingame.cpp:191
+#: port/app/ingame.cpp:194 port/app/ingame.cpp:200
 #, menu
 msgid "Stretched"
 msgstr "Roztažený"
 
-#: port/app/ingame.cpp:185
+#: port/app/ingame.cpp:194
 #, menu
 msgid "Its shape"
 msgstr "Vlastní tvar"
 
-#: port/app/ingame.cpp:186
+#: port/app/ingame.cpp:195
 #, menu
 msgid "The TV's and the GamePad's pictures, and how they fill the screen."
 msgstr "Obrazy z TV a z GamePadu a to, jak vyplňují obrazovku."
 
 #. the 3DS's top and bottom screens
-#: port/app/ingame.cpp:187 port/app/ingame3ds.cpp:489
+#: port/app/ingame.cpp:196 port/app/ingame3ds.cpp:489
 #, menu
 msgid "Main screen"
 msgstr "Hlavní obrazovka"
 
-#: port/app/ingame.cpp:188
+#: port/app/ingame.cpp:197
 #, menu
 msgid "Which picture fills the TV: the TV's or the GamePad's. In the game, touchpad click + L1 swaps them."
 msgstr "Který obraz vyplní televizor: z TV, nebo z GamePadu. Ve hře je prohodí kliknutí na dotykovou plochu + L1."
 
-#: port/app/ingame.cpp:189
+#: port/app/ingame.cpp:198
 #, menu
 msgid "TV in a corner"
 msgstr "TV v rohu"
 
-#: port/app/ingame.cpp:189
+#: port/app/ingame.cpp:198
 #, menu
 msgid "GamePad in a corner"
 msgstr "GamePad v rohu"
 
-#: port/app/ingame.cpp:190
+#: port/app/ingame.cpp:199
 #, menu
 msgid "The other screen, small in the bottom right corner. In the game, touchpad click + R1."
 msgstr "Druhá obrazovka, malá v pravém dolním rohu. Ve hře: kliknutí na dotykovou plochu + R1."
 
-#: port/app/ingame.cpp:191
+#: port/app/ingame.cpp:200
 #, menu
 msgid "Picture"
 msgstr "Obraz"
 
-#: port/app/ingame.cpp:191
+#: port/app/ingame.cpp:200
 #, menu
 msgid "Its own shape"
 msgstr "Vlastní tvar"
 
-#: port/app/ingame.cpp:192
+#: port/app/ingame.cpp:201
 #, menu
 msgid "Its own shape keeps the picture's proportions, with bars where they differ from the screen's; Stretched fills it."
 msgstr "Vlastní tvar zachová poměr stran obrazu, s pruhy tam, kde se liší od obrazovky; Roztažený ji vyplní celou."
 
-#: port/app/ingame.cpp:194 port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/app/ingame3ds.cpp:528 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:211 port/frontend/shell/settings.cpp:267
+#: port/app/ingame.cpp:203 port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/app/ingame3ds.cpp:528 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:211 port/frontend/shell/settings.cpp:267
 #, menu
 msgid "Graphics"
 msgstr "Grafika"
 
-#: port/app/ingame.cpp:195
+#: port/app/ingame.cpp:204
 #, menu
 msgid "Upscaling, Cemu's accuracy settings and the performance overlay. Kept for the next games."
 msgstr "Zvětšování, nastavení přesnosti Cemu a překryv výkonu. Platí i pro další hry."
 
-#: port/app/ingame.cpp:196 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:702
+#: port/app/ingame.cpp:205 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:702
 #, menu
 msgid "Upscaling to 4K"
 msgstr "Zvětšování na 4K"
 
-#: port/app/ingame.cpp:197
+#: port/app/ingame.cpp:206
 #, menu
 msgid "How the picture is scaled to the screen: Bicubic is sharp, Hermite softer, Bilinear softer still."
 msgstr "Jak se obraz zvětšuje na obrazovku: Bikubický je ostrý, Hermite měkčí, Bilineární ještě měkčí."
 
-#: port/app/ingame.cpp:198
+#: port/app/ingame.cpp:207
 #, menu
 msgid "Accurate barriers"
 msgstr "Přesné bariéry"
 
-#: port/app/ingame.cpp:199
+#: port/app/ingame.cpp:208
 #, menu
 msgid "Off can raise the frame rate, but some games then flicker or show wrong shadows. It changes at once."
 msgstr "Vypnutí může zvýšit snímkovou frekvenci, ale některé hry pak blikají nebo ukazují špatné stíny. Platí hned."
 
-#: port/app/ingame.cpp:200 port/frontend/shell/settings.cpp:626 port/frontend/shell/settings.cpp:673 port/frontend/shell/settings.cpp:1035
+#: port/app/ingame.cpp:209 port/frontend/shell/settings.cpp:626 port/frontend/shell/settings.cpp:673 port/frontend/shell/settings.cpp:1035
 #, menu
 msgid "Async shader compile"
 msgstr "Asynchronní kompilace shaderů"
 
-#: port/app/ingame.cpp:201
+#: port/app/ingame.cpp:210
 #, menu
 msgid "On, new shaders build while the game carries on: no stutter, but things may be missing for a moment."
 msgstr "Zapnuto: nové shadery se sestavují, zatímco hra běží dál. Bez záseků, ale něco může na chvíli chybět."
 
-#: port/app/ingame.cpp:202 port/frontend/shell/settings.cpp:601
+#: port/app/ingame.cpp:211 port/frontend/shell/settings.cpp:601
 #, menu
 msgid "Frame pacing"
 msgstr "Rovnoměrné snímky"
 
-#: port/app/ingame.cpp:203
+#: port/app/ingame.cpp:212
 #, menu
 msgid "Holds the game to an even rate: 60 fps for 4K at 120 Hz, 30 for 8K at 60 Hz. Off shows each frame when it is done."
 msgstr "Drží hru v rovnoměrném tempu: 60 fps pro 4K při 120 Hz, 30 pro 8K při 60 Hz. Vypnuto zobrazí každý snímek, jakmile je hotový."
 
 #. What's new: Lossless Scaling's frame generation for Switch games; Lossless.dll and MihawkGen are names, left as they are
-#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:576 port/frontend/shell/porpoise_rows.cpp:73 port/frontend/shell/settings.cpp:589 port/frontend/shell/settings.cpp:607 port/frontend/shell/settings.cpp:678 port/frontend/shell/settings.cpp:746 port/frontend/shell/settings.cpp:762 port/frontend/shell/whatsnew.cpp:36
+#: port/app/ingame.cpp:213 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:576 port/frontend/shell/porpoise_rows.cpp:73 port/frontend/shell/settings.cpp:589 port/frontend/shell/settings.cpp:607 port/frontend/shell/settings.cpp:678 port/frontend/shell/settings.cpp:746 port/frontend/shell/settings.cpp:762 port/frontend/shell/whatsnew.cpp:36
 #, menu
 msgid "Frame generation"
 msgstr "Generování snímků"
 
-#: port/app/ingame.cpp:205 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:577
+#: port/app/ingame.cpp:214 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:577
 #, menu
 msgid "A picture made between each two frames of a game at 30 fps, so it is shown at 60. It changes at once."
 msgstr "Snímek vytvořený mezi každými dvěma snímky hry ve 30 fps, takže se ukazuje v 60. Změní se hned."
 
-#: port/app/ingame.cpp:206 port/frontend/shell/settings.cpp:614 port/frontend/shell/switch_extras.cpp:72
+#: port/app/ingame.cpp:215 port/frontend/shell/settings.cpp:614 port/frontend/shell/switch_extras.cpp:72
 #, menu
 msgid "ReShade"
 msgstr "ReShade"
 
-#: port/app/ingame.cpp:207
+#: port/app/ingame.cpp:216
 #, menu
 msgid "Your ReShade preset over the game's picture (Settings > Graphics says where it goes). It changes at once."
 msgstr "Váš preset ReShade přes obraz hry (Nastavení > Grafika říká, kam patří). Změní se hned."
 
-#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:620 port/frontend/shell/settings.cpp:688 port/frontend/shell/settings.cpp:771 port/frontend/shell/settings.cpp:789
+#: port/app/ingame.cpp:217 port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:620 port/frontend/shell/settings.cpp:688 port/frontend/shell/settings.cpp:771 port/frontend/shell/settings.cpp:789
 #, menu
 msgid "Performance overlay"
 msgstr "Překryv výkonu"
 
-#: port/app/ingame.cpp:209
+#: port/app/ingame.cpp:218
 #, menu
 msgid "Frames per second, CPU and memory use in the top left corner, as Cemu shows them."
 msgstr "Snímky za sekundu, využití CPU a paměti v levém horním rohu, jak je ukazuje Cemu."
 
-#: port/app/ingame.cpp:210 port/frontend/shell/settings.cpp:630
+#: port/app/ingame.cpp:219 port/frontend/shell/settings.cpp:630
 #, menu
 msgid "Shader notices"
 msgstr "Upozornění na shadery"
 
-#: port/app/ingame.cpp:211
+#: port/app/ingame.cpp:220
 #, menu
 msgid "Cemu's notes in a corner while the game builds shaders. Off hides them; they are built either way."
 msgstr "Hlášky Cemu v rohu, zatímco hra sestavuje shadery. Vypnuto je skryje; shadery se sestaví stejně."
 
-#: port/app/ingame.cpp:224 port/app/ingame.cpp:254
+#: port/app/ingame.cpp:233 port/app/ingame.cpp:263
 #, menu
 msgid "{0} (next start)"
 msgstr "{0} (od příštího spuštění)"
 
-#: port/app/ingame.cpp:225
+#: port/app/ingame.cpp:234
 #, menu
 msgid "This pack replaces textures: the game shows the change when it starts again."
 msgstr "Tento balíček nahrazuje textury: hra ukáže změnu při příštím spuštění."
 
-#: port/app/ingame.cpp:226
+#: port/app/ingame.cpp:235
 #, menu
 msgid "Cross turns it on or off; the game shows it at once."
 msgstr "Křížek ho zapne nebo vypne; hra to ukáže hned."
 
-#: port/app/ingame.cpp:234 port/frontend/shell/pages.cpp:281 port/frontend/shell/pages.cpp:370
+#: port/app/ingame.cpp:243 port/frontend/shell/pages.cpp:281 port/frontend/shell/pages.cpp:370
 #, menu
 msgid "Preset"
 msgstr "Předvolba"
 
-#: port/app/ingame.cpp:236
+#: port/app/ingame.cpp:245
 #, menu
 msgid "Left and Right choose another; the game shows it at once."
 msgstr "Doleva a doprava vyberou jinou; hra ji ukáže hned."
 
-#: port/app/ingame.cpp:240
+#: port/app/ingame.cpp:249
 #, menu
 msgid "None for this game"
 msgstr "Pro tuto hru žádné"
 
-#: port/app/ingame.cpp:240
+#: port/app/ingame.cpp:249
 #, menu
 msgid "Reading the packs…"
 msgstr "Načítání balíčků…"
 
-#: port/app/ingame.cpp:241
+#: port/app/ingame.cpp:250
 #, menu
 msgid "The community graphic packs have none for this game."
 msgstr "Grafické balíčky komunity pro tuto hru žádný nemají."
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:345 port/frontend/shell/hub.cpp:242 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1882
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:365 port/frontend/shell/hub.cpp:242 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1882
 #, menu
 msgid "Graphic packs"
 msgstr "Grafické balíčky"
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:287 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:468 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:296 port/app/ingame.cpp:365 port/app/ingame3ds.cpp:468 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
 #, menu
 msgid "None"
 msgstr "Žádný"
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1620
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:289 port/frontend/shell/settings.cpp:1620
 #, menu
 msgid "{0} on"
 msgid_plural "{0} on"
@@ -975,215 +986,220 @@ msgstr[0] "{0} zapnutý"
 msgstr[1] "{0} zapnuté"
 msgstr[2] "{0} zapnutých"
 
-#: port/app/ingame.cpp:244
+#: port/app/ingame.cpp:253
 #, menu
 msgid "The game's community graphic packs: resolution, frame rate and mods, as Cemu's Graphic Packs window has them."
 msgstr "Grafické balíčky komunity pro tuto hru: rozlišení, snímková frekvence a mody, jako v okně Graphic Packs v Cemu."
 
-#: port/app/ingame.cpp:255
+#: port/app/ingame.cpp:264
 #, menu
 msgid "The game sees the change when it starts again: the portal is plugged in as a game starts."
 msgstr "Hra uvidí změnu při příštím spuštění: portál se připojuje při spuštění hry."
 
-#: port/app/ingame.cpp:256
+#: port/app/ingame.cpp:265
 #, menu
 msgid "Plugged in as a game starts, as in Cemu. Its figures are below while it is on."
 msgstr "Připojuje se při spuštění hry, jako v Cemu. Jeho figurky jsou níže, dokud je zapnutý."
 
-#: port/app/ingame.cpp:261 port/app/ingame3ds.cpp:653
+#: port/app/ingame.cpp:270 port/app/ingame3ds.cpp:653
 #, menu
 msgid "Empty"
 msgstr "Prázdné"
 
-#: port/app/ingame.cpp:270
+#: port/app/ingame.cpp:279
 #, menu
 msgid "{0} (Cross to put on)"
 msgstr "{0} (Křížek pro položení)"
 
 #. {0} is a folder of figure dumps
-#: port/app/ingame.cpp:272
+#: port/app/ingame.cpp:281
 #, menu
 msgid "Put figure dumps in {0} to put them on here."
 msgstr "Dumpy figurek vložené do {0} se dají postavit sem."
 
-#: port/app/ingame.cpp:273
+#: port/app/ingame.cpp:282
 #, menu
 msgid "Left and Right choose a figure, Cross puts it on; Empty takes the one there off."
 msgstr "Doleva a doprava vybírají figurku, Křížek ji položí; Prázdné sundá tu, která tam je."
 
-#: port/app/ingame.cpp:278
+#: port/app/ingame.cpp:287
 #, menu
 msgid "The last figure could not be put on."
 msgstr "Poslední figurku se nepodařilo postavit."
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1620
+#: port/app/ingame.cpp:289 port/frontend/shell/settings.cpp:1620
 #, menu
 msgid "USB devices"
 msgstr "Zařízení USB"
 
-#: port/app/ingame.cpp:281
+#: port/app/ingame.cpp:290
 #, menu
 msgid "Skylanders, Disney Infinity and LEGO Dimensions figures on Cemu's emulated portals, as amiibo are scanned."
 msgstr "Figurky Skylanders, Disney Infinity a LEGO Dimensions na emulovaných portálech Cemu, stejně jako se skenují amiibo."
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585 port/frontend/shell/porpoise_rows.cpp:109
+#: port/app/ingame.cpp:292 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585 port/frontend/shell/porpoise_rows.cpp:109
 #, menu
 msgid "Volume"
 msgstr "Hlasitost"
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
+#: port/app/ingame.cpp:292 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
 #, menu
 msgid "The game's sound. Left and Right change it by 10%."
 msgstr "Zvuk hry. Doleva a doprava ho mění o 10 %."
 
 #. amiibo is Nintendo's name for its figures, as it writes it in the language
-#: port/app/ingame.cpp:289 port/app/ingame.cpp:295 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:605 port/app/ingame3ds.cpp:606 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:298 port/app/ingame.cpp:304 port/app/ingame.cpp:365 port/app/ingame3ds.cpp:605 port/app/ingame3ds.cpp:606 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
 #, menu
 msgid "Amiibo"
 msgstr "amiibo"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/app/ingame.cpp:291 port/app/ingame3ds.cpp:608 port/eden/ingame.cpp:606
+#: port/app/ingame.cpp:300 port/app/ingame3ds.cpp:608 port/eden/ingame.cpp:606
 #, menu
 msgid "Put amiibo dumps (.bin) in {0}/amiibo to scan them here."
 msgstr "Dumpy amiibo (.bin) vložené do {0}/amiibo se dají skenovat tady."
 
-#: port/app/ingame.cpp:292
+#: port/app/ingame.cpp:301
 #, menu
 msgid "Left and Right choose an amiibo dump; Cross touches it to the GamePad when the game asks for one."
 msgstr "Doleva a doprava vyberou dump amiibo; Křížek ho přiloží ke GamePadu, když o něj hra požádá."
 
 #. a folder of amiibo dumps, as they are shared: Kirby, Metroid...
-#: port/app/ingame.cpp:297 port/eden/ingame.cpp:613
+#: port/app/ingame.cpp:306 port/eden/ingame.cpp:613
 #, menu
 msgid "Amiibo series"
 msgstr "Série amiibo"
 
-#: port/app/ingame.cpp:298 port/eden/ingame.cpp:614
+#: port/app/ingame.cpp:307 port/eden/ingame.cpp:614
 #, menu
 msgid "Left and Right choose a series: a folder of dumps in {0}/amiibo."
 msgstr "Vlevo a Vpravo vybírají sérii: složku s dumpy v {0}/amiibo."
 
 #. the DS's lid, closed or open
-#: port/app/ingame.cpp:303 port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:624 port/app/ingame3ds.cpp:635 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:830 port/frontend/shell/settings.cpp:216 port/frontend/shell/settings.cpp:269
+#: port/app/ingame.cpp:313 port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:624 port/app/ingame3ds.cpp:635 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:853 port/frontend/shell/settings.cpp:216 port/frontend/shell/settings.cpp:269
 #, menu
 msgid "Controls"
 msgstr "Ovládání"
 
-#: port/app/ingame.cpp:304
+#: port/app/ingame.cpp:314
 #, menu
 msgid "Each player's controller, motion, vibration, deadzones and A and B."
 msgstr "Ovladač každého hráče, pohyb, vibrace, mrtvé zóny a A a B."
 
-#: port/app/ingame.cpp:305 port/frontend/shell/switch_extras.cpp:87
+#: port/app/ingame.cpp:315 port/frontend/shell/switch_extras.cpp:87
 #, menu
 msgid "Player"
 msgstr "Hráč"
 
-#: port/app/ingame.cpp:305
+#: port/app/ingame.cpp:316
+#, menu
+msgid "{0} (no Wii Remote found)"
+msgstr "{0} (Wii Remote nenalezen)"
+
+#: port/app/ingame.cpp:316
 #, menu
 msgid "{0} (no DualSense)"
 msgstr "{0} (žádný DualSense)"
 
-#: port/app/ingame.cpp:306
+#: port/app/ingame.cpp:317
 #, menu
 msgid "Whose controller the settings below are: Left and Right choose the player."
 msgstr "Čí ovladač mají nastavení níže: doleva a doprava vyberou hráče."
 
-#: port/app/ingame.cpp:307 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:596
+#: port/app/ingame.cpp:318 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:501 port/frontend/shell/pages.cpp:611
 #, menu
 msgid "Emulated controller"
 msgstr "Emulovaný ovladač"
 
-#: port/app/ingame.cpp:308
+#: port/app/ingame.cpp:319
 #, menu
 msgid "What the game sees in this player's hands. Most games want the GamePad for player 1."
 msgstr "Co hra vidí v rukou tohoto hráče. Většina her chce pro hráče 1 GamePad."
 
-#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:636 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:911
+#: port/app/ingame.cpp:320 port/app/ingame3ds.cpp:636 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:612 port/frontend/shell/settings.cpp:911
 #, menu
 msgid "Motion controls"
 msgstr "Ovládání pohybem"
 
-#: port/app/ingame.cpp:309 port/frontend/shell/pages.cpp:597
+#: port/app/ingame.cpp:320 port/frontend/shell/pages.cpp:612
 #, menu
 msgid "None on this one"
 msgstr "Tento ho nemá"
 
-#: port/app/ingame.cpp:310
+#: port/app/ingame.cpp:321
 #, menu
 msgid "The DualSense's gyroscope and accelerometer, for the games that aim or steer by tilting."
 msgstr "Gyroskop a akcelerometr DualSense, pro hry, ve kterých se míří nebo řídí nakláněním."
 
-#: port/app/ingame.cpp:311 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:605 port/frontend/shell/porpoise_rows.cpp:96 port/frontend/shell/settings.cpp:856
+#: port/app/ingame.cpp:322 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:620 port/frontend/shell/porpoise_rows.cpp:96 port/frontend/shell/settings.cpp:856
 #, menu
 msgid "Vibration"
 msgstr "Vibrace"
 
-#: port/app/ingame.cpp:312
+#: port/app/ingame.cpp:323
 #, menu
 msgid "How strongly the DualSense rumbles. Left and Right change it by 10%."
 msgstr "Jak silně DualSense vibruje. Doleva a doprava to mění o 10 %."
 
-#: port/app/ingame.cpp:313 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:608
+#: port/app/ingame.cpp:324 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:623
 #, menu
 msgid "Left stick deadzone"
 msgstr "Mrtvá zóna levé páčky"
 
-#: port/app/ingame.cpp:314
+#: port/app/ingame.cpp:325
 #, menu
 msgid "How far the left stick moves before the game sees it. Raise it if a character drifts."
 msgstr "Jak daleko se levá páčka pohne, než si toho hra všimne. Zvyšte ji, pokud postava jde sama."
 
-#: port/app/ingame.cpp:315 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:611
+#: port/app/ingame.cpp:326 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:626
 #, menu
 msgid "Right stick deadzone"
 msgstr "Mrtvá zóna pravé páčky"
 
-#: port/app/ingame.cpp:316
+#: port/app/ingame.cpp:327
 #, menu
 msgid "How far the right stick moves before the game sees it. Raise it if the camera drifts."
 msgstr "Jak daleko se pravá páčka pohne, než si toho hra všimne. Zvyšte ji, pokud se kamera točí sama."
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:619 port/app/ingame3ds.cpp:630 port/app/ingame3ds.cpp:640 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:58
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:619 port/app/ingame3ds.cpp:630 port/app/ingame3ds.cpp:640 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:632 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:58
 #, menu
 msgid "A and B"
 msgstr "A a B"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Circle"
 msgstr "A na kolečku"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Cross"
 msgstr "A na křížku"
 
-#: port/app/ingame.cpp:318
+#: port/app/ingame.cpp:329
 #, menu
 msgid "A on Circle as on the Wii U, or on Cross, with X and Y swapped to match. Every other button: Settings > Controls in the launcher."
 msgstr "A na Kolečku jako na Wii U, nebo na Křížku, s odpovídajícím prohozením X a Y. Všechna ostatní tlačítka: Nastavení > Ovládání ve spouštěči."
 
-#: port/app/ingame.cpp:319 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:627 port/frontend/shell/welcome.cpp:87
+#: port/app/ingame.cpp:330 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:642 port/frontend/shell/welcome.cpp:87
 #, menu
 msgid "Touchpad click"
 msgstr "Kliknutí na dotykovou plochu"
 
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:320 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:331 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Touches the screen"
 msgstr "Dotkne se obrazovky"
 
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Presses a button"
 msgstr "Stiskne tlačítko"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "{0}: {1}"
 msgstr "{0}: {1}"
@@ -1192,116 +1208,126 @@ msgstr "{0}: {1}"
 #. the languages the emulated 3DS can be set to
 #. the Switch's controller types, as a game sees the DualSense (Automatic: what the game takes)
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/settings.cpp:51 port/frontend/shell/settings.cpp:54 port/frontend/shell/settings.cpp:127 port/frontend/shell/settings.cpp:994 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:332 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/settings.cpp:51 port/frontend/shell/settings.cpp:54 port/frontend/shell/settings.cpp:127 port/frontend/shell/settings.cpp:994 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Automatic"
 msgstr "Automaticky"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "a button"
 msgstr "tlačítko"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "a touch"
 msgstr "dotyk"
 
-#: port/app/ingame.cpp:323
+#: port/app/ingame.cpp:334
 #, menu
 msgid "Touches the GamePad's screen, or presses the button set to Touchpad click (- if none is set). The shortcuts still work."
 msgstr "Dotkne se obrazovky GamePadu, nebo stiskne tlačítko přiřazené ke Kliknutí na dotykovou plochu (-, pokud žádné není). Zkratky dál fungují."
 
+#: port/app/ingame.cpp:341 port/frontend/shell/pages.cpp:655
+#, menu
+msgid "Its own"
+msgstr "Vlastní"
+
+#: port/app/ingame.cpp:343 port/frontend/shell/pages.cpp:656
+#, menu
+msgid "A real Wii Remote has its own buttons, pointer, motion and rumble: this setting is for the DualSense."
+msgstr "Skutečný Wii Remote má vlastní tlačítka, ukazatel, pohyb a vibrace: toto nastavení je pro DualSense."
+
 #. the remote touch screen's row: which screen a phone or a tablet shows
-#: port/app/ingame.cpp:326 port/frontend/shell/settings.cpp:1639
+#: port/app/ingame.cpp:346 port/frontend/shell/settings.cpp:1639
 #, menu
 msgid "The GamePad's screen"
 msgstr "Obrazovka GamePadu"
 
-#: port/app/ingame.cpp:329 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:640
+#: port/app/ingame.cpp:349 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:640
 #, menu
 msgid "Quit to the home screen"
 msgstr "Ukončit na domovskou obrazovku"
 
-#: port/app/ingame.cpp:330 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:641
+#: port/app/ingame.cpp:350 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:641
 #, menu
 msgid "Leaves the game and closes Playtendoh, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held."
 msgstr "Opustí hru a zavře Playtendoh, jak žádá její dlaždice na domovské obrazovce. Co ve hře neuložíte, se ztratí, proto se Křížek drží."
 
-#: port/app/ingame.cpp:331 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:642
+#: port/app/ingame.cpp:351 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:642
 #, menu
 msgid "Quit to the library"
 msgstr "Ukončit do knihovny"
 
-#: port/app/ingame.cpp:332 port/app/ingame3ds.cpp:649 port/eden/ingame.cpp:643
+#: port/app/ingame.cpp:352 port/app/ingame3ds.cpp:649 port/eden/ingame.cpp:643
 #, menu
 msgid "Leaves the game for the library. What you have not saved in the game is lost, so Cross is held."
 msgstr "Opustí hru a přejde do knihovny. Co ve hře neuložíte, se ztratí, proto se Křížek drží."
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
 #. the quick actions: big tiles at the top of the in-game menu, a word or two each
-#: port/app/ingame.cpp:344 port/app/ingame3ds.cpp:686 port/eden/ingame.cpp:655
+#: port/app/ingame.cpp:364 port/app/ingame3ds.cpp:686 port/eden/ingame.cpp:655
 #, menu
 msgid "Resume"
 msgstr "Pokračovat"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:344
+#: port/app/ingame.cpp:364
 #, menu
 msgid "GamePad main"
 msgstr "GamePad velký"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:344
+#: port/app/ingame.cpp:364
 #, menu
 msgid "TV main"
 msgstr "TV velká"
 
-#: port/app/ingame.cpp:345 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:365 port/eden/ingame.cpp:657
 #, menu
 msgid "Scan"
 msgstr "Skenovat"
 
 #. {0} is an amiibo dump's file name
-#: port/app/ingame.cpp:425 port/azahar/core.cpp:293 port/eden/ingame.cpp:548
+#: port/app/ingame.cpp:447 port/azahar/core.cpp:293 port/eden/ingame.cpp:548
 #, menu
 msgid "Scanned {0}"
 msgstr "Naskenováno: {0}"
 
 #. {0} is an amiibo dump's file name
-#: port/app/ingame.cpp:425
+#: port/app/ingame.cpp:447
 #, menu
 msgid "Not scanned (error {0})"
 msgstr "Nenaskenováno (chyba {0})"
 
 #. the in-game menu's badge: the game goes on behind the menu (Cemu cannot pause it)
-#: port/app/ingame.cpp:585 port/eden/ingame.cpp:792
+#: port/app/ingame.cpp:607 port/eden/ingame.cpp:792
 #, menu
 msgid "Running"
 msgstr "Běží"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1513 port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1544 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:2614 port/frontend/shell/shell.cpp:2654
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1513 port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1544 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:2614 port/frontend/shell/shell.cpp:2654
 #, menu
 msgid "Choose"
 msgstr "Vybrat"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1526 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1583
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1526 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1583
 #, menu
 msgid "Change"
 msgstr "Změnit"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799
 #, menu
 msgid "Back to the game"
 msgstr "Zpět do hry"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1527 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1570 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1576 port/frontend/shell/shell.cpp:1580 port/frontend/shell/shell.cpp:1584
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1527 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1570 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1576 port/frontend/shell/shell.cpp:1580 port/frontend/shell/shell.cpp:1584
 #, menu
 msgid "Back"
 msgstr "Zpět"
 
 #. the in-game menu's top: the Wii U account the game runs on ({0}: its name)
-#: port/app/ingame.cpp:639
+#: port/app/ingame.cpp:661
 #, menu
 msgid "{0}'s saves"
 msgstr "Uložené pozice: {0}"
@@ -1618,7 +1644,7 @@ msgstr "Zapnuto: {0} z {1}"
 msgid "Achievements"
 msgstr "Úspěchy"
 
-#: port/app/ingame3ds.cpp:588 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:841 port/frontend/shell/pages.cpp:1234 port/frontend/shell/shell.cpp:2683
+#: port/app/ingame3ds.cpp:588 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:864 port/frontend/shell/pages.cpp:1257 port/frontend/shell/shell.cpp:2683
 #, menu
 msgid "{0} of {1}"
 msgstr "{0} z {1}"
@@ -2296,7 +2322,7 @@ msgstr "GitHub neodpověděl vydáním"
 msgid "The download did not finish"
 msgstr "Stahování nebylo dokončeno"
 
-#: port/app/pack_updates.cpp:283 port/frontend/shell/installs.cpp:197 port/frontend/shell/pages.cpp:1183
+#: port/app/pack_updates.cpp:283 port/frontend/shell/installs.cpp:197 port/frontend/shell/pages.cpp:1206
 msgid "It could not be installed: {0}"
 msgstr "Nepodařilo se nainstalovat: {0}"
 
@@ -3122,262 +3148,262 @@ msgid "Extended storage {0}"
 msgstr "Rozšířené úložiště {0}"
 
 #. what an install is
-#: port/frontend/actions.cpp:383 port/frontend/actions.cpp:462
+#: port/frontend/actions.cpp:386 port/frontend/actions.cpp:465
 msgid "Game"
 msgstr "Hra"
 
-#: port/frontend/actions.cpp:384 port/frontend/actions.cpp:463
+#: port/frontend/actions.cpp:387 port/frontend/actions.cpp:466
 msgid "Update"
 msgstr "Aktualizace"
 
 #. an update found to install ({0}: its version, as 208)
-#: port/frontend/actions.cpp:385 port/frontend/actions.cpp:464 port/frontend/shell/hub.cpp:209 port/frontend/shell/installs.cpp:42 port/frontend/shell/shell.cpp:914
+#: port/frontend/actions.cpp:388 port/frontend/actions.cpp:467 port/frontend/shell/hub.cpp:209 port/frontend/shell/installs.cpp:42 port/frontend/shell/shell.cpp:914
 msgid "DLC"
 msgstr "DLC"
 
-#: port/frontend/actions.cpp:386 port/frontend/actions.cpp:466
+#: port/frontend/actions.cpp:389 port/frontend/actions.cpp:469
 msgid "System title"
 msgstr "Systémový titul"
 
-#: port/frontend/actions.cpp:465
+#: port/frontend/actions.cpp:468
 msgid "Demo"
 msgstr "Demo"
 
-#: port/frontend/actions.cpp:466
+#: port/frontend/actions.cpp:469
 msgid "Title"
 msgstr "Titul"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Cross"
 msgstr "Křížek"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Circle"
 msgstr "Kolečko"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Square"
 msgstr "Čtvereček"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Triangle"
 msgstr "Trojúhelník"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Create"
 msgstr "Create"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Options"
 msgstr "OPTIONS"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Touchpad"
 msgstr "Dotyková plocha"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad up"
 msgstr "Směrový ovladač nahoru"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad down"
 msgstr "Směrový ovladač dolů"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad left"
 msgstr "Směrový ovladač doleva"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad right"
 msgstr "Směrový ovladač doprava"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick up"
 msgstr "Levá páčka nahoru"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick down"
 msgstr "Levá páčka dolů"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick left"
 msgstr "Levá páčka doleva"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Left stick right"
 msgstr "Levá páčka doprava"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Left stick click"
 msgstr "Stisk levé páčky"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Right stick up"
 msgstr "Pravá páčka nahoru"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick down"
 msgstr "Pravá páčka dolů"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick left"
 msgstr "Pravá páčka doleva"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick right"
 msgstr "Pravá páčka doprava"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Right stick click"
 msgstr "Stisk pravé páčky"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Circle pad up"
 msgstr "Circle Pad nahoru"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Circle pad down"
 msgstr "Circle Pad dolů"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "Circle pad left"
 msgstr "Circle Pad doleva"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "Circle pad right"
 msgstr "Circle Pad doprava"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "C-stick up"
 msgstr "C-Stick nahoru"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick down"
 msgstr "C-Stick dolů"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick left"
 msgstr "C-Stick doleva"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick right"
 msgstr "C-Stick doprava"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick up"
 msgstr "Páčka Nunchuku nahoru"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick down"
 msgstr "Páčka Nunchuku dolů"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick left"
 msgstr "Páčka Nunchuku doleva"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk stick right"
 msgstr "Páčka Nunchuku doprava"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk C"
 msgstr "Nunchuk C"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk Z"
 msgstr "Nunchuk Z"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Home"
 msgstr "HOME"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "Start"
 msgstr "START"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "Select"
 msgstr "SELECT"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "+ (Start)"
 msgstr "+ (START)"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "- (Select)"
 msgstr "- (SELECT)"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "Blow into the mic"
 msgstr "Foukat do mikrofonu"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "Show the GamePad's screen"
 msgstr "Ukázat obrazovku GamePadu"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "None"
 msgstr "Žádné"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Touch at the cursor"
 msgstr "Dotyk u kurzoru"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Fast forward"
 msgstr "Rychle vpřed"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Fast forward, on and off"
 msgstr "Rychle vpřed, zapnout a vypnout"
 
-#: port/frontend/actions.cpp:491
+#: port/frontend/actions.cpp:494
 msgctxt "button"
 msgid "Rewind"
 msgstr "Přetočit zpět"
@@ -3459,11 +3485,11 @@ msgstr "Hodnocení"
 msgid "Publisher"
 msgstr "Vydavatel"
 
-#: port/frontend/shell/hub.cpp:285 port/frontend/shell/pages.cpp:654
+#: port/frontend/shell/hub.cpp:285 port/frontend/shell/pages.cpp:677
 msgid "Players"
 msgstr "Hráči"
 
-#: port/frontend/shell/hub.cpp:289 port/frontend/shell/installs.cpp:510 port/frontend/shell/pages.cpp:1276 port/frontend/shell/pages.cpp:1342
+#: port/frontend/shell/hub.cpp:289 port/frontend/shell/installs.cpp:510 port/frontend/shell/pages.cpp:1299 port/frontend/shell/pages.cpp:1365
 msgid "Title ID"
 msgstr "ID titulu"
 
@@ -3503,7 +3529,7 @@ msgstr "Nainstalována v{0}: tato je novější"
 msgid "v{0} installed: this is older"
 msgstr "Nainstalována v{0}: tato je starší"
 
-#: port/frontend/shell/installs.cpp:57 port/frontend/shell/installs.cpp:211 port/frontend/shell/pages.cpp:1175
+#: port/frontend/shell/installs.cpp:57 port/frontend/shell/installs.cpp:211 port/frontend/shell/pages.cpp:1198
 msgid "Installed"
 msgstr "Nainstalováno"
 
@@ -3534,7 +3560,7 @@ msgstr "Zastavování…"
 msgid "Stop"
 msgstr "Zastavit"
 
-#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1192 port/frontend/shell/shell.cpp:1580
+#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1215 port/frontend/shell/shell.cpp:1580
 msgid "Install"
 msgstr "Instalace"
 
@@ -3543,7 +3569,7 @@ msgstr "Instalace"
 msgid "Install every new one ({0})"
 msgstr "Nainstalovat všechny nové ({0})"
 
-#: port/frontend/shell/installs.cpp:329 port/frontend/shell/library.cpp:172 port/frontend/shell/pages.cpp:1198 port/frontend/shell/setup.cpp:188 port/frontend/shell/setup.cpp:213
+#: port/frontend/shell/installs.cpp:329 port/frontend/shell/library.cpp:172 port/frontend/shell/pages.cpp:1221 port/frontend/shell/setup.cpp:188 port/frontend/shell/setup.cpp:213
 msgid "Choose a folder"
 msgstr "Vybrat složku"
 
@@ -3630,21 +3656,21 @@ msgstr "Čeká"
 msgid "Runs from where it is"
 msgstr "Běží odtud, kde je"
 
-#: port/frontend/shell/installs.cpp:502 port/frontend/shell/pages.cpp:1358
+#: port/frontend/shell/installs.cpp:502 port/frontend/shell/pages.cpp:1381
 msgid "To install"
 msgstr "K instalaci"
 
 #. a title's version to install ({0}), and the one installed now ({1})
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1277 port/frontend/shell/pages.cpp:1344 port/frontend/shell/settings.cpp:257
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1300 port/frontend/shell/pages.cpp:1367 port/frontend/shell/settings.cpp:257
 msgid "Version"
 msgstr "Verze"
 
 #. a title's version to install ({0}), and the one installed now ({1})
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1344
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1367
 msgid "v{0}, not installed yet"
 msgstr "v{0}, zatím nenainstalováno"
 
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1345
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1368
 msgid "v{0}, v{1} installed now"
 msgstr "v{0}, teď je nainstalována v{1}"
 
@@ -3783,7 +3809,7 @@ msgid "Earlier"
 msgstr "Dříve"
 
 #. how many games the Library has
-#: port/frontend/shell/library.cpp:682 port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/library.cpp:682 port/frontend/shell/pages.cpp:1317
 msgid "{0} game"
 msgid_plural "{0} games"
 msgstr[0] "{0} hra"
@@ -3966,81 +3992,91 @@ msgstr "Výchozí tlačítka, vibrace, pohyb a mrtvé zóny tohoto ovladače. Po
 
 #. {0} is the player's number, {1} an emulated controller (Wii U GamePad)
 #. Settings > Controls: a row that opens the buttons' settings (each button, the defaults)
-#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:633 port/frontend/shell/pages.cpp:830 port/frontend/shell/pages.cpp:836 port/frontend/shell/settings.cpp:877 port/frontend/shell/settings.cpp:929
+#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:648 port/frontend/shell/pages.cpp:853 port/frontend/shell/pages.cpp:859 port/frontend/shell/settings.cpp:877 port/frontend/shell/settings.cpp:929
 msgid "Buttons"
 msgstr "Tlačítka"
 
-#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938
+#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:649 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938
 msgid "Reset to defaults"
 msgstr "Obnovit výchozí"
 
-#. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:592 port/frontend/shell/settings.cpp:893
+#: port/frontend/shell/pages.cpp:456
+msgid "Real Wii Remote: an original Wii Remote or Wii Remote Plus through a Mayflash DolphinBar set to mode 4 in one of the PS5's USB ports, with its own pointer, motion, rumble and Nunchuk. The players with one take the Remotes in their order: the first of them the first Remote found."
+msgstr "Skutečný Wii Remote: originální Wii Remote nebo Wii Remote Plus přes Mayflash DolphinBar v režimu 4 v jednom z portů USB konzole PS5, s vlastním ukazatelem, pohybem, vibracemi a Nunchukem. Hráči, kteří ho mají, dostávají ovladače v pořadí: první z nich první nalezený."
+
+#: port/frontend/shell/pages.cpp:501 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:893
 msgid "Player {0}"
 msgstr "Hráč {0}"
 
-#: port/frontend/shell/pages.cpp:566
+#: port/frontend/shell/pages.cpp:578
 msgid "Touchpad click: {0}"
 msgstr "Kliknutí na dotykovou plochu: {0}"
 
-#. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:592
+#: port/frontend/shell/pages.cpp:605
 msgid "Controllers"
 msgstr "Ovladače"
 
-#: port/frontend/shell/pages.cpp:593
+#: port/frontend/shell/pages.cpp:606
+msgid "{0}, found through the DolphinBar"
+msgstr "{0}, nalezen přes DolphinBar"
+
+#: port/frontend/shell/pages.cpp:607
+msgid "{0}: none found yet. Plug a DolphinBar set to mode 4 into the PS5 and sync a Wii Remote to it."
+msgstr "{0}: zatím žádný nenalezen. Připojte k PS5 DolphinBar v režimu 4 a spárujte s ním Wii Remote."
+
+#: port/frontend/shell/pages.cpp:608
 msgid "{0}, on this player's DualSense"
 msgstr "{0}, na DualSense tohoto hráče"
 
-#: port/frontend/shell/pages.cpp:594
+#: port/frontend/shell/pages.cpp:609
 msgid "{0}, on a DualSense that is not connected"
 msgstr "{0}, na nepřipojeném DualSense"
 
-#: port/frontend/shell/pages.cpp:596
+#: port/frontend/shell/pages.cpp:611
 msgid "What the game sees in this player's hands."
 msgstr "Co hra vidí v rukou tohoto hráče."
 
-#: port/frontend/shell/pages.cpp:598
+#: port/frontend/shell/pages.cpp:613
 msgid "The DualSense's motion as the controller's."
 msgstr "Pohyb DualSense jako pohyb ovladače."
 
-#: port/frontend/shell/pages.cpp:600
+#: port/frontend/shell/pages.cpp:615
 msgid "The {0} has no motion sensors. For motion, choose the GamePad or a Wii Remote."
 msgstr "{0} nemá snímače pohybu. Pro pohyb zvolte GamePad nebo Wii Remote."
 
-#: port/frontend/shell/pages.cpp:606
+#: port/frontend/shell/pages.cpp:621
 msgid "How strongly the DualSense rumbles."
 msgstr "Jak silně DualSense vibruje."
 
-#: port/frontend/shell/pages.cpp:609
+#: port/frontend/shell/pages.cpp:624
 msgid "How far the left stick moves before it counts."
 msgstr "Jak daleko se levá páčka pohne, než se to počítá."
 
-#: port/frontend/shell/pages.cpp:612
+#: port/frontend/shell/pages.cpp:627
 msgid "How far the right stick moves before it counts."
 msgstr "Jak daleko se pravá páčka pohne, než se to počítá."
 
-#: port/frontend/shell/pages.cpp:617
+#: port/frontend/shell/pages.cpp:632
 msgid "The Wii Remote's buttons are under Buttons."
 msgstr "Tlačítka Wii Remote jsou v části Tlačítka."
 
-#: port/frontend/shell/pages.cpp:618
+#: port/frontend/shell/pages.cpp:633
 msgid "Where A is: on Circle, as on the Wii U, or on Cross."
 msgstr "Kde je A: na Kolečku, jako na Wii U, nebo na Křížku."
 
-#: port/frontend/shell/pages.cpp:621
+#: port/frontend/shell/pages.cpp:636
 msgid "Your own"
 msgstr "Vlastní"
 
-#: port/frontend/shell/pages.cpp:629
+#: port/frontend/shell/pages.cpp:644
 msgid "The click presses the button set to Touchpad click."
 msgstr "Kliknutí stiskne tlačítko přiřazené ke Kliknutí na dotykovou plochu."
 
-#: port/frontend/shell/pages.cpp:629
+#: port/frontend/shell/pages.cpp:644
 msgid "The click touches the GamePad's screen."
 msgstr "Kliknutí se dotkne obrazovky GamePadu."
 
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:875 port/frontend/shell/settings.cpp:928
+#: port/frontend/shell/pages.cpp:648 port/frontend/shell/settings.cpp:875 port/frontend/shell/settings.cpp:928
 msgid "{0} button set"
 msgid_plural "{0} buttons set"
 msgstr[0] "Nastaveno {0} tlačítko"
@@ -4048,80 +4084,80 @@ msgstr[1] "Nastavena {0} tlačítka"
 msgstr[2] "Nastaveno {0} tlačítek"
 
 #. Settings > Controls > Buttons: the row that opens the list of every button and the DualSense button on it
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:880 port/frontend/shell/settings.cpp:932
+#: port/frontend/shell/pages.cpp:648 port/frontend/shell/settings.cpp:880 port/frontend/shell/settings.cpp:932
 msgid "Which DualSense button presses each button."
 msgstr "Které tlačítko DualSense stiskne každé tlačítko."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:634 port/frontend/shell/pages.cpp:1540 port/frontend/shell/pages.cpp:1544 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "Držet Křížek"
 
-#: port/frontend/shell/pages.cpp:635
+#: port/frontend/shell/pages.cpp:650
 msgid "The default buttons, vibration, motion and deadzones."
 msgstr "Výchozí tlačítka, vibrace, pohyb a mrtvé zóny."
 
-#: port/frontend/shell/pages.cpp:667 port/frontend/shell/shares.cpp:245
+#: port/frontend/shell/pages.cpp:690 port/frontend/shell/shares.cpp:245
 msgid "Connected"
 msgstr "Připojeno"
 
-#: port/frontend/shell/pages.cpp:667
+#: port/frontend/shell/pages.cpp:690
 msgid "No DualSense"
 msgstr "Žádný DualSense"
 
-#: port/frontend/shell/pages.cpp:747 port/frontend/shell/pages.cpp:810
+#: port/frontend/shell/pages.cpp:770 port/frontend/shell/pages.cpp:833
 msgid "Done."
 msgstr "Hotovo."
 
-#: port/frontend/shell/pages.cpp:747
+#: port/frontend/shell/pages.cpp:770
 msgid "Cleared: no DualSense button is this one now."
 msgstr "Vymazáno: žádné tlačítko DualSense teď není tímto."
 
-#: port/frontend/shell/pages.cpp:787
+#: port/frontend/shell/pages.cpp:810
 msgid "No button was pressed, so it stays as it was."
 msgstr "Žádné tlačítko nebylo stisknuto, takže zůstává, jak bylo."
 
-#: port/frontend/shell/pages.cpp:794 port/frontend/shell/pages.cpp:801
+#: port/frontend/shell/pages.cpp:817 port/frontend/shell/pages.cpp:824
 msgid "Cancelled: it stays as it was."
 msgstr "Zrušeno: zůstává, jak bylo."
 
-#: port/frontend/shell/pages.cpp:817
+#: port/frontend/shell/pages.cpp:840
 msgid "Done. The touchpad's click is now a button for this player, not a touch of the GamePad's screen: their Touchpad click setting changes it back."
 msgstr "Hotovo. Kliknutí na dotykovou plochu je teď pro tohoto hráče tlačítko, ne dotyk obrazovky GamePadu: jeho nastavení Kliknutí na dotykovou plochu to vrátí."
 
-#: port/frontend/shell/pages.cpp:831
+#: port/frontend/shell/pages.cpp:854
 msgid "Which DualSense button presses each {0} button"
 msgstr "Které tlačítko DualSense stiskne každé tlačítko {0}"
 
-#: port/frontend/shell/pages.cpp:837
+#: port/frontend/shell/pages.cpp:860
 msgid "Player {0}: the DualSense's buttons for the {1}"
 msgstr "Hráč {0}: tlačítka DualSense pro {1}"
 
-#: port/frontend/shell/pages.cpp:848 port/frontend/shell/pages.cpp:866
+#: port/frontend/shell/pages.cpp:871 port/frontend/shell/pages.cpp:889
 msgid "Not set"
 msgstr "Nenastaveno"
 
-#: port/frontend/shell/pages.cpp:859
+#: port/frontend/shell/pages.cpp:882
 msgid "This button"
 msgstr "Toto tlačítko"
 
-#: port/frontend/shell/pages.cpp:866
+#: port/frontend/shell/pages.cpp:889
 msgid "Press a button"
 msgstr "Stiskněte tlačítko"
 
 #. {0} is a button of the Wii U's or the 3DS's controller
-#: port/frontend/shell/pages.cpp:873
+#: port/frontend/shell/pages.cpp:896
 msgid "Press the DualSense button, trigger or stick direction for {0} now."
 msgstr "Stiskněte teď tlačítko, spoušť nebo směr páčky DualSense pro {0}."
 
-#: port/frontend/shell/pages.cpp:875
+#: port/frontend/shell/pages.cpp:898
 msgid "{0} second left; then it stays as it was. The touchpad's click counts too."
 msgid_plural "{0} seconds left; then it stays as it was. The touchpad's click counts too."
 msgstr[0] "Zbývá {0} sekunda; pak zůstane, jak bylo. Kliknutí na dotykovou plochu se také počítá."
 msgstr[1] "Zbývají {0} sekundy; pak zůstane, jak bylo. Kliknutí na dotykovou plochu se také počítá."
 msgstr[2] "Zbývá {0} sekund; pak zůstane, jak bylo. Kliknutí na dotykovou plochu se také počítá."
 
-#: port/frontend/shell/pages.cpp:877
+#: port/frontend/shell/pages.cpp:900
 msgid "{0} second left. A touchpad click cancels."
 msgid_plural "{0} seconds left. A touchpad click cancels."
 msgstr[0] "Zbývá {0} sekunda. Kliknutí na dotykovou plochu zruší."
@@ -4129,7 +4165,7 @@ msgstr[1] "Zbývají {0} sekundy. Kliknutí na dotykovou plochu zruší."
 msgstr[2] "Zbývá {0} sekund. Kliknutí na dotykovou plochu zruší."
 
 #. a Switch button's mapping: each is on a DualSense button (the touchpad's click too), never on none
-#: port/frontend/shell/pages.cpp:883
+#: port/frontend/shell/pages.cpp:906
 msgid ""
 "Cross, then a DualSense button or the touchpad's click: it becomes this one. If another button already had it, the two swap.\n"
 "Square puts its default back."
@@ -4137,7 +4173,7 @@ msgstr ""
 "Křížek, pak tlačítko DualSense nebo kliknutí touchpadu: stane se tímto. Pokud ho už mělo jiné tlačítko, obě se prohodí.\n"
 "Čtvereček vrátí jeho výchozí."
 
-#: port/frontend/shell/pages.cpp:885
+#: port/frontend/shell/pages.cpp:908
 msgid ""
 "Cross, then a DualSense button, trigger or stick direction: it becomes this one. If another button already had it, the two swap.\n"
 "Square clears it."
@@ -4145,48 +4181,48 @@ msgstr ""
 "Křížek, pak tlačítko, spoušť nebo směr páčky DualSense: stane se tímto. Pokud ho už mělo jiné tlačítko, obě se prohodí.\n"
 "Čtvereček ho vymaže."
 
-#: port/frontend/shell/pages.cpp:991
+#: port/frontend/shell/pages.cpp:1014
 msgid "Cancelling: what it copied is removed…"
 msgstr "Rušení: zkopírované se odstraňuje…"
 
-#: port/frontend/shell/pages.cpp:996
+#: port/frontend/shell/pages.cpp:1019
 msgid "Cancelling: what was installed before is put back…"
 msgstr "Rušení: předchozí instalace se obnovuje…"
 
-#: port/frontend/shell/pages.cpp:1023
+#: port/frontend/shell/pages.cpp:1046
 msgid "This drive cannot be opened."
 msgstr "Tento disk nelze otevřít."
 
-#: port/frontend/shell/pages.cpp:1060
+#: port/frontend/shell/pages.cpp:1083
 msgid "This folder cannot be opened."
 msgstr "Tuto složku nelze otevřít."
 
-#: port/frontend/shell/pages.cpp:1117
+#: port/frontend/shell/pages.cpp:1140
 msgid "The folder could not be saved. Please try again."
 msgstr "Složku se nepodařilo uložit. Zkuste to znovu."
 
-#: port/frontend/shell/pages.cpp:1118
+#: port/frontend/shell/pages.cpp:1141
 msgid "Saved. Playtendoh is looking for games there."
 msgstr "Uloženo. Playtendoh tam hledá hry."
 
-#: port/frontend/shell/pages.cpp:1119
+#: port/frontend/shell/pages.cpp:1142
 msgid "Saved. That side looks for games there when it opens."
 msgstr "Uloženo. Tato strana tam bude hledat hry, když se otevře."
 
-#: port/frontend/shell/pages.cpp:1122
+#: port/frontend/shell/pages.cpp:1145
 msgid "Looking for games in {0}"
 msgstr "Hledání her v {0}"
 
-#: port/frontend/shell/pages.cpp:1127
+#: port/frontend/shell/pages.cpp:1150
 msgid "Choose a CIA file first."
 msgstr "Nejdřív vyberte soubor CIA."
 
-#: port/frontend/shell/pages.cpp:1140
+#: port/frontend/shell/pages.cpp:1163
 msgid "Cemu did not start, so nothing can be installed."
 msgstr "Cemu se nespustil, takže nelze nic nainstalovat."
 
 #. {0} is a percentage, {1} and {2} sizes (2.4 GB)
-#: port/frontend/shell/pages.cpp:1160
+#: port/frontend/shell/pages.cpp:1183
 msgid ""
 "Installing: {0}, {1} of {2}.\n"
 "\n"
@@ -4196,204 +4232,204 @@ msgstr ""
 "\n"
 "Kolečko zruší."
 
-#: port/frontend/shell/pages.cpp:1162
+#: port/frontend/shell/pages.cpp:1185
 msgid "Installing: counting the files…"
 msgstr "Instalace: počítání souborů…"
 
-#: port/frontend/shell/pages.cpp:1172
+#: port/frontend/shell/pages.cpp:1195
 msgid "Installed. The library has it with its game."
 msgstr "Nainstalováno. Knihovna to ukazuje u jeho hry."
 
-#: port/frontend/shell/pages.cpp:1178
+#: port/frontend/shell/pages.cpp:1201
 msgid "Cancelled. What it copied was removed, with any earlier copy of the same title: install it again to play it. Its saves are kept."
 msgstr "Zrušeno. Zkopírované bylo odstraněno, spolu s dřívější kopií stejného titulu: pro hraní ho nainstalujte znovu. Jeho uložené pozice zůstaly."
 
-#: port/frontend/shell/pages.cpp:1181
+#: port/frontend/shell/pages.cpp:1204
 msgid "Cancelled. What was installed before is as it was."
 msgstr "Zrušeno. Předchozí instalace zůstala, jak byla."
 
-#: port/frontend/shell/pages.cpp:1193 port/frontend/shell/setup.cpp:187 port/frontend/shell/setup.cpp:195
+#: port/frontend/shell/pages.cpp:1216 port/frontend/shell/setup.cpp:187 port/frontend/shell/setup.cpp:195
 msgid "{0} games"
 msgstr "Hry {0}"
 
-#: port/frontend/shell/pages.cpp:1194 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1217 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "3DS games"
 msgstr "Hry pro 3DS"
 
-#: port/frontend/shell/pages.cpp:1195 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1218 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "DS games"
 msgstr "Hry DS"
 
-#: port/frontend/shell/pages.cpp:1196 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1219 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "Switch games"
 msgstr "Hry pro Switch"
 
-#: port/frontend/shell/pages.cpp:1197 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1220 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "Wii U games"
 msgstr "Hry pro Wii U"
 
-#: port/frontend/shell/pages.cpp:1198
+#: port/frontend/shell/pages.cpp:1221
 msgid "Install CIA files"
 msgstr "Instalovat soubory CIA"
 
-#: port/frontend/shell/pages.cpp:1198
+#: port/frontend/shell/pages.cpp:1221
 msgid "Install updates and DLC"
 msgstr "Instalovat aktualizace a DLC"
 
-#: port/frontend/shell/pages.cpp:1199
+#: port/frontend/shell/pages.cpp:1222
 msgid "Choose a CIA file: a game, an update or DLC"
 msgstr "Vyberte soubor CIA: hru, aktualizaci nebo DLC"
 
-#: port/frontend/shell/pages.cpp:1200
+#: port/frontend/shell/pages.cpp:1223
 msgid "Choose a folder with an update, DLC or game (code, content and meta)"
 msgstr "Vyberte složku s aktualizací, DLC nebo hrou (code, content a meta)"
 
-#: port/frontend/shell/pages.cpp:1201
+#: port/frontend/shell/pages.cpp:1224
 msgid "Choose the folder that holds your {0} games"
 msgstr "Vyberte složku s vašimi hrami {0}"
 
-#: port/frontend/shell/pages.cpp:1202
+#: port/frontend/shell/pages.cpp:1225
 msgid "Choose the folder that holds your 3DS games"
 msgstr "Vyberte složku s vašimi hrami pro 3DS"
 
-#: port/frontend/shell/pages.cpp:1203
+#: port/frontend/shell/pages.cpp:1226
 msgid "Choose the folder that holds your DS games"
 msgstr "Vyberte složku s vašimi hrami DS"
 
-#: port/frontend/shell/pages.cpp:1204
+#: port/frontend/shell/pages.cpp:1227
 msgid "Choose the folder that holds your Switch games"
 msgstr "Vyberte složku s vašimi hrami pro Switch"
 
-#: port/frontend/shell/pages.cpp:1205
+#: port/frontend/shell/pages.cpp:1228
 msgid "Choose the folder that holds your Wii U games"
 msgstr "Vyberte složku s vašimi hrami pro Wii U"
 
-#: port/frontend/shell/pages.cpp:1218
+#: port/frontend/shell/pages.cpp:1241
 msgid "PS5"
 msgstr "PS5"
 
-#: port/frontend/shell/pages.cpp:1236
+#: port/frontend/shell/pages.cpp:1259
 msgid "This folder is empty."
 msgstr "Tato složka je prázdná."
 
-#: port/frontend/shell/pages.cpp:1244
+#: port/frontend/shell/pages.cpp:1267
 msgid "Parent folder"
 msgstr "Nadřazená složka"
 
-#: port/frontend/shell/pages.cpp:1246
+#: port/frontend/shell/pages.cpp:1269
 msgid "Drive"
 msgstr "Disk"
 
-#: port/frontend/shell/pages.cpp:1275 port/frontend/shell/pages.cpp:1341
+#: port/frontend/shell/pages.cpp:1298 port/frontend/shell/pages.cpp:1364
 msgctxt "kind"
 msgid "Type"
 msgstr "Typ"
 
-#: port/frontend/shell/pages.cpp:1275
+#: port/frontend/shell/pages.cpp:1298
 msgid "A folder"
 msgstr "Složka"
 
-#: port/frontend/shell/pages.cpp:1280
+#: port/frontend/shell/pages.cpp:1303
 msgid "Triangle installs it into the 3DS's storage: an update or DLC goes with its game, and a game joins the library."
 msgstr "Trojúhelník to nainstaluje do úložiště 3DS: aktualizace nebo DLC patří ke své hře a hra přibude v knihovně."
 
-#: port/frontend/shell/pages.cpp:1281
+#: port/frontend/shell/pages.cpp:1304
 msgid "Choose a CIA file to install: a game, an update or DLC."
 msgstr "Vyberte soubor CIA k instalaci: hru, aktualizaci nebo DLC."
 
-#: port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/pages.cpp:1317
 msgid "Games here"
 msgstr "Hry zde"
 
-#: port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/pages.cpp:1317
 msgid "Cannot be read"
 msgstr "Nelze číst"
 
 #. Settings > Game files' Keys and firmware row, its value when the firmware is missing and the keys are there
-#: port/frontend/shell/pages.cpp:1301 port/frontend/shell/pages.cpp:1308 port/frontend/shell/settings.cpp:1106 port/frontend/shell/settings.cpp:1121
+#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/pages.cpp:1331 port/frontend/shell/settings.cpp:1106 port/frontend/shell/settings.cpp:1121
 msgid "Found"
 msgstr "Nalezen"
 
-#: port/frontend/shell/pages.cpp:1308
+#: port/frontend/shell/pages.cpp:1331
 msgid "Missing: Eden cannot read Switch games without it"
 msgstr "Chybí: bez něj Eden hry pro Switch nepřečte"
 
-#: port/frontend/shell/pages.cpp:1314 port/frontend/shell/settings.cpp:1061
+#: port/frontend/shell/pages.cpp:1337 port/frontend/shell/settings.cpp:1061
 msgid "Your DS's BIOS"
 msgstr "BIOS vaší DS"
 
-#: port/frontend/shell/pages.cpp:1314
+#: port/frontend/shell/pages.cpp:1337
 msgid "Found in melonds/bios"
 msgstr "Nalezen v melonds/bios"
 
-#: port/frontend/shell/pages.cpp:1314
+#: port/frontend/shell/pages.cpp:1337
 msgid "Not there (melonDS's built-in BIOS runs most games)"
 msgstr "Chybí (vestavěný BIOS melonDS spustí většinu her)"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/pages.cpp:1321
+#: port/frontend/shell/pages.cpp:1344
 msgid "Found in {0}"
 msgstr "Nalezen v {0}"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/pages.cpp:1321
+#: port/frontend/shell/pages.cpp:1344
 msgid "Missing (only .wud/.wux need it)"
 msgstr "Chybí (potřebují ho jen .wud/.wux)"
 
-#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/shell.cpp:2382 port/frontend/shell/shell.cpp:2409
+#: port/frontend/shell/pages.cpp:1347 port/frontend/shell/shell.cpp:2382 port/frontend/shell/shell.cpp:2409
 msgid "In use"
 msgstr "Používá se"
 
-#: port/frontend/shell/pages.cpp:1328
+#: port/frontend/shell/pages.cpp:1351
 msgid "Games can be .3ds or .cci, .cxi or .3dsx, decrypted, alone or in .zip, .7z or .rar archives, and .cia files, here or in the folders in it. Triangle uses the folder shown."
 msgstr "Hry mohou být .3ds nebo .cci, .cxi nebo .3dsx, dešifrované, samotné nebo v archivech .zip, .7z či .rar, a soubory .cia, tady nebo v podsložkách. Trojúhelník použije zobrazenou složku."
 
-#: port/frontend/shell/pages.cpp:1330
+#: port/frontend/shell/pages.cpp:1353
 msgid "Games are .nds files, alone or in .zip, .7z or .rar archives, here or in the folders in it. Triangle uses the folder shown."
 msgstr "Hry jsou soubory .nds, samotné nebo v archivech .zip, .7z či .rar, zde nebo v podsložkách. Trojúhelník použije zobrazenou složku."
 
-#: port/frontend/shell/pages.cpp:1331
+#: port/frontend/shell/pages.cpp:1354
 msgid "Games are .nsp and .xci files, here or each in a folder of its own with its update and DLC. Network shares are out of Eden's reach. Triangle uses the folder shown."
 msgstr "Hry jsou soubory .nsp a .xci, zde nebo každá ve vlastní složce s její aktualizací a DLC. Síťová úložiště jsou mimo dosah Edenu. Trojúhelník použije zobrazenou složku."
 
-#: port/frontend/shell/pages.cpp:1333
+#: port/frontend/shell/pages.cpp:1356
 msgid "Games can be .wua, .wud, .wux, or folders with code, content and meta, alone or in .zip, .7z or .rar archives. Triangle uses the folder shown."
 msgstr "Hry mohou být .wua, .wud, .wux nebo složky s code, content a meta, samotné nebo v archivech .zip, .7z či .rar. Trojúhelník použije zobrazenou složku."
 
-#: port/frontend/shell/pages.cpp:1341
+#: port/frontend/shell/pages.cpp:1364
 msgid "Nothing to install"
 msgstr "Nic k instalaci"
 
-#: port/frontend/shell/pages.cpp:1349
+#: port/frontend/shell/pages.cpp:1372
 msgid "Triangle installs it into the Wii U's storage (mlc01). Updates and DLC in the game files folder work as they are, too."
 msgstr "Trojúhelník to nainstaluje do úložiště Wii U (mlc01). Aktualizace a DLC ve složce s hrami fungují i tak, jak jsou."
 
-#: port/frontend/shell/pages.cpp:1358
+#: port/frontend/shell/pages.cpp:1381
 msgid "This folder"
 msgstr "Tato složka"
 
 #. {0} is a 3DS's network address
-#: port/frontend/shell/pages.cpp:1414
+#: port/frontend/shell/pages.cpp:1437
 msgid "Connecting to {0}"
 msgstr "Připojování k {0}"
 
-#: port/frontend/shell/pages.cpp:1427
+#: port/frontend/shell/pages.cpp:1450
 msgid "Artic Setup Tool"
 msgstr "Artic Setup Tool"
 
-#: port/frontend/shell/pages.cpp:1506 port/frontend/shell/pages.cpp:1517 port/frontend/shell/settings.cpp:1353 port/frontend/shell/setup.cpp:278
+#: port/frontend/shell/pages.cpp:1529 port/frontend/shell/pages.cpp:1540 port/frontend/shell/settings.cpp:1353 port/frontend/shell/setup.cpp:278
 msgid "Artic Base"
 msgstr "Artic Base"
 
-#: port/frontend/shell/pages.cpp:1517
+#: port/frontend/shell/pages.cpp:1540
 msgid "Play a game from your 3DS over your network, or set Azahar up from it"
 msgstr "Hrajte hru z vaší 3DS přes síť, nebo s její pomocí nastavte Azahar"
 
-#: port/frontend/shell/pages.cpp:1533
+#: port/frontend/shell/pages.cpp:1556
 msgid "3DS address"
 msgstr "Adresa 3DS"
 
-#: port/frontend/shell/pages.cpp:1534
+#: port/frontend/shell/pages.cpp:1557
 msgid ""
 "The address Artic Base shows on the 3DS's screen when it is ready.\n"
 "Cross edits it: Left and Right choose a number, Up and Down change it by 1, L1 and R1 by 10, and Cross again keeps it.\n"
@@ -4403,11 +4439,11 @@ msgstr ""
 "Křížek ji upravuje: doleva a doprava vyberou číslo, nahoru a dolů ho mění o 1, L1 a R1 o 10, a další Křížek ji uloží.\n"
 "3DS a PS5 musí být ve stejné síti."
 
-#: port/frontend/shell/pages.cpp:1536
+#: port/frontend/shell/pages.cpp:1559
 msgid "Connect and play"
 msgstr "Připojit a hrát"
 
-#: port/frontend/shell/pages.cpp:1537
+#: port/frontend/shell/pages.cpp:1560
 msgid ""
 "On the 3DS, start the Artic Base app (homebrew, from Azahar's team) and choose a game in it: the cartridge or an installed one. Then connect from here: the game plays on the PS5 from the 3DS, and its saves stay on the 3DS.\n"
 "It is only as smooth as the network: a strong Wi-Fi signal for the 3DS and a wired PS5 help."
@@ -4415,11 +4451,11 @@ msgstr ""
 "Na 3DS spusťte aplikaci Artic Base (homebrew od týmu Azaharu) a vyberte v ní hru: kartu nebo nainstalovanou. Pak se připojte odsud: hra běží na PS5 z 3DS a její uložené pozice zůstávají na 3DS.\n"
 "Je jen tak plynulá jako síť: pomůže silný signál Wi-Fi pro 3DS a PS5 připojená kabelem."
 
-#: port/frontend/shell/pages.cpp:1540
+#: port/frontend/shell/pages.cpp:1563
 msgid "Set up from an Old 3DS"
 msgstr "Nastavit ze staré 3DS"
 
-#: port/frontend/shell/pages.cpp:1541
+#: port/frontend/shell/pages.cpp:1564
 msgid ""
 "With the Artic Setup Tool app running on an Old 3DS or 2DS: copies its system files and its own data (system settings, friend code, Mii and eShop data) into Azahar, so games that need the 3DS's system applets or files start, and the Home Menu can (Settings > System).\n"
 "That data is your console's: do not share Azahar's folder afterwards."
@@ -4427,11 +4463,11 @@ msgstr ""
 "Když na Old 3DS nebo 2DS běží aplikace Artic Setup Tool: zkopíruje její systémové soubory a vlastní data (systémové nastavení, kód přítele, data Mii a eShopu) do Azaharu, aby se spouštěly hry, které potřebují systémové applety nebo soubory 3DS, a také nabídka HOME (Nastavení > Systém).\n"
 "Ta data patří vaší konzoli: složku Azaharu pak nesdílejte."
 
-#: port/frontend/shell/pages.cpp:1544
+#: port/frontend/shell/pages.cpp:1567
 msgid "Set up from a New 3DS"
 msgstr "Nastavit z New 3DS"
 
-#: port/frontend/shell/pages.cpp:1544
+#: port/frontend/shell/pages.cpp:1567
 msgid "As above, from a New 3DS or New 2DS running the Artic Setup Tool app."
 msgstr "Jako výše, z New 3DS nebo New 2DS se spuštěnou aplikací Artic Setup Tool."
 

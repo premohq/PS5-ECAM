@@ -24,7 +24,7 @@ msgstr "Tower defense"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Nearest neighbour"
 msgstr "Nearest neighbor"
@@ -52,23 +52,23 @@ msgstr "Favorites"
 msgid "Options on a game, then Favourite, puts it here."
 msgstr "Options on a game, then Favorite, puts it here."
 
-#: port/frontend/shell/pages.cpp:794 port/frontend/shell/pages.cpp:801
+#: port/frontend/shell/pages.cpp:817 port/frontend/shell/pages.cpp:824
 msgid "Cancelled: it stays as it was."
 msgstr "Canceled: it stays as it was."
 
-#: port/frontend/shell/pages.cpp:991
+#: port/frontend/shell/pages.cpp:1014
 msgid "Cancelling: what it copied is removed…"
 msgstr "Canceling: what it copied is removed…"
 
-#: port/frontend/shell/pages.cpp:996
+#: port/frontend/shell/pages.cpp:1019
 msgid "Cancelling: what was installed before is put back…"
 msgstr "Canceling: what was installed before is put back…"
 
-#: port/frontend/shell/pages.cpp:1178
+#: port/frontend/shell/pages.cpp:1201
 msgid "Cancelled. What it copied was removed, with any earlier copy of the same title: install it again to play it. Its saves are kept."
 msgstr "Canceled. What it copied was removed, with any earlier copy of the same title: install it again to play it. Its saves are kept."
 
-#: port/frontend/shell/pages.cpp:1181
+#: port/frontend/shell/pages.cpp:1204
 msgid "Cancelled. What was installed before is as it was."
 msgstr "Canceled. What was installed before is as it was."
 

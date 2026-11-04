@@ -693,14 +693,25 @@ msgstr "Wii Remote"
 msgid "Wii Remote + Nunchuk"
 msgstr "Wii Remote + Nunchuk"
 
-#: port/app/ingame.cpp:145 port/frontend/actions.cpp:375
+#. an original Wii Remote through a DolphinBar, not the DualSense playing one
+#: port/app/ingame.cpp:143 port/frontend/actions.cpp:374
+#, menu
+msgid "Real Wii Remote"
+msgstr "Valódi Wii Remote"
+
+#: port/app/ingame.cpp:144 port/frontend/actions.cpp:375
+#, menu
+msgid "Real Wii Remote + Nunchuk"
+msgstr "Valódi Wii Remote + Nunchuk"
+
+#: port/app/ingame.cpp:147 port/frontend/actions.cpp:378
 #, menu
 msgid "No controller"
 msgstr "Nincs kontroller"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bilinear"
 msgstr "Bilineáris"
@@ -708,34 +719,34 @@ msgstr "Bilineáris"
 #. how a game's picture is scaled: the methods' names
 #. texture filters: None, then the filters' own names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/app/ingame3ds.cpp:143 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:62 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/app/ingame3ds.cpp:143 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:62 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bicubic"
 msgstr "Bikubikus"
 
 #. how a game's picture is scaled: the methods' names
-#: port/app/ingame.cpp:168 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Bicubic Hermite"
 msgstr "Bikubikus Hermite"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "Nearest neighbour"
 msgstr "Legközelebbi szomszéd"
 
 #. how a game's picture is scaled: the methods' names
 #. the Switch side's upscaling filters, as the launcher names them (Eden's order: bilinear, FSR 1, bicubic, nearest)
-#: port/app/ingame.cpp:168 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
+#: port/app/ingame.cpp:177 port/eden/ingame.cpp:77 port/frontend/shell/settings.cpp:75
 #, menu
 msgid "AMD FSR 1"
 msgstr "AMD FSR 1"
 
 #. the quick action that puts a gap between the two screens, and its state
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:1648 port/frontend/shell/switch_extras.cpp:54
+#: port/app/ingame.cpp:191 port/app/ingame.cpp:263 port/app/ingame.cpp:263 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:612 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:1648 port/frontend/shell/switch_extras.cpp:54
 #, menu
 msgid "On"
 msgstr "Be"
@@ -745,443 +756,448 @@ msgstr "Be"
 #. Settings > Online: a row that opens the box art's settings (GameTDB on or off, downloading the covers again)
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/ingame.cpp:182 port/app/ingame.cpp:254 port/app/ingame.cpp:254 port/app/ingame.cpp:280 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:597 port/frontend/shell/pages.cpp:605 port/frontend/shell/porpoise_rows.cpp:55 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:76 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:711 port/frontend/shell/settings.cpp:1331 port/frontend/shell/settings.cpp:1620 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1676 port/frontend/shell/settings.cpp:1684 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
+#: port/app/ingame.cpp:191 port/app/ingame.cpp:263 port/app/ingame.cpp:263 port/app/ingame.cpp:289 port/app/ingame3ds.cpp:477 port/app/ingame3ds.cpp:691 port/app/remote_menu.h:29 port/eden/ingame.cpp:81 port/eden/ingame.cpp:562 port/frontend/shell/pages.cpp:612 port/frontend/shell/pages.cpp:620 port/frontend/shell/porpoise_rows.cpp:55 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/porpoise_rows.cpp:187 port/frontend/shell/settings.cpp:76 port/frontend/shell/settings.cpp:498 port/frontend/shell/settings.cpp:711 port/frontend/shell/settings.cpp:1331 port/frontend/shell/settings.cpp:1620 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1676 port/frontend/shell/settings.cpp:1684 port/frontend/shell/switch_extras.cpp:54 port/frontend/shell/switch_extras.cpp:74 port/ps5/display.h:47
 #, menu
 msgid "Off"
 msgstr "Ki"
 
 #. the screens in the Wii U's menu: the TV's picture and the GamePad's
-#: port/app/ingame.cpp:184
+#: port/app/ingame.cpp:193
 #, menu
 msgid "TV"
 msgstr "TV"
 
 #. the screens in the Wii U's menu: the TV's picture and the GamePad's
-#: port/app/ingame.cpp:184
+#: port/app/ingame.cpp:193
 #, menu
 msgid "GamePad"
 msgstr "GamePad"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:185 port/app/ingame.cpp:344 port/app/ingame3ds.cpp:689 port/frontend/shell/settings.cpp:213
+#: port/app/ingame.cpp:194 port/app/ingame.cpp:364 port/app/ingame3ds.cpp:689 port/frontend/shell/settings.cpp:213
 #, menu
 msgid "Screens"
 msgstr "Képernyők"
 
-#: port/app/ingame.cpp:185 port/app/ingame.cpp:191
+#: port/app/ingame.cpp:194 port/app/ingame.cpp:200
 #, menu
 msgid "Stretched"
 msgstr "Nyújtott"
 
-#: port/app/ingame.cpp:185
+#: port/app/ingame.cpp:194
 #, menu
 msgid "Its shape"
 msgstr "Saját forma"
 
-#: port/app/ingame.cpp:186
+#: port/app/ingame.cpp:195
 #, menu
 msgid "The TV's and the GamePad's pictures, and how they fill the screen."
 msgstr "A TV és a GamePad képe, és hogy hogyan töltik ki a képernyőt."
 
 #. the 3DS's top and bottom screens
-#: port/app/ingame.cpp:187 port/app/ingame3ds.cpp:489
+#: port/app/ingame.cpp:196 port/app/ingame3ds.cpp:489
 #, menu
 msgid "Main screen"
 msgstr "Fő képernyő"
 
-#: port/app/ingame.cpp:188
+#: port/app/ingame.cpp:197
 #, menu
 msgid "Which picture fills the TV: the TV's or the GamePad's. In the game, touchpad click + L1 swaps them."
 msgstr "Melyik kép tölti ki a tévét: a TV-é vagy a GamePadé. Játék közben az érintőpanel-kattintás + L1 felcseréli őket."
 
-#: port/app/ingame.cpp:189
+#: port/app/ingame.cpp:198
 #, menu
 msgid "TV in a corner"
 msgstr "TV a sarokban"
 
-#: port/app/ingame.cpp:189
+#: port/app/ingame.cpp:198
 #, menu
 msgid "GamePad in a corner"
 msgstr "GamePad a sarokban"
 
-#: port/app/ingame.cpp:190
+#: port/app/ingame.cpp:199
 #, menu
 msgid "The other screen, small in the bottom right corner. In the game, touchpad click + R1."
 msgstr "A másik képernyő, kicsiben a jobb alsó sarokban. Játék közben: érintőpanel-kattintás + R1."
 
-#: port/app/ingame.cpp:191
+#: port/app/ingame.cpp:200
 #, menu
 msgid "Picture"
 msgstr "Kép"
 
-#: port/app/ingame.cpp:191
+#: port/app/ingame.cpp:200
 #, menu
 msgid "Its own shape"
 msgstr "Saját forma"
 
-#: port/app/ingame.cpp:192
+#: port/app/ingame.cpp:201
 #, menu
 msgid "Its own shape keeps the picture's proportions, with bars where they differ from the screen's; Stretched fills it."
 msgstr "A saját forma megtartja a kép arányait, sávokkal ott, ahol eltérnek a képernyőétől; a Nyújtott kitölti a képernyőt."
 
-#: port/app/ingame.cpp:194 port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/app/ingame3ds.cpp:528 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:211 port/frontend/shell/settings.cpp:267
+#: port/app/ingame.cpp:203 port/app/ingame3ds.cpp:511 port/app/ingame3ds.cpp:519 port/app/ingame3ds.cpp:528 port/eden/ingame.cpp:564 port/frontend/shell/settings.cpp:211 port/frontend/shell/settings.cpp:267
 #, menu
 msgid "Graphics"
 msgstr "Grafika"
 
-#: port/app/ingame.cpp:195
+#: port/app/ingame.cpp:204
 #, menu
 msgid "Upscaling, Cemu's accuracy settings and the performance overlay. Kept for the next games."
 msgstr "Felskálázás, a Cemu pontossági beállításai és a teljesítményjelző. A következő játékokra is érvényes."
 
-#: port/app/ingame.cpp:196 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:702
+#: port/app/ingame.cpp:205 port/eden/ingame.cpp:566 port/frontend/shell/settings.cpp:580 port/frontend/shell/settings.cpp:702
 #, menu
 msgid "Upscaling to 4K"
 msgstr "Felskálázás 4K-ra"
 
-#: port/app/ingame.cpp:197
+#: port/app/ingame.cpp:206
 #, menu
 msgid "How the picture is scaled to the screen: Bicubic is sharp, Hermite softer, Bilinear softer still."
 msgstr "Hogyan méreteződik a kép a képernyőre: a Bikubikus éles, a Hermite lágyabb, a Bilineáris még lágyabb."
 
-#: port/app/ingame.cpp:198
+#: port/app/ingame.cpp:207
 #, menu
 msgid "Accurate barriers"
 msgstr "Pontos korlátok"
 
-#: port/app/ingame.cpp:199
+#: port/app/ingame.cpp:208
 #, menu
 msgid "Off can raise the frame rate, but some games then flicker or show wrong shadows. It changes at once."
 msgstr "Kikapcsolva nőhet a képkockasebesség, de egyes játékok villoghatnak vagy hibás árnyékokat mutathatnak. Azonnal érvényes."
 
-#: port/app/ingame.cpp:200 port/frontend/shell/settings.cpp:626 port/frontend/shell/settings.cpp:673 port/frontend/shell/settings.cpp:1035
+#: port/app/ingame.cpp:209 port/frontend/shell/settings.cpp:626 port/frontend/shell/settings.cpp:673 port/frontend/shell/settings.cpp:1035
 #, menu
 msgid "Async shader compile"
 msgstr "Aszinkron árnyalófordítás"
 
-#: port/app/ingame.cpp:201
+#: port/app/ingame.cpp:210
 #, menu
 msgid "On, new shaders build while the game carries on: no stutter, but things may be missing for a moment."
 msgstr "Bekapcsolva az új árnyalók a játék futása közben készülnek: nincs akadás, de valami egy pillanatra hiányozhat."
 
-#: port/app/ingame.cpp:202 port/frontend/shell/settings.cpp:601
+#: port/app/ingame.cpp:211 port/frontend/shell/settings.cpp:601
 #, menu
 msgid "Frame pacing"
 msgstr "Egyenletes képkockák"
 
-#: port/app/ingame.cpp:203
+#: port/app/ingame.cpp:212
 #, menu
 msgid "Holds the game to an even rate: 60 fps for 4K at 120 Hz, 30 for 8K at 60 Hz. Off shows each frame when it is done."
 msgstr "Egyenletes tempón tartja a játékot: 60 fps 4K-hoz 120 Hz-en, 30 a 8K-hoz 60 Hz-en. Kikapcsolva minden képkocka azonnal megjelenik, amint elkészül."
 
 #. What's new: Lossless Scaling's frame generation for Switch games; Lossless.dll and MihawkGen are names, left as they are
-#: port/app/ingame.cpp:204 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:576 port/frontend/shell/porpoise_rows.cpp:73 port/frontend/shell/settings.cpp:589 port/frontend/shell/settings.cpp:607 port/frontend/shell/settings.cpp:678 port/frontend/shell/settings.cpp:746 port/frontend/shell/settings.cpp:762 port/frontend/shell/whatsnew.cpp:36
+#: port/app/ingame.cpp:213 port/app/ingame3ds.cpp:534 port/eden/ingame.cpp:576 port/frontend/shell/porpoise_rows.cpp:73 port/frontend/shell/settings.cpp:589 port/frontend/shell/settings.cpp:607 port/frontend/shell/settings.cpp:678 port/frontend/shell/settings.cpp:746 port/frontend/shell/settings.cpp:762 port/frontend/shell/whatsnew.cpp:36
 #, menu
 msgid "Frame generation"
 msgstr "Képkocka-generálás"
 
-#: port/app/ingame.cpp:205 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:577
+#: port/app/ingame.cpp:214 port/app/ingame3ds.cpp:535 port/eden/ingame.cpp:577
 #, menu
 msgid "A picture made between each two frames of a game at 30 fps, so it is shown at 60. It changes at once."
 msgstr "Egy kép készül minden két képkocka közé egy 30 fps-es játékban, így 60-nal látszik. Azonnal változik."
 
-#: port/app/ingame.cpp:206 port/frontend/shell/settings.cpp:614 port/frontend/shell/switch_extras.cpp:72
+#: port/app/ingame.cpp:215 port/frontend/shell/settings.cpp:614 port/frontend/shell/switch_extras.cpp:72
 #, menu
 msgid "ReShade"
 msgstr "ReShade"
 
-#: port/app/ingame.cpp:207
+#: port/app/ingame.cpp:216
 #, menu
 msgid "Your ReShade preset over the game's picture (Settings > Graphics says where it goes). It changes at once."
 msgstr "A ReShade-preseted a játék képén (a Beállítások > Grafika megmondja, hová kell tenni). Azonnal változik."
 
-#: port/app/ingame.cpp:208 port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:620 port/frontend/shell/settings.cpp:688 port/frontend/shell/settings.cpp:771 port/frontend/shell/settings.cpp:789
+#: port/app/ingame.cpp:217 port/app/ingame3ds.cpp:515 port/app/ingame3ds.cpp:523 port/app/ingame3ds.cpp:536 port/eden/ingame.cpp:578 port/frontend/shell/settings.cpp:620 port/frontend/shell/settings.cpp:688 port/frontend/shell/settings.cpp:771 port/frontend/shell/settings.cpp:789
 #, menu
 msgid "Performance overlay"
 msgstr "Teljesítményjelző"
 
-#: port/app/ingame.cpp:209
+#: port/app/ingame.cpp:218
 #, menu
 msgid "Frames per second, CPU and memory use in the top left corner, as Cemu shows them."
 msgstr "Képkocka/másodperc, CPU- és memóriahasználat a bal felső sarokban, ahogy a Cemu mutatja."
 
-#: port/app/ingame.cpp:210 port/frontend/shell/settings.cpp:630
+#: port/app/ingame.cpp:219 port/frontend/shell/settings.cpp:630
 #, menu
 msgid "Shader notices"
 msgstr "Árnyalóértesítések"
 
-#: port/app/ingame.cpp:211
+#: port/app/ingame.cpp:220
 #, menu
 msgid "Cemu's notes in a corner while the game builds shaders. Off hides them; they are built either way."
 msgstr "A Cemu üzenetei a sarokban, amíg a játék árnyalókat fordít. A Ki elrejti őket; az árnyalók így is lefordulnak."
 
-#: port/app/ingame.cpp:224 port/app/ingame.cpp:254
+#: port/app/ingame.cpp:233 port/app/ingame.cpp:263
 #, menu
 msgid "{0} (next start)"
 msgstr "{0} (következő indításkor)"
 
-#: port/app/ingame.cpp:225
+#: port/app/ingame.cpp:234
 #, menu
 msgid "This pack replaces textures: the game shows the change when it starts again."
 msgstr "Ez a csomag textúrákat cserél: a játék a következő indításkor mutatja a változást."
 
-#: port/app/ingame.cpp:226
+#: port/app/ingame.cpp:235
 #, menu
 msgid "Cross turns it on or off; the game shows it at once."
 msgstr "A kereszt be- vagy kikapcsolja; a játék azonnal mutatja."
 
-#: port/app/ingame.cpp:234 port/frontend/shell/pages.cpp:281 port/frontend/shell/pages.cpp:370
+#: port/app/ingame.cpp:243 port/frontend/shell/pages.cpp:281 port/frontend/shell/pages.cpp:370
 #, menu
 msgid "Preset"
 msgstr "Előbeállítás"
 
-#: port/app/ingame.cpp:236
+#: port/app/ingame.cpp:245
 #, menu
 msgid "Left and Right choose another; the game shows it at once."
 msgstr "Balra és jobbra másikat választ; a játék azonnal mutatja."
 
-#: port/app/ingame.cpp:240
+#: port/app/ingame.cpp:249
 #, menu
 msgid "None for this game"
 msgstr "Ehhez a játékhoz nincs"
 
-#: port/app/ingame.cpp:240
+#: port/app/ingame.cpp:249
 #, menu
 msgid "Reading the packs…"
 msgstr "Csomagok beolvasása…"
 
-#: port/app/ingame.cpp:241
+#: port/app/ingame.cpp:250
 #, menu
 msgid "The community graphic packs have none for this game."
 msgstr "A közösségi grafikus csomagok közt nincs ehhez a játékhoz."
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:345 port/frontend/shell/hub.cpp:242 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1882
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:365 port/frontend/shell/hub.cpp:242 port/frontend/shell/pages.cpp:305 port/frontend/shell/shell.cpp:1882
 #, menu
 msgid "Graphic packs"
 msgstr "Grafikus csomagok"
 
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:287 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:468 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:296 port/app/ingame.cpp:365 port/app/ingame3ds.cpp:468 port/eden/ingame.cpp:535 port/eden/ingame.cpp:657
 #, menu
 msgid "None"
 msgstr "Nincs"
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:243 port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1620
+#: port/app/ingame.cpp:252 port/app/ingame.cpp:289 port/frontend/shell/settings.cpp:1620
 #, menu
 msgid "{0} on"
 msgid_plural "{0} on"
 msgstr[0] "{0} bekapcsolva"
 msgstr[1] "{0} bekapcsolva"
 
-#: port/app/ingame.cpp:244
+#: port/app/ingame.cpp:253
 #, menu
 msgid "The game's community graphic packs: resolution, frame rate and mods, as Cemu's Graphic Packs window has them."
 msgstr "A játék közösségi grafikus csomagjai: felbontás, képkockasebesség és modok, ahogy a Cemu Graphic Packs ablakában."
 
-#: port/app/ingame.cpp:255
+#: port/app/ingame.cpp:264
 #, menu
 msgid "The game sees the change when it starts again: the portal is plugged in as a game starts."
 msgstr "A játék a következő indításkor látja a változást: a portál a játék indulásakor csatlakozik."
 
-#: port/app/ingame.cpp:256
+#: port/app/ingame.cpp:265
 #, menu
 msgid "Plugged in as a game starts, as in Cemu. Its figures are below while it is on."
 msgstr "A játék indulásakor csatlakozik, ahogy a Cemuban. A figurái alább láthatók, amíg be van kapcsolva."
 
-#: port/app/ingame.cpp:261 port/app/ingame3ds.cpp:653
+#: port/app/ingame.cpp:270 port/app/ingame3ds.cpp:653
 #, menu
 msgid "Empty"
 msgstr "Üres"
 
-#: port/app/ingame.cpp:270
+#: port/app/ingame.cpp:279
 #, menu
 msgid "{0} (Cross to put on)"
 msgstr "{0} (Kereszt: ráhelyezés)"
 
 #. {0} is a folder of figure dumps
-#: port/app/ingame.cpp:272
+#: port/app/ingame.cpp:281
 #, menu
 msgid "Put figure dumps in {0} to put them on here."
 msgstr "A figuradumpokat tedd ide: {0}, és itt felhelyezheted őket."
 
-#: port/app/ingame.cpp:273
+#: port/app/ingame.cpp:282
 #, menu
 msgid "Left and Right choose a figure, Cross puts it on; Empty takes the one there off."
 msgstr "A Bal és a Jobb figurát választ, a Kereszt ráhelyezi; az Üres leveszi az ott lévőt."
 
-#: port/app/ingame.cpp:278
+#: port/app/ingame.cpp:287
 #, menu
 msgid "The last figure could not be put on."
 msgstr "Az utolsó figurát nem sikerült felhelyezni."
 
 #. Settings > System on the Wii U side: a row that opens Cemu's emulated portals (Skylanders, Disney Infinity, LEGO Dimensions)
-#: port/app/ingame.cpp:280 port/frontend/shell/settings.cpp:1620
+#: port/app/ingame.cpp:289 port/frontend/shell/settings.cpp:1620
 #, menu
 msgid "USB devices"
 msgstr "USB-eszközök"
 
-#: port/app/ingame.cpp:281
+#: port/app/ingame.cpp:290
 #, menu
 msgid "Skylanders, Disney Infinity and LEGO Dimensions figures on Cemu's emulated portals, as amiibo are scanned."
 msgstr "Skylanders-, Disney Infinity- és LEGO Dimensions-figurák a Cemu emulált portálján, ahogy az amiibókat is beolvassák."
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585 port/frontend/shell/porpoise_rows.cpp:109
+#: port/app/ingame.cpp:292 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585 port/frontend/shell/porpoise_rows.cpp:109
 #, menu
 msgid "Volume"
 msgstr "Hangerő"
 
-#: port/app/ingame.cpp:283 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
+#: port/app/ingame.cpp:292 port/app/ingame3ds.cpp:555 port/eden/ingame.cpp:585
 #, menu
 msgid "The game's sound. Left and Right change it by 10%."
 msgstr "A játék hangja. Balra és jobbra 10%-kal változtatja."
 
 #. amiibo is Nintendo's name for its figures, as it writes it in the language
-#: port/app/ingame.cpp:289 port/app/ingame.cpp:295 port/app/ingame.cpp:345 port/app/ingame3ds.cpp:605 port/app/ingame3ds.cpp:606 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:298 port/app/ingame.cpp:304 port/app/ingame.cpp:365 port/app/ingame3ds.cpp:605 port/app/ingame3ds.cpp:606 port/eden/ingame.cpp:604 port/eden/ingame.cpp:611 port/eden/ingame.cpp:657
 #, menu
 msgid "Amiibo"
 msgstr "amiibo"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/app/ingame.cpp:291 port/app/ingame3ds.cpp:608 port/eden/ingame.cpp:606
+#: port/app/ingame.cpp:300 port/app/ingame3ds.cpp:608 port/eden/ingame.cpp:606
 #, menu
 msgid "Put amiibo dumps (.bin) in {0}/amiibo to scan them here."
 msgstr "Az amiibo-dumpokat (.bin) tedd a {0}/amiibo mappába, hogy itt beolvashasd őket."
 
-#: port/app/ingame.cpp:292
+#: port/app/ingame.cpp:301
 #, menu
 msgid "Left and Right choose an amiibo dump; Cross touches it to the GamePad when the game asks for one."
 msgstr "Balra és jobbra amiibo-dumpot választ; a kereszt a GamePadhez érinti, amikor a játék kéri."
 
 #. a folder of amiibo dumps, as they are shared: Kirby, Metroid...
-#: port/app/ingame.cpp:297 port/eden/ingame.cpp:613
+#: port/app/ingame.cpp:306 port/eden/ingame.cpp:613
 #, menu
 msgid "Amiibo series"
 msgstr "Amiibo-sorozat"
 
-#: port/app/ingame.cpp:298 port/eden/ingame.cpp:614
+#: port/app/ingame.cpp:307 port/eden/ingame.cpp:614
 #, menu
 msgid "Left and Right choose a series: a folder of dumps in {0}/amiibo."
 msgstr "A Bal és a Jobb sorozatot választ: egy mappát dumpokkal itt: {0}/amiibo."
 
 #. the DS's lid, closed or open
-#: port/app/ingame.cpp:303 port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:624 port/app/ingame3ds.cpp:635 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:830 port/frontend/shell/settings.cpp:216 port/frontend/shell/settings.cpp:269
+#: port/app/ingame.cpp:313 port/app/ingame3ds.cpp:616 port/app/ingame3ds.cpp:624 port/app/ingame3ds.cpp:635 port/eden/ingame.cpp:590 port/frontend/shell/pages.cpp:853 port/frontend/shell/settings.cpp:216 port/frontend/shell/settings.cpp:269
 #, menu
 msgid "Controls"
 msgstr "Irányítás"
 
-#: port/app/ingame.cpp:304
+#: port/app/ingame.cpp:314
 #, menu
 msgid "Each player's controller, motion, vibration, deadzones and A and B."
 msgstr "Minden játékos kontrollere, mozgás, rezgés, holtzónák, valamint A és B."
 
-#: port/app/ingame.cpp:305 port/frontend/shell/switch_extras.cpp:87
+#: port/app/ingame.cpp:315 port/frontend/shell/switch_extras.cpp:87
 #, menu
 msgid "Player"
 msgstr "Játékos"
 
-#: port/app/ingame.cpp:305
+#: port/app/ingame.cpp:316
+#, menu
+msgid "{0} (no Wii Remote found)"
+msgstr "{0} (nem található Wii Remote)"
+
+#: port/app/ingame.cpp:316
 #, menu
 msgid "{0} (no DualSense)"
 msgstr "{0} (nincs DualSense)"
 
-#: port/app/ingame.cpp:306
+#: port/app/ingame.cpp:317
 #, menu
 msgid "Whose controller the settings below are: Left and Right choose the player."
 msgstr "Kinek a kontrollerére vonatkoznak az alábbi beállítások: balra és jobbra választja a játékost."
 
-#: port/app/ingame.cpp:307 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:596
+#: port/app/ingame.cpp:318 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:501 port/frontend/shell/pages.cpp:611
 #, menu
 msgid "Emulated controller"
 msgstr "Emulált kontroller"
 
-#: port/app/ingame.cpp:308
+#: port/app/ingame.cpp:319
 #, menu
 msgid "What the game sees in this player's hands. Most games want the GamePad for player 1."
 msgstr "Amit a játék e játékos kezében lát. A legtöbb játék az 1. játékoshoz a GamePadet kéri."
 
-#: port/app/ingame.cpp:309 port/app/ingame3ds.cpp:636 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:597 port/frontend/shell/settings.cpp:911
+#: port/app/ingame.cpp:320 port/app/ingame3ds.cpp:636 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:612 port/frontend/shell/settings.cpp:911
 #, menu
 msgid "Motion controls"
 msgstr "Mozgásvezérlés"
 
-#: port/app/ingame.cpp:309 port/frontend/shell/pages.cpp:597
+#: port/app/ingame.cpp:320 port/frontend/shell/pages.cpp:612
 #, menu
 msgid "None on this one"
 msgstr "Ennek nincs"
 
-#: port/app/ingame.cpp:310
+#: port/app/ingame.cpp:321
 #, menu
 msgid "The DualSense's gyroscope and accelerometer, for the games that aim or steer by tilting."
 msgstr "A DualSense giroszkópja és gyorsulásmérője, azokhoz a játékokhoz, ahol döntéssel céloz vagy kormányoz az ember."
 
-#: port/app/ingame.cpp:311 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:605 port/frontend/shell/porpoise_rows.cpp:96 port/frontend/shell/settings.cpp:856
+#: port/app/ingame.cpp:322 port/eden/ingame.cpp:598 port/frontend/shell/pages.cpp:451 port/frontend/shell/pages.cpp:620 port/frontend/shell/porpoise_rows.cpp:96 port/frontend/shell/settings.cpp:856
 #, menu
 msgid "Vibration"
 msgstr "Rezgés"
 
-#: port/app/ingame.cpp:312
+#: port/app/ingame.cpp:323
 #, menu
 msgid "How strongly the DualSense rumbles. Left and Right change it by 10%."
 msgstr "Milyen erősen rezeg a DualSense. Balra és jobbra 10%-kal változtatja."
 
-#: port/app/ingame.cpp:313 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:608
+#: port/app/ingame.cpp:324 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:623
 #, menu
 msgid "Left stick deadzone"
 msgstr "Bal kar holtzónája"
 
-#: port/app/ingame.cpp:314
+#: port/app/ingame.cpp:325
 #, menu
 msgid "How far the left stick moves before the game sees it. Raise it if a character drifts."
 msgstr "Mennyit mozdul a bal kar, mielőtt a játék észreveszi. Növeld, ha egy szereplő magától megy."
 
-#: port/app/ingame.cpp:315 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:611
+#: port/app/ingame.cpp:326 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:626
 #, menu
 msgid "Right stick deadzone"
 msgstr "Jobb kar holtzónája"
 
-#: port/app/ingame.cpp:316
+#: port/app/ingame.cpp:327
 #, menu
 msgid "How far the right stick moves before the game sees it. Raise it if the camera drifts."
 msgstr "Mennyit mozdul a jobb kar, mielőtt a játék észreveszi. Növeld, ha a kamera magától forog."
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:619 port/app/ingame3ds.cpp:630 port/app/ingame3ds.cpp:640 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:617 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:58
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:619 port/app/ingame3ds.cpp:630 port/app/ingame3ds.cpp:640 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:632 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:58
 #, menu
 msgid "A and B"
 msgstr "A és B"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Circle"
 msgstr "A a körön"
 
-#: port/app/ingame.cpp:317 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:619 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
+#: port/app/ingame.cpp:328 port/app/ingame3ds.cpp:614 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:905 port/frontend/shell/welcome.cpp:59
 #, menu
 msgid "A on Cross"
 msgstr "A a kereszten"
 
-#: port/app/ingame.cpp:318
+#: port/app/ingame.cpp:329
 #, menu
 msgid "A on Circle as on the Wii U, or on Cross, with X and Y swapped to match. Every other button: Settings > Controls in the launcher."
 msgstr "A a Körön, mint a Wii U-n, vagy a Kereszten, az X és az Y ennek megfelelően felcserélve. Az összes többi gomb: Beállítások > Irányítás az indítóban."
 
-#: port/app/ingame.cpp:319 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:627 port/frontend/shell/welcome.cpp:87
+#: port/app/ingame.cpp:330 port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:642 port/frontend/shell/welcome.cpp:87
 #, menu
 msgid "Touchpad click"
 msgstr "Érintőpanel-kattintás"
 
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:320 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:331 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Touches the screen"
 msgstr "Megérinti a képernyőt"
 
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:54 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Presses a button"
 msgstr "Megnyom egy gombot"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "{0}: {1}"
 msgstr "{0}: {1}"
@@ -1190,116 +1206,126 @@ msgstr "{0}: {1}"
 #. the languages the emulated 3DS can be set to
 #. the Switch's controller types, as a game sees the DualSense (Automatic: what the game takes)
 #. what a Wii U player's touchpad click does (as Settings > Controls > Player names them)
-#: port/app/ingame.cpp:321 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/settings.cpp:51 port/frontend/shell/settings.cpp:54 port/frontend/shell/settings.cpp:127 port/frontend/shell/settings.cpp:994 port/frontend/shell/welcome.cpp:26
+#: port/app/ingame.cpp:332 port/eden/ingame.cpp:87 port/frontend/shell/pages.cpp:54 port/frontend/shell/porpoise_rows.cpp:61 port/frontend/shell/settings.cpp:51 port/frontend/shell/settings.cpp:54 port/frontend/shell/settings.cpp:127 port/frontend/shell/settings.cpp:994 port/frontend/shell/welcome.cpp:26
 #, menu
 msgid "Automatic"
 msgstr "Automatikus"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "a button"
 msgstr "egy gomb"
 
-#: port/app/ingame.cpp:321 port/frontend/shell/pages.cpp:628
+#: port/app/ingame.cpp:332 port/frontend/shell/pages.cpp:643
 #, menu
 msgid "a touch"
 msgstr "egy érintés"
 
-#: port/app/ingame.cpp:323
+#: port/app/ingame.cpp:334
 #, menu
 msgid "Touches the GamePad's screen, or presses the button set to Touchpad click (- if none is set). The shortcuts still work."
 msgstr "Megérinti a GamePad képernyőjét, vagy megnyomja az Érintőpanel-kattintáshoz rendelt gombot (- ha nincs ilyen). A gyorsbillentyűk továbbra is működnek."
 
+#: port/app/ingame.cpp:341 port/frontend/shell/pages.cpp:655
+#, menu
+msgid "Its own"
+msgstr "Saját"
+
+#: port/app/ingame.cpp:343 port/frontend/shell/pages.cpp:656
+#, menu
+msgid "A real Wii Remote has its own buttons, pointer, motion and rumble: this setting is for the DualSense."
+msgstr "A valódi Wii Remote-nak saját gombjai, mutatója, mozgásérzékelése és rezgése van: ez a beállítás a DualSense-é."
+
 #. the remote touch screen's row: which screen a phone or a tablet shows
-#: port/app/ingame.cpp:326 port/frontend/shell/settings.cpp:1639
+#: port/app/ingame.cpp:346 port/frontend/shell/settings.cpp:1639
 #, menu
 msgid "The GamePad's screen"
 msgstr "A GamePad képernyője"
 
-#: port/app/ingame.cpp:329 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:640
+#: port/app/ingame.cpp:349 port/app/ingame3ds.cpp:646 port/eden/ingame.cpp:640
 #, menu
 msgid "Quit to the home screen"
 msgstr "Kilépés a kezdőképernyőre"
 
-#: port/app/ingame.cpp:330 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:641
+#: port/app/ingame.cpp:350 port/app/ingame3ds.cpp:647 port/eden/ingame.cpp:641
 #, menu
 msgid "Leaves the game and closes Playtendoh, as its home screen tile asks. What you have not saved in the game is lost, so Cross is held."
 msgstr "Kilép a játékból és bezárja a Playtendoh-t, ahogy a játék kezdőképernyős ikonja kéri. Ami nincs elmentve a játékban, elvész, ezért a keresztet nyomva kell tartani."
 
-#: port/app/ingame.cpp:331 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:642
+#: port/app/ingame.cpp:351 port/app/ingame3ds.cpp:648 port/eden/ingame.cpp:642
 #, menu
 msgid "Quit to the library"
 msgstr "Kilépés a könyvtárba"
 
-#: port/app/ingame.cpp:332 port/app/ingame3ds.cpp:649 port/eden/ingame.cpp:643
+#: port/app/ingame.cpp:352 port/app/ingame3ds.cpp:649 port/eden/ingame.cpp:643
 #, menu
 msgid "Leaves the game for the library. What you have not saved in the game is lost, so Cross is held."
 msgstr "Kilép a játékból a könyvtárba. Ami nincs elmentve a játékban, elvész, ezért a keresztet nyomva kell tartani."
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
 #. the quick actions: big tiles at the top of the in-game menu, a word or two each
-#: port/app/ingame.cpp:344 port/app/ingame3ds.cpp:686 port/eden/ingame.cpp:655
+#: port/app/ingame.cpp:364 port/app/ingame3ds.cpp:686 port/eden/ingame.cpp:655
 #, menu
 msgid "Resume"
 msgstr "Folytatás"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:344
+#: port/app/ingame.cpp:364
 #, menu
 msgid "GamePad main"
 msgstr "GamePad nagyban"
 
 #. the quick actions: big tiles at the top of the in-game menu, a word each
-#: port/app/ingame.cpp:344
+#: port/app/ingame.cpp:364
 #, menu
 msgid "TV main"
 msgstr "TV nagyban"
 
-#: port/app/ingame.cpp:345 port/eden/ingame.cpp:657
+#: port/app/ingame.cpp:365 port/eden/ingame.cpp:657
 #, menu
 msgid "Scan"
 msgstr "Beolvasás"
 
 #. {0} is an amiibo dump's file name
-#: port/app/ingame.cpp:425 port/azahar/core.cpp:293 port/eden/ingame.cpp:548
+#: port/app/ingame.cpp:447 port/azahar/core.cpp:293 port/eden/ingame.cpp:548
 #, menu
 msgid "Scanned {0}"
 msgstr "Beolvasva: {0}"
 
 #. {0} is an amiibo dump's file name
-#: port/app/ingame.cpp:425
+#: port/app/ingame.cpp:447
 #, menu
 msgid "Not scanned (error {0})"
 msgstr "Nincs beolvasva (hiba: {0})"
 
 #. the in-game menu's badge: the game goes on behind the menu (Cemu cannot pause it)
-#: port/app/ingame.cpp:585 port/eden/ingame.cpp:792
+#: port/app/ingame.cpp:607 port/eden/ingame.cpp:792
 #, menu
 msgid "Running"
 msgstr "Fut"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1513 port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1544 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:2614 port/frontend/shell/shell.cpp:2654
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:524 port/frontend/shell/shell.cpp:1513 port/frontend/shell/shell.cpp:1517 port/frontend/shell/shell.cpp:1544 port/frontend/shell/shell.cpp:1553 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:2614 port/frontend/shell/shell.cpp:2654
 #, menu
 msgid "Choose"
 msgstr "Választás"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1526 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1583
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:523 port/frontend/shell/shell.cpp:1526 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1569 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1583
 #, menu
 msgid "Change"
 msgstr "Módosítás"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799
 #, menu
 msgid "Back to the game"
 msgstr "Vissza a játékhoz"
 
-#: port/app/ingame.cpp:595 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1527 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1570 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1576 port/frontend/shell/shell.cpp:1580 port/frontend/shell/shell.cpp:1584
+#: port/app/ingame.cpp:617 port/app/ingame3ds.cpp:850 port/eden/ingame.cpp:799 port/frontend/shell/installs.cpp:330 port/frontend/shell/shares.cpp:520 port/frontend/shell/shares.cpp:526 port/frontend/shell/shell.cpp:1527 port/frontend/shell/shell.cpp:1536 port/frontend/shell/shell.cpp:1554 port/frontend/shell/shell.cpp:1561 port/frontend/shell/shell.cpp:1562 port/frontend/shell/shell.cpp:1566 port/frontend/shell/shell.cpp:1570 port/frontend/shell/shell.cpp:1572 port/frontend/shell/shell.cpp:1576 port/frontend/shell/shell.cpp:1580 port/frontend/shell/shell.cpp:1584
 #, menu
 msgid "Back"
 msgstr "Vissza"
 
 #. the in-game menu's top: the Wii U account the game runs on ({0}: its name)
-#: port/app/ingame.cpp:639
+#: port/app/ingame.cpp:661
 #, menu
 msgid "{0}'s saves"
 msgstr "{0} mentései"
@@ -1616,7 +1642,7 @@ msgstr "Bekapcsolva: {0} / {1}"
 msgid "Achievements"
 msgstr "Teljesítmények"
 
-#: port/app/ingame3ds.cpp:588 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:841 port/frontend/shell/pages.cpp:1234 port/frontend/shell/shell.cpp:2683
+#: port/app/ingame3ds.cpp:588 port/frontend/shell/installs.cpp:377 port/frontend/shell/pages.cpp:325 port/frontend/shell/pages.cpp:864 port/frontend/shell/pages.cpp:1257 port/frontend/shell/shell.cpp:2683
 #, menu
 msgid "{0} of {1}"
 msgstr "{0} / {1}"
@@ -2293,7 +2319,7 @@ msgstr "A GitHub nem küldött kiadást"
 msgid "The download did not finish"
 msgstr "A letöltés nem fejeződött be"
 
-#: port/app/pack_updates.cpp:283 port/frontend/shell/installs.cpp:197 port/frontend/shell/pages.cpp:1183
+#: port/app/pack_updates.cpp:283 port/frontend/shell/installs.cpp:197 port/frontend/shell/pages.cpp:1206
 msgid "It could not be installed: {0}"
 msgstr "Nem sikerült telepíteni: {0}"
 
@@ -3116,262 +3142,262 @@ msgid "Extended storage {0}"
 msgstr "{0} bővített tárhely"
 
 #. what an install is
-#: port/frontend/actions.cpp:383 port/frontend/actions.cpp:462
+#: port/frontend/actions.cpp:386 port/frontend/actions.cpp:465
 msgid "Game"
 msgstr "Játék"
 
-#: port/frontend/actions.cpp:384 port/frontend/actions.cpp:463
+#: port/frontend/actions.cpp:387 port/frontend/actions.cpp:466
 msgid "Update"
 msgstr "Frissítés"
 
 #. an update found to install ({0}: its version, as 208)
-#: port/frontend/actions.cpp:385 port/frontend/actions.cpp:464 port/frontend/shell/hub.cpp:209 port/frontend/shell/installs.cpp:42 port/frontend/shell/shell.cpp:914
+#: port/frontend/actions.cpp:388 port/frontend/actions.cpp:467 port/frontend/shell/hub.cpp:209 port/frontend/shell/installs.cpp:42 port/frontend/shell/shell.cpp:914
 msgid "DLC"
 msgstr "DLC"
 
-#: port/frontend/actions.cpp:386 port/frontend/actions.cpp:466
+#: port/frontend/actions.cpp:389 port/frontend/actions.cpp:469
 msgid "System title"
 msgstr "Rendszercím"
 
-#: port/frontend/actions.cpp:465
+#: port/frontend/actions.cpp:468
 msgid "Demo"
 msgstr "Demó"
 
-#: port/frontend/actions.cpp:466
+#: port/frontend/actions.cpp:469
 msgid "Title"
 msgstr "Cím"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Cross"
 msgstr "Kereszt"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Circle"
 msgstr "Kör"
 
-#: port/frontend/actions.cpp:474
+#: port/frontend/actions.cpp:477
 msgctxt "button"
 msgid "Square"
 msgstr "Négyzet"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Triangle"
 msgstr "Háromszög"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Create"
 msgstr "Create"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Options"
 msgstr "OPTIONS"
 
-#: port/frontend/actions.cpp:475
+#: port/frontend/actions.cpp:478
 msgctxt "button"
 msgid "Touchpad"
 msgstr "Érintőpanel"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad up"
 msgstr "Iránygomb fel"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad down"
 msgstr "Iránygomb le"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad left"
 msgstr "Iránygomb balra"
 
-#: port/frontend/actions.cpp:476
+#: port/frontend/actions.cpp:479
 msgctxt "button"
 msgid "D-pad right"
 msgstr "Iránygomb jobbra"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick up"
 msgstr "Bal kar fel"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick down"
 msgstr "Bal kar le"
 
-#: port/frontend/actions.cpp:477
+#: port/frontend/actions.cpp:480
 msgctxt "button"
 msgid "Left stick left"
 msgstr "Bal kar balra"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Left stick right"
 msgstr "Bal kar jobbra"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Left stick click"
 msgstr "Bal kar lenyomása"
 
-#: port/frontend/actions.cpp:478
+#: port/frontend/actions.cpp:481
 msgctxt "button"
 msgid "Right stick up"
 msgstr "Jobb kar fel"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick down"
 msgstr "Jobb kar le"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick left"
 msgstr "Jobb kar balra"
 
-#: port/frontend/actions.cpp:479
+#: port/frontend/actions.cpp:482
 msgctxt "button"
 msgid "Right stick right"
 msgstr "Jobb kar jobbra"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Right stick click"
 msgstr "Jobb kar lenyomása"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Circle pad up"
 msgstr "Circle Pad fel"
 
-#: port/frontend/actions.cpp:480
+#: port/frontend/actions.cpp:483
 msgctxt "button"
 msgid "Circle pad down"
 msgstr "Circle Pad le"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "Circle pad left"
 msgstr "Circle Pad balra"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "Circle pad right"
 msgstr "Circle Pad jobbra"
 
-#: port/frontend/actions.cpp:481
+#: port/frontend/actions.cpp:484
 msgctxt "button"
 msgid "C-stick up"
 msgstr "C-kar fel"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick down"
 msgstr "C-kar le"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick left"
 msgstr "C-kar balra"
 
-#: port/frontend/actions.cpp:482
+#: port/frontend/actions.cpp:485
 msgctxt "button"
 msgid "C-stick right"
 msgstr "C-kar jobbra"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick up"
 msgstr "Nunchuk kar fel"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick down"
 msgstr "Nunchuk kar le"
 
-#: port/frontend/actions.cpp:483
+#: port/frontend/actions.cpp:486
 msgctxt "button"
 msgid "Nunchuk stick left"
 msgstr "Nunchuk kar balra"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk stick right"
 msgstr "Nunchuk kar jobbra"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk C"
 msgstr "Nunchuk C"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Nunchuk Z"
 msgstr "Nunchuk Z"
 
-#: port/frontend/actions.cpp:484
+#: port/frontend/actions.cpp:487
 msgctxt "button"
 msgid "Home"
 msgstr "HOME"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "Start"
 msgstr "START"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "Select"
 msgstr "SELECT"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "+ (Start)"
 msgstr "+ (START)"
 
-#: port/frontend/actions.cpp:485
+#: port/frontend/actions.cpp:488
 msgctxt "button"
 msgid "- (Select)"
 msgstr "- (SELECT)"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "Blow into the mic"
 msgstr "Fújás a mikrofonba"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "Show the GamePad's screen"
 msgstr "A GamePad képernyőjének mutatása"
 
-#: port/frontend/actions.cpp:486
+#: port/frontend/actions.cpp:489
 msgctxt "button"
 msgid "None"
 msgstr "Nincs"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Touch at the cursor"
 msgstr "Érintés a kurzornál"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Fast forward"
 msgstr "Gyorsítás"
 
-#: port/frontend/actions.cpp:490
+#: port/frontend/actions.cpp:493
 msgctxt "button"
 msgid "Fast forward, on and off"
 msgstr "Gyorsítás, be és ki"
 
-#: port/frontend/actions.cpp:491
+#: port/frontend/actions.cpp:494
 msgctxt "button"
 msgid "Rewind"
 msgstr "Visszatekerés"
@@ -3451,11 +3477,11 @@ msgstr "Korhatár"
 msgid "Publisher"
 msgstr "Kiadó"
 
-#: port/frontend/shell/hub.cpp:285 port/frontend/shell/pages.cpp:654
+#: port/frontend/shell/hub.cpp:285 port/frontend/shell/pages.cpp:677
 msgid "Players"
 msgstr "Játékosok"
 
-#: port/frontend/shell/hub.cpp:289 port/frontend/shell/installs.cpp:510 port/frontend/shell/pages.cpp:1276 port/frontend/shell/pages.cpp:1342
+#: port/frontend/shell/hub.cpp:289 port/frontend/shell/installs.cpp:510 port/frontend/shell/pages.cpp:1299 port/frontend/shell/pages.cpp:1365
 msgid "Title ID"
 msgstr "Címazonosító"
 
@@ -3495,7 +3521,7 @@ msgstr "v{0} telepítve: ez újabb"
 msgid "v{0} installed: this is older"
 msgstr "v{0} telepítve: ez régebbi"
 
-#: port/frontend/shell/installs.cpp:57 port/frontend/shell/installs.cpp:211 port/frontend/shell/pages.cpp:1175
+#: port/frontend/shell/installs.cpp:57 port/frontend/shell/installs.cpp:211 port/frontend/shell/pages.cpp:1198
 msgid "Installed"
 msgstr "Telepítve"
 
@@ -3525,7 +3551,7 @@ msgstr "Leállítás…"
 msgid "Stop"
 msgstr "Leállítás"
 
-#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1192 port/frontend/shell/shell.cpp:1580
+#: port/frontend/shell/installs.cpp:325 port/frontend/shell/pages.cpp:1215 port/frontend/shell/shell.cpp:1580
 msgid "Install"
 msgstr "Telepítés"
 
@@ -3534,7 +3560,7 @@ msgstr "Telepítés"
 msgid "Install every new one ({0})"
 msgstr "Minden új telepítése ({0})"
 
-#: port/frontend/shell/installs.cpp:329 port/frontend/shell/library.cpp:172 port/frontend/shell/pages.cpp:1198 port/frontend/shell/setup.cpp:188 port/frontend/shell/setup.cpp:213
+#: port/frontend/shell/installs.cpp:329 port/frontend/shell/library.cpp:172 port/frontend/shell/pages.cpp:1221 port/frontend/shell/setup.cpp:188 port/frontend/shell/setup.cpp:213
 msgid "Choose a folder"
 msgstr "Mappa választása"
 
@@ -3618,21 +3644,21 @@ msgstr "Várakozik"
 msgid "Runs from where it is"
 msgstr "Onnan fut, ahol van"
 
-#: port/frontend/shell/installs.cpp:502 port/frontend/shell/pages.cpp:1358
+#: port/frontend/shell/installs.cpp:502 port/frontend/shell/pages.cpp:1381
 msgid "To install"
 msgstr "Telepítendő"
 
 #. a title's version to install ({0}), and the one installed now ({1})
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1277 port/frontend/shell/pages.cpp:1344 port/frontend/shell/settings.cpp:257
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1300 port/frontend/shell/pages.cpp:1367 port/frontend/shell/settings.cpp:257
 msgid "Version"
 msgstr "Verzió"
 
 #. a title's version to install ({0}), and the one installed now ({1})
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1344
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1367
 msgid "v{0}, not installed yet"
 msgstr "v{0}, még nincs telepítve"
 
-#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1345
+#: port/frontend/shell/installs.cpp:509 port/frontend/shell/pages.cpp:1368
 msgid "v{0}, v{1} installed now"
 msgstr "v{0}, most a v{1} van telepítve"
 
@@ -3771,7 +3797,7 @@ msgid "Earlier"
 msgstr "Korábban"
 
 #. how many games the Library has
-#: port/frontend/shell/library.cpp:682 port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/library.cpp:682 port/frontend/shell/pages.cpp:1317
 msgid "{0} game"
 msgid_plural "{0} games"
 msgstr[0] "{0} játék"
@@ -3953,167 +3979,177 @@ msgstr "A kontroller alapértelmezett gombjai, rezgése, mozgása és holtzóná
 
 #. {0} is the player's number, {1} an emulated controller (Wii U GamePad)
 #. Settings > Controls: a row that opens the buttons' settings (each button, the defaults)
-#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:633 port/frontend/shell/pages.cpp:830 port/frontend/shell/pages.cpp:836 port/frontend/shell/settings.cpp:877 port/frontend/shell/settings.cpp:929
+#: port/frontend/shell/pages.cpp:452 port/frontend/shell/pages.cpp:648 port/frontend/shell/pages.cpp:853 port/frontend/shell/pages.cpp:859 port/frontend/shell/settings.cpp:877 port/frontend/shell/settings.cpp:929
 msgid "Buttons"
 msgstr "Gombok"
 
-#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:634 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938
+#: port/frontend/shell/pages.cpp:453 port/frontend/shell/pages.cpp:649 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938
 msgid "Reset to defaults"
 msgstr "Alapértékek visszaállítása"
 
-#. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:489 port/frontend/shell/pages.cpp:592 port/frontend/shell/settings.cpp:893
+#: port/frontend/shell/pages.cpp:456
+msgid "Real Wii Remote: an original Wii Remote or Wii Remote Plus through a Mayflash DolphinBar set to mode 4 in one of the PS5's USB ports, with its own pointer, motion, rumble and Nunchuk. The players with one take the Remotes in their order: the first of them the first Remote found."
+msgstr "Valódi Wii Remote: eredeti Wii Remote vagy Wii Remote Plus egy 4-es módba állított Mayflash DolphinBaron át, a PS5 egyik USB-portjában, saját mutatóval, mozgásérzékeléssel, rezgéssel és Nunchukkal. Akiknek van ilyen, azok a játékosok sorrendjükben kapják a Remote-okat: közülük az első az elsőként találtat."
+
+#: port/frontend/shell/pages.cpp:501 port/frontend/shell/pages.cpp:605 port/frontend/shell/settings.cpp:893
 msgid "Player {0}"
 msgstr "{0}. játékos"
 
-#: port/frontend/shell/pages.cpp:566
+#: port/frontend/shell/pages.cpp:578
 msgid "Touchpad click: {0}"
 msgstr "Érintőpanel-kattintás: {0}"
 
-#. {0} is an emulated controller (Wii U GamePad)
-#: port/frontend/shell/pages.cpp:592
+#: port/frontend/shell/pages.cpp:605
 msgid "Controllers"
 msgstr "Kontrollerek"
 
-#: port/frontend/shell/pages.cpp:593
+#: port/frontend/shell/pages.cpp:606
+msgid "{0}, found through the DolphinBar"
+msgstr "{0}, a DolphinBaron át megtalálva"
+
+#: port/frontend/shell/pages.cpp:607
+msgid "{0}: none found yet. Plug a DolphinBar set to mode 4 into the PS5 and sync a Wii Remote to it."
+msgstr "{0}: még nem található. Csatlakoztass egy 4-es módba állított DolphinBart a PS5-höz, és párosíts vele egy Wii Remote-ot."
+
+#: port/frontend/shell/pages.cpp:608
 msgid "{0}, on this player's DualSense"
 msgstr "{0}, ennek a játékosnak a DualSense-én"
 
-#: port/frontend/shell/pages.cpp:594
+#: port/frontend/shell/pages.cpp:609
 msgid "{0}, on a DualSense that is not connected"
 msgstr "{0}, egy nem csatlakoztatott DualSense-en"
 
-#: port/frontend/shell/pages.cpp:596
+#: port/frontend/shell/pages.cpp:611
 msgid "What the game sees in this player's hands."
 msgstr "Amit a játék e játékos kezében lát."
 
-#: port/frontend/shell/pages.cpp:598
+#: port/frontend/shell/pages.cpp:613
 msgid "The DualSense's motion as the controller's."
 msgstr "A DualSense mozgása a kontrolleré helyett."
 
-#: port/frontend/shell/pages.cpp:600
+#: port/frontend/shell/pages.cpp:615
 msgid "The {0} has no motion sensors. For motion, choose the GamePad or a Wii Remote."
 msgstr "A(z) {0} nem rendelkezik mozgásérzékelőkkel. A mozgáshoz válaszd a GamePadet vagy egy Wii Remote-ot."
 
-#: port/frontend/shell/pages.cpp:606
+#: port/frontend/shell/pages.cpp:621
 msgid "How strongly the DualSense rumbles."
 msgstr "Milyen erősen rezeg a DualSense."
 
-#: port/frontend/shell/pages.cpp:609
+#: port/frontend/shell/pages.cpp:624
 msgid "How far the left stick moves before it counts."
 msgstr "Mennyit mozdul a bal kar, mielőtt számít."
 
-#: port/frontend/shell/pages.cpp:612
+#: port/frontend/shell/pages.cpp:627
 msgid "How far the right stick moves before it counts."
 msgstr "Mennyit mozdul a jobb kar, mielőtt számít."
 
-#: port/frontend/shell/pages.cpp:617
+#: port/frontend/shell/pages.cpp:632
 msgid "The Wii Remote's buttons are under Buttons."
 msgstr "A Wii Remote gombjai a Gombok alatt vannak."
 
-#: port/frontend/shell/pages.cpp:618
+#: port/frontend/shell/pages.cpp:633
 msgid "Where A is: on Circle, as on the Wii U, or on Cross."
 msgstr "Hol van A: a Körön, mint a Wii U-n, vagy a Kereszten."
 
-#: port/frontend/shell/pages.cpp:621
+#: port/frontend/shell/pages.cpp:636
 msgid "Your own"
 msgstr "Saját"
 
-#: port/frontend/shell/pages.cpp:629
+#: port/frontend/shell/pages.cpp:644
 msgid "The click presses the button set to Touchpad click."
 msgstr "A kattintás megnyomja az Érintőpanel-kattintáshoz rendelt gombot."
 
-#: port/frontend/shell/pages.cpp:629
+#: port/frontend/shell/pages.cpp:644
 msgid "The click touches the GamePad's screen."
 msgstr "A kattintás megérinti a GamePad képernyőjét."
 
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:875 port/frontend/shell/settings.cpp:928
+#: port/frontend/shell/pages.cpp:648 port/frontend/shell/settings.cpp:875 port/frontend/shell/settings.cpp:928
 msgid "{0} button set"
 msgid_plural "{0} buttons set"
 msgstr[0] "{0} gomb beállítva"
 msgstr[1] "{0} gomb beállítva"
 
 #. Settings > Controls > Buttons: the row that opens the list of every button and the DualSense button on it
-#: port/frontend/shell/pages.cpp:633 port/frontend/shell/settings.cpp:880 port/frontend/shell/settings.cpp:932
+#: port/frontend/shell/pages.cpp:648 port/frontend/shell/settings.cpp:880 port/frontend/shell/settings.cpp:932
 msgid "Which DualSense button presses each button."
 msgstr "Melyik DualSense-gomb nyomja meg az egyes gombokat."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:634 port/frontend/shell/pages.cpp:1540 port/frontend/shell/pages.cpp:1544 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "Tartsd nyomva a keresztet"
 
-#: port/frontend/shell/pages.cpp:635
+#: port/frontend/shell/pages.cpp:650
 msgid "The default buttons, vibration, motion and deadzones."
 msgstr "Az alapértelmezett gombok, rezgés, mozgás és holtzónák."
 
-#: port/frontend/shell/pages.cpp:667 port/frontend/shell/shares.cpp:245
+#: port/frontend/shell/pages.cpp:690 port/frontend/shell/shares.cpp:245
 msgid "Connected"
 msgstr "Csatlakoztatva"
 
-#: port/frontend/shell/pages.cpp:667
+#: port/frontend/shell/pages.cpp:690
 msgid "No DualSense"
 msgstr "Nincs DualSense"
 
-#: port/frontend/shell/pages.cpp:747 port/frontend/shell/pages.cpp:810
+#: port/frontend/shell/pages.cpp:770 port/frontend/shell/pages.cpp:833
 msgid "Done."
 msgstr "Kész."
 
-#: port/frontend/shell/pages.cpp:747
+#: port/frontend/shell/pages.cpp:770
 msgid "Cleared: no DualSense button is this one now."
 msgstr "Törölve: most egyik DualSense-gomb sem ez."
 
-#: port/frontend/shell/pages.cpp:787
+#: port/frontend/shell/pages.cpp:810
 msgid "No button was pressed, so it stays as it was."
 msgstr "Nem nyomtál meg gombot, így minden maradt a régiben."
 
-#: port/frontend/shell/pages.cpp:794 port/frontend/shell/pages.cpp:801
+#: port/frontend/shell/pages.cpp:817 port/frontend/shell/pages.cpp:824
 msgid "Cancelled: it stays as it was."
 msgstr "Megszakítva: minden maradt a régiben."
 
-#: port/frontend/shell/pages.cpp:817
+#: port/frontend/shell/pages.cpp:840
 msgid "Done. The touchpad's click is now a button for this player, not a touch of the GamePad's screen: their Touchpad click setting changes it back."
 msgstr "Kész. Az érintőpanel-kattintás most gomb ennél a játékosnál, nem a GamePad képernyőjének érintése: az Érintőpanel-kattintás beállítása visszaállítja."
 
-#: port/frontend/shell/pages.cpp:831
+#: port/frontend/shell/pages.cpp:854
 msgid "Which DualSense button presses each {0} button"
 msgstr "Melyik DualSense-gomb nyomja meg az egyes {0}-gombokat"
 
-#: port/frontend/shell/pages.cpp:837
+#: port/frontend/shell/pages.cpp:860
 msgid "Player {0}: the DualSense's buttons for the {1}"
 msgstr "{0}. játékos: a DualSense gombjai ehhez: {1}"
 
-#: port/frontend/shell/pages.cpp:848 port/frontend/shell/pages.cpp:866
+#: port/frontend/shell/pages.cpp:871 port/frontend/shell/pages.cpp:889
 msgid "Not set"
 msgstr "Nincs beállítva"
 
-#: port/frontend/shell/pages.cpp:859
+#: port/frontend/shell/pages.cpp:882
 msgid "This button"
 msgstr "Ez a gomb"
 
-#: port/frontend/shell/pages.cpp:866
+#: port/frontend/shell/pages.cpp:889
 msgid "Press a button"
 msgstr "Nyomj meg egy gombot"
 
 #. {0} is a button of the Wii U's or the 3DS's controller
-#: port/frontend/shell/pages.cpp:873
+#: port/frontend/shell/pages.cpp:896
 msgid "Press the DualSense button, trigger or stick direction for {0} now."
 msgstr "Nyomd meg most a DualSense gombját, ravaszát vagy karirányát ehhez: {0}."
 
-#: port/frontend/shell/pages.cpp:875
+#: port/frontend/shell/pages.cpp:898
 msgid "{0} second left; then it stays as it was. The touchpad's click counts too."
 msgid_plural "{0} seconds left; then it stays as it was. The touchpad's click counts too."
 msgstr[0] "Még {0} másodperc; utána marad, ahogy volt. Az érintőpanel-kattintás is számít."
 msgstr[1] "Még {0} másodperc; utána marad, ahogy volt. Az érintőpanel-kattintás is számít."
 
-#: port/frontend/shell/pages.cpp:877
+#: port/frontend/shell/pages.cpp:900
 msgid "{0} second left. A touchpad click cancels."
 msgid_plural "{0} seconds left. A touchpad click cancels."
 msgstr[0] "Még {0} másodperc. Érintőpanel-kattintással megszakítható."
 msgstr[1] "Még {0} másodperc. Érintőpanel-kattintással megszakítható."
 
 #. a Switch button's mapping: each is on a DualSense button (the touchpad's click too), never on none
-#: port/frontend/shell/pages.cpp:883
+#: port/frontend/shell/pages.cpp:906
 msgid ""
 "Cross, then a DualSense button or the touchpad's click: it becomes this one. If another button already had it, the two swap.\n"
 "Square puts its default back."
@@ -4121,7 +4157,7 @@ msgstr ""
 "Kereszt, majd egy DualSense-gomb vagy az érintőpad kattintása: ez lesz ez a gomb. Ha egy másik gombnak már ez volt, a kettő felcserélődik.\n"
 "A Négyzet visszaadja az alapértelmezettet."
 
-#: port/frontend/shell/pages.cpp:885
+#: port/frontend/shell/pages.cpp:908
 msgid ""
 "Cross, then a DualSense button, trigger or stick direction: it becomes this one. If another button already had it, the two swap.\n"
 "Square clears it."
@@ -4129,48 +4165,48 @@ msgstr ""
 "Kereszt, majd egy DualSense-gomb, ravasz vagy karirány: ez lesz ez a gomb. Ha egy másik gombnak már ez volt, a kettő felcserélődik.\n"
 "A Négyzet törli."
 
-#: port/frontend/shell/pages.cpp:991
+#: port/frontend/shell/pages.cpp:1014
 msgid "Cancelling: what it copied is removed…"
 msgstr "Megszakítás: a másolt fájlok törlődnek…"
 
-#: port/frontend/shell/pages.cpp:996
+#: port/frontend/shell/pages.cpp:1019
 msgid "Cancelling: what was installed before is put back…"
 msgstr "Megszakítás: a korábbi telepítés visszaáll…"
 
-#: port/frontend/shell/pages.cpp:1023
+#: port/frontend/shell/pages.cpp:1046
 msgid "This drive cannot be opened."
 msgstr "Ez a meghajtó nem nyitható meg."
 
-#: port/frontend/shell/pages.cpp:1060
+#: port/frontend/shell/pages.cpp:1083
 msgid "This folder cannot be opened."
 msgstr "Ez a mappa nem nyitható meg."
 
-#: port/frontend/shell/pages.cpp:1117
+#: port/frontend/shell/pages.cpp:1140
 msgid "The folder could not be saved. Please try again."
 msgstr "Nem sikerült menteni a mappát. Próbáld újra."
 
-#: port/frontend/shell/pages.cpp:1118
+#: port/frontend/shell/pages.cpp:1141
 msgid "Saved. Playtendoh is looking for games there."
 msgstr "Mentve. A Playtendoh ott keres játékokat."
 
-#: port/frontend/shell/pages.cpp:1119
+#: port/frontend/shell/pages.cpp:1142
 msgid "Saved. That side looks for games there when it opens."
 msgstr "Mentve. Az az oldal ott keres majd játékokat, amikor megnyílik."
 
-#: port/frontend/shell/pages.cpp:1122
+#: port/frontend/shell/pages.cpp:1145
 msgid "Looking for games in {0}"
 msgstr "Játékok keresése itt: {0}"
 
-#: port/frontend/shell/pages.cpp:1127
+#: port/frontend/shell/pages.cpp:1150
 msgid "Choose a CIA file first."
 msgstr "Először válassz egy CIA-fájlt."
 
-#: port/frontend/shell/pages.cpp:1140
+#: port/frontend/shell/pages.cpp:1163
 msgid "Cemu did not start, so nothing can be installed."
 msgstr "A Cemu nem indult el, így semmit nem lehet telepíteni."
 
 #. {0} is a percentage, {1} and {2} sizes (2.4 GB)
-#: port/frontend/shell/pages.cpp:1160
+#: port/frontend/shell/pages.cpp:1183
 msgid ""
 "Installing: {0}, {1} of {2}.\n"
 "\n"
@@ -4180,204 +4216,204 @@ msgstr ""
 "\n"
 "A kör megszakítja."
 
-#: port/frontend/shell/pages.cpp:1162
+#: port/frontend/shell/pages.cpp:1185
 msgid "Installing: counting the files…"
 msgstr "Telepítés: fájlok számlálása…"
 
-#: port/frontend/shell/pages.cpp:1172
+#: port/frontend/shell/pages.cpp:1195
 msgid "Installed. The library has it with its game."
 msgstr "Telepítve. A könyvtár a játéka mellett mutatja."
 
-#: port/frontend/shell/pages.cpp:1178
+#: port/frontend/shell/pages.cpp:1201
 msgid "Cancelled. What it copied was removed, with any earlier copy of the same title: install it again to play it. Its saves are kept."
 msgstr "Megszakítva. A másolt fájlok törlődtek, az ugyanannak a címnek a korábbi példányával együtt: a játékhoz telepítsd újra. A mentései megmaradtak."
 
-#: port/frontend/shell/pages.cpp:1181
+#: port/frontend/shell/pages.cpp:1204
 msgid "Cancelled. What was installed before is as it was."
 msgstr "Megszakítva. A korábbi telepítés olyan, amilyen volt."
 
-#: port/frontend/shell/pages.cpp:1193 port/frontend/shell/setup.cpp:187 port/frontend/shell/setup.cpp:195
+#: port/frontend/shell/pages.cpp:1216 port/frontend/shell/setup.cpp:187 port/frontend/shell/setup.cpp:195
 msgid "{0} games"
 msgstr "{0}-játékok"
 
-#: port/frontend/shell/pages.cpp:1194 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1217 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "3DS games"
 msgstr "3DS-játékok"
 
-#: port/frontend/shell/pages.cpp:1195 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1218 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "DS games"
 msgstr "DS-játékok"
 
-#: port/frontend/shell/pages.cpp:1196 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1219 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "Switch games"
 msgstr "Switch-játékok"
 
-#: port/frontend/shell/pages.cpp:1197 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
+#: port/frontend/shell/pages.cpp:1220 port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "Wii U games"
 msgstr "Wii U-játékok"
 
-#: port/frontend/shell/pages.cpp:1198
+#: port/frontend/shell/pages.cpp:1221
 msgid "Install CIA files"
 msgstr "CIA-fájlok telepítése"
 
-#: port/frontend/shell/pages.cpp:1198
+#: port/frontend/shell/pages.cpp:1221
 msgid "Install updates and DLC"
 msgstr "Frissítések és DLC telepítése"
 
-#: port/frontend/shell/pages.cpp:1199
+#: port/frontend/shell/pages.cpp:1222
 msgid "Choose a CIA file: a game, an update or DLC"
 msgstr "Válassz egy CIA-fájlt: játékot, frissítést vagy DLC-t"
 
-#: port/frontend/shell/pages.cpp:1200
+#: port/frontend/shell/pages.cpp:1223
 msgid "Choose a folder with an update, DLC or game (code, content and meta)"
 msgstr "Válassz egy mappát frissítéssel, DLC-vel vagy játékkal (code, content és meta)"
 
-#: port/frontend/shell/pages.cpp:1201
+#: port/frontend/shell/pages.cpp:1224
 msgid "Choose the folder that holds your {0} games"
 msgstr "Válaszd ki a mappát, amelyben a {0}-játékaid vannak"
 
-#: port/frontend/shell/pages.cpp:1202
+#: port/frontend/shell/pages.cpp:1225
 msgid "Choose the folder that holds your 3DS games"
 msgstr "Válaszd ki a 3DS-játékaidat tartalmazó mappát"
 
-#: port/frontend/shell/pages.cpp:1203
+#: port/frontend/shell/pages.cpp:1226
 msgid "Choose the folder that holds your DS games"
 msgstr "Válaszd ki a DS-játékaidat tartalmazó mappát"
 
-#: port/frontend/shell/pages.cpp:1204
+#: port/frontend/shell/pages.cpp:1227
 msgid "Choose the folder that holds your Switch games"
 msgstr "Válaszd ki a Switch-játékaidat tartalmazó mappát"
 
-#: port/frontend/shell/pages.cpp:1205
+#: port/frontend/shell/pages.cpp:1228
 msgid "Choose the folder that holds your Wii U games"
 msgstr "Válaszd ki a Wii U-játékaidat tartalmazó mappát"
 
-#: port/frontend/shell/pages.cpp:1218
+#: port/frontend/shell/pages.cpp:1241
 msgid "PS5"
 msgstr "PS5"
 
-#: port/frontend/shell/pages.cpp:1236
+#: port/frontend/shell/pages.cpp:1259
 msgid "This folder is empty."
 msgstr "Ez a mappa üres."
 
-#: port/frontend/shell/pages.cpp:1244
+#: port/frontend/shell/pages.cpp:1267
 msgid "Parent folder"
 msgstr "Szülőmappa"
 
-#: port/frontend/shell/pages.cpp:1246
+#: port/frontend/shell/pages.cpp:1269
 msgid "Drive"
 msgstr "Meghajtó"
 
-#: port/frontend/shell/pages.cpp:1275 port/frontend/shell/pages.cpp:1341
+#: port/frontend/shell/pages.cpp:1298 port/frontend/shell/pages.cpp:1364
 msgctxt "kind"
 msgid "Type"
 msgstr "Típus"
 
-#: port/frontend/shell/pages.cpp:1275
+#: port/frontend/shell/pages.cpp:1298
 msgid "A folder"
 msgstr "Egy mappa"
 
-#: port/frontend/shell/pages.cpp:1280
+#: port/frontend/shell/pages.cpp:1303
 msgid "Triangle installs it into the 3DS's storage: an update or DLC goes with its game, and a game joins the library."
 msgstr "A háromszög a 3DS tárhelyére telepíti: a frissítés vagy DLC a játékához kerül, a játék pedig a könyvtárba."
 
-#: port/frontend/shell/pages.cpp:1281
+#: port/frontend/shell/pages.cpp:1304
 msgid "Choose a CIA file to install: a game, an update or DLC."
 msgstr "Válassz egy telepítendő CIA-fájlt: játékot, frissítést vagy DLC-t."
 
-#: port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/pages.cpp:1317
 msgid "Games here"
 msgstr "Itteni játékok"
 
-#: port/frontend/shell/pages.cpp:1294
+#: port/frontend/shell/pages.cpp:1317
 msgid "Cannot be read"
 msgstr "Nem olvasható"
 
 #. Settings > Game files' Keys and firmware row, its value when the firmware is missing and the keys are there
-#: port/frontend/shell/pages.cpp:1301 port/frontend/shell/pages.cpp:1308 port/frontend/shell/settings.cpp:1106 port/frontend/shell/settings.cpp:1121
+#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/pages.cpp:1331 port/frontend/shell/settings.cpp:1106 port/frontend/shell/settings.cpp:1121
 msgid "Found"
 msgstr "Megtalálva"
 
-#: port/frontend/shell/pages.cpp:1308
+#: port/frontend/shell/pages.cpp:1331
 msgid "Missing: Eden cannot read Switch games without it"
 msgstr "Hiányzik: nélküle az Eden nem tudja olvasni a Switch-játékokat"
 
-#: port/frontend/shell/pages.cpp:1314 port/frontend/shell/settings.cpp:1061
+#: port/frontend/shell/pages.cpp:1337 port/frontend/shell/settings.cpp:1061
 msgid "Your DS's BIOS"
 msgstr "A DS-ed BIOS-a"
 
-#: port/frontend/shell/pages.cpp:1314
+#: port/frontend/shell/pages.cpp:1337
 msgid "Found in melonds/bios"
 msgstr "Megtalálva itt: melonds/bios"
 
-#: port/frontend/shell/pages.cpp:1314
+#: port/frontend/shell/pages.cpp:1337
 msgid "Not there (melonDS's built-in BIOS runs most games)"
 msgstr "Nincs (a melonDS beépített BIOS-a a legtöbb játékot futtatja)"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/pages.cpp:1321
+#: port/frontend/shell/pages.cpp:1344
 msgid "Found in {0}"
 msgstr "Megtalálva itt: {0}"
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/pages.cpp:1321
+#: port/frontend/shell/pages.cpp:1344
 msgid "Missing (only .wud/.wux need it)"
 msgstr "Hiányzik (csak .wud/.wux esetén kell)"
 
-#: port/frontend/shell/pages.cpp:1324 port/frontend/shell/shell.cpp:2382 port/frontend/shell/shell.cpp:2409
+#: port/frontend/shell/pages.cpp:1347 port/frontend/shell/shell.cpp:2382 port/frontend/shell/shell.cpp:2409
 msgid "In use"
 msgstr "Használatban"
 
-#: port/frontend/shell/pages.cpp:1328
+#: port/frontend/shell/pages.cpp:1351
 msgid "Games can be .3ds or .cci, .cxi or .3dsx, decrypted, alone or in .zip, .7z or .rar archives, and .cia files, here or in the folders in it. Triangle uses the folder shown."
 msgstr "A játékok lehetnek .3ds vagy .cci, .cxi vagy .3dsx fájlok, visszafejtve, önállóan vagy .zip, .7z vagy .rar archívumban, valamint .cia fájlok, itt vagy az almappákban. A háromszög a mutatott mappát választja."
 
-#: port/frontend/shell/pages.cpp:1330
+#: port/frontend/shell/pages.cpp:1353
 msgid "Games are .nds files, alone or in .zip, .7z or .rar archives, here or in the folders in it. Triangle uses the folder shown."
 msgstr "A játékok .nds fájlok, önállóan vagy .zip, .7z vagy .rar archívumban, itt vagy az almappáiban. A Háromszög a megjelenített mappát használja."
 
-#: port/frontend/shell/pages.cpp:1331
+#: port/frontend/shell/pages.cpp:1354
 msgid "Games are .nsp and .xci files, here or each in a folder of its own with its update and DLC. Network shares are out of Eden's reach. Triangle uses the folder shown."
 msgstr "A játékok .nsp és .xci fájlok, itt vagy mindegyik a saját mappájában a frissítésével és DLC-ivel. A hálózati megosztások az Eden számára elérhetetlenek. A Háromszög a megjelenített mappát használja."
 
-#: port/frontend/shell/pages.cpp:1333
+#: port/frontend/shell/pages.cpp:1356
 msgid "Games can be .wua, .wud, .wux, or folders with code, content and meta, alone or in .zip, .7z or .rar archives. Triangle uses the folder shown."
 msgstr "A játékok lehetnek .wua, .wud, .wux fájlok, vagy code, content és meta mappák, önállóan vagy .zip, .7z vagy .rar archívumban. A háromszög a mutatott mappát választja."
 
-#: port/frontend/shell/pages.cpp:1341
+#: port/frontend/shell/pages.cpp:1364
 msgid "Nothing to install"
 msgstr "Nincs mit telepíteni"
 
-#: port/frontend/shell/pages.cpp:1349
+#: port/frontend/shell/pages.cpp:1372
 msgid "Triangle installs it into the Wii U's storage (mlc01). Updates and DLC in the game files folder work as they are, too."
 msgstr "A háromszög a Wii U tárhelyére (mlc01) telepíti. A játékok mappájában lévő frissítések és DLC-k úgy is működnek, ahogy vannak."
 
-#: port/frontend/shell/pages.cpp:1358
+#: port/frontend/shell/pages.cpp:1381
 msgid "This folder"
 msgstr "Ez a mappa"
 
 #. {0} is a 3DS's network address
-#: port/frontend/shell/pages.cpp:1414
+#: port/frontend/shell/pages.cpp:1437
 msgid "Connecting to {0}"
 msgstr "Kapcsolódás: {0}"
 
-#: port/frontend/shell/pages.cpp:1427
+#: port/frontend/shell/pages.cpp:1450
 msgid "Artic Setup Tool"
 msgstr "Artic Setup Tool"
 
-#: port/frontend/shell/pages.cpp:1506 port/frontend/shell/pages.cpp:1517 port/frontend/shell/settings.cpp:1353 port/frontend/shell/setup.cpp:278
+#: port/frontend/shell/pages.cpp:1529 port/frontend/shell/pages.cpp:1540 port/frontend/shell/settings.cpp:1353 port/frontend/shell/setup.cpp:278
 msgid "Artic Base"
 msgstr "Artic Base"
 
-#: port/frontend/shell/pages.cpp:1517
+#: port/frontend/shell/pages.cpp:1540
 msgid "Play a game from your 3DS over your network, or set Azahar up from it"
 msgstr "Játssz egy játékot a 3DS-edről a hálózaton át, vagy állítsd be vele az Azahart"
 
-#: port/frontend/shell/pages.cpp:1533
+#: port/frontend/shell/pages.cpp:1556
 msgid "3DS address"
 msgstr "A 3DS címe"
 
-#: port/frontend/shell/pages.cpp:1534
+#: port/frontend/shell/pages.cpp:1557
 msgid ""
 "The address Artic Base shows on the 3DS's screen when it is ready.\n"
 "Cross edits it: Left and Right choose a number, Up and Down change it by 1, L1 and R1 by 10, and Cross again keeps it.\n"
@@ -4387,11 +4423,11 @@ msgstr ""
 "A kereszt szerkeszti: balra és jobbra egy számot választ, fel és le 1-gyel, L1 és R1 10-zel változtatja, és még egy kereszt elmenti.\n"
 "A 3DS-nek és a PS5-nek ugyanazon a hálózaton kell lennie."
 
-#: port/frontend/shell/pages.cpp:1536
+#: port/frontend/shell/pages.cpp:1559
 msgid "Connect and play"
 msgstr "Kapcsolódás és játék"
 
-#: port/frontend/shell/pages.cpp:1537
+#: port/frontend/shell/pages.cpp:1560
 msgid ""
 "On the 3DS, start the Artic Base app (homebrew, from Azahar's team) and choose a game in it: the cartridge or an installed one. Then connect from here: the game plays on the PS5 from the 3DS, and its saves stay on the 3DS.\n"
 "It is only as smooth as the network: a strong Wi-Fi signal for the 3DS and a wired PS5 help."
@@ -4399,11 +4435,11 @@ msgstr ""
 "Indítsd el a 3DS-en az Artic Base alkalmazást (homebrew az Azahar csapatától), és válassz benne egy játékot: a kártyát vagy egy telepítettet. Aztán kapcsolódj innen: a játék a PS5-ön fut a 3DS-ről, a mentései pedig a 3DS-en maradnak.\n"
 "Csak olyan gördülékeny, mint a hálózat: segít a 3DS erős Wi-Fi-jele és a kábellel csatlakozó PS5."
 
-#: port/frontend/shell/pages.cpp:1540
+#: port/frontend/shell/pages.cpp:1563
 msgid "Set up from an Old 3DS"
 msgstr "Beállítás régi 3DS-ről"
 
-#: port/frontend/shell/pages.cpp:1541
+#: port/frontend/shell/pages.cpp:1564
 msgid ""
 "With the Artic Setup Tool app running on an Old 3DS or 2DS: copies its system files and its own data (system settings, friend code, Mii and eShop data) into Azahar, so games that need the 3DS's system applets or files start, and the Home Menu can (Settings > System).\n"
 "That data is your console's: do not share Azahar's folder afterwards."
@@ -4411,11 +4447,11 @@ msgstr ""
 "Amikor egy Old 3DS-en vagy 2DS-en fut az Artic Setup Tool alkalmazás: átmásolja a rendszerfájljait és saját adatait (rendszerbeállítások, barátkód, Mii- és eShop-adatok) az Azaharba, így elindulnak azok a játékok, amelyeknek a 3DS rendszeralkalmazásaira vagy -fájljaira van szükségük, és a HOME menü is (Beállítások > Rendszer).\n"
 "Ezek az adatok a konzolodéi: utána ne oszd meg az Azahar mappáját."
 
-#: port/frontend/shell/pages.cpp:1544
+#: port/frontend/shell/pages.cpp:1567
 msgid "Set up from a New 3DS"
 msgstr "Beállítás New 3DS-ről"
 
-#: port/frontend/shell/pages.cpp:1544
+#: port/frontend/shell/pages.cpp:1567
 msgid "As above, from a New 3DS or New 2DS running the Artic Setup Tool app."
 msgstr "Mint fent, egy Artic Setup Toolt futtató New 3DS-ről vagy New 2DS-ről."
 

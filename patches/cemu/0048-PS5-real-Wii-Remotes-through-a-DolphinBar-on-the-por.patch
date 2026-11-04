@@ -1,0 +1,138 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 13:01:06 -0500
+Subject: [PATCH] PS5: real Wii Remotes through a DolphinBar, on the port's USB
+ layer
+
+Cemu's own Wii Remote code (WiimoteControllerProvider, NativeWiimoteController) is built for the
+PS5 too: its devices come from the port's PS5HidWiimote (CEMU_PS5_PORT_DIR/cemu), Project Porpoise's
+hidapi over the console's ugen nodes, as HidapiWiimote has them on a PC through SDL.
+
+The provider is not made at start on the PS5: its three threads and its look for a DolphinBar every
+two seconds start the first time a player has a real Wii Remote, from the port's settings or a
+profile that names one (InputManager::ps5_start_wiimotes, called by ControllerFactory as well).
+---
+ CMakeLists.txt                                      |  6 ++++++
+ src/input/CMakeLists.txt                            |  2 ++
+ src/input/ControllerFactory.cpp                     |  3 +++
+ src/input/InputManager.cpp                          | 12 +++++++++++-
+ src/input/InputManager.h                            |  6 ++++++
+ src/input/api/Wiimote/WiimoteControllerProvider.cpp |  7 +++++++
+ 6 files changed, 35 insertions(+), 1 deletion(-)
+
+diff --git a/CMakeLists.txt b/CMakeLists.txt
+index 2dd815b..95ed7a4 100644
+--- a/CMakeLists.txt
++++ b/CMakeLists.txt
+@@ -237,6 +237,12 @@ if (ENABLE_HIDAPI)
+ 	add_compile_definitions(HAS_HIDAPI)
+ endif ()
+ 
++if (CEMU_PS5)
++	# real Wii Remotes through a Mayflash DolphinBar, over the console's USB nodes
++	# (CEMU_PS5_PORT_DIR/cemu/PS5HidWiimote.h), with Cemu's own Wii Remote code above them
++	set(SUPPORTS_WIIMOTE ON)
++endif ()
++
+ if(UNIX AND NOT APPLE)
+ 	if(ENABLE_FERAL_GAMEMODE)
+ 		add_compile_definitions(ENABLE_FERAL_GAMEMODE)
+diff --git a/src/input/CMakeLists.txt b/src/input/CMakeLists.txt
+index cc68f7c..b76e0e9 100644
+--- a/src/input/CMakeLists.txt
++++ b/src/input/CMakeLists.txt
+@@ -94,6 +94,8 @@ if(CEMU_PS5)
+ 		"${CEMU_PS5_PORT_DIR}/cemu/PS5PadController.h"
+ 		"${CEMU_PS5_PORT_DIR}/cemu/PS5PadControllerProvider.cpp"
+ 		"${CEMU_PS5_PORT_DIR}/cemu/PS5PadControllerProvider.h"
++		"${CEMU_PS5_PORT_DIR}/cemu/PS5HidWiimote.cpp"
++		"${CEMU_PS5_PORT_DIR}/cemu/PS5HidWiimote.h"
+ 	)
+ 	target_include_directories(CemuInput PUBLIC "${CEMU_PS5_PORT_DIR}/cemu")
+ endif()
+diff --git a/src/input/ControllerFactory.cpp b/src/input/ControllerFactory.cpp
+index 8e72141..30bff4e 100644
+--- a/src/input/ControllerFactory.cpp
++++ b/src/input/ControllerFactory.cpp
+@@ -105,6 +105,9 @@ ControllerPtr ControllerFactory::CreateController(InputAPI::Type api, std::strin
+ #if HAS_WIIMOTE
+ 	case InputAPI::Wiimote:
+ 		{
++#if defined(CEMU_PS5)
++			InputManager::instance().ps5_start_wiimotes();
++#endif
+ 			const auto index = ConvertString<uint32>(uuid);
+ 			return std::make_shared<NativeWiimoteController>(index);
+ 		}
+diff --git a/src/input/InputManager.cpp b/src/input/InputManager.cpp
+index a492742..d8de53a 100644
+--- a/src/input/InputManager.cpp
++++ b/src/input/InputManager.cpp
+@@ -46,7 +46,7 @@ InputManager::InputManager()
+ #if defined(HAS_GAMECUBE) && HAS_GAMECUBE && defined(HAS_LIBUSB)
+ 	create_provider<GameCubeControllerProvider>();
+ #endif
+-#if HAS_WIIMOTE
++#if HAS_WIIMOTE && !defined(CEMU_PS5)
+ 	create_provider<WiimoteControllerProvider>();
+ #endif
+ 
+@@ -750,6 +750,16 @@ ControllerProviderPtr InputManager::get_api_provider(InputAPI::Type api) const
+ 	return {};
+ }
+ 
++#if defined(CEMU_PS5) && HAS_WIIMOTE
++void InputManager::ps5_start_wiimotes()
++{
++	static std::mutex s_mutex;
++	std::scoped_lock lock(s_mutex);
++	if (m_api_available[InputAPI::Wiimote].empty())
++		create_provider<WiimoteControllerProvider>();
++}
++#endif
++
+ ControllerProviderPtr InputManager::get_api_provider(InputAPI::Type api, const ControllerProviderSettings& settings)
+ {
+ 	for(const auto& p : m_api_available[api])
+diff --git a/src/input/InputManager.h b/src/input/InputManager.h
+index 27e65ac..f81476a 100644
+--- a/src/input/InputManager.h
++++ b/src/input/InputManager.h
+@@ -64,6 +64,12 @@ public:
+ 	std::pair<size_t, size_t> get_controller_count() const;
+ 
+ 	bool is_api_available(InputAPI::Type api) const { return !m_api_available[api].empty(); }
++#if defined(CEMU_PS5) && defined(SUPPORTS_WIIMOTE)
++	// Real Wii Remotes' provider, made the first time a player has one (a profile names one, or the
++	// port's settings choose one): its threads and its look for a DolphinBar every two seconds run
++	// only then, not in every game.
++	void ps5_start_wiimotes();
++#endif
+ 	
+ 	ControllerProviderPtr get_api_provider(std::string_view api_name) const;
+ 	ControllerProviderPtr get_api_provider(InputAPI::Type api) const;
+diff --git a/src/input/api/Wiimote/WiimoteControllerProvider.cpp b/src/input/api/Wiimote/WiimoteControllerProvider.cpp
+index 7fa90fb..18dfad7 100644
+--- a/src/input/api/Wiimote/WiimoteControllerProvider.cpp
++++ b/src/input/api/Wiimote/WiimoteControllerProvider.cpp
+@@ -8,6 +8,9 @@
+ #ifdef HAS_BLUEZ
+ #include "input/api/Wiimote/l2cap/L2CapWiimote.h"
+ #endif
++#ifdef CEMU_PS5
++#include "PS5HidWiimote.h"
++#endif
+ 
+ #include <numbers>
+ #include <queue>
+@@ -185,6 +188,10 @@ void WiimoteControllerProvider::connectionThread()
+ #ifdef HAS_BLUEZ
+ 		const auto& l2capDevices = L2CapWiimote::get_devices();
+ 		std::ranges::move(l2capDevices, std::back_inserter(devices));
++#endif
++#ifdef CEMU_PS5
++		const auto& usbDevices = PS5HidWiimote::get_devices();
++		std::ranges::move(usbDevices, std::back_inserter(devices));
+ #endif
+ 		{
+ 			std::scoped_lock lock(m_connectedDeviceMutex);

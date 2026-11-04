@@ -451,7 +451,12 @@ namespace ps5shell
 			static const char* kNames[kPlayerRows] = {TrMark("Emulated controller"), TrMark("Motion controls"), TrMark("Vibration"),
 				TrMark("Left stick deadzone"), TrMark("Right stick deadzone"), TrMark("A and B"), TrMark("Touchpad click"), TrMark("Buttons"),
 				TrMark("Reset to defaults")};
-			OpenHelp(Tr(kNames[m_playerRow]), Tr(kHelp[m_playerRow]));
+			std::string help = Tr(kHelp[m_playerRow]);
+			if (m_playerRow == kRowType)
+				help += std::string("\n") + Tr("Real Wii Remote: an original Wii Remote or Wii Remote Plus through a Mayflash DolphinBar set to mode 4 "
+												 "in one of the PS5's USB ports, with its own pointer, motion, rumble and Nunchuk. The players with one "
+												 "take the Remotes in their order: the first of them the first Remote found.");
+			OpenHelp(Tr(kNames[m_playerRow]), help);
 			return;
 		}
 		default: break;
@@ -468,10 +473,17 @@ namespace ps5shell
 			std::vector<ps5emu::EmulatedType> list;
 			if (otherGamePads < 2)
 				list.push_back(ps5emu::EmulatedType::GamePad);
-			for (auto type : {ps5emu::EmulatedType::Pro, ps5emu::EmulatedType::Classic, ps5emu::EmulatedType::Wiimote, ps5emu::EmulatedType::Nunchuk})
+			for (auto type : {ps5emu::EmulatedType::Pro, ps5emu::EmulatedType::Classic, ps5emu::EmulatedType::Wiimote, ps5emu::EmulatedType::Nunchuk,
+					 ps5emu::EmulatedType::RealWiimote, ps5emu::EmulatedType::RealNunchuk})
 				list.push_back(type);
 			return list;
 		};
+		// a real Wii Remote's own: nothing of the DualSense's to set for it
+		if (ps5emu::IsRealWiiRemote(controls.type) && m_playerRow != kRowType && m_playerRow != kRowReset)
+		{
+			m_feedback.Play(ui::Cue::Denied);
+			return;
+		}
 		switch (m_playerRow)
 		{
 		case kRowType:
@@ -589,7 +601,10 @@ namespace ps5shell
 		const auto mappings = ps5emu::ListMappings(m_player);
 		const int mapped = (int)std::count_if(mappings.begin(), mappings.end(), [](const ps5emu::ButtonMapping& m) { return !m.input.empty(); });
 		// tr: {0} is an emulated controller (Wii U GamePad)
+		const bool realRemote = ps5emu::IsRealWiiRemote(controls.type);
 		DrawPageHeader(canvas, "Wii U · " + std::string(Tr("Controllers")), TrF("Player {0}", m_player + 1),
+			realRemote ? (controls.connected ? TrF("{0}, found through the DolphinBar", TypeName(controls.type)) :
+								 TrF("{0}: none found yet. Plug a DolphinBar set to mode 4 into the PS5 and sync a Wii Remote to it.", TypeName(controls.type))) :
 			controls.connected ? TrF("{0}, on this player's DualSense", TypeName(controls.type)) :
 								 TrF("{0}, on a DualSense that is not connected", TypeName(controls.type)));
 		std::vector<Row> rows(kPlayerRows);
@@ -633,6 +648,14 @@ namespace ps5shell
 		rows[kRowButtons] = {Row::Kind::Link, "", Tr("Buttons"), TrP(mapped, "{0} button set", "{0} buttons set"), Tr("Which DualSense button presses each button.")};
 		rows[kRowReset] = {Row::Kind::Hold, "", Tr("Reset to defaults"), m_message.empty() ? std::string(Tr("Hold Cross")) : m_message,
 			Tr("The default buttons, vibration, motion and deadzones.")};
+		if (realRemote)
+			for (int row : {kRowMotion, kRowRumble, kRowLeftDeadzone, kRowRightDeadzone, kRowLayout, kRowTouchpad, kRowButtons})
+			{
+				rows[row].kind = Row::Kind::Action;
+				rows[row].value = Tr("Its own");
+				rows[row].description = Tr("A real Wii Remote has its own buttons, pointer, motion and rumble: this setting is for the DualSense.");
+				rows[row].dimmed = true;
+			}
 		canvas.PushAlpha(Enter(1));
 		// rows past the page's foot scroll with the focus
 		const float scroll = std::max(0.0f, (m_playerRow + 1) * kPlayerRowStep - (kListBottom - kListTop));

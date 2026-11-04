@@ -249,6 +249,11 @@ add_library(CemuPS5 STATIC
 	ps5/notify.h
 	ps5/pad.cpp
 	ps5/pad.h
+	# real Wii Remotes through a DolphinBar: Project Porpoise's hidapi over the console's USB nodes
+	# (cemu/PS5HidWiimote.h), as Porpoise-X has it
+	ps5/porpoise_hidapi.h
+	ps5/porpoise_usbhid.cpp
+	ps5/porpoise_usbhid.hpp
 	ps5/privilege.cpp
 	ps5/privilege.h
 	ps5/threads.cpp
@@ -357,6 +362,7 @@ set_source_files_properties(
 	ps5/netfs_files.cpp
 	ps5/notify.cpp
 	ps5/pad.cpp
+	ps5/porpoise_usbhid.cpp
 	ps5/privilege.cpp
 	ps5/threads.cpp
 	ps5/vulkan_display.cpp
