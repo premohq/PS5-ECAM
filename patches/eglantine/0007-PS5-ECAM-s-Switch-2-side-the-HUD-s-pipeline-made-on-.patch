@@ -1,0 +1,27 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 18:39:36 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 side: the HUD's pipeline made on the
+ window pass's own render pass again
+
+#109 changed the HUD pipeline's render pass from render_pass to renderpass, the raw handle
+(VkRenderPass renderpass{*render_pass}) the in-game menu's target takes. Eden's
+CreateWrappedCoverageBlendingPipeline wants the wrapper (vk::RenderPass&), so vulkan_window_adapt_pass.cpp
+did not compile. The same render pass either way; the in-game menu keeps the raw handle.
+---
+ headless/vulkan_hud_prepare.inc | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/headless/vulkan_hud_prepare.inc b/headless/vulkan_hud_prepare.inc
+index f35e779..cd05544 100644
+--- a/headless/vulkan_hud_prepare.inc
++++ b/headless/vulkan_hud_prepare.inc
+@@ -9,7 +9,7 @@
+         auto vertex = BuildShader(device, EDEN_HUD_VERT_SPV);
+         auto fragment = BuildShader(device, EDEN_HUD_FRAG_SPV);
+         hud_pipeline = CreateWrappedCoverageBlendingPipeline(
+-            device, renderpass, hud_layout, std::tie(vertex, fragment));
++            device, render_pass, hud_layout, std::tie(vertex, fragment));
+     }
+     const VkPipeline hud_graphics_pipeline = *hud_pipeline;
+     const VkPipelineLayout hud_pipeline_layout = *hud_layout;
