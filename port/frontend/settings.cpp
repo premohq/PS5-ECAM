@@ -428,10 +428,12 @@ namespace ps5settings
 			ReadBool(ui, "switchOffered", switchOffered);
 			if (!switchOffered)
 				out.sides |= 8;
+			// and before Switch 2 had one: shown once too. Its side is the one after every ps5retro::kSystems
+			// side (ps5launcher::System::Switch2), whatever their number
 			bool switch2Offered = false;
 			ReadBool(ui, "switch2Offered", switch2Offered);
 			if (!switch2Offered)
-				out.sides |= 1 << 14;
+				out.sides |= 1 << ps5retro::kSideCount;
 			ReadString(ui, "lastVersion", out.lastVersion);
 			ReadString(ui, "skipVersion", out.skipVersion);
 			ReadInt(ui, "reorganizeAsked", out.reorganizeAsked, 0, 10000000);

@@ -72,7 +72,7 @@ Playtendoh is free. If it brings your games back, you can support it:
 
 - **Ko-fi:** [ko-fi.com/premohq](https://ko-fi.com/premohq), for a one-off tip or the
   [$3 a month Early Access tier](https://ko-fi.com/premohq/tiers): highly experimental builds, builds of
-  ECAM for other platforms, and new features before anyone else.
+  Playtendoh for other platforms, and new features before anyone else.
 - **PayPal:** [paypal.me/empthe](https://www.paypal.com/paypalme/empthe), or scan the code (the same one
   as in the app's **Settings > About**):
 
@@ -226,7 +226,8 @@ says where the app is going and how to fit in.
 - [Eglantine](https://github.com/Djihads80/Eglantine) by **Djihads80** and its contributors, Eden with
   Switch 2 support (GPL-3.0-or-later), in [EglantinePS5](https://github.com/heydemoura/EglantinePS5), its
   PS5 port by **heydemoura** (**Heyde Moura**) with **darkxex** and **swizard** (GPL-3.0-or-later): the
-  program the Switch 2's games start in (`patches/eglantine`)
+  Switch 2 side's child runtime (`patches/eglantine`), brought in with the shared in-game menu by
+  **JMUtechnologies** ([#109](https://github.com/premohq/PS5-ECAM/pull/109))
 - **Mihawk** for RADV on PS5 ([PS5_Mesa](https://github.com/mihawk-99/PS5_Mesa),
   [PS5_Vulkan](https://github.com/mihawk-99/PS5_Vulkan), the payload SDK fork and its platform layer)
   and the PS5 ports of Azahar and dynarmic ([PS5_Azahar](https://github.com/mihawk-99/PS5_Azahar)),

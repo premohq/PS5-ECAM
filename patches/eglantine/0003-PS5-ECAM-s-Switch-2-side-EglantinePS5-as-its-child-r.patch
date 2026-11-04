@@ -1,44 +1,139 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: JMUtechnologies <209723632+JMUtechnologies@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 12:10:58 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 side: EglantinePS5 as its child runtime,
+ with the shared in-game menu
+
+PS5-ECAM (PPSA99360) carries this program as eglantine/eboot.bin and starts its Switch 2 side's games
+in it (EDEN_ECAM_CHILD, set by PS5-ECAM's tools/build-eglantine.sh):
+- Its folder is /app0/eglantine; its Lapy helper is built for PPSA99360 (EDEN_ECAM_TITLE_ID).
+- The game and the side's settings come as --rom, --exit-after-game, --ecam-session and --ecam-setting
+  key=value, or from /data/eglantineps5/ps5ecam-launch-request.txt where LoadExec drops them, and
+  apply over this program's own for that session.
+- PS5-ECAM's in-game menu (its port/eden/ingame.h, ecam.cmake with Dear ImGui) is compiled in and drawn
+  in the Vulkan present pass (vulkan_ecam_composite.inc), on Touchpad click + Options, its settings
+  applied at once and Quit to library going back; the session and result files follow the data root
+  PS5-ECAM chose (--ecam-session).
+- When its game ends it starts PS5-ECAM's /app0/eboot.bin again, which opens on the side it left.
+---
+ headless/CMakeLists.txt            |   8 +-
+ headless/check_package.py          |   2 +-
+ headless/devices.h                 |   9 ++
+ headless/ecam.cmake                |  32 +++++
+ headless/ecam_bridge.h             |  12 ++
+ headless/forwarded_launch.h        |  56 ++++++++
+ headless/graphics.cpp              |  15 ++-
+ headless/graphics.h                |   1 +
+ headless/main.cpp                  | 198 +++++++++++++++++++++++++++--
+ headless/pad.cpp                   |  26 ++++
+ headless/settings_store.h          |  89 ++++++++++---
+ headless/storage_paths.h           |   5 +
+ headless/vulkan.cmake              |   3 +-
+ headless/vulkan_ecam_composite.inc |   4 +
+ headless/vulkan_hud_draw.inc       |  15 ++-
+ headless/vulkan_hud_prepare.inc    |  17 ++-
+ tools/build-headless-native.sh     |   1 +
+ tools/build-lapy-helper.py         |   2 +-
+ tools/build-package.sh             |   1 +
+ tools/prepare-vulkan-port.py       |  18 ++-
+ 20 files changed, 477 insertions(+), 37 deletions(-)
+ create mode 100644 headless/ecam.cmake
+ create mode 100644 headless/ecam_bridge.h
+ create mode 100644 headless/vulkan_ecam_composite.inc
+
 diff --git a/headless/CMakeLists.txt b/headless/CMakeLists.txt
 index 24aee55..ff77a66 100644
 --- a/headless/CMakeLists.txt
 +++ b/headless/CMakeLists.txt
-@@ -1,0 +2 @@ option(EDEN_PS5_VULKAN "Build the native Vulkan renderer alongside OpenGL" OFF)
+@@ -1,4 +1,5 @@
+ option(EDEN_PS5_VULKAN "Build the native Vulkan renderer alongside OpenGL" OFF)
 +option(EDEN_ECAM_CHILD "Build EglantinePS5 as PS5-ECAM's child runtime" OFF)
-@@ -1975,0 +1977 @@ else()
+ set(EDEN_VULKAN_DRIVER "CUSTOM" CACHE STRING "Native Vulkan driver: CUSTOM or RADV")
+ set_property(CACHE EDEN_VULKAN_DRIVER PROPERTY STRINGS CUSTOM RADV)
+ if(NOT EDEN_VULKAN_DRIVER MATCHES "^(CUSTOM|RADV)$")
+@@ -1973,6 +1974,7 @@ if(NOT EDEN_PS5_VULKAN)
+     list(FILTER video_sources EXCLUDE REGEX "^(renderer_vulkan|vulkan_common)/")
+ else()
+     include("${EDEN_PORT_DIR}/vulkan.cmake")
 +    include("${EDEN_PORT_DIR}/ecam.cmake")
-@@ -2530 +2532 @@ void Initialize() {
+ endif()
+ list(REMOVE_ITEM video_sources video_core.cpp gpu.cpp)
+ list(APPEND video_sources "${PORT_BUILD_DIR}/video_core.cpp")
+@@ -2527,7 +2529,7 @@ void Initialize() {
+         "${EDEN_PORT_DIR}/elevation/elevation.cpp"
+         "${eden_app_crt}" "${PORT_ROOT}/src/lifecycle.c" "${PORT_ROOT}/src/direct_memory.c"
+         "${PORT_BUILD_DIR}/app_heap.c")
 -    target_compile_definitions(eden-headless PRIVATE PS5_NATIVE=1)
 +    target_compile_definitions(eden-headless PRIVATE PS5_NATIVE=1 EDEN_ECAM_CHILD=$<BOOL:${EDEN_ECAM_CHILD}>)
-@@ -2604,0 +2607,4 @@ target_link_libraries(eden-headless PRIVATE core eden-pad)
+     set_property(TARGET eden-headless APPEND PROPERTY LINK_DEPENDS
+         "${PORT_ROOT}/tools/link-headless-native.sh" "${PORT_ROOT}/tools/unwind.ld"
+         "${PORT_ROOT}/tools/app-symbols.map")
+@@ -2602,6 +2604,10 @@ write_derived("${PORT_BUILD_DIR}/version/app_version.h"
+     "// Generated from sce_sys/param.json (contentVersion).\n#pragma once\n#define EDEN_APP_VERSION \"${app_version}\"\n")
+ target_include_directories(eden-headless PRIVATE "${PORT_BUILD_DIR}/version")
+ target_link_libraries(eden-headless PRIVATE core eden-pad)
 +if(TARGET ecam_ingame)
 +    target_link_libraries(eden-headless PRIVATE ecam_ingame)
 +    target_compile_definitions(eden-headless PRIVATE EDEN_ECAM=1)
 +endif()
+ # A game's text entry on the PS5's own on-screen keyboard (system_keyboard.h, keyboard_applet.h).
+ target_sources(eden-headless PRIVATE "${EDEN_PORT_DIR}/system_keyboard.cpp")
+ target_sources(eden-headless PRIVATE "${EDEN_PORT_DIR}/multiplayer.cpp")
 diff --git a/headless/check_package.py b/headless/check_package.py
 index e74aa07..43b6811 100644
 --- a/headless/check_package.py
 +++ b/headless/check_package.py
-@@ -59 +59 @@ def check():
+@@ -56,7 +56,7 @@ def check():
+     assert param['pubtools']['loudnessSnd0'] == '-28.00'
+     lapy = json.loads((APP / 'lapy-manifest.json').read_text())
+     assert lapy['schema'] == 'lapy-owned-build/1'
 -    assert lapy['target_title'] == 'PPSA98515' and lapy['mode'] == 'elf-helper'
 +    assert lapy['target_title'] == os.environ.get('EDEN_ECAM_TITLE_ID', 'PPSA98515') and lapy['mode'] == 'elf-helper'
+     assert lapy['max_requests'] == 1 and not lapy['service']
+     assert lapy['features'] == ['root_layout_probe_retry']
+     assert lapy['protocol_sha256'] == LAPY_PROTOCOL_SHA256
 diff --git a/headless/devices.h b/headless/devices.h
 index 154cd85..725aa52 100644
 --- a/headless/devices.h
 +++ b/headless/devices.h
-@@ -2,0 +3 @@
+@@ -1,7 +1,9 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ #pragma once
 +#include <algorithm>
-@@ -4,0 +6 @@
+ #include <array>
+ #include <atomic>
 +#include <cmath>
-@@ -74,0 +77,3 @@ public:
+ #include <condition_variable>
+ #include <memory>
+ #include <mutex>
+@@ -72,6 +74,9 @@ public:
+     bool Poll();
+     bool TakeReturnToMenu() { return return_to_menu.exchange(false); }
+     bool TakeHudToggle() { return hud_toggle.exchange(false); }
 +#ifdef EDEN_ECAM
 +    bool TakeEcamToggle() { return ecam_toggle.exchange(false); }
 +#endif
-@@ -81,0 +87 @@ public:
+     // Players with a controller (bit per player), and those whose controller came or went.
+     unsigned ConnectedPlayers() const { return connected_players.load(); }
+     unsigned TakeConnectionChanges() { return connection_changes.exchange(0); }
+@@ -79,6 +84,7 @@ public:
+     // Which DualSense button presses each of the game's buttons (button_mapping.h), for every
+     // controller. Set before the first poll of a session.
+     void SetMapping(const ButtonMapping& value) { mapping = ValidMapping(value) ? value : kDefaultMapping; }
 +    void SetDeadzone(float value) { if (std::isfinite(value)) deadzone = std::clamp(value, 0.0f, 0.30f); }
-@@ -119,0 +126,3 @@ private:
+     // How a player's controller is used: as usual, or in place of a single left or right Joy-Con.
+     // A single Joy-Con has one stick and one cluster of four buttons, and its game reads nothing
+     // else. Held upright, Consume makes the whole DualSense that Joy-Con: the shapes are its four
+@@ -117,6 +123,9 @@ private:
+     bool owns_user_service = false;
+     std::atomic<bool> return_to_menu = false;
+     std::atomic<bool> hud_toggle = false;
 +#ifdef EDEN_ECAM
 +    std::atomic<bool> ecam_toggle = false;
 +#endif
+     std::atomic<unsigned> connected_players = 0;
+     std::atomic<unsigned> connection_changes = 0;
+     unsigned polls_since_scan = 0;
 diff --git a/headless/ecam.cmake b/headless/ecam.cmake
 new file mode 100644
 index 0000000..ccb5982
@@ -99,21 +194,40 @@ diff --git a/headless/forwarded_launch.h b/headless/forwarded_launch.h
 index bce0587..e5635e3 100644
 --- a/headless/forwarded_launch.h
 +++ b/headless/forwarded_launch.h
-@@ -4,0 +5,4 @@
+@@ -2,12 +2,18 @@
+ #pragma once
+ #include <string>
+ #include <string_view>
 +#include <fstream>
 +#include <cstdio>
 +#include <utility>
 +#include <vector>
-@@ -9,0 +14 @@ struct ForwardedArgs {
+ 
+ namespace Eden {
+ 
+ struct ForwardedArgs {
+     std::string rom;
 +    std::string ecam_session;
-@@ -10,0 +16 @@ struct ForwardedArgs {
+     bool exit_after_game = false;
 +    std::vector<std::string> ecam_settings;
-@@ -22,0 +29,4 @@ inline ForwardedArgs ParseForwardedArgs(int argc, char** argv) {
+ };
+ 
+ inline ForwardedArgs ParseForwardedArgs(int argc, char** argv) {
+@@ -20,6 +26,10 @@ inline ForwardedArgs ParseForwardedArgs(int argc, char** argv) {
+         const std::string_view arg{argv[i]};
+         if (arg == "--exit-after-game") {
+             result.exit_after_game = true;
 +        } else if (arg == "--ecam-session" && i + 1 < argc && argv[i + 1] != nullptr) {
 +            result.ecam_session = argv[++i];
 +        } else if (arg == "--ecam-setting" && i + 1 < argc && argv[i + 1] != nullptr) {
 +            result.ecam_settings.emplace_back(argv[++i]);
-@@ -31,0 +42,46 @@ inline ForwardedArgs ParseForwardedArgs(int argc, char** argv) {
+         } else if (arg == rom_flag) {
+             if (i + 1 < argc && argv[i + 1] != nullptr) result.rom = argv[++i];
+         } else if (arg.starts_with(rom_prefix)) {
+@@ -29,6 +39,52 @@ inline ForwardedArgs ParseForwardedArgs(int argc, char** argv) {
+     return result;
+ }
+ 
 +inline ForwardedArgs ParseForwardedArgs(const std::vector<std::string>& args) {
 +    ForwardedArgs result;
 +    for (std::size_t i = 0; i < args.size(); ++i) {
@@ -160,45 +274,93 @@ index bce0587..e5635e3 100644
 +    return ParseForwardedArgs(args);
 +}
 +
+ inline std::string ResolveForwardedRom(std::string_view rom, std::string_view roms_dir) {
+     while (!rom.empty() && (rom.back() == ' ' || rom.back() == '\r' || rom.back() == '\n')) rom.remove_suffix(1);
+     if (rom.empty()) return {};
 diff --git a/headless/graphics.cpp b/headless/graphics.cpp
 index 0cf72c0..070631a 100644
 --- a/headless/graphics.cpp
 +++ b/headless/graphics.cpp
-@@ -37,0 +38,3 @@ extern "C" int sceSystemServiceHideSplashScreen(void);
+@@ -35,6 +35,9 @@ extern "C" void eden_glapi_tls_context_init() {}
+ #ifdef PS5_NATIVE
+ extern "C" int sceSystemServiceHideSplashScreen(void);
+ #endif
 +#ifdef EDEN_ECAM
 +#include "ingame.h"
 +#endif
-@@ -54,0 +58 @@ std::atomic<bool> hud_enabled{true};
+ 
+ namespace Eden {
+ #ifdef EDEN_PS5_VULKAN
+@@ -52,6 +55,7 @@ double LoadingCalm() {
+     return calm;
+ }
+ std::atomic<bool> hud_enabled{true};
 +std::atomic<int> session_hud_override{-1};
-@@ -501,0 +506,4 @@ void ToggleHud() {
+ HudClock vulkan_hud_clock;
+ // What the display is actually given: the guest's frames plus the ones frame generation
+ // adds (CountPresentedFrame(), hud.h).
+@@ -499,6 +503,10 @@ void ToggleHud() {
+     preferences.hud = enabled;
+     if (!SavePreferences(preferences)) Report("settings", "Could not save HUD preference");
+ }
 +void SetSessionHud(bool enabled) {
 +    session_hud_override.store(enabled ? 1 : 0, std::memory_order_relaxed);
 +    hud_enabled.store(enabled, std::memory_order_relaxed);
 +}
-@@ -529 +537,3 @@ GraphicsWindow::GraphicsWindow(bool use_vulkan) : vulkan(use_vulkan) {
+ HudSnapshot GetVulkanHud() {
+     return vulkan_loading || hud_enabled.load(std::memory_order_relaxed) ? vulkan_hud : HudSnapshot{};
+ }
+@@ -526,7 +534,9 @@ GraphicsWindow::GraphicsWindow(bool use_vulkan) : vulkan(use_vulkan) {
+     vulkan_loading_start = -1;
+     vulkan_loading_frames = 0;
+     vulkan_loading_pace = {};
 -    hud_enabled.store(PreferencesFor(session_title.load()).hud, std::memory_order_relaxed);
 +    const int override = session_hud_override.load(std::memory_order_relaxed);
 +    hud_enabled.store(override < 0 ? PreferencesFor(session_title.load()).hud : override != 0,
 +                      std::memory_order_relaxed);
-@@ -639,0 +650,3 @@ void GraphicsWindow::OnFrameDisplayed() {
+ #ifdef EDEN_PS5_VULKAN
+     if (vulkan) {
+         vulkan_hud_clock = {};
+@@ -637,6 +647,9 @@ void GraphicsWindow::OnFrameDisplayed() {
+             std::printf("EDEN_LOADING_DONE frames=%u seconds=%.2f\n", vulkan_loading_frames,
+                         now - vulkan_loading_start);
+         vulkan_loading = false;
 +#ifdef EDEN_ECAM
 +        ps5ingamenx::EndLoading();
 +#endif
+ #ifdef EDEN_PS5_VULKAN
+         vulkan_hud_clock.Present(now);
+         if (system && now - vulkan_hud_stats_time >= 1.0) {
 diff --git a/headless/graphics.h b/headless/graphics.h
 index e958ae8..2dc5039 100644
 --- a/headless/graphics.h
 +++ b/headless/graphics.h
-@@ -12,0 +13 @@ void ToggleHud();
+@@ -10,6 +10,7 @@ namespace VideoCore { class RendererBase; }
+ namespace Core { class System; }
+ namespace Eden {
+ void ToggleHud();
 +void SetSessionHud(bool enabled);
+ class GraphicsWindow final : public Core::Frontend::EmuWindow {
+ public:
+     explicit GraphicsWindow(bool use_vulkan = false);
 diff --git a/headless/main.cpp b/headless/main.cpp
 index c62dd75..2deb66d 100644
 --- a/headless/main.cpp
 +++ b/headless/main.cpp
-@@ -10,0 +11,3 @@
+@@ -8,6 +8,9 @@
+ #include <exception>
+ #include "assets_dir.h"
+ #include "forwarded_launch.h"
 +#if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
 +extern int sceSystemServiceLoadExec(const char* path, const char** args);
 +#endif
-@@ -115,0 +119,77 @@ extern "C" bool eden_jit_shared;  // headless/dynarmic/jit_group_support.inc
+ #include "gpu_failure.h"
+ #include "guest_fault.h"
+ #include "jit_list.h"
+@@ -113,6 +116,83 @@ extern "C" bool eden_jit_shared;  // headless/dynarmic/jit_group_support.inc
+ #endif
+ #include "profiles.h"
+ #include "stop_limit.h"
 +#ifdef EDEN_ECAM
 +#include "ingame.h"
 +
@@ -276,7 +438,13 @@ index c62dd75..2deb66d 100644
 +             menu.volume, menu.frameGeneration);
 +}
 +#endif
-@@ -421 +501,10 @@ int main(int argc, char** argv) {
+ namespace Common {
+ bool SparseTablesAvailable() noexcept; // src/memory_pages.cpp
+ }
+@@ -418,7 +498,16 @@ int main(int argc, char** argv) {
+         std::string launch_error;
+         // The previous run crashed: the launcher says where its report is.
+         if (!last_crash.report.empty()) launch_error = std::string{Eden::Crash::kNotice} + last_crash.report;
 -        const Eden::ForwardedArgs forwarded = Eden::ParseForwardedArgs(argc, argv);
 +        Eden::ForwardedArgs forwarded = Eden::ParseForwardedArgs(argc, argv);
 +#if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
@@ -288,7 +456,13 @@ index c62dd75..2deb66d 100644
 +#endif
 +        Eden::SetSessionPreferenceOverrides(forwarded.ecam_settings);
 +#endif
-@@ -515,0 +605,8 @@ int main(int argc, char** argv) {
+         std::string forwarded_game;
+         bool forwarded_session = false;
+         if (!forwarded.rom.empty() && last_crash.report.empty()) {
+@@ -513,7 +602,16 @@ int main(int argc, char** argv) {
+             Eden::BootTrace::Line("starting the forwarded game");
+         } else if (forwarded_session && forwarded.exit_after_game && launch_error.empty()) {
+             Eden::Report("exit", "Forwarded game ended");
 +#if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
 +            // PS5-ECAM persists the selected side before starting this child runtime. Restart it
 +            // in place so the player returns to the same library instead of the PS5 home screen.
@@ -297,29 +471,63 @@ index c62dd75..2deb66d 100644
 +            Eden::BootTrace::Line("PS5-ECAM return refused: %08x", static_cast<unsigned>(result));
 +            return 1;
 +#else
-@@ -516,0 +614 @@ int main(int argc, char** argv) {
+             return 0;
 +#endif
-@@ -599 +697 @@ int main(int argc, char** argv) {
+         } else {
+         guest_fault_retries = 0;
+         forwarded_session = false;
+@@ -596,7 +694,7 @@ int main(int argc, char** argv) {
+         std::printf("EDEN_VULKAN_MEASUREMENT quiet=%d captures=%d\n",
+                     performance_run, !performance_run);
+         const auto game_video = Eden::LoadGameSettings(eden_game_title_id(selected_game.c_str()));
 -        const auto backend = automatic_launch ?
 +        auto backend = automatic_launch ?
-@@ -607 +705 @@ int main(int argc, char** argv) {
+             (recovery_opengl ? Eden::GraphicsBackend::OpenGL : Eden::GraphicsBackend::Vulkan) :
+             game_video.renderer >= 0 ?
+             (game_video.renderer == 0 ? Eden::GraphicsBackend::OpenGL : Eden::GraphicsBackend::Vulkan) :
+@@ -604,7 +702,7 @@ int main(int argc, char** argv) {
+ #else
+         // Library > Game settings take precedence over Settings > Video.
+         const auto game_video = Eden::LoadGameSettings(eden_game_title_id(selected_game.c_str()));
 -        const auto backend = game_video.renderer >= 0 ?
 +        auto backend = game_video.renderer >= 0 ?
-@@ -615,0 +714,4 @@ int main(int argc, char** argv) {
+             (game_video.renderer == 0 ? Eden::GraphicsBackend::OpenGL : Eden::GraphicsBackend::Vulkan) :
+             Eden::LoadPreferences().backend;
+ #ifdef EDEN_PS5_VULKAN
+@@ -613,6 +711,10 @@ int main(int argc, char** argv) {
+         setenv("PS5VK_QUIET_LOG", "1", 1);
+ #endif
+ #endif
 +#if defined(EDEN_ECAM) && defined(EDEN_PS5_VULKAN)
 +        // The shared ECAM menu is recorded into the Vulkan present pass.
 +        backend = Eden::GraphicsBackend::Vulkan;
 +#endif
-@@ -922 +1024,2 @@ int main(int argc, char** argv) {
+ #ifndef EDEN_PS5_VULKAN
+         if (backend == Eden::GraphicsBackend::Vulkan)
+             throw std::runtime_error("Vulkan is not available in this build yet. Select OpenGL in Settings > Video to play.");
+@@ -919,12 +1021,17 @@ int main(int argc, char** argv) {
+ #else
+         Settings::values.use_docked_mode.SetValue(Settings::ConsoleMode::Handheld);
+ #if defined(PS5_NATIVE) && defined(EDEN_PS5_OPENGL)
 -        const bool docked = Eden::LoadGameDocked(eden_game_title_id(guest));
 +        const int ecam_docked = Eden::EcamSetting(forwarded, "docked");
 +        const bool docked = ecam_docked >= 0 ? ecam_docked != 0 : Eden::LoadGameDocked(eden_game_title_id(guest));
-@@ -927,0 +1031,4 @@ int main(int argc, char** argv) {
+         Settings::values.use_docked_mode.SetValue(docked ? Settings::ConsoleMode::Docked
+                                                        : Settings::ConsoleMode::Handheld);
+         Eden::Report("launch", docked ? "Console mode: Docked" : "Console mode: Handheld");
+ #endif
+ #endif
 +#if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
 +        if (const int docked = Eden::EcamSetting(forwarded, "docked"); docked >= 0 && docked <= 1)
 +            Settings::values.use_docked_mode.SetValue(docked ? Settings::ConsoleMode::Docked : Settings::ConsoleMode::Handheld);
 +#endif
-@@ -941 +1048,22 @@ int main(int argc, char** argv) {
+ #if defined(PS5_NATIVE) && defined(EDEN_PS5_OPENGL)
+         {
+             // Settings > Video: internal resolution and the filter scaling it to the output.
+@@ -938,7 +1045,28 @@ int main(int argc, char** argv) {
+                 Settings::ScalingFilter::NearestNeighbor, Settings::ScalingFilter::Fsr3};
+             static_assert(std::size(filters) == std::size(Eden::kUpscalingFilterKeys));
+             // Settings > Video, with what the game does differently (Library > Game settings > Video).
 -            const auto video = Eden::PreferencesFor(eden_game_title_id(guest));
 +            auto video = Eden::PreferencesFor(eden_game_title_id(guest));
 +            const auto apply_index = [&](const char* key, int& value, int count) {
@@ -343,7 +551,13 @@ index c62dd75..2deb66d 100644
 +            if (controller >= 0 && controller <= 5) video.controller = controller - 1;
 +            const int language = Eden::EcamSetting(forwarded, "language");
 +            if (language >= 1 && language <= int(std::size(Eden::kLanguageKeys))) video.language = language - 1;
-@@ -1036 +1164,11 @@ int main(int argc, char** argv) {
+             const int resolution = video.resolution;
+             const int filter = video.upscaling_filter;
+             Settings::values.resolution_setup.SetValue(resolutions[resolution]);
+@@ -1033,7 +1161,17 @@ int main(int argc, char** argv) {
+             // Speed against accuracy ("performance" in the settings file, settings_store.h): each
+             // one is off unless chosen there, for every game or for this one. The levels start
+             // every session at their exact values (above), so one that is not chosen is off.
 -            const auto speed = Eden::LoadPerformance(eden_game_title_id(guest));
 +            auto speed = Eden::LoadPerformance(eden_game_title_id(guest));
 +            const auto apply_switch = [&](const char* key, bool& value) {
@@ -356,38 +570,91 @@ index c62dd75..2deb66d 100644
 +            apply_switch("unsafe_dma", speed.unsafe_dma);
 +            apply_switch("reactive_flushing", speed.reactive_flushing);
 +            apply_switch("skip_invalidation", speed.skip_invalidation);
-@@ -1153 +1291,2 @@ int main(int argc, char** argv) {
+             Settings::values.use_asynchronous_shaders = speed.async_shaders;
+             if (speed.fast_gpu) {
+                 // Nothing calls UpdateGPUAccuracy() here; set the live value too.
+@@ -1150,7 +1288,8 @@ int main(int argc, char** argv) {
+         bool return_to_menu = false;
+         if (devices || game) {
+             Eden::BootTrace::Line("opening the controllers");
 -            pad = std::make_unique<Eden::Pad>();
 +            const int deadzone = std::clamp(Eden::EcamSetting(forwarded, "deadzone", 8), 0, 30);
 +            pad = std::make_unique<Eden::Pad>(deadzone / 100.0f);
-@@ -1178 +1317 @@ int main(int argc, char** argv) {
+             if (!pad->Open()) throw std::runtime_error("PS5 controller initialization failed");
+             Eden::BootTrace::Line("controllers open");
+             Settings::values.audio_output_device_id = "ps5";
+@@ -1175,14 +1314,14 @@ int main(int argc, char** argv) {
+                 player.controller_type = handheld ? Settings::ControllerType::ProController :
+                                                     Eden::ControllerSetting(controls.controller);
+                 // DualSense rumble (headless/pad.cpp) at Eden's full strength.
 -                player.vibration_enabled = true;
 +                player.vibration_enabled = controls.vibration;
-@@ -1185 +1324 @@ int main(int argc, char** argv) {
+                 player.vibration_strength = 100;
+             }
+             {
+                 auto& player = Settings::values.players.GetValue()[8];  // Eden's handheld controller
+                 player.connected = handheld;
+                 player.controller_type = Settings::ControllerType::Handheld;
 -                player.vibration_enabled = true;
 +                player.vibration_enabled = controls.vibration;
-@@ -1320,0 +1460,4 @@ int main(int argc, char** argv) {
+                 player.vibration_strength = 100;
+             }
+             if (controls.controller >= 0)
+@@ -1318,6 +1457,10 @@ int main(int argc, char** argv) {
+                         std::this_thread::sleep_for(std::chrono::milliseconds(8));
+                     }
+                 });
 +#endif
 +#ifdef EDEN_ECAM
 +                ps5ingamenx::Start(EcamSettings(forwarded));
 +                ps5ingamenx::SetLoading(ps5ingamenx::Step::Game);
-@@ -1360,0 +1504,3 @@ int main(int argc, char** argv) {
+ #endif
+                 Eden::Loading::Set(Eden::Loading::Step::game);
+                 Eden::BootTrace::Line("loading the game");
+@@ -1358,6 +1501,9 @@ int main(int argc, char** argv) {
+                 Eden::BootTrace::Line("game loaded (status %u)", static_cast<unsigned>(loaded));
+                 Eden::Report("loader", "Game loaded; initializing renderer");
+                 Eden::Loading::Set(Eden::Loading::Step::graphics);
 +#ifdef EDEN_ECAM
 +                ps5ingamenx::SetLoading(ps5ingamenx::Step::Graphics);
 +#endif
-@@ -1396,0 +1543,3 @@ int main(int argc, char** argv) {
+ #ifdef EDEN_PS5_OPENGL
+                 // Retain the failure, then release CPU readiness and complete normal
+                 // shutdown before reporting it. Unwinding before OnGpuReady can hang.
+@@ -1394,6 +1540,9 @@ int main(int argc, char** argv) {
+                     std::atomic<size_t> built{0}, total{0};
+                     std::atomic<bool> counted{false};
+                     Eden::Loading::Set(Eden::Loading::Step::shaders);
 +#ifdef EDEN_ECAM
 +                    ps5ingamenx::SetLoading(ps5ingamenx::Step::Shaders);
 +#endif
-@@ -1420,0 +1570,3 @@ int main(int argc, char** argv) {
+                     const auto load_start = std::chrono::steady_clock::now();
+                     std::jthread reporter([&](std::stop_token stop) {
+ #if defined(EDEN_DEV_PROFILE) && defined(PS5_NATIVE)
+@@ -1418,6 +1567,9 @@ int main(int argc, char** argv) {
+                             if (stage != VideoCore::LoadCallbackStage::Build) return;
+                             built = value;
+                             Eden::Loading::Shaders(value, count);
 +#ifdef EDEN_ECAM
 +                            ps5ingamenx::SetShaders(value, count);
 +#endif
-@@ -1498,0 +1651,3 @@ int main(int argc, char** argv) {
+                             total = count;
+                             counted = true;
+ #if defined(EDEN_DEV_PROFILE) && defined(PS5_NATIVE)
+@@ -1496,6 +1648,9 @@ int main(int argc, char** argv) {
+                 }
+                 Eden::TakeGuestFault(); // Nothing from an earlier session belongs to this one.
+                 Eden::Loading::Set(Eden::Loading::Step::starting);
 +#ifdef EDEN_ECAM
 +                ps5ingamenx::SetLoading(ps5ingamenx::Step::Starting);
 +#endif
-@@ -1624 +1779,9 @@ int main(int argc, char** argv) {
+                 system.Run();
+ #if defined(EDEN_DEV_PROFILE) && defined(PS5_NATIVE)
+                 Eden::Stall::Trace("main running");
+@@ -1621,7 +1776,15 @@ int main(int argc, char** argv) {
+ #ifdef PS5_NATIVE
+                         room_lost = rooms.GameConnectionLost();
+ #endif
 -                        if (pad->TakeReturnToMenu() || room_lost) {
 +#ifdef EDEN_ECAM
 +                        if (pad->TakeEcamToggle()) ps5ingamenx::ToggleMenu();
@@ -398,7 +665,13 @@ index c62dd75..2deb66d 100644
 +                        constexpr bool ecam_leave = false;
 +#endif
 +                        if (pad->TakeReturnToMenu() || room_lost || ecam_leave) {
-@@ -1840 +2003,14 @@ int main(int argc, char** argv) {
+                             // From here the player is waiting to leave (stop_limit.h).
+                             Eden::StopLimit::Begin();
+                             std::lock_guard lock(completion->mutex);
+@@ -1837,7 +2000,20 @@ int main(int argc, char** argv) {
+             LOG_INFO(Frontend, "EDEN_DEVICE_FRONTEND_PASS");
+         }
+ #ifdef PS5_NATIVE
 -        if (return_to_menu) continue;
 +        if (return_to_menu) {
 +#if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
@@ -414,17 +687,32 @@ index c62dd75..2deb66d 100644
 +#endif
 +            continue;
 +        }
+ #endif
+         passed("HEADLESS_COMPLETE");
+ #ifdef EDEN_DEV_PROFILE
 diff --git a/headless/pad.cpp b/headless/pad.cpp
 index 9d0f3eb..756ac43 100644
 --- a/headless/pad.cpp
 +++ b/headless/pad.cpp
-@@ -2,0 +3,3 @@
+@@ -1,5 +1,8 @@
+ // SPDX-License-Identifier: GPL-3.0-or-later
+ #include "devices.h"
 +#ifdef EDEN_ECAM
 +#include "ingame.h"
 +#endif
-@@ -329,0 +333 @@ void Pad::Consume(std::size_t player, std::span<const ps5::pad::Data> samples) {
+ #include <algorithm>
+ #include <cmath>
+ #include <numbers>
+@@ -327,16 +330,39 @@ void Pad::Consume(std::size_t player, std::span<const ps5::pad::Data> samples) {
+         auto sample = is_usable(raw) ? raw : neutral_data(raw.timestamp_us);
+         // The shortcuts work from every controller.
+         constexpr ButtonMask menu_chord = kButtonTouchPad | kButtonL1;
 +        constexpr ButtonMask ecam_chord = kButtonTouchPad | kButtonOptions;
-@@ -334,0 +339,9 @@ void Pad::Consume(std::size_t player, std::span<const ps5::pad::Data> samples) {
+         constexpr ButtonMask hud_chord = kButtonTouchPad | kButtonR1;
+         const auto pressed = sample.buttons;
+         if ((pressed & menu_chord) == menu_chord &&
+             (last_buttons & menu_chord) != menu_chord)
+             return_to_menu = true;
 +#ifdef EDEN_ECAM
 +        if ((pressed & ecam_chord) == ecam_chord &&
 +            (last_buttons & ecam_chord) != ecam_chord)
@@ -434,7 +722,11 @@ index 9d0f3eb..756ac43 100644
 +            (last_buttons & ecam_chord) != ecam_chord)
 +            return_to_menu = true;
 +#endif
-@@ -339,0 +353,13 @@ void Pad::Consume(std::size_t player, std::span<const ps5::pad::Data> samples) {
+         if ((pressed & hud_chord) == hud_chord &&
+             (last_buttons & hud_chord) != hud_chord)
+             hud_toggle = true;
+         if ((pressed & menu_chord) == menu_chord || (pressed & hud_chord) == hud_chord)
+             sample.buttons &= ~(kButtonTouchPad | kButtonL1 | kButtonR1);
 +        if ((pressed & ecam_chord) == ecam_chord)
 +            sample.buttons &= ~(kButtonTouchPad | kButtonOptions);
 +#ifdef EDEN_ECAM
@@ -448,11 +740,17 @@ index 9d0f3eb..756ac43 100644
 +            slot.select_pulse = 0;
 +        }
 +#endif
+         // The touchpad on its own: see kSelectTapPolls.
+         const bool touch = (pressed & kButtonTouchPad) != 0;
+         const bool touched = (last_buttons & kButtonTouchPad) != 0;
 diff --git a/headless/settings_store.h b/headless/settings_store.h
 index f8732db..f1743bc 100644
 --- a/headless/settings_store.h
 +++ b/headless/settings_store.h
-@@ -137,0 +138,43 @@ struct Preferences {
+@@ -135,6 +135,49 @@ struct Preferences {
+     bool immediate_logs = false;         // Settings > Diagnostics: log lines written as they come
+ };
+ 
 +// Settings passed by PS5-ECAM override Eglantine's saved defaults for this child session only.
 +// Audio, graphics, language and controls all read PreferencesFor(), so keeping the overlay here
 +// makes every subsystem see the same effective values without writing the user's config file.
@@ -496,7 +794,13 @@ index f8732db..f1743bc 100644
 +    ActiveSessionPreferenceOverrides() = value;
 +}
 +
-@@ -578,17 +621,29 @@ inline Preferences PreferencesFor(uint64_t title_id, const std::string& file = S
+ inline int KeyIndex(const std::string& value, const char* const* keys, int count, int fallback) {
+     for (int i = 0; i < count; ++i)
+         if (value == keys[i]) return i;
+@@ -575,23 +618,35 @@ inline bool SaveGameSettings(uint64_t title_id, const GameSettings& value, const
+ // The settings a session of a game uses: Settings, with what the game does differently.
+ inline Preferences PreferencesFor(uint64_t title_id, const std::string& file = SettingsFile()) {
+     Preferences result = LoadPreferences(file);
 -    if (!title_id) return result;
 -    const GameSettings game = LoadGameSettings(title_id, file);
 -    if (game.renderer >= 0) result.backend = game.renderer == 0 ? GraphicsBackend::OpenGL : GraphicsBackend::Vulkan;
@@ -543,25 +847,46 @@ index f8732db..f1743bc 100644
 +    if (session.refresh >= 0) result.refresh = session.refresh;
 +    if (session.frame_gen >= 0) result.frame_gen = session.frame_gen != 0;
 +    if (session.controller != -2) result.controller = session.controller;
+     return result;
+ }
+ 
 diff --git a/headless/storage_paths.h b/headless/storage_paths.h
 index e524715..e66c054 100644
 --- a/headless/storage_paths.h
 +++ b/headless/storage_paths.h
-@@ -47,0 +48,4 @@ inline const std::string& AppDir() {
+@@ -45,6 +45,10 @@ inline constexpr const char* kMountedAppDir = "/system_ex/app/PPSA98515";
+ // install folder. The mount follows ShadowMountPlus: an app on a USB drive is found there although
+ // /data/homebrew may hold nothing or an older copy.
+ inline const std::string& AppDir() {
 +#if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
 +    static const std::string directory = "/app0/eglantine";
 +    return directory;
 +#else
-@@ -54,0 +59 @@ inline const std::string& AppDir() {
+     static const std::string directory = [] {
+         if (!FilesystemAccess()) return std::string{"/app0"};
+         for (const char* candidate : {"/app0", kMountedAppDir, kInstallDir, "/mnt/sandbox/PPSA98515_000/app0"})
+@@ -52,6 +56,7 @@ inline const std::string& AppDir() {
+         return std::string{kInstallDir};
+     }();
+     return directory;
 +#endif
+ }
+ inline std::string AppFile(std::string_view name) { return AppDir() + "/" + std::string(name); }
+ 
 diff --git a/headless/vulkan.cmake b/headless/vulkan.cmake
 index 7008a5a..3d8839e 100644
 --- a/headless/vulkan.cmake
 +++ b/headless/vulkan.cmake
-@@ -18 +18,2 @@ set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+@@ -15,7 +15,8 @@ set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+     "${PORT_ROOT}/tools/prepare-vulkan-port.py"
+     "${EDEN_PORT_DIR}/vulkan_hud.vert" "${EDEN_PORT_DIR}/vulkan_hud.frag"
+     "${EDEN_PORT_DIR}/vulkan_hud_prepare.inc" "${EDEN_PORT_DIR}/vulkan_hud_draw.inc"
 -    "${EDEN_PORT_DIR}/vulkan_loading.inc")
 +    "${EDEN_PORT_DIR}/vulkan_loading.inc" "${EDEN_PORT_DIR}/vulkan_ecam_composite.inc"
 +    "${EDEN_PORT_DIR}/ecam_bridge.h")
+ set_property(DIRECTORY APPEND PROPERTY CMAKE_CONFIGURE_DEPENDS
+     "${EDEN_PORT_DIR}/vulkan_download_batch.inc"
+     "${EDEN_PORT_DIR}/vulkan_gc_downloads.inc")
 diff --git a/headless/vulkan_ecam_composite.inc b/headless/vulkan_ecam_composite.inc
 new file mode 100644
 index 0000000..b1be75f
@@ -576,7 +901,9 @@ diff --git a/headless/vulkan_hud_draw.inc b/headless/vulkan_hud_draw.inc
 index 794563c..eb5b731 100644
 --- a/headless/vulkan_hud_draw.inc
 +++ b/headless/vulkan_hud_draw.inc
-@@ -3 +3,6 @@
+@@ -1,6 +1,11 @@
+         // The overlay is laid out for a picture 1080 rows high and scaled to this one.
+         const auto hud_units = [rows = render_area.height](uint32_t value) { return value * rows / 1080u; };
 -        if (hud.width && (hud.loading || (render_area.width >= hud_units(hud.width + 16) &&
 +#ifdef EDEN_ECAM
 +        const bool ecam_loading = ecam && ps5ingamenx::DrawsLoading();
@@ -584,7 +911,13 @@ index 794563c..eb5b731 100644
 +        const bool ecam_loading = false;
 +#endif
 +        if (hud.width && !(hud.loading && ecam_loading) && (hud.loading || (render_area.width >= hud_units(hud.width + 16) &&
-@@ -26,0 +32,8 @@
+                                           render_area.height >= hud_units(64)))) {
+             const VkRect2D scissor = hud.loading ? VkRect2D{{0, 0}, render_area} :
+                 VkRect2D{{static_cast<int32_t>(hud_units(16)), static_cast<int32_t>(hud_units(16))},
+@@ -24,3 +29,11 @@
+             cmdbuf.PushConstants(hud_pipeline_layout, VK_SHADER_STAGE_FRAGMENT_BIT, constants);
+             cmdbuf.Draw(4, 1, 0, 0);
+         }
 +#ifdef EDEN_ECAM
 +        if (ecam) {
 +            auto target = ecam_target;
@@ -597,10 +930,15 @@ diff --git a/headless/vulkan_hud_prepare.inc b/headless/vulkan_hud_prepare.inc
 index 36c585e..f35e779 100644
 --- a/headless/vulkan_hud_prepare.inc
 +++ b/headless/vulkan_hud_prepare.inc
-@@ -12 +12 @@
+@@ -9,7 +9,22 @@
+         auto vertex = BuildShader(device, EDEN_HUD_VERT_SPV);
+         auto fragment = BuildShader(device, EDEN_HUD_FRAG_SPV);
+         hud_pipeline = CreateWrappedCoverageBlendingPipeline(
 -            device, render_pass, hud_layout, std::tie(vertex, fragment));
 +            device, renderpass, hud_layout, std::tie(vertex, fragment));
-@@ -15,0 +16,15 @@
+     }
+     const VkPipeline hud_graphics_pipeline = *hud_pipeline;
+     const VkPipelineLayout hud_pipeline_layout = *hud_layout;
 +#ifdef EDEN_ECAM
 +    const bool ecam = Eden::EcamVulkan::instance != VK_NULL_HANDLE;
 +    ps5ingamenx::Target ecam_target{};
@@ -617,39 +955,71 @@ index 36c585e..f35e779 100644
 +    }
 +#endif
 diff --git a/tools/build-headless-native.sh b/tools/build-headless-native.sh
-index 2398d65..02fbc8d 100644
+index 321f234..78a4714 100644
 --- a/tools/build-headless-native.sh
 +++ b/tools/build-headless-native.sh
-@@ -45,0 +46 @@ cmake -S "$scratch/source" -B "$scratch/native-local" -G Ninja \
+@@ -43,6 +43,7 @@ cmake -S "$scratch/source" -B "$scratch/native-local" -G Ninja \
+     -DCMAKE_TOOLCHAIN_FILE="$root/headless/ps5.cmake" -DPS5_NATIVE=ON -DEDEN_DEVICE_FRONTEND="$devices" \
+     -DCMAKE_BUILD_TYPE=Release -DENABLE_LTO=OFF \
+     -DEDEN_PS5_VULKAN="${EDEN_PS5_VULKAN:-OFF}" \
 +    -DEDEN_ECAM_CHILD="${EDEN_ECAM_CHILD:-OFF}" \
+     -DEDEN_VULKAN_DRIVER="${EDEN_VULKAN_DRIVER:-CUSTOM}" \
+     -DEDEN_DEV_VULKAN="${EDEN_DEV_VULKAN:-OFF}" \
+     -DCMAKE_C_COMPILER_LAUNCHER="$cache" -DCMAKE_CXX_COMPILER_LAUNCHER="$cache" \
 diff --git a/tools/build-lapy-helper.py b/tools/build-lapy-helper.py
 index 4268675..80780d4 100644
 --- a/tools/build-lapy-helper.py
 +++ b/tools/build-lapy-helper.py
-@@ -14 +14 @@ ROOT = Path(__file__).resolve().parents[1]
+@@ -11,7 +11,7 @@ import subprocess
+ 
+ 
+ ROOT = Path(__file__).resolve().parents[1]
 -TITLE = "PPSA98515"
 +TITLE = os.environ.get("EDEN_ECAM_TITLE_ID", "PPSA98515")
+ LAPY = ROOT / ".deps/PS5-Lapy-JB-Daemon-57fcc19"
+ PS5LOG = ROOT / ".deps/lapy-ps5log-1ae1f918"
+ SDK = ROOT / ".deps/lapy-ps5-payload-sdk-v0.42"
 diff --git a/tools/build-package.sh b/tools/build-package.sh
-index 9d1fad8..5e462dc 100644
+index fcfe66d..6671072 100644
 --- a/tools/build-package.sh
 +++ b/tools/build-package.sh
-@@ -15,0 +16 @@ export EDEN_PS5_VULKAN=ON EDEN_VULKAN_DRIVER=RADV
+@@ -13,6 +13,7 @@ mode=${1:?usage: tools/build-package.sh release|dev TITLE_ID}
+ scratch=$(cat .local/headless-cache)
+ export PS5_PAYLOAD_SDK="$scratch/sdk"
+ export EDEN_PS5_VULKAN=ON EDEN_VULKAN_DRIVER=RADV
 +if [[ ${EDEN_ECAM_CHILD:-OFF} == ON ]]; then export EDEN_ECAM_TITLE_ID=PPSA99360; fi
+ case $mode in
+ release)
+     export EDEN_DEV_VULKAN=OFF EDEN_DEV_ROM_ID= EDEN_DEV_PROFILE=OFF EDEN_DEV_WAIT_CALLERS=OFF
 diff --git a/tools/prepare-vulkan-port.py b/tools/prepare-vulkan-port.py
 index e683812..9d113c0 100644
 --- a/tools/prepare-vulkan-port.py
 +++ b/tools/prepare-vulkan-port.py
-@@ -779 +779,4 @@ adapt('src/video_core/renderer_vulkan/renderer_vulkan.cpp', 'vulkan_renderer.cpp
+@@ -776,7 +776,10 @@ adapt('src/video_core/renderer_vulkan/renderer_vulkan.h',
+ adapt('src/video_core/renderer_vulkan/renderer_vulkan.cpp', 'vulkan_renderer.cpp', [
+     ('#include "video_core/renderer_vulkan/renderer_vulkan.h"',
+      '#include "video_core/renderer_vulkan/renderer_vulkan.h"\n#include "display_refresh.h"\n'
 -     '#include "diagnostics.h"\n#include "hud.h"'),
 +     '#include "diagnostics.h"\n#include "hud.h"\n#include "ecam_bridge.h"'),
 +    ('void RendererVulkan::Composite(std::span<const Tegra::FramebufferConfig> framebuffers) {',
 +     'void RendererVulkan::Composite(std::span<const Tegra::FramebufferConfig> framebuffers) {\n'
 +     + (port / 'vulkan_ecam_composite.inc').read_text()),
-@@ -825 +828,2 @@ adapt('src/video_core/renderer_vulkan/present/window_adapt_pass.cpp', 'vulkan_wi
+     # The HUD counted the guest rate only: OnFrameDisplayed() runs once per Composite(), while the
+     # frames frame generation adds are presented through PresentManager::Present() (hud.h). Count
+     # every frame handed to the present manager.
+@@ -822,13 +825,24 @@ adapt('src/video_core/renderer_vulkan/present/window_adapt_pass.h',
+ ])
+ adapt('src/video_core/renderer_vulkan/present/window_adapt_pass.cpp', 'vulkan_window_adapt_pass.cpp', [
+     ('#include "core/frontend/framebuffer_layout.h"',
 -     '#include "core/frontend/framebuffer_layout.h"\n#include "hud.h"\n#include "vulkan_hud_shaders.h"'),
 +     '#include "core/frontend/framebuffer_layout.h"\n#include "hud.h"\n#include "vulkan_hud_shaders.h"\n#include "ecam_bridge.h"'),
 +    ('#include "ecam_bridge.h"', '#include "ecam_bridge.h"\n#ifdef EDEN_ECAM\n#include "ingame.h"\n#endif'),
-@@ -831,0 +836,10 @@ adapt('src/video_core/renderer_vulkan/present/window_adapt_pass.cpp', 'vulkan_wi
+     ('const Layout::FramebufferLayout& layout, Frame* dst) {',
+      'const Layout::FramebufferLayout& layout, Frame* dst, bool draw_hud) {'),
+     ('    scheduler.Record([=](vk::CommandBuffer cmdbuf) {',
+      (port / 'vulkan_hud_prepare.inc').read_text() + '\n    scheduler.Record([=](vk::CommandBuffer cmdbuf) {'),
+     ('        cmdbuf.EndRenderPass();',
+      (port / 'vulkan_hud_draw.inc').read_text() + '\n        cmdbuf.EndRenderPass();'),
 +    ('        BeginRenderPass(cmdbuf, renderpass, host_framebuffer, render_area);',
 +     '#ifdef EDEN_ECAM\n'
 +     '        if (ecam) {\n'
@@ -660,3 +1030,6 @@ index e683812..9d113c0 100644
 +     '        }\n'
 +     '#endif\n'
 +     '        BeginRenderPass(cmdbuf, renderpass, host_framebuffer, render_area);'),
+ ])
+ adapt('src/video_core/renderer_vulkan/vk_blit_screen.cpp', 'vulkan_blit_screen.cpp', [
+     ('VkFormat current_swapchain_view_format) {',

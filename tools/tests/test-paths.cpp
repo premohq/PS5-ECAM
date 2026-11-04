@@ -25,12 +25,6 @@ int main(int argc, char** argv) {
     Check(ps5paths::MelonDs() == (base / "melonds").string(), "melonDS is a sibling of ps5cemu");
     Check(ecam_layout::System(shared.string(), "eden") == (base / "eden").string(), "Eden layout selects a sibling of ps5cemu");
     Check(ps5paths::Eden() == ecam_layout::Sibling(ps5paths::kDefaultRoot, "eden"), "launcher Eden default uses the separate console directory");
-    // EglantinePS5's program keeps its data in /data/eglantine (patches/eglantine: kDataDir) and takes its
-    // launch request from there
-    Check(ps5paths::Eglantine() == ecam_layout::Sibling(ps5paths::kDefaultRoot, "eglantine") &&
-              ps5paths::EglantineRequestFile() == ps5paths::Eglantine() + "/launch-request.txt" &&
-              ecam_layout::Sibling("/data/ps5cemu", "eglantine") == "/data/eglantine",
-          "EglantinePS5's data and launch request are /data/eglantine, a sibling of ps5cemu");
     Check(ps5paths::Mlc() == (base / "cemu/mlc01").string() && ps5paths::DiscKeys() == (base / "cemu/keys.txt").string(), "Wii U content and keys live in the Cemu directory");
     ps5settings::Launcher settings;
     Check(settings.gamesFolder == (base / "cemu/games").string() && settings.n3ds.gamesFolder == (base / "azahar/games").string() && settings.nds.gamesFolder == (base / "melonds/games").string(), "all in-process game defaults are separate");

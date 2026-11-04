@@ -8,11 +8,6 @@ if [[ ! -f "$eden/headless/ecam_layout.h" ]]; then
     exit 1
 fi
 cmp "$root/port/app/system_layout.h" "$eden/headless/ecam_layout.h"
-# EglantinePS5's copy (patches/eglantine), where it has been fetched and patched
-eglantine=${EGLANTINE_SOURCE:-$root/.deps/eglantine/EglantinePS5}
-if [[ -f "$eglantine/headless/ecam_layout.h" ]]; then
-    cmp "$root/port/app/system_layout.h" "$eglantine/headless/ecam_layout.h"
-fi
 work=$(mktemp -d)
 trap 'rm -rf "$work"' EXIT
 "${CXX:-c++}" -std=c++20 -Wall -Wextra -Werror -I"$root/port" -I"$eden/headless" \

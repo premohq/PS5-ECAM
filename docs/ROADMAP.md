@@ -324,7 +324,7 @@ their own side and launch through the pinned EglantinePS5 child runtime. The gam
 upstream commit is pinned in `tools/deps.json` and built by `make eglantine` in `.deps/eglantine`, with
 `patches/eglantine` (`tools/eglantine-patches.sh`). Source work now adds a separate Switch 2 side and
 catalogue, key/firmware setup checks, a child-runtime build/package step, staged game launch and
-return to ECAM, separate settings and launch-time forwarding of the supported video, audio, control
+return to Playtendoh, separate settings and launch-time forwarding of the supported video, audio, control
 and performance values. EmulationStation also receives the side and aliases existing Switch art.
 None of this has been built or run on the console yet.
 
@@ -333,7 +333,7 @@ Still to do:
 - **Build and review the child runtime:** run the pinned EglantinePS5 build and Playtendoh packaging;
   fix any upstream integration or toolchain failures. Do not describe this source work as a verified
   build until the build is actually run.
-- **Shared in-game menu source path:** the child build now compiles PS5-ECAM's existing Switch menu
+- **Shared in-game menu source path:** the child build now compiles Playtendoh's existing Switch menu
   into EglantinePS5, draws it in the Vulkan window pass, routes the DualSense menu controls, applies
   supported runtime settings (including controller style), and returns to the library from the menu.
   The session-file path is forwarded so apps using an external data root can find the same menu

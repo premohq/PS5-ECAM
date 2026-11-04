@@ -96,11 +96,11 @@ int main(int argc, char** argv)
 	std::vector<ps5esde::System> systems(2);
 	systems[0].side = 2;
 	systems[0].folder = ds;
-	systems[0].games = {{(games / "ds/Mario Kart DS.nds").string(), "Mario Kart DS", 0x0101, true, false, 1600000000, 90},
-		{(games / "ds/more/Kirby.nds").string(), "Kirby", 0x0102, false, true, 0, 0}, {(games / "ds/Old.nds").string(), "Old", 0x0103, false, false, 0, 0}};
+	systems[0].games = {{(games / "ds/Mario Kart DS.nds").string(), "Mario Kart DS", "", 0x0101, true, false, 1600000000, 90},
+		{(games / "ds/more/Kirby.nds").string(), "Kirby", "", 0x0102, false, true, 0, 0}, {(games / "ds/Old.nds").string(), "Old", "", 0x0103, false, false, 0, 0}};
 	systems[1].side = 3;
 	systems[1].folder = (games / "switch").string();
-	systems[1].games = {{(games / "switch/Game.nsp").string(), "Game", 0x0100000000010000, false, false, 0, 0}};
+	systems[1].games = {{(games / "switch/Game.nsp").string(), "Game", "", 0x0100000000010000, false, false, 0, 0}};
 	const std::string eboot = "/data/homebrew/PPSA99360/eboot.bin";
 	const ps5esde::Written first = ps5esde::WriteLibrary(home.string(), reference, eboot, systems);
 	Check(first.error.empty() && first.systems == 2 && first.games == 4, "both systems and their four games written");

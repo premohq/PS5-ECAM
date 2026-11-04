@@ -156,7 +156,7 @@ namespace ps5settings
 		bool setupDone = false;		 // the Setup check was shown once
 		// the sides the bar offers, Wii U 1, 3DS 2, DS 4, Switch 8 (Settings > Launcher > Sides, and the
 		// first start's Make it yours); at least one
-		int sides = 15 | (1 << 14);
+		int sides = 15 | (1 << ps5retro::kSideCount); // the first four and Switch 2, after every ps5retro::kSystems side
 		bool switchOffered = true;	 // the Switch side was offered: those whose sides predate it (4.0.2) see it once
 		bool switch2Offered = true;
 		std::string lastVersion;	 // the version that ran last: a newer one says what it brings, once (Make it yours)

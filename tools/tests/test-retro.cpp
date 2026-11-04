@@ -77,7 +77,9 @@ int main(int argc, char** argv)
 	Check(loaded.ui.sides == 255 && loaded.ui.librarySort[7] == 3 && loaded.retro[3].gamesFolder == settings.retro[3].gamesFolder, "new side settings persist independently");
 	Put(ps5paths::LauncherSettings(), "{\"ui\":{\"sides\":15,\"librarySort\":[1,2,3,0]},\"n3ds\":{\"gamesFolder\":\"/legacy/3ds\"}}");
 	const auto legacy = ps5settings::Load();
-	Check(legacy.ui.sides == 15 && legacy.ui.librarySort[2] == 3 && legacy.ui.librarySort[7] == 0 && legacy.n3ds.gamesFolder == "/legacy/3ds", "old four-side settings retain original values and zero-fill new array slots");
+	Check(legacy.ui.sides == (15 | 1 << (int)ps5launcher::System::Switch2) && legacy.ui.librarySort[2] == 3 && legacy.ui.librarySort[7] == 0 &&
+			  legacy.n3ds.gamesFolder == "/legacy/3ds",
+		"old four-side settings retain original values, zero-fill new array slots and offer Switch 2 once");
 	ps5catalog::Replace(ps5catalog::System::Nes, nes); ps5catalog::SetFavourite(ps5catalog::System::Nes, nes[0].titleId, true);
 	Check(ps5catalog::Save() && ps5catalog::Games(ps5catalog::System::Nes).size() == 2 && ps5catalog::Games(ps5catalog::System::WiiU).empty(), "new catalogue is separate from Wii U saves/library");
 	Put(root / "roms/empty.nes", "");
@@ -142,7 +144,9 @@ int main(int argc, char** argv)
 	Check(eleven.ui.sides == 2047 && eleven.ui.librarySort[10] == 2 && eleven.retro[6].gamesFolder == "/games/gba" && eleven.retro[4].gamesFolder == "/games/gb", "eleven-side visibility and independent handheld settings persist");
 	Put(ps5paths::LauncherSettings(), "{\"ui\":{\"sides\":255,\"librarySort\":[1,2,3,0,1,2,3,1]},\"n64\":{\"retroBackend\":1}}");
 	const auto eight = ps5settings::Load();
-	Check(eight.ui.sides == 255 && eight.ui.librarySort[7] == 1 && eight.ui.librarySort[10] == 0 && eight.retro[2].retroBackend == 1, "eight-side PR87 settings retain values and leave new sides hidden");
+	Check(eight.ui.sides == (255 | 1 << (int)ps5launcher::System::Switch2) && eight.ui.librarySort[7] == 1 && eight.ui.librarySort[10] == 0 &&
+			  eight.retro[2].retroBackend == 1,
+		"eight-side PR87 settings retain values, leave the later retro sides hidden and offer Switch 2 once");
 	ps5catalog::Replace(ps5catalog::System::Gb, gb); ps5catalog::Replace(ps5catalog::System::Gbc, gbc);
 	Check(ps5catalog::Save() && ps5catalog::Games(ps5catalog::System::Gb).size() == 1 && ps5catalog::Games(ps5catalog::System::Gbc).size() == 1, "GB and GBC catalogues persist separately");
 	Put(root / "mixed-discs/GameCube.ISO", DiscHeader(false));

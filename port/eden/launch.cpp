@@ -19,8 +19,6 @@ namespace ps5eden
 	namespace
 	{
 		constexpr const char* kProgram = "eden/eboot.bin";
-		// the Switch 2's games' program, EglantinePS5 (tools/build-eglantine.sh), where the app has it
-		constexpr const char* kSwitch2Program = "eglantine/eboot.bin";
 		// Eden's names for the settings' values (its settings_store.h)
 		constexpr const char* kResolutions[] = {"0.5x", "0.75x", "1x", "1.5x", "2x", "3x", "4x"};
 		constexpr const char* kFilters[] = {"bilinear", "fsr", "bicubic", "nearest"};
@@ -114,12 +112,7 @@ namespace ps5eden
 
 	void LaunchGame(const ps5emu::Game& game, const ps5settings::Launcher& forGame, bool exitAfterGame, std::string& error)
 	{
-		// a Switch 2 title (a game folder whose npdm has the Switch 2 layout, exefs.h) starts in
-		// EglantinePS5's program where the app has it, else in Eden's, whose eden-nx2 plays it too. Both
-		// take the game, --return and the request file alike; EglantinePS5 leaves out the --set settings
-		// it does not know (patches/eglantine)
-		const bool eglantine = game.format == "Switch 2" && Switch2Available();
-		if (!eglantine && !Available())
+		if (!Available())
 		{
 			error = ps5lang::Tr("This build has no Switch emulator: eden/eboot.bin is not in the app's folder.");
 			return;
@@ -131,11 +124,10 @@ namespace ps5eden
 			error = ps5lang::Tr("Eden cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it.");
 			return;
 		}
-		ps5log::Line("[switch] starting {} in {} ({})", game.name, eglantine ? "EglantinePS5" : "Eden", game.path.string());
+		ps5log::Line("[switch] starting {} in Eden ({})", game.name, game.path.string());
 		if (forGame.nx.nxFrameGeneration)
 			ps5log::Line("[switch] frame generation: {} {}", LosslessFound() ? "Lossless Scaling, from" : "MihawkGen, no Lossless.dll at", LosslessFile());
-		ps5emu::LoadExecApp(eglantine ? kSwitch2Program : kProgram, GameArguments(game, forGame, exitAfterGame), true,
-			eglantine ? ps5paths::EglantineRequestFile() : RequestFile());
+		ps5emu::LoadExecApp(kProgram, GameArguments(game, forGame, exitAfterGame), true, RequestFile());
 		error = ps5lang::Tr("The console did not start Eden. The boot log says what it answered.");
 	}
 
@@ -286,15 +278,6 @@ namespace ps5eden
 
 	std::string TakeStaleRequest()
 	{
-		// one EglantinePS5 never took, a Switch 2 game's: it reads it from /data, which it did not have,
-		// or the console started this app again instead of it. Its trace is in its logs
-		const std::string left = ps5paths::EglantineRequestFile();
-		if (struct stat leftInfo{}; stat(left.c_str(), &leftInfo) == 0)
-		{
-			std::remove(left.c_str());
-			ps5log::Line("[switch] EglantinePS5 never took its launch request ({}): its trace is in {}/logs", left,
-				ps5paths::Eglantine());
-		}
 		const std::string request = RequestFile();
 		struct stat asked{};
 		if (stat(request.c_str(), &asked) != 0)

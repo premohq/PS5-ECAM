@@ -102,10 +102,6 @@ namespace ps5paths
 		const std::string& session = EdenSessionOverride();
 		return session.empty() ? Eden() + "/ecam-result.txt" : session.substr(0, session.size() - 16) + "ecam-result.txt";
 	}
-	// EglantinePS5's data folder, beside the Switch side's default one (/data/eglantine): the program
-	// the Switch 2's games start in (patches/eglantine) takes its launch request from there
-	inline std::string Eglantine() { return ecam_layout::Sibling(kDefaultRoot, "eglantine"); }
-	inline std::string EglantineRequestFile() { return Eglantine() + "/launch-request.txt"; }
 	inline bool Present(const std::string& path) { return ecam_layout::Present(path); }
 	namespace detail
 	{

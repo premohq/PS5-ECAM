@@ -44,8 +44,6 @@ namespace ps5eden
 	bool LosslessFound();
 	// Whether the app has the Switch side's program (eden/eboot.bin in its folder)
 	bool Available();
-	// Whether the app has the Switch 2's games' program, EglantinePS5's eglantine/eboot.bin
-	bool Switch2Available();
 
 	// The files a Switch game can be: .nsp and .xci
 	bool IsSwitchFile(const std::string& name);
