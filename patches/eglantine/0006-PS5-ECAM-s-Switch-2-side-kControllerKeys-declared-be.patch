@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 13:15:38 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 side: kControllerKeys declared before the
+ session overrides read it
+
+The overrides PS5-ECAM passes (--ecam-setting controller=N) check the number against
+std::size(kControllerKeys), about 340 lines above where it was declared, so headless/ did not
+compile (metadata_bridge.cpp, filesystem.cpp). The list moves up, with its comment; nothing else
+changes.
+---
+ headless/settings_store.h | 9 +++++----
+ 1 file changed, 5 insertions(+), 4 deletions(-)
+
+diff --git a/headless/settings_store.h b/headless/settings_store.h
+index f1743bc..7cc965f 100644
+--- a/headless/settings_store.h
++++ b/headless/settings_store.h
+@@ -135,6 +135,11 @@ struct Preferences {
+     bool immediate_logs = false;         // Settings > Diagnostics: log lines written as they come
+ };
+ 
++// Library > Game settings > Controls > Controller type: the controller every player of the game
++// gets (the handheld: player 1 only). Without one a game gets what it takes, a Pro Controller
++// first (controller_applet.h).
++inline constexpr const char* kControllerKeys[] = {"pro", "handheld", "dual_joycons", "left_joycon", "right_joycon"};
++
+ // Settings passed by PS5-ECAM override Eglantine's saved defaults for this child session only.
+ // Audio, graphics, language and controls all read PreferencesFor(), so keeping the overlay here
+ // makes every subsystem see the same effective values without writing the user's config file.
+@@ -511,10 +516,6 @@ inline int64_t RngSeedFromText(std::string_view text) {
+     return seed <= 0xffffffffULL ? static_cast<int64_t>(seed) : -1;
+ }
+ inline constexpr const char* kRendererKeys[] = {"opengl", "vulkan"};
+-// Library > Game settings > Controls > Controller type: the controller every player of the game
+-// gets (the handheld: player 1 only). Without one a game gets what it takes, a Pro Controller
+-// first (controller_applet.h).
+-inline constexpr const char* kControllerKeys[] = {"pro", "handheld", "dual_joycons", "left_joycon", "right_joycon"};
+ 
+ inline GameSettings LoadGameSettings(uint64_t title_id, const std::string& file = SettingsFile()) {
+     GameSettings result;
