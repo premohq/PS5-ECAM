@@ -62,6 +62,9 @@ namespace ps5eden
 	bool Scanning();
 	// What the last scan found, sorted by name
 	std::vector<ps5emu::Game> ListGames(bool switch2Only = false);
+	// The update and DLC files the last scan gave a game, in its games folder (Eden's updates/ and dlc/
+	// it reads by itself), updates first: '|' between them, at most maxLength characters (addons.h)
+	std::vector<std::string> AddOnFiles(const ps5emu::Game& game, size_t maxLength);
 	// The games in a folder, as the scan finds them: -1 when it cannot be read
 	int CountGames(const std::string& folder, bool switch2Only = false);
 

@@ -68,6 +68,19 @@ int main(int argc, char** argv)
 	Beside(work / "missing/Zelda.nsp", game, named, unnamed);
 	Check(named.empty() && unnamed.empty(), "nothing for a folder that is not there");
 
+	// the files PS5-ECAM gave the game (--set addon_files, #106)
+	Check(ListedFiles("/mnt/usb0/Switch/Updates/Zelda.nsp|/mnt/usb0/Switch/DLC/Zelda DLC.XCI") ==
+			  std::vector<std::string>{"/mnt/usb0/Switch/Updates/Zelda.nsp", "/mnt/usb0/Switch/DLC/Zelda DLC.XCI"},
+		"the files PS5-ECAM gave, in its order");
+	Check(ListedFiles("relative/Zelda.nsp|/mnt/usb0/Zelda.txt||/|/mnt/usb0/Zelda.nsp|/mnt/usb0/Zelda.nsp") ==
+			  std::vector<std::string>{"/mnt/usb0/Zelda.nsp"},
+		"only absolute NSP and XCI paths, each once");
+	Check(ListedFiles("").empty() && ListedFiles("|").empty(), "none from an empty list");
+	std::string many;
+	for (int i = 0; i < 70; i++)
+		many += "/mnt/usb0/DLC " + std::to_string(i) + ".nsp|";
+	Check(ListedFiles(many).size() == 64 && ListedFiles("/" + std::string(1100, 'x') + ".nsp").empty(), "at most 64, each under 1024 characters");
+
 	std::cout << (failures ? "FAILED\n" : "OK\n");
 	return failures ? 1 : 0;
 }

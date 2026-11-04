@@ -31,6 +31,8 @@ namespace ps5eden
 
 		// the lines of Eden's trace a boot log takes, the last ones
 		constexpr size_t kTraceLines = 60;
+		// the update and DLC files' paths handed to Eden, together at most (GameArguments)
+		constexpr size_t kAddOnFilesLength = 1536;
 
 		void Set(std::vector<std::string>& args, const std::string& setting)
 		{
@@ -64,6 +66,17 @@ namespace ps5eden
 		// where the side lists its games from: a game in a folder of its own there brings that folder's
 		// update, DLC and mods, as one in Eden's roms/ does (patches/eden 0018)
 		Set(args, "games_folder=" + ScanFolder(nx.gamesFolder));
+		// and the update and DLC files the library gave the game there, which Eden takes wherever they
+		// are: one in a folder other than the game's (Games/ and Updates/ side by side) showed on the
+		// game's page and was never applied (#106, patches/eden 0024). LoadExec carries them too: a
+		// game with many DLC files gets as many as fit
+		if (const std::vector<std::string> files = AddOnFiles(game, kAddOnFilesLength); !files.empty())
+		{
+			std::string listed;
+			for (const std::string& file : files)
+				listed += (listed.empty() ? "" : "|") + file;
+			Set(args, "addon_files=" + listed);
+		}
 		Set(args, std::string("resolution=") + kResolutions[std::clamp(nx.nxResolution, 0, 6)]);
 		Set(args, std::string("upscaling_filter=") + kFilters[std::clamp(nx.nxFilter, 0, 3)]);
 		Set(args, std::string("astc_textures=") + kAstc[std::clamp(nx.nxAstc, 0, 1)]);

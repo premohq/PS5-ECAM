@@ -46,7 +46,8 @@ system files use `sdmc`, `nand` and `sysdata`; DS firmware belongs in `bios`; Sw
 belongs in `firmware`. The current DS backend has no update/DLC installer and needs no key
 folder. Switch updates and DLC need no install: Eden reads them where they are, in `updates`, in a
 `dlc` folder if you make one, in a game's own folder, or beside the game, in any games folder
-(`patches/eden/0018`). Staging folders do not automatically install content: use the existing
+(`patches/eden/0018`), and any the launcher found for the game elsewhere in its games folder, such
+as an `Updates` folder beside a `Games` one (`patches/eden/0024`). Staging folders do not automatically install content: use the existing
 Wii U installer or 3DS CIA installer.
 
 ## Existing installations are preserved

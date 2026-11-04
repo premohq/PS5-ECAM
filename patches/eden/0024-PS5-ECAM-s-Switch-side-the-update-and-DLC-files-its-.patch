@@ -1,0 +1,133 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Tue, 3 Nov 2026 23:31:08 -0500
+Subject: [PATCH] PS5-ECAM's Switch side: the update and DLC files its library
+ gave the game, wherever they are
+
+PS5-ECAM's library reads every Switch file's title ID with the keys, in any folder of its games
+folder, and shows a game's update and DLC on its page. Eden took them only from the game files
+folder's updates/ and dlc/, the game's own folder, and the files beside the game: an update in a
+folder other than the game's (Games/ and Updates/ side by side, one at the top while the game is in a
+folder) showed on the game's page and the game ran without it (PS5-ECAM issue 106). Copying it to the
+PS5's updates/ was the only way.
+
+- --set addon_files: the files PS5-ECAM gave the game, absolute paths with a '|' between them
+  (game_addons.h's ListedFiles: NSP and XCI only, each once, at most 64).
+- They go to the ExternalContentProvider as the files beside the game do, for the game PS5-ECAM asked
+  for alone (a game it starts itself gets none), and the log says how many opened.
+---
+ headless/game_addons.h    | 19 +++++++++++++++++++
+ headless/main.cpp         | 20 ++++++++++++++++++++
+ headless/settings_store.h |  5 +++++
+ 3 files changed, 44 insertions(+)
+
+diff --git a/headless/game_addons.h b/headless/game_addons.h
+index 18db0f1..5f7b947 100644
+--- a/headless/game_addons.h
++++ b/headless/game_addons.h
+@@ -11,6 +11,7 @@
+ //     which decides without opening the file; one whose name gives none is opened to read what it
+ //     holds (main.cpp). Another game's files are neither handed to Eden nor kept open.
+ // dlc/ in the game files folder is read as updates/ is: the other systems' folders have one.
++// And the files PS5-ECAM's Switch side gave the game itself, wherever they are (ListedFiles).
+ #pragma once
+ #include <algorithm>
+ #include <cctype>
+@@ -88,4 +89,22 @@ inline void Beside(const std::filesystem::path& rom, std::uint64_t base, std::ve
+     }
+ }
+ 
++// The update and DLC files PS5-ECAM's Switch side gave the game (--set addon_files): its library reads
++// each file's title ID with the keys, in any folder of its games folder, and shows them on the game's
++// page; one in a folder other than the game's (Games/ and Updates/ side by side) was never applied
++// (PS5-ECAM issue 106). Absolute paths of NSP and XCI files with a '|' between them (FAT and exFAT
++// names cannot have one), each once; at most 64, each under 1024 characters. Anything else is left out.
++inline std::vector<std::string> ListedFiles(std::string_view text) {
++    std::vector<std::string> files;
++    for (size_t at = 0; at <= text.size() && files.size() < 64;) {
++        const size_t bar = std::min(text.find('|', at), text.size());
++        const std::string_view piece = text.substr(at, bar - at);
++        if (piece.size() > 1 && piece.size() < 1024 && piece.front() == '/' && IsSwitchFile(std::filesystem::path{piece}) &&
++            std::find(files.begin(), files.end(), piece) == files.end())
++            files.emplace_back(piece);
++        at = bar + 1;
++    }
++    return files;
++}
++
+ }  // namespace Eden::AddOns
+diff --git a/headless/main.cpp b/headless/main.cpp
+index 54d0916..6c21094 100644
+--- a/headless/main.cpp
++++ b/headless/main.cpp
+@@ -718,6 +718,8 @@ int main(int argc, char** argv) {
+         }
+         std::string forwarded_game;
+         bool forwarded_session = false;
++        // the forwarded game's file: the update and DLC files PS5-ECAM gave are for it alone
++        std::string listed_for;
+         if (!forwarded.rom.empty() && (last_crash.report.empty() || ecam_started)) {
+             const std::string path = Eden::ResolveForwardedRom(forwarded.rom, Eden::AssetsPath("roms"));
+             if (!path.empty() && Eden::FileExists(path)) forwarded_game = path;
+@@ -800,6 +802,7 @@ int main(int argc, char** argv) {
+             guest_fault_retries = 0;
+             forwarded_session = true;
+             selected_game = std::exchange(forwarded_game, {});
++            listed_for = selected_game;
+             Eden::BootTrace::Line("starting the forwarded game");
+             KeepForwardedCover(selected_game);
+ #ifdef EDEN_ECAM
+@@ -1880,6 +1883,23 @@ int main(int argc, char** argv) {
+                     }
+                 }
+ #endif
++                // The update and DLC files PS5-ECAM's Switch side gave the game, wherever in its games
++                // folder they are (game_addons.h's ListedFiles): its library showed them on the game's
++                // page, so the game runs with them. Those of the game it asked for alone.
++                if (game && guest && !listed_for.empty() && selected_game == listed_for &&
++                    !Eden::Session().addon_files.empty()) {
++                    std::vector<FileSys::VirtualFile> listed;
++                    for (const std::string& path : Eden::Session().addon_files)
++                        if (path != selected_game)
++                            if (auto file = system.GetFilesystem()->OpenFile(path, FileSys::OpenMode::Read))
++                                listed.push_back(std::move(file));
++                    Eden::Report("launch", ("Update and DLC PS5-ECAM gave the game: " + std::to_string(listed.size()) + " of " +
++                                            std::to_string(Eden::Session().addon_files.size()) + " files opened").c_str());
++                    if (auto* external = system.GetFileSystemController().GetExternalContentProvider();
++                        external && !listed.empty())
++                        external->AddDirectory(std::make_shared<FileSys::VectorVfsDirectory>(
++                            std::move(listed), std::vector<FileSys::VirtualDir>{}, "PS5-ECAM's"));
++                }
+                 // The game's own contents, registered as Eden's desktop frontends do before booting a
+                 // game (ConfigureFilesystemProvider). An update's data is a patch on the base game's:
+                 // the patch manager looks the base up here, and without it applied only the update's
+diff --git a/headless/settings_store.h b/headless/settings_store.h
+index 44df33d..180266d 100644
+--- a/headless/settings_store.h
++++ b/headless/settings_store.h
+@@ -61,6 +61,7 @@
+ 
+ #include "button_mapping.h"
+ #include "exefs_game.h"
++#include "game_addons.h"
+ #include "storage_paths.h"
+ #include "multiplayer.h"
+ 
+@@ -592,6 +593,9 @@ struct SessionSettings {
+     // The folder PS5-ECAM's Switch side lists its games from (its roms/ or one chosen, a USB drive's):
+     // a game in a folder of its own there brings that folder's update and DLC (game_addons.h)
+     std::string games_folder;
++    // The update and DLC files PS5-ECAM's Switch side gave the game, wherever they are (game_addons.h's
++    // ListedFiles)
++    std::vector<std::string> addon_files;
+ };
+ inline SessionSettings& Session() {
+     static SessionSettings settings;
+@@ -657,6 +661,7 @@ inline bool SetSessionSetting(std::string_view key, std::string_view value) {
+     else if (key == "room_password") session.room_password = text.size() <= 128 ? text : std::string{};
+     else if (key == "room_name") session.room_name = text.substr(0, 512);
+     else if (key == "games_folder") session.games_folder = text.size() > 1 && text.size() <= 1024 && text.front() == '/' ? text : std::string{};
++    else if (key == "addon_files") session.addon_files = Eden::AddOns::ListedFiles(text);
+     else if (key == "output_resolution") session.output = index(kOutputKeys, int(std::size(kOutputKeys)));
+     else if (key == "refresh_rate") session.refresh = index(kRefreshKeys, int(std::size(kRefreshKeys)));
+     else if (key == "language") session.language = index(kLanguageKeys, int(std::size(kLanguageKeys)));

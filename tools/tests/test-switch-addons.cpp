@@ -28,13 +28,13 @@ int main()
 	games[1].hasUpdate = true; // what an earlier scan said is replaced
 	games[1].dlcCount = 3;
 	const std::vector<File> files{
-		{0x0100ABCDEF124800, true, "1.2.0"},
-		{0x0100ABCDEF124800, true, "1.10.1"}, // a newer update beside the older
-		{0x0100ABCDEF124800, true, ""},		  // one whose version could not be read
-		{0x0100ABCDEF125001, false, ""},
-		{0x0100ABCDEF125002, false, ""},
-		{0x0100ABCDEF125002, false, ""}, // the same DLC in an NSP and an XCI
-		{0x0100000000011001, false, ""},  // another game's (0x...10000 + 0x1000 + 1)
+		{0x0100ABCDEF124800, true, "1.2.0", ""},
+		{0x0100ABCDEF124800, true, "1.10.1", ""}, // a newer update beside the older
+		{0x0100ABCDEF124800, true, "", ""},		  // one whose version could not be read
+		{0x0100ABCDEF125001, false, "", ""},
+		{0x0100ABCDEF125002, false, "", ""},
+		{0x0100ABCDEF125002, false, "", ""}, // the same DLC in an NSP and an XCI
+		{0x0100000000011001, false, "", ""},  // another game's (0x...10000 + 0x1000 + 1)
 	};
 	Pair(games, files, Made);
 	Check(games[0].hasUpdate && games[0].versionName == "1.10.1" && games[0].dlcCount == 2, "the newest update's version, and each DLC once");
@@ -42,8 +42,24 @@ int main()
 	Check(!games[2].hasUpdate && games[2].dlcCount == 0, "nothing for a game whose title ID was made from its path");
 	Check(!games[3].hasUpdate && games[3].dlcCount == 0, "nothing for a game with none");
 	std::vector<ps5emu::Game> unread{Game(zelda)};
-	Pair(unread, {{0x0100ABCDEF124800, true, ""}}, Made);
+	Pair(unread, {{0x0100ABCDEF124800, true, "", ""}}, Made);
 	Check(unread[0].hasUpdate && unread[0].versionName.empty(), "an update known by its name alone: there, its version not shown");
+
+	// the files Eden is handed (#106): a game's, updates first, each once, within the length
+	const std::vector<File> placed{
+		{0x0100ABCDEF125001, false, "", "/mnt/usb0/Switch/DLC/Zelda DLC.nsp"},
+		{0x0100ABCDEF124800, true, "1.2.0", "/mnt/usb0/Switch/Updates/Zelda v1.2.0.nsp"},
+		{0x0100ABCDEF124800, true, "1.2.0", "/mnt/usb0/Switch/Updates/Zelda v1.2.0.nsp"}, // read twice
+		{0x0100ABCDEF124800, true, "1.0.1", ""},										  // in Eden's updates/
+		{0x0100ABCDEF125002, false, "", "/mnt/usb0/Switch/DLC/Zel|da.nsp"},
+		{0x0100000000011001, false, "", "/mnt/usb0/Switch/DLC/Mario DLC.nsp"},
+	};
+	Check(FilesOf(zelda, placed, 1000) ==
+			  std::vector<std::string>{"/mnt/usb0/Switch/Updates/Zelda v1.2.0.nsp", "/mnt/usb0/Switch/DLC/Zelda DLC.nsp"},
+		"a game's own files for Eden, updates first, each once; none in its own folders or with a '|'");
+	Check(FilesOf(zelda + 0x800, placed, 1000).size() == 2, "found by the game's base title ID");
+	Check(FilesOf(zelda, placed, 45) == std::vector<std::string>{"/mnt/usb0/Switch/Updates/Zelda v1.2.0.nsp"}, "as many as fit the length");
+	Check(FilesOf(0, placed, 1000).empty() && FilesOf(0x0100777700002000, placed, 1000).empty(), "none for a game with none");
 
 	std::cout << (failures ? "FAILED\n" : "OK\n");
 	return failures ? 1 : 0;

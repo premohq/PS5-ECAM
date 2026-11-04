@@ -33,6 +33,7 @@ namespace ps5eden
 		std::atomic<bool> s_scanning{false};
 		std::mutex s_mutex;
 		std::vector<ps5emu::Game> s_games; // under s_mutex
+		std::vector<addons::File> s_addOns; // under s_mutex: the updates and DLC the last scan found
 		std::atomic<uint32_t> s_coverArrivals{0};
 		std::mutex s_covers; // one pass over the games' icons at a time
 
@@ -308,7 +309,8 @@ namespace ps5eden
 		// once) and name. Without keys, or for a file they do not open, its name says. covers: the games
 		// whose icons are to be read after (no cover yet). The updates and DLC there and in Eden's updates/
 		// and dlc/ go with their games (addons.h): the update's version and how many DLC, on its page.
-		void ScanWithKeys(const std::string& folder, std::vector<ps5emu::Game>& games, std::vector<fs::path>& covers)
+		void ScanWithKeys(const std::string& folder, std::vector<ps5emu::Game>& games, std::vector<fs::path>& covers,
+			std::vector<addons::File>& found)
 		{
 			std::vector<fs::path> files;
 			Collect(folder, files);
@@ -324,7 +326,7 @@ namespace ps5eden
 					if (seen.insert(path.lexically_normal().string()).second)
 						files.push_back(std::move(path));
 			}
-			std::vector<addons::File> found;
+			found.clear();
 			nx::Keys keys;
 			const bool keyed = nx::LoadKeys(GameFilesFolder() + "/keys", keys);
 			std::map<std::string, Known> known = LoadKnown();
@@ -367,11 +369,14 @@ namespace ps5eden
 				if (addOn)
 				{
 					addOns++;
-					// whose: as read with the keys, else as its name says
+					// whose: as read with the keys, else as its name says. Where, when it is in the games
+					// folder: Eden finds those in its own updates/ and dlc/ by itself, but not one in a
+					// folder other than its game's (Games/ and Updates/ side by side, #106)
+					const std::string where = i < inFolder ? path.string() : std::string();
 					if (file.kind == nx::Kind::Update || file.kind == nx::Kind::Dlc)
-						found.push_back({file.titleId, file.kind == nx::Kind::Update, file.version});
+						found.push_back({file.titleId, file.kind == nx::Kind::Update, file.version, where});
 					else if (const uint64_t tagged = TaggedId(path.filename().string()); addons::IsUpdateId(tagged) || addons::IsDlcId(tagged))
-						found.push_back({tagged, addons::IsUpdateId(tagged), {}});
+						found.push_back({tagged, addons::IsUpdateId(tagged), {}, where});
 					continue;
 				}
 				// a game in Eden's updates/ or dlc/ is not one of the side's
@@ -508,7 +513,8 @@ namespace ps5eden
 			const auto started = std::chrono::steady_clock::now();
 			std::vector<ps5emu::Game> games;
 			std::vector<fs::path> covers;
-			ScanWithKeys(scanned, games, covers);
+			std::vector<addons::File> addOns;
+			ScanWithKeys(scanned, games, covers, addOns);
 			// the same game twice (an NSP and an XCI, a copy in a folder): listed once
 			std::set<uint64_t> listed;
 			std::erase_if(games, [&](const ps5emu::Game& game) { return !listed.insert(game.titleId).second; });
@@ -527,6 +533,7 @@ namespace ps5eden
 			{
 				std::lock_guard lock(s_mutex);
 				s_games = std::move(games);
+				s_addOns = std::move(addOns);
 			}
 			s_scanning = false;
 			// then their pictures, which the launcher shows as each arrives (CoverArrivals)
@@ -549,6 +556,14 @@ namespace ps5eden
 			if (game.format == "Switch 2")
 				games.push_back(game);
 		return games;
+	}
+
+	std::vector<std::string> AddOnFiles(const ps5emu::Game& game, size_t maxLength)
+	{
+		if (IsMadeId(game.titleId))
+			return {};
+		std::lock_guard lock(s_mutex);
+		return addons::FilesOf(game.titleId, s_addOns, maxLength);
 	}
 
 	int CountGames(const std::string& folder, bool switch2Only)

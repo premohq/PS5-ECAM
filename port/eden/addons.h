@@ -23,6 +23,7 @@ namespace ps5eden::addons
 		uint64_t titleId = 0;
 		bool update = false;  // an update, else DLC
 		std::string version;  // an update's, as the game shows it ("1.2.0"); empty when not read
+		std::string path;	  // where it is, when Eden would not find it by itself (outside its updates/ and dlc/)
 	};
 
 	// The game a title is of (Eden's FileSys::GetBaseTitleID)
@@ -81,5 +82,29 @@ namespace ps5eden::addons
 			}
 			game.dlcCount = (uint32_t)dlc.size();
 		}
+	}
+
+	// The files of a game's update and DLC among those found, updates first, for Eden to take wherever
+	// they are (patches/eden 0024, #106): together at most maxLength characters with a '|' between
+	// them, as the launch hands them over. A path with a '|' in it is left out (FAT and exFAT names
+	// cannot have one).
+	inline std::vector<std::string> FilesOf(uint64_t titleId, const std::vector<File>& files, size_t maxLength)
+	{
+		std::vector<std::string> paths;
+		if (!titleId)
+			return paths;
+		size_t length = 0;
+		for (const bool update : {true, false})
+			for (const File& file : files)
+			{
+				if (file.update != update || file.path.empty() || BaseOf(file.titleId) != BaseOf(titleId) ||
+					file.path.find('|') != std::string::npos || std::find(paths.begin(), paths.end(), file.path) != paths.end())
+					continue;
+				if (length + file.path.size() + !paths.empty() > maxLength)
+					continue;
+				length += file.path.size() + !paths.empty();
+				paths.push_back(file.path);
+			}
+		return paths;
 	}
 }
