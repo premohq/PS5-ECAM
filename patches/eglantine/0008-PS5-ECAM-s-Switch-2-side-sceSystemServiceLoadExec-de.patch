@@ -1,0 +1,25 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 18:52:03 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 side: sceSystemServiceLoadExec declared
+ extern "C"
+
+#109 declared it with C++ linkage, so eden-headless did not link (undefined symbol
+sceSystemServiceLoadExec(char const*, char const**)); libSceSystemService exports the C name.
+---
+ headless/main.cpp | 2 +-
+ 1 file changed, 1 insertion(+), 1 deletion(-)
+
+diff --git a/headless/main.cpp b/headless/main.cpp
+index b225fe3..19414d9 100644
+--- a/headless/main.cpp
++++ b/headless/main.cpp
+@@ -9,7 +9,7 @@
+ #include "assets_dir.h"
+ #include "forwarded_launch.h"
+ #if defined(EDEN_ECAM_CHILD) && EDEN_ECAM_CHILD
+-extern int sceSystemServiceLoadExec(const char* path, const char** args);
++extern "C" int sceSystemServiceLoadExec(const char* path, const char** args);
+ #endif
+ #include "gpu_failure.h"
+ #include "guest_fault.h"
