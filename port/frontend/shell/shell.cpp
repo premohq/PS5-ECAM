@@ -1869,8 +1869,10 @@ namespace ps5shell
 		}
 		if (m_screen != ScreenId::Hub)
 			m_menu.items.push_back({"hub", Tr("Game hub")});
-		// a game with settings of its own says so
-		const bool own = m_settings.games.count(ps5settings::GameKey(ps5launcher::SideName(m_side), g.entry.game.titleId)) > 0;
+		// a game with settings of its own says so (a GameCube or Wii game's are in its file of Porpoise's)
+		std::error_code ownError;
+		const bool own = m_settings.games.count(ps5settings::GameKey(ps5launcher::SideName(m_side), g.entry.game.titleId)) > 0 ||
+			(IsPorpoise() && std::filesystem::exists(ps5porpoise::GameFile(g.entry.game.path.string()), ownError));
 		m_menu.items.push_back({"settings", own ? Tr("Game settings: custom") : Tr("Game settings")});
 		// its own, by account (6.15); a Switch game's too, by its real title ID (not one the library made up)
 		if (!IsRetro() && g.entry.game.titleId != 0 && (!IsSwitch() || !ps5eden::IsMadeId(g.entry.game.titleId)))

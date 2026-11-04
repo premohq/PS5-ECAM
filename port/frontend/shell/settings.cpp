@@ -259,6 +259,22 @@ namespace ps5shell
 		if (IsRetro())
 		{
 			std::vector<SettingsPage> selected;
+			// the GameCube and Wii sides: Porpoise's settings, on the pages the other sides have (porpoise_rows.cpp);
+			// a game's, those it can have its own of
+			if (IsPorpoise())
+			{
+				const std::string game = TrF("For {0} only. Its other settings follow its side's.", m_gameName);
+				selected.push_back({"graphics", Tr("Graphics"),
+					InGameSettings() ? game : Tr("For every GameCube and Wii game: one emulator plays both, with the same settings."), Icon::Monitor});
+				selected.push_back({"controls", Tr("Controls"),
+					InGameSettings()						? game :
+						ps5retro::Is(SideIndex(), "wii") ? Tr("The DualSense as the Wii Remote, or as the GameCube controller.") :
+														   Tr("The DualSense as the GameCube controller."),
+					Icon::Pad});
+				selected.push_back({"system", Tr("System"), InGameSettings() ? game : Tr("The emulated console's language, and the sound."), Icon::Chip});
+				if (InGameSettings())
+					return selected;
+			}
 			if (InGameSettings()) return {{"runtime", Tr("Emulator settings"), Tr("The emulator bundled for this side keeps its own controls, settings and saves."), Icon::Info}};
 			selected.push_back({"runtime", Tr("Emulator settings"), Tr("The emulator bundled for this side keeps its own controls, settings and saves."), Icon::Info});
 			for (const auto& page : pages) if (page.id == "files" || page.id == "launcher" || page.id == "playtime" || page.id == "diagnostics" || page.id == "about") selected.push_back(page);
@@ -286,6 +302,7 @@ namespace ps5shell
 	void Shell::SettingsOpen(const std::string& page, bool onRows, int row)
 	{
 		m_switchExtrasKey.clear();
+		m_porpoise.read = false; // Porpoise may have changed its files since (its game, its own menus)
 		if (InGameSettings())
 			GameSettingsClose();
 		m_page = page;
@@ -434,6 +451,8 @@ namespace ps5shell
 	std::vector<Row> Shell::SideRows(const std::string& page, const ps5settings::Launcher& settings)
 	{
 		using Kind = Row::Kind;
+		if (IsPorpoise() && (page == "graphics" || page == "controls" || page == "system"))
+			return PorpoiseRows(page);
 		if (IsRetro() && (page == "files" || page == "runtime" || page == "graphics" || page == "system" || page == "screens" || page == "gamesaves"))
 		{
 			std::vector<Row> rows;
@@ -457,7 +476,11 @@ namespace ps5shell
 			else if (!ps5libretro::Plays(SideIndex()))
 			{
 				Row info; info.id = "retro-library"; info.kind = Kind::Action; info.dimmed = !ps5retro::Available(SideIndex(), backend); info.label = Tr("Open emulator settings and saves");
-				info.description = Tr("This side's emulator keeps its own settings, controls and saves: this opens its menus to change them, and quitting them comes back here. What it already had stays where it is."); rows.push_back(info);
+				info.description = Tr("This side's emulator keeps its own settings, controls and saves: this opens its menus to change them, and quitting them comes back here. What it already had stays where it is.");
+				// the GameCube and Wii sides: what is not on their pages yet (porpoise_rows.cpp)
+				if (IsPorpoise())
+					info.description = Tr("Porpoise's other settings, your button layouts, the Wii Remote's setup and the memory cards, in its own menus. Quitting them comes back here.");
+				rows.push_back(info);
 			}
 			if (page == "gamesaves") { Row backup; backup.id = "backup"; backup.kind = Kind::Action; backup.label = Tr("Back up to USB"); backup.description = Tr("Every side's saves, each emulator's. A save state loads only in the emulator that made it."); rows.push_back(backup); }
 			Row diagnostic; diagnostic.id = "retro-diagnostics"; diagnostic.kind = Kind::Action; diagnostic.label = Tr("Emulator diagnostics"); rows.push_back(diagnostic);
@@ -1689,7 +1712,9 @@ namespace ps5shell
 		{
 			if (row.setting.empty() && row.opens.empty())
 				continue;
-			row.fromSide = found == m_settings.games.end() || !found->second.count(row.setting);
+			// (Porpoise's: whether its own file has it, PorpoiseRows says)
+			if (!IsPorpoise())
+				row.fromSide = found == m_settings.games.end() || !found->second.count(row.setting);
 			rows.push_back(std::move(row));
 		}
 		rows = SubPageRows(withExtras(std::move(rows)));
@@ -2400,6 +2425,11 @@ namespace ps5shell
 
 	void Shell::ResetGameSetting(const Row& row)
 	{
+		if (row.id.starts_with("porpoise:"))
+		{
+			ResetPorpoise(row);
+			return;
+		}
 		const std::string side = ps5launcher::SideName(m_side);
 		const auto found = m_settings.games.find(ps5settings::GameKey(side, m_gameTitle));
 		if (row.setting.empty() || found == m_settings.games.end() || !found->second.erase(row.setting))
@@ -2417,6 +2447,7 @@ namespace ps5shell
 	void Shell::GameSettingsOpen(int game)
 	{
 		m_switchExtrasKey.clear();
+		m_porpoise.read = false;
 		if (game < 0 || game >= (int)m_games.size())
 			return;
 		const ps5emu::Game& g = m_games[game].entry.game;
@@ -2466,6 +2497,11 @@ namespace ps5shell
 		if (id.starts_with("nxextra:"))
 		{
 			ChangeSwitchExtra(row, step, cross);
+			return;
+		}
+		if (id.starts_with("porpoise:"))
+		{
+			ChangePorpoise(row, step, cross);
 			return;
 		}
 		if (row.dimmed && (row.needsCore || id == "homemenu"))
@@ -2972,6 +3008,8 @@ namespace ps5shell
 		}
 		else if (id == "resetgame")
 		{
+			if (IsPorpoise())
+				ForgetPorpoiseGame();
 			m_settings.games.erase(ps5settings::GameKey(ps5launcher::SideName(m_side), m_gameTitle));
 			SaveSettings();
 			m_gameView = ps5settings::ForGame(m_settings, ps5launcher::SideName(m_side), m_gameTitle);

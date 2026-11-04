@@ -16,6 +16,10 @@
 
 namespace ps5porpoise
 {
+	// The settings_version Porpoise-X writes (ui_settings.cpp's Settings::save), for a settings.ini made here
+	inline constexpr const char* kSettingsVersion = "18";
+	// Whether Porpoise plays the side, on the emulator chosen for it (ps5retro::kSystems: the GameCube and the Wii)
+	bool Plays(int side, int backend = 0);
 	// Porpoise's folder (ps5retro::kSystems' data for the GameCube and the Wii)
 	std::string Data();
 	std::string SettingsFile();

@@ -81,11 +81,11 @@ flags=(-std=c++20 -O1 -g -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-
     -I "$PS5CEMU_ROOT/.deps/reshade/deps/stb" $(pkg-config --cflags freetype2))
 sources=(tools/launcher-preview/shell.cpp tools/launcher-preview/console.cpp
     port/frontend/shell/hub.cpp port/frontend/shell/installs.cpp port/frontend/shell/library.cpp port/frontend/shell/pages.cpp
-    port/frontend/shell/settings.cpp port/frontend/shell/consoles.cpp port/frontend/shell/switch_extras.cpp port/frontend/shell/setup.cpp port/frontend/shell/shares.cpp port/frontend/shell/shell.cpp port/frontend/shell/welcome.cpp port/frontend/shell/whatsnew.cpp port/frontend/shell/widgets.cpp
+    port/frontend/shell/settings.cpp port/frontend/shell/consoles.cpp port/frontend/shell/porpoise_rows.cpp port/frontend/shell/switch_extras.cpp port/frontend/shell/setup.cpp port/frontend/shell/shares.cpp port/frontend/shell/shell.cpp port/frontend/shell/welcome.cpp port/frontend/shell/whatsnew.cpp port/frontend/shell/widgets.cpp
     port/ui/canvas.cpp port/ui/feedback.cpp port/ui/gfx.cpp port/ui/images.cpp port/ui/input.cpp port/ui/qr.cpp port/ui/text.cpp port/ui/theme.cpp
     port/ui/vkfn.cpp port/app/catalog.cpp port/app/saves.cpp port/app/reorganize.cpp port/app/gameinfo.cpp port/app/lang.cpp port/app/compatibility.cpp port/app/keyboard.cpp port/frontend/actions.cpp
     port/frontend/settings.cpp port/azahar/library.cpp port/azahar/controls.cpp port/azahar/unavailable.cpp
-    port/retro/library.cpp port/retro/launch.cpp port/melonds/library.cpp port/melonds/unavailable.cpp port/eden/library.cpp port/eden/nx_files.cpp port/eden/controls.cpp port/eden/extras.cpp port/eden/save_transfer.cpp)
+    port/retro/library.cpp port/retro/launch.cpp port/retro/porpoise_settings.cpp port/melonds/library.cpp port/melonds/unavailable.cpp port/eden/library.cpp port/eden/nx_files.cpp port/eden/controls.cpp port/eden/extras.cpp port/eden/save_transfer.cpp)
 
 # each source compiled again when it, or a header of the port's, is newer than its object
 newest_header=$(find port tools/launcher-preview -name '*.h' -printf '%T@\n' | sort -n | tail -1)

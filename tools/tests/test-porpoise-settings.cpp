@@ -2,6 +2,7 @@
 // Porpoise-X's settings files as PS5-ECAM writes them (port/retro/porpoise_settings.h). Prints PASS
 // lines; exits 1 on a failure.
 #include "retro/porpoise_settings.h"
+#include "retro/registry.h"
 
 #include <cstring>
 #include <filesystem>
@@ -63,6 +64,18 @@ int main(int argc, char** argv)
 	Check(values.at("resolution") == "5" && values.at("ui_theme") == "7" && !values.count("# Porpoise settings (written by the Settings screen)"),
 		"read back as Porpoise reads it");
 	Check(!fs::exists(root / "settings.ini.tmp"), "written beside it, then put in its place");
+
+	// a settings.ini made here: with Porpoise's version, or Porpoise moves its values as an older one's
+	const fs::path fresh = root / "fresh/settings.ini";
+	Check(ps5porpoise::Write(fresh.string(), {{"output_res", "1"}}, error) && Text(fresh).find("\nsettings_version = 18\n") != std::string::npos &&
+		ps5porpoise::Read(fresh.string()).at("output_res") == "1", "a new settings.ini says which version of Porpoise's it is");
+
+	// the sides Porpoise plays: the GameCube's and the Wii's, by their program
+	int sides = 0;
+	for (int side = 0; side < ps5retro::kSideCount; side++)
+		sides += ps5porpoise::Plays(side) ? 1 : 0;
+	Check(sides == 2 && ps5porpoise::Plays(ps5retro::kFirst + (int)(ps5retro::Find("wii") - ps5retro::kSystems.data())) &&
+		!ps5porpoise::Plays(ps5retro::kFirst - 1), "Porpoise plays the GameCube and the Wii");
 
 	// a game's own file: made with the header, its keys taken out again, removed once empty
 	const fs::path game = root / "game-settings/GALE01.ini";

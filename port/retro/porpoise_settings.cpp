@@ -85,6 +85,7 @@ namespace ps5porpoise
 		}
 	}
 
+	bool Plays(int side, int backend) { return ps5retro::IsRetro(side) && std::strcmp(ps5retro::BackendFor(side, backend).runtime, "retro/porpoise/eboot.bin") == 0; }
 	std::string Data() { return ps5retro::Find("gamecube")->data; }
 	std::string SettingsFile() { return Data() + "/settings.ini"; }
 	std::string GameFile(const std::string& gamePath) { return Data() + "/game-settings/" + GameKey(gamePath) + ".ini"; }
@@ -121,9 +122,15 @@ namespace ps5porpoise
 	bool Write(const std::string& file, const std::map<std::string, std::string>& values, std::string& error)
 	{
 		std::vector<std::string> lines = Lines(file);
-		if (lines.empty())
-			lines.push_back(file.find("/game-settings/") != std::string::npos ? "# This game's own settings (Playtendoh, as Porpoise > Details > Game settings)"
-																				: "# Porpoise settings (written by Playtendoh's Settings)");
+		if (lines.empty() && file.find("/game-settings/") != std::string::npos)
+			lines.push_back("# This game's own settings (Playtendoh, as Porpoise > Details > Game settings)");
+		else if (lines.empty())
+		{
+			// with the version of the settings Porpoise writes: a settings.ini without one is an older
+			// Porpoise's, whose values it moves (an output resolution up one, the shaders' mode)
+			lines.push_back("# Porpoise settings (written by Playtendoh's Settings)");
+			lines.push_back(std::string("settings_version = ") + kSettingsVersion);
+		}
 		std::map<std::string, std::string> left = values;
 		std::string key, value;
 		for (std::string& line : lines)

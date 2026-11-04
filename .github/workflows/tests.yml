@@ -113,7 +113,8 @@ jobs:
             -I.deps/rapidjson/include -Iport -fsyntax-only port/frontend/settings.cpp port/app/catalog.cpp \
             port/frontend/shell/shell.cpp port/frontend/shell/pages.cpp port/frontend/shell/settings.cpp \
             port/frontend/shell/library.cpp port/frontend/shell/hub.cpp port/frontend/shell/setup.cpp \
-            port/frontend/shell/consoles.cpp port/retro/library.cpp port/retro/launch.cpp
+            port/frontend/shell/consoles.cpp port/frontend/shell/porpoise_rows.cpp port/retro/library.cpp port/retro/launch.cpp \
+            port/retro/porpoise_settings.cpp
 
       - name: Switch standalone features
         run: |

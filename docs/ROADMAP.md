@@ -284,7 +284,14 @@ its `main` stays upstream's (4.0 now).
    its `add_game_rows` (Video, Enhancements, Graphics, Audio, Controls, System, Wii Remote), with its
    controller layouts and Wii Remote setup, written to its own files by `port/retro/porpoise_settings.cpp`
    (**done:** the files), in every language. Its menus' own (themes, library views, menu music) are
-   Playtendoh's launcher's.
+   Playtendoh's launcher's. **Started:** the two sides' Graphics, Controls and System pages and a game's
+   (`port/frontend/shell/porpoise_rows.cpp`, a table of Porpoise's keys), with the rows Porpoise's own
+   Settings shows before Show All Settings: internal resolution, anti-aliasing, widescreen, screen filter
+   and its strength, frame generation and steady 30 fps, the frame rate counter, output resolution; button
+   layout, vibration, the Wii controller and pointer; volume, Resume where you left off, the system
+   language. Next: the rest of `add_game_rows` behind › rows (Enhancements' advanced options, Graphics,
+   Audio, Controls, Wii Remote, Emulation, Console), then your layouts and the Wii Remote's setup; until
+   then Emulator settings > Open emulator settings and saves has them in Porpoise's own menus.
 4. **Playtendoh's loading screen and in-game menu** drawn by Porpoise's program over its frames, as Eden's
    (`port/eden/ingame.cpp` built into it): a `port/porpoise/ingame.cpp` with the session file the
    launcher writes (`ps5eden::WriteSession`'s), recording into Porpoise's present pass

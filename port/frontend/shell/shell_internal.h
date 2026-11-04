@@ -20,6 +20,7 @@
 #include "../../app/saves.h"
 #include "../../retro/library.h"
 #include "../../retro/launch.h"
+#include "../../retro/porpoise_settings.h"
 #include "../../libretro/plays.h"
 #include "../../eden/extras.h"
 #include "../../ui/canvas.h"
@@ -433,6 +434,21 @@ namespace ps5shell
 		bool ChangeSwitchExtra(const Row& row, int step, bool cross);
 		ps5eden::extras::View m_switchExtras;
 		std::string m_switchExtrasKey;
+		// the GameCube and Wii sides' settings, Porpoise's own, in its files (porpoise_rows.cpp)
+		bool IsPorpoise() const { return IsRetro() && ps5porpoise::Plays(SideIndex(), m_settings.retro[ps5retro::Slot(SideIndex())].retroBackend); }
+		std::vector<Row> PorpoiseRows(const std::string& page);
+		bool ChangePorpoise(const Row& row, int step, bool cross);
+		bool SetPorpoise(const std::string& id, int value); // where the row's value lives: every game's, or the game's
+		bool ResetPorpoise(const Row& row);					// the game's own value gone: every game's again
+		void ForgetPorpoiseGame();							// every value of the game's own gone
+		void ReadPorpoise();
+		struct PorpoiseFiles
+		{
+			bool read = false;
+			std::string game, gameFile; // the game's settings are open for, and its own file
+			std::map<std::string, std::string> side, own;
+		};
+		PorpoiseFiles m_porpoise;
 		struct SwitchImport { std::string folder, label; uint64_t accountSaveId = 0; };
 		std::vector<SwitchImport> m_switchImports;
 		void GameSettingsClose();
