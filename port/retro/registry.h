@@ -36,8 +36,8 @@ namespace ps5retro
 		{"gw", "Game & Watch", "", "/data/PS5GW/games", "/data/PS5GW", "gw", 0xff8c2e},                                        // the faceplates' orange
 		{"satellaview", "Satellaview", "", "/data/PS5Satellaview/games", "/data/PS5Satellaview", "mesens", 0xe05ad8},          // the broadcast's magenta
 		{"vs", "VS. System", "", "/data/PS5VS/games", "/data/PS5VS", "mesen", 0x22c2b3},                                       // the cabinets' teal
-		// the N64's program plays its decrypted games, as an N64's emulator can (its own folder, the N64's data)
-		{"ique", "iQue Player", "retro/n64/eboot.bin", "/data/PS5iQue/games", "/data/PS5N64", "", 0xff6f91},                   // its logo's red
+		// the N64's core plays its decrypted games, as an N64's emulator can (its own folder, the N64's data)
+		{"ique", "iQue Player", "retro/n64/eboot.bin", "/data/PS5iQue/games", "/data/PS5N64", "paralleln64", 0xff6f91},                   // its logo's red
 	}};
 	// the launcher's sides: the first four, then these
 	inline constexpr int kFirst = 4;
