@@ -139,6 +139,19 @@ checked by reading and compiling. Before a release:
   GameCube and Wii run through Porpoise now, PR #87), #81, #72; #90 (3DS games' errors) waits on its
   reporter's answer.
 
+**Opened since, to 5 November**, none of it run on a console yet:
+
+- **In code for 6.0**, each to check on a console before it is closed: **#103** (120 Hz kept while the
+  display settles, `patches/mesa` 0010), **#105** (a stop's teardown gets 30 seconds once the game's
+  cores have stopped, `patches/eden` 0025: its reporter's latest logs are 5.1.0's, where the limit was
+  hit at every exit), **#106** (a game's update and DLC from any folder of the games folder,
+  `patches/eden` 0024), **#107** (the DS's RetroAchievements hash from the file's bytes), **#108**
+  (Loader status 28 is ErrorMissingKeyAreaKey, keys older than those games: the message says so now),
+  **#104** (Take a save lists standalone ProsperoEden's players on the same PS5).
+- **Elsewhere or planned**: **#110** (1-2-Switch's two players on a left and a right Joy-Con: the
+  Controller type is one for every player, `headless/controller_applet.h`; to look into in Eden's
+  controllers, also reported to ProsperoEden), **#102** (buttons for each game: [G7](#g7)).
+
 - **PR #70** (Artic Setup: Azahar patches 0030 to 0032, fmt's prints to the boot log,
   `symbolize-crash.py --ps5`) and **PR #71** (Cyrillic and Greek from SST-Roman, #69) are already in
   the code: close both, thanking dolphin78.
