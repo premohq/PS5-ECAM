@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 
-#: port/app/achievements.cpp:233
+#: port/app/achievements.cpp:234
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements ne répond pas. La PS5 est-elle en ligne?"
 

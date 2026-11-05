@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: port/app/achievements.cpp:233
+#: port/app/achievements.cpp:234
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements no responde. ¿La PS5 está conectada a internet?"
 
@@ -119,6 +119,11 @@ msgstr "{0} en el navegador de un celular o una tableta, con control táctil: es
 #, menu
 msgid "A phone or tablet on the PS5's network. Sound stays on the PS5."
 msgstr "Un celular o una tableta en la red de la PS5. El sonido se queda en la PS5."
+
+#. a Switch game did not start because the keys could not decrypt it; {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:277
+msgid "Your keys could not decrypt this game: prod.keys in {0}/keys has keys missing or wrong for it, or the game's file is damaged. Dump prod.keys again from your own Switch, and check the game's file on a computer."
+msgstr "Tus claves no pudieron descifrar este juego: a prod.keys en {0}/keys le faltan claves para él o son incorrectas, o el archivo del juego está dañado. Vuelve a extraer prod.keys de tu propia Switch y revisa el archivo del juego en una computadora."
 
 #: port/frontend/shell/library.cpp:143
 msgid "Its settings, graphic packs and controllers are loading, and then it looks for your games."

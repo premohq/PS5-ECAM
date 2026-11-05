@@ -24,52 +24,52 @@ msgid "There is no such account."
 msgstr "ไม่มี​บัญชี​นี้"
 
 #. RetroAchievements did not sign in: its own words ({0}) follow
-#: port/app/achievements.cpp:232
+#: port/app/achievements.cpp:233
 msgid "RetroAchievements did not accept the user name or password."
 msgstr "RetroAchievements ไม่​ยอมรับ​ชื่อ​ผู้ใช้​หรือ​รหัสผ่าน"
 
-#: port/app/achievements.cpp:233
+#: port/app/achievements.cpp:234
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements ไม่​ตอบ​สนอง ตรวจสอบ​ว่า PS5 ออนไลน์​อยู่"
 
-#: port/app/achievements.cpp:234
+#: port/app/achievements.cpp:235
 msgid "RetroAchievements: {0}"
 msgstr "RetroAchievements: {0}"
 
 #. a RetroAchievements unlock, as the PS5's notification: its points ({0}) and title ({1})
-#: port/app/achievements.cpp:271
+#: port/app/achievements.cpp:272
 msgid "Achievement unlocked: {1} ({0} point)"
 msgid_plural "Achievement unlocked: {1} ({0} points)"
 msgstr[0] "ปลดล็อก​ความสำเร็จ: {1} ({0} คะแนน)"
 
 #. every RetroAchievements achievement of a game earned ({0}: the game's name)
-#: port/app/achievements.cpp:278
+#: port/app/achievements.cpp:279
 msgid "Every achievement of {0} is yours"
 msgstr "ได้​ความสำเร็จ​ทั้งหมด​ของ {0} แล้ว"
 
 #. as a DS game starts: how many of its RetroAchievements are earned ({0} of {1})
-#: port/app/achievements.cpp:317
+#: port/app/achievements.cpp:318
 msgid "RetroAchievements: {0} of {1} achievements"
 msgstr "RetroAchievements: ความสำเร็จ {0} จาก {1}"
 
-#: port/app/achievements.cpp:471
+#: port/app/achievements.cpp:486
 msgid "Sign in to RetroAchievements in Settings > Online."
 msgstr "ลงชื่อ​เข้า​ใช้ RetroAchievements ได้​ที่ การ​ตั้งค่า > ออนไลน์"
 
-#: port/app/achievements.cpp:477
+#: port/app/achievements.cpp:492
 msgid "Looking for this game's achievements…"
 msgstr "กำลัง​ค้นหา​ความสำเร็จ​ของ​เกม​นี้…"
 
-#: port/app/achievements.cpp:482
+#: port/app/achievements.cpp:497
 msgid "RetroAchievements has no achievements for this game."
 msgstr "RetroAchievements ไม่มี​ความสำเร็จ​สำหรับ​เกม​นี้"
 
-#: port/app/achievements.cpp:487
+#: port/app/achievements.cpp:502
 msgid "RetroAchievements could not be reached. The game plays on without them."
 msgstr "เชื่อมต่อ RetroAchievements ไม่ได้ เกม​จะ​เล่น​ต่อ​โดย​ไม่มี​ความสำเร็จ"
 
 #. a game's RetroAchievements: earned of all ({0} of {1}), then points earned of all ({2} of {3})
-#: port/app/achievements.cpp:496
+#: port/app/achievements.cpp:511
 msgid "{0} of {1} achievements · {2} of {3} points"
 msgstr "ความสำเร็จ {0} จาก {1} · {2} จาก {3} คะแนน"
 
@@ -138,7 +138,7 @@ msgstr "ไม่มี​ไฟล์ title.tik ของ​เกม​นี�
 msgid "The executable could not be started."
 msgstr "เรียกใช้​ไฟล์​โปรแกรม​ไม่ได้"
 
-#: port/app/emulator.cpp:809 port/melonds/core.cpp:1039
+#: port/app/emulator.cpp:809 port/melonds/core.cpp:1041
 msgid "The Vulkan renderer did not start: {0}"
 msgstr "ตัว​เรนเดอร์ Vulkan ไม่​เริ่ม​ทำงาน: {0}"
 
@@ -3030,33 +3030,52 @@ msgid "{0} player"
 msgid_plural "{0} players"
 msgstr[0] "{0} ผู้เล่น"
 
-#: port/eden/launch.cpp:117
+#: port/eden/launch.cpp:131
 msgid "This build has no Switch emulator: eden/eboot.bin is not in the app's folder."
 msgstr "เวอร์ชัน​นี้​ไม่มี​อีมูเลเตอร์ Switch: ไม่มี eden/eboot.bin ใน​โฟลเดอร์​ของ​แอป"
 
-#: port/eden/launch.cpp:124
+#: port/eden/launch.cpp:138
 msgid "Eden cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
 msgstr "Eden อ่าน​เกม​บน​โฟลเดอร์​แชร์​ใน​เครือข่าย​ไม่ได้ คัดลอก​เกม​นี้​ไป​ยัง PS5 หรือ​ไดรฟ์ USB เพื่อ​เล่น"
 
-#: port/eden/launch.cpp:131 port/eden/launch.cpp:300
+#: port/eden/launch.cpp:145 port/eden/launch.cpp:339
 msgid "The console did not start Eden. The boot log says what it answered."
 msgstr "เครื่อง​ไม่ได้​เริ่ม Eden บันทึก​การ​บูต​บอก​ว่า​เครื่อง​ตอบ​อะไร"
 
-#: port/eden/launch.cpp:235
+#: port/eden/launch.cpp:249
 msgid "The Switch game stopped: Eden closed while it ran. Its logs are in {0}."
 msgstr "เกม Switch หยุด​ทำงาน: Eden ปิด​ไป​ระหว่าง​เล่น บันทึก​ของ​มัน​อยู่​ใน {0}"
 
 #. a Switch game's room (Settings > Online > Multiplayer) could not be joined: its name ({0}) and why ({1}, in English)
-#: port/eden/launch.cpp:245
+#: port/eden/launch.cpp:259
 msgid "The room {0} could not be joined: {1} Choose another in Settings > Online > Multiplayer, or play offline."
 msgstr "เข้า​ห้อง {0} ไม่ได้: {1} เลือก​ห้อง​อื่น​ใน การตั้งค่า > ออนไลน์ > ผู้เล่น​หลาย​คน หรือ​เล่น​แบบ​ออฟไลน์"
 
-#: port/eden/launch.cpp:248
+#: port/eden/launch.cpp:262
 msgid "Eden could not find the game's file. Is the drive with it plugged in?"
 msgstr "Eden หา​ไฟล์​ของ​เกม​ไม่​พบ ไดรฟ์​ที่​มี​ไฟล์​นั้น​เสียบ​อยู่​หรือ​ไม่"
 
+#: port/eden/launch.cpp:268 port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
+msgid "prod.keys is missing: Eden cannot read Switch games without it"
+msgstr "ไม่มี prod.keys: หาก​ไม่มี Eden จะ​อ่าน​เกม Switch ไม่ได้"
+
+#. a Switch game did not start because the player's keys are older than it; {0} is Eden's game files folder, which has keys/ and firmware/ in it
+#: port/eden/launch.cpp:271
+msgid "This game needs newer keys than yours: it, or its update, was made for a newer Switch system version than the one your prod.keys came from. Dump prod.keys again from your Switch, updated to its latest system version, into {0}/keys, and its firmware into {0}/firmware."
+msgstr "เกม​นี้​ต้อง​ใช้​คีย์​ที่​ใหม่​กว่า​ของ​คุณ: ตัว​เกม​หรือ​อัปเดต​ของ​เกม ถูก​สร้าง​มา​สำหรับ​เวอร์ชัน​ระบบ Switch ที่​ใหม่​กว่า​เวอร์ชัน​ที่​คุณ​ดึง prod.keys ออก​มา อัปเดต Switch ของ​คุณ​เป็น​เวอร์ชัน​ระบบ​ล่าสุด แล้ว​ดึง prod.keys ออก​มา​ใหม่​ไว้​ที่ {0}/keys และ​ดึง​เฟิร์มแวร์​ไว้​ที่ {0}/firmware"
+
+#. a Switch game did not start because the keys could not decrypt it; {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:277
+msgid "Your keys could not decrypt this game: prod.keys in {0}/keys has keys missing or wrong for it, or the game's file is damaged. Dump prod.keys again from your own Switch, and check the game's file on a computer."
+msgstr "คีย์​ของ​คุณ​ถอด​รหัส​เกม​นี้​ไม่​ได้: prod.keys ใน {0}/keys ขาด​คีย์​สำหรับ​เกม​นี้​หรือ​มี​คีย์​ที่​ผิด หรือ​ไฟล์​เกม​เสียหาย ดึง prod.keys ออก​มา​ใหม่​จาก Switch ของ​คุณ​เอง และ​ตรวจ​สอบ​ไฟล์​เกม​บน​คอมพิวเตอร์"
+
+#. a Switch game did not start because its title key is missing (its dump has no ticket); {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:282
+msgid "This game's title key is missing: its file has no ticket. Dump the game again with its ticket, or put your Switch's title.keys in {0}/keys."
+msgstr "ไม่​พบ​คีย์​ไตเติล​ของ​เกม​นี้: ไฟล์​ของ​เกม​ไม่มี​ตั๋ว (ticket) ดึง​เกม​ออก​มา​ใหม่​พร้อม​ตั๋ว​ของ​เกม หรือ​ใส่ title.keys จาก Switch ของ​คุณ​ไว้​ที่ {0}/keys"
+
 #. why a Switch game stopped or did not start, in Eden's own words (English)
-#: port/eden/launch.cpp:250
+#: port/eden/launch.cpp:289
 msgid "The Switch game did not start or stopped: {0}"
 msgstr "เกม Switch ไม่​เริ่ม​หรือ​หยุด​ทำงาน: {0}"
 
@@ -6030,10 +6049,6 @@ msgstr "ใส่ prod.keys ​ของ​คุณ​เอง​ไว้​�
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
 msgstr "ใส่​ไฟล์​เฟิร์มแวร์ Switch ​ของ​คุณ​เอง​ไว้​ใน {0}/firmware ​ทั้ง​สอง​แอป​ไม่มี​เฟิร์มแวร์​มา​ให้"
 
-#: port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
-msgid "prod.keys is missing: Eden cannot read Switch games without it"
-msgstr "ไม่มี prod.keys: หาก​ไม่มี Eden จะ​อ่าน​เกม Switch ไม่ได้"
-
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
 msgstr "ยัง​ไม่มี​เฟิร์มแวร์: หลาย​เกม​ต้อง​ใช้​เพื่อ​เริ่ม​เกม"
@@ -8632,7 +8647,7 @@ msgid "The DS game in this archive could not be read: is the archive whole?"
 msgstr "อ่าน​เกม DS ใน​ไฟล์​บีบอัด​นี้​ไม่ได้: ไฟล์​บีบอัด​ครบ​สมบูรณ์​หรือ​ไม่"
 
 #. why a DS game did not start
-#: port/melonds/core.cpp:908 port/melonds/core.cpp:945
+#: port/melonds/core.cpp:908 port/melonds/core.cpp:947
 msgid "This is not a DS game melonDS can read."
 msgstr "นี่​ไม่ใช่​เกม DS ที่ melonDS อ่าน​ได้"
 
@@ -8640,11 +8655,11 @@ msgstr "นี่​ไม่ใช่​เกม DS ที่ melonDS อ่�
 msgid "DSi games are not supported yet."
 msgstr "ยัง​ไม่​รองรับ​เกม DSi"
 
-#: port/melonds/core.cpp:962
+#: port/melonds/core.cpp:964
 msgid "The GBA cartridge for Slot-2 could not be read: the game starts without it (the boot log says why)."
 msgstr "อ่าน​ตลับ GBA สำหรับ​ช่อง 2 ไม่ได้: เกม​จะ​เริ่ม​โดย​ไม่มี​ตลับ (ล็อก​การ​เริ่ม​ระบบ​บอก​สาเหตุ)"
 
-#: port/melonds/core.cpp:1004
+#: port/melonds/core.cpp:1006
 msgid "The recorded microphone could not be read: blowing makes noise instead (the boot log says why)."
 msgstr "อ่าน​เสียง​บันทึก​สำหรับ​ไมโครโฟน​ไม่ได้: การ​เป่า​จะ​เป็น​เสียง​รบกวน​แทน (ล็อก​การ​เริ่ม​ระบบ​บอก​สาเหตุ)"
 

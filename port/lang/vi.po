@@ -24,52 +24,52 @@ msgid "There is no such account."
 msgstr "Không có tài khoản này."
 
 #. RetroAchievements did not sign in: its own words ({0}) follow
-#: port/app/achievements.cpp:232
+#: port/app/achievements.cpp:233
 msgid "RetroAchievements did not accept the user name or password."
 msgstr "RetroAchievements không chấp nhận tên người dùng hoặc mật khẩu."
 
-#: port/app/achievements.cpp:233
+#: port/app/achievements.cpp:234
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements không phản hồi. PS5 có đang kết nối mạng không?"
 
-#: port/app/achievements.cpp:234
+#: port/app/achievements.cpp:235
 msgid "RetroAchievements: {0}"
 msgstr "RetroAchievements: {0}"
 
 #. a RetroAchievements unlock, as the PS5's notification: its points ({0}) and title ({1})
-#: port/app/achievements.cpp:271
+#: port/app/achievements.cpp:272
 msgid "Achievement unlocked: {1} ({0} point)"
 msgid_plural "Achievement unlocked: {1} ({0} points)"
 msgstr[0] "Đã mở khóa thành tựu: {1} ({0} điểm)"
 
 #. every RetroAchievements achievement of a game earned ({0}: the game's name)
-#: port/app/achievements.cpp:278
+#: port/app/achievements.cpp:279
 msgid "Every achievement of {0} is yours"
 msgstr "Đã đạt mọi thành tựu của {0}"
 
 #. as a DS game starts: how many of its RetroAchievements are earned ({0} of {1})
-#: port/app/achievements.cpp:317
+#: port/app/achievements.cpp:318
 msgid "RetroAchievements: {0} of {1} achievements"
 msgstr "RetroAchievements: {0}/{1} thành tựu"
 
-#: port/app/achievements.cpp:471
+#: port/app/achievements.cpp:486
 msgid "Sign in to RetroAchievements in Settings > Online."
 msgstr "Đăng nhập RetroAchievements trong Cài đặt > Trực tuyến."
 
-#: port/app/achievements.cpp:477
+#: port/app/achievements.cpp:492
 msgid "Looking for this game's achievements…"
 msgstr "Đang tìm thành tựu của trò chơi này…"
 
-#: port/app/achievements.cpp:482
+#: port/app/achievements.cpp:497
 msgid "RetroAchievements has no achievements for this game."
 msgstr "RetroAchievements không có thành tựu cho trò chơi này."
 
-#: port/app/achievements.cpp:487
+#: port/app/achievements.cpp:502
 msgid "RetroAchievements could not be reached. The game plays on without them."
 msgstr "Không thể kết nối RetroAchievements. Trò chơi vẫn tiếp tục, không có thành tựu."
 
 #. a game's RetroAchievements: earned of all ({0} of {1}), then points earned of all ({2} of {3})
-#: port/app/achievements.cpp:496
+#: port/app/achievements.cpp:511
 msgid "{0} of {1} achievements · {2} of {3} points"
 msgstr "{0}/{1} thành tựu · {2}/{3} điểm"
 
@@ -138,7 +138,7 @@ msgstr "Thiếu tệp title.tik của trò chơi."
 msgid "The executable could not be started."
 msgstr "Không thể khởi động tệp thực thi."
 
-#: port/app/emulator.cpp:809 port/melonds/core.cpp:1039
+#: port/app/emulator.cpp:809 port/melonds/core.cpp:1041
 msgid "The Vulkan renderer did not start: {0}"
 msgstr "Trình kết xuất Vulkan không khởi động được: {0}"
 
@@ -3030,33 +3030,52 @@ msgid "{0} player"
 msgid_plural "{0} players"
 msgstr[0] "{0} người chơi"
 
-#: port/eden/launch.cpp:117
+#: port/eden/launch.cpp:131
 msgid "This build has no Switch emulator: eden/eboot.bin is not in the app's folder."
 msgstr "Bản này không có trình giả lập Switch: không có eden/eboot.bin trong thư mục của ứng dụng."
 
-#: port/eden/launch.cpp:124
+#: port/eden/launch.cpp:138
 msgid "Eden cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
 msgstr "Eden không đọc được trò chơi trên thư mục chia sẻ mạng. Hãy chép trò chơi này vào PS5 hoặc ổ USB để chơi."
 
-#: port/eden/launch.cpp:131 port/eden/launch.cpp:300
+#: port/eden/launch.cpp:145 port/eden/launch.cpp:339
 msgid "The console did not start Eden. The boot log says what it answered."
 msgstr "Máy không khởi động Eden. Nhật ký khởi động ghi lại máy đã trả lời gì."
 
-#: port/eden/launch.cpp:235
+#: port/eden/launch.cpp:249
 msgid "The Switch game stopped: Eden closed while it ran. Its logs are in {0}."
 msgstr "Trò chơi Switch đã dừng: Eden đã đóng trong khi chạy. Nhật ký của nó ở {0}."
 
 #. a Switch game's room (Settings > Online > Multiplayer) could not be joined: its name ({0}) and why ({1}, in English)
-#: port/eden/launch.cpp:245
+#: port/eden/launch.cpp:259
 msgid "The room {0} could not be joined: {1} Choose another in Settings > Online > Multiplayer, or play offline."
 msgstr "Không thể vào phòng {0}: {1} Hãy chọn phòng khác trong Cài đặt > Trực tuyến > Nhiều người chơi, hoặc chơi ngoại tuyến."
 
-#: port/eden/launch.cpp:248
+#: port/eden/launch.cpp:262
 msgid "Eden could not find the game's file. Is the drive with it plugged in?"
 msgstr "Eden không tìm thấy tệp của trò chơi. Ổ đĩa chứa nó có được cắm vào không?"
 
+#: port/eden/launch.cpp:268 port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
+msgid "prod.keys is missing: Eden cannot read Switch games without it"
+msgstr "Thiếu prod.keys: không có nó, Eden không đọc được trò chơi Switch"
+
+#. a Switch game did not start because the player's keys are older than it; {0} is Eden's game files folder, which has keys/ and firmware/ in it
+#: port/eden/launch.cpp:271
+msgid "This game needs newer keys than yours: it, or its update, was made for a newer Switch system version than the one your prod.keys came from. Dump prod.keys again from your Switch, updated to its latest system version, into {0}/keys, and its firmware into {0}/firmware."
+msgstr "Trò chơi này cần khóa mới hơn khóa của bạn: trò chơi, hoặc bản cập nhật của nó, được làm cho phiên bản hệ thống Switch mới hơn phiên bản mà prod.keys của bạn được trích xuất. Hãy cập nhật máy Switch của bạn lên phiên bản hệ thống mới nhất rồi trích xuất lại prod.keys vào {0}/keys, và firmware của nó vào {0}/firmware."
+
+#. a Switch game did not start because the keys could not decrypt it; {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:277
+msgid "Your keys could not decrypt this game: prod.keys in {0}/keys has keys missing or wrong for it, or the game's file is damaged. Dump prod.keys again from your own Switch, and check the game's file on a computer."
+msgstr "Khóa của bạn không giải mã được trò chơi này: prod.keys trong {0}/keys thiếu khóa cho nó hoặc có khóa sai, hoặc tệp của trò chơi bị hỏng. Hãy trích xuất lại prod.keys từ chính máy Switch của bạn, và kiểm tra tệp của trò chơi trên máy tính."
+
+#. a Switch game did not start because its title key is missing (its dump has no ticket); {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:282
+msgid "This game's title key is missing: its file has no ticket. Dump the game again with its ticket, or put your Switch's title.keys in {0}/keys."
+msgstr "Thiếu khóa tiêu đề (title key) của trò chơi này: tệp của nó không có ticket. Hãy trích xuất lại trò chơi kèm ticket của nó, hoặc đặt title.keys của máy Switch của bạn vào {0}/keys."
+
 #. why a Switch game stopped or did not start, in Eden's own words (English)
-#: port/eden/launch.cpp:250
+#: port/eden/launch.cpp:289
 msgid "The Switch game did not start or stopped: {0}"
 msgstr "Trò chơi Switch không khởi động hoặc đã dừng: {0}"
 
@@ -6030,10 +6049,6 @@ msgstr "Hãy đặt prod.keys của bạn vào {0}/keys. Cả Playtendoh lẫn E
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
 msgstr "Hãy đặt các tệp firmware Switch của bạn vào {0}/firmware. Cả hai ứng dụng đều không kèm firmware."
 
-#: port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
-msgid "prod.keys is missing: Eden cannot read Switch games without it"
-msgstr "Thiếu prod.keys: không có nó, Eden không đọc được trò chơi Switch"
-
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
 msgstr "Chưa có firmware: nhiều trò chơi cần nó để khởi động"
@@ -8632,7 +8647,7 @@ msgid "The DS game in this archive could not be read: is the archive whole?"
 msgstr "Không đọc được trò chơi DS trong tệp nén này: tệp nén có nguyên vẹn không?"
 
 #. why a DS game did not start
-#: port/melonds/core.cpp:908 port/melonds/core.cpp:945
+#: port/melonds/core.cpp:908 port/melonds/core.cpp:947
 msgid "This is not a DS game melonDS can read."
 msgstr "Đây không phải trò chơi DS mà melonDS đọc được."
 
@@ -8640,11 +8655,11 @@ msgstr "Đây không phải trò chơi DS mà melonDS đọc được."
 msgid "DSi games are not supported yet."
 msgstr "Chưa hỗ trợ trò chơi DSi."
 
-#: port/melonds/core.cpp:962
+#: port/melonds/core.cpp:964
 msgid "The GBA cartridge for Slot-2 could not be read: the game starts without it (the boot log says why)."
 msgstr "Không đọc được băng GBA cho khe 2: trò chơi khởi động mà không có nó (nhật ký khởi động ghi lý do)."
 
-#: port/melonds/core.cpp:1004
+#: port/melonds/core.cpp:1006
 msgid "The recorded microphone could not be read: blowing makes noise instead (the boot log says why)."
 msgstr "Không đọc được bản ghi âm cho micrô: thổi sẽ tạo ra tiếng ồn thay vào đó (nhật ký khởi động ghi lý do)."
 
