@@ -3909,12 +3909,12 @@ msgstr "Artic Base, via ditt nätverk"
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254 port/frontend/shell/orbit.cpp:391
 msgid "Home"
-msgstr ""
+msgstr "Hem"
 
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254
 msgid "Console {0} of {1}"
-msgstr ""
+msgstr "Konsol {0} av {1}"
 
 #: port/frontend/shell/orbit.cpp:255 port/frontend/shell/shell.cpp:1510
 msgid "Continue"
@@ -3923,7 +3923,7 @@ msgstr "Fortsätt"
 #. under Orbit's Home: what its row shows
 #: port/frontend/shell/orbit.cpp:263
 msgid "The games you played last, on every console"
-msgstr ""
+msgstr "Spelen du spelade senast, på alla konsoler"
 
 #: port/frontend/shell/orbit.cpp:272 port/frontend/shell/shell.cpp:931
 msgid "{0} h played"
@@ -3934,22 +3934,22 @@ msgstr[1] "{0} h spelat"
 #. a game's chip in Orbit: {0} is when, as "yesterday" or "3 days ago"
 #: port/frontend/shell/orbit.cpp:300 port/frontend/shell/timeline.cpp:436
 msgid "Last played {0}"
-msgstr ""
+msgstr "Senast spelat: {0}"
 
 #. Orbit's Home before any game was played
 #: port/frontend/shell/orbit.cpp:312
 msgid "The games you play show up here."
-msgstr ""
+msgstr "Spelen du spelar visas här."
 
 #. Orbit's hints: L1 and R1 turn its dial
 #: port/frontend/shell/orbit.cpp:390
 msgid "Turn the dial"
-msgstr ""
+msgstr "Vrid på ratten"
 
 #. the view of every console's games on one shelf, opened with the touchpad
 #: port/frontend/shell/orbit.cpp:401 port/frontend/shell/shell.cpp:1492 port/frontend/shell/timeline.cpp:264
 msgid "Timeline"
-msgstr ""
+msgstr "Tidslinje"
 
 #: port/frontend/shell/orbit.cpp:582 port/frontend/shell/settings.cpp:1550 port/frontend/shell/welcome.cpp:214
 msgid "Make it yours"
@@ -3958,48 +3958,48 @@ msgstr "Gör den till din"
 #. the first start's question: the two layouts of the Library, Classic and Orbit
 #: port/frontend/shell/orbit.cpp:584
 msgid "How should your games be laid out?"
-msgstr ""
+msgstr "Hur ska dina spel visas?"
 
 #: port/frontend/shell/orbit.cpp:586
 msgid "Pick one now. You can switch any time in Settings > Launcher > Layout, and your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Välj en nu. Du kan byta när som helst under Inställningar > Startprogram > Layout, och dina spel, inställningar och sparningar stannar som de är."
 
 #: port/frontend/shell/orbit.cpp:597 port/frontend/shell/settings.cpp:1477
 msgid "Classic"
-msgstr ""
+msgstr "Klassisk"
 
 #: port/frontend/shell/orbit.cpp:597
 msgid "One console at a time, from the carousel; L1 and R1 turn it. Recently played on top, every game in a list below."
-msgstr ""
+msgstr "En konsol i taget från karusellen; L1 och R1 vrider den. Nyligen spelade överst, alla spel i en lista under."
 
 #: port/frontend/shell/orbit.cpp:598
 msgid "Good for big libraries on a few consoles"
-msgstr ""
+msgstr "Bra för stora bibliotek på få konsoler"
 
 #: port/frontend/shell/orbit.cpp:599 port/frontend/shell/settings.cpp:1477
 msgid "Orbit"
-msgstr ""
+msgstr "Orbit"
 
 #: port/frontend/shell/orbit.cpp:599
 msgid "New in 6.0"
-msgstr ""
+msgstr "Nytt i 6.0"
 
 #: port/frontend/shell/orbit.cpp:600
 msgid "Turn the dial to pick a console; its middle is what you played lately, on every console. The game you're on fills the background."
-msgstr ""
+msgstr "Vrid på ratten för att välja konsol; i mitten finns det du spelade senast, på alla konsoler. Spelet du står på fyller bakgrunden."
 
 #: port/frontend/shell/orbit.cpp:601
 msgid "Good for playing across many consoles"
-msgstr ""
+msgstr "Bra för att spela på många konsoler"
 
 #: port/frontend/shell/orbit.cpp:631
 msgid "Both have the Timeline view: every console on one shelf. Press the touchpad from either."
-msgstr ""
+msgstr "Båda har vyn Tidslinje: alla konsoler på en hylla. Tryck på styrplattan från vilken som helst."
 
 #. the button of the first start's question: {0} is the layout in focus, Classic or Orbit
 #: port/frontend/shell/orbit.cpp:633
 msgid "Use {0}"
-msgstr ""
+msgstr "Använd {0}"
 
 #: port/frontend/shell/pages.cpp:306
 msgid "Cross turns a pack on or off; Right goes to its presets. Choosing a preset turns its pack on. Changes apply at the next start."
@@ -6742,11 +6742,11 @@ msgstr "Hur startprogrammet ser ut: dess färger, hörn och det som rör sig bak
 
 #: port/frontend/shell/settings.cpp:1478
 msgid "How the Library is laid out."
-msgstr ""
+msgstr "Hur biblioteket är upplagt."
 
 #: port/frontend/shell/settings.cpp:1479
 msgid "Classic shows one console at a time, with Recently played on top and every game in a list. Orbit turns the logo into a dial that picks the console, with what you played lately in its middle. Switching moves nothing: your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Klassisk visar en konsol i taget, med Nyligen spelade överst och alla spel i en lista. Orbit gör loggan till en ratt som väljer konsol, med det du spelade senast i mitten. Ett byte flyttar ingenting: dina spel, inställningar och sparningar stannar som de är."
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
 #: port/frontend/shell/settings.cpp:1488
@@ -8591,27 +8591,27 @@ msgstr "Spelaren har bytt namn"
 
 #: port/frontend/shell/timeline.cpp:265
 msgid "Every console, oldest to newest"
-msgstr ""
+msgstr "Alla konsoler, från äldst till nyast"
 
 #: port/frontend/shell/timeline.cpp:387
 msgid "No games yet"
-msgstr ""
+msgstr "Inga spel än"
 
 #: port/frontend/shell/timeline.cpp:393 port/frontend/shell/timeline.cpp:463
 msgid "An empty shelf"
-msgstr ""
+msgstr "En tom hylla"
 
 #: port/frontend/shell/timeline.cpp:464
 msgid "Put its games in {0}, on the PS5 or a USB drive."
-msgstr ""
+msgstr "Lägg dess spel i {0}, på PS5:an eller en USB-enhet."
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Previous or next console"
-msgstr ""
+msgstr "Föregående eller nästa konsol"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Jump a decade"
-msgstr ""
+msgstr "Hoppa ett decennium"
 
 #: port/frontend/shell/welcome.cpp:69
 msgid "On every side: A on Circle, as Nintendo's consoles have it, or on Cross."

@@ -3909,12 +3909,12 @@ msgstr "Artic Base, verkkosi kautta"
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254 port/frontend/shell/orbit.cpp:391
 msgid "Home"
-msgstr ""
+msgstr "Koti"
 
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254
 msgid "Console {0} of {1}"
-msgstr ""
+msgstr "Konsoli {0}/{1}"
 
 #: port/frontend/shell/orbit.cpp:255 port/frontend/shell/shell.cpp:1510
 msgid "Continue"
@@ -3923,7 +3923,7 @@ msgstr "Jatka"
 #. under Orbit's Home: what its row shows
 #: port/frontend/shell/orbit.cpp:263
 msgid "The games you played last, on every console"
-msgstr ""
+msgstr "Viimeksi pelaamasi pelit, kaikilla konsoleilla"
 
 #: port/frontend/shell/orbit.cpp:272 port/frontend/shell/shell.cpp:931
 msgid "{0} h played"
@@ -3934,22 +3934,22 @@ msgstr[1] "Pelattu {0} h"
 #. a game's chip in Orbit: {0} is when, as "yesterday" or "3 days ago"
 #: port/frontend/shell/orbit.cpp:300 port/frontend/shell/timeline.cpp:436
 msgid "Last played {0}"
-msgstr ""
+msgstr "Viimeksi pelattu: {0}"
 
 #. Orbit's Home before any game was played
 #: port/frontend/shell/orbit.cpp:312
 msgid "The games you play show up here."
-msgstr ""
+msgstr "Pelaamasi pelit näkyvät tässä."
 
 #. Orbit's hints: L1 and R1 turn its dial
 #: port/frontend/shell/orbit.cpp:390
 msgid "Turn the dial"
-msgstr ""
+msgstr "Käännä kiekkoa"
 
 #. the view of every console's games on one shelf, opened with the touchpad
 #: port/frontend/shell/orbit.cpp:401 port/frontend/shell/shell.cpp:1492 port/frontend/shell/timeline.cpp:264
 msgid "Timeline"
-msgstr ""
+msgstr "Aikajana"
 
 #: port/frontend/shell/orbit.cpp:582 port/frontend/shell/settings.cpp:1550 port/frontend/shell/welcome.cpp:214
 msgid "Make it yours"
@@ -3958,48 +3958,48 @@ msgstr "Tee siitä omasi"
 #. the first start's question: the two layouts of the Library, Classic and Orbit
 #: port/frontend/shell/orbit.cpp:584
 msgid "How should your games be laid out?"
-msgstr ""
+msgstr "Miten pelisi järjestetään?"
 
 #: port/frontend/shell/orbit.cpp:586
 msgid "Pick one now. You can switch any time in Settings > Launcher > Layout, and your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Valitse nyt. Voit vaihtaa milloin tahansa kohdassa Asetukset > Käynnistin > Asettelu, ja pelisi, asetuksesi ja tallennuksesi pysyvät ennallaan."
 
 #: port/frontend/shell/orbit.cpp:597 port/frontend/shell/settings.cpp:1477
 msgid "Classic"
-msgstr ""
+msgstr "Klassinen"
 
 #: port/frontend/shell/orbit.cpp:597
 msgid "One console at a time, from the carousel; L1 and R1 turn it. Recently played on top, every game in a list below."
-msgstr ""
+msgstr "Yksi konsoli kerrallaan karusellista; L1 ja R1 kääntävät sitä. Äskettäin pelatut ylhäällä, kaikki pelit listana alla."
 
 #: port/frontend/shell/orbit.cpp:598
 msgid "Good for big libraries on a few consoles"
-msgstr ""
+msgstr "Hyvä suurille kirjastoille muutamalla konsolilla"
 
 #: port/frontend/shell/orbit.cpp:599 port/frontend/shell/settings.cpp:1477
 msgid "Orbit"
-msgstr ""
+msgstr "Orbit"
 
 #: port/frontend/shell/orbit.cpp:599
 msgid "New in 6.0"
-msgstr ""
+msgstr "Uutta versiossa 6.0"
 
 #: port/frontend/shell/orbit.cpp:600
 msgid "Turn the dial to pick a console; its middle is what you played lately, on every console. The game you're on fills the background."
-msgstr ""
+msgstr "Valitse konsoli kääntämällä kiekkoa; sen keskellä on viimeksi pelaamasi, kaikilla konsoleilla. Valittu peli täyttää taustan."
 
 #: port/frontend/shell/orbit.cpp:601
 msgid "Good for playing across many consoles"
-msgstr ""
+msgstr "Hyvä pelaamiseen monilla konsoleilla"
 
 #: port/frontend/shell/orbit.cpp:631
 msgid "Both have the Timeline view: every console on one shelf. Press the touchpad from either."
-msgstr ""
+msgstr "Molemmissa on Aikajana-näkymä: kaikki konsolit yhdellä hyllyllä. Paina kosketuslevyä kummasta tahansa."
 
 #. the button of the first start's question: {0} is the layout in focus, Classic or Orbit
 #: port/frontend/shell/orbit.cpp:633
 msgid "Use {0}"
-msgstr ""
+msgstr "Käytä: {0}"
 
 #: port/frontend/shell/pages.cpp:306
 msgid "Cross turns a pack on or off; Right goes to its presets. Choosing a preset turns its pack on. Changes apply at the next start."
@@ -6742,11 +6742,11 @@ msgstr "Miltä käynnistin näyttää: sen värit, kulmat ja se, mikä liikkuu v
 
 #: port/frontend/shell/settings.cpp:1478
 msgid "How the Library is laid out."
-msgstr ""
+msgstr "Miten kirjasto on aseteltu."
 
 #: port/frontend/shell/settings.cpp:1479
 msgid "Classic shows one console at a time, with Recently played on top and every game in a list. Orbit turns the logo into a dial that picks the console, with what you played lately in its middle. Switching moves nothing: your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Klassinen näyttää yhden konsolin kerrallaan, Äskettäin pelatut ylhäällä ja kaikki pelit listana. Orbit tekee logosta kiekon, joka valitsee konsolin, ja keskellä on viimeksi pelaamasi. Vaihto ei siirrä mitään: pelisi, asetuksesi ja tallennuksesi pysyvät ennallaan."
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
 #: port/frontend/shell/settings.cpp:1488
@@ -8591,27 +8591,27 @@ msgstr "Pelaaja nimetty uudelleen"
 
 #: port/frontend/shell/timeline.cpp:265
 msgid "Every console, oldest to newest"
-msgstr ""
+msgstr "Kaikki konsolit, vanhimmasta uusimpaan"
 
 #: port/frontend/shell/timeline.cpp:387
 msgid "No games yet"
-msgstr ""
+msgstr "Ei vielä pelejä"
 
 #: port/frontend/shell/timeline.cpp:393 port/frontend/shell/timeline.cpp:463
 msgid "An empty shelf"
-msgstr ""
+msgstr "Tyhjä hylly"
 
 #: port/frontend/shell/timeline.cpp:464
 msgid "Put its games in {0}, on the PS5 or a USB drive."
-msgstr ""
+msgstr "Laita sen pelit kansioon {0}, PS5:lle tai USB-asemalle."
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Previous or next console"
-msgstr ""
+msgstr "Edellinen tai seuraava konsoli"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Jump a decade"
-msgstr ""
+msgstr "Hyppää vuosikymmen"
 
 #: port/frontend/shell/welcome.cpp:69
 msgid "On every side: A on Circle, as Nintendo's consoles have it, or on Cross."

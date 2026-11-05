@@ -3896,12 +3896,12 @@ msgstr "Artic Base, qua mạng"
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254 port/frontend/shell/orbit.cpp:391
 msgid "Home"
-msgstr ""
+msgstr "Trang chủ"
 
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254
 msgid "Console {0} of {1}"
-msgstr ""
+msgstr "Máy {0} trên {1}"
 
 #: port/frontend/shell/orbit.cpp:255 port/frontend/shell/shell.cpp:1510
 msgid "Continue"
@@ -3910,7 +3910,7 @@ msgstr "Tiếp tục"
 #. under Orbit's Home: what its row shows
 #: port/frontend/shell/orbit.cpp:263
 msgid "The games you played last, on every console"
-msgstr ""
+msgstr "Các game bạn chơi gần nhất, trên mọi máy"
 
 #: port/frontend/shell/orbit.cpp:272 port/frontend/shell/shell.cpp:931
 msgid "{0} h played"
@@ -3920,22 +3920,22 @@ msgstr[0] "Đã chơi {0} giờ"
 #. a game's chip in Orbit: {0} is when, as "yesterday" or "3 days ago"
 #: port/frontend/shell/orbit.cpp:300 port/frontend/shell/timeline.cpp:436
 msgid "Last played {0}"
-msgstr ""
+msgstr "Chơi lần cuối: {0}"
 
 #. Orbit's Home before any game was played
 #: port/frontend/shell/orbit.cpp:312
 msgid "The games you play show up here."
-msgstr ""
+msgstr "Các game bạn chơi sẽ hiện ở đây."
 
 #. Orbit's hints: L1 and R1 turn its dial
 #: port/frontend/shell/orbit.cpp:390
 msgid "Turn the dial"
-msgstr ""
+msgstr "Xoay vòng quay"
 
 #. the view of every console's games on one shelf, opened with the touchpad
 #: port/frontend/shell/orbit.cpp:401 port/frontend/shell/shell.cpp:1492 port/frontend/shell/timeline.cpp:264
 msgid "Timeline"
-msgstr ""
+msgstr "Dòng thời gian"
 
 #: port/frontend/shell/orbit.cpp:582 port/frontend/shell/settings.cpp:1550 port/frontend/shell/welcome.cpp:214
 msgid "Make it yours"
@@ -3944,48 +3944,48 @@ msgstr "Tùy biến theo ý bạn"
 #. the first start's question: the two layouts of the Library, Classic and Orbit
 #: port/frontend/shell/orbit.cpp:584
 msgid "How should your games be laid out?"
-msgstr ""
+msgstr "Bạn muốn sắp xếp game thế nào?"
 
 #: port/frontend/shell/orbit.cpp:586
 msgid "Pick one now. You can switch any time in Settings > Launcher > Layout, and your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Hãy chọn ngay. Bạn có thể đổi bất cứ lúc nào trong Cài đặt > Trình khởi chạy > Bố cục, và game, cài đặt cùng dữ liệu lưu của bạn vẫn giữ nguyên."
 
 #: port/frontend/shell/orbit.cpp:597 port/frontend/shell/settings.cpp:1477
 msgid "Classic"
-msgstr ""
+msgstr "Cổ điển"
 
 #: port/frontend/shell/orbit.cpp:597
 msgid "One console at a time, from the carousel; L1 and R1 turn it. Recently played on top, every game in a list below."
-msgstr ""
+msgstr "Mỗi lần một máy, từ băng chuyền; L1 và R1 xoay nó. Chơi gần đây ở trên, mọi game trong danh sách bên dưới."
 
 #: port/frontend/shell/orbit.cpp:598
 msgid "Good for big libraries on a few consoles"
-msgstr ""
+msgstr "Hợp với thư viện lớn trên vài máy"
 
 #: port/frontend/shell/orbit.cpp:599 port/frontend/shell/settings.cpp:1477
 msgid "Orbit"
-msgstr ""
+msgstr "Orbit"
 
 #: port/frontend/shell/orbit.cpp:599
 msgid "New in 6.0"
-msgstr ""
+msgstr "Mới trong 6.0"
 
 #: port/frontend/shell/orbit.cpp:600
 msgid "Turn the dial to pick a console; its middle is what you played lately, on every console. The game you're on fills the background."
-msgstr ""
+msgstr "Xoay vòng quay để chọn máy; ở giữa là những gì bạn chơi gần đây, trên mọi máy. Game đang chọn lấp đầy nền."
 
 #: port/frontend/shell/orbit.cpp:601
 msgid "Good for playing across many consoles"
-msgstr ""
+msgstr "Hợp với chơi trên nhiều máy"
 
 #: port/frontend/shell/orbit.cpp:631
 msgid "Both have the Timeline view: every console on one shelf. Press the touchpad from either."
-msgstr ""
+msgstr "Cả hai đều có chế độ xem Dòng thời gian: mọi máy trên một kệ. Nhấn bàn di cảm ứng từ bất kỳ bố cục nào."
 
 #. the button of the first start's question: {0} is the layout in focus, Classic or Orbit
 #: port/frontend/shell/orbit.cpp:633
 msgid "Use {0}"
-msgstr ""
+msgstr "Dùng {0}"
 
 #: port/frontend/shell/pages.cpp:306
 msgid "Cross turns a pack on or off; Right goes to its presets. Choosing a preset turns its pack on. Changes apply at the next start."
@@ -6714,11 +6714,11 @@ msgstr "Diện mạo của trình khởi chạy: màu sắc, góc bo và những
 
 #: port/frontend/shell/settings.cpp:1478
 msgid "How the Library is laid out."
-msgstr ""
+msgstr "Cách sắp xếp Thư viện."
 
 #: port/frontend/shell/settings.cpp:1479
 msgid "Classic shows one console at a time, with Recently played on top and every game in a list. Orbit turns the logo into a dial that picks the console, with what you played lately in its middle. Switching moves nothing: your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Cổ điển hiển thị mỗi lần một máy, với Chơi gần đây ở trên và mọi game trong danh sách. Orbit biến logo thành vòng quay chọn máy, với những gì bạn chơi gần đây ở giữa. Việc chuyển không di chuyển gì cả: game, cài đặt và dữ liệu lưu của bạn vẫn giữ nguyên."
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
 #: port/frontend/shell/settings.cpp:1488
@@ -8548,27 +8548,27 @@ msgstr "Đã đổi tên người chơi"
 
 #: port/frontend/shell/timeline.cpp:265
 msgid "Every console, oldest to newest"
-msgstr ""
+msgstr "Mọi máy, từ cũ nhất đến mới nhất"
 
 #: port/frontend/shell/timeline.cpp:387
 msgid "No games yet"
-msgstr ""
+msgstr "Chưa có game"
 
 #: port/frontend/shell/timeline.cpp:393 port/frontend/shell/timeline.cpp:463
 msgid "An empty shelf"
-msgstr ""
+msgstr "Một kệ trống"
 
 #: port/frontend/shell/timeline.cpp:464
 msgid "Put its games in {0}, on the PS5 or a USB drive."
-msgstr ""
+msgstr "Đặt game của nó vào {0}, trên PS5 hoặc ổ USB."
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Previous or next console"
-msgstr ""
+msgstr "Máy trước hoặc máy tiếp theo"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Jump a decade"
-msgstr ""
+msgstr "Nhảy một thập kỷ"
 
 #: port/frontend/shell/welcome.cpp:69
 msgid "On every side: A on Circle, as Nintendo's consoles have it, or on Cross."

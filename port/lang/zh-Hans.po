@@ -3896,12 +3896,12 @@ msgstr "Artic Base，通过网络"
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254 port/frontend/shell/orbit.cpp:391
 msgid "Home"
-msgstr ""
+msgstr "主页"
 
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254
 msgid "Console {0} of {1}"
-msgstr ""
+msgstr "第 {0} 台主机(共 {1} 台)"
 
 #: port/frontend/shell/orbit.cpp:255 port/frontend/shell/shell.cpp:1510
 msgid "Continue"
@@ -3910,7 +3910,7 @@ msgstr "继续"
 #. under Orbit's Home: what its row shows
 #: port/frontend/shell/orbit.cpp:263
 msgid "The games you played last, on every console"
-msgstr ""
+msgstr "所有主机上最近玩过的游戏"
 
 #: port/frontend/shell/orbit.cpp:272 port/frontend/shell/shell.cpp:931
 msgid "{0} h played"
@@ -3920,22 +3920,22 @@ msgstr[0] "已玩{0}小时"
 #. a game's chip in Orbit: {0} is when, as "yesterday" or "3 days ago"
 #: port/frontend/shell/orbit.cpp:300 port/frontend/shell/timeline.cpp:436
 msgid "Last played {0}"
-msgstr ""
+msgstr "上次游玩:{0}"
 
 #. Orbit's Home before any game was played
 #: port/frontend/shell/orbit.cpp:312
 msgid "The games you play show up here."
-msgstr ""
+msgstr "你玩过的游戏会显示在这里。"
 
 #. Orbit's hints: L1 and R1 turn its dial
 #: port/frontend/shell/orbit.cpp:390
 msgid "Turn the dial"
-msgstr ""
+msgstr "转动转盘"
 
 #. the view of every console's games on one shelf, opened with the touchpad
 #: port/frontend/shell/orbit.cpp:401 port/frontend/shell/shell.cpp:1492 port/frontend/shell/timeline.cpp:264
 msgid "Timeline"
-msgstr ""
+msgstr "时间轴"
 
 #: port/frontend/shell/orbit.cpp:582 port/frontend/shell/settings.cpp:1550 port/frontend/shell/welcome.cpp:214
 msgid "Make it yours"
@@ -3944,48 +3944,48 @@ msgstr "个性化设置"
 #. the first start's question: the two layouts of the Library, Classic and Orbit
 #: port/frontend/shell/orbit.cpp:584
 msgid "How should your games be laid out?"
-msgstr ""
+msgstr "你想如何布局游戏?"
 
 #: port/frontend/shell/orbit.cpp:586
 msgid "Pick one now. You can switch any time in Settings > Launcher > Layout, and your games, settings and saves stay as they are."
-msgstr ""
+msgstr "现在选一个。你可以随时在 设置 > 启动器 > 布局 中切换,游戏、设置和存档都不会改变。"
 
 #: port/frontend/shell/orbit.cpp:597 port/frontend/shell/settings.cpp:1477
 msgid "Classic"
-msgstr ""
+msgstr "经典"
 
 #: port/frontend/shell/orbit.cpp:597
 msgid "One console at a time, from the carousel; L1 and R1 turn it. Recently played on top, every game in a list below."
-msgstr ""
+msgstr "每次显示一台主机,在转盘栏中选择;L1 和 R1 转动它。上方是最近游玩,下方是所有游戏的列表。"
 
 #: port/frontend/shell/orbit.cpp:598
 msgid "Good for big libraries on a few consoles"
-msgstr ""
+msgstr "适合主机不多但游戏库很大的玩家"
 
 #: port/frontend/shell/orbit.cpp:599 port/frontend/shell/settings.cpp:1477
 msgid "Orbit"
-msgstr ""
+msgstr "Orbit"
 
 #: port/frontend/shell/orbit.cpp:599
 msgid "New in 6.0"
-msgstr ""
+msgstr "6.0 新增"
 
 #: port/frontend/shell/orbit.cpp:600
 msgid "Turn the dial to pick a console; its middle is what you played lately, on every console. The game you're on fills the background."
-msgstr ""
+msgstr "转动转盘选择主机;中间是所有主机上最近玩过的游戏。选中的游戏会铺满背景。"
 
 #: port/frontend/shell/orbit.cpp:601
 msgid "Good for playing across many consoles"
-msgstr ""
+msgstr "适合在多台主机上游玩"
 
 #: port/frontend/shell/orbit.cpp:631
 msgid "Both have the Timeline view: every console on one shelf. Press the touchpad from either."
-msgstr ""
+msgstr "两者都有时间轴视图:所有主机放在同一个架子上。在任一布局中按下触摸板即可。"
 
 #. the button of the first start's question: {0} is the layout in focus, Classic or Orbit
 #: port/frontend/shell/orbit.cpp:633
 msgid "Use {0}"
-msgstr ""
+msgstr "使用{0}"
 
 #: port/frontend/shell/pages.cpp:306
 msgid "Cross turns a pack on or off; Right goes to its presets. Choosing a preset turns its pack on. Changes apply at the next start."
@@ -6714,11 +6714,11 @@ msgstr "启动器的外观：颜色、边角以及菜单背后的动态。每个
 
 #: port/frontend/shell/settings.cpp:1478
 msgid "How the Library is laid out."
-msgstr ""
+msgstr "游戏库的布局方式。"
 
 #: port/frontend/shell/settings.cpp:1479
 msgid "Classic shows one console at a time, with Recently played on top and every game in a list. Orbit turns the logo into a dial that picks the console, with what you played lately in its middle. Switching moves nothing: your games, settings and saves stay as they are."
-msgstr ""
+msgstr "经典每次显示一台主机,上方是最近游玩,下方是所有游戏的列表。Orbit 把标志变成选择主机的转盘,中间是最近玩过的游戏。切换不会移动任何内容:游戏、设置和存档都不会改变。"
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
 #: port/frontend/shell/settings.cpp:1488
@@ -8548,27 +8548,27 @@ msgstr "已重命名玩家"
 
 #: port/frontend/shell/timeline.cpp:265
 msgid "Every console, oldest to newest"
-msgstr ""
+msgstr "所有主机,从最早到最新"
 
 #: port/frontend/shell/timeline.cpp:387
 msgid "No games yet"
-msgstr ""
+msgstr "还没有游戏"
 
 #: port/frontend/shell/timeline.cpp:393 port/frontend/shell/timeline.cpp:463
 msgid "An empty shelf"
-msgstr ""
+msgstr "空架子"
 
 #: port/frontend/shell/timeline.cpp:464
 msgid "Put its games in {0}, on the PS5 or a USB drive."
-msgstr ""
+msgstr "请把游戏放到 {0},可放在 PS5 或 USB 驱动器上。"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Previous or next console"
-msgstr ""
+msgstr "上一台或下一台主机"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Jump a decade"
-msgstr ""
+msgstr "跳过十年"
 
 #: port/frontend/shell/welcome.cpp:69
 msgid "On every side: A on Circle, as Nintendo's consoles have it, or on Cross."

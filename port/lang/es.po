@@ -3909,12 +3909,12 @@ msgstr "Artic Base, a través de tu red"
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254 port/frontend/shell/orbit.cpp:391
 msgid "Home"
-msgstr ""
+msgstr "Inicio"
 
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254
 msgid "Console {0} of {1}"
-msgstr ""
+msgstr "Consola {0} de {1}"
 
 #: port/frontend/shell/orbit.cpp:255 port/frontend/shell/shell.cpp:1510
 msgid "Continue"
@@ -3923,7 +3923,7 @@ msgstr "Continuar"
 #. under Orbit's Home: what its row shows
 #: port/frontend/shell/orbit.cpp:263
 msgid "The games you played last, on every console"
-msgstr ""
+msgstr "Los últimos juegos que jugaste, en todas las consolas"
 
 #: port/frontend/shell/orbit.cpp:272 port/frontend/shell/shell.cpp:931
 msgid "{0} h played"
@@ -3934,22 +3934,22 @@ msgstr[1] "{0} h jugadas"
 #. a game's chip in Orbit: {0} is when, as "yesterday" or "3 days ago"
 #: port/frontend/shell/orbit.cpp:300 port/frontend/shell/timeline.cpp:436
 msgid "Last played {0}"
-msgstr ""
+msgstr "Última partida: {0}"
 
 #. Orbit's Home before any game was played
 #: port/frontend/shell/orbit.cpp:312
 msgid "The games you play show up here."
-msgstr ""
+msgstr "Aquí aparecerán los juegos que juegues."
 
 #. Orbit's hints: L1 and R1 turn its dial
 #: port/frontend/shell/orbit.cpp:390
 msgid "Turn the dial"
-msgstr ""
+msgstr "Gira el dial"
 
 #. the view of every console's games on one shelf, opened with the touchpad
 #: port/frontend/shell/orbit.cpp:401 port/frontend/shell/shell.cpp:1492 port/frontend/shell/timeline.cpp:264
 msgid "Timeline"
-msgstr ""
+msgstr "Línea temporal"
 
 #: port/frontend/shell/orbit.cpp:582 port/frontend/shell/settings.cpp:1550 port/frontend/shell/welcome.cpp:214
 msgid "Make it yours"
@@ -3958,48 +3958,48 @@ msgstr "A tu manera"
 #. the first start's question: the two layouts of the Library, Classic and Orbit
 #: port/frontend/shell/orbit.cpp:584
 msgid "How should your games be laid out?"
-msgstr ""
+msgstr "¿Cómo quieres ver tus juegos?"
 
 #: port/frontend/shell/orbit.cpp:586
 msgid "Pick one now. You can switch any time in Settings > Launcher > Layout, and your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Elige uno ahora. Puedes cambiarlo cuando quieras en Ajustes > Lanzador > Disposición, y tus juegos, ajustes y partidas seguirán como están."
 
 #: port/frontend/shell/orbit.cpp:597 port/frontend/shell/settings.cpp:1477
 msgid "Classic"
-msgstr ""
+msgstr "Clásico"
 
 #: port/frontend/shell/orbit.cpp:597
 msgid "One console at a time, from the carousel; L1 and R1 turn it. Recently played on top, every game in a list below."
-msgstr ""
+msgstr "Una consola cada vez, desde el carrusel; L1 y R1 lo giran. Jugados recientemente arriba y todos los juegos en una lista debajo."
 
 #: port/frontend/shell/orbit.cpp:598
 msgid "Good for big libraries on a few consoles"
-msgstr ""
+msgstr "Ideal para bibliotecas grandes en pocas consolas"
 
 #: port/frontend/shell/orbit.cpp:599 port/frontend/shell/settings.cpp:1477
 msgid "Orbit"
-msgstr ""
+msgstr "Orbit"
 
 #: port/frontend/shell/orbit.cpp:599
 msgid "New in 6.0"
-msgstr ""
+msgstr "Nuevo en 6.0"
 
 #: port/frontend/shell/orbit.cpp:600
 msgid "Turn the dial to pick a console; its middle is what you played lately, on every console. The game you're on fills the background."
-msgstr ""
+msgstr "Gira el dial para elegir una consola; en su centro está lo último que jugaste, en todas las consolas. El juego seleccionado llena el fondo."
 
 #: port/frontend/shell/orbit.cpp:601
 msgid "Good for playing across many consoles"
-msgstr ""
+msgstr "Ideal para jugar en muchas consolas"
 
 #: port/frontend/shell/orbit.cpp:631
 msgid "Both have the Timeline view: every console on one shelf. Press the touchpad from either."
-msgstr ""
+msgstr "Ambos tienen la vista Línea temporal: todas las consolas en un estante. Pulsa el panel táctil desde cualquiera."
 
 #. the button of the first start's question: {0} is the layout in focus, Classic or Orbit
 #: port/frontend/shell/orbit.cpp:633
 msgid "Use {0}"
-msgstr ""
+msgstr "Usar {0}"
 
 #: port/frontend/shell/pages.cpp:306
 msgid "Cross turns a pack on or off; Right goes to its presets. Choosing a preset turns its pack on. Changes apply at the next start."
@@ -6742,11 +6742,11 @@ msgstr "El aspecto del lanzador: sus colores, sus esquinas y lo que se mueve det
 
 #: port/frontend/shell/settings.cpp:1478
 msgid "How the Library is laid out."
-msgstr ""
+msgstr "Cómo se organiza la Biblioteca."
 
 #: port/frontend/shell/settings.cpp:1479
 msgid "Classic shows one console at a time, with Recently played on top and every game in a list. Orbit turns the logo into a dial that picks the console, with what you played lately in its middle. Switching moves nothing: your games, settings and saves stay as they are."
-msgstr ""
+msgstr "Clásico muestra una consola cada vez, con Jugados recientemente arriba y todos los juegos en una lista. Orbit convierte el logo en un dial que elige la consola, con lo último que jugaste en su centro. Cambiar no mueve nada: tus juegos, ajustes y partidas siguen como están."
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
 #: port/frontend/shell/settings.cpp:1488
@@ -8591,27 +8591,27 @@ msgstr "Nombre del jugador cambiado"
 
 #: port/frontend/shell/timeline.cpp:265
 msgid "Every console, oldest to newest"
-msgstr ""
+msgstr "Todas las consolas, de la más antigua a la más nueva"
 
 #: port/frontend/shell/timeline.cpp:387
 msgid "No games yet"
-msgstr ""
+msgstr "Aún no hay juegos"
 
 #: port/frontend/shell/timeline.cpp:393 port/frontend/shell/timeline.cpp:463
 msgid "An empty shelf"
-msgstr ""
+msgstr "Un estante vacío"
 
 #: port/frontend/shell/timeline.cpp:464
 msgid "Put its games in {0}, on the PS5 or a USB drive."
-msgstr ""
+msgstr "Pon sus juegos en {0}, en la PS5 o en una unidad USB."
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Previous or next console"
-msgstr ""
+msgstr "Consola anterior o siguiente"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Jump a decade"
-msgstr ""
+msgstr "Saltar una década"
 
 #: port/frontend/shell/welcome.cpp:69
 msgid "On every side: A on Circle, as Nintendo's consoles have it, or on Cross."

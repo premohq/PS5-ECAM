@@ -289,14 +289,14 @@ namespace ps5shell
 				canvas.Text(label, x - label.width * 0.5f, ruler + 16, kInk3);
 			}
 		}
-		float lanes[3] = {-999, -999, -999};
+		float lanes[4] = {-999, -999, -999, -999}; // the mid-1990s and 2001 are crowded
 		const ui::TextStyle markStyle = Style({14, ui::Weight::Bold, 1.0f});
 		for (int i = 0; i < (int)m_shelves.size(); i++)
 		{
 			const TimelineShelf& one = m_shelves[i];
 			const float x = YearX(one.year);
 			int lane = 0;
-			while (lane < 2 && x - lanes[lane] < 84)
+			while (lane < 3 && x - lanes[lane] < 84)
 				lane++;
 			lanes[lane] = x;
 			const float y = 184 - lane * 30;

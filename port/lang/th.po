@@ -3896,12 +3896,12 @@ msgstr "Artic Base ผ่าน​เครือข่าย"
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254 port/frontend/shell/orbit.cpp:391
 msgid "Home"
-msgstr ""
+msgstr "หน้าหลัก"
 
 #. Orbit's dial: which console of those it shows is at its pointer ({0} of {1})
 #: port/frontend/shell/orbit.cpp:254
 msgid "Console {0} of {1}"
-msgstr ""
+msgstr "คอนโซล {0} จาก {1}"
 
 #: port/frontend/shell/orbit.cpp:255 port/frontend/shell/shell.cpp:1510
 msgid "Continue"
@@ -3910,7 +3910,7 @@ msgstr "ดำเนิน​การ​ต่อ"
 #. under Orbit's Home: what its row shows
 #: port/frontend/shell/orbit.cpp:263
 msgid "The games you played last, on every console"
-msgstr ""
+msgstr "เกมที่เล่นล่าสุด ในทุกคอนโซล"
 
 #: port/frontend/shell/orbit.cpp:272 port/frontend/shell/shell.cpp:931
 msgid "{0} h played"
@@ -3920,22 +3920,22 @@ msgstr[0] "เล่น {0} ชั่วโมง"
 #. a game's chip in Orbit: {0} is when, as "yesterday" or "3 days ago"
 #: port/frontend/shell/orbit.cpp:300 port/frontend/shell/timeline.cpp:436
 msgid "Last played {0}"
-msgstr ""
+msgstr "เล่นล่าสุด: {0}"
 
 #. Orbit's Home before any game was played
 #: port/frontend/shell/orbit.cpp:312
 msgid "The games you play show up here."
-msgstr ""
+msgstr "เกมที่คุณเล่น จะแสดงที่นี่"
 
 #. Orbit's hints: L1 and R1 turn its dial
 #: port/frontend/shell/orbit.cpp:390
 msgid "Turn the dial"
-msgstr ""
+msgstr "หมุนวงล้อ"
 
 #. the view of every console's games on one shelf, opened with the touchpad
 #: port/frontend/shell/orbit.cpp:401 port/frontend/shell/shell.cpp:1492 port/frontend/shell/timeline.cpp:264
 msgid "Timeline"
-msgstr ""
+msgstr "ไทม์ไลน์"
 
 #: port/frontend/shell/orbit.cpp:582 port/frontend/shell/settings.cpp:1550 port/frontend/shell/welcome.cpp:214
 msgid "Make it yours"
@@ -3944,48 +3944,48 @@ msgstr "ปรับ​ให้​เป็น​แบบ​ของ​คุ
 #. the first start's question: the two layouts of the Library, Classic and Orbit
 #: port/frontend/shell/orbit.cpp:584
 msgid "How should your games be laid out?"
-msgstr ""
+msgstr "จะจัดวางเกมของคุณอย่างไร"
 
 #: port/frontend/shell/orbit.cpp:586
 msgid "Pick one now. You can switch any time in Settings > Launcher > Layout, and your games, settings and saves stay as they are."
-msgstr ""
+msgstr "เลือกตอนนี้ คุณเปลี่ยนได้ทุกเมื่อที่ การตั้งค่า > ลอนเชอร์ > การจัดวาง และเกม การตั้งค่า และเซฟของคุณ จะยังเหมือนเดิม"
 
 #: port/frontend/shell/orbit.cpp:597 port/frontend/shell/settings.cpp:1477
 msgid "Classic"
-msgstr ""
+msgstr "คลาสสิก"
 
 #: port/frontend/shell/orbit.cpp:597
 msgid "One console at a time, from the carousel; L1 and R1 turn it. Recently played on top, every game in a list below."
-msgstr ""
+msgstr "ทีละคอนโซล จากแถบหมุน ใช้ L1 และ R1 หมุน เล่นล่าสุดอยู่ด้านบน เกมทั้งหมดเป็นรายการด้านล่าง"
 
 #: port/frontend/shell/orbit.cpp:598
 msgid "Good for big libraries on a few consoles"
-msgstr ""
+msgstr "เหมาะกับคลังใหญ่ บนไม่กี่คอนโซล"
 
 #: port/frontend/shell/orbit.cpp:599 port/frontend/shell/settings.cpp:1477
 msgid "Orbit"
-msgstr ""
+msgstr "Orbit"
 
 #: port/frontend/shell/orbit.cpp:599
 msgid "New in 6.0"
-msgstr ""
+msgstr "ใหม่ใน 6.0"
 
 #: port/frontend/shell/orbit.cpp:600
 msgid "Turn the dial to pick a console; its middle is what you played lately, on every console. The game you're on fills the background."
-msgstr ""
+msgstr "หมุนวงล้อเพื่อเลือกคอนโซล ตรงกลางคือสิ่งที่เล่นล่าสุด ในทุกคอนโซล เกมที่เลือกจะเต็มพื้นหลัง"
 
 #: port/frontend/shell/orbit.cpp:601
 msgid "Good for playing across many consoles"
-msgstr ""
+msgstr "เหมาะกับการเล่นหลายคอนโซล"
 
 #: port/frontend/shell/orbit.cpp:631
 msgid "Both have the Timeline view: every console on one shelf. Press the touchpad from either."
-msgstr ""
+msgstr "ทั้งสองแบบมีมุมมองไทม์ไลน์: ทุกคอนโซลบนชั้นเดียว กดทัชแพดจากแบบไหนก็ได้"
 
 #. the button of the first start's question: {0} is the layout in focus, Classic or Orbit
 #: port/frontend/shell/orbit.cpp:633
 msgid "Use {0}"
-msgstr ""
+msgstr "ใช้ {0}"
 
 #: port/frontend/shell/pages.cpp:306
 msgid "Cross turns a pack on or off; Right goes to its presets. Choosing a preset turns its pack on. Changes apply at the next start."
@@ -6714,11 +6714,11 @@ msgstr "รูปลักษณ์​ของ​ลอนเชอร์: ส�
 
 #: port/frontend/shell/settings.cpp:1478
 msgid "How the Library is laid out."
-msgstr ""
+msgstr "วิธีจัดวางคลังเกม"
 
 #: port/frontend/shell/settings.cpp:1479
 msgid "Classic shows one console at a time, with Recently played on top and every game in a list. Orbit turns the logo into a dial that picks the console, with what you played lately in its middle. Switching moves nothing: your games, settings and saves stay as they are."
-msgstr ""
+msgstr "คลาสสิกแสดงทีละคอนโซล โดยมีเล่นล่าสุดด้านบน และเกมทั้งหมดเป็นรายการ Orbit เปลี่ยนโลโก้เป็นวงล้อเลือกคอนโซล โดยมีสิ่งที่เล่นล่าสุดอยู่ตรงกลาง การสลับไม่ย้ายอะไรเลย เกม การตั้งค่า และเซฟของคุณ จะยังเหมือนเดิม"
 
 #. Settings > Launcher: a row that opens which sides the bar shows (Wii U, Switch, DS, 3DS)
 #: port/frontend/shell/settings.cpp:1488
@@ -8548,27 +8548,27 @@ msgstr "เปลี่ยน​ชื่อ​ผู้เล่น​แล้
 
 #: port/frontend/shell/timeline.cpp:265
 msgid "Every console, oldest to newest"
-msgstr ""
+msgstr "ทุกคอนโซล จากเก่าสุดไปใหม่สุด"
 
 #: port/frontend/shell/timeline.cpp:387
 msgid "No games yet"
-msgstr ""
+msgstr "ยังไม่มีเกม"
 
 #: port/frontend/shell/timeline.cpp:393 port/frontend/shell/timeline.cpp:463
 msgid "An empty shelf"
-msgstr ""
+msgstr "ชั้นว่าง"
 
 #: port/frontend/shell/timeline.cpp:464
 msgid "Put its games in {0}, on the PS5 or a USB drive."
-msgstr ""
+msgstr "ใส่เกมไว้ใน {0} บน PS5 หรือไดรฟ์ USB"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Previous or next console"
-msgstr ""
+msgstr "คอนโซลก่อนหน้าหรือถัดไป"
 
 #: port/frontend/shell/timeline.cpp:476
 msgid "Jump a decade"
-msgstr ""
+msgstr "ข้ามหนึ่งทศวรรษ"
 
 #: port/frontend/shell/welcome.cpp:69
 msgid "On every side: A on Circle, as Nintendo's consoles have it, or on Cross."
