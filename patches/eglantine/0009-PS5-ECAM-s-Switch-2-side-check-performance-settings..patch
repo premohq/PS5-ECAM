@@ -1,0 +1,41 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Wed, 4 Nov 2026 19:12:50 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 side: check-performance-settings.py takes
+ the per-game switches
+
+#109 reads the performance settings into a variable PS5-ECAM's --ecam-setting switches go over
+(auto speed, not const), so the check's exact text stopped the release build. It takes either, and
+checks that each switch is applied after the read and before the first setting uses it.
+---
+ tools/check-performance-settings.py | 10 ++++++++--
+ 1 file changed, 8 insertions(+), 2 deletions(-)
+
+diff --git a/tools/check-performance-settings.py b/tools/check-performance-settings.py
+index e5cf042..33d4457 100644
+--- a/tools/check-performance-settings.py
++++ b/tools/check-performance-settings.py
+@@ -15,7 +15,13 @@ begin = main.index('#ifdef EDEN_DEV_PROFILE\n        // One-run A/B switches')
+ end = main.index('#else', begin)
+ release = main[:begin] + main[end:]  # what a release build compiles
+ 
+-assert 'const auto speed = Eden::LoadPerformance(eden_game_title_id(guest));' in release
++# read once for the game (not const in PS5-ECAM's child runtime: its per-game switches go over it)
++load = 'auto speed = Eden::LoadPerformance(eden_game_title_id(guest));'
++assert load in release
++if 'apply_switch(' in release:
++    first_use = release.index('Settings::values.use_asynchronous_shaders = speed.async_shaders;')
++    for key in ('async_shaders', 'fast_gpu', 'unsafe_cpu', 'unsafe_dma', 'reactive_flushing', 'skip_invalidation'):
++        assert release.index(load) < release.index(f'apply_switch("{key}", speed.{key});') < first_use, key
+ for statement in (
+     'Settings::values.use_asynchronous_shaders = speed.async_shaders;',
+     'Settings::values.gpu_accuracy.SetValue(Settings::GpuAccuracy::Low);',
+@@ -31,7 +37,7 @@ for guard in ('if (speed.fast_gpu) {', 'if (speed.unsafe_cpu)', 'if (speed.unsaf
+ # Every session starts at the exact levels, before the settings are read: one app run starts many
+ # games, and a level the game before lowered would stay for the next one.
+ start = release.index('Settings::values.cpu_accuracy = Settings::CpuAccuracy::Auto;')
+-read = release.index('const auto speed = Eden::LoadPerformance(eden_game_title_id(guest));')
++read = release.index(load)
+ for statement in (
+     'Settings::values.gpu_accuracy.SetValue(Settings::GpuAccuracy::High);',
+     'Settings::values.current_gpu_accuracy = Settings::GpuAccuracy::High;',
