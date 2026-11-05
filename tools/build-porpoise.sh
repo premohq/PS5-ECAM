@@ -33,5 +33,17 @@ if [[ -d $tree ]]; then
 fi
 export PS5_VULKAN_DIR=${PS5_VULKAN_DIR:-$PS5CEMU_ROOT/.deps/PS5_Vulkan}
 export PS5_PAYLOAD_SDK_FORK=${PS5_PAYLOAD_SDK_FORK:-$PS5CEMU_ROOT/.deps/PS5_PayloadSDK}
+# Porpoise pins a revision of the SDK fork of its own (its tools/setup-native-dependencies.sh), which
+# may be newer than the one this app's tools/deps.json checks out: fetched into the fork when missing.
+# (.deps/Porpoise-X is cloned here as tools/build-retro.py would, to read that pin first.)
+porpoise_src=$PS5CEMU_ROOT/.deps/Porpoise-X
+[[ -d $porpoise_src/.git ]] || git clone -q --no-checkout https://github.com/premohq/Porpoise-X.git "$porpoise_src"
+git -C "$porpoise_src" cat-file -e "$pin^{commit}" 2>/dev/null || git -C "$porpoise_src" fetch -q origin "$pin"
+sdk_revision=$(git -C "$porpoise_src" show "$pin:tools/setup-native-dependencies.sh" |
+    sed -n 's/^sdk_revision=\([0-9a-f]\{40\}\).*/\1/p')
+if [[ -n $sdk_revision ]] && ! git -C "$PS5_PAYLOAD_SDK_FORK" cat-file -e "$sdk_revision^{commit}" 2>/dev/null; then
+    echo "==> [porpoise] fetching the SDK fork's ${sdk_revision:0:12}, Porpoise's pin"
+    git -C "$PS5_PAYLOAD_SDK_FORK" fetch -q origin "$sdk_revision"
+fi
 python3 "$PS5CEMU_ROOT/tools/build-retro.py" "${reuse[@]}" porpoise
 echo "==> [porpoise] $out ($(du -sh "$out" | cut -f1))"
