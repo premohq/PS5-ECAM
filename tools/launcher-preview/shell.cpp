@@ -161,3 +161,23 @@ int main(int argc, char* argv[])
 	std::fprintf(stderr, "[preview] the launcher ended: %s\n", choice ? choice->game.name.c_str() : "no game");
 	return outcome == ps5shell::Outcome::Chosen ? 0 : 1;
 }
+
+// What the launcher asks of the programs the preview doesn't link: an app with everything set up.
+namespace ps5eglantine
+{
+	bool KeysFound() { return true; }
+	bool FirmwareFound() { return true; }
+	std::string DataFolder() { return "/data/eglantineps5"; }
+}
+
+namespace ps5libretro
+{
+	bool Plays(int) { return true; }
+	const char* CoreTitle(int) { return "libretro"; }
+}
+
+namespace ps5esde
+{
+	bool Available() { return false; }
+	void BackToFrontend(const ps5settings::Launcher&, const std::string&) {}
+}

@@ -15,6 +15,7 @@
 #include "../actions.h"
 #include "../../app/emulator.h"
 #include "../../eden/library.h"
+#include "../../eglantine/launch.h"
 
 #include <algorithm>
 #include <cmath>
@@ -162,6 +163,10 @@ namespace ps5shell
 			IsDs()	   ? TrF("Put your DS games (.nds, alone or in .zip, .7z or .rar archives) in {0}, or choose any folder the PS5 can read, "
 							 "such as one on a USB drive. Folders inside it are searched too.",
 							 folder) :
+			// the Switch 2 side's are EglantinePS5's, with its own keys and firmware: the Setup page's words
+			IsSwitch2() ? TrF("Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder.", ps5eden::ScanFolder(folder)) + " " +
+							  TrF("Put your own prod.keys in {0}/keys. Playtendoh and EglantinePS5 do not include keys.", ps5eglantine::DataFolder()) + " " +
+							  TrF("Put your own Switch firmware files in {0}/firmware. No firmware comes with Playtendoh or EglantinePS5.", ps5eglantine::DataFolder()) :
 			// tr: {1} is Eden's game files folder, which has keys/ and firmware/ in it
 			IsSwitch() ? TrF("Put your Switch games (.nsp or .xci, alone or each in a folder of its own with its update and DLC) in {0}. "
 							 "Eden needs your Switch's keys in {1}/keys and its firmware in {1}/firmware too.",
