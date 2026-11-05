@@ -106,7 +106,11 @@ namespace ps5shell
 	void Shell::FinishStart()
 	{
 		m_setupFirst = false;
-		OpenSide(m_side, true);
+		// (a start that went straight to the Setup check has not been asked which layout yet)
+		if (!m_settings.ui.layoutChosen)
+			LayoutOpen([this] { OpenSide(m_side, true); });
+		else
+			OpenSide(m_side, true);
 	}
 
 	void Shell::RunChecks()

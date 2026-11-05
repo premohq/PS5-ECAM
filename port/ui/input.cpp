@@ -31,6 +31,7 @@ namespace ui
 			{ps5pad::kR2, Button::R2, true},
 			{ps5pad::kOptions, Button::Options, false},
 			{ps5pad::kTouchPad, Button::Touchpad, false},
+			{ps5pad::kR3, Button::R3, false},
 		};
 	}
 

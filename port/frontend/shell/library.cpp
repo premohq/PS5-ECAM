@@ -233,7 +233,8 @@ namespace ps5shell
 		WantBackdrop(nullptr);
 		m_stateButtons.clear();
 		canvas.PushAlpha(Enter(1));
-		const Box card{kSafeX, 300, 1100, 520};
+		// beside Orbit's dial, under the console's name
+		const Box card{Orbit() ? 680.0f : kSafeX, Orbit() ? 340.0f : 300.0f, 1100, 520};
 		canvas.Text(Style(kOverlineStyle), card.x, card.y, kicker, Secondary());
 		const ui::TextBlock titleBlock = canvas.Text(Style(kDisplayStyle), card.x, card.y + 36, title, kText, card.w, 2);
 		const ui::TextBlock textBlock = canvas.Text(Style(kBodyStyle), card.x, card.y + 56 + titleBlock.height, text, Secondary(), 960, 5);
@@ -355,6 +356,8 @@ namespace ps5shell
 
 	void Shell::LibraryUpdate(const ui::Press& press)
 	{
+		if (Orbit() && OrbitUpdate(press))
+			return;
 		const Button b = press.button;
 		{
 			std::string kicker, title, text;
@@ -584,6 +587,11 @@ namespace ps5shell
 
 	void Shell::LibraryDraw(Canvas& canvas)
 	{
+		if (Orbit())
+		{
+			OrbitDraw(canvas);
+			return;
+		}
 		DrawBar(canvas, true);
 		{
 			std::string kicker, title, text;

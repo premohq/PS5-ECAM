@@ -125,7 +125,7 @@ msgstr "Un celular o una tableta en la red de la PS5. El sonido se queda en la P
 msgid "Your keys could not decrypt this game: prod.keys in {0}/keys has keys missing or wrong for it, or the game's file is damaged. Dump prod.keys again from your own Switch, and check the game's file on a computer."
 msgstr "Tus claves no pudieron descifrar este juego: a prod.keys en {0}/keys le faltan claves para él o son incorrectas, o el archivo del juego está dañado. Vuelve a extraer prod.keys de tu propia Switch y revisa el archivo del juego en una computadora."
 
-#: port/frontend/shell/library.cpp:143
+#: port/frontend/shell/library.cpp:144
 msgid "Its settings, graphic packs and controllers are loading, and then it looks for your games."
 msgstr "Se están cargando sus ajustes, paquetes gráficos y controles, y después buscará tus juegos."
 
@@ -234,7 +234,7 @@ msgstr "Juegos en una computadora o un NAS, por SMB o NFS."
 msgid "A folder shared by a Windows, macOS or Linux computer or a NAS, read where it is: add it here, then choose a games folder on it with the folder browser, where each share is a tab. Nothing is ever written to it; saves and installs stay on the PS5. A cable does better than Wi-Fi for Wii U games."
 msgstr "Una carpeta compartida por una computadora con Windows, macOS o Linux o por un NAS, leída donde está: agrégala aquí y elige después una carpeta de juegos en ella con el explorador de carpetas, donde cada recurso compartido es una pestaña. Nunca se escribe nada en ella; las partidas guardadas y las instalaciones se quedan en la PS5. Para los juegos de Wii U, un cable funciona mejor que el wifi."
 
-#: port/frontend/shell/settings.cpp:1640
+#: port/frontend/shell/settings.cpp:1645
 msgid ""
 "{0} in any browser on the PS5's network, a phone's, a tablet's or a computer's, with nothing to install, and its touches sent back to the game. Scan the code shown here, or open the address. The DualSense stays the buttons, and the sound stays on the PS5.\n"
 "While a browser shows it, the PS5 copies that screen up to 30 times a second, so a game can run a little slower; with no browser, it costs nothing. Any device on your network can open the page, so turn it off on a network you share.\n"
@@ -245,15 +245,15 @@ msgstr ""
 "Un solo interruptor para todos los lados (la pantalla del GamePad es la del jugador 1), también en el menú de cada juego (clic en el panel táctil + OPTIONS). A partir de la idea y el prototipo de dolphin78 (#38)."
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1650
+#: port/frontend/shell/settings.cpp:1653 port/frontend/shell/settings.cpp:1655
 msgid "{0} in a phone's or tablet's browser, with touch."
 msgstr "{0} en el navegador de un celular o una tableta, con control táctil."
 
-#: port/frontend/shell/settings.cpp:2023
+#: port/frontend/shell/settings.cpp:2028
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Activado, un código QR aquí abre la segunda pantalla del juego en el navegador de un celular. No hay que instalar nada; el celular debe estar en la red de la PS5."
 
-#: port/frontend/shell/setup.cpp:637
+#: port/frontend/shell/setup.cpp:641
 msgid "The guide, on your phone"
 msgstr "La guía, en tu celular"
 
@@ -331,7 +331,7 @@ msgstr "Agregar un recurso compartido"
 msgid "Turn on file sharing for a folder on your computer or NAS, then add it here. The PS5 reads games from it; it never writes to it. A cable does better than Wi-Fi for Wii U games."
 msgstr "Activa el uso compartido de archivos para una carpeta de tu computadora o NAS y agrégala aquí. La PS5 lee los juegos de ella; nunca escribe en ella. Para los juegos de Wii U, un cable funciona mejor que el wifi."
 
-#: port/frontend/shell/welcome.cpp:92
+#: port/frontend/shell/welcome.cpp:98
 msgid "What a click of the touchpad is for Wii U player 1: a touch of the GamePad's screen, or the button set to Touchpad click under Buttons (- (Select) when nothing is). Automatic: a touch with the GamePad, a button with the other controllers. Each player's own: Settings > Controls on the Wii U side."
 msgstr "Qué hace un clic en el panel táctil para el jugador 1 de Wii U: un toque en la pantalla del GamePad, o el botón asignado a Clic en el panel táctil en Botones (- (Select) si no hay ninguno). Automática: un toque con el GamePad y un botón con los demás controles. Para cada jugador: Ajustes > Controles en el lado de Wii U."
 

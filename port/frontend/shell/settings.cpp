@@ -1474,6 +1474,11 @@ namespace ps5shell
 						"Only the launcher changes: the in-game menus and the games stay as they are.",
 						ps5paths::Root()));
 			}
+			choice("layout", Tr("Layout"), {Tr("Classic"), Tr("Orbit")}, std::clamp(settings.ui.layout, 0, 1),
+				Tr("How the Library is laid out."),
+				Tr("Classic shows one console at a time, with Recently played on top and every game in a list. Orbit turns the logo into a dial "
+				   "that picks the console, with what you played lately in its middle. Switching moves nothing: your games, settings and saves "
+				   "stay as they are."));
 			// the sides the bar offers: any mix, at least one, in its order
 			std::string shown;
 			for (System side : kBarOrder)
@@ -2143,6 +2148,11 @@ namespace ps5shell
 			hand.nxMemory = std::clamp(index, 0, 2);
 		else if (id == "theme")
 			settings.ui.theme = index >= 0 && index < (int)m_themes.size() ? m_themes[index].id : "";
+		else if (id == "layout")
+		{
+			settings.ui.layout = std::clamp(index, 0, 1);
+			settings.ui.layoutChosen = true;
+		}
 		else if (id == "abeverywhere")
 		{
 			// A and B on every side: the 3DS's and the DS's now, the Wii U players' now when Cemu is up, else
@@ -2371,10 +2381,11 @@ namespace ps5shell
 		ps5sound::SetMusic(m_settings.music, m_settings.musicVolume);
 		ps5sound::SetMenuSounds(m_settings.menuSounds);
 		ps5pad::SetVibrationEnabled(m_settings.rumble);
-		if (id == "theme")
+		if (id == "theme" || id == "layout")
 		{
 			ApplyTheme();
 			m_feedback.SetLight(Accent());
+			m_orbitHome = false;
 		}
 		if (id.rfind("side-", 0) == 0)
 			SidesChanged();

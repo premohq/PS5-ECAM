@@ -135,6 +135,7 @@ make -s -C "$PS5CEMU_ROOT/port/payloads" PS5_PAYLOAD_SDK="$PS5_PAYLOAD_SDK" OUTP
 # (tools/render-sounds.py, committed), and the sides' tiles the bar shows (tools/render-icons.py)
 ui=$app/assets/ui
 mkdir -p "$ui/fonts" "$ui/sounds" "$ui/icons"
+cp "$PS5CEMU_ROOT/port/ui/wordmark.png" "$ui/"
 cp "$PS5CEMU_ROOT/port/ui/fonts/lexend.sdf" "$PS5CEMU_ROOT"/port/ui/fonts/Lexend-*.ttf "$PS5CEMU_ROOT/tools/fonts/OFL.txt" "$ui/fonts/"
 cp "$PS5CEMU_ROOT"/port/frontend/ui/sounds/*.wav "$ui/sounds/"
 cp "$work/icons/ui/icons/ps5cemu-72.tga" "$work/icons/ui/icons/azahar-72.tga" "$work/icons/ui/icons/melonds-72.tga" \

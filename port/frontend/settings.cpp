@@ -421,6 +421,8 @@ namespace ps5settings
 			ReadBool(ui, "emulationStation", out.emulationStation);
 			ReadInt(ui, "holdMs", out.holdMs, 400, 1500);
 			ReadBool(ui, "gamePictures", out.gamePictures);
+			ReadInt(ui, "layout", out.layout, 0, 1);
+			ReadBool(ui, "layoutChosen", out.layoutChosen);
 			ReadBool(ui, "setupDone", out.setupDone);
 			ReadInt(ui, "sides", out.sides, 1, (1 << (ps5retro::kSideCount + 1)) - 1);
 			// sides chosen before the Switch had one (4.0.1 and earlier): it is shown once, as a new side
@@ -616,6 +618,10 @@ namespace ps5settings
 		writer.Int(settings.ui.holdMs);
 		writer.Key("gamePictures");
 		writer.Bool(settings.ui.gamePictures);
+		writer.Key("layout");
+		writer.Int(settings.ui.layout);
+		writer.Key("layoutChosen");
+		writer.Bool(settings.ui.layoutChosen);
 		writer.Key("setupDone");
 		writer.Bool(settings.ui.setupDone);
 		writer.Key("sides");

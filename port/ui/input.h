@@ -29,6 +29,7 @@ namespace ui
 		R2,
 		Options,
 		Touchpad,
+		R3,
 		Count,
 	};
 

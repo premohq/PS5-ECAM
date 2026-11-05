@@ -128,6 +128,7 @@ namespace ps5shell
 		uint32_t first, rows;
 		m_fonts.TakeChanged(first, rows);
 		m_images = std::make_unique<ui::Images>(m_gfx);
+		m_wordmark = host.assets + "/wordmark.png";
 		ps5sound::Start(m_settings.music, m_settings.musicVolume, m_settings.menuSounds);
 		ps5boxart::SetEnabled(m_settings.boxArt);
 		ps5catalog::Load();
@@ -497,6 +498,8 @@ namespace ps5shell
 			case ScreenId::Artic: ArticUpdate(press, actions); break;
 			case ScreenId::Updates: UpdatesUpdate(press); break;
 			case ScreenId::Shares: SharesUpdate(press, actions); break;
+			case ScreenId::Layout: LayoutUpdate(press); break;
+			case ScreenId::Timeline: TimelineUpdate(press); break;
 			}
 		}
 		// what is held to confirm goes on without presses
@@ -536,6 +539,8 @@ namespace ps5shell
 		case ScreenId::Artic: ArticDraw(canvas); break;
 		case ScreenId::Updates: UpdatesDraw(canvas); break;
 		case ScreenId::Shares: SharesDraw(canvas); break;
+		case ScreenId::Layout: LayoutDraw(canvas); break;
+		case ScreenId::Timeline: TimelineDraw(canvas); break;
 		}
 		const bool overlay = m_picker.open || m_help.open || m_menu.open || m_keyboard.open || m_update.open || m_unpack.open || m_reorganize.open;
 		if (overlay)
@@ -673,7 +678,10 @@ namespace ps5shell
 		std::error_code ec;
 		std::filesystem::create_directories(folder, ec); // where your own go, there to be found over FTP
 		m_themes = ui::AllThemes(folder);
-		const ui::Theme theme = ui::FindTheme(m_settings.ui.theme, folder);
+		ui::Theme theme = ui::FindTheme(m_settings.ui.theme, folder);
+		// Orbit's ground is the game's picture under a dark shade: a light theme's ink would not read on it
+		if (Orbit() && theme.light)
+			theme = ui::FindTheme("midnight", folder);
 		ui::ApplyTheme(theme);
 		ps5log::Line("[ui] theme: {}", theme.id.empty() ? std::string("Light (the default)") : theme.id);
 	}
@@ -1245,6 +1253,7 @@ namespace ps5shell
 			// the previous or next side shown, in the bar's order, round from the last to the first (6.0:
 			// they turn the carousel; the tabs are on the bar, Up and then along it)
 			const int step = press.button == Button::R1 ? 1 : -1;
+			m_orbitHome = false;
 			for (int i = 1; i < kSides; i++)
 			{
 				const System next = BarSide(((BarIndex(m_side) + step * i) % kSides + kSides) % kSides);
@@ -1260,7 +1269,10 @@ namespace ps5shell
 		}
 		if (press.button == Button::Touchpad)
 		{
-			if (SidesShown() > 1)
+			// the Library's opens the Timeline (L1 and R1 step the sides); elsewhere the next side
+			if (m_screen == ScreenId::Library)
+				TimelineOpen();
+			else if (SidesShown() > 1)
 				SwitchSide(NextShownSide(m_side));
 			else
 				m_feedback.Play(ui::Cue::Denied);
@@ -1277,7 +1289,7 @@ namespace ps5shell
 			int next = m_barFocus + step;
 			while (next >= 0 && next < kSides && !SideShown(BarSide(next))) // past the sides not shown
 				next += step;
-			if (next < 0 || next > kSides + 1)
+			if (next < 0 || next > kSides + 1 || (Orbit() && next < kSides)) // Orbit's sides are on its dial
 			{
 				m_feedback.Play(ui::Cue::Edge, press.repeat);
 				break;
@@ -1324,7 +1336,15 @@ namespace ps5shell
 		const float appear = Enter(0);
 		canvas.PushAlpha(appear);
 		// the mark: every console's controller in a ring on a dark disc, the open side's in the middle
-		DrawMark(canvas, 115, y + h / 2, 30);
+		// (Orbit's is its dial, and its dial is its side switch)
+		// and the name beside it, in the logo's lettering
+		const bool orbit = Orbit();
+		float nameRight = 160;
+		if (!orbit)
+		{
+			DrawMark(canvas, 115, y + h / 2, 30);
+			nameRight += DrawWordmark(canvas, 160, y + h / 2, 30, kText);
+		}
 		// the controllers and the clock, at the right (first: the side switch has the room they leave)
 		char clock[16] = "";
 		const std::time_t now = std::time(nullptr);
@@ -1368,72 +1388,83 @@ namespace ps5shell
 		const float tabsLeft = tabs ? right - (pads ? 20 : 0) - total : right;
 
 		// the side switch (6.0): a carousel of the sides shown, in the bar's order (Wii U, Switch, Switch 2,
-		// DS, 3DS, GameCube, Wii, N64...), each one's tile its controller as the mark draws it (DrawTile); the
-		// one in focus (else the one open) in its middle and larger, the others smaller and fainter the
-		// further they are from it; L1 and R1 at its ends, as they turn it (BarUpdate)
-		constexpr float kTile = 46, kPitch = 58;
-		const float left = 160, stripRight = tabsLeft - 26;
-		int order[kSides];
-		int shown = 0, anchor = 0;
-		const int anchorBar = m_onBar && m_barFocus < kSides ? m_barFocus : BarIndex(m_side);
-		for (int i = 0; i < kSides; i++)
+		// DS, 3DS, GameCube, Wii, N64...), five at a time and round from the last to the first, wide apart:
+		// each one only its controller on the bar's ground (DrawBareConsole), the open side's in its colour;
+		// the one in focus (else the one open) in its middle and larger, the two each side of it smaller
+		// and fainter; L1 and R1 quietly at its ends, as they turn it (BarUpdate)
+		constexpr int kAtOnce = 5;
+		constexpr float kTile = 42, kPitch = 112;
+		if (!orbit)
 		{
-			if (!SideShown(BarSide(i)))
-				continue;
-			if (i == anchorBar)
-				anchor = shown;
-			order[shown++] = i;
-		}
-		const float target = anchor * kPitch;
-		if (m_barSlide < 0)
-			m_barSlide = target; // the first look: there at once
-		m_barSlide += (target - m_barSlide) * std::min(1.0f, m_dt * (m_settings.ui.reduceMotion ? 60.0f : 14.0f));
-		const bool turns = shown > 1;
-		canvas.Draw(Icon::L1, {left, y + 12, 36, 32}, turns ? Tertiary() : Wash(0.18f));
-		canvas.Draw(Icon::R1, {stripRight - 36, y + 12, 36, 32}, turns ? Tertiary() : Wash(0.18f));
-		const Box strip{left + 48, y - 8, std::max(0.0f, stripRight - 48 - (left + 48)), h + 16};
-		canvas.PushClip(strip);
-		Box focused{};
-		bool focusOnSide = false;
-		for (int k = 0; k < shown; k++)
-		{
-			const System side = BarSide(order[k]);
-			const float offset = k * kPitch - m_barSlide; // from the middle
-			const float cx = strip.CentreX() + offset;
-			if (cx < strip.x - kPitch || cx > strip.Right() + kPitch)
-				continue;
-			const float away = std::abs(offset) / kPitch; // how many tiles from the middle
-			const float size = kTile * std::max(0.6f, 1.12f - 0.14f * away);
-			// fainter further out, and gone at the strip's ends
-			const float edge = std::min(cx - strip.x, strip.Right() - cx) / kPitch;
-			const Box box{cx - size / 2, y + h / 2 - size / 2, size, size};
-			canvas.PushAlpha(std::clamp(std::min(1.0f - 0.18f * away, edge), 0.0f, 1.0f));
-			DrawTile(canvas, side, box, side == m_side);
-			canvas.PopAlpha();
-			if (m_onBar && m_barFocus == order[k])
-				focused = box, focusOnSide = true;
-		}
-		canvas.PopClip();
-		// its ring over the others, and out of the carousel's clip
-		if (focusOnSide)
-			Focus(focused, focused.w * 0.27f);
-		// under it, the side in its middle: its name, and the open one's count of games (as the Library's)
-		{
-			const System middle = shown ? BarSide(order[anchor]) : m_side;
-			std::string caption = SystemName(middle);
-			if (middle == m_side && m_listed)
+			int order[kSides];
+			int shown = 0, anchor = 0;
+			const int anchorBar = m_onBar && m_barFocus < kSides ? m_barFocus : BarIndex(m_side);
+			for (int i = 0; i < kSides; i++)
 			{
-				const int listed = (int)std::count_if(m_games.begin(), m_games.end(), [](const Game& g) { return !g.entry.hidden; });
-				caption += " · ";
-				caption += TrP(listed, "{0} game", "{0} games");
+				if (!SideShown(BarSide(i)))
+					continue;
+				if (i == anchorBar)
+					anchor = shown;
+				order[shown++] = i;
 			}
-			const ui::TextBlock text = m_fonts.Layout(Style({18, ui::Weight::Medium, 1.0f}), caption);
-			canvas.Text(text, strip.CentreX() - text.width * 0.5f, y + h + 6, Secondary());
+			const bool round = shown > kAtOnce;
+			const float loop = shown * kPitch;
+			const float target = anchor * kPitch;
+			if (m_barSlide < 0)
+				m_barSlide = target; // the first look: there at once
+			const float way = round ? std::remainder(target - m_barSlide, loop) : target - m_barSlide; // the short way round
+			m_barSlide += way * std::min(1.0f, m_dt * (m_settings.ui.reduceMotion ? 60.0f : 14.0f));
+			if (round)
+				m_barSlide = std::fmod(m_barSlide + loop, loop);
+			const float middle = (nameRight + 24 + tabsLeft - 26) / 2;
+			const Box strip{middle - kPitch * 3 - 4, y - 8, (kPitch * 3 + 4) * 2, h + 16};
+			const bool turns = shown > 1;
+			canvas.Draw(Icon::L1, {strip.x - 44, y + 12, 36, 32}, turns ? Wash(0.3f) : Wash(0.12f));
+			canvas.Draw(Icon::R1, {strip.Right() + 8, y + 12, 36, 32}, turns ? Wash(0.3f) : Wash(0.12f));
+			canvas.PushClip(strip);
+			Box focused{};
+			bool focusOnSide = false;
+			for (int k = 0; k < shown; k++)
+			{
+				const System side = BarSide(order[k]);
+				float offset = k * kPitch - m_barSlide; // from the middle
+				if (round)
+					offset = std::remainder(offset, loop);
+				const float away = std::abs(offset) / kPitch; // how many tiles from the middle
+				if (away >= (kAtOnce + 1) * 0.5f)
+					continue;
+				const float size = kTile * std::max(0.8f, 1.3f - 0.5f * away);
+				const float cx = strip.CentreX() + offset;
+				const Box box{cx - size / 2, y + h / 2 - size / 2, size, size};
+				// fainter further out; a sixth only as it comes in or goes
+				canvas.PushAlpha(std::clamp(std::min(1.0f - 0.22f * away, (kAtOnce + 1) * 0.5f - away), 0.0f, 1.0f));
+				DrawBareConsole(canvas, side, box, side == m_side);
+				canvas.PopAlpha();
+				if (m_onBar && m_barFocus == order[k])
+					focused = box.Scaled(1.45f), focusOnSide = true;
+			}
+			canvas.PopClip();
+			// its ring over the others, and out of the carousel's clip
+			if (focusOnSide)
+				Focus(focused, focused.w * 0.27f);
+			// under it, the side in its middle: its name, and the open one's count of games (as the Library's)
+			{
+				const System inMiddle = shown ? BarSide(order[anchor]) : m_side;
+				std::string caption = SystemName(inMiddle);
+				if (inMiddle == m_side && m_listed)
+				{
+					const int listed = (int)std::count_if(m_games.begin(), m_games.end(), [](const Game& g) { return !g.entry.hidden; });
+					caption += " · ";
+					caption += TrP(listed, "{0} game", "{0} games");
+				}
+				const ui::TextBlock text = m_fonts.Layout(Style({18, ui::Weight::Medium, 1.0f}), caption);
+				canvas.Text(text, strip.CentreX() - text.width * 0.5f, y + h + 6, Secondary());
+			}
 		}
 
 		if (tabs)
 		{
-			float x = std::max(stripRight + 26, tabsLeft);
+			float x = tabsLeft;
 			for (int i = 0; i < 2; i++)
 			{
 				const Box tab{x, y, tabWidths[i], h};
@@ -1464,7 +1495,7 @@ namespace ps5shell
 	std::vector<Hint> Shell::Hints() const
 	{
 		// the touchpad's next side; none when one side is shown (its hint goes: DrawHints leaves out an empty one)
-		const std::string other = SidesShown() > 1 ? SystemName(NextShownSide(m_side)) : "";
+		const std::string other = m_screen == ScreenId::Library ? std::string(Tr("Timeline")) : SidesShown() > 1 ? SystemName(NextShownSide(m_side)) : "";
 		if (m_update.open || m_unpack.open || m_reorganize.open)
 			return {}; // their sheets' own
 		// tr: the hints along the bottom: what a button does on this screen, a word or two
@@ -1497,8 +1528,12 @@ namespace ps5shell
 			hints.push_back({Icon::Circle, !m_setupFirst ? Tr("Back") : Tr("Continue to the Library")});
 			return hints;
 		}
+		case ScreenId::Layout:
+		case ScreenId::Timeline: return {}; // their own, on their own grounds
 		case ScreenId::Library:
 		{
+			if (Orbit())
+				return {}; // its own, with the keys its dial has (OrbitHintsDraw)
 			std::string kicker, title, text;
 			std::vector<std::string> buttons;
 			if (LibraryState(kicker, title, text, buttons))
@@ -1579,6 +1614,17 @@ namespace ps5shell
 	void Shell::DrawBackdrop(Canvas& canvas)
 	{
 		// the Setup check belongs to no side: the sides' colours, and the seam
+		if (m_screen == ScreenId::Layout)
+		{
+			canvas.Rect({0, 0, 1920, 1080}, 0, 0xff0d0705); // #05070d, on every theme
+			canvas.RadialGradient({0, 0, 1920, 1080}, 0, 0x478a4a2a, 0x008a4a2a, 1630, 50, 760, 520);
+			return;
+		}
+		if (m_screen == ScreenId::Timeline)
+		{
+			canvas.Rect({0, 0, 1920, 1080}, 0, 0xffebe8e7); // #e7e8eb, on every theme
+			return;
+		}
 		if (m_screen == ScreenId::Setup || m_screen == ScreenId::Welcome || m_screen == ScreenId::WhatsNew)
 		{
 			// What's new's seam between its second and third columns of cards, never through one
@@ -1607,6 +1653,12 @@ namespace ps5shell
 		const float side = m_sideMix.Value(m_now);
 		const Box screen{0, 0, 1920, 1080};
 		canvas.PushAlpha(side);
+		if (Orbit() && (m_screen == ScreenId::Library || m_screen == ScreenId::Settings))
+		{
+			DrawOrbitBackdrop(canvas, m_backdropMix.Value(m_now));
+			canvas.PopAlpha();
+			return;
+		}
 		// a light theme keeps the game's colours faint: its ground stays light under dark text
 		const bool light = ui::LightTheme();
 		const uint32_t base = ui::Mix(Accent(), kInk0, 0.86f);

@@ -107,6 +107,9 @@ int main(int argc, char* argv[])
 		// the version run last: this one, unless the preview is of what an update brings
 		settings.ui.lastVersion = std::getenv("PREVIEW_WHATSNEW") ? "3.5.0" : PS5CEMU_VERSION;
 		settings.ui.lastSide = "wiiu";
+		settings.ui.layoutChosen = true;
+		if (const char* layout = std::getenv("PREVIEW_LAYOUT"))
+			settings.ui.layout = std::atoi(layout);
 		settings.lastGame = 0x00050000101C9400;
 		settings.recent = {0x00050000101C9400, 0x0005000010143500, 0x000500001010EC00, 0x0005000010101D00};
 		settings.n3ds.lastGame = 0x0004000000053F00;

@@ -76,6 +76,8 @@ namespace ps5shell
 		Artic,
 		Updates, // Updates and DLC (6.12)
 		Shares,	 // Network shares (6.14)
+		Layout,	 // Make it yours' first step: Classic or Orbit (orbit.cpp)
+		Timeline, // every console's games on one shelf, oldest to newest (timeline.cpp)
 	};
 
 	struct ShareJob; // shares.cpp: a test or a look around the network, on a thread of its own
@@ -165,7 +167,8 @@ namespace ps5shell
 		void DrawSideMotif(Canvas& canvas, float alpha); // the side's own
 		void DrawBar(Canvas& canvas, bool tabs);
 		void DrawMark(Canvas& canvas, float cx, float cy, float radius); // the top left's: every console's controller in a ring
-		void DrawTile(Canvas& canvas, System side, const Box& box, bool open); // a side's in the bar's carousel: its controller (consoles.cpp)
+		float DrawWordmark(Canvas& canvas, float x, float centreY, float height, uint32_t colour); // the logo's name; its width
+		void DrawBareConsole(Canvas& canvas, System side, const Box& box, bool open); // a side's in the bar's carousel: its controller (consoles.cpp)
 		void DrawHints(Canvas& canvas, const std::vector<Hint>& hints);
 		void DrawOverlays(Canvas& canvas);
 		std::vector<Hint> Hints() const;
@@ -350,6 +353,40 @@ namespace ps5shell
 		void ShowTab(ScreenId tab);
 		bool BarUpdate(const ui::Press& press);
 		void FocusBar();
+
+		// The Library's layout (Settings > Launcher > Layout): Classic's, or Orbit's dial (orbit.cpp)
+		bool Orbit() const { return m_settings.ui.layout == 1; }
+		void LayoutOpen(std::function<void()> then); // asked once; then goes on
+		void LayoutUpdate(const ui::Press& press);
+		void LayoutDraw(Canvas& canvas);
+		void LayoutClassicPreview(Canvas& canvas, const Box& box);
+		void LayoutOrbitPreview(Canvas& canvas, const Box& box);
+		void OrbitDraw(Canvas& canvas);
+		bool OrbitUpdate(const ui::Press& press); // true: it took the press
+		void OrbitHomeOpen(bool home);
+		void OrbitHintsDraw(Canvas& canvas, bool state);
+		void DrawOrbitBackdrop(Canvas& canvas, float pictureMix);
+		void DrawDial(Canvas& canvas); // consoles.cpp: the mark as the menu, turned by L1 and R1
+		// a game of any side, as the catalogue has it: made and drawn as its own side's
+		struct SideGame
+		{
+			System side;
+			Game game;
+		};
+		template <typename F>
+		void AsSide(System side, F&& what)
+		{
+			const System open = m_side;
+			m_side = side;
+			what();
+			m_side = open;
+		}
+		void StartFromAnySide(System side, const Game& game);
+		void GameMenuFromAnySide(System side, const Game& game);
+		// The Timeline (timeline.cpp)
+		void TimelineOpen();
+		void TimelineUpdate(const ui::Press& press);
+		void TimelineDraw(Canvas& canvas);
 
 		// Make it yours: first, a first start's look and feel, else what this
 		// version brings that the last did not have
@@ -647,6 +684,29 @@ namespace ps5shell
 
 		// the hub
 		int m_hubGame = -1;
+		std::string m_wordmark; // the logo's name as a picture, a white shape to tint (port/ui/wordmark.png)
+		// the layout's question, and Orbit
+		std::function<void()> m_layoutThen;
+		int m_layoutFocus = 0;
+		bool m_orbitHome = false;	   // on the dial's middle: the games played last, on every side
+		float m_dialTurn = -1;		   // the dial's turn, in sides (-1: not drawn yet)
+		ui::Spring m_orbitRail;		   // the row of games, slid as far as its focus needs
+		std::vector<SideGame> m_homeGames;
+		int m_homeIndex = 0;
+		// the Timeline: a shelf for each side shown, by the year its console came out
+		struct TimelineShelf
+		{
+			System side = System::WiiU;
+			int year = 0;
+			const char* brief = "";
+			int media = 0;
+			std::vector<Game> games;
+			float x = 0, w = 0;
+		};
+		std::vector<TimelineShelf> m_shelves;
+		int m_shelfAt = 0, m_shelfGame = 0;
+		ui::Spring m_shelfScroll;
+		double m_insertAt = 0;		   // when Cross put the game in the slot (0: not yet)
 		ScreenId m_hubFrom = ScreenId::Library;
 		int m_hubAction = 0;
 		bool m_hubAbout = false;

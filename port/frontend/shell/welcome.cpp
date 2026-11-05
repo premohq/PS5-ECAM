@@ -37,6 +37,12 @@ namespace ps5shell
 		m_message.clear();
 		Show(ScreenId::Welcome);
 		m_screenAt = m_now;
+		// its first step, once: which layout
+		if (!m_settings.ui.layoutChosen && !m_welcomeFromSettings)
+			LayoutOpen([this] {
+				Show(ScreenId::Welcome);
+				m_screenAt = m_now;
+			});
 	}
 
 	std::vector<Row> Shell::WelcomeRows()

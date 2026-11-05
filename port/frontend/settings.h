@@ -153,6 +153,8 @@ namespace ps5settings
 		bool reduceMotion = false;
 		int holdMs = 800;			 // hold to confirm, 400 to 1500
 		bool gamePictures = true;	 // the focused game's picture behind the menus
+		int layout = 0;				 // the Library's layout: 0 Classic, 1 Orbit (Make it yours, Settings > Launcher)
+		bool layoutChosen = false;	 // asked once, on a first start or the first start of 6.0
 		bool setupDone = false;		 // the Setup check was shown once
 		// the sides the bar offers, Wii U 1, 3DS 2, DS 4, Switch 8 (Settings > Launcher > Sides, and the
 		// first start's Make it yours); at least one

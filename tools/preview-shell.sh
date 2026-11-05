@@ -7,7 +7,7 @@
 #
 # PREVIEW_FIRST=1 starts it as on a first start, PREVIEW_REMOTE=1 with the remote touch screen on,
 # PREVIEW_UPDATE=1 with a newer release found, PREVIEW_NO_DATA=1 with /data out of reach,
-# PREVIEW_LAUNCH_ERROR=1 after a game that did not start; PREVIEW_LANGUAGE=de (a code of app/lang.cpp's, or
+# PREVIEW_LAYOUT=1 in Orbit, PREVIEW_LAUNCH_ERROR=1 after a game that did not start; PREVIEW_LANGUAGE=de (a code of app/lang.cpp's, or
 # qps, tools/lang.py pseudo's longer text) in that language, PREVIEW_SYSTEM_LANGUAGE=4 with the PS5 set to
 # its language number.
 #
@@ -81,7 +81,7 @@ flags=(-std=c++20 -O1 -g -Wall -Wextra -Wno-unused-parameter -Wno-missing-field-
     -I "$PS5CEMU_ROOT/.deps/reshade/deps/stb" $(pkg-config --cflags freetype2))
 sources=(tools/launcher-preview/shell.cpp tools/launcher-preview/console.cpp
     port/frontend/shell/hub.cpp port/frontend/shell/installs.cpp port/frontend/shell/library.cpp port/frontend/shell/pages.cpp
-    port/frontend/shell/settings.cpp port/frontend/shell/consoles.cpp port/frontend/shell/porpoise_rows.cpp port/frontend/shell/switch_extras.cpp port/frontend/shell/setup.cpp port/frontend/shell/shares.cpp port/frontend/shell/shell.cpp port/frontend/shell/welcome.cpp port/frontend/shell/whatsnew.cpp port/frontend/shell/widgets.cpp
+    port/frontend/shell/settings.cpp port/frontend/shell/consoles.cpp port/frontend/shell/orbit.cpp port/frontend/shell/timeline.cpp port/frontend/shell/porpoise_rows.cpp port/frontend/shell/switch_extras.cpp port/frontend/shell/setup.cpp port/frontend/shell/shares.cpp port/frontend/shell/shell.cpp port/frontend/shell/welcome.cpp port/frontend/shell/whatsnew.cpp port/frontend/shell/widgets.cpp
     port/ui/canvas.cpp port/ui/feedback.cpp port/ui/gfx.cpp port/ui/images.cpp port/ui/input.cpp port/ui/qr.cpp port/ui/text.cpp port/ui/theme.cpp
     port/ui/vkfn.cpp port/app/catalog.cpp port/app/saves.cpp port/app/reorganize.cpp port/app/gameinfo.cpp port/app/lang.cpp port/app/compatibility.cpp port/app/keyboard.cpp port/frontend/actions.cpp
     port/frontend/settings.cpp port/azahar/library.cpp port/azahar/controls.cpp port/azahar/unavailable.cpp

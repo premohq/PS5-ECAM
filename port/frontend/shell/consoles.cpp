@@ -257,26 +257,81 @@ namespace ps5shell
 		DrawConsole(canvas, m_side, cx, cy, radius * 0.72f, Vivid(m_side), kGround, second(m_side, Vivid(m_side)));
 	}
 
-	void Shell::DrawTile(Canvas& canvas, System side, const Box& box, bool open)
+	void Shell::DrawDial(Canvas& canvas)
 	{
-		// a side's tile in the bar's carousel (6.0): its controller as the mark draws it, on the mark's
-		// ground, a bar of its colour under it (the Switch 2's in its two rails' colours); the open side's
-		// ground a step lighter and ringed in its colour
-		constexpr uint32_t kGround = 0xff2b1d16, kOpenGround = 0xff332016; // #161d2b, #162033
-		const float radius = box.w * 0.27f;
-		canvas.Rect(box, radius, open ? kOpenGround : kGround);
-		const uint32_t colour = open ? Vivid(side) : ui::Mix(Vivid(side), kGround, 0.25f);
-		DrawConsole(canvas, side, box.CentreX(), box.CentreY() - box.h * 0.05f, box.w * 0.6f, colour, kGround, Second(side, colour));
-		const Box bar{box.x + box.w * 0.24f, box.Bottom() - box.h * 0.12f, box.w * 0.52f, std::max(2.0f, box.h * 0.06f)};
-		if (side == System::Switch2)
+		// Orbit's dial: the mark, as large as the screen is tall, its middle off the left edge. Its
+		// controllers (the sides shown, in the bar's order) stay upright as it turns, the open side's at
+		// the pointer, at three o'clock; its NES pad in the middle is Home
+		constexpr uint32_t kGround = 0xff2b1d16, kGroundLow = 0xff1d130e, kHub = 0xff231711; // #161d2b, #0e131d, #111723
+		constexpr float cx = 90, cy = 540, radius = 500, ring = 350, hub = 238;
+		int order[kSides];
+		int shown = 0, open = 0;
+		for (int i = 0; i < kSides; i++)
 		{
-			canvas.Rect({bar.x, bar.y, bar.w / 2, bar.h}, bar.h / 2, kJoyConBlue);
-			canvas.Rect({bar.x + bar.w / 2, bar.y, bar.w / 2, bar.h}, bar.h / 2, Vivid(side));
+			if (!SideShown(BarSide(i)))
+				continue;
+			if (BarSide(i) == m_side)
+				open = shown;
+			order[shown++] = i;
 		}
+		if (m_dialTurn < 0)
+			m_dialTurn = (float)open;
+		const float way = std::remainder((float)open - m_dialTurn, (float)shown); // the short way round
+		m_dialTurn += way * (m_settings.ui.reduceMotion ? 1.0f : std::min(1.0f, m_dt * 7.0f));
+		m_dialTurn = std::fmod(m_dialTurn + shown, (float)shown);
+
+		const Box disc{cx - radius, cy - radius, radius * 2, radius * 2};
+		canvas.LinearGradient(disc, radius, kGround, kGroundLow, cx, disc.y, cx, disc.Bottom());
+		canvas.Ring(disc, radius, 1.5f, 0x12ffffff);
+		const float size = std::min(radius * 0.21f, 2 * ring * std::sin(kTau / 2 / std::max(shown, 3)) * 0.78f);
+		for (int k = 0; k < shown; k++)
+		{
+			const float angle = kTau * (k - m_dialTurn) / shown;
+			const float x = cx + std::cos(angle) * ring, y = cy + std::sin(angle) * ring;
+			if (x < -size || y < -size || y > 1080 + size)
+				continue;
+			const System side = BarSide(order[k]);
+			const bool lit = side == m_side && !m_orbitHome;
+			const uint32_t colour = lit ? Vivid(side) : ui::Mix(Vivid(side), kGroundLow, 0.3f);
+			DrawConsole(canvas, side, x, y, size * (lit ? 1.15f : 1.0f), colour, kGround, Second(side, colour));
+		}
+		const Box middle{cx - hub, cy - hub, hub * 2, hub * 2};
+		canvas.Rect(middle, hub, kHub);
+		canvas.Ring(middle, hub, 1.5f, 0x12ffffff);
+		const uint32_t nes = Vivid(System::Nes);
+		DrawConsole(canvas, System::Nes, cx, cy, 360, nes, kGround, Second(System::Nes, nes));
+		if (m_orbitHome)
+			canvas.Ring(middle.Scaled(1.04f), hub * 1.04f, 3, nes);
 		else
-			canvas.Rect(bar, bar.h / 2, Vivid(side));
-		if (open)
-			canvas.Ring(box, radius, 2.5f, Vivid(side));
+		{
+			const uint32_t accent = Vivid(m_side);
+			const Box pointer{cx + ring - 68, cy - 68, 136, 136};
+			canvas.Glow(pointer, 68, 40, ui::SetAlpha(accent, 0.33f));
+			canvas.Ring(pointer, 68, 3, accent);
+			canvas.Triangle(cx + ring + 82, cy - 14, cx + ring + 100, cy, cx + ring + 82, cy + 14, accent);
+		}
+	}
+
+	float Shell::DrawWordmark(Canvas& canvas, float x, float centreY, float height, uint32_t colour)
+	{
+		// Playtendoh's name in the approved lettering: Play as the PlayStation logo has it, tendoh in Nu Hanafudaya
+		const float width = height * 966 / 226;
+		const ui::Picture& picture = m_images->Get(m_wordmark);
+		if (picture.texture)
+			canvas.Image(picture.texture, {x, centreY - height / 2, width, height}, 0, colour);
+		return width;
+	}
+
+	void Shell::DrawBareConsole(Canvas& canvas, System side, const Box& box, bool open)
+	{
+		// a side in the bar's carousel (6.0): only its controller as the mark draws it, on the bar's own
+		// ground; the open side's in its colour, the others in one quiet ink. The Switch 2's stays dark:
+		// its Joy-Con 2 are drawn in its cut colour, the mark's ground
+		constexpr uint32_t kDark = 0xff2b1d16; // #161d2b
+		const uint32_t quiet = ui::Mix(kText, kInk1, 0.55f) | 0xff000000;
+		const uint32_t colour = open ? Vivid(side) : quiet;
+		const uint32_t cut = side == System::Switch2 ? (open ? kDark : quiet) : kInk1 | 0xff000000;
+		DrawConsole(canvas, side, box.CentreX(), box.CentreY(), box.w, colour, cut, open ? Second(side, colour) : quiet);
 	}
 
 	// -- the later consoles' motifs: each one's own, in its colour, on the bubbles' places and speeds ----------

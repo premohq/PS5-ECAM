@@ -11,7 +11,7 @@ msgstr ""
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements ne répond pas. La PS5 est-elle en ligne?"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2913 port/frontend/shell/shell.cpp:1979
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2924 port/frontend/shell/shell.cpp:1986
 msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
 msgstr "Playtendoh ne peut pas écrire dans {0}. Le HEN est-il chargé?"
 
@@ -251,20 +251,20 @@ msgstr "Artic Base joue à un jeu depuis une 3DS de votre réseau, ses sauvegard
 msgid "Earn RetroAchievements in DS games with your account, as RetroArch does. Cross signs in with your user name and password; only the sign-in's token is kept on the PS5, never the password. Softcore: save states, cheats and speed stay as they are. RetroAchievements has no sets for the Wii U or the 3DS."
 msgstr "Gagnez des RetroAchievements dans les jeux DS avec votre compte, comme avec RetroArch. Croix vous connecte avec votre nom d’utilisateur et votre mot de passe; seul le jeton de connexion est conservé sur la PS5, jamais le mot de passe. Softcore : sauvegardes d’état, codes de triche et vitesse restent tels quels. RetroAchievements n’a pas d’ensembles pour la Wii U ni pour la 3DS."
 
-#: port/frontend/shell/settings.cpp:1541
+#: port/frontend/shell/settings.cpp:1546
 msgid "Springs become short fades; nothing drifts, breathes or rises behind the menus."
 msgstr "Les ressorts deviennent de courts fondus; rien ne flotte, ne respire ou ne monte derrière les menus."
 
 #. {0} is the folder they are kept in
-#: port/frontend/shell/settings.cpp:1578
+#: port/frontend/shell/settings.cpp:1583
 msgid "Deletes the copies of games unpacked from their archives, kept in {0}. Each is unpacked again the next time it starts; when room is needed, the copies used longest ago go by themselves."
 msgstr "Supprime les copies des jeux décompressés de leurs archives, gardées dans {0}. Chacun est décompressé à nouveau à son prochain lancement; quand il faut de la place, les copies utilisées il y a le plus longtemps partent d’elles-mêmes."
 
-#: port/frontend/shell/settings.cpp:1605
+#: port/frontend/shell/settings.cpp:1610
 msgid "The launcher's own music, one of yours, or none. To use your own, put MP3 or WAV files in {0}; they appear here. Every side plays the same."
 msgstr "La musique du lanceur, l’une des vôtres ou aucune. Pour la vôtre, placez des fichiers MP3 ou WAV dans {0}; ils apparaissent ici. Tous les côtés jouent la même."
 
-#: port/frontend/shell/settings.cpp:1640
+#: port/frontend/shell/settings.cpp:1645
 msgid ""
 "{0} in any browser on the PS5's network, a phone's, a tablet's or a computer's, with nothing to install, and its touches sent back to the game. Scan the code shown here, or open the address. The DualSense stays the buttons, and the sound stays on the PS5.\n"
 "While a browser shows it, the PS5 copies that screen up to 30 times a second, so a game can run a little slower; with no browser, it costs nothing. Any device on your network can open the page, so turn it off on a network you share.\n"
@@ -274,27 +274,27 @@ msgstr ""
 "Tant qu’un navigateur l’affiche, la PS5 copie cet écran jusqu’à 30 fois par seconde, ce qui peut ralentir un peu un jeu; sans navigateur, cela ne coûte rien. Tout appareil de votre réseau peut ouvrir la page : désactivez-le sur un réseau partagé.\n"
 "Un seul interrupteur pour tous les côtés (l’écran du GamePad est celui du joueur 1), aussi dans le menu d’un jeu (clic du pavé tactile + OPTIONS). D’après l’idée et le prototype de dolphin78 (#38)."
 
-#: port/frontend/shell/settings.cpp:2023
+#: port/frontend/shell/settings.cpp:2028
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Activé, un QR code ici ouvre le second écran du jeu dans le navigateur d’un téléphone. Rien à installer; le téléphone doit être sur le réseau de la PS5."
 
-#: port/frontend/shell/settings.cpp:2962
+#: port/frontend/shell/settings.cpp:2973
 msgid "{0} is deleted; its saves stay"
 msgstr "{0} est supprimé; ses sauvegardes restent"
 
-#: port/frontend/shell/setup.cpp:139
+#: port/frontend/shell/setup.cpp:143
 msgid "Add PPSA99360 to your HEN's app jailbreak list (etaHEN: its app jailbreak list; OnionHEN: the end of exact_title_ids in config.ini, with no comma after it), or have elfldr listening on port 9021. Then start Playtendoh again."
 msgstr "Ajoutez PPSA99360 à la liste de jailbreak d’applis de votre HEN (etaHEN : sa liste de jailbreak d’applis; OnionHEN : à la fin de exact_title_ids dans config.ini, sans virgule après), ou faites écouter elfldr sur le port 9021. Puis relancez Playtendoh."
 
-#: port/frontend/shell/setup.cpp:162
+#: port/frontend/shell/setup.cpp:166
 msgid "Neither your HEN's JIT memory nor executable memory could be made, so Wii U games fall back to Cemu's interpreter. Add PPSA99360 to your HEN's app jailbreak list, then start Playtendoh again; Settings > Diagnostics says what it got."
 msgstr "Ni la mémoire JIT de votre HEN ni une mémoire exécutable n’ont pu être obtenues, les jeux Wii U se rabattent donc sur l’interpréteur de Cemu. Ajoutez PPSA99360 à la liste de jailbreak d’applis de votre HEN, puis relancez Playtendoh; Paramètres > Diagnostic indique ce qu’il a obtenu."
 
-#: port/frontend/shell/setup.cpp:291
+#: port/frontend/shell/setup.cpp:295
 msgid "melonDS's built-in BIOS runs DS games; your DS's is optional"
 msgstr "Le BIOS intégré de melonDS fait tourner les jeux DS; celui de votre DS est facultatif"
 
-#: port/frontend/shell/setup.cpp:569
+#: port/frontend/shell/setup.cpp:573
 msgid "Playtendoh speaks the language your PS5 is set to. Cross chooses another; Settings > Language changes it at any time."
 msgstr "Playtendoh parle la langue de votre PS5. Croix en choisit une autre; Paramètres > Langue la change à tout moment."
 
@@ -316,7 +316,7 @@ msgstr[1] "L’ordinateur partage {0} dossiers. Gauche et Droite choisissent; Cr
 msgid "Turn on file sharing for a folder on your computer or NAS, then add it here. The PS5 reads games from it; it never writes to it. A cable does better than Wi-Fi for Wii U games."
 msgstr "Activez le partage de fichiers pour un dossier de votre ordinateur ou NAS, puis ajoutez-le ici. La PS5 y lit les jeux; elle n’y écrit jamais. Pour les jeux Wii U, un câble vaut mieux que le Wi-Fi."
 
-#: port/frontend/shell/shell.cpp:2550
+#: port/frontend/shell/shell.cpp:2557
 msgid "This is {0}. Download and install it now? Your games, saves and settings stay as they are."
 msgstr "Vous avez {0}. Télécharger et installer la nouvelle version maintenant? Vos jeux, sauvegardes et paramètres restent tels quels."
 
