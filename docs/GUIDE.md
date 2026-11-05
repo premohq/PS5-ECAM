@@ -13,7 +13,7 @@ wrong.
 
 | Button | Action |
 |---|---|
-| L1 / R1 | Library and Settings |
+| L1 / R1 | Previous or next console |
 | Touchpad click | The next side: Wii U, 3DS, DS (in the Library and Settings) |
 | Cross | Play the game, or open what's focused |
 | Options | A game's options: its hub, its game settings, favourite, hide |

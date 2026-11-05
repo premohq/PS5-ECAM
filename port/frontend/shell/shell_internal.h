@@ -165,6 +165,7 @@ namespace ps5shell
 		void DrawSideMotif(Canvas& canvas, float alpha); // the side's own
 		void DrawBar(Canvas& canvas, bool tabs);
 		void DrawMark(Canvas& canvas, float cx, float cy, float radius); // the top left's: every console's controller in a ring
+		void DrawTile(Canvas& canvas, System side, const Box& box, bool open); // a side's in the bar's carousel: its controller (consoles.cpp)
 		void DrawHints(Canvas& canvas, const std::vector<Hint>& hints);
 		void DrawOverlays(Canvas& canvas);
 		std::vector<Hint> Hints() const;
@@ -347,7 +348,6 @@ namespace ps5shell
 		// -- screens ---------------------------------------------------------------------------
 		void Show(ScreenId screen);
 		void ShowTab(ScreenId tab);
-		void NextTab(int direction);
 		bool BarUpdate(const ui::Press& press);
 		void FocusBar();
 
@@ -587,7 +587,7 @@ namespace ps5shell
 		ScreenId m_tab = ScreenId::Library;
 		bool m_onBar = false;
 		int m_barFocus = kSides; // the sides (0 to kSides - 1), then the Library and Settings tabs
-		float m_barSlide = -1;	 // the side switch as a carousel: how far its sides have slid (-1: not one)
+		float m_barSlide = -1;	 // the side switch's carousel: how far its sides have slid (-1: not drawn yet)
 		double m_screenAt = -10;  // when the screen was entered (its parts arrive)
 		bool m_done = false;	  // a game is chosen and the launch shown
 		std::optional<ps5launcher::Choice> m_choice;
@@ -638,6 +638,7 @@ namespace ps5shell
 		std::vector<int> m_recent; // Recently played: indices in m_games, the last played first
 		int m_recentIndex = 0;
 		ui::Spring m_libraryScroll;
+		ui::Spring m_recentScroll; // Recently played's row, slid left as far as its game in focus clears the panel beside it (6.0)
 		std::string m_search;
 		uint64_t m_libraryFocusTitle = 0;
 

@@ -623,13 +623,32 @@ namespace ps5shell
 		const ui::TextStyle heading = Style({32, ui::Weight::SemiBold, 1.0f});
 		const ui::TextStyle tool = Style({22, ui::Weight::Medium, 1.0f});
 
-		// Recently played
+		// Recently played: its row at the left, and the game in focus there (or played last) in a panel at
+		// its right (6.0)
 		if (recent)
 		{
+			const Box panel{1920 - kSafeX - 480, kRecentTop, 480, kRecentHeight};
+			const float rowRight = panel.x - 28;
 			canvas.Text(heading, kSafeX, 132, Tr("Recently played"), kText, 900, 1);
 			// tr: when the games in Recently played were last played: the labels over the row
 			const char* groups[3] = {Tr("Today"), Tr("This week"), Tr("Earlier")};
-			float x = kSafeX;
+			// the row slides left as far as its game in focus needs to clear the panel, lifted as it is
+			float focusRight = 0;
+			{
+				float at = kSafeX;
+				for (int i = 0; i < (int)m_recent.size(); i++)
+				{
+					const Box box = CoverBox(m_games[m_recent[i]], at, kRecentTop + kRecentHeight, kRecentHeight, 420);
+					if (i == m_recentIndex)
+						focusRight = box.Right() + box.w * 0.05f;
+					at = box.Right() + kRecentGap + (i == m_recentIndex ? 12 : 0);
+				}
+			}
+			m_recentScroll.target = std::max(0.0f, focusRight - rowRight);
+			m_recentScroll.omega = m_settings.ui.reduceMotion ? 60.0f : kScrollOmega;
+			m_recentScroll.Update(m_dt);
+			canvas.PushClip({0, 160, rowRight + 8, kRecentTop + kRecentHeight + 40 - 160});
+			float x = kSafeX - m_recentScroll.value;
 			int lastGroup = -1;
 			Box focusedBox{};
 			for (int i = 0; i < (int)m_recent.size(); i++)
@@ -659,10 +678,17 @@ namespace ps5shell
 				const Box lifted{focusedBox.x, focusedBox.Bottom() - focusedBox.h * (1 + lift), focusedBox.w * (1 + lift), focusedBox.h * (1 + lift)};
 				DrawCover(canvas, m_games[m_recent[m_recentIndex]], lifted, true, 0);
 			}
-			// the game in focus there (or played last), under the row: its name, play time, when it was last
-			// played, its update and DLC
+			canvas.PopClip();
+			// the panel: the game's console, its name, play time, when it was last played, its update and
+			// DLC, how it runs, and what Cross and Options do with it
 			Game& g = m_games[m_recent[std::clamp(m_recentIndex, 0, (int)m_recent.size() - 1)]];
-			const ui::TextBlock name = canvas.Text(Style({26, ui::Weight::SemiBold, 1.0f}), kSafeX, 544, g.entry.game.name, kText, 900, 1);
+			Panel(canvas, panel, kRadiusCard);
+			const float px = panel.x + 28, pw = panel.w - 56;
+			float py = panel.y + 26;
+			canvas.Text(Style(kOverlineStyle), px, py, SystemName(m_side), Tertiary(), pw, 1);
+			py += 34;
+			const ui::TextBlock name = canvas.Text(Style({30, ui::Weight::SemiBold, 1.15f}), px, py, g.entry.game.name, kText, pw, 2);
+			py += name.height + 12;
 			std::vector<std::string> facts = {Played(g), LastPlayedWords(g.entry.lastPlayed)};
 			const ps5emu::Game& entry = g.entry.game;
 			if (IsWiiU() && entry.hasUpdate)
@@ -672,7 +698,19 @@ namespace ps5shell
 				facts.push_back(TrF("Update v{0}", entry.versionName)); // a Switch game's, as it shows it (1.2.0)
 			if (entry.dlcCount)
 				facts.push_back(TrP(entry.dlcCount, "{0} DLC", "{0} DLC"));
-			canvas.Text(Style({22, ui::Weight::Regular, 1.0f}), kSafeX + name.width + 16, 548, Facts(facts), Secondary(), 1920 - 2 * kSafeX - name.width - 16, 1);
+			const ui::TextBlock about = canvas.Text(Style({20, ui::Weight::Regular, 1.35f}), px, py, Facts(facts), Secondary(), pw, 2);
+			py += about.height + 14;
+			if (g.report)
+				Chip(canvas, px, py, TrC("status", g.report->status), ps5compat::Kind(g.report->status), 34);
+			const float hy = panel.Bottom() - 26 - 30;
+			const ui::TextStyle hintStyle = Style({22, ui::Weight::Medium, 1.0f});
+			canvas.Draw(Icon::Cross, {px, hy, 30, 30}, kText);
+			const ui::TextBlock play = m_fonts.Layout(hintStyle, Tr("Play"));
+			canvas.Text(play, px + 38, hy + 15 - play.height * 0.5f, kText);
+			const float ox = px + 38 + play.width + 28;
+			canvas.Draw(Icon::Options, {ox, hy, 30, 30}, Secondary());
+			const ui::TextBlock options = m_fonts.Layout(hintStyle, Tr("Options"));
+			canvas.Text(options, ox + 38, hy + 15 - options.height * 0.5f, Secondary());
 		}
 
 		// the Library: its heading and count, Sort and Search at the right

@@ -151,7 +151,7 @@ files** on each system. No games, keys or firmware are included. Use dumps of ga
 
 | | |
 |---|---|
-| **L1 / R1** | Library and Settings |
+| **L1 / R1** | Previous or next console |
 | **Touchpad click** | The next system |
 | **Cross / Circle** | Play or open / back |
 | **Options** | A game's menu: game settings, saves, graphic packs, mods, home screen tile |

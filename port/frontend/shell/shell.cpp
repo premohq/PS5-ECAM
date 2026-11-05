@@ -1228,15 +1228,6 @@ namespace ps5shell
 		Show(tab);
 	}
 
-	void Shell::NextTab(int direction)
-	{
-		// two tabs, Library and Settings: either way goes to the other
-		(void)direction;
-		ShowTab(m_tab == ScreenId::Library ? ScreenId::Settings : ScreenId::Library);
-		m_barFocus = m_tab == ScreenId::Library ? kSides : kSides + 1;
-		m_feedback.Play(ui::Cue::Focus);
-	}
-
 	void Shell::FocusBar()
 	{
 		m_onBar = true;
@@ -1251,7 +1242,20 @@ namespace ps5shell
 			return false; // a game's settings have no tabs, nor sides
 		if (press.button == Button::L1 || press.button == Button::R1)
 		{
-			NextTab(press.button == Button::R1 ? 1 : -1);
+			// the previous or next side shown, in the bar's order, round from the last to the first (6.0:
+			// they turn the carousel; the tabs are on the bar, Up and then along it)
+			const int step = press.button == Button::R1 ? 1 : -1;
+			for (int i = 1; i < kSides; i++)
+			{
+				const System next = BarSide(((BarIndex(m_side) + step * i) % kSides + kSides) % kSides);
+				if (!SideShown(next))
+					continue;
+				if (m_onBar && m_barFocus < kSides)
+					m_barFocus = BarIndex(next);
+				SwitchSide(next);
+				return true;
+			}
+			m_feedback.Play(ui::Cue::Denied);
 			return true;
 		}
 		if (press.button == Button::Touchpad)
@@ -1319,29 +1323,6 @@ namespace ps5shell
 		const float y = kBarTop, h = kBarHeight;
 		const float appear = Enter(0);
 		canvas.PushAlpha(appear);
-		// each side's square with its console's glyph in it: the GamePad on blue, the 3DS on gold, the DS
-		// on green, the Switch on red (the app's own tiles, tools/render-icons.py); a later console's
-		// controller drawn on its colour (consoles.cpp), as every side's is until its picture has loaded
-		static const std::array<std::string, kSides> kTiles = [] {
-			std::array<std::string, kSides> tiles;
-			tiles[(int)System::WiiU] = ps5paths::Assets() + "/ui/icons/ps5cemu-72.tga";
-			tiles[(int)System::N3ds] = ps5paths::Assets() + "/ui/icons/azahar-72.tga";
-			tiles[(int)System::Nds] = ps5paths::Assets() + "/ui/icons/melonds-72.tga";
-			tiles[(int)System::Switch] = tiles[(int)System::Switch2] = ps5paths::Assets() + "/ui/icons/eden-72.tga";
-			return tiles;
-		}();
-		auto tile = [&](int side, const Box& box, float radius, uint32_t tint) {
-			const ui::Picture& picture = m_images->Get(kTiles[side]);
-			if (picture.texture)
-			{
-				canvas.Image(picture.texture, box, radius, tint);
-				return;
-			}
-			const float alpha = ((tint >> 24) & 0xff) / 255.0f;
-			const uint32_t colour = AccentOf((System)side), white = ui::SetAlpha(0xffffffff, alpha);
-			canvas.Rect(box, radius, ui::SetAlpha(colour, alpha));
-			DrawConsole(canvas, (System)side, box.CentreX(), box.CentreY(), box.w * 0.66f, white, ui::SetAlpha(colour, alpha), white);
-		};
 		// the mark: every console's controller in a ring on a dark disc, the open side's in the middle
 		DrawMark(canvas, 115, y + h / 2, 30);
 		// the controllers and the clock, at the right (first: the side switch has the room they leave)
@@ -1370,13 +1351,13 @@ namespace ps5shell
 			right -= 44;
 			pads = true;
 		}
-		// the tabs, L1 Library Settings R1, just left of them (28 from the controllers, as from the clock)
+		// the tabs, Library and Settings, just left of them (28 from the controllers, as from the clock)
 		// tr: the launcher's tabs
 		const char* labels[2] = {TrC("tab", "Library"), TrC("tab", "Settings")};
 		bool selected[2];
 		ui::TextStyle styles[2];
 		float tabWidths[2];
-		float total = 36 + 14 + 8 + 36;
+		float total = 0;
 		for (int i = 0; i < 2; i++)
 		{
 			selected[i] = (i == 0 && m_tab == ScreenId::Library) || (i == 1 && m_tab == ScreenId::Settings);
@@ -1386,91 +1367,73 @@ namespace ps5shell
 		}
 		const float tabsLeft = tabs ? right - (pads ? 20 : 0) - total : right;
 
-		// the side switch, in the bar's order: Wii U | Switch | DS | 3DS | GameCube | Wii | N64 | NES | GB...
-		float x = 160;
-		const ui::TextStyle sideStyle = Style({22, ui::Weight::SemiBold, 1.0f});
-		constexpr float kTile = 34;
-		float widths[kSides];
-		float pillWidth = 8;
-		int shown = 0;
+		// the side switch (6.0): a carousel of the sides shown, in the bar's order (Wii U, Switch, Switch 2,
+		// DS, 3DS, GameCube, Wii, N64...), each one's tile its controller as the mark draws it (DrawTile); the
+		// one in focus (else the one open) in its middle and larger, the others smaller and fainter the
+		// further they are from it; L1 and R1 at its ends, as they turn it (BarUpdate)
+		constexpr float kTile = 46, kPitch = 58;
+		const float left = 160, stripRight = tabsLeft - 26;
+		int order[kSides];
+		int shown = 0, anchor = 0;
+		const int anchorBar = m_onBar && m_barFocus < kSides ? m_barFocus : BarIndex(m_side);
 		for (int i = 0; i < kSides; i++)
 		{
-			widths[i] = 12 + kTile + 10 + m_fonts.Width(sideStyle, SideTitle(BarSide(i))) + 20;
-			if (SideShown(BarSide(i)))
-				pillWidth += widths[i] + (shown++ ? 4 : 0);
+			if (!SideShown(BarSide(i)))
+				continue;
+			if (i == anchorBar)
+				anchor = shown;
+			order[shown++] = i;
 		}
-		// a carousel where the sides shown do not fit before the tabs: the pill as wide as there is room
-		// for, its sides sliding so that the one in focus (else the one open) is in its middle, and a
-		// chevron at each end, lit while there are more sides beyond it
-		constexpr float kChevron = 34;
-		const float room = tabsLeft - 26 - x;
-		const bool carousel = pillWidth > room && room > 2 * kChevron + 200;
-		const Box pill{x, y, carousel ? room : pillWidth, h};
-		canvas.Rect(pill, h / 2, Wash(0.06f));
-		canvas.Ring(pill, h / 2, 1.5f, kGlassEdge);
-		const Box strip = carousel ? Box{x + kChevron, y, pill.w - 2 * kChevron, h} : pill;
-		float slid = 0;
-		if (carousel)
-		{
-			const int anchor = m_onBar && m_barFocus < kSides ? m_barFocus : BarIndex(m_side);
-			float at = 4, middle = 0;
-			for (int i = 0; i < kSides; i++)
-			{
-				if (!SideShown(BarSide(i)))
-					continue;
-				if (i == anchor)
-					middle = at + widths[i] / 2;
-				at += widths[i] + 4;
-			}
-			const float most = pillWidth - strip.w;
-			const float target = std::clamp(middle - strip.w / 2, 0.0f, most);
-			if (m_barSlide < 0)
-				m_barSlide = target; // the first look: there at once
-			m_barSlide += (target - m_barSlide) * std::min(1.0f, m_dt * (m_settings.ui.reduceMotion ? 60.0f : 14.0f));
-			slid = m_barSlide;
-			canvas.Draw(Icon::ChevronLeft, {x + 8, y + h / 2 - 12, 24, 24}, slid > 1 ? Secondary() : Wash(0.18f));
-			canvas.Draw(Icon::ChevronRight, {pill.Right() - 32, y + h / 2 - 12, 24, 24}, slid < most - 1 ? Secondary() : Wash(0.18f));
-			canvas.PushClip(strip);
-		}
-		else
-			m_barSlide = -1;
-		float sx = strip.x + 4 - slid;
+		const float target = anchor * kPitch;
+		if (m_barSlide < 0)
+			m_barSlide = target; // the first look: there at once
+		m_barSlide += (target - m_barSlide) * std::min(1.0f, m_dt * (m_settings.ui.reduceMotion ? 60.0f : 14.0f));
+		const bool turns = shown > 1;
+		canvas.Draw(Icon::L1, {left, y + 12, 36, 32}, turns ? Tertiary() : Wash(0.18f));
+		canvas.Draw(Icon::R1, {stripRight - 36, y + 12, 36, 32}, turns ? Tertiary() : Wash(0.18f));
+		const Box strip{left + 48, y - 8, std::max(0.0f, stripRight - 48 - (left + 48)), h + 16};
+		canvas.PushClip(strip);
 		Box focused{};
 		bool focusOnSide = false;
-		for (int i = 0; i < kSides; i++)
+		for (int k = 0; k < shown; k++)
 		{
-			const System side = BarSide(i);
-			if (!SideShown(side))
+			const System side = BarSide(order[k]);
+			const float offset = k * kPitch - m_barSlide; // from the middle
+			const float cx = strip.CentreX() + offset;
+			if (cx < strip.x - kPitch || cx > strip.Right() + kPitch)
 				continue;
-			const Box segment{sx, y + 5, widths[i], h - 10};
-			sx += widths[i] + 4;
-			// one the carousel shows in part fades with what is left of it
-			const float visible = std::min(segment.Right(), strip.Right()) - std::max(segment.x, strip.x);
-			if (carousel && visible <= 0)
-				continue;
-			canvas.PushAlpha(carousel ? std::clamp(visible / segment.w, 0.0f, 1.0f) : 1.0f);
-			const bool on = side == m_side;
-			const uint32_t colour = AccentOf(side);
-			if (on)
-				canvas.Rect(segment, segment.h / 2, ui::SetAlpha(colour, 0.24f));
-			tile(SideIndex(side), {segment.x + 12, segment.CentreY() - kTile / 2, kTile, kTile}, 9, on ? 0xffffffff : 0x73ffffff);
-			const ui::TextBlock text = m_fonts.Layout(sideStyle, SideTitle(side));
-			canvas.Text(text, segment.x + 12 + kTile + 10, segment.CentreY() - text.height * 0.5f, on ? kText : Tertiary());
+			const float away = std::abs(offset) / kPitch; // how many tiles from the middle
+			const float size = kTile * std::max(0.6f, 1.12f - 0.14f * away);
+			// fainter further out, and gone at the strip's ends
+			const float edge = std::min(cx - strip.x, strip.Right() - cx) / kPitch;
+			const Box box{cx - size / 2, y + h / 2 - size / 2, size, size};
+			canvas.PushAlpha(std::clamp(std::min(1.0f - 0.18f * away, edge), 0.0f, 1.0f));
+			DrawTile(canvas, side, box, side == m_side);
 			canvas.PopAlpha();
-			if (m_onBar && m_barFocus == i)
-				focused = segment, focusOnSide = true;
+			if (m_onBar && m_barFocus == order[k])
+				focused = box, focusOnSide = true;
 		}
-		if (carousel)
-			canvas.PopClip();
+		canvas.PopClip();
 		// its ring over the others, and out of the carousel's clip
 		if (focusOnSide)
-			Focus(focused, focused.h / 2);
+			Focus(focused, focused.w * 0.27f);
+		// under it, the side in its middle: its name, and the open one's count of games (as the Library's)
+		{
+			const System middle = shown ? BarSide(order[anchor]) : m_side;
+			std::string caption = SystemName(middle);
+			if (middle == m_side && m_listed)
+			{
+				const int listed = (int)std::count_if(m_games.begin(), m_games.end(), [](const Game& g) { return !g.entry.hidden; });
+				caption += " · ";
+				caption += TrP(listed, "{0} game", "{0} games");
+			}
+			const ui::TextBlock text = m_fonts.Layout(Style({18, ui::Weight::Medium, 1.0f}), caption);
+			canvas.Text(text, strip.CentreX() - text.width * 0.5f, y + h + 6, Secondary());
+		}
 
 		if (tabs)
 		{
-			x = std::max(pill.Right() + 26, tabsLeft);
-			canvas.Draw(Icon::L1, {x, y + 12, 36, 32}, Tertiary());
-			x += 36 + 14;
+			float x = std::max(stripRight + 26, tabsLeft);
 			for (int i = 0; i < 2; i++)
 			{
 				const Box tab{x, y, tabWidths[i], h};
@@ -1482,8 +1445,6 @@ namespace ps5shell
 					Focus(tab, h / 2);
 				x += tabWidths[i] + 6;
 			}
-			x += 8;
-			canvas.Draw(Icon::R1, {x, y + 12, 36, 32}, Tertiary());
 		}
 		canvas.PopAlpha();
 	}

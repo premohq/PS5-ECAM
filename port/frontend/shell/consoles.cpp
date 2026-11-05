@@ -27,6 +27,13 @@ namespace ps5shell
 			return side == System::N3ds ? kN3dsDefault : side == System::Nds ? kNdsDefault :
 				   (side == System::Switch || side == System::Switch2) ? kNxDefault : kWiiuDefault;
 		}
+
+		// the second colour a controller is drawn in: the Switches' other Joy-Con (the Switch 2's left
+		// rail), the Game Boy's screen
+		uint32_t Second(System side, uint32_t colour)
+		{
+			return side == System::Switch || side == System::Switch2 ? kJoyConBlue : ps5retro::Is((int)side, "gb") ? ui::Mix(colour, 0xffffffff, 0.5f) : colour;
+		}
 	}
 
 	void DrawConsole(Canvas& canvas, System side, float cx, float cy, float s, uint32_t body, uint32_t cut, uint32_t second)
@@ -48,7 +55,22 @@ namespace ps5shell
 			shape(-0.37f, -0.12f, 0.09f, 0.09f, 0.045f, cut);
 			shape(0.37f, -0.12f, 0.09f, 0.09f, 0.045f, cut);
 		}
-		else if (side == System::Switch || side == System::Switch2)
+		else if (side == System::Switch2)
+		{
+			// the Joy-Con 2, its own (the owner's, 2026-11-05): taller, dark, the two colours on the rails
+			// between them (second the left one's, body the right one's), the sticks and the C button
+			const uint32_t grey = ui::Mix(cut, 0xffffffff, 0.3f);
+			shape(-0.25f, 0, 0.36f, 0.98f, 0.18f, grey);
+			shape(-0.15f, 0, 0.16f, 0.98f, 0, grey);
+			shape(0.25f, 0, 0.36f, 0.98f, 0.18f, grey);
+			shape(0.15f, 0, 0.16f, 0.98f, 0, grey);
+			shape(-0.085f, 0, 0.04f, 0.86f, 0.02f, second);
+			shape(0.085f, 0, 0.04f, 0.86f, 0.02f, body);
+			shape(-0.25f, -0.2f, 0.14f, 0.14f, 0.07f, cut);
+			shape(0.25f, 0.16f, 0.14f, 0.14f, 0.07f, cut);
+			shape(0.25f, -0.04f, 0.06f, 0.06f, 0.03f, ui::Mix(grey, 0xffffffff, 0.7f));
+		}
+		else if (side == System::Switch)
 		{
 			// the two Joy-Con, each flat on the side that slides onto the console
 			shape(-0.25f, 0, 0.34f, 0.86f, 0.17f, second);
@@ -222,9 +244,7 @@ namespace ps5shell
 		const Box disc{cx - radius, cy - radius, radius * 2, radius * 2};
 		canvas.LinearGradient(disc, radius, kGround, kGroundLow, cx, disc.y, cx, disc.Bottom());
 		canvas.Ring(disc, radius, 1.5f, kGlassEdge);
-		auto second = [](System side, uint32_t colour) {
-			return side == System::Switch || side == System::Switch2 ? kJoyConBlue : ps5retro::Is((int)side, "gb") ? ui::Mix(colour, 0xffffffff, 0.5f) : colour;
-		};
+		const auto second = Second;
 		const float ring = radius * 0.7f;
 		const float size = std::min(radius * 0.36f, 2 * ring * std::sin(kTau / 2 / kSides) * 0.95f);
 		for (int i = 0; i < kSides; i++)
@@ -235,6 +255,28 @@ namespace ps5shell
 			DrawConsole(canvas, side, cx + std::cos(angle) * ring, cy + std::sin(angle) * ring, size, colour, kGround, second(side, colour));
 		}
 		DrawConsole(canvas, m_side, cx, cy, radius * 0.72f, Vivid(m_side), kGround, second(m_side, Vivid(m_side)));
+	}
+
+	void Shell::DrawTile(Canvas& canvas, System side, const Box& box, bool open)
+	{
+		// a side's tile in the bar's carousel (6.0): its controller as the mark draws it, on the mark's
+		// ground, a bar of its colour under it (the Switch 2's in its two rails' colours); the open side's
+		// ground a step lighter and ringed in its colour
+		constexpr uint32_t kGround = 0xff2b1d16, kOpenGround = 0xff332016; // #161d2b, #162033
+		const float radius = box.w * 0.27f;
+		canvas.Rect(box, radius, open ? kOpenGround : kGround);
+		const uint32_t colour = open ? Vivid(side) : ui::Mix(Vivid(side), kGround, 0.25f);
+		DrawConsole(canvas, side, box.CentreX(), box.CentreY() - box.h * 0.05f, box.w * 0.6f, colour, kGround, Second(side, colour));
+		const Box bar{box.x + box.w * 0.24f, box.Bottom() - box.h * 0.12f, box.w * 0.52f, std::max(2.0f, box.h * 0.06f)};
+		if (side == System::Switch2)
+		{
+			canvas.Rect({bar.x, bar.y, bar.w / 2, bar.h}, bar.h / 2, kJoyConBlue);
+			canvas.Rect({bar.x + bar.w / 2, bar.y, bar.w / 2, bar.h}, bar.h / 2, Vivid(side));
+		}
+		else
+			canvas.Rect(bar, bar.h / 2, Vivid(side));
+		if (open)
+			canvas.Ring(box, radius, 2.5f, Vivid(side));
 	}
 
 	// -- the later consoles' motifs: each one's own, in its colour, on the bubbles' places and speeds ----------
