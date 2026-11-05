@@ -3106,15 +3106,15 @@ msgstr "Julkisten huoneiden luettelo vastasi HTTP {0}. Yritä myöhemmin uudelle
 
 #: port/eglantine/launch.cpp:41
 msgid "This copy has no Switch 2 emulator: eglantine/eboot.bin is missing."
-msgstr "Tässä kopiossa ei ole Switch 2 -emulaattoria: eglantine/eboot.bin puuttuu."
+msgstr "Tästä kopiosta puuttuu Switch 2 -emulaattori: eglantine/eboot.bin puuttuu."
 
 #: port/eglantine/launch.cpp:47
 msgid "EglantinePS5 cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
-msgstr "EglantinePS5 ei voi lukea pelejä verkkojaosta. Kopioi tämä peli PS5:lle tai USB-asemalle pelataksesi sitä."
+msgstr "EglantinePS5 ei voi lukea pelejä verkkolevyltä. Kopioi peli PS5:lle tai USB-asemalle pelataksesi sitä."
 
 #: port/eglantine/launch.cpp:52
 msgid "This game's path cannot be handed to the Switch 2 emulator."
-msgstr "Tämän pelin polkua ei voi antaa Switch 2 -emulaattorille."
+msgstr "Tämän pelin polkua ei voi välittää Switch 2 -emulaattorille."
 
 #: port/eglantine/launch.cpp:60
 msgid "EglantinePS5's data folder could not be opened: {0}"
@@ -3122,7 +3122,7 @@ msgstr "EglantinePS5:n datakansiota ei voitu avata: {0}"
 
 #: port/eglantine/launch.cpp:90
 msgid "The console did not start EglantinePS5. The boot log says what it answered."
-msgstr "Konsoli ei käynnistänyt EglantinePS5:tä. Käynnistysloki kertoo, mitä se vastasi."
+msgstr "Konsoli ei käynnistänyt EglantinePS5:tä. Käynnistysloki näyttää vastauksen."
 
 #. a size in kilobytes, as in 12 KB
 #: port/frontend/actions.cpp:77
@@ -5419,7 +5419,7 @@ msgstr "3DS:n 3D-näyttö molempien silmien kuvina yhdessä, punainen vasemmalle
 
 #: port/frontend/shell/settings.cpp:694
 msgid "How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory."
-msgstr "Kuinka suurena EglantinePS5 piirtää pelin ennen sen skaalaamista televisioon. Suuremmat arvot ovat terävämpiä ja vievät enemmän grafiikkamuistia."
+msgstr "Tarkkuus, jolla EglantinePS5 piirtää pelin ennen kuvan sovittamista televisioon. Suuremmat arvot ovat terävämpiä ja käyttävät enemmän grafiikkamuistia."
 
 #: port/frontend/shell/settings.cpp:695
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
@@ -5495,7 +5495,7 @@ msgstr "Kuvan koko, 120 Hz ja ruutujen generointi."
 
 #: port/frontend/shell/settings.cpp:749
 msgid "Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game."
-msgstr "EglantinePS5:n lähtökoko, virkistystaajuus ja kuvien generointi; kukin koskee seuraavaa peliä."
+msgstr "EglantinePS5:n lähtökuvan koko, virkistystaajuus ja kehysten luonti; kukin tulee käyttöön seuraavassa pelissä."
 
 #: port/frontend/shell/settings.cpp:750
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
@@ -5503,7 +5503,7 @@ msgstr "Kuvan koko, jonka Eden lähettää televisioon, lähetetäänkö se 120 
 
 #: port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:755
 msgid "The size of the picture EglantinePS5 sends to the TV. Applies to the next game."
-msgstr "Kuvan koko, jonka EglantinePS5 lähettää televisioon. Koskee seuraavaa peliä."
+msgstr "EglantinePS5:n televisioon lähettämän kuvan koko. Käyttöön seuraavan pelin käynnistyessä."
 
 #: port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:756
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
@@ -5519,7 +5519,7 @@ msgstr "Televisiolle, joka ottaa vastaan 120 Hz. Koskee seuraavaa peliä."
 
 #: port/frontend/shell/settings.cpp:763
 msgid "EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game."
-msgstr "EglantinePS5:n kuvien generointi, kun tämä versio ja grafiikkataustajärjestelmä tukevat sitä. Koskee seuraavaa peliä."
+msgstr "EglantinePS5:n kehysten luonti, jos tämä koontiversio ja grafiikkataustaosa tukevat sitä. Käyttöön seuraavassa pelissä."
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 #: port/frontend/shell/settings.cpp:765
@@ -5997,7 +5997,7 @@ msgstr "3DS-pelisi: .3ds tai .cci, .cxi, .3dsx ja Azaharin pakatut dumpit, salaa
 
 #: port/frontend/shell/settings.cpp:1088
 msgid "Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them."
-msgstr "Switch 2 -pelikansiot tarvitsevat ExeFS:n ja RomFS:n. Laita jokainen peli omaan kansioonsa; pidä päivitykset ja DLC:t siellä, missä EglantinePS5 odottaa niitä."
+msgstr "Switch 2 -pelikansiot tarvitsevat ExeFS- ja RomFS-tiedostot. Tallenna jokainen peli omaan kansioonsa; jätä päivitykset ja DLC sinne, mistä EglantinePS5 ne löytää."
 
 #: port/frontend/shell/settings.cpp:1089
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
@@ -6057,7 +6057,7 @@ msgstr "prod.keys puuttuu: EglantinePS5 tarvitsee omat Switch-avaimesi"
 
 #: port/frontend/shell/settings.cpp:1110 port/frontend/shell/setup.cpp:343
 msgid "Firmware is missing: some games need it"
-msgstr "Laiteohjelmisto puuttuu: jotkin pelit tarvitsevat sitä"
+msgstr "Laiteohjelmisto puuttuu: jotkin pelit tarvitsevat sen"
 
 #: port/frontend/shell/settings.cpp:1110
 msgid "EglantinePS5 found keys and firmware."
@@ -6069,7 +6069,7 @@ msgstr "Laita oma prod.keys kansioon {0}/keys. Playtendoh ja EglantinePS5 eivät
 
 #: port/frontend/shell/settings.cpp:1112
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
-msgstr "Laita omat Switchin laiteohjelmistotiedostosi kansioon {0}/firmware. Kumpikaan sovellus ei sisällä laiteohjelmistoa."
+msgstr "Tallenna omat Switch-laiteohjelmistotiedostosi kansioon {0}/firmware. Kumpikaan sovellus ei sisällä laiteohjelmistoa."
 
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
@@ -7505,11 +7505,11 @@ msgstr "code · content · meta"
 
 #: port/frontend/shell/setup.cpp:243
 msgid "Where your Switch 2 games go"
-msgstr "Mihin Switch 2 -pelisi kuuluvat"
+msgstr "Switch 2 -pelien tallennuspaikka"
 
 #: port/frontend/shell/setup.cpp:244
 msgid "Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder."
-msgstr "Laita Switch 2 -pelikansiot kansioon {0}; kukin tarvitsee exefs/main- ja romfs/-kohteet (tai base/exefs/main ja romfs/). Pidä päivitykset pelikansion mukana."
+msgstr "Tallenna Switch 2 -pelikansiot kansioon {0}; jokaisessa pitää olla exefs/main ja romfs/ (tai base/exefs/main ja romfs/). Säilytä päivitykset pelikansiossa."
 
 #: port/frontend/shell/setup.cpp:248 port/frontend/shell/setup.cpp:263
 msgid "the game files page"
@@ -7605,7 +7605,7 @@ msgstr "Switch 2 -avaimet"
 
 #: port/frontend/shell/setup.cpp:335
 msgid "prod.keys found for EglantinePS5"
-msgstr "prod.keys löytyi EglantinePS5:lle"
+msgstr "EglantinePS5:n prod.keys löytyi"
 
 #: port/frontend/shell/setup.cpp:337
 msgid "Your Switch 2 emulator's keys"
@@ -7625,7 +7625,7 @@ msgstr "Switch 2 -laiteohjelmisto"
 
 #: port/frontend/shell/setup.cpp:343
 msgid "Firmware found for EglantinePS5"
-msgstr "Laiteohjelmisto löytyi EglantinePS5:lle"
+msgstr "EglantinePS5:n laiteohjelmisto löytyi"
 
 #: port/frontend/shell/setup.cpp:345
 msgid "Your Switch 2 emulator's firmware"

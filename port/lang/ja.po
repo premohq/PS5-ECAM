@@ -3102,11 +3102,11 @@ msgstr "公開ルームの一覧がHTTP {0}を返しました。あとでもう�
 
 #: port/eglantine/launch.cpp:41
 msgid "This copy has no Switch 2 emulator: eglantine/eboot.bin is missing."
-msgstr "このコピーにはSwitch 2エミュレーターがありません：eglantine/eboot.binがありません。"
+msgstr "このコピーにはSwitch 2エミュレーターがありません: eglantine/eboot.binが見つかりません。"
 
 #: port/eglantine/launch.cpp:47
 msgid "EglantinePS5 cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
-msgstr "EglantinePS5はネットワーク共有上のゲームを読み込めません。遊ぶには、このゲームをPS5かUSBドライブにコピーしてください。"
+msgstr "EglantinePS5はネットワーク共有上のゲームを読み込めません。プレイするには、ゲームをPS5またはUSBドライブにコピーしてください。"
 
 #: port/eglantine/launch.cpp:52
 msgid "This game's path cannot be handed to the Switch 2 emulator."
@@ -3114,11 +3114,11 @@ msgstr "このゲームのパスをSwitch 2エミュレーターに渡せませ�
 
 #: port/eglantine/launch.cpp:60
 msgid "EglantinePS5's data folder could not be opened: {0}"
-msgstr "EglantinePS5のデータフォルダーを開けませんでした：{0}"
+msgstr "EglantinePS5のデータフォルダーを開けませんでした: {0}"
 
 #: port/eglantine/launch.cpp:90
 msgid "The console did not start EglantinePS5. The boot log says what it answered."
-msgstr "本体がEglantinePS5を起動しませんでした。起動ログに本体の応答があります。"
+msgstr "本体がEglantinePS5を起動しませんでした。起動ログに応答が記録されています。"
 
 #. a size in kilobytes, as in 12 KB
 #: port/frontend/actions.cpp:77
@@ -5399,7 +5399,7 @@ msgstr "3DSの3D画面を、左目用を赤、右目用を青にした1枚の画
 
 #: port/frontend/shell/settings.cpp:694
 msgid "How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory."
-msgstr "EglantinePS5がゲームをテレビに合わせて拡大縮小する前に描く大きさです。値が大きいほど鮮明になり、グラフィックメモリーを多く使います。"
+msgstr "テレビ向けに拡大する前にEglantinePS5がゲームを描画する解像度です。値を上げると鮮明になりますが、より多くのグラフィックメモリーを使います。"
 
 #: port/frontend/shell/settings.cpp:695
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
@@ -5475,7 +5475,7 @@ msgstr "画像のサイズ、120 Hz、フレーム生成。"
 
 #: port/frontend/shell/settings.cpp:749
 msgid "Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game."
-msgstr "EglantinePS5の出力サイズ、リフレッシュレート、フレーム生成。どれも次のゲームから適用されます。"
+msgstr "EglantinePS5の出力サイズ、リフレッシュレート、フレーム生成です。それぞれ次のゲームに適用されます。"
 
 #: port/frontend/shell/settings.cpp:750
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
@@ -5483,7 +5483,7 @@ msgstr "Edenがテレビに送る画像のサイズ、120 Hzで送るかどう�
 
 #: port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:755
 msgid "The size of the picture EglantinePS5 sends to the TV. Applies to the next game."
-msgstr "EglantinePS5がテレビに送る映像の大きさです。次のゲームから適用されます。"
+msgstr "EglantinePS5がテレビに送る画像のサイズです。次のゲームに適用されます。"
 
 #: port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:756
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
@@ -5499,7 +5499,7 @@ msgstr "120 Hzに対応したテレビ向け。次のゲームから反映され
 
 #: port/frontend/shell/settings.cpp:763
 msgid "EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game."
-msgstr "EglantinePS5のフレーム生成です（このビルドとグラフィックバックエンドが対応している場合）。次のゲームから適用されます。"
+msgstr "このビルドとグラフィックバックエンドが対応している場合のEglantinePS5のフレーム生成です。次のゲームに適用されます。"
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 #: port/frontend/shell/settings.cpp:765
@@ -5976,7 +5976,7 @@ msgstr "3DSのゲーム：復号済みの.3ds、.cci、.cxi、.3dsx、Azaharの�
 
 #: port/frontend/shell/settings.cpp:1088
 msgid "Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them."
-msgstr "Switch 2のゲームフォルダーにはExeFSとRomFSが必要です。ゲームごとに別のフォルダーに入れ、アップデートとDLCはEglantinePS5が探す場所に置いてください。"
+msgstr "Switch 2のゲームフォルダーにはExeFSとRomFSが必要です。各ゲームを専用フォルダーに入れ、更新データとDLCはEglantinePS5が想定する場所に置いてください。"
 
 #: port/frontend/shell/settings.cpp:1089
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
@@ -6032,11 +6032,11 @@ msgstr "キーとファームウェア"
 
 #: port/frontend/shell/settings.cpp:1109 port/frontend/shell/setup.cpp:335
 msgid "prod.keys is missing: EglantinePS5 needs your own Switch keys"
-msgstr "prod.keysがありません：EglantinePS5にはご自身のSwitchのキーが必要です"
+msgstr "prod.keysがありません: EglantinePS5にはご自身のSwitchキーが必要です"
 
 #: port/frontend/shell/settings.cpp:1110 port/frontend/shell/setup.cpp:343
 msgid "Firmware is missing: some games need it"
-msgstr "ファームウェアがありません：一部のゲームに必要です"
+msgstr "ファームウェアがありません: 一部のゲームで必要です"
 
 #: port/frontend/shell/settings.cpp:1110
 msgid "EglantinePS5 found keys and firmware."
@@ -6048,7 +6048,7 @@ msgstr "ご自身のprod.keysを{0}/keysに入れてください。Playtendohに
 
 #: port/frontend/shell/settings.cpp:1112
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
-msgstr "ご自身のSwitchのファームウェアファイルを{0}/firmwareに入れてください。どちらのアプリにもファームウェアは含まれていません。"
+msgstr "ご自身のSwitchファームウェアファイルを{0}/firmwareに置いてください。どちらのアプリにもファームウェアは含まれていません。"
 
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
@@ -7474,11 +7474,11 @@ msgstr "code · content · meta"
 
 #: port/frontend/shell/setup.cpp:243
 msgid "Where your Switch 2 games go"
-msgstr "Switch 2のゲームの置き場所"
+msgstr "Switch 2のゲームの保存場所"
 
 #: port/frontend/shell/setup.cpp:244
 msgid "Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder."
-msgstr "Switch 2のゲームフォルダーを{0}に入れてください。それぞれにexefs/mainとromfs/（またはbase/exefs/mainとromfs/）が必要です。アップデートはゲームフォルダーと一緒に置いてください。"
+msgstr "Switch 2のゲームフォルダーを{0}に置いてください。各フォルダーにはexefs/mainとromfs/（またはbase/exefs/mainとromfs/）が必要です。更新データはゲームフォルダー内に置いてください。"
 
 #: port/frontend/shell/setup.cpp:248 port/frontend/shell/setup.cpp:263
 msgid "the game files page"
@@ -7578,7 +7578,7 @@ msgstr "EglantinePS5用のprod.keysが見つかりました"
 
 #: port/frontend/shell/setup.cpp:337
 msgid "Your Switch 2 emulator's keys"
-msgstr "Switch 2エミュレーターのキー"
+msgstr "お使いのSwitch 2エミュレーターのキー"
 
 #: port/frontend/shell/setup.cpp:338
 msgid "Put your own prod.keys in {0}/keys. Playtendoh and EglantinePS5 do not include keys."
@@ -7598,7 +7598,7 @@ msgstr "EglantinePS5用のファームウェアが見つかりました"
 
 #: port/frontend/shell/setup.cpp:345
 msgid "Your Switch 2 emulator's firmware"
-msgstr "Switch 2エミュレーターのファームウェア"
+msgstr "お使いのSwitch 2エミュレーターのファームウェア"
 
 #: port/frontend/shell/setup.cpp:346
 msgid "Put your own Switch firmware files in {0}/firmware. No firmware comes with Playtendoh or EglantinePS5."

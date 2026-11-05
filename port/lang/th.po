@@ -3102,23 +3102,23 @@ msgstr "รายการ​ห้อง​สาธารณะ​ตอบ HT
 
 #: port/eglantine/launch.cpp:41
 msgid "This copy has no Switch 2 emulator: eglantine/eboot.bin is missing."
-msgstr "สำเนา​นี้​ไม่มี​อีมูเลเตอร์ Switch 2: ​ไม่พบ eglantine/eboot.bin"
+msgstr "สำเนานี้ไม่มีโปรแกรมจำลอง Switch 2: ไม่พบ eglantine/eboot.bin"
 
 #: port/eglantine/launch.cpp:47
 msgid "EglantinePS5 cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
-msgstr "EglantinePS5 ​อ่าน​เกม​บน​โฟลเดอร์​แชร์​ใน​เครือข่าย​ไม่ได้ ​คัดลอก​เกม​นี้​ไป​ยัง PS5 ​หรือ​ไดรฟ์ USB ​เพื่อ​เล่น"
+msgstr "EglantinePS5 อ่านเกมจากไดรฟ์เครือข่ายไม่ได้ คัดลอกเกมนี้ไปยัง PS5 หรือไดรฟ์ USB เพื่อเล่น"
 
 #: port/eglantine/launch.cpp:52
 msgid "This game's path cannot be handed to the Switch 2 emulator."
-msgstr "ส่ง​ที่อยู่​ของ​เกม​นี้​ให้​อีมูเลเตอร์ Switch 2 ​ไม่ได้"
+msgstr "ไม่สามารถส่งพาธของเกมนี้ไปยังโปรแกรมจำลอง Switch 2 ได้"
 
 #: port/eglantine/launch.cpp:60
 msgid "EglantinePS5's data folder could not be opened: {0}"
-msgstr "เปิด​โฟลเดอร์​ข้อมูล​ของ EglantinePS5 ​ไม่ได้: {0}"
+msgstr "เปิดโฟลเดอร์ข้อมูลของ EglantinePS5 ไม่ได้: {0}"
 
 #: port/eglantine/launch.cpp:90
 msgid "The console did not start EglantinePS5. The boot log says what it answered."
-msgstr "เครื่อง​ไม่ได้​เริ่ม EglantinePS5 ​บันทึก​การ​บูต​บอก​ว่า​เครื่อง​ตอบ​อะไร"
+msgstr "คอนโซลไม่ได้เริ่ม EglantinePS5 ดูคำตอบได้ในบันทึกการบูต"
 
 #. a size in kilobytes, as in 12 KB
 #: port/frontend/actions.cpp:77
@@ -5399,7 +5399,7 @@ msgstr "จอ 3D ของ 3DS รวม​ภาพ​ของ​สอง​
 
 #: port/frontend/shell/settings.cpp:694
 msgid "How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory."
-msgstr "ขนาด​ที่ EglantinePS5 ​วาด​เกม​ก่อน​ปรับ​ขนาด​ให้​พอดี​ทีวี ​ค่า​ยิ่ง​สูง​ยิ่ง​คมชัด​และ​ใช้​หน่วย​ความ​จำ​กราฟิก​มาก​ขึ้น"
+msgstr "ความละเอียดที่ EglantinePS5 ใช้วาดเกมก่อนปรับขนาดให้พอดีกับทีวี ค่ายิ่งสูงภาพยิ่งคมชัดและใช้หน่วยความจำกราฟิกมากขึ้น"
 
 #: port/frontend/shell/settings.cpp:695
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
@@ -5475,7 +5475,7 @@ msgstr "ขนาด​ภาพ 120 Hz และ​การ​สร้าง�
 
 #: port/frontend/shell/settings.cpp:749
 msgid "Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game."
-msgstr "ขนาด​เอาต์พุต ​อัตรา​รีเฟรช ​และ​การ​สร้าง​เฟรม​ของ EglantinePS5 ​แต่ละ​ค่า​มี​ผล​กับ​เกม​ถัด​ไป"
+msgstr "ขนาดเอาต์พุต อัตรารีเฟรช และการสร้างเฟรมของ EglantinePS5 แต่ละรายการมีผลกับเกมถัดไป"
 
 #: port/frontend/shell/settings.cpp:750
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
@@ -5483,7 +5483,7 @@ msgstr "ขนาด​ของ​ภาพ​ที่ Eden ส่ง​ไป
 
 #: port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:755
 msgid "The size of the picture EglantinePS5 sends to the TV. Applies to the next game."
-msgstr "ขนาด​ภาพ​ที่ EglantinePS5 ​ส่ง​ไป​ยัง​ทีวี ​มี​ผล​กับ​เกม​ถัด​ไป"
+msgstr "ขนาดภาพที่ EglantinePS5 ส่งไปยังทีวี มีผลกับเกมถัดไป"
 
 #: port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:756
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
@@ -5499,7 +5499,7 @@ msgstr "สำหรับ​ทีวี​ที่​รับ 120 Hz ได�
 
 #: port/frontend/shell/settings.cpp:763
 msgid "EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game."
-msgstr "การ​สร้าง​เฟรม​ของ EglantinePS5 ​เมื่อ​บิลด์​นี้​และ​แบ็กเอนด์​กราฟิก​รองรับ ​มี​ผล​กับ​เกม​ถัด​ไป"
+msgstr "การสร้างเฟรมของ EglantinePS5 เมื่อบิลด์และแบ็กเอนด์กราฟิกรองรับ มีผลกับเกมถัดไป"
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 #: port/frontend/shell/settings.cpp:765
@@ -5976,7 +5976,7 @@ msgstr "เกม 3DS: .3ds, .cci, .cxi, .3dsx และ​ไฟล์​ดั
 
 #: port/frontend/shell/settings.cpp:1088
 msgid "Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them."
-msgstr "โฟลเดอร์​เกม Switch 2 ​ต้อง​มี ExeFS ​และ RomFS ​ใส่​แต่ละ​เกม​ใน​โฟลเดอร์​ของ​ตัว​เอง ​เก็บ​อัปเดต​และ DLC ​ไว้​ใน​ที่​ที่ EglantinePS5 ​คาด​ไว้"
+msgstr "โฟลเดอร์เกม Switch 2 ต้องมี ExeFS และ RomFS วางแต่ละเกมไว้ในโฟลเดอร์ของตัวเอง และเก็บอัปเดตกับ DLC ไว้ในตำแหน่งที่ EglantinePS5 คาดไว้"
 
 #: port/frontend/shell/settings.cpp:1089
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
@@ -6032,15 +6032,15 @@ msgstr "คีย์​และ​เฟิร์มแวร์"
 
 #: port/frontend/shell/settings.cpp:1109 port/frontend/shell/setup.cpp:335
 msgid "prod.keys is missing: EglantinePS5 needs your own Switch keys"
-msgstr "ไม่พบ prod.keys: EglantinePS5 ​ต้อง​ใช้​คีย์ Switch ​ของ​คุณ​เอง"
+msgstr "ไม่พบ prod.keys: EglantinePS5 ต้องใช้คีย์ Switch ของคุณเอง"
 
 #: port/frontend/shell/settings.cpp:1110 port/frontend/shell/setup.cpp:343
 msgid "Firmware is missing: some games need it"
-msgstr "ไม่พบ​เฟิร์มแวร์: ​บาง​เกม​ต้อง​ใช้"
+msgstr "ไม่พบเฟิร์มแวร์: บางเกมจำเป็นต้องใช้"
 
 #: port/frontend/shell/settings.cpp:1110
 msgid "EglantinePS5 found keys and firmware."
-msgstr "EglantinePS5 ​พบ​คีย์​และ​เฟิร์มแวร์​แล้ว"
+msgstr "EglantinePS5 พบคีย์และเฟิร์มแวร์แล้ว"
 
 #: port/frontend/shell/settings.cpp:1111
 msgid "Put your own prod.keys in {0}/keys. Neither Playtendoh nor EglantinePS5 includes keys."
@@ -6048,7 +6048,7 @@ msgstr "ใส่ prod.keys ​ของ​คุณ​เอง​ไว้​�
 
 #: port/frontend/shell/settings.cpp:1112
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
-msgstr "ใส่​ไฟล์​เฟิร์มแวร์ Switch ​ของ​คุณ​เอง​ไว้​ใน {0}/firmware ​ทั้ง​สอง​แอป​ไม่มี​เฟิร์มแวร์​มา​ให้"
+msgstr "วางไฟล์เฟิร์มแวร์ Switch ของคุณไว้ที่ {0}/firmware ทั้งสองแอปไม่มีเฟิร์มแวร์มาให้"
 
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
@@ -7474,11 +7474,11 @@ msgstr "code · content · meta"
 
 #: port/frontend/shell/setup.cpp:243
 msgid "Where your Switch 2 games go"
-msgstr "ที่​เก็บ​เกม Switch 2 ​ของ​คุณ"
+msgstr "ตำแหน่งเก็บเกม Switch 2"
 
 #: port/frontend/shell/setup.cpp:244
 msgid "Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder."
-msgstr "ใส่​โฟลเดอร์​เกม Switch 2 ​ไว้​ใน {0} ​แต่ละ​โฟลเดอร์​ต้อง​มี exefs/main ​และ romfs/ (​หรือ base/exefs/main ​และ romfs/) ​เก็บ​อัปเดต​ไว้​กับ​โฟลเดอร์​เกม"
+msgstr "วางโฟลเดอร์เกม Switch 2 ไว้ที่ {0}; แต่ละโฟลเดอร์ต้องมี exefs/main และ romfs/ (หรือ base/exefs/main และ romfs/) เก็บอัปเดตไว้ในโฟลเดอร์เกม"
 
 #: port/frontend/shell/setup.cpp:248 port/frontend/shell/setup.cpp:263
 msgid "the game files page"
@@ -7574,11 +7574,11 @@ msgstr "คีย์ Switch 2"
 
 #: port/frontend/shell/setup.cpp:335
 msgid "prod.keys found for EglantinePS5"
-msgstr "พบ prod.keys ​สำหรับ EglantinePS5"
+msgstr "พบ prod.keys สำหรับ EglantinePS5 แล้ว"
 
 #: port/frontend/shell/setup.cpp:337
 msgid "Your Switch 2 emulator's keys"
-msgstr "คีย์​ของ​อีมูเลเตอร์ Switch 2 ​ของ​คุณ"
+msgstr "คีย์ของโปรแกรมจำลอง Switch 2 ของคุณ"
 
 #: port/frontend/shell/setup.cpp:338
 msgid "Put your own prod.keys in {0}/keys. Playtendoh and EglantinePS5 do not include keys."
@@ -7594,11 +7594,11 @@ msgstr "เฟิร์มแวร์ Switch 2"
 
 #: port/frontend/shell/setup.cpp:343
 msgid "Firmware found for EglantinePS5"
-msgstr "พบ​เฟิร์มแวร์​สำหรับ EglantinePS5"
+msgstr "พบเฟิร์มแวร์สำหรับ EglantinePS5 แล้ว"
 
 #: port/frontend/shell/setup.cpp:345
 msgid "Your Switch 2 emulator's firmware"
-msgstr "เฟิร์มแวร์​ของ​อีมูเลเตอร์ Switch 2 ​ของ​คุณ"
+msgstr "เฟิร์มแวร์ของโปรแกรมจำลอง Switch 2 ของคุณ"
 
 #: port/frontend/shell/setup.cpp:346
 msgid "Put your own Switch firmware files in {0}/firmware. No firmware comes with Playtendoh or EglantinePS5."

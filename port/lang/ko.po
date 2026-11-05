@@ -3102,23 +3102,23 @@ msgstr "공개 방 목록이 HTTP {0}(으)로 응답했습니다. 나중에 다�
 
 #: port/eglantine/launch.cpp:41
 msgid "This copy has no Switch 2 emulator: eglantine/eboot.bin is missing."
-msgstr "이 복사본에는 Switch 2 에뮬레이터가 없습니다: eglantine/eboot.bin이 없습니다."
+msgstr "이 사본에는 Switch 2 에뮬레이터가 없습니다. eglantine/eboot.bin이 없습니다."
 
 #: port/eglantine/launch.cpp:47
 msgid "EglantinePS5 cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
-msgstr "EglantinePS5는 네트워크 공유의 게임을 읽을 수 없습니다. 플레이하려면 이 게임을 PS5나 USB 드라이브에 복사하세요."
+msgstr "EglantinePS5는 네트워크 공유의 게임을 읽을 수 없습니다. 플레이하려면 게임을 PS5 또는 USB 드라이브로 복사하세요."
 
 #: port/eglantine/launch.cpp:52
 msgid "This game's path cannot be handed to the Switch 2 emulator."
-msgstr "이 게임의 경로를 Switch 2 에뮬레이터에 넘길 수 없습니다."
+msgstr "이 게임의 경로를 Switch 2 에뮬레이터에 전달할 수 없습니다."
 
 #: port/eglantine/launch.cpp:60
 msgid "EglantinePS5's data folder could not be opened: {0}"
-msgstr "EglantinePS5의 데이터 폴더를 열 수 없습니다: {0}"
+msgstr "EglantinePS5 데이터 폴더를 열 수 없습니다: {0}"
 
 #: port/eglantine/launch.cpp:90
 msgid "The console did not start EglantinePS5. The boot log says what it answered."
-msgstr "본체가 EglantinePS5를 시작하지 않았습니다. 부팅 로그에 본체의 응답이 있습니다."
+msgstr "콘솔에서 EglantinePS5를 시작하지 못했습니다. 부팅 로그에서 응답을 확인하세요."
 
 #. a size in kilobytes, as in 12 KB
 #: port/frontend/actions.cpp:77
@@ -5399,7 +5399,7 @@ msgstr "3DS의 3D 화면을 왼쪽 눈은 빨강, 오른쪽 눈은 청록으로 
 
 #: port/frontend/shell/settings.cpp:694
 msgid "How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory."
-msgstr "EglantinePS5가 게임을 TV에 맞게 크기 조정하기 전에 그리는 크기입니다. 값이 클수록 선명하고 그래픽 메모리를 더 씁니다."
+msgstr "TV에 맞게 크기를 조정하기 전에 EglantinePS5가 게임을 그리는 해상도입니다. 값이 높을수록 선명하지만 그래픽 메모리를 더 많이 사용합니다."
 
 #: port/frontend/shell/settings.cpp:695
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
@@ -5475,7 +5475,7 @@ msgstr "화면 크기, 120Hz, 프레임 생성."
 
 #: port/frontend/shell/settings.cpp:749
 msgid "Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game."
-msgstr "EglantinePS5의 출력 크기, 주사율, 프레임 생성입니다. 각각 다음 게임부터 적용됩니다."
+msgstr "EglantinePS5의 출력 크기, 새로 고침 빈도, 프레임 생성입니다. 각각 다음 게임에 적용됩니다."
 
 #: port/frontend/shell/settings.cpp:750
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
@@ -5483,7 +5483,7 @@ msgstr "Eden이 TV로 보내는 화면의 크기, 120Hz로 보낼지 여부, Pro
 
 #: port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:755
 msgid "The size of the picture EglantinePS5 sends to the TV. Applies to the next game."
-msgstr "EglantinePS5가 TV로 보내는 화면의 크기입니다. 다음 게임부터 적용됩니다."
+msgstr "EglantinePS5가 TV로 보내는 화면 크기입니다. 다음 게임에 적용됩니다."
 
 #: port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:756
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
@@ -5499,7 +5499,7 @@ msgstr "120 Hz를 지원하는 TV용. 다음 게임부터 적용됩니다."
 
 #: port/frontend/shell/settings.cpp:763
 msgid "EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game."
-msgstr "EglantinePS5의 프레임 생성입니다(이 빌드와 그래픽 백엔드가 지원할 때). 다음 게임부터 적용됩니다."
+msgstr "이 빌드와 그래픽 백엔드가 지원하는 경우의 EglantinePS5 프레임 생성입니다. 다음 게임에 적용됩니다."
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 #: port/frontend/shell/settings.cpp:765
@@ -5976,7 +5976,7 @@ msgstr "3DS 게임: 복호화된 .3ds, .cci, .cxi, .3dsx 파일과 Azahar의 압
 
 #: port/frontend/shell/settings.cpp:1088
 msgid "Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them."
-msgstr "Switch 2 게임 폴더에는 ExeFS와 RomFS가 필요합니다. 게임마다 따로 폴더에 넣고, 업데이트와 DLC는 EglantinePS5가 찾는 곳에 두세요."
+msgstr "Switch 2 게임 폴더에는 ExeFS와 RomFS가 필요합니다. 각 게임을 별도 폴더에 넣고 업데이트와 DLC는 EglantinePS5가 찾는 위치에 두세요."
 
 #: port/frontend/shell/settings.cpp:1089
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
@@ -6032,15 +6032,15 @@ msgstr "키와 펌웨어"
 
 #: port/frontend/shell/settings.cpp:1109 port/frontend/shell/setup.cpp:335
 msgid "prod.keys is missing: EglantinePS5 needs your own Switch keys"
-msgstr "prod.keys가 없습니다: EglantinePS5에는 본인의 Switch 키가 필요합니다"
+msgstr "prod.keys가 없습니다. EglantinePS5에는 사용자의 Switch 키가 필요합니다"
 
 #: port/frontend/shell/settings.cpp:1110 port/frontend/shell/setup.cpp:343
 msgid "Firmware is missing: some games need it"
-msgstr "펌웨어가 없습니다: 일부 게임에 필요합니다"
+msgstr "펌웨어가 없습니다. 일부 게임에 필요합니다"
 
 #: port/frontend/shell/settings.cpp:1110
 msgid "EglantinePS5 found keys and firmware."
-msgstr "EglantinePS5가 키와 펌웨어를 찾았습니다."
+msgstr "EglantinePS5에서 키와 펌웨어를 찾았습니다."
 
 #: port/frontend/shell/settings.cpp:1111
 msgid "Put your own prod.keys in {0}/keys. Neither Playtendoh nor EglantinePS5 includes keys."
@@ -6048,7 +6048,7 @@ msgstr "본인의 prod.keys를 {0}/keys에 넣으세요. Playtendoh와 Eglantine
 
 #: port/frontend/shell/settings.cpp:1112
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
-msgstr "본인의 Switch 펌웨어 파일을 {0}/firmware에 넣으세요. 두 앱 모두 펌웨어를 포함하지 않습니다."
+msgstr "사용자 Switch 펌웨어 파일을 {0}/firmware에 넣으세요. 두 앱 모두 펌웨어를 포함하지 않습니다."
 
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
@@ -7474,11 +7474,11 @@ msgstr "code · content · meta"
 
 #: port/frontend/shell/setup.cpp:243
 msgid "Where your Switch 2 games go"
-msgstr "Switch 2 게임을 넣을 곳"
+msgstr "Switch 2 게임 저장 위치"
 
 #: port/frontend/shell/setup.cpp:244
 msgid "Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder."
-msgstr "Switch 2 게임 폴더를 {0}에 넣으세요. 각각 exefs/main과 romfs/(또는 base/exefs/main과 romfs/)가 필요합니다. 업데이트는 게임 폴더와 함께 두세요."
+msgstr "Switch 2 게임 폴더를 {0}에 넣으세요. 각 폴더에는 exefs/main 및 romfs/ (또는 base/exefs/main 및 romfs/)가 필요합니다. 업데이트는 게임 폴더에 두세요."
 
 #: port/frontend/shell/setup.cpp:248 port/frontend/shell/setup.cpp:263
 msgid "the game files page"
@@ -7578,7 +7578,7 @@ msgstr "EglantinePS5용 prod.keys를 찾았습니다"
 
 #: port/frontend/shell/setup.cpp:337
 msgid "Your Switch 2 emulator's keys"
-msgstr "Switch 2 에뮬레이터의 키"
+msgstr "Switch 2 에뮬레이터 키"
 
 #: port/frontend/shell/setup.cpp:338
 msgid "Put your own prod.keys in {0}/keys. Playtendoh and EglantinePS5 do not include keys."
@@ -7598,7 +7598,7 @@ msgstr "EglantinePS5용 펌웨어를 찾았습니다"
 
 #: port/frontend/shell/setup.cpp:345
 msgid "Your Switch 2 emulator's firmware"
-msgstr "Switch 2 에뮬레이터의 펌웨어"
+msgstr "Switch 2 에뮬레이터 펌웨어"
 
 #: port/frontend/shell/setup.cpp:346
 msgid "Put your own Switch firmware files in {0}/firmware. No firmware comes with Playtendoh or EglantinePS5."

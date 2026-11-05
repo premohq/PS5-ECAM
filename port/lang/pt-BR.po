@@ -3106,15 +3106,15 @@ msgstr "A lista de salas públicas respondeu HTTP {0}. Tente mais tarde."
 
 #: port/eglantine/launch.cpp:41
 msgid "This copy has no Switch 2 emulator: eglantine/eboot.bin is missing."
-msgstr "Esta cópia não tem emulador de Switch 2: falta eglantine/eboot.bin."
+msgstr "Esta cópia não tem um emulador de Switch 2: eglantine/eboot.bin está ausente."
 
 #: port/eglantine/launch.cpp:47
 msgid "EglantinePS5 cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
-msgstr "O EglantinePS5 não consegue ler jogos em um compartilhamento de rede. Copie este jogo para o PS5 ou para um dispositivo USB para jogá-lo."
+msgstr "O EglantinePS5 não consegue ler jogos de um compartilhamento de rede. Copie o jogo para o PS5 ou para um dispositivo USB para jogar."
 
 #: port/eglantine/launch.cpp:52
 msgid "This game's path cannot be handed to the Switch 2 emulator."
-msgstr "O caminho deste jogo não pode ser passado ao emulador de Switch 2."
+msgstr "Não é possível encaminhar o caminho deste jogo ao emulador de Switch 2."
 
 #: port/eglantine/launch.cpp:60
 msgid "EglantinePS5's data folder could not be opened: {0}"
@@ -3122,7 +3122,7 @@ msgstr "Não foi possível abrir a pasta de dados do EglantinePS5: {0}"
 
 #: port/eglantine/launch.cpp:90
 msgid "The console did not start EglantinePS5. The boot log says what it answered."
-msgstr "O console não iniciou o EglantinePS5. O log de inicialização diz o que ele respondeu."
+msgstr "O console não iniciou o EglantinePS5. O registro de inicialização mostra a resposta."
 
 #. a size in kilobytes, as in 12 KB
 #: port/frontend/actions.cpp:77
@@ -5419,7 +5419,7 @@ msgstr "A tela 3D do 3DS com as imagens dos dois olhos em uma, vermelho para o e
 
 #: port/frontend/shell/settings.cpp:694
 msgid "How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory."
-msgstr "O tamanho em que o EglantinePS5 desenha um jogo antes de ajustá-lo à TV. Valores maiores são mais nítidos e usam mais memória gráfica."
+msgstr "Resolução em que o EglantinePS5 desenha o jogo antes de ajustá-lo à TV. Valores maiores são mais nítidos e usam mais memória gráfica."
 
 #: port/frontend/shell/settings.cpp:695
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
@@ -5495,7 +5495,7 @@ msgstr "O tamanho da imagem, 120 Hz e a geração de quadros."
 
 #: port/frontend/shell/settings.cpp:749
 msgid "Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game."
-msgstr "Tamanho de saída, taxa de atualização e geração de quadros para o EglantinePS5; cada um vale a partir do próximo jogo."
+msgstr "Tamanho de saída, taxa de atualização e geração de quadros do EglantinePS5; cada opção se aplica ao próximo jogo."
 
 #: port/frontend/shell/settings.cpp:750
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
@@ -5503,7 +5503,7 @@ msgstr "O tamanho da imagem que o Eden envia para a TV, se ela é enviada a 120 
 
 #: port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:755
 msgid "The size of the picture EglantinePS5 sends to the TV. Applies to the next game."
-msgstr "O tamanho da imagem que o EglantinePS5 envia à TV. Vale a partir do próximo jogo."
+msgstr "Tamanho da imagem enviada à TV pelo EglantinePS5. Aplicado ao próximo jogo."
 
 #: port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:756
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
@@ -5519,7 +5519,7 @@ msgstr "Para uma TV que aceita 120 Hz. Vale a partir do próximo jogo."
 
 #: port/frontend/shell/settings.cpp:763
 msgid "EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game."
-msgstr "A geração de quadros do EglantinePS5, quando esta versão e o backend gráfico a suportam. Vale a partir do próximo jogo."
+msgstr "Geração de quadros do EglantinePS5, quando compatível com esta compilação e o backend gráfico. Aplicado ao próximo jogo."
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 #: port/frontend/shell/settings.cpp:765
@@ -5997,7 +5997,7 @@ msgstr "Seus jogos de 3DS: .3ds ou .cci, .cxi, .3dsx e os dumps compactados do A
 
 #: port/frontend/shell/settings.cpp:1088
 msgid "Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them."
-msgstr "As pastas de jogos de Switch 2 precisam de ExeFS e RomFS. Coloque cada jogo em sua própria pasta; deixe atualizações e DLCs onde o EglantinePS5 os espera."
+msgstr "As pastas de jogos do Switch 2 precisam de ExeFS e RomFS. Coloque cada jogo em uma pasta própria; mantenha atualizações e DLC onde o EglantinePS5 espera encontrá-los."
 
 #: port/frontend/shell/settings.cpp:1089
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
@@ -6053,11 +6053,11 @@ msgstr "Chaves e firmware"
 
 #: port/frontend/shell/settings.cpp:1109 port/frontend/shell/setup.cpp:335
 msgid "prod.keys is missing: EglantinePS5 needs your own Switch keys"
-msgstr "Falta o prod.keys: o EglantinePS5 precisa das suas próprias chaves de Switch"
+msgstr "prod.keys está ausente: o EglantinePS5 precisa das suas próprias chaves do Switch"
 
 #: port/frontend/shell/settings.cpp:1110 port/frontend/shell/setup.cpp:343
 msgid "Firmware is missing: some games need it"
-msgstr "Falta o firmware: alguns jogos precisam dele"
+msgstr "O firmware está ausente: alguns jogos precisam dele"
 
 #: port/frontend/shell/settings.cpp:1110
 msgid "EglantinePS5 found keys and firmware."
@@ -6069,7 +6069,7 @@ msgstr "Coloque seu próprio prod.keys em {0}/keys. Nem o Playtendoh nem o Eglan
 
 #: port/frontend/shell/settings.cpp:1112
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
-msgstr "Coloque seus próprios arquivos de firmware do Switch em {0}/firmware. Nenhum dos dois apps inclui firmware."
+msgstr "Coloque seus próprios arquivos de firmware do Switch em {0}/firmware. Nenhum dos aplicativos inclui firmware."
 
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
@@ -7505,11 +7505,11 @@ msgstr "code · content · meta"
 
 #: port/frontend/shell/setup.cpp:243
 msgid "Where your Switch 2 games go"
-msgstr "Onde ficam seus jogos de Switch 2"
+msgstr "Onde colocar seus jogos de Switch 2"
 
 #: port/frontend/shell/setup.cpp:244
 msgid "Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder."
-msgstr "Coloque as pastas de jogos de Switch 2 em {0}; cada uma precisa de exefs/main e romfs/ (ou base/exefs/main e romfs/). Mantenha as atualizações com a pasta do jogo."
+msgstr "Coloque as pastas dos jogos de Switch 2 em {0}; cada uma precisa de exefs/main e romfs/ (ou base/exefs/main e romfs/). Mantenha as atualizações na pasta do jogo."
 
 #: port/frontend/shell/setup.cpp:248 port/frontend/shell/setup.cpp:263
 msgid "the game files page"

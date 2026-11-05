@@ -3110,11 +3110,11 @@ msgstr "Denne kopi har ingen Switch 2-emulator: eglantine/eboot.bin mangler."
 
 #: port/eglantine/launch.cpp:47
 msgid "EglantinePS5 cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
-msgstr "EglantinePS5 kan ikke læse spil på et netværksshare. Kopiér dette spil til PS5'en eller et USB-drev for at spille det."
+msgstr "EglantinePS5 kan ikke læse spil fra et netværksdrev. Kopiér spillet til PS5 eller et USB-drev for at spille det."
 
 #: port/eglantine/launch.cpp:52
 msgid "This game's path cannot be handed to the Switch 2 emulator."
-msgstr "Dette spils sti kan ikke gives videre til Switch 2-emulatoren."
+msgstr "Stien til dette spil kan ikke sendes videre til Switch 2-emulatoren."
 
 #: port/eglantine/launch.cpp:60
 msgid "EglantinePS5's data folder could not be opened: {0}"
@@ -3122,7 +3122,7 @@ msgstr "EglantinePS5's datamappe kunne ikke åbnes: {0}"
 
 #: port/eglantine/launch.cpp:90
 msgid "The console did not start EglantinePS5. The boot log says what it answered."
-msgstr "Konsollen startede ikke EglantinePS5. Startloggen siger, hvad den svarede."
+msgstr "Konsollen startede ikke EglantinePS5. Startloggen viser svaret."
 
 #. a size in kilobytes, as in 12 KB
 #: port/frontend/actions.cpp:77
@@ -5419,7 +5419,7 @@ msgstr "3DS'ens 3D-skærm som begge øjnes billeder i ét, rød for venstre og c
 
 #: port/frontend/shell/settings.cpp:694
 msgid "How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory."
-msgstr "Hvor stort EglantinePS5 tegner et spil, før det skaleres til tv'et. Højere værdier er skarpere og bruger mere grafikhukommelse."
+msgstr "Hvor stor EglantinePS5 tegner spillet, før det skaleres til tv'et. Højere værdier er skarpere og bruger mere grafik-hukommelse."
 
 #: port/frontend/shell/settings.cpp:695
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
@@ -5495,7 +5495,7 @@ msgstr "Billedets størrelse, 120 Hz og billedgenerering."
 
 #: port/frontend/shell/settings.cpp:749
 msgid "Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game."
-msgstr "Outputstørrelse, opdateringshastighed og billedgenerering til EglantinePS5; hver gælder fra næste spil."
+msgstr "Outputstørrelse, opdateringsfrekvens og billedgenerering for EglantinePS5; hver indstilling gælder fra næste spilstart."
 
 #: port/frontend/shell/settings.cpp:750
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
@@ -5503,7 +5503,7 @@ msgstr "Størrelsen på billedet, Eden sender til tv’et, om det sendes i 120 H
 
 #: port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:755
 msgid "The size of the picture EglantinePS5 sends to the TV. Applies to the next game."
-msgstr "Størrelsen på billedet, som EglantinePS5 sender til tv'et. Gælder fra næste spil."
+msgstr "Størrelsen på billedet, som EglantinePS5 sender til tv'et. Gælder fra næste spilstart."
 
 #: port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:756
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
@@ -5519,7 +5519,7 @@ msgstr "Til et tv, der tager imod 120 Hz. Gælder fra næste spil."
 
 #: port/frontend/shell/settings.cpp:763
 msgid "EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game."
-msgstr "EglantinePS5's billedgenerering, når denne version og grafikbackenden understøtter den. Gælder fra næste spil."
+msgstr "EglantinePS5's billedgenerering, hvis denne version og grafikbackend understøtter det. Gælder fra næste spilstart."
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 #: port/frontend/shell/settings.cpp:765
@@ -5997,7 +5997,7 @@ msgstr "Dine 3DS-spil: .3ds eller .cci, .cxi, .3dsx og Azahars komprimerede dump
 
 #: port/frontend/shell/settings.cpp:1088
 msgid "Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them."
-msgstr "Switch 2-spilmapper skal have ExeFS og RomFS. Læg hvert spil i sin egen mappe; lad opdateringer og DLC ligge, hvor EglantinePS5 forventer dem."
+msgstr "Switch 2-spilmapper skal indeholde ExeFS og RomFS. Læg hvert spil i sin egen mappe; behold opdateringer og DLC, hvor EglantinePS5 forventer dem."
 
 #: port/frontend/shell/settings.cpp:1089
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
@@ -6069,7 +6069,7 @@ msgstr "Læg din egen prod.keys i {0}/keys. Hverken Playtendoh eller EglantinePS
 
 #: port/frontend/shell/settings.cpp:1112
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
-msgstr "Læg dine egne Switch-firmwarefiler i {0}/firmware. Ingen af de to apps indeholder firmware."
+msgstr "Læg dine egne Switch-firmwarefiler i {0}/firmware. Ingen af appsene indeholder firmware."
 
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
@@ -7505,11 +7505,11 @@ msgstr "code · content · meta"
 
 #: port/frontend/shell/setup.cpp:243
 msgid "Where your Switch 2 games go"
-msgstr "Hvor dine Switch 2-spil skal ligge"
+msgstr "Placering af dine Switch 2-spil"
 
 #: port/frontend/shell/setup.cpp:244
 msgid "Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder."
-msgstr "Læg Switch 2-spilmapper i {0}; hver skal have exefs/main og romfs/ (eller base/exefs/main og romfs/). Hold opdateringer sammen med spilmappen."
+msgstr "Læg Switch 2-spilmapper i {0}; hver mappe skal have exefs/main og romfs/ (eller base/exefs/main og romfs/). Behold opdateringer i spillets mappe."
 
 #: port/frontend/shell/setup.cpp:248 port/frontend/shell/setup.cpp:263
 msgid "the game files page"

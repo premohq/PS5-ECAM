@@ -3102,23 +3102,23 @@ msgstr "公開房間清單傳回了HTTP {0}。請稍後再試。"
 
 #: port/eglantine/launch.cpp:41
 msgid "This copy has no Switch 2 emulator: eglantine/eboot.bin is missing."
-msgstr "此副本沒有Switch 2模擬器：缺少eglantine/eboot.bin。"
+msgstr "此副本沒有 Switch 2 模擬器：缺少 eglantine/eboot.bin。"
 
 #: port/eglantine/launch.cpp:47
 msgid "EglantinePS5 cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
-msgstr "EglantinePS5無法讀取網路共用上的遊戲。要遊玩，請將此遊戲複製到PS5或USB儲存裝置。"
+msgstr "EglantinePS5 無法讀取網路共享中的遊戲。請將遊戲複製到 PS5 或 USB 磁碟機後再玩。"
 
 #: port/eglantine/launch.cpp:52
 msgid "This game's path cannot be handed to the Switch 2 emulator."
-msgstr "無法將此遊戲的路徑交給Switch 2模擬器。"
+msgstr "無法將此遊戲的路徑傳給 Switch 2 模擬器。"
 
 #: port/eglantine/launch.cpp:60
 msgid "EglantinePS5's data folder could not be opened: {0}"
-msgstr "無法開啟EglantinePS5的資料夾：{0}"
+msgstr "無法開啟 EglantinePS5 的資料資料夾：{0}"
 
 #: port/eglantine/launch.cpp:90
 msgid "The console did not start EglantinePS5. The boot log says what it answered."
-msgstr "主機未能啟動EglantinePS5。開機記錄寫下了主機的回應。"
+msgstr "主機未能啟動 EglantinePS5。啟動記錄中有主機的回應。"
 
 #. a size in kilobytes, as in 12 KB
 #: port/frontend/actions.cpp:77
@@ -5399,7 +5399,7 @@ msgstr "把3DS的3D畫面中兩隻眼睛的影像合為一張，左眼為紅色�
 
 #: port/frontend/shell/settings.cpp:694
 msgid "How large EglantinePS5 draws a game before scaling it to the TV. Higher values are sharper and use more graphics memory."
-msgstr "EglantinePS5在縮放到電視之前繪製遊戲的尺寸。數值越高越清晰，佔用的顯示記憶體也越多。"
+msgstr "EglantinePS5 在將遊戲縮放至電視前使用的繪製解析度。數值越高，畫面越清晰，使用的圖形記憶體也越多。"
 
 #: port/frontend/shell/settings.cpp:695
 msgid "How large Eden draws a game before it is scaled to the TV, against the game's own picture: 1x is 1080p docked and 720p handheld. Higher is sharper and asks more of the GPU; 3x and 4x need the graphics memory for it. Applies to the next game."
@@ -5475,7 +5475,7 @@ msgstr "畫面大小、120 Hz和幀生成。"
 
 #: port/frontend/shell/settings.cpp:749
 msgid "Output size, refresh rate and frame generation for EglantinePS5; each applies to the next game."
-msgstr "EglantinePS5的輸出尺寸、更新率和影格生成；每項都從下一個遊戲開始生效。"
+msgstr "EglantinePS5 的輸出尺寸、更新率和影格生成；每項設定都會在下次啟動遊戲時生效。"
 
 #: port/frontend/shell/settings.cpp:750
 msgid "The size of the picture Eden sends to the TV, whether it is sent at 120 Hz, and ProsperoEden's frame generation. Each applies to the next game."
@@ -5483,7 +5483,7 @@ msgstr "Eden傳送到電視的畫面大小、是否以120 Hz傳送，以及Prosp
 
 #: port/frontend/shell/settings.cpp:753 port/frontend/shell/settings.cpp:755
 msgid "The size of the picture EglantinePS5 sends to the TV. Applies to the next game."
-msgstr "EglantinePS5傳送到電視的畫面尺寸。從下一個遊戲開始生效。"
+msgstr "EglantinePS5 傳送至電視的影像尺寸。下次啟動遊戲時生效。"
 
 #: port/frontend/shell/settings.cpp:754 port/frontend/shell/settings.cpp:756
 msgid "The size of the picture Eden sends to the TV. Applies to the next game."
@@ -5499,7 +5499,7 @@ msgstr "適用於支援120 Hz的電視。從下一個遊戲起生效。"
 
 #: port/frontend/shell/settings.cpp:763
 msgid "EglantinePS5's frame generation, when supported by this build and graphics backend. Applies to the next game."
-msgstr "EglantinePS5的影格生成（需此版本和圖形後端支援）。從下一個遊戲開始生效。"
+msgstr "此版本和圖形後端支援時的 EglantinePS5 影格生成。下次啟動遊戲時生效。"
 
 #. {0} is where Lossless.dll goes: /data/eden/user/lossless/Lossless.dll, or the same on the app's drive
 #: port/frontend/shell/settings.cpp:765
@@ -5959,7 +5959,7 @@ msgstr "將GBA遊戲以DS遊戲的檔名、副檔名為.gba放入{0}/slot2，如
 
 #: port/frontend/shell/settings.cpp:1079 port/frontend/shell/setup.cpp:211
 msgid "Switch 2 games"
-msgstr "Switch 2遊戲"
+msgstr "Switch 2 遊戲"
 
 #: port/frontend/shell/settings.cpp:1081
 msgid "Where your games are. Cross picks another."
@@ -5976,7 +5976,7 @@ msgstr "3DS遊戲：已解密的.3ds、.cci、.cxi、.3dsx與Azahar的壓縮備�
 
 #: port/frontend/shell/settings.cpp:1088
 msgid "Switch 2 game folders need ExeFS and RomFS. Put each game in its own folder; keep updates and DLC where EglantinePS5 expects them."
-msgstr "Switch 2遊戲資料夾需要ExeFS和RomFS。每個遊戲放在獨立的資料夾中；更新和DLC放在EglantinePS5要求的位置。"
+msgstr "Switch 2 遊戲資料夾需要 ExeFS 和 RomFS。每個遊戲請放在自己的資料夾；更新和 DLC 請放在 EglantinePS5 預期的位置。"
 
 #: port/frontend/shell/settings.cpp:1089
 msgid "Your Switch games: .nsp and .xci files, alone or each in a folder of its own with its update and DLC."
@@ -6032,15 +6032,15 @@ msgstr "金鑰與韌體"
 
 #: port/frontend/shell/settings.cpp:1109 port/frontend/shell/setup.cpp:335
 msgid "prod.keys is missing: EglantinePS5 needs your own Switch keys"
-msgstr "缺少prod.keys：EglantinePS5需要你自己的Switch金鑰"
+msgstr "缺少 prod.keys：EglantinePS5 需要你自己的 Switch 金鑰"
 
 #: port/frontend/shell/settings.cpp:1110 port/frontend/shell/setup.cpp:343
 msgid "Firmware is missing: some games need it"
-msgstr "缺少韌體：部分遊戲需要它"
+msgstr "缺少韌體：部分遊戲需要韌體"
 
 #: port/frontend/shell/settings.cpp:1110
 msgid "EglantinePS5 found keys and firmware."
-msgstr "EglantinePS5已找到金鑰和韌體。"
+msgstr "EglantinePS5 已找到金鑰和韌體。"
 
 #: port/frontend/shell/settings.cpp:1111
 msgid "Put your own prod.keys in {0}/keys. Neither Playtendoh nor EglantinePS5 includes keys."
@@ -6048,7 +6048,7 @@ msgstr "請將你自己的prod.keys放入{0}/keys。Playtendoh和EglantinePS5都
 
 #: port/frontend/shell/settings.cpp:1112
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
-msgstr "請將你自己的Switch韌體檔案放入{0}/firmware。兩個應用程式都不附帶韌體。"
+msgstr "將你自己的 Switch 韌體檔案放入 {0}/firmware。兩個應用程式都不包含韌體。"
 
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
@@ -7474,11 +7474,11 @@ msgstr "code · content · meta"
 
 #: port/frontend/shell/setup.cpp:243
 msgid "Where your Switch 2 games go"
-msgstr "Switch 2遊戲放在哪裡"
+msgstr "Switch 2 遊戲的存放位置"
 
 #: port/frontend/shell/setup.cpp:244
 msgid "Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder."
-msgstr "請將Switch 2遊戲資料夾放入{0}；每個都需要exefs/main和romfs/（或base/exefs/main和romfs/）。更新請與遊戲資料夾放在一起。"
+msgstr "將 Switch 2 遊戲資料夾放入 {0}；每個資料夾都需要 exefs/main 和 romfs/（或 base/exefs/main 和 romfs/）。更新請保存在遊戲資料夾中。"
 
 #: port/frontend/shell/setup.cpp:248 port/frontend/shell/setup.cpp:263
 msgid "the game files page"
@@ -7570,15 +7570,15 @@ msgstr "你Switch的韌體"
 
 #: port/frontend/shell/setup.cpp:333
 msgid "Switch 2 keys"
-msgstr "Switch 2金鑰"
+msgstr "Switch 2 金鑰"
 
 #: port/frontend/shell/setup.cpp:335
 msgid "prod.keys found for EglantinePS5"
-msgstr "已找到EglantinePS5的prod.keys"
+msgstr "已找到 EglantinePS5 的 prod.keys"
 
 #: port/frontend/shell/setup.cpp:337
 msgid "Your Switch 2 emulator's keys"
-msgstr "你的Switch 2模擬器的金鑰"
+msgstr "你的 Switch 2 模擬器金鑰"
 
 #: port/frontend/shell/setup.cpp:338
 msgid "Put your own prod.keys in {0}/keys. Playtendoh and EglantinePS5 do not include keys."
@@ -7586,19 +7586,19 @@ msgstr "請將你自己的prod.keys放入{0}/keys。Playtendoh和EglantinePS5不
 
 #: port/frontend/shell/setup.cpp:340
 msgid "the Switch 2 page"
-msgstr "Switch 2頁面"
+msgstr "Switch 2 頁面"
 
 #: port/frontend/shell/setup.cpp:341
 msgid "Switch 2 firmware"
-msgstr "Switch 2韌體"
+msgstr "Switch 2 韌體"
 
 #: port/frontend/shell/setup.cpp:343
 msgid "Firmware found for EglantinePS5"
-msgstr "已找到EglantinePS5的韌體"
+msgstr "已找到 EglantinePS5 的韌體"
 
 #: port/frontend/shell/setup.cpp:345
 msgid "Your Switch 2 emulator's firmware"
-msgstr "你的Switch 2模擬器的韌體"
+msgstr "你的 Switch 2 模擬器韌體"
 
 #: port/frontend/shell/setup.cpp:346
 msgid "Put your own Switch firmware files in {0}/firmware. No firmware comes with Playtendoh or EglantinePS5."
