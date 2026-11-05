@@ -2,6 +2,7 @@
 #include "eden.h"
 #include "ingame.h"
 #include "library.h"
+#include "load_status.h"
 #include "../app/lang.h"
 #include "../app/netfs.h"
 #include "../app/paths.h"
@@ -259,6 +260,31 @@ namespace ps5eden
 		}
 		if (result.error.rfind("Forwarded game not found", 0) == 0)
 			return Tr("Eden could not find the game's file. Is the drive with it plugged in?");
+		// a game Eden's loader could not read for want of the right keys: said in words, not as Eden's
+		// number (load_status.h; the boot log keeps Eden's own words)
+		switch (LoadStatusProblem(result.error))
+		{
+		case LoadProblem::NoKeys:
+			return Tr("prod.keys is missing: Eden cannot read Switch games without it");
+		case LoadProblem::KeysTooOld:
+			// tr: a Switch game did not start because the player's keys are older than it; {0} is Eden's game files folder, which has keys/ and firmware/ in it
+			return TrF("This game needs newer keys than yours: it, or its update, was made for a newer Switch system version than the "
+					   "one your prod.keys came from. Dump prod.keys again from your Switch, updated to its latest system version, into "
+					   "{0}/keys, and its firmware into {0}/firmware.",
+				GameFilesFolder());
+		case LoadProblem::KeysWrong:
+			// tr: a Switch game did not start because the keys could not decrypt it; {0} is Eden's game files folder, which has keys/ in it
+			return TrF("Your keys could not decrypt this game: prod.keys in {0}/keys has keys missing or wrong for it, or the game's file "
+					   "is damaged. Dump prod.keys again from your own Switch, and check the game's file on a computer.",
+				GameFilesFolder());
+		case LoadProblem::NoTicket:
+			// tr: a Switch game did not start because its title key is missing (its dump has no ticket); {0} is Eden's game files folder, which has keys/ in it
+			return TrF("This game's title key is missing: its file has no ticket. Dump the game again with its ticket, or put your "
+					   "Switch's title.keys in {0}/keys.",
+				GameFilesFolder());
+		case LoadProblem::None:
+			break;
+		}
 		// tr: why a Switch game stopped or did not start, in Eden's own words (English)
 		return TrF("The Switch game did not start or stopped: {0}", result.error);
 	}

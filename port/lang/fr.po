@@ -24,53 +24,53 @@ msgid "There is no such account."
 msgstr "Ce compte n’existe pas."
 
 #. RetroAchievements did not sign in: its own words ({0}) follow
-#: port/app/achievements.cpp:232
+#: port/app/achievements.cpp:233
 msgid "RetroAchievements did not accept the user name or password."
 msgstr "RetroAchievements n’a pas accepté le nom d’utilisateur ou le mot de passe."
 
-#: port/app/achievements.cpp:233
+#: port/app/achievements.cpp:234
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements ne répond pas. La PS5 est-elle en ligne ?"
 
-#: port/app/achievements.cpp:234
+#: port/app/achievements.cpp:235
 msgid "RetroAchievements: {0}"
 msgstr "RetroAchievements : {0}"
 
 #. a RetroAchievements unlock, as the PS5's notification: its points ({0}) and title ({1})
-#: port/app/achievements.cpp:271
+#: port/app/achievements.cpp:272
 msgid "Achievement unlocked: {1} ({0} point)"
 msgid_plural "Achievement unlocked: {1} ({0} points)"
 msgstr[0] "Succès débloqué : {1} ({0} point)"
 msgstr[1] "Succès débloqué : {1} ({0} points)"
 
 #. every RetroAchievements achievement of a game earned ({0}: the game's name)
-#: port/app/achievements.cpp:278
+#: port/app/achievements.cpp:279
 msgid "Every achievement of {0} is yours"
 msgstr "Tous les succès de {0} sont à vous"
 
 #. as a DS game starts: how many of its RetroAchievements are earned ({0} of {1})
-#: port/app/achievements.cpp:317
+#: port/app/achievements.cpp:318
 msgid "RetroAchievements: {0} of {1} achievements"
 msgstr "RetroAchievements : {0} succès sur {1}"
 
-#: port/app/achievements.cpp:471
+#: port/app/achievements.cpp:486
 msgid "Sign in to RetroAchievements in Settings > Online."
 msgstr "Connectez-vous à RetroAchievements dans Paramètres > En ligne."
 
-#: port/app/achievements.cpp:477
+#: port/app/achievements.cpp:492
 msgid "Looking for this game's achievements…"
 msgstr "Recherche des succès de ce jeu…"
 
-#: port/app/achievements.cpp:482
+#: port/app/achievements.cpp:497
 msgid "RetroAchievements has no achievements for this game."
 msgstr "RetroAchievements n’a pas de succès pour ce jeu."
 
-#: port/app/achievements.cpp:487
+#: port/app/achievements.cpp:502
 msgid "RetroAchievements could not be reached. The game plays on without them."
 msgstr "RetroAchievements est injoignable. Le jeu continue sans les succès."
 
 #. a game's RetroAchievements: earned of all ({0} of {1}), then points earned of all ({2} of {3})
-#: port/app/achievements.cpp:496
+#: port/app/achievements.cpp:511
 msgid "{0} of {1} achievements · {2} of {3} points"
 msgstr "{0} succès sur {1} · {2} points sur {3}"
 
@@ -139,7 +139,7 @@ msgstr "Son fichier title.tik manque."
 msgid "The executable could not be started."
 msgstr "L’exécutable n’a pas pu être lancé."
 
-#: port/app/emulator.cpp:809 port/melonds/core.cpp:1039
+#: port/app/emulator.cpp:809 port/melonds/core.cpp:1041
 msgid "The Vulkan renderer did not start: {0}"
 msgstr "Le moteur de rendu Vulkan n’a pas démarré : {0}"
 
@@ -3034,33 +3034,52 @@ msgid_plural "{0} players"
 msgstr[0] "{0} joueur"
 msgstr[1] "{0} joueurs"
 
-#: port/eden/launch.cpp:117
+#: port/eden/launch.cpp:131
 msgid "This build has no Switch emulator: eden/eboot.bin is not in the app's folder."
 msgstr "Cette version n’a pas d’émulateur Switch : eden/eboot.bin n’est pas dans le dossier de l’app."
 
-#: port/eden/launch.cpp:124
+#: port/eden/launch.cpp:138
 msgid "Eden cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
 msgstr "Eden ne peut pas lire les jeux sur un partage réseau. Copiez ce jeu sur la PS5 ou sur une clé USB pour y jouer."
 
-#: port/eden/launch.cpp:131 port/eden/launch.cpp:300
+#: port/eden/launch.cpp:145 port/eden/launch.cpp:339
 msgid "The console did not start Eden. The boot log says what it answered."
 msgstr "La console n’a pas démarré Eden. Le journal de démarrage dit ce qu’elle a répondu."
 
-#: port/eden/launch.cpp:235
+#: port/eden/launch.cpp:249
 msgid "The Switch game stopped: Eden closed while it ran. Its logs are in {0}."
 msgstr "Le jeu Switch s’est arrêté : Eden s’est fermé pendant la partie. Ses journaux sont dans {0}."
 
 #. a Switch game's room (Settings > Online > Multiplayer) could not be joined: its name ({0}) and why ({1}, in English)
-#: port/eden/launch.cpp:245
+#: port/eden/launch.cpp:259
 msgid "The room {0} could not be joined: {1} Choose another in Settings > Online > Multiplayer, or play offline."
 msgstr "Impossible de rejoindre le salon {0} : {1} Choisissez-en un autre dans Paramètres > En ligne > Multijoueur, ou jouez hors ligne."
 
-#: port/eden/launch.cpp:248
+#: port/eden/launch.cpp:262
 msgid "Eden could not find the game's file. Is the drive with it plugged in?"
 msgstr "Eden n’a pas trouvé le fichier du jeu. Le disque qui le contient est-il branché ?"
 
+#: port/eden/launch.cpp:268 port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
+msgid "prod.keys is missing: Eden cannot read Switch games without it"
+msgstr "prod.keys est absent : sans lui, Eden ne peut pas lire les jeux Switch"
+
+#. a Switch game did not start because the player's keys are older than it; {0} is Eden's game files folder, which has keys/ and firmware/ in it
+#: port/eden/launch.cpp:271
+msgid "This game needs newer keys than yours: it, or its update, was made for a newer Switch system version than the one your prod.keys came from. Dump prod.keys again from your Switch, updated to its latest system version, into {0}/keys, and its firmware into {0}/firmware."
+msgstr "Ce jeu a besoin de clés plus récentes que les vôtres : lui ou sa mise à jour a été conçu pour une version du système de la Switch plus récente que celle d’où viennent vos prod.keys. Mettez votre Switch à jour vers sa dernière version du système, puis extrayez à nouveau prod.keys dans {0}/keys, et son firmware dans {0}/firmware."
+
+#. a Switch game did not start because the keys could not decrypt it; {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:277
+msgid "Your keys could not decrypt this game: prod.keys in {0}/keys has keys missing or wrong for it, or the game's file is damaged. Dump prod.keys again from your own Switch, and check the game's file on a computer."
+msgstr "Vos clés n’ont pas pu déchiffrer ce jeu : le fichier prod.keys de {0}/keys n’a pas les bonnes clés pour lui, ou le fichier du jeu est endommagé. Extrayez à nouveau prod.keys de votre propre Switch, et vérifiez le fichier du jeu sur un ordinateur."
+
+#. a Switch game did not start because its title key is missing (its dump has no ticket); {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:282
+msgid "This game's title key is missing: its file has no ticket. Dump the game again with its ticket, or put your Switch's title.keys in {0}/keys."
+msgstr "La clé de titre de ce jeu est manquante : son fichier n’a pas de ticket. Extrayez à nouveau le jeu avec son ticket, ou mettez le title.keys de votre Switch dans {0}/keys."
+
 #. why a Switch game stopped or did not start, in Eden's own words (English)
-#: port/eden/launch.cpp:250
+#: port/eden/launch.cpp:289
 msgid "The Switch game did not start or stopped: {0}"
 msgstr "Le jeu Switch n’a pas démarré ou s’est arrêté : {0}"
 
@@ -6051,10 +6070,6 @@ msgstr "Mettez votre propre prod.keys dans {0}/keys. Ni Playtendoh ni EglantineP
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
 msgstr "Mettez vos propres fichiers de firmware Switch dans {0}/firmware. Aucune des deux applis ne fournit de firmware."
 
-#: port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
-msgid "prod.keys is missing: Eden cannot read Switch games without it"
-msgstr "prod.keys est absent : sans lui, Eden ne peut pas lire les jeux Switch"
-
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
 msgstr "Pas encore de firmware : beaucoup de jeux en ont besoin pour démarrer"
@@ -8675,7 +8690,7 @@ msgid "The DS game in this archive could not be read: is the archive whole?"
 msgstr "Le jeu DS de cette archive n’a pas pu être lu : l’archive est-elle complète ?"
 
 #. why a DS game did not start
-#: port/melonds/core.cpp:908 port/melonds/core.cpp:945
+#: port/melonds/core.cpp:908 port/melonds/core.cpp:947
 msgid "This is not a DS game melonDS can read."
 msgstr "Ce n’est pas un jeu DS que melonDS peut lire."
 
@@ -8683,11 +8698,11 @@ msgstr "Ce n’est pas un jeu DS que melonDS peut lire."
 msgid "DSi games are not supported yet."
 msgstr "Les jeux DSi ne sont pas encore pris en charge."
 
-#: port/melonds/core.cpp:962
+#: port/melonds/core.cpp:964
 msgid "The GBA cartridge for Slot-2 could not be read: the game starts without it (the boot log says why)."
 msgstr "La cartouche GBA du Slot-2 n’a pas pu être lue : le jeu démarre sans (le journal de démarrage dit pourquoi)."
 
-#: port/melonds/core.cpp:1004
+#: port/melonds/core.cpp:1006
 msgid "The recorded microphone could not be read: blowing makes noise instead (the boot log says why)."
 msgstr "L’enregistrement du micro n’a pas pu être lu : souffler fait du bruit à la place (le journal de démarrage dit pourquoi)."
 

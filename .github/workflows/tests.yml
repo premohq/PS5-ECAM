@@ -43,6 +43,9 @@ jobs:
       - name: Switch 2 game folders
         run: bash tools/tests/test-switch2-games.sh
 
+      - name: Switch games' loader failures in words
+        run: bash tools/tests/test-eden-load-status.sh
+
       - name: EmulationStation as the other frontend
         run: |
           bash tools/tests/test-esde.sh

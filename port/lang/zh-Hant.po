@@ -24,52 +24,52 @@ msgid "There is no such account."
 msgstr "沒有這個帳號。"
 
 #. RetroAchievements did not sign in: its own words ({0}) follow
-#: port/app/achievements.cpp:232
+#: port/app/achievements.cpp:233
 msgid "RetroAchievements did not accept the user name or password."
 msgstr "RetroAchievements不接受使用者名稱或密碼。"
 
-#: port/app/achievements.cpp:233
+#: port/app/achievements.cpp:234
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements沒有回應。PS5是否已連上網路？"
 
-#: port/app/achievements.cpp:234
+#: port/app/achievements.cpp:235
 msgid "RetroAchievements: {0}"
 msgstr "RetroAchievements：{0}"
 
 #. a RetroAchievements unlock, as the PS5's notification: its points ({0}) and title ({1})
-#: port/app/achievements.cpp:271
+#: port/app/achievements.cpp:272
 msgid "Achievement unlocked: {1} ({0} point)"
 msgid_plural "Achievement unlocked: {1} ({0} points)"
 msgstr[0] "已解鎖成就：{1}（{0}分）"
 
 #. every RetroAchievements achievement of a game earned ({0}: the game's name)
-#: port/app/achievements.cpp:278
+#: port/app/achievements.cpp:279
 msgid "Every achievement of {0} is yours"
 msgstr "已取得{0}的所有成就"
 
 #. as a DS game starts: how many of its RetroAchievements are earned ({0} of {1})
-#: port/app/achievements.cpp:317
+#: port/app/achievements.cpp:318
 msgid "RetroAchievements: {0} of {1} achievements"
 msgstr "RetroAchievements：已取得{0}/{1}個成就"
 
-#: port/app/achievements.cpp:471
+#: port/app/achievements.cpp:486
 msgid "Sign in to RetroAchievements in Settings > Online."
 msgstr "在「設定 > 線上」登入RetroAchievements。"
 
-#: port/app/achievements.cpp:477
+#: port/app/achievements.cpp:492
 msgid "Looking for this game's achievements…"
 msgstr "正在尋找此遊戲的成就…"
 
-#: port/app/achievements.cpp:482
+#: port/app/achievements.cpp:497
 msgid "RetroAchievements has no achievements for this game."
 msgstr "RetroAchievements沒有此遊戲的成就。"
 
-#: port/app/achievements.cpp:487
+#: port/app/achievements.cpp:502
 msgid "RetroAchievements could not be reached. The game plays on without them."
 msgstr "無法連線至RetroAchievements。遊戲會在沒有成就的情況下繼續。"
 
 #. a game's RetroAchievements: earned of all ({0} of {1}), then points earned of all ({2} of {3})
-#: port/app/achievements.cpp:496
+#: port/app/achievements.cpp:511
 msgid "{0} of {1} achievements · {2} of {3} points"
 msgstr "成就{0}/{1} · 分數{2}/{3}"
 
@@ -138,7 +138,7 @@ msgstr "缺少其title.tik。"
 msgid "The executable could not be started."
 msgstr "無法啟動執行檔。"
 
-#: port/app/emulator.cpp:809 port/melonds/core.cpp:1039
+#: port/app/emulator.cpp:809 port/melonds/core.cpp:1041
 msgid "The Vulkan renderer did not start: {0}"
 msgstr "Vulkan渲染器未能啟動：{0}"
 
@@ -3030,33 +3030,52 @@ msgid "{0} player"
 msgid_plural "{0} players"
 msgstr[0] "{0}名玩家"
 
-#: port/eden/launch.cpp:117
+#: port/eden/launch.cpp:131
 msgid "This build has no Switch emulator: eden/eboot.bin is not in the app's folder."
 msgstr "此版本沒有Switch模擬器：應用程式資料夾中沒有eden/eboot.bin。"
 
-#: port/eden/launch.cpp:124
+#: port/eden/launch.cpp:138
 msgid "Eden cannot read games on a network share. Copy this game to the PS5 or a USB drive to play it."
 msgstr "Eden無法讀取網路共用上的遊戲。要遊玩，請將此遊戲複製到PS5或USB儲存裝置。"
 
-#: port/eden/launch.cpp:131 port/eden/launch.cpp:300
+#: port/eden/launch.cpp:145 port/eden/launch.cpp:339
 msgid "The console did not start Eden. The boot log says what it answered."
 msgstr "主機未能啟動Eden。開機記錄寫下了主機的回應。"
 
-#: port/eden/launch.cpp:235
+#: port/eden/launch.cpp:249
 msgid "The Switch game stopped: Eden closed while it ran. Its logs are in {0}."
 msgstr "Switch遊戲已停止：Eden在執行時關閉了。它的記錄檔在{0}。"
 
 #. a Switch game's room (Settings > Online > Multiplayer) could not be joined: its name ({0}) and why ({1}, in English)
-#: port/eden/launch.cpp:245
+#: port/eden/launch.cpp:259
 msgid "The room {0} could not be joined: {1} Choose another in Settings > Online > Multiplayer, or play offline."
 msgstr "無法加入房間{0}：{1} 請在設定 > 線上 > 多人遊戲中選擇其他房間，或離線遊玩。"
 
-#: port/eden/launch.cpp:248
+#: port/eden/launch.cpp:262
 msgid "Eden could not find the game's file. Is the drive with it plugged in?"
 msgstr "Eden找不到遊戲的檔案。存有它的硬碟接上了嗎？"
 
+#: port/eden/launch.cpp:268 port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
+msgid "prod.keys is missing: Eden cannot read Switch games without it"
+msgstr "缺少prod.keys：沒有它，Eden無法讀取Switch遊戲"
+
+#. a Switch game did not start because the player's keys are older than it; {0} is Eden's game files folder, which has keys/ and firmware/ in it
+#: port/eden/launch.cpp:271
+msgid "This game needs newer keys than yours: it, or its update, was made for a newer Switch system version than the one your prod.keys came from. Dump prod.keys again from your Switch, updated to its latest system version, into {0}/keys, and its firmware into {0}/firmware."
+msgstr "此遊戲需要比你的更新的金鑰：遊戲或其更新是為比你的prod.keys來源更新的Switch系統版本製作的。請將你的Switch更新到最新系統版本，然後重新匯出prod.keys到{0}/keys，並將其韌體匯出到{0}/firmware。"
+
+#. a Switch game did not start because the keys could not decrypt it; {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:277
+msgid "Your keys could not decrypt this game: prod.keys in {0}/keys has keys missing or wrong for it, or the game's file is damaged. Dump prod.keys again from your own Switch, and check the game's file on a computer."
+msgstr "你的金鑰無法解密此遊戲：{0}/keys中的prod.keys缺少此遊戲所需的金鑰或金鑰有誤，或者遊戲檔案已損毀。請從你自己的Switch重新匯出prod.keys，並在電腦上檢查遊戲檔案。"
+
+#. a Switch game did not start because its title key is missing (its dump has no ticket); {0} is Eden's game files folder, which has keys/ in it
+#: port/eden/launch.cpp:282
+msgid "This game's title key is missing: its file has no ticket. Dump the game again with its ticket, or put your Switch's title.keys in {0}/keys."
+msgstr "此遊戲的標題金鑰遺失：其檔案沒有票證（ticket）。請連同票證重新匯出遊戲，或將你Switch的title.keys放在{0}/keys。"
+
 #. why a Switch game stopped or did not start, in Eden's own words (English)
-#: port/eden/launch.cpp:250
+#: port/eden/launch.cpp:289
 msgid "The Switch game did not start or stopped: {0}"
 msgstr "Switch遊戲未能啟動或已停止：{0}"
 
@@ -6030,10 +6049,6 @@ msgstr "請將你自己的prod.keys放入{0}/keys。Playtendoh和EglantinePS5都
 msgid "Put your own Switch firmware files in {0}/firmware. Neither app includes firmware."
 msgstr "請將你自己的Switch韌體檔案放入{0}/firmware。兩個應用程式都不附帶韌體。"
 
-#: port/frontend/shell/settings.cpp:1126 port/frontend/shell/setup.cpp:309
-msgid "prod.keys is missing: Eden cannot read Switch games without it"
-msgstr "缺少prod.keys：沒有它，Eden無法讀取Switch遊戲"
-
 #: port/frontend/shell/settings.cpp:1127 port/frontend/shell/setup.cpp:320
 msgid "No firmware yet: many games need it to start"
 msgstr "尚無韌體：許多遊戲需要它才能啟動"
@@ -8632,7 +8647,7 @@ msgid "The DS game in this archive could not be read: is the archive whole?"
 msgstr "無法讀取此壓縮檔中的DS遊戲：壓縮檔是否完整？"
 
 #. why a DS game did not start
-#: port/melonds/core.cpp:908 port/melonds/core.cpp:945
+#: port/melonds/core.cpp:908 port/melonds/core.cpp:947
 msgid "This is not a DS game melonDS can read."
 msgstr "這不是melonDS能讀取的DS遊戲。"
 
@@ -8640,11 +8655,11 @@ msgstr "這不是melonDS能讀取的DS遊戲。"
 msgid "DSi games are not supported yet."
 msgstr "尚不支援DSi遊戲。"
 
-#: port/melonds/core.cpp:962
+#: port/melonds/core.cpp:964
 msgid "The GBA cartridge for Slot-2 could not be read: the game starts without it (the boot log says why)."
 msgstr "無法讀取插槽2的GBA卡匣：遊戲將在沒有卡匣的情況下啟動（啟動記錄檔中有原因）。"
 
-#: port/melonds/core.cpp:1004
+#: port/melonds/core.cpp:1006
 msgid "The recorded microphone could not be read: blowing makes noise instead (the boot log says why)."
 msgstr "無法讀取麥克風錄音：吹氣將改為產生雜音（啟動記錄檔中有原因）。"
 
