@@ -178,6 +178,29 @@ checked by reading and compiling. Before a release:
   game that has none, the microphone's three choices (a missing WAV too), touch calibration, and a
   capture with `capture-frames`.
 
+### Launcher 6.0: what is left of its pictures
+
+**The Timeline's real discs and cartridges.** The owner, 5 November 2026: the Timeline should show each
+game's own disc, cartridge or card, as images from a database, instead of box art on a drawn shape
+(`port/frontend/shell/timeline.cpp` draws the shape, its label the game's box art). GameTDB has discs
+(`art.gametdb.com/<system>/disc/<region>/<ID>.png`, the 3D boxes in `cover3D`: checked on the Wii U, and its
+Wii pages list them too), for what it covers, so the Wii U, the Wii and the GameCube can start there. The
+cartridges and cards of the other systems have a source to find: a database with no account or key first,
+as the screenshots below (`thumbnails.libretro.com` has box art, title screens and snaps, no media). The
+drawn shape stays for a game with no picture.
+
+**Orbit's background**, for every console the app has, in this order: the picture left by the game's
+latest save state, a screenshot, the Wii U's boot screen, the cover. GameTDB has no screenshots (only
+covers, discs and backs). `port/app/shots.cpp` takes them from libretro's thumbnails, with no key: the
+Wii U, 3DS, DS, GameCube, Wii, N64 (and the iQue Player's, N64 games), NES (and VS. System), Famicom Disk
+System, Game Boy (and Super Game Boy), Game Boy Color, Game Boy Advance, SNES, Satellaview, Virtual Boy and
+Pokémon mini. The Switch and Switch 2 have none there: blawar/titledb's `US.en.json` does, with no key
+(29,774 titles, 24,817 with eShop screenshots; a game's by its title ID, Switch 2's IDs start 04), too large
+for the console, so it becomes a table in the app as `tools/render-gametdb.py` makes GameTDB's. Some Switch 2
+games are not in it yet (Pokémon Pokopia, Kirby Air Riders, Mario Tennis Fever, November 2026). Game & Watch
+has no set of its own at libretro: to find. IGDB has every console, its pictures public
+(`images.igdb.com`), but its API wants a Twitch key, so only as a table made at build time.
+
 ### Every Nintendo system
 
 The owner, 29 October 2026: **Playtendoh's scope is every Nintendo system there is an emulator for,
