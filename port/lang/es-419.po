@@ -249,7 +249,7 @@ msgstr ""
 msgid "{0} in a phone's or tablet's browser, with touch."
 msgstr "{0} en el navegador de un celular o una tableta, con control táctil."
 
-#: port/frontend/shell/settings.cpp:2009
+#: port/frontend/shell/settings.cpp:2023
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Activado, un código QR aquí abre la segunda pantalla del juego en el navegador de un celular. No hay que instalar nada; el celular debe estar en la red de la PS5."
 

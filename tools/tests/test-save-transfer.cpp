@@ -97,5 +97,45 @@ int main(int argc, char** argv)
 	Check(Choices((root / "ryu-linked").string(), id, error).empty(), "choice discovery rejects symlinked roots");
 	Put(ryujinx / "bis/system/save/8000000000000000/0/imkvdb.arc", "bad index");
 	Check(Discover(ryujinx.string(), id, error).empty(), "malformed Ryujinx index refused");
+	// Standalone ProsperoEden's Eden user folder (issue 104): a player's save under its ID, the device save
+	// under zeros, the players' names in Eden's player list (synthetic fixture)
+	const auto user = root / "prosperoeden/user";
+	const auto players = user / "nand/user/save/0000000000000000";
+	const std::string alice = "0123456789ABCDEF0011223344556677", bob = "FEDCBA98765432100011223344556677", zeros(32, '0');
+	std::array<char, 0x10 + 8 * 0xC8> list{};
+	const uint64_t aliceHigh = 0x0123456789ABCDEF, aliceLow = 0x0011223344556677;
+	std::memcpy(list.data() + 0x10, &aliceLow, 8); std::memcpy(list.data() + 0x18, &aliceHigh, 8);
+	std::memcpy(list.data() + 0x10 + 0x28, "Alice", 5);
+	Put(user / "nand/system/save/8000000000000010/su/avators/profiles.dat", std::string(list.data(), list.size()));
+	Put(players / alice / title / "main", "alice save");
+	Put(players / bob / "0100abcdef123000/main", "bob save");
+	Put(players / bob / "0100ABCDEF124000/main", "another game");
+	Put(players / zeros / title / "main", "eden device");
+	auto picks = Choices(user.string(), id, error);
+	Check(picks.size() == 2 && picks[0].label == "Alice" && picks[1].label == "Player " + bob && picks[0].folder == (players / alice).string(),
+		"a choice for each ProsperoEden player with the game's save, by name, else by ID (title ID in either case)");
+	Check(Discover(user.string(), id, error).empty() && !error.empty(), "two players' saves need a choice first");
+	sources = picks.size() == 2 ? Discover(picks[0].folder, id, error) : std::vector<Source>{};
+	Check(sources.size() == 2 && sources[0].kind == Kind::Account && sources[0].folder == (players / alice / title).string() &&
+			  sources[1].kind == Kind::Device && sources[1].folder == (players / zeros / title).string(),
+		"the chosen player's save and the game's device save");
+	Check(Import(sources, account.string(), device.string(), recovery.string(), kept, error) && Get(account / "main") == "alice save" &&
+			  Get(device / "main") == "eden device" && Get(players / alice / title / "main") == "alice save",
+		"ProsperoEden's save taken, its own left as it was");
+	sources = picks.size() == 2 ? Discover(picks[1].folder, id, error) : std::vector<Source>{};
+	Check(sources.size() == 2 && sources[0].folder == (players / bob / "0100abcdef123000").string(), "the other player's, in small letters");
+	Check(Discover(picks.empty() ? std::string() : picks[0].folder, id, error, 1).empty(), "no Ryujinx save ID for a ProsperoEden player");
+	Check(Choices(user.string(), 0x0100ABCDEF125000, error).empty() && !error.empty(), "a game with no ProsperoEden save");
+	fs::remove_all(players / bob);
+	Check(Choices(user.string(), id, error).size() == 1 && Discover(user.string(), id, error).size() == 2, "one player alone needs no choice");
+	fs::remove_all(players / alice);
+	picks = Choices(user.string(), id, error);
+	Check(picks.size() == 1 && picks[0].label == "Device save" && Discover(picks[0].folder, id, error).size() == 1 &&
+			  Discover(picks[0].folder, id, error)[0].kind == Kind::Device,
+		"the device save alone when no player has one");
+	fs::create_directories(players / alice);
+	fs::create_directory_symlink(input / title / "account", players / alice / title);
+	Check(Discover((players / alice).string(), id, error).empty(), "a symlinked ProsperoEden save refused");
+	Check(Choices((root / "nowhere").string(), id, error).empty(), "no ProsperoEden installed");
 	return failures ? 1 : 0;
 }

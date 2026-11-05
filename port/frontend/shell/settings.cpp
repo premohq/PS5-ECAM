@@ -1814,6 +1814,16 @@ namespace ps5shell
 			m_gameBackups = ps5saves::FindGameBackups(m_gameRef);
 			m_switchImports.clear();
 			if (IsSwitch() && !ps5eden::IsMadeId(m_gameTitle))
+			{
+				// each of standalone ProsperoEden's players with a save of the game, on this PS5 (#104); never
+				// this app's own Eden folder
+				if (ps5eden::DataFolder() + "/user" != ps5eden::transfer::kStandaloneUser)
+				{
+					std::string why;
+					for (const auto& choice : ps5eden::transfer::Choices(ps5eden::transfer::kStandaloneUser, m_gameTitle, why))
+						m_switchImports.push_back({choice.folder.empty() ? ps5eden::transfer::kStandaloneUser : choice.folder,
+							"ProsperoEden · " + choice.label, choice.accountSaveId});
+				}
 				for (int drive = 0; drive < 8; drive++)
 					for (const char* name : {"PS5-ECAM-imports", "Ryujinx"})
 					{
@@ -1822,6 +1832,7 @@ namespace ps5shell
 						for (const auto& choice : ps5eden::transfer::Choices(folder, m_gameTitle, why))
 							m_switchImports.push_back({folder, fmt::format("USB {} · {} · {}", drive, name, choice.label), choice.accountSaveId});
 					}
+			}
 			m_gameSavesAt = m_now;
 		}
 		const ps5saves::Status status = ps5saves::Current();
@@ -1908,13 +1919,16 @@ namespace ps5shell
 			exportSave.value = m_savesMessage; exportSave.dimmed = running;
 			rows.push_back(std::move(exportSave));
 			Row importSave;
-			importSave.kind = Kind::Hold; importSave.id = "nximport"; importSave.label = Tr("Take a save from USB");
+			// tr: a Switch game's save taken from standalone ProsperoEden on the PS5 or from a USB drive
+			importSave.kind = Kind::Hold; importSave.id = "nximport"; importSave.label = Tr("Take a save");
 			for (const auto& source : m_switchImports) importSave.options.push_back(source.label);
 			int& chosen = m_holdChoice["nximport"];
 			chosen = importSave.options.empty() ? 0 : std::clamp(chosen, 0, (int)importSave.options.size() - 1);
 			importSave.index = chosen;
-			importSave.value = importSave.options.empty() ? Tr("None on a USB drive") : importSave.options[chosen] + " · " + Tr("Hold Cross");
-			importSave.description = Tr("From USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept.");
+			// tr: no save of this Switch game in standalone ProsperoEden or on a USB drive
+			importSave.value = importSave.options.empty() ? Tr("None in ProsperoEden or on a USB drive") : importSave.options[chosen] + " · " + Tr("Hold Cross");
+			importSave.description = Tr("From standalone ProsperoEden on this PS5 (each of its players' saves), USB/PS5-ECAM-imports/<title ID>, or a copy of "
+										"Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept.");
 			importSave.help = Tr("Choose the player in Settings > Players and saves > Players first. Every file is copied and checked before the save is replaced, and the save it replaces is kept in Eden's save-transfer-recovery folder.");
 			importSave.dimmed = running || importSave.options.empty(); rows.push_back(std::move(importSave));
 		}
