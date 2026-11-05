@@ -11,7 +11,7 @@ msgstr ""
 msgid "RetroAchievements did not answer. Is the PS5 online?"
 msgstr "RetroAchievements ne répond pas. La PS5 est-elle en ligne?"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2899 port/frontend/shell/shell.cpp:1979
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2913 port/frontend/shell/shell.cpp:1979
 msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
 msgstr "Playtendoh ne peut pas écrire dans {0}. Le HEN est-il chargé?"
 
@@ -274,11 +274,11 @@ msgstr ""
 "Tant qu’un navigateur l’affiche, la PS5 copie cet écran jusqu’à 30 fois par seconde, ce qui peut ralentir un peu un jeu; sans navigateur, cela ne coûte rien. Tout appareil de votre réseau peut ouvrir la page : désactivez-le sur un réseau partagé.\n"
 "Un seul interrupteur pour tous les côtés (l’écran du GamePad est celui du joueur 1), aussi dans le menu d’un jeu (clic du pavé tactile + OPTIONS). D’après l’idée et le prototype de dolphin78 (#38)."
 
-#: port/frontend/shell/settings.cpp:2009
+#: port/frontend/shell/settings.cpp:2023
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Activé, un QR code ici ouvre le second écran du jeu dans le navigateur d’un téléphone. Rien à installer; le téléphone doit être sur le réseau de la PS5."
 
-#: port/frontend/shell/settings.cpp:2948
+#: port/frontend/shell/settings.cpp:2962
 msgid "{0} is deleted; its saves stay"
 msgstr "{0} est supprimé; ses sauvegardes restent"
 

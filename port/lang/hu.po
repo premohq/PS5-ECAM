@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2622
+#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2636
 msgid "The Wii U has twelve accounts at most."
 msgstr "A Wii U-n legfeljebb tizenkét fiók lehet."
 
@@ -100,7 +100,7 @@ msgstr "Nem indul"
 msgid "the PS5 Vulkan driver did not start"
 msgstr "a PS5 Vulkan-illesztőprogramja nem indult el"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2899 port/frontend/shell/shell.cpp:1979
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2913 port/frontend/shell/shell.cpp:1979
 msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
 msgstr "A Playtendoh nem tud írni ide: {0}. Be van töltve a HEN?"
 
@@ -2328,7 +2328,7 @@ msgid "The new packs could not take the old ones' place"
 msgstr "Az új csomagok nem tudták felváltani a régieket"
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1650 port/frontend/shell/settings.cpp:3205
+#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1650 port/frontend/shell/settings.cpp:3219
 #, menu
 msgid "Remote touch screen"
 msgstr "Távoli érintőképernyő"
@@ -2344,7 +2344,7 @@ msgstr "{0} egy telefon vagy táblagép böngészőjében, érintéssel: olvasd 
 msgid "A phone or tablet on the PS5's network. Sound stays on the PS5."
 msgstr "Telefon vagy táblagép a PS5 hálózatán. A hang a PS5-ön marad."
 
-#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3213
+#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3227
 #, menu
 msgid "Turn it off and on again once that is fixed."
 msgstr "Kapcsold ki, majd be, ha ez megoldódott."
@@ -3148,7 +3148,7 @@ msgstr[0] "{0} fájl törölve ({1} MB)"
 msgstr[1] "{0} fájl törölve ({1} MB)"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1575 port/frontend/shell/settings.cpp:2879
+#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1575 port/frontend/shell/settings.cpp:2893
 msgid "None to delete"
 msgstr "Nincs mit törölni"
 
@@ -3923,7 +3923,7 @@ msgid "Presets · choosing one turns it on"
 msgstr "Előbeállítások · választás bekapcsolja"
 
 #. what a held row says once it has done its work
-#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2934
+#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2948
 msgctxt "finished"
 msgid "Done"
 msgstr "Kész"
@@ -4094,7 +4094,8 @@ msgid "Which DualSense button presses each button."
 msgstr "Melyik DualSense-gomb nyomja meg az egyes gombokat."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#. no save of this Switch game in standalone ProsperoEden or on a USB drive
+#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1860 port/frontend/shell/settings.cpp:1902 port/frontend/shell/settings.cpp:1929 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "Tartsd nyomva a keresztet"
 
@@ -4843,7 +4844,7 @@ msgstr "Sötét matt üveg és kerekebb sarkok, az oldal sodródó fénye és fe
 msgid "A light background with dark text."
 msgstr "Világos háttér sötét szöveggel."
 
-#: port/frontend/shell/settings.cpp:206 port/frontend/shell/settings.cpp:573 port/frontend/shell/settings.cpp:952 port/frontend/shell/settings.cpp:997 port/frontend/shell/settings.cpp:1056 port/frontend/shell/settings.cpp:2053 port/frontend/shell/setup.cpp:567
+#: port/frontend/shell/settings.cpp:206 port/frontend/shell/settings.cpp:573 port/frontend/shell/settings.cpp:952 port/frontend/shell/settings.cpp:997 port/frontend/shell/settings.cpp:1056 port/frontend/shell/settings.cpp:2067 port/frontend/shell/setup.cpp:567
 msgid "Language"
 msgstr "Nyelv"
 
@@ -5192,7 +5193,7 @@ msgstr "Ennek az oldalnak az emulátora saját beállításokat, irányítást �
 msgid "Porpoise's other settings, your button layouts, the Wii Remote's setup and the memory cards, in its own menus. Quitting them comes back here."
 msgstr "A Porpoise többi beállítása, a gombkiosztásaid, a Wii Remote beállítása és a memóriakártyák, a saját menüiben. Ha kilépsz belőlük, ide jutsz vissza."
 
-#: port/frontend/shell/settings.cpp:485 port/frontend/shell/settings.cpp:1294 port/frontend/shell/settings.cpp:1870
+#: port/frontend/shell/settings.cpp:485 port/frontend/shell/settings.cpp:1294 port/frontend/shell/settings.cpp:1881
 msgid "Back up to USB"
 msgstr "Biztonsági mentés USB-re"
 
@@ -5200,7 +5201,7 @@ msgstr "Biztonsági mentés USB-re"
 msgid "Every side's saves, each emulator's. A save state loads only in the emulator that made it."
 msgstr "Minden oldal mentései, minden emulátoré. Egy mentett állapot csak abban az emulátorban töltődik be, amelyik készítette."
 
-#: port/frontend/shell/settings.cpp:486 port/frontend/shell/settings.cpp:2662
+#: port/frontend/shell/settings.cpp:486 port/frontend/shell/settings.cpp:2676
 msgid "Emulator diagnostics"
 msgstr "Emulátordiagnosztika"
 
@@ -6296,19 +6297,19 @@ msgid "The account is removed; its saves stay in the Wii U's storage (and in any
 msgstr "A fiók törlődik; a mentései a Wii U tárhelyén (és minden biztonsági mentésben) maradnak, így semmi sem vész el. A fiók, amellyel a játékok indulnak, nem törölhető: előbb válassz másikat."
 
 #. a backup or restore of the saves, finished ({0}: how many files)
-#: port/frontend/shell/settings.cpp:1273 port/frontend/shell/settings.cpp:1834
+#: port/frontend/shell/settings.cpp:1273 port/frontend/shell/settings.cpp:1845
 msgid "Done: {0} file"
 msgid_plural "Done: {0} files"
 msgstr[0] "Kész: {0} fájl"
 msgstr[1] "Kész: {0} fájl"
 
 #. a backup of the saves, as it copies ({0}: a percentage)
-#: port/frontend/shell/settings.cpp:1290 port/frontend/shell/settings.cpp:1306 port/frontend/shell/settings.cpp:1873 port/frontend/shell/settings.cpp:1893
+#: port/frontend/shell/settings.cpp:1290 port/frontend/shell/settings.cpp:1306 port/frontend/shell/settings.cpp:1884 port/frontend/shell/settings.cpp:1904
 msgid "Copying: {0}"
 msgstr "Másolás: {0}"
 
 #. the newest backup of the saves: when, and on which drive
-#: port/frontend/shell/settings.cpp:1293 port/frontend/shell/settings.cpp:1875
+#: port/frontend/shell/settings.cpp:1293 port/frontend/shell/settings.cpp:1886
 msgid "Last: {0} · {1}"
 msgstr "Utolsó: {0} · {1}"
 
@@ -6320,11 +6321,11 @@ msgstr "Minden oldal mentései, mentett állapotai és Wii U-fiókjai."
 msgid "Copies the Wii U's saves (every account's, with the accounts), the 3DS's saves, extra data and save states, the DS's saves and save states, and the Switch's saves with its user profiles to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time. Never the games, so a backup stays small. The settings go with them: the launcher's, each game's own and the controllers'."
 msgstr "Átmásolja a Wii U mentéseit (minden fiókét, a fiókokkal együtt), a 3DS mentéseit, extra adatait és mentett állapotait, a DS mentéseit és mentett állapotait, valamint a Switch mentéseit a felhasználói profiljaival együtt az első csatlakoztatott USB-meghajtó PS5CEMU-HAR-saves mappájába, egy dátummal és idővel elnevezett mappába. A játékokat soha, így a biztonsági mentés kicsi marad. A beállítások is velük mennek: az indítóé, az egyes játékok sajátjai és a kontrollereké."
 
-#: port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1891
+#: port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1902
 msgid "No backups found"
 msgstr "Nincs biztonsági mentés"
 
-#: port/frontend/shell/settings.cpp:1307 port/frontend/shell/settings.cpp:1890
+#: port/frontend/shell/settings.cpp:1307 port/frontend/shell/settings.cpp:1901
 msgid "Restore from USB"
 msgstr "Visszaállítás USB-ről"
 
@@ -6332,7 +6333,7 @@ msgstr "Visszaállítás USB-ről"
 msgid "Back up first, or plug in the drive with your backups."
 msgstr "Előbb készíts biztonsági mentést, vagy csatlakoztasd a mentéseidet tartalmazó meghajtót."
 
-#: port/frontend/shell/settings.cpp:1308 port/frontend/shell/settings.cpp:1894
+#: port/frontend/shell/settings.cpp:1308 port/frontend/shell/settings.cpp:1905
 msgid "Left and Right choose which backup, the newest first."
 msgstr "A Bal és a Jobb választja ki a biztonsági mentést, a legújabbal kezdve."
 
@@ -7030,95 +7031,97 @@ msgstr[1] "{0} mentett állapot"
 msgid "The GBA cartridge's save"
 msgstr "A GBA-kazetta mentése"
 
-#: port/frontend/shell/settings.cpp:1850
+#: port/frontend/shell/settings.cpp:1861
 msgid "Held: moved to saves-before on the PS5, so it can still come back."
 msgstr "Nyomva tartva: a PS5-ön a saves-before mappába kerül, így visszahozható."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1852
+#: port/frontend/shell/settings.cpp:1863
 msgid "Holding Cross moves these files to {0}/saves-before, in a folder named by the date and time, and the game starts without them next time. Nothing is deleted: copy them back from there (or restore a backup) to have them again."
 msgstr "A kereszt nyomva tartása a fájlokat a {0}/saves-before alá teszi, egy dátummal és időponttal elnevezett mappába, és a játék legközelebb nélkülük indul. Semmi sem törlődik: másold vissza onnan (vagy állíts vissza egy biztonsági mentést), ha újra kellenek."
 
-#: port/frontend/shell/settings.cpp:1862
+#: port/frontend/shell/settings.cpp:1873
 msgid "No saves yet"
 msgstr "Még nincsenek mentések"
 
-#: port/frontend/shell/settings.cpp:1863
+#: port/frontend/shell/settings.cpp:1874
 msgid "They appear here once the game has saved."
 msgstr "Itt jelennek meg, amint a játék ment."
 
-#: port/frontend/shell/settings.cpp:1876
+#: port/frontend/shell/settings.cpp:1887
 msgid "This game's saves, to the first USB drive."
 msgstr "A játék mentései az első USB-meghajtóra."
 
-#: port/frontend/shell/settings.cpp:1877
+#: port/frontend/shell/settings.cpp:1888
 msgid "Copies this game's saves (every account's, on the Wii U) and its save states to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time, the same way a backup of every side's saves is made."
 msgstr "A játék mentéseit (Wii U-n minden fiókét) és mentett állapotait a PS5CEMU-HAR-saves mappába másolja az első csatlakoztatott USB-meghajtón, egy dátummal és időponttal elnevezett mappába, ugyanúgy, mint minden oldal mentéseinek biztonsági mentésekor."
 
-#: port/frontend/shell/settings.cpp:1894
+#: port/frontend/shell/settings.cpp:1905
 msgid "No backup on the drives plugged in has this game's saves."
 msgstr "A csatlakoztatott meghajtók egyik biztonsági mentésében sincsenek a játék mentései."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1896
+#: port/frontend/shell/settings.cpp:1907
 msgid "Puts this game's saves from the chosen backup back where they came from, and nothing else. Its saves there now are moved first to {0}/saves-before, so nothing is lost."
 msgstr "A játék mentéseit a kiválasztott biztonsági mentésből oda teszi vissza, ahonnan jöttek, és semmi mást. A jelenlegi mentései előbb a {0}/saves-before mappába kerülnek, így semmi sem vész el."
 
-#: port/frontend/shell/settings.cpp:1906
+#: port/frontend/shell/settings.cpp:1917
 msgid "Copy the save to USB"
 msgstr "Mentés másolása USB-re"
 
-#: port/frontend/shell/settings.cpp:1907
+#: port/frontend/shell/settings.cpp:1918
 msgid "The chosen player's save, in USB/PS5-ECAM-exports, as folders another emulator can take."
 msgstr "A kiválasztott játékos mentése a USB/PS5-ECAM-exports mappában, olyan mappákként, amelyeket egy másik emulátor átvehet."
 
-#: port/frontend/shell/settings.cpp:1911
-msgid "Take a save from USB"
-msgstr "Mentés átvétele USB-ről"
+#. a Switch game's save taken from standalone ProsperoEden on the PS5 or from a USB drive
+#: port/frontend/shell/settings.cpp:1923
+msgid "Take a save"
+msgstr "Mentés átvétele"
 
-#: port/frontend/shell/settings.cpp:1916
-msgid "None on a USB drive"
-msgstr "Nincs egy USB-meghajtón sem"
+#. no save of this Switch game in standalone ProsperoEden or on a USB drive
+#: port/frontend/shell/settings.cpp:1929
+msgid "None in ProsperoEden or on a USB drive"
+msgstr "Nincs a ProsperoEdenben és egy USB-meghajtón sem"
 
-#: port/frontend/shell/settings.cpp:1917
-msgid "From USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
-msgstr "A USB/PS5-ECAM-imports/<címazonosító> mappából vagy a Ryujinx mappájának másolatából a USB/Ryujinx mappában, a kiválasztott játékos mentéseként. A lecserélt mentés megmarad."
+#: port/frontend/shell/settings.cpp:1930
+msgid "From standalone ProsperoEden on this PS5 (each of its players' saves), USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
+msgstr "A PS5-ön lévő önálló ProsperoEdenből (bármelyik játékosa mentéséből), a USB/PS5-ECAM-imports/<címazonosító> mappából vagy a Ryujinx mappájának másolatából a USB/Ryujinx mappában, a kiválasztott játékos mentéseként. A lecserélt mentés megmarad."
 
-#: port/frontend/shell/settings.cpp:1918
+#: port/frontend/shell/settings.cpp:1932
 msgid "Choose the player in Settings > Players and saves > Players first. Every file is copied and checked before the save is replaced, and the save it replaces is kept in Eden's save-transfer-recovery folder."
 msgstr "Előbb válaszd ki a játékost a Beállítások > Játékosok és mentések > Játékosok menüben. Minden fájl átmásolásra és ellenőrzésre kerül, mielőtt a mentés lecserélődik, a lecserélt mentés pedig megmarad Eden save-transfer-recovery mappájában."
 
-#: port/frontend/shell/settings.cpp:1931
+#: port/frontend/shell/settings.cpp:1945
 msgid "{0} min"
 msgstr "{0} perc"
 
 #. a play time: hours, then minutes
-#: port/frontend/shell/settings.cpp:1933
+#: port/frontend/shell/settings.cpp:1947
 msgid "{0} h {1} min"
 msgstr "{0} óra {1} perc"
 
 #. Settings > Play time, a side's line: {1} the side (Wii U, 3DS, DS, Switch), {2} its play time, {0} how many games
-#: port/frontend/shell/settings.cpp:1965
+#: port/frontend/shell/settings.cpp:1979
 msgid "{1}: {2}, {0} game"
 msgid_plural "{1}: {2}, {0} games"
 msgstr[0] "{1}: {2}, {0} játék"
 msgstr[1] "{1}: {2}, {0} játék"
 
-#: port/frontend/shell/settings.cpp:1968
+#: port/frontend/shell/settings.cpp:1982
 msgid "Nothing played yet. A game's time counts from its start to its end, and shows here and on its page."
 msgstr "Még semmit sem játszottál. Egy játék ideje az indításától a végéig számít, és itt, valamint a játék oldalán látszik."
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1971
+#: port/frontend/shell/settings.cpp:1985
 msgid "In all: {0}"
 msgstr "Összesen: {0}"
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1971
+#: port/frontend/shell/settings.cpp:1985
 msgid "Most played"
 msgstr "Legtöbbet játszott"
 
-#: port/frontend/shell/settings.cpp:1991
+#: port/frontend/shell/settings.cpp:2005
 msgid ""
 "Your own theme: a file such as sunset.json in {0}/themes, read as the app starts, then listed under Theme by its name:\n"
 "{{\"name\": \"Sunset\", \"base\": \"midnight\", \"colours\": {{\"wiiu\": \"#ff7a59\", \"ink-0\": \"#120806\"}}, \"corners\": 0.5, \"motif\": \"none\"}}\n"
@@ -7129,31 +7132,31 @@ msgstr ""
 "base: kiinduló téma (light, link-jack, classic, midnight, eden). colours: ink-0-tól ink-2-ig (a háttér), text, wiiu, n3ds, nds és nx (az oldalak színei), glass, line, good, warn, bad és focus, #rrggbb formában. corners: 0 (szögletes) és 1.5 (kerek) között. motif: side, none vagy eden."
 
 #. {0} is Eden's data folder; {1} its game files folder (the same one unless another was chosen)
-#: port/frontend/shell/settings.cpp:2000
+#: port/frontend/shell/settings.cpp:2014
 msgid "Saves: {0}/user/nand/user/save. Updates and DLC: beside a game, in its own folder, or in {1}/updates. Mods and cheats: {1}/mods. Covers and names: {0}/covers, once Eden has read a game."
 msgstr "Mentések: {0}/user/nand/user/save. Frissítések és DLC-k: a játék mellett, a saját mappájában, vagy itt: {1}/updates. Modok és csalások: {1}/mods. Borítók és nevek: {0}/covers, miután az Eden beolvasott egy játékot."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:2005
+#: port/frontend/shell/settings.cpp:2019
 msgid "Saves: {0}/melonds/saves (a .sav beside the game is taken the first time). Save states: melonds/states. Cheats: melonds/cheats/<game file>.mch, melonDS's format. A GBA game for Slot-2: melonds/slot2/<game file>.gba. DSi games and the DS's wireless are not there."
 msgstr "Mentések: {0}/melonds/saves (a játék melletti .sav fájlt az első alkalommal átveszi). Mentett állapotok: melonds/states. Csalások: melonds/cheats/<játékfájl>.mch, melonDS-formátumban. GBA-játék a 2-es foglalathoz: melonds/slot2/<játékfájl>.gba. A DSi-játékok és a DS vezeték nélküli funkciója nem támogatott."
 
-#: port/frontend/shell/settings.cpp:2009
+#: port/frontend/shell/settings.cpp:2023
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Bekapcsolva egy itteni QR-kód megnyitja a játék második képernyőjét egy telefon böngészőjében. Nem kell semmit telepíteni; a telefonnak a PS5 hálózatán kell lennie."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:2013
+#: port/frontend/shell/settings.cpp:2027
 msgid "Figure dumps go in {0}/figures: skylanders, infinity and dimensions. Switch a portal on here, start the game, then put figures on it from the in-game menu (touchpad click + Options > USB devices)."
 msgstr "A figuradumpok helye {0}/figures: skylanders, infinity és dimensions. Kapcsolj be itt egy portált, indítsd el a játékot, majd helyezz rá figurákat a játék menüjéből (érintőpanel-kattintás + OPTIONS > USB-eszközök)."
 
 #. premohq and JMUtechnologies are GitHub names: keep them as they are
-#: port/frontend/shell/settings.cpp:2018
+#: port/frontend/shell/settings.cpp:2032
 msgid "Playtendoh is made by its co-founders, premohq and JMUtechnologies."
 msgstr "A Playtendoh-t társalapítói, premohq és JMUtechnologies készítik."
 
 #. {0} is the app's version; {1} its data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on; {2} Eden's game files folder; {3} Cemu's selected data folder; {4} its default games folder; {5} Azahar's selected folder; {6} melonDS's selected folder
-#: port/frontend/shell/settings.cpp:2020
+#: port/frontend/shell/settings.cpp:2034
 msgid ""
 "Cemu, the Wii U emulator, by the Cemu team and its contributors; RADV on the PS5 by Mihawk-99 and mpereiraesaa; the community graphic packs' authors.\n"
 "Azahar, the 3DS emulator, by the Azahar team and the Citra contributors before them; Mihawk-99's PS5 port of it and dynarmic.\n"
@@ -7184,198 +7187,198 @@ msgstr ""
 "Verzió: {0}"
 
 #. the first choice in the language list: the PS5's own ({0}, in its own words)
-#: port/frontend/shell/settings.cpp:2038
+#: port/frontend/shell/settings.cpp:2052
 msgid "The PS5's language: {0}"
 msgstr "A PS5 nyelve: {0}"
 
-#: port/frontend/shell/settings.cpp:2063
+#: port/frontend/shell/settings.cpp:2077
 msgid "Language: {0}"
 msgstr "Nyelv: {0}"
 
-#: port/frontend/shell/settings.cpp:2190
+#: port/frontend/shell/settings.cpp:2204
 msgid "One side at least stays on"
 msgstr "Legalább egy oldal bekapcsolva marad"
 
 #. the Wii U account games start on now ({0}: its name)
-#: port/frontend/shell/settings.cpp:2352 port/frontend/shell/settings.cpp:2544 port/frontend/shell/settings.cpp:2630
+#: port/frontend/shell/settings.cpp:2366 port/frontend/shell/settings.cpp:2558 port/frontend/shell/settings.cpp:2644
 msgid "Games start on {0}'s saves"
 msgstr "A játékok {0} mentéseivel indulnak"
 
-#: port/frontend/shell/settings.cpp:2457
+#: port/frontend/shell/settings.cpp:2471
 msgid "This game has no ID to save settings under"
 msgstr "Ennek a játéknak nincs azonosítója, amely alatt a beállítások menthetők"
 
-#: port/frontend/shell/settings.cpp:2567
+#: port/frontend/shell/settings.cpp:2581
 msgid "Backing up {0}'s saves…"
 msgstr "A(z) {0} mentéseinek biztonsági mentése…"
 
-#: port/frontend/shell/settings.cpp:2582 port/frontend/shell/settings.cpp:2977
+#: port/frontend/shell/settings.cpp:2596 port/frontend/shell/settings.cpp:2991
 msgid "Choose a player first, in Settings > Players and saves."
 msgstr "Előbb válassz játékost a Beállítások > Játékosok és mentések menüben."
 
-#: port/frontend/shell/settings.cpp:2583
+#: port/frontend/shell/settings.cpp:2597
 msgid "Copying to USB…"
 msgstr "Másolás USB-re…"
 
-#: port/frontend/shell/settings.cpp:2625
+#: port/frontend/shell/settings.cpp:2639
 msgid "A name for the new account"
 msgstr "Az új fiók neve"
 
-#: port/frontend/shell/settings.cpp:2642
+#: port/frontend/shell/settings.cpp:2656
 msgid "A new name"
 msgstr "Új név"
 
-#: port/frontend/shell/settings.cpp:2644
+#: port/frontend/shell/settings.cpp:2658
 msgid "Renamed {0}"
 msgstr "{0} átnevezve"
 
-#: port/frontend/shell/settings.cpp:2653
+#: port/frontend/shell/settings.cpp:2667
 msgid "Backing up every side's saves…"
 msgstr "Minden oldal mentéseinek biztonsági mentése…"
 
 #. the loading screen's name for a retro side's own emulator menus: {0} is the side (Nintendo 64)
-#: port/frontend/shell/settings.cpp:2666
+#: port/frontend/shell/settings.cpp:2680
 msgid "{0}: its emulator's settings"
 msgstr "{0}: az emulátora beállításai"
 
-#: port/frontend/shell/settings.cpp:2667
+#: port/frontend/shell/settings.cpp:2681
 msgid "Opening emulator settings"
 msgstr "Az emulátor beállításainak megnyitása"
 
-#: port/frontend/shell/settings.cpp:2742
+#: port/frontend/shell/settings.cpp:2756
 msgid "Switch games play offline"
 msgstr "A Switch-játékok offline futnak"
 
-#: port/frontend/shell/settings.cpp:2746
+#: port/frontend/shell/settings.cpp:2760
 msgid "Your nickname in rooms"
 msgstr "A beceneved a szobákban"
 
-#: port/frontend/shell/settings.cpp:2751
+#: port/frontend/shell/settings.cpp:2765
 msgid "A nickname is 4 to 20 letters, digits, spaces, dots, dashes or underscores."
 msgstr "A becenév 4–20 latin betű, számjegy, szóköz, pont, kötőjel vagy aláhúzás."
 
 #. the nickname shown in Switch rooms ({0})
-#: port/frontend/shell/settings.cpp:2757
+#: port/frontend/shell/settings.cpp:2771
 msgid "In rooms you are {0}"
 msgstr "A szobákban te vagy: {0}"
 
-#: port/frontend/shell/settings.cpp:2771
+#: port/frontend/shell/settings.cpp:2785
 msgid "This room is for another version of Eden."
 msgstr "Ez a szoba az Eden másik verziójához tartozik."
 
 #. the room ({0}) Switch games join from now on
-#: port/frontend/shell/settings.cpp:2782 port/frontend/shell/settings.cpp:2819
+#: port/frontend/shell/settings.cpp:2796 port/frontend/shell/settings.cpp:2833
 msgid "Switch games join {0} as they start"
 msgstr "A Switch-játékok indításkor belépnek ide: {0}"
 
 #. the password of a room ({0}: its name)
-#: port/frontend/shell/settings.cpp:2786
+#: port/frontend/shell/settings.cpp:2800
 msgid "{0}'s password"
 msgstr "{0} jelszava"
 
-#: port/frontend/shell/settings.cpp:2797
+#: port/frontend/shell/settings.cpp:2811
 msgid "The room's address"
 msgstr "A szoba címe"
 
-#: port/frontend/shell/settings.cpp:2802
+#: port/frontend/shell/settings.cpp:2816
 msgid "An address is a name or an IPv4 address: letters, digits, dots and dashes."
 msgstr "A cím egy név vagy egy IPv4-cím: betűk, számjegyek, pontok és kötőjelek."
 
-#: port/frontend/shell/settings.cpp:2805
+#: port/frontend/shell/settings.cpp:2819
 msgid "Its UDP port"
 msgstr "Az UDP-portja"
 
-#: port/frontend/shell/settings.cpp:2809
+#: port/frontend/shell/settings.cpp:2823
 msgid "A port is a number from 1 to 65535."
 msgstr "A port egy 1 és 65535 közötti szám."
 
-#: port/frontend/shell/settings.cpp:2812
+#: port/frontend/shell/settings.cpp:2826
 msgid "Its password (empty: none)"
 msgstr "A jelszava (üres: nincs)"
 
-#: port/frontend/shell/settings.cpp:2829
+#: port/frontend/shell/settings.cpp:2843
 msgid "Starting the 3DS"
 msgstr "A 3DS indul"
 
-#: port/frontend/shell/settings.cpp:2838
+#: port/frontend/shell/settings.cpp:2852
 msgid "Your RetroAchievements user name"
 msgstr "RetroAchievements-felhasználóneved"
 
-#: port/frontend/shell/settings.cpp:2841
+#: port/frontend/shell/settings.cpp:2855
 msgid "{0}'s RetroAchievements password"
 msgstr "{0} RetroAchievements-jelszava"
 
-#: port/frontend/shell/settings.cpp:2843
+#: port/frontend/shell/settings.cpp:2857
 msgid "Signing in to RetroAchievements…"
 msgstr "Bejelentkezés a RetroAchievementsbe…"
 
-#: port/frontend/shell/settings.cpp:2865
+#: port/frontend/shell/settings.cpp:2879
 msgid "Player removed: their saves and settings are kept"
 msgstr "Játékos eltávolítva: a mentései és beállításai megmaradnak"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/shell/settings.cpp:2879
+#: port/frontend/shell/settings.cpp:2893
 msgid "{0} game deleted ({1})"
 msgid_plural "{0} games deleted ({1})"
 msgstr[0] "{0} játék törölve ({1})"
 msgstr[1] "{0} játék törölve ({1})"
 
 #. a held row's result: the covers are on their way
-#: port/frontend/shell/settings.cpp:2886
+#: port/frontend/shell/settings.cpp:2900
 msgid "Downloading in the background"
 msgstr "Letöltés a háttérben"
 
-#: port/frontend/shell/settings.cpp:2906 port/frontend/shell/shell.cpp:438
+#: port/frontend/shell/settings.cpp:2920 port/frontend/shell/shell.cpp:438
 msgid "Close Playtendoh and start it again from the home screen: the folders move as it starts."
 msgstr "Zárd be a Playtendoh-t, és indítsd el újra a kezdőképernyőről: a mappák az induláskor kerülnek át."
 
-#: port/frontend/shell/settings.cpp:2948
+#: port/frontend/shell/settings.cpp:2962
 msgid "{0} is deleted; its saves stay"
 msgstr "{0} törölve; a mentései megmaradnak"
 
-#: port/frontend/shell/settings.cpp:2961
+#: port/frontend/shell/settings.cpp:2975
 msgid "Restoring the saves of {0}…"
 msgstr "Mentések visszaállítása innen: {0}…"
 
-#: port/frontend/shell/settings.cpp:2969
+#: port/frontend/shell/settings.cpp:2983
 msgid "Signed out of RetroAchievements"
 msgstr "Kijelentkezve a RetroAchievementsből"
 
-#: port/frontend/shell/settings.cpp:2979
+#: port/frontend/shell/settings.cpp:2993
 msgid "Taking the save…"
 msgstr "Mentés átvétele…"
 
-#: port/frontend/shell/settings.cpp:2989
+#: port/frontend/shell/settings.cpp:3003
 msgid "Restoring {0}'s saves of {1}…"
 msgstr "A(z) {0} mentéseinek visszaállítása innen: {1}…"
 
 #. one of a game's saves moved out of the way ({0}: which, as its row names it)
-#: port/frontend/shell/settings.cpp:3003
+#: port/frontend/shell/settings.cpp:3017
 msgid "{0}: moved to saves-before"
 msgstr "{0}: áthelyezve a saves-before mappába"
 
-#: port/frontend/shell/settings.cpp:3016
+#: port/frontend/shell/settings.cpp:3030
 msgid "Done: back to its side's settings"
 msgstr "Kész: újra az oldala beállításai"
 
-#: port/frontend/shell/settings.cpp:3205
+#: port/frontend/shell/settings.cpp:3219
 msgid "Scan it, or open"
 msgstr "Olvasd be, vagy nyisd meg"
 
-#: port/frontend/shell/settings.cpp:3211
+#: port/frontend/shell/settings.cpp:3225
 msgid "Same network as the PS5. Nothing to install: the browser is enough. Sound stays on the PS5. Any browser on the network can see it and touch."
 msgstr "Ugyanaz a hálózat, mint a PS5-é. Nem kell semmit telepíteni: elég a böngésző. A hang a PS5-ön marad. A hálózat bármely böngészője láthatja és megérintheti."
 
-#: port/frontend/shell/settings.cpp:3243
+#: port/frontend/shell/settings.cpp:3257
 msgid "Support Playtendoh"
 msgstr "A Playtendoh támogatása"
 
-#: port/frontend/shell/settings.cpp:3254
+#: port/frontend/shell/settings.cpp:3268
 msgid "Playtendoh is free. If it brings your games back, you can support its work here."
 msgstr "A Playtendoh ingyenes. Ha visszahozta a játékaidat, itt támogathatod a munkát."
 
 #. above Settings' pages: whose settings they are ({0}: Wii U, Nintendo 3DS or Nintendo DS)
-#: port/frontend/shell/settings.cpp:3294
+#: port/frontend/shell/settings.cpp:3308
 msgid "{0} settings"
 msgstr "{0} beállításai"
 

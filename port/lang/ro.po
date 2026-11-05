@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==1 ? 0 : (n==0 || (n%100 > 0 && n%100 < 20)) ? 1 : 2);\n"
 
-#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2622
+#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2636
 msgid "The Wii U has twelve accounts at most."
 msgstr "Wii U are cel mult douăsprezece conturi."
 
@@ -101,7 +101,7 @@ msgstr "Nu pornește"
 msgid "the PS5 Vulkan driver did not start"
 msgstr "driverul Vulkan al PS5 nu a pornit"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2899 port/frontend/shell/shell.cpp:1979
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2913 port/frontend/shell/shell.cpp:1979
 msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
 msgstr "Playtendoh nu poate scrie în {0}. Este HEN-ul încărcat?"
 
@@ -2331,7 +2331,7 @@ msgid "The new packs could not take the old ones' place"
 msgstr "Pachetele noi nu au putut lua locul celor vechi"
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1650 port/frontend/shell/settings.cpp:3205
+#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1650 port/frontend/shell/settings.cpp:3219
 #, menu
 msgid "Remote touch screen"
 msgstr "Ecran tactil la distanță"
@@ -2347,7 +2347,7 @@ msgstr "{0} în browserul unui telefon sau al unei tablete, cu atingere: scaneaz
 msgid "A phone or tablet on the PS5's network. Sound stays on the PS5."
 msgstr "Un telefon sau o tabletă din rețeaua PS5. Sunetul rămâne pe PS5."
 
-#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3213
+#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3227
 #, menu
 msgid "Turn it off and on again once that is fixed."
 msgstr "Oprește-l și pornește-l din nou după ce problema e rezolvată."
@@ -3154,7 +3154,7 @@ msgstr[1] "{0} fișiere șterse ({1} MB)"
 msgstr[2] "{0} de fișiere șterse ({1} MB)"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1575 port/frontend/shell/settings.cpp:2879
+#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1575 port/frontend/shell/settings.cpp:2893
 msgid "None to delete"
 msgstr "Nimic de șters"
 
@@ -3936,7 +3936,7 @@ msgid "Presets · choosing one turns it on"
 msgstr "Presetări · alegerea uneia îl activează"
 
 #. what a held row says once it has done its work
-#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2934
+#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2948
 msgctxt "finished"
 msgid "Done"
 msgstr "Gata"
@@ -4108,7 +4108,8 @@ msgid "Which DualSense button presses each button."
 msgstr "Ce buton DualSense apasă fiecare buton."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#. no save of this Switch game in standalone ProsperoEden or on a USB drive
+#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1860 port/frontend/shell/settings.cpp:1902 port/frontend/shell/settings.cpp:1929 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "Ține Crucea"
 
@@ -4859,7 +4860,7 @@ msgstr "Sticlă mată întunecată și colțuri mai rotunjite, lumina părții p
 msgid "A light background with dark text."
 msgstr "Un fundal luminos cu text închis."
 
-#: port/frontend/shell/settings.cpp:206 port/frontend/shell/settings.cpp:573 port/frontend/shell/settings.cpp:952 port/frontend/shell/settings.cpp:997 port/frontend/shell/settings.cpp:1056 port/frontend/shell/settings.cpp:2053 port/frontend/shell/setup.cpp:567
+#: port/frontend/shell/settings.cpp:206 port/frontend/shell/settings.cpp:573 port/frontend/shell/settings.cpp:952 port/frontend/shell/settings.cpp:997 port/frontend/shell/settings.cpp:1056 port/frontend/shell/settings.cpp:2067 port/frontend/shell/setup.cpp:567
 msgid "Language"
 msgstr "Limbă"
 
@@ -5212,7 +5213,7 @@ msgstr "Emulatorul acestei părți are propriile setări, comenzi și salvări: 
 msgid "Porpoise's other settings, your button layouts, the Wii Remote's setup and the memory cards, in its own menus. Quitting them comes back here."
 msgstr "Celelalte setări ale lui Porpoise, aranjările tale de butoane, configurarea lui Wii Remote și cardurile de memorie, în propriile lui meniuri. Ieșirea din ele te aduce înapoi aici."
 
-#: port/frontend/shell/settings.cpp:485 port/frontend/shell/settings.cpp:1294 port/frontend/shell/settings.cpp:1870
+#: port/frontend/shell/settings.cpp:485 port/frontend/shell/settings.cpp:1294 port/frontend/shell/settings.cpp:1881
 msgid "Back up to USB"
 msgstr "Copie de rezervă pe USB"
 
@@ -5220,7 +5221,7 @@ msgstr "Copie de rezervă pe USB"
 msgid "Every side's saves, each emulator's. A save state loads only in the emulator that made it."
 msgstr "Salvările tuturor părților, ale fiecărui emulator. O stare salvată se încarcă doar în emulatorul care a creat-o."
 
-#: port/frontend/shell/settings.cpp:486 port/frontend/shell/settings.cpp:2662
+#: port/frontend/shell/settings.cpp:486 port/frontend/shell/settings.cpp:2676
 msgid "Emulator diagnostics"
 msgstr "Diagnosticarea emulatorului"
 
@@ -6318,7 +6319,7 @@ msgid "The account is removed; its saves stay in the Wii U's storage (and in any
 msgstr "Contul e eliminat; salvările lui rămân în memoria Wii U (și în orice copie de rezervă), deci nu se pierde nimic. Contul cu care pornesc jocurile nu poate fi șters: alege mai întâi altul."
 
 #. a backup or restore of the saves, finished ({0}: how many files)
-#: port/frontend/shell/settings.cpp:1273 port/frontend/shell/settings.cpp:1834
+#: port/frontend/shell/settings.cpp:1273 port/frontend/shell/settings.cpp:1845
 msgid "Done: {0} file"
 msgid_plural "Done: {0} files"
 msgstr[0] "Gata: {0} fișier"
@@ -6326,12 +6327,12 @@ msgstr[1] "Gata: {0} fișiere"
 msgstr[2] "Gata: {0} de fișiere"
 
 #. a backup of the saves, as it copies ({0}: a percentage)
-#: port/frontend/shell/settings.cpp:1290 port/frontend/shell/settings.cpp:1306 port/frontend/shell/settings.cpp:1873 port/frontend/shell/settings.cpp:1893
+#: port/frontend/shell/settings.cpp:1290 port/frontend/shell/settings.cpp:1306 port/frontend/shell/settings.cpp:1884 port/frontend/shell/settings.cpp:1904
 msgid "Copying: {0}"
 msgstr "Se copiază: {0}"
 
 #. the newest backup of the saves: when, and on which drive
-#: port/frontend/shell/settings.cpp:1293 port/frontend/shell/settings.cpp:1875
+#: port/frontend/shell/settings.cpp:1293 port/frontend/shell/settings.cpp:1886
 msgid "Last: {0} · {1}"
 msgstr "Ultima: {0} · {1}"
 
@@ -6343,11 +6344,11 @@ msgstr "Salvările, stările salvate și conturile Wii U ale tuturor părților.
 msgid "Copies the Wii U's saves (every account's, with the accounts), the 3DS's saves, extra data and save states, the DS's saves and save states, and the Switch's saves with its user profiles to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time. Never the games, so a backup stays small. The settings go with them: the launcher's, each game's own and the controllers'."
 msgstr "Copiază salvările Wii U (ale tuturor conturilor, cu tot cu conturi), salvările, datele suplimentare și stările salvate ale 3DS-ului, salvările și stările salvate ale DS-ului, precum și salvările Switch-ului cu profilurile sale de utilizator în PS5CEMU-HAR-saves pe prima unitate USB conectată, într-un folder numit după dată și oră. Niciodată jocurile, așa că o copie rămâne mică. Setările merg cu ele: ale lansatorului, ale fiecărui joc și ale controlerelor."
 
-#: port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1891
+#: port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1902
 msgid "No backups found"
 msgstr "Nu s-a găsit nicio copie de rezervă"
 
-#: port/frontend/shell/settings.cpp:1307 port/frontend/shell/settings.cpp:1890
+#: port/frontend/shell/settings.cpp:1307 port/frontend/shell/settings.cpp:1901
 msgid "Restore from USB"
 msgstr "Restaurează de pe USB"
 
@@ -6355,7 +6356,7 @@ msgstr "Restaurează de pe USB"
 msgid "Back up first, or plug in the drive with your backups."
 msgstr "Fă mai întâi o copie de rezervă sau conectează unitatea cu copiile tale."
 
-#: port/frontend/shell/settings.cpp:1308 port/frontend/shell/settings.cpp:1894
+#: port/frontend/shell/settings.cpp:1308 port/frontend/shell/settings.cpp:1905
 msgid "Left and Right choose which backup, the newest first."
 msgstr "Stânga și Dreapta aleg copia, de la cea mai nouă."
 
@@ -7058,96 +7059,98 @@ msgstr[2] "{0} de stări salvate"
 msgid "The GBA cartridge's save"
 msgstr "Salvarea cartușului GBA"
 
-#: port/frontend/shell/settings.cpp:1850
+#: port/frontend/shell/settings.cpp:1861
 msgid "Held: moved to saves-before on the PS5, so it can still come back."
 msgstr "Ținut: mutat în saves-before pe PS5, deci poate fi recuperat."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1852
+#: port/frontend/shell/settings.cpp:1863
 msgid "Holding Cross moves these files to {0}/saves-before, in a folder named by the date and time, and the game starts without them next time. Nothing is deleted: copy them back from there (or restore a backup) to have them again."
 msgstr "Ținând Crucea, aceste fișiere se mută în {0}/saves-before, într-un folder cu data și ora, iar jocul pornește data viitoare fără ele. Nu se șterge nimic: copiază-le înapoi de acolo (sau restaurează o copie) ca să le ai din nou."
 
-#: port/frontend/shell/settings.cpp:1862
+#: port/frontend/shell/settings.cpp:1873
 msgid "No saves yet"
 msgstr "Încă nicio salvare"
 
-#: port/frontend/shell/settings.cpp:1863
+#: port/frontend/shell/settings.cpp:1874
 msgid "They appear here once the game has saved."
 msgstr "Apar aici imediat ce jocul salvează."
 
-#: port/frontend/shell/settings.cpp:1876
+#: port/frontend/shell/settings.cpp:1887
 msgid "This game's saves, to the first USB drive."
 msgstr "Salvările acestui joc, pe prima unitate USB."
 
-#: port/frontend/shell/settings.cpp:1877
+#: port/frontend/shell/settings.cpp:1888
 msgid "Copies this game's saves (every account's, on the Wii U) and its save states to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time, the same way a backup of every side's saves is made."
 msgstr "Copiază salvările acestui joc (pe Wii U ale tuturor conturilor) și stările lui salvate în PS5CEMU-HAR-saves pe prima unitate USB conectată, într-un folder cu data și ora, la fel ca o copie a salvărilor tuturor părților."
 
-#: port/frontend/shell/settings.cpp:1894
+#: port/frontend/shell/settings.cpp:1905
 msgid "No backup on the drives plugged in has this game's saves."
 msgstr "Nicio copie de pe unitățile conectate nu are salvări ale acestui joc."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1896
+#: port/frontend/shell/settings.cpp:1907
 msgid "Puts this game's saves from the chosen backup back where they came from, and nothing else. Its saves there now are moved first to {0}/saves-before, so nothing is lost."
 msgstr "Pune salvările acestui joc din copia aleasă înapoi de unde au venit, și nimic altceva. Salvările lui de acum sunt mutate întâi în {0}/saves-before, deci nu se pierde nimic."
 
-#: port/frontend/shell/settings.cpp:1906
+#: port/frontend/shell/settings.cpp:1917
 msgid "Copy the save to USB"
 msgstr "Copiază salvarea pe USB"
 
-#: port/frontend/shell/settings.cpp:1907
+#: port/frontend/shell/settings.cpp:1918
 msgid "The chosen player's save, in USB/PS5-ECAM-exports, as folders another emulator can take."
 msgstr "Salvarea jucătorului ales, în USB/PS5-ECAM-exports, ca dosare pe care le poate prelua alt emulator."
 
-#: port/frontend/shell/settings.cpp:1911
-msgid "Take a save from USB"
-msgstr "Preia o salvare de pe USB"
+#. a Switch game's save taken from standalone ProsperoEden on the PS5 or from a USB drive
+#: port/frontend/shell/settings.cpp:1923
+msgid "Take a save"
+msgstr "Preia o salvare"
 
-#: port/frontend/shell/settings.cpp:1916
-msgid "None on a USB drive"
-msgstr "Niciuna pe o unitate USB"
+#. no save of this Switch game in standalone ProsperoEden or on a USB drive
+#: port/frontend/shell/settings.cpp:1929
+msgid "None in ProsperoEden or on a USB drive"
+msgstr "Niciuna în ProsperoEden sau pe o unitate USB"
 
-#: port/frontend/shell/settings.cpp:1917
-msgid "From USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
-msgstr "Din USB/PS5-ECAM-imports/<ID titlu> sau dintr-o copie a dosarului Ryujinx în USB/Ryujinx, ca salvare a jucătorului ales. Salvarea pe care o înlocuiește e păstrată."
+#: port/frontend/shell/settings.cpp:1930
+msgid "From standalone ProsperoEden on this PS5 (each of its players' saves), USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
+msgstr "Din ProsperoEden de sine stătător de pe acest PS5 (salvările fiecăruia dintre jucătorii lui), din USB/PS5-ECAM-imports/<ID titlu> sau dintr-o copie a dosarului Ryujinx în USB/Ryujinx, ca salvare a jucătorului ales. Salvarea pe care o înlocuiește e păstrată."
 
-#: port/frontend/shell/settings.cpp:1918
+#: port/frontend/shell/settings.cpp:1932
 msgid "Choose the player in Settings > Players and saves > Players first. Every file is copied and checked before the save is replaced, and the save it replaces is kept in Eden's save-transfer-recovery folder."
 msgstr "Alege întâi jucătorul în Setări > Jucători și salvări > Jucători. Fiecare fișier e copiat și verificat înainte ca salvarea să fie înlocuită, iar salvarea înlocuită e păstrată în dosarul save-transfer-recovery al lui Eden."
 
-#: port/frontend/shell/settings.cpp:1931
+#: port/frontend/shell/settings.cpp:1945
 msgid "{0} min"
 msgstr "{0} min"
 
 #. a play time: hours, then minutes
-#: port/frontend/shell/settings.cpp:1933
+#: port/frontend/shell/settings.cpp:1947
 msgid "{0} h {1} min"
 msgstr "{0} h {1} min"
 
 #. Settings > Play time, a side's line: {1} the side (Wii U, 3DS, DS, Switch), {2} its play time, {0} how many games
-#: port/frontend/shell/settings.cpp:1965
+#: port/frontend/shell/settings.cpp:1979
 msgid "{1}: {2}, {0} game"
 msgid_plural "{1}: {2}, {0} games"
 msgstr[0] "{1}: {2}, {0} joc"
 msgstr[1] "{1}: {2}, {0} jocuri"
 msgstr[2] "{1}: {2}, {0} de jocuri"
 
-#: port/frontend/shell/settings.cpp:1968
+#: port/frontend/shell/settings.cpp:1982
 msgid "Nothing played yet. A game's time counts from its start to its end, and shows here and on its page."
 msgstr "Încă nimic jucat. Timpul unui joc se numără de la pornire până la final și apare aici și pe pagina lui."
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1971
+#: port/frontend/shell/settings.cpp:1985
 msgid "In all: {0}"
 msgstr "În total: {0}"
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1971
+#: port/frontend/shell/settings.cpp:1985
 msgid "Most played"
 msgstr "Cele mai jucate"
 
-#: port/frontend/shell/settings.cpp:1991
+#: port/frontend/shell/settings.cpp:2005
 msgid ""
 "Your own theme: a file such as sunset.json in {0}/themes, read as the app starts, then listed under Theme by its name:\n"
 "{{\"name\": \"Sunset\", \"base\": \"midnight\", \"colours\": {{\"wiiu\": \"#ff7a59\", \"ink-0\": \"#120806\"}}, \"corners\": 0.5, \"motif\": \"none\"}}\n"
@@ -7158,31 +7161,31 @@ msgstr ""
 "base: o temă de pornire (light, link-jack, classic, midnight, eden). colours: de la ink-0 la ink-2 (fundalul), text, wiiu, n3ds, nds și nx (ale fiecărei părți), glass, line, good, warn, bad și focus, ca #rrggbb. corners: de la 0 pătrat la 1.5 rotund. motif: side, none sau eden."
 
 #. {0} is Eden's data folder; {1} its game files folder (the same one unless another was chosen)
-#: port/frontend/shell/settings.cpp:2000
+#: port/frontend/shell/settings.cpp:2014
 msgid "Saves: {0}/user/nand/user/save. Updates and DLC: beside a game, in its own folder, or in {1}/updates. Mods and cheats: {1}/mods. Covers and names: {0}/covers, once Eden has read a game."
 msgstr "Salvări: {0}/user/nand/user/save. Actualizări și DLC: lângă un joc, în folderul lui, sau în {1}/updates. Moduri și coduri: {1}/mods. Coperte și nume: {0}/covers, după ce Eden a citit un joc."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:2005
+#: port/frontend/shell/settings.cpp:2019
 msgid "Saves: {0}/melonds/saves (a .sav beside the game is taken the first time). Save states: melonds/states. Cheats: melonds/cheats/<game file>.mch, melonDS's format. A GBA game for Slot-2: melonds/slot2/<game file>.gba. DSi games and the DS's wireless are not there."
 msgstr "Salvări: {0}/melonds/saves (un .sav de lângă joc e preluat prima dată). Stări salvate: melonds/states. Coduri: melonds/cheats/<fișierul jocului>.mch, în formatul melonDS. Un joc GBA pentru slotul 2: melonds/slot2/<fișierul jocului>.gba. Jocurile DSi și conexiunea wireless a DS-ului nu sunt acceptate."
 
-#: port/frontend/shell/settings.cpp:2009
+#: port/frontend/shell/settings.cpp:2023
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Activat, un cod QR de aici deschide al doilea ecran al jocului în browserul unui telefon. Nimic de instalat; telefonul trebuie să fie în rețeaua PS5."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:2013
+#: port/frontend/shell/settings.cpp:2027
 msgid "Figure dumps go in {0}/figures: skylanders, infinity and dimensions. Switch a portal on here, start the game, then put figures on it from the in-game menu (touchpad click + Options > USB devices)."
 msgstr "Dump-urile de figurine merg în {0}/figures: skylanders, infinity și dimensions. Activează aici un portal, pornește jocul, apoi pune figurine pe el din meniul din joc (clic pe touchpad + OPTIONS > Dispozitive USB)."
 
 #. premohq and JMUtechnologies are GitHub names: keep them as they are
-#: port/frontend/shell/settings.cpp:2018
+#: port/frontend/shell/settings.cpp:2032
 msgid "Playtendoh is made by its co-founders, premohq and JMUtechnologies."
 msgstr "Playtendoh e făcut de cofondatorii săi, premohq și JMUtechnologies."
 
 #. {0} is the app's version; {1} its data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on; {2} Eden's game files folder; {3} Cemu's selected data folder; {4} its default games folder; {5} Azahar's selected folder; {6} melonDS's selected folder
-#: port/frontend/shell/settings.cpp:2020
+#: port/frontend/shell/settings.cpp:2034
 msgid ""
 "Cemu, the Wii U emulator, by the Cemu team and its contributors; RADV on the PS5 by Mihawk-99 and mpereiraesaa; the community graphic packs' authors.\n"
 "Azahar, the 3DS emulator, by the Azahar team and the Citra contributors before them; Mihawk-99's PS5 port of it and dynarmic.\n"
@@ -7213,137 +7216,137 @@ msgstr ""
 "Versiunea {0}"
 
 #. the first choice in the language list: the PS5's own ({0}, in its own words)
-#: port/frontend/shell/settings.cpp:2038
+#: port/frontend/shell/settings.cpp:2052
 msgid "The PS5's language: {0}"
 msgstr "Limba PS5: {0}"
 
-#: port/frontend/shell/settings.cpp:2063
+#: port/frontend/shell/settings.cpp:2077
 msgid "Language: {0}"
 msgstr "Limbă: {0}"
 
-#: port/frontend/shell/settings.cpp:2190
+#: port/frontend/shell/settings.cpp:2204
 msgid "One side at least stays on"
 msgstr "Cel puțin o parte rămâne activată"
 
 #. the Wii U account games start on now ({0}: its name)
-#: port/frontend/shell/settings.cpp:2352 port/frontend/shell/settings.cpp:2544 port/frontend/shell/settings.cpp:2630
+#: port/frontend/shell/settings.cpp:2366 port/frontend/shell/settings.cpp:2558 port/frontend/shell/settings.cpp:2644
 msgid "Games start on {0}'s saves"
 msgstr "Jocurile pornesc cu salvările lui {0}"
 
-#: port/frontend/shell/settings.cpp:2457
+#: port/frontend/shell/settings.cpp:2471
 msgid "This game has no ID to save settings under"
 msgstr "Jocul acesta nu are un ID sub care să se salveze setările"
 
-#: port/frontend/shell/settings.cpp:2567
+#: port/frontend/shell/settings.cpp:2581
 msgid "Backing up {0}'s saves…"
 msgstr "Se face copia salvărilor din {0}…"
 
-#: port/frontend/shell/settings.cpp:2582 port/frontend/shell/settings.cpp:2977
+#: port/frontend/shell/settings.cpp:2596 port/frontend/shell/settings.cpp:2991
 msgid "Choose a player first, in Settings > Players and saves."
 msgstr "Alege întâi un jucător, în Setări > Jucători și salvări."
 
-#: port/frontend/shell/settings.cpp:2583
+#: port/frontend/shell/settings.cpp:2597
 msgid "Copying to USB…"
 msgstr "Se copiază pe USB…"
 
-#: port/frontend/shell/settings.cpp:2625
+#: port/frontend/shell/settings.cpp:2639
 msgid "A name for the new account"
 msgstr "Un nume pentru contul nou"
 
-#: port/frontend/shell/settings.cpp:2642
+#: port/frontend/shell/settings.cpp:2656
 msgid "A new name"
 msgstr "Un nume nou"
 
-#: port/frontend/shell/settings.cpp:2644
+#: port/frontend/shell/settings.cpp:2658
 msgid "Renamed {0}"
 msgstr "{0} redenumit"
 
-#: port/frontend/shell/settings.cpp:2653
+#: port/frontend/shell/settings.cpp:2667
 msgid "Backing up every side's saves…"
 msgstr "Se face copia de rezervă a salvărilor tuturor părților…"
 
 #. the loading screen's name for a retro side's own emulator menus: {0} is the side (Nintendo 64)
-#: port/frontend/shell/settings.cpp:2666
+#: port/frontend/shell/settings.cpp:2680
 msgid "{0}: its emulator's settings"
 msgstr "{0}: setările emulatorului său"
 
-#: port/frontend/shell/settings.cpp:2667
+#: port/frontend/shell/settings.cpp:2681
 msgid "Opening emulator settings"
 msgstr "Se deschid setările emulatorului"
 
-#: port/frontend/shell/settings.cpp:2742
+#: port/frontend/shell/settings.cpp:2756
 msgid "Switch games play offline"
 msgstr "Jocurile Switch rulează offline"
 
-#: port/frontend/shell/settings.cpp:2746
+#: port/frontend/shell/settings.cpp:2760
 msgid "Your nickname in rooms"
 msgstr "Porecla ta în camere"
 
-#: port/frontend/shell/settings.cpp:2751
+#: port/frontend/shell/settings.cpp:2765
 msgid "A nickname is 4 to 20 letters, digits, spaces, dots, dashes or underscores."
 msgstr "O poreclă are 4 până la 20 de litere latine, cifre, spații, puncte, cratime sau liniuțe de subliniere."
 
 #. the nickname shown in Switch rooms ({0})
-#: port/frontend/shell/settings.cpp:2757
+#: port/frontend/shell/settings.cpp:2771
 msgid "In rooms you are {0}"
 msgstr "În camere ești {0}"
 
-#: port/frontend/shell/settings.cpp:2771
+#: port/frontend/shell/settings.cpp:2785
 msgid "This room is for another version of Eden."
 msgstr "Această cameră este pentru altă versiune de Eden."
 
 #. the room ({0}) Switch games join from now on
-#: port/frontend/shell/settings.cpp:2782 port/frontend/shell/settings.cpp:2819
+#: port/frontend/shell/settings.cpp:2796 port/frontend/shell/settings.cpp:2833
 msgid "Switch games join {0} as they start"
 msgstr "Jocurile Switch intră în {0} la pornire"
 
 #. the password of a room ({0}: its name)
-#: port/frontend/shell/settings.cpp:2786
+#: port/frontend/shell/settings.cpp:2800
 msgid "{0}'s password"
 msgstr "Parola camerei {0}"
 
-#: port/frontend/shell/settings.cpp:2797
+#: port/frontend/shell/settings.cpp:2811
 msgid "The room's address"
 msgstr "Adresa camerei"
 
-#: port/frontend/shell/settings.cpp:2802
+#: port/frontend/shell/settings.cpp:2816
 msgid "An address is a name or an IPv4 address: letters, digits, dots and dashes."
 msgstr "O adresă este un nume sau o adresă IPv4: litere, cifre, puncte și cratime."
 
-#: port/frontend/shell/settings.cpp:2805
+#: port/frontend/shell/settings.cpp:2819
 msgid "Its UDP port"
 msgstr "Portul ei UDP"
 
-#: port/frontend/shell/settings.cpp:2809
+#: port/frontend/shell/settings.cpp:2823
 msgid "A port is a number from 1 to 65535."
 msgstr "Un port este un număr de la 1 la 65535."
 
-#: port/frontend/shell/settings.cpp:2812
+#: port/frontend/shell/settings.cpp:2826
 msgid "Its password (empty: none)"
 msgstr "Parola ei (goală: niciuna)"
 
-#: port/frontend/shell/settings.cpp:2829
+#: port/frontend/shell/settings.cpp:2843
 msgid "Starting the 3DS"
 msgstr "Pornește 3DS-ul"
 
-#: port/frontend/shell/settings.cpp:2838
+#: port/frontend/shell/settings.cpp:2852
 msgid "Your RetroAchievements user name"
 msgstr "Numele tău de utilizator RetroAchievements"
 
-#: port/frontend/shell/settings.cpp:2841
+#: port/frontend/shell/settings.cpp:2855
 msgid "{0}'s RetroAchievements password"
 msgstr "Parola RetroAchievements a lui {0}"
 
-#: port/frontend/shell/settings.cpp:2843
+#: port/frontend/shell/settings.cpp:2857
 msgid "Signing in to RetroAchievements…"
 msgstr "Conectare la RetroAchievements…"
 
-#: port/frontend/shell/settings.cpp:2865
+#: port/frontend/shell/settings.cpp:2879
 msgid "Player removed: their saves and settings are kept"
 msgstr "Jucător eliminat: salvările și setările lui rămân"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/shell/settings.cpp:2879
+#: port/frontend/shell/settings.cpp:2893
 msgid "{0} game deleted ({1})"
 msgid_plural "{0} games deleted ({1})"
 msgstr[0] "{0} joc șters ({1})"
@@ -7351,61 +7354,61 @@ msgstr[1] "{0} jocuri șterse ({1})"
 msgstr[2] "{0} de jocuri șterse ({1})"
 
 #. a held row's result: the covers are on their way
-#: port/frontend/shell/settings.cpp:2886
+#: port/frontend/shell/settings.cpp:2900
 msgid "Downloading in the background"
 msgstr "Se descarcă în fundal"
 
-#: port/frontend/shell/settings.cpp:2906 port/frontend/shell/shell.cpp:438
+#: port/frontend/shell/settings.cpp:2920 port/frontend/shell/shell.cpp:438
 msgid "Close Playtendoh and start it again from the home screen: the folders move as it starts."
 msgstr "Închide Playtendoh și pornește-l din nou de pe ecranul principal: folderele se mută când pornește."
 
-#: port/frontend/shell/settings.cpp:2948
+#: port/frontend/shell/settings.cpp:2962
 msgid "{0} is deleted; its saves stay"
 msgstr "{0} e șters; salvările lui rămân"
 
-#: port/frontend/shell/settings.cpp:2961
+#: port/frontend/shell/settings.cpp:2975
 msgid "Restoring the saves of {0}…"
 msgstr "Se restaurează salvările din {0}…"
 
-#: port/frontend/shell/settings.cpp:2969
+#: port/frontend/shell/settings.cpp:2983
 msgid "Signed out of RetroAchievements"
 msgstr "Deconectat de la RetroAchievements"
 
-#: port/frontend/shell/settings.cpp:2979
+#: port/frontend/shell/settings.cpp:2993
 msgid "Taking the save…"
 msgstr "Se preia salvarea…"
 
-#: port/frontend/shell/settings.cpp:2989
+#: port/frontend/shell/settings.cpp:3003
 msgid "Restoring {0}'s saves of {1}…"
 msgstr "Se restaurează salvările din {0} din copia {1}…"
 
 #. one of a game's saves moved out of the way ({0}: which, as its row names it)
-#: port/frontend/shell/settings.cpp:3003
+#: port/frontend/shell/settings.cpp:3017
 msgid "{0}: moved to saves-before"
 msgstr "{0}: mutat în saves-before"
 
-#: port/frontend/shell/settings.cpp:3016
+#: port/frontend/shell/settings.cpp:3030
 msgid "Done: back to its side's settings"
 msgstr "Gata: din nou setările părții sale"
 
-#: port/frontend/shell/settings.cpp:3205
+#: port/frontend/shell/settings.cpp:3219
 msgid "Scan it, or open"
 msgstr "Scanează-l sau deschide"
 
-#: port/frontend/shell/settings.cpp:3211
+#: port/frontend/shell/settings.cpp:3225
 msgid "Same network as the PS5. Nothing to install: the browser is enough. Sound stays on the PS5. Any browser on the network can see it and touch."
 msgstr "Aceeași rețea ca PS5. Nimic de instalat: browserul e de ajuns. Sunetul rămâne pe PS5. Orice browser din rețea îl poate vedea și atinge."
 
-#: port/frontend/shell/settings.cpp:3243
+#: port/frontend/shell/settings.cpp:3257
 msgid "Support Playtendoh"
 msgstr "Susține Playtendoh"
 
-#: port/frontend/shell/settings.cpp:3254
+#: port/frontend/shell/settings.cpp:3268
 msgid "Playtendoh is free. If it brings your games back, you can support its work here."
 msgstr "Playtendoh e gratuit. Dacă ți-a adus înapoi jocurile, poți susține munca la el aici."
 
 #. above Settings' pages: whose settings they are ({0}: Wii U, Nintendo 3DS or Nintendo DS)
-#: port/frontend/shell/settings.cpp:3294
+#: port/frontend/shell/settings.cpp:3308
 msgid "{0} settings"
 msgstr "Setări {0}"
 

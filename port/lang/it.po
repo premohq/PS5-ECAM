@@ -7,7 +7,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2622
+#: port/app/accounts.cpp:68 port/frontend/shell/settings.cpp:2636
 msgid "The Wii U has twelve accounts at most."
 msgstr "La Wii U ha al massimo dodici account."
 
@@ -100,7 +100,7 @@ msgstr "Non si avvia"
 msgid "the PS5 Vulkan driver did not start"
 msgstr "il driver Vulkan della PS5 non si è avviato"
 
-#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2899 port/frontend/shell/shell.cpp:1979
+#: port/app/emulator.cpp:529 port/frontend/shell/settings.cpp:2913 port/frontend/shell/shell.cpp:1979
 msgid "Playtendoh cannot write to {0}. Is the HEN loaded?"
 msgstr "Playtendoh non può scrivere in {0}. L’HEN è caricato?"
 
@@ -2328,7 +2328,7 @@ msgid "The new packs could not take the old ones' place"
 msgstr "I nuovi pacchetti non hanno potuto sostituire i vecchi"
 
 #. a row that opens the remote touch screen's page: the game's second screen in a phone's browser, and its code to scan
-#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1650 port/frontend/shell/settings.cpp:3205
+#: port/app/remote_menu.h:29 port/frontend/shell/settings.cpp:1648 port/frontend/shell/settings.cpp:1650 port/frontend/shell/settings.cpp:3219
 #, menu
 msgid "Remote touch screen"
 msgstr "Touch screen remoto"
@@ -2344,7 +2344,7 @@ msgstr "{0} nel browser di uno smartphone o di un tablet, con il tocco: scansion
 msgid "A phone or tablet on the PS5's network. Sound stays on the PS5."
 msgstr "Uno smartphone o un tablet sulla rete della PS5. L’audio resta sulla PS5."
 
-#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3213
+#: port/app/remote_menu.h:108 port/frontend/shell/settings.cpp:3227
 #, menu
 msgid "Turn it off and on again once that is fixed."
 msgstr "Disattivalo e riattivalo quando il problema è risolto."
@@ -3148,7 +3148,7 @@ msgstr[0] "{0} file eliminato ({1} MB)"
 msgstr[1] "{0} file eliminati ({1} MB)"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1575 port/frontend/shell/settings.cpp:2879
+#: port/frontend/actions.cpp:201 port/frontend/shell/settings.cpp:1575 port/frontend/shell/settings.cpp:2893
 msgid "None to delete"
 msgstr "Niente da eliminare"
 
@@ -3923,7 +3923,7 @@ msgid "Presets · choosing one turns it on"
 msgstr "Preimpostazioni · sceglierne una lo attiva"
 
 #. what a held row says once it has done its work
-#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2934
+#: port/frontend/shell/pages.cpp:398 port/frontend/shell/settings.cpp:2948
 msgctxt "finished"
 msgid "Done"
 msgstr "Fatto"
@@ -4094,7 +4094,8 @@ msgid "Which DualSense button presses each button."
 msgstr "Quale tasto del DualSense preme ogni tasto."
 
 #. {0} is the version the last update replaced, as in 5.0.0
-#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1849 port/frontend/shell/settings.cpp:1891 port/frontend/shell/settings.cpp:1916 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
+#. no save of this Switch game in standalone ProsperoEden or on a USB drive
+#: port/frontend/shell/pages.cpp:649 port/frontend/shell/pages.cpp:1563 port/frontend/shell/pages.cpp:1567 port/frontend/shell/settings.cpp:883 port/frontend/shell/settings.cpp:938 port/frontend/shell/settings.cpp:1183 port/frontend/shell/settings.cpp:1247 port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1346 port/frontend/shell/settings.cpp:1443 port/frontend/shell/settings.cpp:1557 port/frontend/shell/settings.cpp:1560 port/frontend/shell/settings.cpp:1574 port/frontend/shell/settings.cpp:1727 port/frontend/shell/settings.cpp:1860 port/frontend/shell/settings.cpp:1902 port/frontend/shell/settings.cpp:1929 port/frontend/shell/shares.cpp:328 port/frontend/shell/switch_extras.cpp:105
 msgid "Hold Cross"
 msgstr "Tieni premuto Croce"
 
@@ -4843,7 +4844,7 @@ msgstr "Vetro smerigliato scuro e angoli più arrotondati, la luce del lato che 
 msgid "A light background with dark text."
 msgstr "Uno sfondo chiaro con testo scuro."
 
-#: port/frontend/shell/settings.cpp:206 port/frontend/shell/settings.cpp:573 port/frontend/shell/settings.cpp:952 port/frontend/shell/settings.cpp:997 port/frontend/shell/settings.cpp:1056 port/frontend/shell/settings.cpp:2053 port/frontend/shell/setup.cpp:567
+#: port/frontend/shell/settings.cpp:206 port/frontend/shell/settings.cpp:573 port/frontend/shell/settings.cpp:952 port/frontend/shell/settings.cpp:997 port/frontend/shell/settings.cpp:1056 port/frontend/shell/settings.cpp:2067 port/frontend/shell/setup.cpp:567
 msgid "Language"
 msgstr "Lingua"
 
@@ -5192,7 +5193,7 @@ msgstr "L’emulatore di questo lato ha le proprie impostazioni, i propri comand
 msgid "Porpoise's other settings, your button layouts, the Wii Remote's setup and the memory cards, in its own menus. Quitting them comes back here."
 msgstr "Le altre impostazioni di Porpoise, le tue disposizioni dei tasti, la configurazione del telecomando Wii e le memory card, nei suoi menu. Uscendone si torna qui."
 
-#: port/frontend/shell/settings.cpp:485 port/frontend/shell/settings.cpp:1294 port/frontend/shell/settings.cpp:1870
+#: port/frontend/shell/settings.cpp:485 port/frontend/shell/settings.cpp:1294 port/frontend/shell/settings.cpp:1881
 msgid "Back up to USB"
 msgstr "Backup su USB"
 
@@ -5200,7 +5201,7 @@ msgstr "Backup su USB"
 msgid "Every side's saves, each emulator's. A save state loads only in the emulator that made it."
 msgstr "I salvataggi di ogni lato, quelli di ogni emulatore. Uno stato salvato si carica solo nell’emulatore che l’ha creato."
 
-#: port/frontend/shell/settings.cpp:486 port/frontend/shell/settings.cpp:2662
+#: port/frontend/shell/settings.cpp:486 port/frontend/shell/settings.cpp:2676
 msgid "Emulator diagnostics"
 msgstr "Diagnostica dell’emulatore"
 
@@ -6296,19 +6297,19 @@ msgid "The account is removed; its saves stay in the Wii U's storage (and in any
 msgstr "L’account viene rimosso; i suoi salvataggi restano nella memoria della Wii U (e in ogni backup), quindi non si perde nulla. L’account con cui si avviano i giochi non si può eliminare: scegline prima un altro."
 
 #. a backup or restore of the saves, finished ({0}: how many files)
-#: port/frontend/shell/settings.cpp:1273 port/frontend/shell/settings.cpp:1834
+#: port/frontend/shell/settings.cpp:1273 port/frontend/shell/settings.cpp:1845
 msgid "Done: {0} file"
 msgid_plural "Done: {0} files"
 msgstr[0] "Fatto: {0} file"
 msgstr[1] "Fatto: {0} file"
 
 #. a backup of the saves, as it copies ({0}: a percentage)
-#: port/frontend/shell/settings.cpp:1290 port/frontend/shell/settings.cpp:1306 port/frontend/shell/settings.cpp:1873 port/frontend/shell/settings.cpp:1893
+#: port/frontend/shell/settings.cpp:1290 port/frontend/shell/settings.cpp:1306 port/frontend/shell/settings.cpp:1884 port/frontend/shell/settings.cpp:1904
 msgid "Copying: {0}"
 msgstr "Copia: {0}"
 
 #. the newest backup of the saves: when, and on which drive
-#: port/frontend/shell/settings.cpp:1293 port/frontend/shell/settings.cpp:1875
+#: port/frontend/shell/settings.cpp:1293 port/frontend/shell/settings.cpp:1886
 msgid "Last: {0} · {1}"
 msgstr "Ultimo: {0} · {1}"
 
@@ -6320,11 +6321,11 @@ msgstr "Salvataggi, stati salvati e account Wii U di tutti i lati."
 msgid "Copies the Wii U's saves (every account's, with the accounts), the 3DS's saves, extra data and save states, the DS's saves and save states, and the Switch's saves with its user profiles to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time. Never the games, so a backup stays small. The settings go with them: the launcher's, each game's own and the controllers'."
 msgstr "Copia i salvataggi della Wii U (di tutti gli account, con gli account), i salvataggi, i dati extra e gli stati salvati del 3DS, i salvataggi e gli stati salvati del DS, e i salvataggi di Switch con i suoi profili utente in PS5CEMU-HAR-saves sulla prima unità USB collegata, in una cartella con la data e l’ora. Mai i giochi, così un backup resta piccolo. Le impostazioni vanno con loro: quelle del launcher, quelle di ogni gioco e quelle dei controller."
 
-#: port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1891
+#: port/frontend/shell/settings.cpp:1304 port/frontend/shell/settings.cpp:1902
 msgid "No backups found"
 msgstr "Nessun backup trovato"
 
-#: port/frontend/shell/settings.cpp:1307 port/frontend/shell/settings.cpp:1890
+#: port/frontend/shell/settings.cpp:1307 port/frontend/shell/settings.cpp:1901
 msgid "Restore from USB"
 msgstr "Ripristina da USB"
 
@@ -6332,7 +6333,7 @@ msgstr "Ripristina da USB"
 msgid "Back up first, or plug in the drive with your backups."
 msgstr "Fai prima un backup o collega l’unità con i tuoi backup."
 
-#: port/frontend/shell/settings.cpp:1308 port/frontend/shell/settings.cpp:1894
+#: port/frontend/shell/settings.cpp:1308 port/frontend/shell/settings.cpp:1905
 msgid "Left and Right choose which backup, the newest first."
 msgstr "Sinistra e Destra scelgono il backup, dal più recente."
 
@@ -7030,95 +7031,97 @@ msgstr[1] "{0} stati salvati"
 msgid "The GBA cartridge's save"
 msgstr "Il salvataggio della cartuccia GBA"
 
-#: port/frontend/shell/settings.cpp:1850
+#: port/frontend/shell/settings.cpp:1861
 msgid "Held: moved to saves-before on the PS5, so it can still come back."
 msgstr "Tenuto premuto: spostato in saves-before sulla PS5, quindi si può recuperare."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1852
+#: port/frontend/shell/settings.cpp:1863
 msgid "Holding Cross moves these files to {0}/saves-before, in a folder named by the date and time, and the game starts without them next time. Nothing is deleted: copy them back from there (or restore a backup) to have them again."
 msgstr "Tenendo premuto Croce questi file vanno in {0}/saves-before, in una cartella con data e ora, e la prossima volta il gioco parte senza. Non si cancella nulla: ricopiali da lì (o ripristina un backup) per riaverli."
 
-#: port/frontend/shell/settings.cpp:1862
+#: port/frontend/shell/settings.cpp:1873
 msgid "No saves yet"
 msgstr "Ancora nessun salvataggio"
 
-#: port/frontend/shell/settings.cpp:1863
+#: port/frontend/shell/settings.cpp:1874
 msgid "They appear here once the game has saved."
 msgstr "Compaiono qui appena il gioco ha salvato."
 
-#: port/frontend/shell/settings.cpp:1876
+#: port/frontend/shell/settings.cpp:1887
 msgid "This game's saves, to the first USB drive."
 msgstr "I salvataggi di questo gioco, sulla prima unità USB."
 
-#: port/frontend/shell/settings.cpp:1877
+#: port/frontend/shell/settings.cpp:1888
 msgid "Copies this game's saves (every account's, on the Wii U) and its save states to PS5CEMU-HAR-saves on the first USB drive plugged in, in a folder named by the date and time, the same way a backup of every side's saves is made."
 msgstr "Copia i salvataggi di questo gioco (quelli di tutti gli account, su Wii U) e i suoi stati salvati in PS5CEMU-HAR-saves sulla prima unità USB collegata, in una cartella con data e ora, come per il backup dei salvataggi di tutti i lati."
 
-#: port/frontend/shell/settings.cpp:1894
+#: port/frontend/shell/settings.cpp:1905
 msgid "No backup on the drives plugged in has this game's saves."
 msgstr "Nessun backup sulle unità collegate ha salvataggi di questo gioco."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:1896
+#: port/frontend/shell/settings.cpp:1907
 msgid "Puts this game's saves from the chosen backup back where they came from, and nothing else. Its saves there now are moved first to {0}/saves-before, so nothing is lost."
 msgstr "Rimette i salvataggi di questo gioco del backup scelto da dove provenivano, e nient’altro. I suoi salvataggi presenti vengono prima spostati in {0}/saves-before, quindi non si perde nulla."
 
-#: port/frontend/shell/settings.cpp:1906
+#: port/frontend/shell/settings.cpp:1917
 msgid "Copy the save to USB"
 msgstr "Copia il salvataggio su USB"
 
-#: port/frontend/shell/settings.cpp:1907
+#: port/frontend/shell/settings.cpp:1918
 msgid "The chosen player's save, in USB/PS5-ECAM-exports, as folders another emulator can take."
 msgstr "Il salvataggio del giocatore scelto, in USB/PS5-ECAM-exports, come cartelle che un altro emulatore può prendere."
 
-#: port/frontend/shell/settings.cpp:1911
-msgid "Take a save from USB"
-msgstr "Prendi un salvataggio da USB"
+#. a Switch game's save taken from standalone ProsperoEden on the PS5 or from a USB drive
+#: port/frontend/shell/settings.cpp:1923
+msgid "Take a save"
+msgstr "Prendi un salvataggio"
 
-#: port/frontend/shell/settings.cpp:1916
-msgid "None on a USB drive"
-msgstr "Nessuno su un’unità USB"
+#. no save of this Switch game in standalone ProsperoEden or on a USB drive
+#: port/frontend/shell/settings.cpp:1929
+msgid "None in ProsperoEden or on a USB drive"
+msgstr "Nessuno in ProsperoEden né su un’unità USB"
 
-#: port/frontend/shell/settings.cpp:1917
-msgid "From USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
-msgstr "Da USB/PS5-ECAM-imports/<ID titolo>, o da una copia della cartella di Ryujinx in USB/Ryujinx, come salvataggio del giocatore scelto. Il salvataggio che sostituisce viene tenuto."
+#: port/frontend/shell/settings.cpp:1930
+msgid "From standalone ProsperoEden on this PS5 (each of its players' saves), USB/PS5-ECAM-imports/<title ID>, or a copy of Ryujinx's folder in USB/Ryujinx, as the chosen player's save. The save it replaces is kept."
+msgstr "Da ProsperoEden autonomo su questa PS5 (i salvataggi di ciascuno dei suoi giocatori), da USB/PS5-ECAM-imports/<ID titolo>, o da una copia della cartella di Ryujinx in USB/Ryujinx, come salvataggio del giocatore scelto. Il salvataggio che sostituisce viene tenuto."
 
-#: port/frontend/shell/settings.cpp:1918
+#: port/frontend/shell/settings.cpp:1932
 msgid "Choose the player in Settings > Players and saves > Players first. Every file is copied and checked before the save is replaced, and the save it replaces is kept in Eden's save-transfer-recovery folder."
 msgstr "Scegli prima il giocatore in Impostazioni > Giocatori e salvataggi > Giocatori. Ogni file viene copiato e controllato prima di sostituire il salvataggio, e quello sostituito viene tenuto nella cartella save-transfer-recovery di Eden."
 
-#: port/frontend/shell/settings.cpp:1931
+#: port/frontend/shell/settings.cpp:1945
 msgid "{0} min"
 msgstr "{0} min"
 
 #. a play time: hours, then minutes
-#: port/frontend/shell/settings.cpp:1933
+#: port/frontend/shell/settings.cpp:1947
 msgid "{0} h {1} min"
 msgstr "{0} h {1} min"
 
 #. Settings > Play time, a side's line: {1} the side (Wii U, 3DS, DS, Switch), {2} its play time, {0} how many games
-#: port/frontend/shell/settings.cpp:1965
+#: port/frontend/shell/settings.cpp:1979
 msgid "{1}: {2}, {0} game"
 msgid_plural "{1}: {2}, {0} games"
 msgstr[0] "{1}: {2}, {0} gioco"
 msgstr[1] "{1}: {2}, {0} giochi"
 
-#: port/frontend/shell/settings.cpp:1968
+#: port/frontend/shell/settings.cpp:1982
 msgid "Nothing played yet. A game's time counts from its start to its end, and shows here and on its page."
 msgstr "Ancora niente di giocato. Il tempo di un gioco conta dall’avvio alla fine, e appare qui e sulla sua pagina."
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1971
+#: port/frontend/shell/settings.cpp:1985
 msgid "In all: {0}"
 msgstr "In tutto: {0}"
 
 #. Settings > Play time: every side's play time added up
-#: port/frontend/shell/settings.cpp:1971
+#: port/frontend/shell/settings.cpp:1985
 msgid "Most played"
 msgstr "I più giocati"
 
-#: port/frontend/shell/settings.cpp:1991
+#: port/frontend/shell/settings.cpp:2005
 msgid ""
 "Your own theme: a file such as sunset.json in {0}/themes, read as the app starts, then listed under Theme by its name:\n"
 "{{\"name\": \"Sunset\", \"base\": \"midnight\", \"colours\": {{\"wiiu\": \"#ff7a59\", \"ink-0\": \"#120806\"}}, \"corners\": 0.5, \"motif\": \"none\"}}\n"
@@ -7129,31 +7132,31 @@ msgstr ""
 "base: un tema di partenza (light, link-jack, classic, midnight, eden). colours: da ink-0 a ink-2 (lo sfondo), text, wiiu, n3ds, nds e nx (quelli di ogni lato), glass, line, good, warn, bad e focus, come #rrggbb. corners: da 0 squadrato a 1.5 arrotondato. motif: side, none o eden."
 
 #. {0} is Eden's data folder; {1} its game files folder (the same one unless another was chosen)
-#: port/frontend/shell/settings.cpp:2000
+#: port/frontend/shell/settings.cpp:2014
 msgid "Saves: {0}/user/nand/user/save. Updates and DLC: beside a game, in its own folder, or in {1}/updates. Mods and cheats: {1}/mods. Covers and names: {0}/covers, once Eden has read a game."
 msgstr "Salvataggi: {0}/user/nand/user/save. Aggiornamenti e DLC: accanto a un gioco, nella sua cartella, o in {1}/updates. Mod e trucchi: {1}/mods. Copertine e nomi: {0}/covers, dopo che Eden ha letto un gioco."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:2005
+#: port/frontend/shell/settings.cpp:2019
 msgid "Saves: {0}/melonds/saves (a .sav beside the game is taken the first time). Save states: melonds/states. Cheats: melonds/cheats/<game file>.mch, melonDS's format. A GBA game for Slot-2: melonds/slot2/<game file>.gba. DSi games and the DS's wireless are not there."
 msgstr "Salvataggi: {0}/melonds/saves (un .sav accanto al gioco viene preso la prima volta). Stati salvati: melonds/states. Trucchi: melonds/cheats/<file del gioco>.mch, nel formato di melonDS. Un gioco GBA per lo slot 2: melonds/slot2/<file del gioco>.gba. I giochi DSi e la connessione wireless del DS non sono supportati."
 
-#: port/frontend/shell/settings.cpp:2009
+#: port/frontend/shell/settings.cpp:2023
 msgid "On, a QR code here opens the game's second screen in a phone's browser. Nothing to install; the phone must be on the PS5's network."
 msgstr "Attivo, un codice QR qui apre il secondo schermo del gioco nel browser di uno smartphone. Niente da installare; lo smartphone deve essere sulla rete della PS5."
 
 #. {0} is the app's data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on
-#: port/frontend/shell/settings.cpp:2013
+#: port/frontend/shell/settings.cpp:2027
 msgid "Figure dumps go in {0}/figures: skylanders, infinity and dimensions. Switch a portal on here, start the game, then put figures on it from the in-game menu (touchpad click + Options > USB devices)."
 msgstr "I dump delle statuine vanno in {0}/figures: skylanders, infinity e dimensions. Attiva qui un portale, avvia il gioco, poi posaci le statuine dal menu di gioco (clic sul touch pad + OPTIONS > Dispositivi USB)."
 
 #. premohq and JMUtechnologies are GitHub names: keep them as they are
-#: port/frontend/shell/settings.cpp:2018
+#: port/frontend/shell/settings.cpp:2032
 msgid "Playtendoh is made by its co-founders, premohq and JMUtechnologies."
 msgstr "Playtendoh è fatto dai suoi cofondatori, premohq e JMUtechnologies."
 
 #. {0} is the app's version; {1} its data folder: /data/ps5cemu, or the PS5CEMU-HAR-data folder on the drive the app is installed on; {2} Eden's game files folder; {3} Cemu's selected data folder; {4} its default games folder; {5} Azahar's selected folder; {6} melonDS's selected folder
-#: port/frontend/shell/settings.cpp:2020
+#: port/frontend/shell/settings.cpp:2034
 msgid ""
 "Cemu, the Wii U emulator, by the Cemu team and its contributors; RADV on the PS5 by Mihawk-99 and mpereiraesaa; the community graphic packs' authors.\n"
 "Azahar, the 3DS emulator, by the Azahar team and the Citra contributors before them; Mihawk-99's PS5 port of it and dynarmic.\n"
@@ -7184,198 +7187,198 @@ msgstr ""
 "Versione {0}"
 
 #. the first choice in the language list: the PS5's own ({0}, in its own words)
-#: port/frontend/shell/settings.cpp:2038
+#: port/frontend/shell/settings.cpp:2052
 msgid "The PS5's language: {0}"
 msgstr "Lingua della PS5: {0}"
 
-#: port/frontend/shell/settings.cpp:2063
+#: port/frontend/shell/settings.cpp:2077
 msgid "Language: {0}"
 msgstr "Lingua: {0}"
 
-#: port/frontend/shell/settings.cpp:2190
+#: port/frontend/shell/settings.cpp:2204
 msgid "One side at least stays on"
 msgstr "Almeno un lato resta attivo"
 
 #. the Wii U account games start on now ({0}: its name)
-#: port/frontend/shell/settings.cpp:2352 port/frontend/shell/settings.cpp:2544 port/frontend/shell/settings.cpp:2630
+#: port/frontend/shell/settings.cpp:2366 port/frontend/shell/settings.cpp:2558 port/frontend/shell/settings.cpp:2644
 msgid "Games start on {0}'s saves"
 msgstr "I giochi si avviano con i salvataggi di {0}"
 
-#: port/frontend/shell/settings.cpp:2457
+#: port/frontend/shell/settings.cpp:2471
 msgid "This game has no ID to save settings under"
 msgstr "Questo gioco non ha un ID con cui salvare le impostazioni"
 
-#: port/frontend/shell/settings.cpp:2567
+#: port/frontend/shell/settings.cpp:2581
 msgid "Backing up {0}'s saves…"
 msgstr "Backup dei salvataggi di {0}…"
 
-#: port/frontend/shell/settings.cpp:2582 port/frontend/shell/settings.cpp:2977
+#: port/frontend/shell/settings.cpp:2596 port/frontend/shell/settings.cpp:2991
 msgid "Choose a player first, in Settings > Players and saves."
 msgstr "Scegli prima un giocatore, in Impostazioni > Giocatori e salvataggi."
 
-#: port/frontend/shell/settings.cpp:2583
+#: port/frontend/shell/settings.cpp:2597
 msgid "Copying to USB…"
 msgstr "Copia su USB…"
 
-#: port/frontend/shell/settings.cpp:2625
+#: port/frontend/shell/settings.cpp:2639
 msgid "A name for the new account"
 msgstr "Un nome per il nuovo account"
 
-#: port/frontend/shell/settings.cpp:2642
+#: port/frontend/shell/settings.cpp:2656
 msgid "A new name"
 msgstr "Un nuovo nome"
 
-#: port/frontend/shell/settings.cpp:2644
+#: port/frontend/shell/settings.cpp:2658
 msgid "Renamed {0}"
 msgstr "{0} rinominato"
 
-#: port/frontend/shell/settings.cpp:2653
+#: port/frontend/shell/settings.cpp:2667
 msgid "Backing up every side's saves…"
 msgstr "Backup dei salvataggi di tutti i lati…"
 
 #. the loading screen's name for a retro side's own emulator menus: {0} is the side (Nintendo 64)
-#: port/frontend/shell/settings.cpp:2666
+#: port/frontend/shell/settings.cpp:2680
 msgid "{0}: its emulator's settings"
 msgstr "{0}: impostazioni del suo emulatore"
 
-#: port/frontend/shell/settings.cpp:2667
+#: port/frontend/shell/settings.cpp:2681
 msgid "Opening emulator settings"
 msgstr "Apertura delle impostazioni dell’emulatore"
 
-#: port/frontend/shell/settings.cpp:2742
+#: port/frontend/shell/settings.cpp:2756
 msgid "Switch games play offline"
 msgstr "I giochi Switch si giocano offline"
 
-#: port/frontend/shell/settings.cpp:2746
+#: port/frontend/shell/settings.cpp:2760
 msgid "Your nickname in rooms"
 msgstr "Il tuo soprannome nelle stanze"
 
-#: port/frontend/shell/settings.cpp:2751
+#: port/frontend/shell/settings.cpp:2765
 msgid "A nickname is 4 to 20 letters, digits, spaces, dots, dashes or underscores."
 msgstr "Un soprannome ha da 4 a 20 lettere, cifre, spazi, punti, trattini o trattini bassi."
 
 #. the nickname shown in Switch rooms ({0})
-#: port/frontend/shell/settings.cpp:2757
+#: port/frontend/shell/settings.cpp:2771
 msgid "In rooms you are {0}"
 msgstr "Nelle stanze sei {0}"
 
-#: port/frontend/shell/settings.cpp:2771
+#: port/frontend/shell/settings.cpp:2785
 msgid "This room is for another version of Eden."
 msgstr "Questa stanza è per un’altra versione di Eden."
 
 #. the room ({0}) Switch games join from now on
-#: port/frontend/shell/settings.cpp:2782 port/frontend/shell/settings.cpp:2819
+#: port/frontend/shell/settings.cpp:2796 port/frontend/shell/settings.cpp:2833
 msgid "Switch games join {0} as they start"
 msgstr "I giochi Switch entrano in {0} all’avvio"
 
 #. the password of a room ({0}: its name)
-#: port/frontend/shell/settings.cpp:2786
+#: port/frontend/shell/settings.cpp:2800
 msgid "{0}'s password"
 msgstr "Password di {0}"
 
-#: port/frontend/shell/settings.cpp:2797
+#: port/frontend/shell/settings.cpp:2811
 msgid "The room's address"
 msgstr "L’indirizzo della stanza"
 
-#: port/frontend/shell/settings.cpp:2802
+#: port/frontend/shell/settings.cpp:2816
 msgid "An address is a name or an IPv4 address: letters, digits, dots and dashes."
 msgstr "Un indirizzo è un nome o un indirizzo IPv4: lettere, cifre, punti e trattini."
 
-#: port/frontend/shell/settings.cpp:2805
+#: port/frontend/shell/settings.cpp:2819
 msgid "Its UDP port"
 msgstr "La sua porta UDP"
 
-#: port/frontend/shell/settings.cpp:2809
+#: port/frontend/shell/settings.cpp:2823
 msgid "A port is a number from 1 to 65535."
 msgstr "Una porta è un numero da 1 a 65535."
 
-#: port/frontend/shell/settings.cpp:2812
+#: port/frontend/shell/settings.cpp:2826
 msgid "Its password (empty: none)"
 msgstr "La sua password (vuota: nessuna)"
 
-#: port/frontend/shell/settings.cpp:2829
+#: port/frontend/shell/settings.cpp:2843
 msgid "Starting the 3DS"
 msgstr "Avvio del 3DS"
 
-#: port/frontend/shell/settings.cpp:2838
+#: port/frontend/shell/settings.cpp:2852
 msgid "Your RetroAchievements user name"
 msgstr "Il tuo nome utente RetroAchievements"
 
-#: port/frontend/shell/settings.cpp:2841
+#: port/frontend/shell/settings.cpp:2855
 msgid "{0}'s RetroAchievements password"
 msgstr "Password RetroAchievements di {0}"
 
-#: port/frontend/shell/settings.cpp:2843
+#: port/frontend/shell/settings.cpp:2857
 msgid "Signing in to RetroAchievements…"
 msgstr "Accesso a RetroAchievements…"
 
-#: port/frontend/shell/settings.cpp:2865
+#: port/frontend/shell/settings.cpp:2879
 msgid "Player removed: their saves and settings are kept"
 msgstr "Giocatore rimosso: i suoi salvataggi e le sue impostazioni restano"
 
 #. what clearing the unpacked games did; {1} is the room it made, as in 2.4 GB
-#: port/frontend/shell/settings.cpp:2879
+#: port/frontend/shell/settings.cpp:2893
 msgid "{0} game deleted ({1})"
 msgid_plural "{0} games deleted ({1})"
 msgstr[0] "{0} gioco eliminato ({1})"
 msgstr[1] "{0} giochi eliminati ({1})"
 
 #. a held row's result: the covers are on their way
-#: port/frontend/shell/settings.cpp:2886
+#: port/frontend/shell/settings.cpp:2900
 msgid "Downloading in the background"
 msgstr "Download in background"
 
-#: port/frontend/shell/settings.cpp:2906 port/frontend/shell/shell.cpp:438
+#: port/frontend/shell/settings.cpp:2920 port/frontend/shell/shell.cpp:438
 msgid "Close Playtendoh and start it again from the home screen: the folders move as it starts."
 msgstr "Chiudi Playtendoh e avvialo di nuovo dalla schermata Home: le cartelle vengono spostate all’avvio."
 
-#: port/frontend/shell/settings.cpp:2948
+#: port/frontend/shell/settings.cpp:2962
 msgid "{0} is deleted; its saves stay"
 msgstr "{0} è stato eliminato; i suoi salvataggi restano"
 
-#: port/frontend/shell/settings.cpp:2961
+#: port/frontend/shell/settings.cpp:2975
 msgid "Restoring the saves of {0}…"
 msgstr "Ripristino dei salvataggi di {0}…"
 
-#: port/frontend/shell/settings.cpp:2969
+#: port/frontend/shell/settings.cpp:2983
 msgid "Signed out of RetroAchievements"
 msgstr "Disconnesso da RetroAchievements"
 
-#: port/frontend/shell/settings.cpp:2979
+#: port/frontend/shell/settings.cpp:2993
 msgid "Taking the save…"
 msgstr "Presa del salvataggio…"
 
-#: port/frontend/shell/settings.cpp:2989
+#: port/frontend/shell/settings.cpp:3003
 msgid "Restoring {0}'s saves of {1}…"
 msgstr "Ripristino dei salvataggi di {0} del {1}…"
 
 #. one of a game's saves moved out of the way ({0}: which, as its row names it)
-#: port/frontend/shell/settings.cpp:3003
+#: port/frontend/shell/settings.cpp:3017
 msgid "{0}: moved to saves-before"
 msgstr "{0}: spostato in saves-before"
 
-#: port/frontend/shell/settings.cpp:3016
+#: port/frontend/shell/settings.cpp:3030
 msgid "Done: back to its side's settings"
 msgstr "Fatto: di nuovo le impostazioni del suo lato"
 
-#: port/frontend/shell/settings.cpp:3205
+#: port/frontend/shell/settings.cpp:3219
 msgid "Scan it, or open"
 msgstr "Inquadralo o apri"
 
-#: port/frontend/shell/settings.cpp:3211
+#: port/frontend/shell/settings.cpp:3225
 msgid "Same network as the PS5. Nothing to install: the browser is enough. Sound stays on the PS5. Any browser on the network can see it and touch."
 msgstr "La stessa rete della PS5. Niente da installare: basta il browser. L’audio resta sulla PS5. Qualsiasi browser della rete può vederlo e toccarlo."
 
-#: port/frontend/shell/settings.cpp:3243
+#: port/frontend/shell/settings.cpp:3257
 msgid "Support Playtendoh"
 msgstr "Sostieni Playtendoh"
 
-#: port/frontend/shell/settings.cpp:3254
+#: port/frontend/shell/settings.cpp:3268
 msgid "Playtendoh is free. If it brings your games back, you can support its work here."
 msgstr "Playtendoh è gratuito. Se ti ha ridato i tuoi giochi, puoi sostenerne lo sviluppo qui."
 
 #. above Settings' pages: whose settings they are ({0}: Wii U, Nintendo 3DS or Nintendo DS)
-#: port/frontend/shell/settings.cpp:3294
+#: port/frontend/shell/settings.cpp:3308
 msgid "{0} settings"
 msgstr "Impostazioni {0}"
 

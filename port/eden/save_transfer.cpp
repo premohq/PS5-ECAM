@@ -3,6 +3,8 @@
 #include "standalone/ryujinx_saves.h"
 #include "../app/own_status.h"
 #include <algorithm>
+#include <array>
+#include <cctype>
 #include <chrono>
 #include <filesystem>
 #include <fstream>
@@ -134,6 +136,79 @@ namespace ps5eden::transfer
 			}
 			return result;
 		}
+
+		// An Eden user folder (standalone ProsperoEden's, kStandaloneUser): each player's saves in
+		// nand/user/save/0000000000000000/<player ID, 32 hex digits>/<title ID>, the game's device save
+		// under the player ID of zeros, and the players' names in Eden's player list (extras.cpp reads
+		// the same: a 0x10-byte header, then eight 0xC8-byte players, each its ID's low and high halves
+		// and its name at 0x28)
+		constexpr const char* kPlayers = "nand/user/save/0000000000000000";
+		bool PlayerId(const std::string& name)
+		{
+			return name.size() == 32 && std::all_of(name.begin(), name.end(), [](unsigned char c) { return std::isxdigit(c) != 0; });
+		}
+		bool NoPlayer(const std::string& id) { return id.find_first_not_of('0') == std::string::npos; }
+		// A player's own folder of an Eden user folder, as a choice's folder names it
+		bool PlayerFolder(const fs::path& folder)
+		{
+			return PlayerId(folder.filename().string()) && folder.parent_path().filename() == "0000000000000000" &&
+				   folder.parent_path().parent_path().filename() == "save";
+		}
+		// The game's save in a player's folder when it holds anything: its title ID as Eden writes it, or in small letters
+		fs::path GameIn(const fs::path& player, uint64_t title)
+		{
+			for (const char* format : {"%016llX", "%016llx"})
+			{
+				char name[17];
+				std::snprintf(name, sizeof(name), format, (unsigned long long)title);
+				const fs::path game = player / name;
+				CheckPath(game);
+				std::error_code error;
+				if (fs::is_directory(game, error) && !Eden::RyujinxSaves::ListFolder(game, error).empty() && !error) return game;
+			}
+			return {};
+		}
+		std::string PlayerName(const fs::path& user, std::string id)
+		{
+			std::transform(id.begin(), id.end(), id.begin(), [](unsigned char c) { return (char)std::toupper(c); });
+			std::array<unsigned char, 0x10 + 8 * 0xC8> data{};
+			std::ifstream file(user / "nand/system/save/8000000000000010/su/avators/profiles.dat", std::ios::binary);
+			if (!file.read((char*)data.data(), data.size())) return {};
+			for (size_t i = 0; i < 8; i++)
+			{
+				const auto* entry = data.data() + 0x10 + i * 0xC8;
+				uint64_t low = 0, high = 0;
+				std::memcpy(&low, entry, 8); std::memcpy(&high, entry + 8, 8);
+				char entryId[33];
+				std::snprintf(entryId, sizeof(entryId), "%016llX%016llX", (unsigned long long)high, (unsigned long long)low);
+				if (id != entryId) continue;
+				const char* name = (const char*)entry + 0x28;
+				return std::string(name, strnlen(name, 32));
+			}
+			return {};
+		}
+		// A choice for each player with the game's save, by name; the device save alone when no player has one
+		std::vector<Choice> PlayerChoices(const fs::path& user, uint64_t title)
+		{
+			const fs::path players = user / kPlayers;
+			CheckPath(players);
+			std::error_code error;
+			auto entries = Eden::RyujinxSaves::ListFolder(players, error);
+			if (error) throw fs::filesystem_error("Cannot list Eden's saves", players, error);
+			std::sort(entries.begin(), entries.end(), [](const auto& a, const auto& b) { return a.path().filename() < b.path().filename(); });
+			std::vector<Choice> choices;
+			std::string device;
+			for (const auto& entry : entries)
+			{
+				const std::string id = entry.path().filename().string();
+				if (!PlayerId(id) || GameIn(entry.path(), title).empty()) continue;
+				if (NoPlayer(id)) { device = entry.path().string(); continue; }
+				const std::string name = PlayerName(user, id);
+				choices.push_back({0, name.empty() ? "Player " + id : name, entry.path().string()});
+			}
+			if (choices.empty() && !device.empty()) choices.push_back({0, "Device save", device});
+			return choices;
+		}
 	}
 
 	std::vector<Choice> Choices(const std::string& root, uint64_t title, std::string& error)
@@ -146,12 +221,19 @@ namespace ps5eden::transfer
 				if (save.kind == Kind::Account)
 				{
 					char label[48]; std::snprintf(label, sizeof(label), "Account save %016llX", (unsigned long long)save.id);
-					choices.push_back({save.id, label});
+					choices.push_back({save.id, label, {}});
 				}
-			if (choices.empty() && !indexed.empty()) choices.push_back({0, "Device save"});
+			if (choices.empty() && !indexed.empty()) choices.push_back({0, "Device save", {}});
 			if (choices.empty() && !Eden::RyujinxSaves::DataRoot(root).empty())
 			{ error = "No Ryujinx saves found for this game."; return {}; }
-			if (choices.empty() && !Discover(root, title, error).empty()) choices.push_back({0, "Plain folder"});
+			if (choices.empty() && fs::is_directory(fs::path(root) / kPlayers))
+			{
+				choices = PlayerChoices(root, title);
+				if (choices.empty()) error = "No saves found for this game.";
+				else error.clear();
+				return choices;
+			}
+			if (choices.empty() && !Discover(root, title, error).empty()) choices.push_back({0, "Plain folder", {}});
 			if (!choices.empty()) error.clear();
 			return choices;
 		}
@@ -173,6 +255,25 @@ namespace ps5eden::transfer
 					if (save.kind == Kind::Device || !accountSaveId || save.id == accountSaveId)
 					{ result.push_back({save.kind, save.folder}); if (save.kind == Kind::Account) found = true; }
 				if (accountSaveId && !found) throw std::runtime_error("The selected Ryujinx account save is no longer available.");
+			}
+			else if (PlayerFolder(root))
+			{
+				// one player's save of an Eden user folder, and the game's device save beside it
+				if (accountSaveId) throw std::runtime_error("The selected Ryujinx index is no longer available.");
+				const fs::path player(root);
+				CheckPath(player);
+				if (const auto game = GameIn(player, title); !game.empty() && !NoPlayer(player.filename().string()))
+					result.push_back({Kind::Account, game.string()});
+				if (const auto game = GameIn(player.parent_path() / std::string(32, '0'), title); !game.empty())
+					result.push_back({Kind::Device, game.string()});
+			}
+			else if (fs::is_directory(fs::path(root) / kPlayers))
+			{
+				// an Eden user folder: its one player with a save, else a choice first
+				if (accountSaveId) throw std::runtime_error("The selected Ryujinx index is no longer available.");
+				const auto choices = PlayerChoices(root, title);
+				if (choices.size() > 1) throw std::runtime_error("Choose which player's save to take before importing.");
+				if (choices.size() == 1) return Discover(choices[0].folder, title, error);
 			}
 			else
 			{
