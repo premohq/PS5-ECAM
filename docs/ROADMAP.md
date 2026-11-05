@@ -295,7 +295,8 @@ its `main` stays upstream's (4.0 now).
    (no menu music, sounds, jingle or cover downloads), `3a4b194` (no updates, home screen tiles or first
    start of its own, its folder kept in `/data/porpoise`), and at `196e291` the GBA link (#1), real Wii
    Remotes through a DolphinBar, the Switch 2's GameCube controller and a Swedish interface (Porpoise's
-   #36, #37, #34). Its fonts and theme stay until step 4's menu replaces its in-game one, which draws with them.
+   #36, #37, #34), and at `8f42dd3` all of it on Porpoise 4.5, the owner's new base (the new look, PlayStation
+   Move, the Controller Hub, Triforce, VRR). Its fonts and theme stay until step 4's menu replaces its in-game one, which draws with them.
 3. **Its settings in Playtendoh's Settings**, the GameCube and Wii sides' and a game's own: every row of
    its `add_game_rows` (Video, Enhancements, Graphics, Audio, Controls, System, Wii Remote), with its
    controller layouts and Wii Remote setup, written to its own files by `port/retro/porpoise_settings.cpp`

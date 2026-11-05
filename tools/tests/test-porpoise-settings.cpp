@@ -50,14 +50,14 @@ int main(int argc, char** argv)
 	// a settings.ini as Porpoise writes it: its own lines kept, ours changed in place or added
 	const fs::path ini = root / "settings.ini";
 	fs::create_directories(root);
-	std::ofstream(ini) << "# Porpoise settings (written by the Settings screen)\nsettings_version = 18\nresolution = 3\nui_theme = 7\n"
+	std::ofstream(ini) << "# Porpoise settings (written by the Settings screen)\nsettings_version = 19\nresolution = 3\nui_theme = 7\n"
 						  "layout1 = 0 1 2 3\nfolder = /mnt/usb0/games\nvolume = 10\n";
 	Check(ps5porpoise::Write(ini.string(), {{"resolution", "5"}, {"volume", "4"}, {"wii_pointer", "2"}}, error), "written");
 	const std::string text = Text(ini);
 	Check(text.find("resolution = 5\n") != std::string::npos && text.find("volume = 4\n") != std::string::npos &&
 		text.find("resolution = 3") == std::string::npos, "a key changed where it was");
 	Check(text.find("ui_theme = 7\n") != std::string::npos && text.find("layout1 = 0 1 2 3\n") != std::string::npos &&
-		text.find("folder = /mnt/usb0/games\n") != std::string::npos && text.find("settings_version = 18\n") != std::string::npos,
+		text.find("folder = /mnt/usb0/games\n") != std::string::npos && text.find("settings_version = 19\n") != std::string::npos,
 		"Porpoise's own lines kept: its theme, presets, folders, version");
 	Check(text.rfind("wii_pointer = 2\n") == text.size() - std::strlen("wii_pointer = 2\n"), "a key it did not have added at the end");
 	const auto values = ps5porpoise::Read(ini.string());
@@ -67,7 +67,7 @@ int main(int argc, char** argv)
 
 	// a settings.ini made here: with Porpoise's version, or Porpoise moves its values as an older one's
 	const fs::path fresh = root / "fresh/settings.ini";
-	Check(ps5porpoise::Write(fresh.string(), {{"output_res", "1"}}, error) && Text(fresh).find("\nsettings_version = 18\n") != std::string::npos &&
+	Check(ps5porpoise::Write(fresh.string(), {{"output_res", "1"}}, error) && Text(fresh).find("\nsettings_version = 19\n") != std::string::npos &&
 		ps5porpoise::Read(fresh.string()).at("output_res") == "1", "a new settings.ini says which version of Porpoise's it is");
 
 	// the sides Porpoise plays: the GameCube's and the Wii's, by their program

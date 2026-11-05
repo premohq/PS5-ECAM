@@ -243,8 +243,9 @@ says where the app is going and how to fit in.
   **JMUtechnologies** ([#109](https://github.com/premohq/PlayTendoh/pull/109))
 - [Dolphin](https://github.com/dolphin-emu/dolphin) by the Dolphin team (GPL-2.0-or-later), in
   [Porpoise](https://github.com/elripalda/Porpoise-Dolphin-Emulator-for-PS5), its PS5 port by **elripalda**,
-  as [Porpoise X](https://github.com/premohq/Porpoise-X): the GameCube and the Wii; its USB layer for real
-  Wii Remotes through a DolphinBar, by **CroCop86** (GPL-3.0-or-later), on the Wii U side too (`port/ps5/porpoise_usbhid.cpp`)
+  as [Porpoise X](https://github.com/premohq/Porpoise-X): the GameCube and the Wii, with the Game Boy Advance
+  on the link cable by **[Phononenom](https://github.com/Phononenom)**; its USB layer for real Wii Remotes through a
+  DolphinBar, by **CroCop86** (GPL-3.0-or-later), on the Wii U side too (`port/ps5/porpoise_usbhid.cpp`)
 - The libretro cores the classics play on: [Mesen](https://github.com/libretro/Mesen) and
   [Mesen-S](https://github.com/libretro/Mesen-S) by Sour (GPL-3.0), [mGBA](https://github.com/libretro/mgba) by
   endrift (MPL-2.0), [Beetle VB](https://github.com/libretro/beetle-vb-libretro) (Mednafen, GPL-2.0-or-later),

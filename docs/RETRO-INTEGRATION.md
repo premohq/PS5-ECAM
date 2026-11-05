@@ -63,7 +63,7 @@ ECAM does not offer its Wii U/3DS/DS/Switch save or home-tile actions for these 
 
 Exact donor revisions are in tools/retro/sources.json:
 
-- premohq/Porpoise-X: 196e291b300d9f0c3e0bd524c28f2bdfaef806e7 (its ps5-ecam branch: 4.0, the bridge in it, none of its menus' sounds, downloads, updates, home screen tiles or first start when Playtendoh starts it; the GBA link (#1), real Wii Remotes through a DolphinBar, the Switch 2's GameCube controller and its Swedish interface (Porpoise #36, #37, #34))
+- premohq/Porpoise-X: 8f42dd3db2617e2b4deaf1f36d4139d1cda970fe (its ps5-ecam branch: 4.5, the bridge in it, none of its menus' sounds, downloads, updates, home screen tiles or first start when Playtendoh starts it; the GBA link (#1), real Wii Remotes through a DolphinBar, the Switch 2's GameCube controller and its Swedish interface (Porpoise #36, #37, #34))
 - Yahballon/PS5N64X: 28c55d854f5e451da9ffd5a78c694415accad172
 - Yahballon/PS5NESX: 58168b79fe0e2cce7d42b8b8109d74a4283a2b41
 

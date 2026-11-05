@@ -11,6 +11,9 @@
 
 set -euo pipefail
 source "$(dirname -- "${BASH_SOURCE[0]}")/env.sh"
+# Porpoise's tools/check-core.py runs llvm-objdump by that name, which Ubuntu's llvm-18 has only in its
+# own folder (on PATH, llvm-objdump-18)
+[[ -x /usr/lib/llvm-18/bin/llvm-objdump ]] && export PATH=$PATH:/usr/lib/llvm-18/bin
 pin=$(python3 -c 'import json,sys; print(next(s["commit"] for s in json.load(open(sys.argv[1]))["sources"] if s["name"] == "porpoise"))' \
     "$PS5CEMU_ROOT/tools/retro/sources.json")
 out=$PS5CEMU_BUILD/retro/porpoise
