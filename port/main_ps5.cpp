@@ -540,7 +540,7 @@ int main(int argc, char* argv[])
 			{"switch", "Switch games", ".nsp and .xci files: a game, its update or its DLC.", ps5eden::ScanFolder(now.nx.gamesFolder)},
 			{"switch-keys", "Switch keys", "prod.keys and title.keys, dumped from your own Switch.", eden + "/keys"},
 			{"switch-firmware", "Switch firmware", "The firmware's .nca files, dumped from your own Switch.", eden + "/firmware"},
-			{"switch2", "Switch 2 games", ".nup packages or unpacked ExeFS/RomFS game folders.", ps5eden::DefaultGamesFolder(true)},
+			{"switch2", "Switch 2 games", ".nup packages or unpacked ExeFS/RomFS game folders.", ps5eden::ScanFolder(now.nx2.gamesFolder, true)},
 			{"switch2-updates", "Switch 2 updates", "Switch 2 update packages for EglantinePS5.", eglantine + "/updates"},
 			{"switch2-dlc", "Switch 2 DLC", "Switch 2 DLC packages for EglantinePS5.", eglantine + "/dlc"},
 			{"switch2-keys", "Switch 2 keys", "prod.keys and title.keys, dumped from your own Switch.", eglantine + "/keys"},
