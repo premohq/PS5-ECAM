@@ -529,6 +529,7 @@ int main(int argc, char* argv[])
 	ps5stream::SetUploadFolders([] {
 		const ps5settings::Launcher now = ps5settings::Load();
 		const std::string eden = ps5eden::GameFilesFolder();
+		const std::string eglantine = ps5eglantine::DataFolder();
 		std::vector<ps5stream::Folder> folders = {
 			{"wiiu", "Wii U games", "WUA, WUD and WUX files, or an unpacked game in a .zip, .7z or .rar.", now.gamesFolder},
 			{"3ds", "3DS games",
@@ -539,6 +540,11 @@ int main(int argc, char* argv[])
 			{"switch", "Switch games", ".nsp and .xci files: a game, its update or its DLC.", ps5eden::ScanFolder(now.nx.gamesFolder)},
 			{"switch-keys", "Switch keys", "prod.keys and title.keys, dumped from your own Switch.", eden + "/keys"},
 			{"switch-firmware", "Switch firmware", "The firmware's .nca files, dumped from your own Switch.", eden + "/firmware"},
+			{"switch2", "Switch 2 games", ".nup packages or unpacked ExeFS/RomFS game folders.", ps5eden::DefaultGamesFolder(true)},
+			{"switch2-updates", "Switch 2 updates", "Switch 2 update packages for EglantinePS5.", eglantine + "/updates"},
+			{"switch2-dlc", "Switch 2 DLC", "Switch 2 DLC packages for EglantinePS5.", eglantine + "/dlc"},
+			{"switch2-keys", "Switch 2 keys", "prod.keys and title.keys, dumped from your own Switch.", eglantine + "/keys"},
+			{"switch2-firmware", "Switch 2 firmware", "Firmware files dumped from your own Switch.", eglantine + "/firmware"},
 			{"amiibo", "Amiibo", "Your amiibo dumps (.bin), for the Wii U and the 3DS.", ps5paths::Root() + "/amiibo"},
 			{"3ds-camera", "3DS camera",
 				"A picture (PNG or JPEG) the 3DS's cameras see, the newest sent: a QR code for a game to scan.",
