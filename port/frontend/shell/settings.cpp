@@ -1822,6 +1822,15 @@ namespace ps5shell
 						for (const auto& choice : ps5eden::transfer::Choices(folder, m_gameTitle, why))
 							m_switchImports.push_back({folder, fmt::format("USB {} · {} · {}", drive, name, choice.label), choice.accountSaveId});
 					}
+			if (IsSwitch() && !ps5eden::IsMadeId(m_gameTitle))
+			{
+				const std::string saves = ps5eden::StandaloneDataFolder() + "/user/nand/user/save/0000000000000000";
+				std::string why;
+				const auto choices = ps5eden::transfer::ProsperoEdenChoices(saves, m_gameTitle, why);
+				for (size_t i = 0; i < choices.size(); i++)
+					m_switchImports.push_back({choices[i].folder,
+						fmt::format("ProsperoEden · {}", TrF("Player {0}", std::to_string(i + 1))), 0});
+			}
 			m_gameSavesAt = m_now;
 		}
 		const ps5saves::Status status = ps5saves::Current();

@@ -4,6 +4,7 @@
 #include "../app/own_status.h"
 #include <algorithm>
 #include <chrono>
+#include <cctype>
 #include <filesystem>
 #include <fstream>
 #include <functional>
@@ -154,6 +155,45 @@ namespace ps5eden::transfer
 			if (choices.empty() && !Discover(root, title, error).empty()) choices.push_back({0, "Plain folder"});
 			if (!choices.empty()) error.clear();
 			return choices;
+		}
+		catch (const std::exception& failure) { error = failure.what(); return {}; }
+	}
+
+	std::vector<FolderChoice> ProsperoEdenChoices(const std::string& root, uint64_t title, std::string& error)
+	{
+		try
+		{
+			if ((title >> 56) != 1) throw std::runtime_error("A real Switch title ID is required.");
+			CheckPath(root);
+			std::error_code statusError;
+			const auto rootStatus = ps5files::OwnStatus(root, statusError);
+			if (statusError == std::errc::no_such_file_or_directory) { error.clear(); return {}; }
+			if (statusError) throw fs::filesystem_error("Cannot inspect standalone save folder", root, statusError);
+			if (!fs::is_directory(rootStatus)) { error.clear(); return {}; }
+
+			std::error_code listError;
+			auto entries = Eden::RyujinxSaves::ListFolder(root, listError);
+			if (listError) throw fs::filesystem_error("Cannot list standalone save folder", root, listError);
+			std::sort(entries.begin(), entries.end(), [](const auto& left, const auto& right) {
+				return left.path().filename().string() < right.path().filename().string();
+			});
+
+			std::vector<FolderChoice> result;
+			for (const auto& entry : entries)
+			{
+				const std::string profile = entry.path().filename().string();
+				if (profile.size() != 32 || !std::all_of(profile.begin(), profile.end(), [](unsigned char c) { return std::isxdigit(c); }))
+					continue;
+				const auto profileStatus = ps5files::OwnStatus(entry.path(), statusError);
+				if (statusError == std::errc::no_such_file_or_directory) { statusError.clear(); continue; }
+				if (statusError) throw fs::filesystem_error("Cannot inspect standalone save profile", entry.path(), statusError);
+				if (fs::is_symlink(profileStatus) || !fs::is_directory(profileStatus)) continue;
+				std::string why;
+				if (!Choices(entry.path().string(), title, why).empty())
+					result.push_back({entry.path().string(), profile});
+			}
+			error.clear();
+			return result;
 		}
 		catch (const std::exception& failure) { error = failure.what(); return {}; }
 	}

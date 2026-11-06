@@ -11,8 +11,11 @@ namespace ps5eden::transfer
 	// Detect the selected title only, using the pinned standalone's plain-folder/Ryujinx index
 	// readers. No download, conversion or source modification. A Symlinked save is refused.
 	struct Choice { uint64_t accountSaveId = 0; std::string label; };
+	struct FolderChoice { std::string folder; std::string profileId; };
 	// Ryujinx account save IDs are stable selectors, not display names or Eden player IDs.
 	std::vector<Choice> Choices(const std::string& root, uint64_t title, std::string& error);
+	// Account saves in the standalone ProsperoEden user/save tree, selected by profile folder.
+	std::vector<FolderChoice> ProsperoEdenChoices(const std::string& root, uint64_t title, std::string& error);
 	std::vector<Source> Discover(const std::string& root, uint64_t title, std::string& error, uint64_t accountSaveId = 0);
 	// Explicit destinations; caller resolves the selected Eden player. All source trees are
 	// staged and checked before replacing either destination. Old directories remain in recovery.
