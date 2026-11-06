@@ -551,11 +551,9 @@ namespace ps5eden
 	std::vector<ps5emu::Game> ListGames(bool switch2Only)
 	{
 		std::lock_guard lock(s_mutex);
-		if (!switch2Only)
-			return s_games;
 		std::vector<ps5emu::Game> games;
 		for (const auto& game : s_games)
-			if (game.format == "Switch 2")
+			if (BelongsToSwitchSide(game.format, switch2Only))
 				games.push_back(game);
 		return games;
 	}
@@ -576,9 +574,9 @@ namespace ps5eden
 			return -1;
 		std::vector<ps5emu::Game> games;
 		Scan(scanned, games);
-		if (switch2Only)
-			return (int)std::count_if(games.begin(), games.end(), [](const ps5emu::Game& game) { return game.format == "Switch 2"; });
-		return (int)games.size();
+		return (int)std::count_if(games.begin(), games.end(), [switch2Only](const ps5emu::Game& game) {
+			return BelongsToSwitchSide(game.format, switch2Only);
+		});
 	}
 
 	std::string CoverPath(const ps5emu::Game& game)
