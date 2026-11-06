@@ -241,8 +241,8 @@ namespace ps5shell
 			if (nx2)
 			{
 				games.aboutTitle = Tr("Where your Switch 2 games go");
-				games.about = TrF("Put Switch 2 game folders in {0}; each needs exefs/main and romfs/ (or base/exefs/main and romfs/). Keep updates with the game folder.", folder);
-				games.chips = {"exefs/main", "romfs/", "base/", "updates/"};
+				games.about = TrF("Put them in {0}, or choose any folder the PS5 can read, such as one on a USB drive. Folders inside it are searched too.", folder);
+				games.chips = {"exefs/main", "romfs/", "base/", "updates/", "dlc/", "firmware/"};
 				games.guide = std::string(kRepository) + "#switch-2";
 			}
 			games.guideTitle = Tr("the game files page");
