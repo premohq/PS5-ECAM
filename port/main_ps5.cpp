@@ -731,7 +731,7 @@ int main(int argc, char* argv[])
 					"This build has no Switch emulator: eden/eboot.bin is not in the app's folder.");
 			const std::string& folder = switch2 ? settings.nx2.gamesFolder : settings.nx.gamesFolder;
 			if (!keepList(system, folder))
-				ps5eden::StartScan(folder);
+				ps5eden::StartScan(folder, switch2);
 			return;
 		}
 		if (system == ps5launcher::System::Nds)
