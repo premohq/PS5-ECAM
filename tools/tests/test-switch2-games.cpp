@@ -44,10 +44,10 @@ int main(int argc, char** argv)
 			  !IsMain("Pokopia/exefs/rtld") && !IsMain("Pokopia/main") && !IsMain("Game.nsp"),
 		"a game folder's ExeFS main, exefs/ in any case, and nothing else");
 
-	Check(IsSwitchPackageName("Game.nsp") && IsSwitchPackageName("Game.XCI") && IsSwitchPackageName("Game.nUp") &&
-			  !IsSwitchPackageName("Game.nupx") && !IsSwitchPackageName("README.txt"),
+	Check(ps5eden::IsSwitchPackageName("Game.nsp") && ps5eden::IsSwitchPackageName("Game.XCI") && ps5eden::IsSwitchPackageName("Game.nUp") &&
+			  !ps5eden::IsSwitchPackageName("Game.nupx") && !ps5eden::IsSwitchPackageName("README.txt"),
 		"Switch packages, including case-insensitive NUP files, are discovered");
-	Check(IsSwitch2PackageName("Game.nup") && IsSwitch2PackageName("Game.NUP") && !IsSwitch2PackageName("Game.nsp"),
+	Check(ps5eden::IsSwitch2PackageName("Game.nup") && ps5eden::IsSwitch2PackageName("Game.NUP") && !ps5eden::IsSwitch2PackageName("Game.nsp"),
 		"only NUP packages are classified as Switch 2 packages");
 
 	Put(root / "Pokopia/exefs/main", "code");
