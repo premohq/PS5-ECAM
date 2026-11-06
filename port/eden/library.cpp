@@ -79,12 +79,12 @@ namespace ps5eden
 			return DataFolder() + "/covers" + name;
 		}
 
-		// The title ID in a dump's name ("[0100ABCD12345000]"), else 0
+		// A title ID in a dump's name (Switch IDs begin 01, Switch 2 IDs begin 04), else 0
 		uint64_t TaggedId(const std::string& name)
 		{
 			for (size_t open = name.find('['); open != std::string::npos; open = name.find('[', open + 1))
 			{
-				if (open + 17 >= name.size() || name[open + 17] != ']' || name.compare(open + 1, 2, "01") != 0)
+				if (open + 17 >= name.size() || name[open + 17] != ']')
 					continue;
 				if (std::all_of(name.begin() + open + 1, name.begin() + open + 17, [](char c) { return std::isxdigit((unsigned char)c) != 0; }))
 					return std::strtoull(name.substr(open + 1, 16).c_str(), nullptr, 16);
