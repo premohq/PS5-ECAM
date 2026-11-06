@@ -4,6 +4,7 @@
 #include "exefs.h"
 #include "switch_file.h"
 #include "nx_files.h"
+#include "../eglantine/launch.h"
 #include "../app/gameinfo.h"
 #include "../app/paths.h"
 #include "../ps5/log.h"
@@ -313,7 +314,7 @@ namespace ps5eden
 		// whose icons are to be read after (no cover yet). The updates and DLC there and in Eden's updates/
 		// and dlc/ go with their games (addons.h): the update's version and how many DLC, on its page.
 		void ScanWithKeys(const std::string& folder, std::vector<ps5emu::Game>& games, std::vector<fs::path>& covers,
-			std::vector<addons::File>& found)
+			std::vector<addons::File>& found, bool switch2Side)
 		{
 			std::vector<fs::path> files;
 			Collect(folder, files);
@@ -324,14 +325,14 @@ namespace ps5eden
 					seen.insert(path.lexically_normal().string());
 				std::vector<fs::path> more;
 				for (const char* sub : {"/updates", "/dlc"})
-					CollectAll(GameFilesFolder() + sub, more);
+					CollectAll(GameFilesFolder(switch2Side) + sub, more);
 				for (fs::path& path : more)
 					if (seen.insert(path.lexically_normal().string()).second)
 						files.push_back(std::move(path));
 			}
 			found.clear();
 			nx::Keys keys;
-			const bool keyed = nx::LoadKeys(GameFilesFolder() + "/keys", keys);
+			const bool keyed = nx::LoadKeys(GameFilesFolder(switch2Side) + "/keys", keys);
 			std::map<std::string, Known> known = LoadKnown();
 			size_t read = 0, failed = 0, addOns = 0;
 			for (size_t i = 0; i < files.size(); i++)
@@ -431,9 +432,14 @@ namespace ps5eden
 		return ps5paths::Eden();
 	}
 
-	std::string DefaultGamesFolder()
+	std::string DefaultGamesFolder(bool switch2Side)
 	{
-		return DataFolder() + "/roms";
+		return (switch2Side ? Switch2FilesFolder() : GameFilesFolder()) + "/roms";
+	}
+
+	std::string Switch2FilesFolder()
+	{
+		return ps5eglantine::DataFolder();
 	}
 
 	std::string GameFilesFolder()
@@ -460,9 +466,9 @@ namespace ps5eden
 		return DataFolder();
 	}
 
-	std::string ScanFolder(const std::string& folder)
+	std::string ScanFolder(const std::string& folder, bool switch2Side)
 	{
-		return folder == DefaultGamesFolder() || folder.empty() ? GameFilesFolder() + "/roms" : folder;
+		return folder.empty() || folder == DefaultGamesFolder(switch2Side) ? DefaultGamesFolder(switch2Side) : folder;
 	}
 
 	bool KeysFound()
@@ -502,21 +508,22 @@ namespace ps5eden
 		return IsSwitchPackageName(name);
 	}
 
-	void StartScan(const std::string& folder)
+	void StartScan(const std::string& folder, bool switch2Side)
 	{
 		if (s_scanning.exchange(true))
 			return;
 		// Eden's folders from the first start, so there is somewhere to put keys, firmware and games
 		std::error_code ec;
-		for (const char* sub : {"keys", "firmware", "roms"})
-			fs::create_directories(fs::path(DataFolder()) / sub, ec);
-		const std::string scanned = ScanFolder(folder);
-		std::thread([scanned] {
+		const std::string files = switch2Side ? Switch2FilesFolder() : GameFilesFolder();
+		for (const char* sub : {"keys", "firmware", "roms", "updates", "dlc"})
+			fs::create_directories(fs::path(files) / sub, ec);
+		const std::string scanned = ScanFolder(folder, switch2Side);
+		std::thread([scanned, switch2Side] {
 			const auto started = std::chrono::steady_clock::now();
 			std::vector<ps5emu::Game> games;
 			std::vector<fs::path> covers;
 			std::vector<addons::File> addOns;
-			ScanWithKeys(scanned, games, covers, addOns);
+			ScanWithKeys(scanned, games, covers, addOns, switch2Side);
 			// the same game twice (an NSP and an XCI, a copy in a folder): listed once
 			std::set<uint64_t> listed;
 			std::erase_if(games, [&](const ps5emu::Game& game) { return !listed.insert(game.titleId).second; });
@@ -569,7 +576,7 @@ namespace ps5eden
 	int CountGames(const std::string& folder, bool switch2Only)
 	{
 		std::error_code ec;
-		const std::string scanned = ScanFolder(folder);
+		const std::string scanned = ScanFolder(folder, switch2Only);
 		if (!fs::is_directory(scanned, ec))
 			return -1;
 		std::vector<ps5emu::Game> games;
