@@ -44,12 +44,18 @@ release, until 6.0 is out. What it brings:
 
 - **A new name and a new look:** Playtendoh, with a mark of every console's controller in a ring, on the
   PS5's home screen and at the launcher's top left.
+- **Two layouts, picked on the first start:** Classic, one console at a time from a carousel of five, and
+  **Orbit**, where the logo is a dial L1 and R1 turn, its middle what you played last on every console,
+  and the game you are on fills the background: a picture of your last save state, else a screenshot.
+- **The Timeline** (touchpad click): every console's games on one shelf, oldest to newest, each as its
+  cartridge, card, disc or case.
 - **Twenty-one systems** (below): the GameCube and the Wii on Dolphin (Porpoise), the iQue Player, and
   thirteen classics on libretro cores inside the app (the NES, SNES, Game Boys, N64, Virtual Boy, Pokémon
   mini, Famicom Disk System, Super Game Boy, Game &amp; Watch, Satellaview and VS. System), each a side of
   its own with its colour, its controller and its backdrop.
 - **Switch 2 (experimental):** a side of its own on [EglantinePS5](https://github.com/heydemoura/EglantinePS5),
-  with Playtendoh's in-game menu, from JMUtechnologies ([#109](https://github.com/premohq/PlayTendoh/pull/109)).
+  with Playtendoh's in-game menu, from JMUtechnologies ([#109](https://github.com/premohq/PlayTendoh/pull/109)),
+  on [Lichii](https://github.com/zortos293/Lichii)'s all-in-one core.
 - **Real Wii Remotes on the Wii U side:** an original Wii Remote or Wii Remote Plus through a Mayflash
   DolphinBar (mode 4), with its own pointer, motion and Nunchuk: choose **Real Wii Remote** as a player's
   controller. It runs on Project Porpoise's USB layer, by CroCop86, as the Wii side does.
@@ -81,7 +87,7 @@ Playtendoh is free. If it brings your games back, you can support it:
 | **Nintendo 3DS** | Azahar: dynarmic recompiler, Vulkan | `.3ds`, `.cci`, `.cxi`, `.app`, `.3dsx`, `.elf`, compressed `.z*`, archives; installed `.cia` |
 | **Nintendo DS** | melonDS: ARM recompiler | `.nds`, also in archives |
 | **Nintendo Switch** | Eden (ProsperoEden), its own program | `.nsp`, `.xci`, each alone or with its update and DLC |
-| **Switch 2** (experimental) | EglantinePS5 (Eglantine), its own program | game folders with ExeFS and RomFS |
+| **Switch 2** (experimental) | EglantinePS5 on Lichii, its own program | game folders with ExeFS and RomFS |
 | **GameCube**, **Wii** | Dolphin (Porpoise X), its own program | `.iso`, `.gcm`, `.rvz`, `.ciso`, `.gcz`, `.wia`; Wii `.wbfs`, `.wad` |
 | **Nintendo 64** | ParaLLEl-N64 core | `.z64`, `.n64`, `.v64` |
 | **NES**, **Famicom Disk System**, **VS. System** | Mesen core | `.nes`, `.unf`, `.fds` |
@@ -152,7 +158,7 @@ files** on each system. No games, keys or firmware are included. Use dumps of ga
 | | |
 |---|---|
 | **L1 / R1** | Previous or next console |
-| **Touchpad click** | The next system |
+| **Touchpad click** | The Timeline: every console's games on one shelf (in the Library) |
 | **Cross / Circle** | Play or open / back |
 | **Options** | A game's menu: game settings, saves, graphic packs, mods, home screen tile |
 | **Touchpad click + Options** | The in-game menu |
@@ -246,6 +252,8 @@ says where the app is going and how to fit in.
   as [Porpoise X](https://github.com/premohq/Porpoise-X): the GameCube and the Wii, with the Game Boy Advance
   on the link cable by **[Phononenom](https://github.com/Phononenom)**; its USB layer for real Wii Remotes through a
   DolphinBar, by **CroCop86** (GPL-3.0-or-later), on the Wii U side too (`port/ps5/porpoise_usbhid.cpp`)
+- Orbit's screenshots: [libretro's thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) and,
+  for the Switch and Switch 2, the eShop's, by way of [blawar/titledb](https://github.com/blawar/titledb)
 - The libretro cores the classics play on: [Mesen](https://github.com/libretro/Mesen) and
   [Mesen-S](https://github.com/libretro/Mesen-S) by Sour (GPL-3.0), [mGBA](https://github.com/libretro/mgba) by
   endrift (MPL-2.0), [Beetle VB](https://github.com/libretro/beetle-vb-libretro) (Mednafen, GPL-2.0-or-later),

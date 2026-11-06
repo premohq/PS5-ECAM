@@ -1,7 +1,8 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: GPL-3.0-or-later
 # Builds the Switch 2 side's child runtime (build/eglantine): EglantinePS5, heydemoura's PS5 port of
-# Djihads80's Eglantine (Eden with Switch 2 support; GPL-3.0-or-later), from .deps/eglantine/EglantinePS5
+# Djihads80's Eglantine (Eden with Switch 2 support; GPL-3.0-or-later) with Lichii's all-in-one as its core
+# (zortos293/Lichii, Eglantine's continuation), from .deps/eglantine/EglantinePS5
 # with patches/eglantine, by its own build (its Makefile's package: the Eglantine submodule, its pinned
 # inputs, RADV, FFmpeg, Eden) with EDEN_ECAM_CHILD on: PS5-ECAM's in-game menu compiled in from this
 # checkout (PS5ECAM_PORT, port/eden/ingame.h) and drawn in its Vulkan present pass, its Lapy helper built
@@ -23,6 +24,17 @@ eglantine=$PS5CEMU_ROOT/.deps/eglantine/EglantinePS5
 out=$PS5CEMU_BUILD/eglantine
 
 bash "$PS5CEMU_ROOT/tools/eglantine-patches.sh" apply
+
+# The core, as the branch records it: Lichii's all-in-one (zortos293/Lichii, patches/eglantine 0010), not
+# the commit EglantinePS5 pins. A checkout from before is moved to it, shallow as tools/deps.py makes it
+core=$(git -C "$eglantine" rev-parse HEAD:Eglantine)
+if [[ $(git -C "$eglantine/Eglantine" rev-parse HEAD) != "$core" ]]; then
+    echo "==> [eglantine] the core to ${core:0:10}"
+    git -C "$eglantine" submodule sync -q Eglantine
+    git -C "$eglantine/Eglantine" checkout -q -- .
+    git -C "$eglantine/Eglantine" fetch -q --depth 1 origin "$core"
+    git -C "$eglantine/Eglantine" checkout -q --detach "$core"
+fi
 
 # pacbrew beside it, as this repository has it at the same pin (tools/deps.json)
 mkdir -p "$eglantine/.deps" "$out"

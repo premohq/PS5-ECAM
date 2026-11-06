@@ -14,7 +14,8 @@ wrong.
 | Button | Action |
 |---|---|
 | L1 / R1 | Previous or next console |
-| Touchpad click | The next side: Wii U, 3DS, DS (in the Library and Settings) |
+| Touchpad click | The Timeline, from the Library; the next console, in Settings |
+| R3 | Orbit: Home, what you played last on every console |
 | Cross | Play the game, or open what's focused |
 | Options | A game's options: its hub, its game settings, favourite, hide |
 | Square / Triangle | Sort and search (Library); a setting's help (Settings), and Square back to Default (game settings) |

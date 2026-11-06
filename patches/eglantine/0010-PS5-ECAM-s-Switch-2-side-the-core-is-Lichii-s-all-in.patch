@@ -1,0 +1,493 @@
+From 0000000000000000000000000000000000000000 Mon Sep 17 00:00:00 2001
+From: premohq <48417750+premohq@users.noreply.github.com>
+Date: Fri, 6 Nov 2026 01:48:16 -0500
+Subject: [PATCH] PS5-ECAM's Switch 2 side: the core is Lichii's all-in-one
+
+zortos293/Lichii at 9b1a32dbb1 (test/all-in-one-mt), Eglantine's continuation by its author: 956 commits on
+the core this port pinned, none of its own left out. The port moved onto it: its three core patches again
+(an extracted dump's layers beside Lichii's own fallback for a base with no RomFS; the U16 F2I modifiers with
+Lichii's check of the small form's other bits), and tools/lichii-anchors.json for the anchors of
+prepare-vulkan-port.py whose code moved. Left out with the code they were on: the draw dispatch check mask
+(Lichii's SubmissionPolicy budgets instead), the compute pipeline's first-use probe and the dynamic state's
+line. EDEN_NX2_PARALLEL_RECORD stays off, as its default is.
+---
+ .gitmodules                                   |   2 +-
+ Eglantine                                     |   2 +-
+ .../0001-extracted-versioned-content.patch    |  34 +++---
+ ...0002-ampere-u16-f2i-source-modifiers.patch |  79 +++----------
+ ...3-audio-out-manager-session-lifetime.patch |  26 +----
+ tools/lichii-anchors.json                     | 110 ++++++++++++++++++
+ tools/prepare-vulkan-port.py                  |  49 +++-----
+ 7 files changed, 161 insertions(+), 141 deletions(-)
+ create mode 100644 tools/lichii-anchors.json
+
+diff --git a/.gitmodules b/.gitmodules
+index aceaf37..9313bd6 100644
+--- a/.gitmodules
++++ b/.gitmodules
+@@ -1,3 +1,3 @@
+ [submodule "Eglantine"]
+ 	path = Eglantine
+-	url = https://github.com/zortos293/Eglantine
++	url = https://github.com/zortos293/Lichii
+diff --git a/Eglantine b/Eglantine
+index 3140648..9b1a32d 160000
+--- a/Eglantine
++++ b/Eglantine
+@@ -1 +1 @@
+-Subproject commit 3140648a668aaebf87bae2dea17512fdca125ba0
++Subproject commit 9b1a32dbb160d2d55ad1409961e87ec4a1256711
+diff --git a/tools/eglantine-patches/0001-extracted-versioned-content.patch b/tools/eglantine-patches/0001-extracted-versioned-content.patch
+index eaad7a4..3de647e 100644
+--- a/tools/eglantine-patches/0001-extracted-versioned-content.patch
++++ b/tools/eglantine-patches/0001-extracted-versioned-content.patch
+@@ -1,17 +1,16 @@
+ diff --git a/src/core/loader/deconstructed_rom_directory.cpp b/src/core/loader/deconstructed_rom_directory.cpp
+-index cda1645548..aa1bea9e75 100644
++index 491535a62..26014e41e 100644
+ --- a/src/core/loader/deconstructed_rom_directory.cpp
+ +++ b/src/core/loader/deconstructed_rom_directory.cpp
+-@@ -6,6 +6,8 @@
+- 
+- #include <algorithm>
++@@ -8,6 +8,7 @@
+  #include <cctype>
+-+#include <charconv>
++ #include <charconv>
++ #include <chrono>
+ +#include "core/file_sys/vfs/vfs_layered.h"
+  #include <cstring>
+- #include <string_view>
+- #include "common/logging.h"
+-@@ -77,12 +79,71 @@ struct PatchCollection {
++ #include <map>
++ #include <memory>
++@@ -82,6 +83,55 @@ struct PatchCollection {
+  
+  namespace {
+  
+@@ -64,9 +63,10 @@ index cda1645548..aa1bea9e75 100644
+ +    return FileSys::LayeredVfsDirectory::MakeLayeredDirectory(std::move(dirs));
+ +}
+ +
+- // RomFS for a loose ExeFS: the first .romfs file next to main, else a romfs/ directory next to
+- // the exefs/ directory (the usual layout of an extracted title).
+- FileSys::VirtualFile FindLooseRomFS(const FileSys::VirtualDir& exefs_dir) {
++ FileSys::VirtualDir FindLooseRomFSDirectory(const FileSys::VirtualDir& parent) {
++     if (parent == nullptr) {
++         return nullptr;
++@@ -106,6 +156,16 @@ FileSys::VirtualFile FindLooseRomFS(const FileSys::VirtualDir& exefs_dir) {
+      if (exefs_dir == nullptr) {
+          return nullptr;
+      }
+@@ -83,7 +83,7 @@ index cda1645548..aa1bea9e75 100644
+      for (const auto& f : exefs_dir->GetFiles()) {
+          if (f->GetExtension() == "romfs") {
+              return f;
+-@@ -169,8 +230,9 @@ AppLoader_DeconstructedRomDirectory::AppLoader_DeconstructedRomDirectory(FileSys
++@@ -286,8 +346,9 @@ AppLoader_DeconstructedRomDirectory::AppLoader_DeconstructedRomDirectory(FileSys
+      : AppLoader(std::move(file_))
+      , override_update(override_update_)
+  {
+@@ -95,16 +95,16 @@ index cda1645548..aa1bea9e75 100644
+  
+      // Title ID
+      const auto npdm = file_dir->GetFile("main.npdm");
+-@@ -233,7 +295,7 @@ AppLoader_DeconstructedRomDirectory::AppLoader_DeconstructedRomDirectory(FileSys
++@@ -350,7 +411,7 @@ AppLoader_DeconstructedRomDirectory::AppLoader_DeconstructedRomDirectory(FileSys
+          name = control->GetApplicationName();
+      }
+  
+--    romfs = FindLooseRomFS(file_dir);
+-+    romfs = FindLooseRomFS(physical_dir);
++-    romfs_exefs_dir = file_dir;
+++    romfs_exefs_dir = physical_dir;
+      if (const auto title_dir = file_dir->GetParentDirectory()) {
+-         romfs_version = RomFSProductVersion(title_dir->GetSubdirectory("romfs"));
++         romfs_version = RomFSProductVersion(FindLooseRomFSDirectory(title_dir));
+      }
+-@@ -270,7 +332,7 @@ AppLoader_DeconstructedRomDirectory::LoadResult AppLoader_DeconstructedRomDirect
++@@ -397,7 +458,7 @@ AppLoader_DeconstructedRomDirectory::LoadResult AppLoader_DeconstructedRomDirect
+              return {ResultStatus::ErrorNullFile, {}};
+          }
+  
+diff --git a/tools/eglantine-patches/0002-ampere-u16-f2i-source-modifiers.patch b/tools/eglantine-patches/0002-ampere-u16-f2i-source-modifiers.patch
+index a220888..ca808d8 100644
+--- a/tools/eglantine-patches/0002-ampere-u16-f2i-source-modifiers.patch
++++ b/tools/eglantine-patches/0002-ampere-u16-f2i-source-modifiers.patch
+@@ -1,80 +1,27 @@
+ diff --git a/src/shader_recompiler/frontend/ampere/lower_to_maxwell.h b/src/shader_recompiler/frontend/ampere/lower_to_maxwell.h
+-index 0c9b8c352d..29ee25d6d8 100644
++index d5fd8e711..1a07271be 100644
+ --- a/src/shader_recompiler/frontend/ampere/lower_to_maxwell.h
+ +++ b/src/shader_recompiler/frontend/ampere/lower_to_maxwell.h
+-@@ -1525,14 +1525,17 @@ case 0x311: { // F2I.FTZ.U64.TRUNC, per nvdisasm: Maxwell's F2I gives 32 bits, s
+-             if ((!half && !small && !byte && !word) ||
+-                 ((byte || small || extended_word) &&
++@@ -2126,9 +2126,7 @@ inline LoweredProgram LowerToMaxwellWith(std::span<const Instruction> code, u32
++                 (signed_half && (insn.Bits(24, 8) || (insn.words[3] & 0xc00001ffU))) ||
++                 ((byte || small || short_trunc || extended_word) &&
+                   (insn.Bits(24, 8) || (insn.words[3] & 0xc00001ffU) ||
+--                  (opcode == 0xb05 && insn.Bits(62, 2)) ||
+-+                  (opcode == 0xb05 && insn.Bits(62, 2) && !small) ||
++-                  (opcode == 0xb05 &&
++-                   (insn.Bits(63, 1) || (!small && insn.Bits(62, 1)) ||
++-                    (small && insn.Bits(59, 3)))) ||
+++                  (opcode == 0xb05 && ((!small && insn.Bits(62, 2)) || (small && insn.Bits(59, 3)))) ||
+                    insn.Bits(91, 1) != static_cast<u32>(opcode == 0xd05))) ||
+-                 (opcode != 0xb05 && (insn.words[1] & 0xffffff00U)) ||
+-                 (opcode == 0xd05 && uniform_register(insn.Bits(32, 8)) == ~0U)) {
++                 (opcode != 0xb05 && (insn.words[1] & ~(half ? 0x100000ffU :
++                     0xffU | (absolute ? 0x40000000U : 0U) | (negate ? 0x80000000U : 0U)))) ||
++@@ -2136,7 +2134,10 @@ inline LoweredProgram LowerToMaxwellWith(std::span<const Instruction> code, u32
+                  return fail(index, "native float-to-integer conversion mode");
+              }
+              const bool is_signed = insn.Bits(72, 1);
+--            u32 source = opcode == 0xb05 ? materialize(2, 0, 252, false, false)
++-            u32 source = opcode == 0xb05 ? materialize(2, 0, 252, small && insn.Bits(62, 1), false)
+ +            // U16 constant sources use the ordinary float absolute/negate bits.
+ +            // Apply them before NaN handling, saturation and rounding.
+ +            u32 source = opcode == 0xb05 ? materialize(2, 0, 252, small && insn.Bits(62, 1),
+ +                                                       small && insn.Bits(63, 1))
+                         : opcode == 0xd05 ? uniform_register(insn.Bits(32, 8)) : insn.Bits(32, 8);
+              if (half) {
+-                 extract_half({source, 2, false, false}, 0, 252);
+-diff --git a/src/tests/video_core/ampere_f2i.cpp b/src/tests/video_core/ampere_f2i.cpp
+-index 579510f75f..54919344ff 100644
+---- a/src/tests/video_core/ampere_f2i.cpp
+-+++ b/src/tests/video_core/ampere_f2i.cpp
+-@@ -701,4 +701,51 @@ TEST_CASE("Ampere half explicit texel fetches keep unsupported formats and regis
+-     invalid[0].words[1] = 0x33c044f6;
+-     REQUIRE_FALSE(static_cast<bool>(LowerToMaxwell(invalid)));
+- }
+-+
+-+TEST_CASE("Ampere U16 F2I applies constant float modifiers before conversion",
+-+          "[video_core][ampere]") {
+-+    // Captured from Pokopia's rejected fragment shader; nvdisasm SM87:
+-+    // F2I.FTZ.U16.NTZ R6, |c[0x3][0xd0]|.
+-+    for (const u32 predicate : {2U, 7U, 10U}) {
+-+        const std::array<Instruction, 2> plain{{
+-+            {{0x00060b05U | (predicate << 12), 0x00c03400, 0x00212800, 0x000e2200}},
+-+            {{0x0000794d, 0, 0x03800000, 0}},
+-+        }};
+-+        const auto baseline = LowerToMaxwell(plain);
+-+        REQUIRE(static_cast<bool>(baseline));
+-+        const u64 guard = u64{predicate} << 16;
+-+        REQUIRE(baseline.instructions.front() ==
+-+                (0x4c98000000000000ULL | guard | 252 | (15ULL << 39) |
+-+                 (0x34ULL << 20) | (3ULL << 34)));
+-+        for (const u32 modifier : {0U, 0x40000000U, 0x80000000U, 0xc0000000U}) {
+-+            auto code = plain;
+-+            code[0].words[1] |= modifier;
+-+            const auto lowered = LowerToMaxwell(code);
+-+            REQUIRE(static_cast<bool>(lowered));
+-+            REQUIRE(lowered.instructions.front() == baseline.instructions.front());
+-+            size_t prefix = 1;
+-+            if (modifier & 0x40000000U) {
+-+                REQUIRE(lowered.instructions[prefix++] ==
+-+                        (0x0400000000000000ULL | guard | 252 | (252ULL << 8) |
+-+                         (0x7fffffffULL << 20)));
+-+            }
+-+            if (modifier & 0x80000000U) {
+-+                REQUIRE(lowered.instructions[prefix++] ==
+-+                        (0x0400000000000000ULL | guard | 252 | (252ULL << 8) |
+-+                         (0x80000000ULL << 20) | (2ULL << 53)));
+-+            }
+-+            // Existing U16 FTZ/NTZ conversion, saturation, and execution guard
+-+            // must remain identical after the source modifier instructions.
+-+            REQUIRE(lowered.instructions.size() == baseline.instructions.size() + prefix - 1);
+-+            REQUIRE(std::equal(baseline.instructions.begin() + 1, baseline.instructions.end(),
+-+                               lowered.instructions.begin() + prefix));
+-+            auto invalid = code;
+-+            invalid[0].words[1] |= 1U << 6; // Unaligned constant-buffer address.
+-+            REQUIRE_FALSE(static_cast<bool>(LowerToMaxwell(invalid)));
+-+            invalid = code;
+-+            invalid[0].words[2] |= 0x08000000U; // Uniform mode on constant source.
+-+            REQUIRE_FALSE(static_cast<bool>(LowerToMaxwell(invalid)));
+-+        }
+-+    }
+-+}
+- } // namespace
++                 extract_half({source, insn.Bits(60, 1) ? 3U : 2U, false, false}, 0, 252);
+diff --git a/tools/eglantine-patches/0003-audio-out-manager-session-lifetime.patch b/tools/eglantine-patches/0003-audio-out-manager-session-lifetime.patch
+index 025e7e5..3a0641e 100644
+--- a/tools/eglantine-patches/0003-audio-out-manager-session-lifetime.patch
++++ b/tools/eglantine-patches/0003-audio-out-manager-session-lifetime.patch
+@@ -1,5 +1,5 @@
+ diff --git a/src/core/hle/service/audio/audio_out.cpp b/src/core/hle/service/audio/audio_out.cpp
+-index 996eeede58..158907a25b 100644
++index 996eeede5..158907a25 100644
+ --- a/src/core/hle/service/audio/audio_out.cpp
+ +++ b/src/core/hle/service/audio/audio_out.cpp
+ @@ -15,12 +15,13 @@
+@@ -19,7 +19,7 @@ index 996eeede58..158907a25b 100644
+      // clang-format off
+      static const FunctionInfo functions[] = {
+ diff --git a/src/core/hle/service/audio/audio_out.h b/src/core/hle/service/audio/audio_out.h
+-index 178ee57df6..2bff10e0a1 100644
++index 178ee57df..2bff10e0a 100644
+ --- a/src/core/hle/service/audio/audio_out.h
+ +++ b/src/core/hle/service/audio/audio_out.h
+ @@ -20,7 +20,7 @@ namespace Service::Audio {
+@@ -41,18 +41,9 @@ index 178ee57df6..2bff10e0a1 100644
+  };
+  
+ diff --git a/src/core/hle/service/audio/audio_out_manager.cpp b/src/core/hle/service/audio/audio_out_manager.cpp
+-index 3b2087932c..0a0e5299a7 100644
++index 507c815e9..93143514d 100644
+ --- a/src/core/hle/service/audio/audio_out_manager.cpp
+ +++ b/src/core/hle/service/audio/audio_out_manager.cpp
+-@@ -15,7 +15,7 @@ using namespace AudioCore::AudioOut;
+- 
+- IAudioOutManager::IAudioOutManager(Core::System& system_)
+-     : ServiceFramework{system_, "audout:u"}
+--    , impl(system_)
+-+    , impl{std::make_shared<AudioCore::AudioOut::Manager>(system_)}
+- {
+-     // clang-format off
+-     static const FunctionInfo functions[] = {
+ @@ -84,7 +84,7 @@ Result IAudioOutManager::OpenAudioOutAuto(
+      LOG_DEBUG(Service_Audio, "Opening new AudioOut, sessionid={}, free sessions={}", new_session_id,
+                impl->num_free_sessions);
+@@ -63,7 +54,7 @@ index 3b2087932c..0a0e5299a7 100644
+      R_TRY(audio_out->GetImpl()->GetSystem().Initialize(device_name, parameter, process_handle.Get(),
+                                                         aruid.pid));
+ diff --git a/src/core/hle/service/audio/audio_out_manager.h b/src/core/hle/service/audio/audio_out_manager.h
+-index ec974aaba4..cefa70f68e 100644
++index 8bc0271b2..cefa70f68 100644
+ --- a/src/core/hle/service/audio/audio_out_manager.h
+ +++ b/src/core/hle/service/audio/audio_out_manager.h
+ @@ -6,6 +6,8 @@
+@@ -75,12 +66,3 @@ index ec974aaba4..cefa70f68e 100644
+  #include "audio_core/audio_out_manager.h"
+  #include "audio_core/out/audio_out.h"
+  #include "core/hle/service/cmif_types.h"
+-@@ -43,7 +45,7 @@ private:
+-         AudioCore::AudioOut::AudioOutParameter parameter,
+-         InCopyHandle<Kernel::KProcess> process_handle, ClientAppletResourceUserId aruid);
+- 
+--    std::optional<AudioCore::AudioOut::Manager> impl;
+-+    std::shared_ptr<AudioCore::AudioOut::Manager> impl;
+- };
+- 
+- } // namespace Service::Audio
+diff --git a/tools/lichii-anchors.json b/tools/lichii-anchors.json
+new file mode 100644
+index 0000000..082335d
+--- /dev/null
++++ b/tools/lichii-anchors.json
+@@ -0,0 +1,110 @@
++[
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "        scheduler.RequestOutsideRenderPassOperationContext();\n        scheduler.Record([pipeline, indirect_buffer = buffer->Handle(),",
++  "anchor": "        scheduler.RequestOutsideRenderPassOperationContext();\n        scheduler.TraceComputePipeline(pipeline->ShaderHash());\n        scheduler.Record([this, pipeline, indirect_buffer = buffer->Handle(),",
++  "new": "        scheduler.RequestOutsideRenderPassOperationContext();\n        if (::Eden::DevVulkan::compute_barriers) {\n            scheduler.Record([](vk::CommandBuffer cmdbuf) {\n                cmdbuf.PipelineBarrier(vk::PIPELINE_STAGE_GRAPHICS_COMPUTE_TRANSFER,\n                                       VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT | VK_PIPELINE_STAGE_DRAW_INDIRECT_BIT,\n                                       0, COMPUTE_INPUT_BARRIER);\n            });\n        }\n        scheduler.TraceComputePipeline(pipeline->ShaderHash());\n        scheduler.Record([this, pipeline, indirect_buffer = buffer->Handle(),"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "        cmdbuf.Dispatch(dim[0], dim[1], dim[2]);\n",
++  "anchor": "        scheduler.TraceGpuWork(cmdbuf, pipeline->ShaderHash(), 0, dim,\n                               [&] { cmdbuf.Dispatch(dim[0], dim[1], dim[2]); });\n",
++  "new": "        scheduler.TraceGpuWork(cmdbuf, pipeline->ShaderHash(), 0, dim,\n                               [&] { cmdbuf.Dispatch(dim[0], dim[1], dim[2]); });\n        if (::Eden::DevVulkan::compute_barriers)\n            cmdbuf.PipelineBarrier(VK_PIPELINE_STAGE_COMPUTE_SHADER_BIT, COMPUTE_CONSUMER_STAGES, 0,\n                                   COMPUTE_WRITE_BARRIER);\n"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "#ifdef __ANDROID__\n    static constexpr u32 DRAWS_TO_DISPATCH = 512;\n    static constexpr u32 CHECK_MASK = 3;\n#else\n    // Every 32 draws (was 8): each dispatch woke the worker thread, and Switch 2 titles make\n    // ~55,000 draws a second. A full chunk is dispatched on its own (Scheduler::Record).\n    static constexpr u32 DRAWS_TO_DISPATCH = 4096;\n    static constexpr u32 CHECK_MASK = 31;\n#endif // __ANDROID__\n\n    static_assert(DRAWS_TO_DISPATCH % (CHECK_MASK + 1) == 0);\n",
++  "anchor": null,
++  "new": null
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "    namespace Profile = VideoCommon::Nx2Profile;\n    {\n        Profile::Scope scope{Profile::Zone::FlushWork};\n        FlushWork();\n        gpu_memory->FlushCaching();\n    }\n",
++  "anchor": "    namespace Profile = VideoCommon::Nx2Profile;\n    if (InvalidateBeforeUse()) {\n        gpu.InvalidateGPUCache();\n    }\n    {\n        Profile::Scope scope{Profile::Zone::FlushWork};\n        FlushWork();\n        gpu_memory->FlushCaching();\n    }\n",
++  "new": "    namespace Profile = VideoCommon::Nx2Profile;\n    const ::Eden::Performance::Timer rasterizer_draw_timer(::Eden::Performance::rasterizer_draw);\n    auto phase = ::Eden::Performance::MarkStart();\n    if (InvalidateBeforeUse()) {\n        gpu.InvalidateGPUCache();\n    }\n    {\n        Profile::Scope scope{Profile::Zone::FlushWork};\n        FlushWork();\n        gpu_memory->FlushCaching();\n    }\n    ::Eden::Performance::Mark(::Eden::Performance::draw_flush, phase);\n"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "    pipeline->SetEngine(maxwell3d, gpu_memory);\n    if (Profile::Scope scope{Profile::Zone::Configure}; !pipeline->Configure(is_indexed)) {\n        report_failure(\"configure failed\");\n        return;\n    }\n",
++  "anchor": "    pipeline->SetEngine(maxwell3d, gpu_memory);\n    const u32 repack_dirty = buffer_cache_runtime.SetVertexRepackLayout(\n        maxwell3d->regs, pipeline->HasDynamicVertexInput());\n    if (repack_dirty) {\n        auto& flags = maxwell3d->dirty.flags;\n        flags[VideoCommon::Dirty::VertexBuffers] = true;\n        flags[Dirty::VertexInput] = true;\n        for (u32 binding = 0; binding < 32; ++binding) {\n            if (repack_dirty & (1U << binding)) {\n                flags[VideoCommon::Dirty::VertexBuffer0 + binding] = true;\n            }\n        }\n    }\n    if (Profile::Scope scope{Profile::Zone::Configure}; !pipeline->Configure(is_indexed)) {\n        report_failure(\"configure failed\");\n        TraceRenderState(is_indexed, \"configure-failed\", nullptr);\n        return;\n    }\n",
++  "new": "    pipeline->SetEngine(maxwell3d, gpu_memory);\n    // Waiting for both cache mutexes. SetEngine between them and here is two pointer assignments,\n    // and the hold itself carries on through what follows: the phases below measure it.\n    ::Eden::Performance::Mark(::Eden::Performance::draw_lock_wait, phase);\n    const u32 repack_dirty = buffer_cache_runtime.SetVertexRepackLayout(\n        maxwell3d->regs, pipeline->HasDynamicVertexInput());\n    if (repack_dirty) {\n        auto& flags = maxwell3d->dirty.flags;\n        flags[VideoCommon::Dirty::VertexBuffers] = true;\n        flags[Dirty::VertexInput] = true;\n        for (u32 binding = 0; binding < 32; ++binding) {\n            if (repack_dirty & (1U << binding)) {\n                flags[VideoCommon::Dirty::VertexBuffer0 + binding] = true;\n            }\n        }\n    }\n    if (Profile::Scope scope{Profile::Zone::Configure}; !pipeline->Configure(is_indexed)) {\n        report_failure(\"configure failed\");\n        TraceRenderState(is_indexed, \"configure-failed\", nullptr);\n        return;\n    }\n    ::Eden::Performance::Mark(::Eden::Performance::draw_config, phase);\n"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "    query_cache.CounterEnable(VideoCommon::QueryType::ZPassPixelCount64, maxwell3d->regs.zpass_pixel_count_enable);\n    {\n        Profile::Scope scope{Profile::Zone::DrawRecord};\n        draw_func();\n    }\n",
++  "anchor": "    query_cache.CounterEnable(VideoCommon::QueryType::ZPassPixelCount64, maxwell3d->regs.zpass_pixel_count_enable);\n    {\n        Profile::Scope scope{Profile::Zone::DrawRecord};\n        scheduler.TraceGraphicsPipeline(pipeline->ShaderHashes());\n        trace_draw_hashes = {pipeline->ShaderHashes()[1], pipeline->ShaderHashes()[5]};\n        draw_func();\n    }\n",
++  "new": "    query_cache.CounterEnable(VideoCommon::QueryType::ZPassPixelCount64, maxwell3d->regs.zpass_pixel_count_enable);\n    ::Eden::Performance::Mark(::Eden::Performance::draw_state, phase);\n    {\n        Profile::Scope scope{Profile::Zone::DrawRecord};\n        scheduler.TraceGraphicsPipeline(pipeline->ShaderHashes());\n        trace_draw_hashes = {pipeline->ShaderHashes()[1], pipeline->ShaderHashes()[5]};\n        draw_func();\n    }\n    ::Eden::Performance::Mark(::Eden::Performance::draw_record, phase);\n"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "template <typename Func>\nvoid RasterizerVulkan::PrepareDraw(bool is_indexed, Func&& draw_func) {",
++  "anchor": "template <typename Func>\nvoid RasterizerVulkan::PrepareDraw(bool is_indexed, Func&& draw_func, bool is_indirect) {",
++  "new": "namespace {\n// GPU thread only: the pipeline PrepareDraw refreshed for the draw in progress.\nGraphicsPipeline* prepared_pipeline = nullptr;\n} // namespace\n\ntemplate <typename Func>\nvoid RasterizerVulkan::PrepareDraw(bool is_indexed, Func&& draw_func, bool is_indirect) {"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_rasterizer.cpp",
++  "old": "GraphicsPipeline* prepared_pipeline = nullptr;",
++  "anchor": "GraphicsPipeline* prepared_pipeline = nullptr;",
++  "new": "GraphicsPipeline* prepared_pipeline = nullptr;\n// The pipeline of the last prepared draw, for the development fault probe.\nGraphicsPipeline* probe_pipeline = nullptr;\nbool SyncProbeActive() {\n    static unsigned poll = 0;\n    static bool active = false;\n    if (!active && ::Eden::DevVulkan::trace_pipelines && (++poll & 255) == 0)\n        active = std::filesystem::exists(\"/app0/sync-draws.txt\");\n    return active;\n}\nvoid SyncProbe(Scheduler& scheduler, const char* kind, const void* pipeline) {\n    if (!SyncProbeActive()) return;\n    static unsigned long long sequence = 0;\n    char text[96];\n    std::snprintf(text, sizeof(text), \"%s #%llu p=%p\", kind, ++sequence, pipeline);\n    ::Eden::Report(\"sync\", text);\n    scheduler.Finish();\n}"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_query_cache.cpp",
++  "old": "bool QueryCacheRuntime::HostConditionalRenderingCompareValue(VideoCommon::LookupData object_1,\n                                                             [[maybe_unused]] bool qc_dirty) {\n    if (!impl->device.IsExtConditionalRendering()) {\n        return false;\n    }\n    HostConditionalRenderingCompareBCImpl(object_1.address, true, true);\n    return true;\n}",
++  "anchor": "bool QueryCacheRuntime::HostConditionalRenderingCompareValue(VideoCommon::LookupData object_1,\n                                                             [[maybe_unused]] bool qc_dirty) {\n    if (!impl->device.IsExtConditionalRendering()) {\n        TraceConditionalRendering(\"extension-unavailable\", false, object_1.address);\n        return false;\n    }\n    HostConditionalRenderingCompareBCImpl(object_1.address, true, true);\n    TraceConditionalRendering(\"resolve-zero\", true, object_1.address);\n    return true;\n}",
++  "new": "namespace {\n// hcr=cpu: Maxwell3D::ProcessQueryCondition's exact evaluation (the read flushes pending GPU\n// results), then the driver predicates the draws from a constant buffer. kind: 0 Conditional,\n// 1 IfEqual, 2 IfNotEqual.\nbool HostConditionalRenderingOnCpu(QueryCacheRuntime& runtime, QueryCacheRuntimeImpl& impl, DAddr address,\n                                   unsigned kind) {\n    if (address == 0 || !impl.hcr_constant_buffer) {\n        ::Eden::Performance::CountCondition(13);\n        runtime.EndHostConditionalRendering();\n        return false;\n    }\n    u32 compare[6]{};\n    impl.device_memory.ReadBlock(address, compare, sizeof(compare));\n    const bool equal = compare[0] == compare[4] && compare[1] == compare[5];\n    const bool execute = kind == 0 ? compare[0] != 0 && compare[1] != 0 : (kind == 1 ? equal : !equal);\n    ::Eden::Performance::CountCondition(execute ? 17 : 18);\n    const bool was_running = impl.is_hcr_running;\n    if (was_running) {\n        runtime.PauseHostConditionalRendering();\n    }\n    impl.hcr_setup.buffer = *impl.hcr_constant_buffer;\n    impl.hcr_setup.offset = execute ? sizeof(u32) : 0;\n    impl.hcr_setup.flags = 0;\n    impl.hcr_is_set = true;\n    impl.is_hcr_running = false;\n    if (was_running) {\n        runtime.ResumeHostConditionalRendering();\n    }\n    return true;\n}\n} // namespace\n\nbool QueryCacheRuntime::HostConditionalRenderingCompareValue(VideoCommon::LookupData object_1,\n                                                             [[maybe_unused]] bool qc_dirty) {\n    if (!impl->device.IsExtConditionalRendering()) {\n        TraceConditionalRendering(\"extension-unavailable\", false, object_1.address);\n        return false;\n    }\n    if (::Eden::DevVulkan::hcr_mode == 2) {\n        return HostConditionalRenderingOnCpu(*this, *impl, object_1.address, 0);\n    }\n    if (::Eden::DevVulkan::hcr_mode == 1 && qc_dirty) {\n        ::Eden::Performance::CountCondition(19);\n        EndHostConditionalRendering();\n        return false;\n    }\n    ::Eden::Performance::CountCondition(16);\n    HostConditionalRenderingCompareBCImpl(object_1.address, true, true);\n    TraceConditionalRendering(\"resolve-zero\", true, object_1.address);\n    return true;\n}"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_query_cache.cpp",
++  "old": "    if (!impl->device.IsExtConditionalRendering()) {\n        return false;\n    }\n\n    const auto check_in_bc = [&](DAddr address) {",
++  "anchor": "    if (!impl->device.IsExtConditionalRendering()) {\n        TraceConditionalRendering(\"extension-unavailable\", false, object_1.address, object_2.address);\n        return false;\n    }\n\n    const auto check_in_bc = [&](DAddr address) {",
++  "new": "    if (!impl->device.IsExtConditionalRendering()) {\n        TraceConditionalRendering(\"extension-unavailable\", false, object_1.address, object_2.address);\n        return false;\n    }\n    if (::Eden::DevVulkan::hcr_mode == 2) {\n        return HostConditionalRenderingOnCpu(*this, *impl, object_1.address, equal_check ? 1 : 2);\n    }\n\n    const auto check_in_bc = [&](DAddr address) {"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_query_cache.cpp",
++  "old": "    if (!is_in_ac[0] && !is_in_ac[1]) {\n        EndHostConditionalRendering();\n        return false;\n    }\n\n    if (!qc_dirty && !is_in_bc[0] && !is_in_bc[1]) {\n        EndHostConditionalRendering();\n        return false;\n    }\n",
++  "anchor": "    if (!is_in_ac[0] && !is_in_ac[1]) {\n        EndHostConditionalRendering();\n        TraceConditionalRendering(\"uncached\", false, object_1.address, object_2.address);\n        return false;\n    }\n\n    if (!qc_dirty && !is_in_bc[0] && !is_in_bc[1]) {\n        EndHostConditionalRendering();\n        TraceConditionalRendering(\"guest-synchronized\", false, object_1.address, object_2.address);\n        return false;\n    }\n",
++  "new": "    if (!is_in_ac[0] && !is_in_ac[1]) {\n        ::Eden::Performance::CountCondition(13);\n        EndHostConditionalRendering();\n        TraceConditionalRendering(\"uncached\", false, object_1.address, object_2.address);\n        return false;\n    }\n\n    if (!qc_dirty && !is_in_bc[0] && !is_in_bc[1]) {\n        ::Eden::Performance::CountCondition(13);\n        EndHostConditionalRendering();\n        TraceConditionalRendering(\"guest-synchronized\", false, object_1.address, object_2.address);\n        return false;\n    }\n    // hcr=exact: a pending host query is not in any buffer yet; the CPU evaluation waits for it.\n    if (::Eden::DevVulkan::hcr_mode == 1 && qc_dirty) {\n        ::Eden::Performance::CountCondition(19);\n        EndHostConditionalRendering();\n        return false;\n    }\n"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_query_cache.cpp",
++  "old": "            HostConditionalRenderingCompareValueImpl(*objects[j], equal_check);\n            return true;",
++  "anchor": "            HostConditionalRenderingCompareValueImpl(*objects[j], equal_check);\n            TraceConditionalRendering(i == 0 ? \"initial-zero\" : \"current-zero\", true,",
++  "new": "            ::Eden::Performance::CountCondition(15);\n            HostConditionalRenderingCompareValueImpl(*objects[j], equal_check);\n            TraceConditionalRendering(i == 0 ? \"initial-zero\" : \"current-zero\", true,"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_query_cache.cpp",
++  "old": "    if (!is_gpu_high) {\n        EndHostConditionalRendering();\n        return true;\n    }\n\n    if (!is_in_bc[0] && !is_in_bc[1]) {\n        EndHostConditionalRendering();\n        return true;\n    }\n    HostConditionalRenderingCompareBCImpl(object_1.address, equal_check);",
++  "anchor": "    if (!is_gpu_high) {\n        EndHostConditionalRendering();\n        TraceConditionalRendering(\"accuracy-bypass\", true, object_1.address, object_2.address);\n        return true;\n    }\n\n    if (!is_in_bc[0] && !is_in_bc[1]) {\n        EndHostConditionalRendering();\n        TraceConditionalRendering(\"query-cache-bypass\", true, object_1.address, object_2.address);\n        return true;\n    }\n    HostConditionalRenderingCompareBCImpl(object_1.address, equal_check);",
++  "new": "    // Eden draws these unconditionally; hcr=exact evaluates them on the CPU instead.\n    if (!is_gpu_high || (!is_in_bc[0] && !is_in_bc[1])) {\n        ::Eden::Performance::CountCondition(14);\n        EndHostConditionalRendering();\n        TraceConditionalRendering(!is_gpu_high ? \"accuracy-bypass\" : \"query-cache-bypass\", true,\n                                  object_1.address, object_2.address);\n        return ::Eden::DevVulkan::hcr_mode != 1;\n    }\n    ::Eden::Performance::CountCondition(16);\n    HostConditionalRenderingCompareBCImpl(object_1.address, equal_check);"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_scheduler.cpp",
++  "old": "        upload_cmdbuf.End();\n        cmdbuf.End();\n",
++  "anchor": "            resolved_recorder->EndSubmission();\n        }\n        cmdbuf.End();\n",
++  "new": "            resolved_recorder->EndSubmission();\n        }\n        GpuTimeEnd(cmdbuf);\n        cmdbuf.End();\n"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_scheduler.cpp",
++  "old": "            vk::Check(result);\n            break;\n        }\n    });\n    chunk->MarkSubmit();",
++  "anchor": "        last_worker_submitted_tick = signal_value;\n",
++  "new": "        GpuTimeCollect(device);\n        last_worker_submitted_tick = signal_value;\n"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/vk_scheduler.cpp",
++  "old": "    const u64 signal_value = SubmitExecution(signal_semaphore, wait_semaphore);\n    AllocateNewContext();\n    return signal_value;",
++  "anchor": "    const u64 signal_value = SubmitExecution(signal_semaphore, wait_semaphore);\n    AllocateNewContext();\n    last_flush = std::chrono::steady_clock::now();",
++  "new": "    const u64 signal_value = SubmitExecution(signal_semaphore, wait_semaphore);\n    if (::Eden::DevVulkan::sync_submissions) {\n        Wait(signal_value);\n    }\n    AllocateNewContext();\n    last_flush = std::chrono::steady_clock::now();"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/renderer_vulkan.cpp",
++  "old": "    RenderScreenshot(framebuffers);\n    Frame* frame = present_manager.GetRenderFrame();",
++  "anchor": "    RenderScreenshot(framebuffers);\n    const auto acquiring = trace ?",
++  "new": "    RenderScreenshot(framebuffers);\n    if (::Eden::Display::SkipFrame()) {\n        gpu.RendererFrameEndNotify();\n        rasterizer.TickFrame();\n        return;\n    }\n    const auto acquiring = trace ?"
++ },
++ {
++  "file": "src/video_core/renderer_vulkan/renderer_vulkan.cpp",
++  "old": "    present_manager.Present(frame);\n#ifdef HAS_LSFG\n    scheduler.DispatchWork();\n#endif",
++  "anchor": "    present_manager.Present(frame);\n    const auto presented = trace ? std::chrono::steady_clock::now()\n                                 : std::chrono::steady_clock::time_point{};\n#ifdef HAS_LSFG\n    scheduler.DispatchWork();\n#endif\n",
++  "new": "    present_manager.Present(frame);\n    Eden::CountPresentedFrame();\n    const auto presented = trace ? std::chrono::steady_clock::now()\n                                 : std::chrono::steady_clock::time_point{};\n    scheduler.DispatchWork();\n"
++ }
++]
+\ No newline at end of file
+diff --git a/tools/prepare-vulkan-port.py b/tools/prepare-vulkan-port.py
+index 9d113c0..563097b 100644
+--- a/tools/prepare-vulkan-port.py
++++ b/tools/prepare-vulkan-port.py
+@@ -1,4 +1,5 @@
+ """Adapt the pinned Eden Vulkan platform boundary and required renderer fixes."""
++import json
+ from pathlib import Path
+ import struct
+ import subprocess
+@@ -7,10 +8,18 @@ import sys
+ report = '--report' in sys.argv
+ source, output = map(Path, [a for a in sys.argv[1:] if a != '--report'])
+ port = Path(__file__).resolve().parents[1] / 'headless'
++# Eglantine's core is Lichii's all-in-one now (tools/lichii-anchors.json): an anchor its code moved
++# away from, by what it is called here; one with a null anchor is gone with the code it was on.
++lichii = {(a['file'], a['old']): a for a in json.loads((Path(__file__).resolve().parent / 'lichii-anchors.json').read_text())}
+ broken = []
+ def adapt(relative, destination, replacements):
+     text = (source / relative).read_text()
+     for old, new in replacements:
++        moved = lichii.get((relative, old))
++        if moved:
++            if moved['anchor'] is None:
++                continue
++            old, new = moved['anchor'], moved['new']
+         if relative.endswith('/vk_rasterizer.cpp') and old.endswith('// update engine as channel may be different.') and old not in text:
+             marker = '// Donkey Kong Bananza\'s terrain:'
+             if marker in text:
+@@ -924,7 +933,8 @@ gc_setup = '''    const auto ReclaimedBytes = [&](const Image& image) {
+     };
+ ''' + (port / 'vulkan_gc_downloads.inc').read_text()
+ for old, new in [
+-    ('    const auto Cleanup = [this, &num_iterations, &high_priority_mode, &aggressive_mode]',
++    ('    const auto Cleanup = [this, &num_iterations, &high_priority_mode, &aggressive_mode,\n'
++     '                          &evict_old_costly]',
+      gc_setup + '\n    const auto Cleanup = [&, this]'),
+     ('        if (must_download) {', '        if (must_download && !TakePrefetched(image_id, image)) {'),
+     # Time the per-image drain Cleanup still takes for an image the prefetch could not batch.
+@@ -1103,8 +1113,9 @@ shader_costs = [
+      '#include "performance.h"\n#include "dev_vulkan.h"\n#include "diagnostics.h"'),
+     # Development crash probes: report each pipeline's first use (stage hashes) to klog,
+     # which survives a GPU fault that kills the title.
+-    ('    current_pipeline = pipeline.get();\n    return BuiltPipeline(current_pipeline);\n}',
+-     '    current_pipeline = pipeline.get();\n'
++    ('    current_pipeline = pipeline.get();\n    current_pipeline->MarkUsed(frame_count);\n'
++     '    return BuiltPipeline(current_pipeline);\n}',
++     '    current_pipeline = pipeline.get();\n    current_pipeline->MarkUsed(frame_count);\n'
+      '    if (::Eden::DevVulkan::trace_pipelines) {\n'
+      '        static std::unordered_set<const void*> traced;\n'
+      '        if (traced.insert(current_pipeline).second) {\n'
+@@ -1119,42 +1130,12 @@ shader_costs = [
+      '        }\n'
+      '    }\n'
+      '    return BuiltPipeline(current_pipeline);\n}'),
+-    ('    if (!is_new) {\n        return pipeline.get();\n    }\n'
+-     '    try {\n        pipeline = CreateComputePipeline(key, shader);\n'
+-     '    } catch (const Shader::TensorRejected&) {\n        compute_cache.erase(pair);\n'
+-     '        rejected_tensor_pipelines.emplace(key, std::current_exception());\n        throw;\n    }\n'
+-     '    return pipeline.get();\n}',
+-     '    if (is_new) {\n'
+-     '        try {\n            pipeline = CreateComputePipeline(key, shader);\n'
+-     '        } catch (const Shader::TensorRejected&) {\n            compute_cache.erase(pair);\n'
+-     '            rejected_tensor_pipelines.emplace(key, std::current_exception());\n            throw;\n        }\n'
+-     '    }\n'
+-     '    if (::Eden::DevVulkan::trace_pipelines && pipeline) {\n'
+-     '        static std::unordered_set<const void*> traced;\n'
+-     '        if (traced.insert(pipeline.get()).second) {\n'
+-     '            char text[160];\n'
+-     '            std::snprintf(text, sizeof(text), "C%zu p=%p new=%d cs=%llx shared=%u wg=%u,%u,%u", traced.size(),\n'
+-     '                          (const void*)pipeline.get(), int(is_new), (unsigned long long)key.unique_hash, unsigned(key.shared_memory_size),\n'
+-     '                          unsigned(key.workgroup_size[0]), unsigned(key.workgroup_size[1]),\n'
+-     '                          unsigned(key.workgroup_size[2]));\n'
+-     '            ::Eden::Report("pipeline", text);\n'
+-     '            LOG_INFO(Render_Vulkan, "EDEN_PIPELINE_FIRST_USE {}", text);\n'
+-     '        }\n'
+-     '    }\n'
+-     '    return pipeline.get();\n}'),
+     ('std::unique_ptr<GraphicsPipeline> PipelineCache::CreateGraphicsPipeline() {',
+      'std::unique_ptr<GraphicsPipeline> PipelineCache::CreateGraphicsPipeline() {\n    auto timer = Eden::Performance::VulkanTimer(17);'),
+     ('    const ComputePipelineCacheKey& key, const ShaderInfo* shader) {',
+      '    const ComputePipelineCacheKey& key, const ShaderInfo* shader) {\n    auto timer = Eden::Performance::VulkanTimer(17);'),
+     ('                                                 u32 cache_version) try {',
+      '                                                 u32 cache_version) try {\n    auto timer = Eden::Performance::VulkanTimer(18);'),
+-    ('}\n\nPipelineCache::~PipelineCache()',
+-     '    if (Eden::Performance::vulkan_cost_enabled.load(std::memory_order_relaxed))\n'
+-     '        std::printf("EDEN_VULKAN_DYNAMIC blend=%u enables=%u vertex=%u\\n",\n'
+-     '                    unsigned(dynamic_features.has_extended_dynamic_state_3_blend),\n'
+-     '                    unsigned(dynamic_features.has_extended_dynamic_state_3_enables),\n'
+-     '                    unsigned(dynamic_features.has_dynamic_vertex_input));\n'
+-     '}\n\nPipelineCache::~PipelineCache()'),
+ ]
+ # Time both graphics and compute preparation, without modifying the compiler or
+ # reading guest state on another thread. These intervals overlap shader_prepare.
+@@ -1257,7 +1238,7 @@ probes = {
+     ],
+ }
+ for name, index, expected in (
+-    ('vk_fence_manager', 6, 1), ('vk_buffer_cache', 7, 3),
++    ('vk_fence_manager', 6, 1), ('vk_buffer_cache', 7, 4),
+     ('vk_texture_cache', 8, 1), ('vk_swapchain', 9, 6),
+     ('vk_descriptor_buffer', 10, 2), ('vk_multi_range_buffer', 11, 1),
+     ('vk_compute_pass', 12, 1),
