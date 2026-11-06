@@ -7,6 +7,7 @@
 
 #include "emulator.h"
 #include "boxart.h"
+#include "shots.h"
 #include "game_archives.h"
 #include "ingame.h"
 #include "pack_updates.h"
@@ -1003,6 +1004,7 @@ namespace ps5emu
 		// An update check can still be waiting on the PS5's resolver when a game fails at once, as an
 		// Artic Base one can (#45): it is waited for too.
 		ps5boxart::Stop();
+		ps5shots::Stop();
 		ps5update::WaitForCheck(10000);
 		// Cemu's settings only where Cemu ran: a 3DS session never read them, and would write its
 		// defaults over them
@@ -1106,6 +1108,7 @@ namespace ps5emu
 	void ExitApp()
 	{
 		ps5boxart::Stop();
+		ps5shots::Stop();
 		ps5update::WaitForCheck(10000);
 		ps5log::Line("[emu] the game is over: PS5Cemu closes (a home screen tile's --exit-after-game)");
 		if (s_coreStarted)

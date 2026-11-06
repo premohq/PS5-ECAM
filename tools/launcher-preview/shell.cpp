@@ -179,6 +179,16 @@ namespace ps5libretro
 	const char* CoreTitle(int) { return "libretro"; }
 }
 
+namespace ps5shots
+{
+	// PREVIEW_SHOT: a picture to try Orbit's background with
+	std::string Snap(int, const ps5emu::Game&)
+	{
+		const char* shot = std::getenv("PREVIEW_SHOT");
+		return shot ? shot : "";
+	}
+}
+
 namespace ps5esde
 {
 	bool Available() { return false; }

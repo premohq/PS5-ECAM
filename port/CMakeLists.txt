@@ -114,6 +114,7 @@ add_library(CemuPS5 STATIC
 	app/netfs.h
 	app/controllers.cpp
 	app/boxart.cpp
+	app/shots.cpp
 	app/boxart.h
 	app/catalog.cpp
 	app/catalog.h
@@ -162,6 +163,7 @@ add_library(CemuPS5 STATIC
 	app/tga.h
 	azahar/azahar.h
 	app/boxart.cpp
+	app/shots.cpp
 	azahar/controls.cpp
 	azahar/controls.h
 	azahar/library.cpp
@@ -309,6 +311,7 @@ set_source_files_properties(
 	app/wiiu_archives.cpp
 	app/netfs.cpp
 	app/boxart.cpp
+	app/shots.cpp
 	app/saves.cpp
 	app/reorganize.cpp
 	app/catalog.cpp

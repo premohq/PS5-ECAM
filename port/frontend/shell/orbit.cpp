@@ -7,8 +7,11 @@
 
 #include "shell_internal.h"
 
+#include "../../melonds/melonds.h"
+
 #include <algorithm>
 #include <cmath>
+#include <filesystem>
 
 namespace ps5shell
 {
@@ -61,6 +64,42 @@ namespace ps5shell
 		m_libraryZone = 2;
 		if (LibraryGame() >= 0)
 			OpenGameMenu(LibraryGame());
+	}
+
+	std::string Shell::StateShot(const Game& game) const
+	{
+		namespace fs = std::filesystem;
+		const fs::path& path = game.entry.game.path;
+		const std::string stem = path.stem().string();
+		std::vector<fs::path> pictures;
+		std::error_code ec;
+		if (IsRetro() && ps5porpoise::Plays(SideIndex()))
+		{
+			// Porpoise's own, a thumbnail for each slot and for where it quit
+			for (const fs::directory_entry& file : fs::directory_iterator(ps5porpoise::Data() + "/states/" + ps5porpoise::GameKey(path.string()), ec))
+				if (file.path().extension() == ".png")
+					pictures.push_back(file.path());
+		}
+		else if (IsRetro() || IsDs())
+		{
+			// ps5shots::SaveStatePicture's, beside each slot and the resume slot
+			const std::string base = IsDs() ? ps5melonds::Root() + "/states/" + stem + ".ml" : std::string(ps5retro::Of(SideIndex()).data) + "/states/" + stem + ".state";
+			for (int slot = 1; slot <= ps5saves::kResumeSlot; slot++)
+				pictures.push_back(base + std::to_string(slot) + ".png");
+		}
+		std::string newest;
+		fs::file_time_type latest{};
+		for (const fs::path& picture : pictures)
+		{
+			std::error_code timeError;
+			const fs::file_time_type when = fs::last_write_time(picture, timeError);
+			if (!timeError && (newest.empty() || when > latest))
+			{
+				latest = when;
+				newest = picture.string();
+			}
+		}
+		return newest;
 	}
 
 	// -- Orbit ----------------------------------------------------------------------------------------
@@ -196,9 +235,10 @@ namespace ps5shell
 			auto picture = [&](const std::string& path, float alpha) {
 				if (path.empty() || alpha <= 0)
 					return;
-				// a picture as wide as the TV as it is; a small one (a cover) softened, not stretched
-				const bool wide = m_images->Get(path).width >= 960;
-				const ui::Picture& p = m_images->Get(path, !wide);
+				// a game's own moment as it is, however small its console's screen; a cover softened, not stretched
+				const bool shot = path.find("/states/") != std::string::npos || path.find("/snaps/") != std::string::npos;
+				const bool sharp = shot || m_images->Get(path).width >= 960;
+				const ui::Picture& p = m_images->Get(path, !sharp);
 				if (p.texture)
 					canvas.ImageCover(p.texture, p.width, p.height, screen, 0, ui::SetAlpha(0xffffffff, alpha));
 			};

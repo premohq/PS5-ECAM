@@ -91,6 +91,8 @@ namespace ps5shell
 		bool iconLooked = false;
 		std::string bootScreen;	  // Wii U: its boot screen (bootTvTex), the backdrop, once looked for
 		bool bootScreenLooked = false;
+		std::string shot;		  // Orbit: the picture of its latest save state, once looked for
+		bool shotLooked = false;
 		const ps5compat::Report* report = nullptr;
 		ps5gameinfo::Info info;
 		bool known = false;		  // GameTDB knows it
@@ -382,6 +384,7 @@ namespace ps5shell
 			m_side = open;
 		}
 		void StartFromAnySide(System side, const Game& game);
+		std::string StateShot(const Game& game) const; // the newest picture beside its save states
 		void GameMenuFromAnySide(System side, const Game& game);
 		// The Timeline (timeline.cpp)
 		void TimelineOpen();

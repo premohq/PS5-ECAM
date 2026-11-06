@@ -19,6 +19,7 @@
 #include "screens.h"
 #include "slot2.h"
 #include "microphone.h"
+#include "../app/shots.h"
 #include "../app/achievements.h"
 #include "../app/frame_capture.h"
 #include "../app/capture_session.h"
@@ -551,6 +552,9 @@ namespace ps5melonds
 				melonDS::Savestate state;
 				if (!state.Error)
 					nds.DoSavestate(&state);
+				// the top screen, for Orbit's background (app/shots.h)
+				if (!state.Error)
+					ps5shots::SaveStatePicture(path, (const uint32_t*)nds.GPU.Framebuffer[nds.GPU.FrontBuffer][0].get(), 256, 192, 256);
 				// what came of it, in the 3DS side's words (azahar/core.cpp, ReportState)
 				message = !state.Error && WriteFile(path, (const u8*)state.Buffer(), state.Length()) ? ps5lang::TrF("Saved slot {0}", slot) :
 																										   std::string(ps5lang::Tr("It did not work"));

@@ -201,6 +201,21 @@ games are not in it yet (Pokémon Pokopia, Kirby Air Riders, Mario Tennis Fever,
 has no set of its own at libretro: to find. IGDB has every console, its pictures public
 (`images.igdb.com`), but its API wants a Twitch key, so only as a table made at build time.
 
+### Settings for each game, picked by the app
+
+The owner, 6 November 2026: **per-game settings on every side, with the emulator picking what suits each
+game best**, so a game plays well the first time with nothing to set. The player's own choice always
+wins: a row they changed stays theirs, and each game can go back to its picks.
+
+- **What each side has to start from:** Porpoise's Picks and its per-game profiles on the GameCube and Wii
+  (`recommended.ini`, `auto_picks`, a game's `game-settings/<ID>.ini`), which this can follow; a Wii U
+  game's graphic packs and profile; a Switch game's own settings and performance switches; the classics'
+  core options.
+- **Where the picks come from:** a table in the app by game ID, as `port/app/gametdb` is, written from what
+  is known to work (the compatibility list, the emulators' own per-game settings, players' reports).
+- **What it has to respect:** nothing unmeasured turned on by itself (the rule for performance
+  experiments), and a pick that makes a game worse has to be easy to report and take back.
+
 ### Every Nintendo system
 
 The owner, 29 October 2026: **Playtendoh's scope is every Nintendo system there is an emulator for,

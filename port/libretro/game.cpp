@@ -17,6 +17,7 @@
 #include "../app/ingame3ds.h"
 #include "../app/lang.h"
 #include "../app/saves.h"
+#include "../app/shots.h"
 #include "../azahar/controls.h"
 #include "../melonds/screens.h"
 #include "../ps5/display.h"
@@ -430,6 +431,11 @@ namespace ps5libretro
 			else if (request > 0)
 			{
 				done = SaveState(slot, error);
+				if (done)
+				{
+					const Picture& picture = LastPicture();
+					ps5shots::SaveStatePicture(StatePath(slot), picture.pixels.data(), picture.width, picture.height, picture.width);
+				}
 				message = done ? ps5lang::TrF("Saved slot {0}", slot) : std::string(ps5lang::Tr("It did not work"));
 			}
 			else

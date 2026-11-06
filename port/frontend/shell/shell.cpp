@@ -4,6 +4,7 @@
 // (shell_internal.h).
 
 #include "shell_internal.h"
+#include "../../app/shots.h"
 #include "../actions.h"
 #include "../sound.h"
 #include "../../app/boxart.h"
@@ -888,6 +889,20 @@ namespace ps5shell
 			game.bootScreenLooked = true;
 			m_iconLookedThisFrame = true;
 			game.bootScreen = ps5emu::BootScreenPath(game.entry.game.titleId);
+		}
+		// Orbit's: what you were doing when you saved, else a screenshot of the game
+		if (Orbit())
+		{
+			if (!game.shotLooked)
+			{
+				game.shotLooked = true;
+				game.shot = StateShot(game);
+			}
+			if (!game.shot.empty())
+				return game.shot;
+			if (m_settings.boxArt)
+				if (std::string snap = ps5shots::Snap(SideIndex(), game.entry.game); !snap.empty())
+					return snap;
 		}
 		return !game.bootScreen.empty() ? game.bootScreen : game.boxArt;
 	}
