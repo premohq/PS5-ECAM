@@ -2,6 +2,7 @@
 #include "library.h"
 #include "addons.h"
 #include "exefs.h"
+#include "switch_file.h"
 #include "nx_files.h"
 #include "../app/gameinfo.h"
 #include "../app/paths.h"
@@ -240,6 +241,8 @@ namespace ps5eden
 			game.format = extension.size() > 1 ? extension.substr(1) : extension;
 			if (IsExeFsMain(path.string()))
 				game.format = npdm.switch2 ? "Switch 2" : "ExeFS";
+			else if (IsSwitch2PackageName(path.filename().string()))
+				game.format = "Switch 2";
 			games.push_back(std::move(game));
 		}
 
@@ -346,7 +349,7 @@ namespace ps5eden
 				if (const auto earlier = known.find(path.string());
 					stamped && earlier != known.end() && earlier->second.size == file.size && earlier->second.time == file.time)
 					file = earlier->second;
-				else if (keyed && stamped)
+				else if (keyed && stamped && !IsSwitch2PackageName(path.filename().string()))
 				{
 					nx::Info info;
 					std::string why;
@@ -383,7 +386,7 @@ namespace ps5eden
 				if (i >= inFolder)
 					continue;
 				Add(path, games, file.kind == nx::Kind::Game ? file.titleId : 0);
-				if (keyed && CoverPath(games.back()).empty())
+				if (keyed && !IsSwitch2PackageName(path.filename().string()) && CoverPath(games.back()).empty())
 					covers.push_back(path);
 			}
 			if (read)
@@ -496,8 +499,7 @@ namespace ps5eden
 
 	bool IsSwitchFile(const std::string& name)
 	{
-		const std::string lower = Lower(name);
-		return lower.size() > 4 && (lower.ends_with(".nsp") || lower.ends_with(".xci"));
+		return IsSwitchPackageName(name);
 	}
 
 	void StartScan(const std::string& folder)
