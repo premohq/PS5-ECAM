@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "settings.h"
 #include "../app/paths.h"
-#include "../eglantine/launch.h"
 
 #include <rapidjson/document.h>
 #include <rapidjson/prettywriter.h>
@@ -367,7 +366,7 @@ namespace ps5settings
 		if (json.HasMember("switch2") && json["switch2"].IsObject())
 			ReadN3ds(json["switch2"], settings.nx2, false);
 		if (settings.nx2.gamesFolder.empty())
-			settings.nx2.gamesFolder = ps5eglantine::DataFolder() + "/roms";
+			settings.nx2.gamesFolder = "/data/eglantineps5/roms";
 		for (size_t i = 0; i < ps5retro::kSystems.size(); i++)
 			if (json.HasMember(ps5retro::kSystems[i].key) && json[ps5retro::kSystems[i].key].IsObject()) ReadN3ds(json[ps5retro::kSystems[i].key], settings.retro[i], false);
 
