@@ -34,6 +34,7 @@ namespace ps5eden
 	// The game files folder Eden uses (keys/, firmware/, roms/): its saved choice, else ours, else a
 	// standalone ProsperoEden's when only that has keys
 	std::string GameFilesFolder();
+	std::string GameFilesFolder(bool switch2Side);
 	// EglantinePS5's own /data/eglantineps5, for Switch 2 keys, firmware, updates, DLC and games
 	std::string Switch2FilesFolder();
 	// The games folder a scan of folder looks in: Eden's roms/ for the default one
