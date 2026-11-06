@@ -45,7 +45,7 @@ namespace ps5eden
 	// Whether the app has the Switch side's program (eden/eboot.bin in its folder)
 	bool Available();
 
-	// The files a Switch game can be: .nsp and .xci
+	// Switch packages the shared scanner discovers: .nsp and .xci for Switch, .nup for Switch 2
 	bool IsSwitchFile(const std::string& name);
 	// A game folder's ExeFS main ("<game>/exefs/main", exefs/ in any case, main.npdm beside it in the
 	// folder): how a Switch 2 title is played (eden-nx2, patches/eden 0022). Its folder is the game's,
