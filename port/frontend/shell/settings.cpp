@@ -768,8 +768,8 @@ namespace ps5shell
 						ps5eden::LosslessFile())),
 				"nxFrameGeneration");
 			endSub();
-			toggle("performance-hand", Tr("Performance overlay"), hand.performance, Tr("The frame rate and the emulation's speed, in the top left corner."),
-				Tr("The frame rate and the emulation's speed, in the top left corner."));
+			own(toggle("performance-hand", Tr("Performance overlay"), hand.performance, Tr("The frame rate and the emulation's speed, in the top left corner."),
+				Tr("The frame rate and the emulation's speed, in the top left corner.")), "performance");
 		}
 		else if (page == "graphics")
 		{
@@ -855,11 +855,14 @@ namespace ps5shell
 		{
 			toggle("rumble", Tr("Vibration"), settings.rumble, Tr("The DualSense's rumble, in games and in the launcher."),
 				Tr("Off, the DualSense never rumbles, in games or in the launcher. The same on every side."));
-			if (IsSwitch())
-				slider("nx-deadzone", Tr("Stick deadzone"), hand.nxDeadzone, 30, Tr("How far a stick moves before it counts."),
+			if (IsSwitch() || IsSwitch2())
+			{
+				Row* deadzone = slider("nx-deadzone", Tr("Stick deadzone"), hand.nxDeadzone, 30, Tr("How far a stick moves before it counts."),
 					Tr("How far a stick moves before the game sees it, for both sticks. Raise it if a character or the camera drifts when you "
-					   "let go of the stick; lower it for finer control. Also in the in-game menu."))
-					->value = Percent(hand.nxDeadzone);
+					   "let go of the stick; lower it for finer control. Also in the in-game menu."));
+				deadzone->value = Percent(hand.nxDeadzone);
+				own(deadzone, "nxDeadzone");
+			}
 			// the turbo button is the app's own, which Eden's program does not have
 			auto turbo = [&] {
 				int index = 0;
