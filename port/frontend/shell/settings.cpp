@@ -1036,7 +1036,9 @@ namespace ps5shell
 					Tr("On, a new shader is built while the game carries on, so it does not stutter, but some things may be missing for a moment. "
 					"Off, the game waits for each one: stutter, but nothing drawn wrong.")),
 				"nxAsyncShaders");
-			if (!IsSwitch2()) own(toggle(switches[1].id, Tr(switches[1].label), hand.*(switches[1].value), Tr(switches[1].about), Tr(switches[1].about)), switches[1].field);
+			own(toggle(switches[1].id, Tr(switches[1].label), hand.*(switches[1].value), Tr(switches[1].about),
+					IsSwitch2() ? Tr("Build code seen in earlier sessions before it is needed. This may reduce hitches; it uses storage and applies to the next game.") : Tr(switches[1].about)),
+				switches[1].field);
 			// how many shortcuts differ from Eden's own choice (all off, Reactive flushing on)
 			const ps5settings::N3ds defaults;
 			int changed = 0;
