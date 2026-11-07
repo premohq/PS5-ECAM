@@ -26,5 +26,16 @@ int main()
 	Check(Value(ForGame(loaded, "ds", title), "ds", "dsMicSource", value) && value == 2, "microphone setting adapter resolves recorded source");
 	Check(ForGame(loaded, "3ds", title).n3ds.dsMicSource == 0, "3DS does not inherit DS microphone source");
 	Check(ForGame(loaded, "ds", title).nds.dsTouchX == 10 && ForGame(loaded, "ds", title).nds.dsTouchScale == 75 && loaded.nds.dsTouchScale == 100, "touch calibration persists per game with identity defaults elsewhere");
+	loaded.nx2.nxBlockList = false;
+	loaded.games[GameKey("switch2", title)]["nxBlockList"] = 1;
+	Check(Save(loaded), "Switch 2 precompilation setting serializes");
+	const auto switch2 = Load();
+	Check(!switch2.nx2.nxBlockList && ForGame(switch2, "switch2", title).nx2.nxBlockList,
+		"Switch 2 game profile can override precompilation without changing the side default");
+	const auto& switch2Settings = GameSettingNames("switch2");
+	Check(std::find(switch2Settings.begin(), switch2Settings.end(), "nxBlockList") != switch2Settings.end(),
+		"Switch 2 exposes precompilation in its per-game settings list");
+	Check(Value(ForGame(switch2, "switch2", title), "switch2", "nxBlockList", value) && value == 1,
+		"Switch 2 precompilation profile value resolves through the shared settings adapter");
 	return failures ? 1 : 0;
 }
