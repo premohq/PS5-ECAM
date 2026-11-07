@@ -1047,7 +1047,7 @@ diff --git a/headless/settings_store.h b/headless/settings_store.h
 index 0000000..0000000 100644
 --- a/headless/settings_store.h
 +++ b/headless/settings_store.h
-@@ -632,4 +632,11 @@ inline PerformanceSettings LoadPerformance(uint64_t title_id, const std::string& file = SettingsFile()) {
+@@ -632,4 +632,12 @@ inline PerformanceSettings LoadPerformance(uint64_t title_id, const std::string& file = SettingsFile()) {
      read("");
      if (title_id) read("/games/" + Settings::TitleKey(title_id));
 +    const auto& session = ActiveSessionPreferenceOverrides();
