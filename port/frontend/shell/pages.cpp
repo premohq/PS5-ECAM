@@ -1309,7 +1309,7 @@ namespace ps5shell
 			auto it = m_folderCounts.find(m_browseFolder);
 			if (it == m_folderCounts.end())
 			{
-				const int games = ps5retro::IsRetro((int)m_filesSide) ? -1 : n3ds ? Count3dsGames(m_browseFolder) : nds ? CountDsGames(m_browseFolder) : nx ? ps5eden::CountGames(m_browseFolder) :
+				const int games = ps5retro::IsRetro((int)m_filesSide) ? -1 : n3ds ? Count3dsGames(m_browseFolder) : nds ? CountDsGames(m_browseFolder) : nx ? ps5eden::CountGames(m_browseFolder, m_filesSide == System::Switch2) :
 																												 CountGames(m_browseFolder);
 				it = m_folderCounts.emplace(m_browseFolder, games < 0 ? "-1" : std::to_string(games)).first;
 			}

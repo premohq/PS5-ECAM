@@ -30,12 +30,15 @@ namespace ps5eden
 	// Eden's data folder (keys/, firmware/, roms/, covers/, config/), as its program has it
 	std::string DataFolder();
 	// The Switch side's default games folder: Eden's roms/
-	std::string DefaultGamesFolder();
+	std::string DefaultGamesFolder(bool switch2Side = false);
 	// The game files folder Eden uses (keys/, firmware/, roms/): its saved choice, else ours, else a
 	// standalone ProsperoEden's when only that has keys
 	std::string GameFilesFolder();
+	std::string GameFilesFolder(bool switch2Side);
+	// EglantinePS5's own /data/eglantineps5, for Switch 2 keys, firmware, updates, DLC and games
+	std::string Switch2FilesFolder();
 	// The games folder a scan of folder looks in: Eden's roms/ for the default one
-	std::string ScanFolder(const std::string& folder);
+	std::string ScanFolder(const std::string& folder, bool switch2Side = false);
 	bool KeysFound();	  // prod.keys in Eden's keys/
 	bool FirmwareFound(); // anything in Eden's firmware/
 	// Where Eden loads Lossless Scaling's frame generation from, the player's own copy of the
@@ -45,7 +48,7 @@ namespace ps5eden
 	// Whether the app has the Switch side's program (eden/eboot.bin in its folder)
 	bool Available();
 
-	// The files a Switch game can be: .nsp and .xci
+	// Switch packages the shared scanner discovers: .nsp and .xci for Switch, .nup for Switch 2
 	bool IsSwitchFile(const std::string& name);
 	// A game folder's ExeFS main ("<game>/exefs/main", exefs/ in any case, main.npdm beside it in the
 	// folder): how a Switch 2 title is played (eden-nx2, patches/eden 0022). Its folder is the game's,
@@ -58,7 +61,7 @@ namespace ps5eden
 
 	// Looks for games in a folder (the files in it, and those in its folders: a folder per game), on a
 	// thread of its own
-	void StartScan(const std::string& folder);
+	void StartScan(const std::string& folder, bool switch2Side = false);
 	bool Scanning();
 	// What the last scan found, sorted by name
 	std::vector<ps5emu::Game> ListGames(bool switch2Only = false);

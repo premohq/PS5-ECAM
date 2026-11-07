@@ -85,6 +85,7 @@ int main(int argc, char** argv)
 	Put(games / "ds/more/Kirby.nds");
 	Put(games / "ds/Old.nds");
 	Put(games / "switch/Game.nsp");
+	Put(games / "switch2/Game.nup");
 	const std::string ds = (games / "ds").string();
 	// what ES-DE already knows: a scraped description and a play count for one game, a folder entry,
 	// and a game the launcher no longer lists
@@ -93,7 +94,7 @@ int main(int argc, char** argv)
 		"<game><path>./Mario Kart DS.nds</path><name>Mario Kart DS</name><desc>Racing.</desc><playcount>3</playcount>"
 		"<lastplayed>20991231T000000</lastplayed></game>"
 		"<game><path>./Gone.nds</path><name>Gone</name></game></gameList>");
-	std::vector<ps5esde::System> systems(2);
+	std::vector<ps5esde::System> systems(3);
 	systems[0].side = 2;
 	systems[0].folder = ds;
 	systems[0].games = {{(games / "ds/Mario Kart DS.nds").string(), "Mario Kart DS", "", 0x0101, true, false, 1600000000, 90},
@@ -101,9 +102,12 @@ int main(int argc, char** argv)
 	systems[1].side = 3;
 	systems[1].folder = (games / "switch").string();
 	systems[1].games = {{(games / "switch/Game.nsp").string(), "Game", "", 0x0100000000010000, false, false, 0, 0}};
+	systems[2].side = (int)ps5launcher::System::Switch2;
+	systems[2].folder = (games / "switch2").string();
+	systems[2].games = {{(games / "switch2/Game.nup").string(), "Game 2", "", 0x0400000000010000, false, false, 0, 0}};
 	const std::string eboot = "/data/homebrew/PPSA99360/eboot.bin";
 	const ps5esde::Written first = ps5esde::WriteLibrary(home.string(), reference, eboot, systems);
-	Check(first.error.empty() && first.systems == 2 && first.games == 4, "both systems and their four games written");
+	Check(first.error.empty() && first.systems == 3 && first.games == 5, "both systems and their four games written");
 
 	pugi::xml_document systemsFile;
 	Check(systemsFile.load_file((home / "ES-DE/custom_systems/es_systems.xml").string().c_str()), "ES-DE's custom systems file is XML");
@@ -115,7 +119,13 @@ int main(int argc, char** argv)
 		for (const char* field : {"name", "fullname", "path", "extension", "command"})
 			complete = complete && !std::string(system.child_value(field)).empty();
 	}
-	Check(count == 2 && complete, "every system has the name, full name, path, extensions and command ES-DE requires");
+	Check(count == 3 && complete, "every system has the name, full name, path, extensions and command ES-DE requires");
+	std::string switch2Extensions;
+	for (pugi::xml_node system : systemsFile.child("systemList").children("system"))
+		if (std::string(system.child_value("name")) == "switch2")
+			switch2Extensions = system.child_value("extension");
+	Check(switch2Extensions.find(".nup") != std::string::npos && switch2Extensions.find(".NUP") != std::string::npos,
+		"ES-DE's Switch 2 system lists lowercase and uppercase NUP packages");
 	pugi::xml_node nds = systemsFile.child("systemList").find_child_by_attribute("system", "", "");
 	for (pugi::xml_node system : systemsFile.child("systemList").children("system"))
 		if (std::string(system.child_value("name")) == "nds")

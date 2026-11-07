@@ -340,6 +340,12 @@ None of this has been built or run on the console yet.
 
 Still to do:
 
+- **Evaluate Lichii's Linux work for the PS5 runtime:** Lichii is an Eglantine-derived Switch/Switch 2
+  emulator with desktop Linux builds, but its Linux binary is not a PS5 executable. Compare its upstream
+  source changes and dependencies with the pinned EglantinePS5 port, then port only changes that can be
+  built for PS5 and preserve Playtendoh's launch, settings, shared in-game menu, and return path. Pin the
+  exact upstream commit and add focused regression coverage before adopting changes. Keep EglantinePS5
+  as the working runtime until a PS5-targeted replacement passes the same build and console checks.
 - **Build and review the child runtime:** run the pinned EglantinePS5 build and Playtendoh packaging;
   fix any upstream integration or toolchain failures. Do not describe this source work as a verified
   build until the build is actually run.

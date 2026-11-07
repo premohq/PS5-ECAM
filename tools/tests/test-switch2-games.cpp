@@ -2,6 +2,7 @@
 // A game folder that holds its game as an ExeFS and a RomFS (port/eden/exefs.h): found in a folder by
 // its main, its title ID from main.npdm, and a Switch 2 title told from a Switch one by its ACID's place.
 #include "eden/exefs.h"
+#include "eden/switch_file.h"
 #include <cstring>
 #include <fstream>
 #include <iostream>
@@ -42,6 +43,15 @@ int main(int argc, char** argv)
 	Check(IsMain("/data/eden/roms/Pokopia/exefs/main") && IsMain("Pokopia/ExeFS/main") && !IsMain("exefs/main") && !IsMain("/exefs/main") &&
 			  !IsMain("Pokopia/exefs/rtld") && !IsMain("Pokopia/main") && !IsMain("Game.nsp"),
 		"a game folder's ExeFS main, exefs/ in any case, and nothing else");
+
+	Check(ps5eden::IsSwitchPackageName("Game.nsp") && ps5eden::IsSwitchPackageName("Game.XCI") && ps5eden::IsSwitchPackageName("Game.nUp") &&
+			  !ps5eden::IsSwitchPackageName("Game.nupx") && !ps5eden::IsSwitchPackageName("README.txt"),
+		"Switch packages, including case-insensitive NUP files, are discovered");
+	Check(ps5eden::IsSwitch2PackageName("Game.nup") && ps5eden::IsSwitch2PackageName("Game.NUP") && !ps5eden::IsSwitch2PackageName("Game.nsp"),
+		"only NUP packages are classified as Switch 2 packages");
+	Check(ps5eden::BelongsToSwitchSide("NSP", false) && !ps5eden::BelongsToSwitchSide("Switch 2", false) &&
+			  ps5eden::BelongsToSwitchSide("Switch 2", true) && !ps5eden::BelongsToSwitchSide("XCI", true),
+		"Switch and Switch 2 library sides do not duplicate one another's games");
 
 	Put(root / "Pokopia/exefs/main", "code");
 	Put(root / "Pokopia/exefs/main.npdm", NpdmFile(0x0400A3A01EE4C000, true));

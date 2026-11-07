@@ -41,7 +41,7 @@ namespace ps5esde
 			{"3ds", "n3ds", "Nintendo 3DS", ".3ds .cci .cxi .3dsx .cia .z3ds .zip .7z .rar .3DS .CCI .CXI .3DSX .CIA .Z3DS .ZIP .7Z .RAR"},
 			{"ds", "nds", "Nintendo DS", ".nds .srl .zip .7z .rar .NDS .SRL .ZIP .7Z .RAR"},
 			{"switch", "switch", "Nintendo Switch", ".nsp .xci .NSP .XCI"},
-			{"switch2", "switch2", "Nintendo Switch 2", ".nsp .xci .nsz .xcz .NSP .XCI .NSZ .XCZ"},
+			{"switch2", "switch2", "Nintendo Switch 2", ".nsp .xci .nsz .xcz .nup .NSP .XCI .NSZ .XCZ .NUP"},
 			{"gamecube", "gc", "Nintendo GameCube", ".iso .gcm .rvz .ciso .gcz .wia .ISO .GCM .RVZ .CISO .GCZ .WIA"},
 			{"wii", "wii", "Nintendo Wii", ".iso .gcm .rvz .ciso .gcz .wia .wbfs .wad .dol .elf .ISO .GCM .RVZ .CISO .GCZ .WIA .WBFS .WAD .DOL .ELF"},
 			{"n64", "n64", "Nintendo 64", ".z64 .n64 .v64 .zip .rom .Z64 .N64 .V64 .ZIP .ROM"},

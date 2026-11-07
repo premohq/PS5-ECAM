@@ -776,7 +776,7 @@ namespace ps5shell
 		else if (IsDs())
 			ps5melonds::StartScan(folder);
 		else if (IsSwitch())
-			ps5eden::StartScan(folder);
+			ps5eden::StartScan(folder, IsSwitch2());
 		else if (m_status.coreReady)
 			ps5emu::Rescan();
 		m_scanning = CoreReady();
