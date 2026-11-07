@@ -731,6 +731,8 @@ namespace ps5settings
 				{"nxAstc", nullptr, nullptr, &N3ds::nxAstc, nullptr, 0, 1},
 				{"nxDocked", nullptr, nullptr, nullptr, &N3ds::nxDocked},
 				{"nxFrameGeneration", nullptr, nullptr, nullptr, &N3ds::nxFrameGeneration},
+				{"nxDeadzone", nullptr, nullptr, &N3ds::nxDeadzone, nullptr, 0, 30},
+				{"performance", nullptr, nullptr, nullptr, &N3ds::performance},
 				{"nxSpeedLimit", nullptr, nullptr, &N3ds::nxSpeedLimit, nullptr, 0, 4},
 				{"nxAntiAliasing", nullptr, nullptr, &N3ds::nxAntiAliasing, nullptr, 0, 2},
 				{"nxSharpening", nullptr, nullptr, &N3ds::nxSharpening, nullptr, 0, 200},
