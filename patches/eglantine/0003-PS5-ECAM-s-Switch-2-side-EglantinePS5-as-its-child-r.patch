@@ -747,7 +747,7 @@ diff --git a/headless/settings_store.h b/headless/settings_store.h
 index f8732db..f1743bc 100644
 --- a/headless/settings_store.h
 +++ b/headless/settings_store.h
-@@ -135,6 +135,49 @@ struct Preferences {
+@@ -135,6 +135,58 @@ struct Preferences {
      bool immediate_logs = false;         // Settings > Diagnostics: log lines written as they come
  };
  
@@ -757,6 +757,8 @@ index f8732db..f1743bc 100644
 +struct SessionPreferenceOverrides {
 +    int hud = -1, volume = -1, vibration = -1, language = -1;
 +    int resolution = -1, filter = -1, output = -1, refresh = -1, frame_gen = -1;
++    int block_list = -1, async_shaders = -1, fast_gpu = -1, unsafe_cpu = -1;
++    int unsafe_dma = -1, reactive_flushing = -1, skip_invalidation = -1;
 +    int controller = -2;
 +};
 +
@@ -789,6 +791,13 @@ index f8732db..f1743bc 100644
 +        else if (key == "output" && number < int(std::size(kOutputKeys))) value.output = number;
 +        else if (key == "refresh" && number <= 1) value.refresh = number;
 +        else if (key == "frame_gen" && number <= 1) value.frame_gen = number;
++        else if (key == "block_list" && number <= 1) value.block_list = number;
++        else if (key == "async_shaders" && number <= 1) value.async_shaders = number;
++        else if (key == "fast_gpu" && number <= 1) value.fast_gpu = number;
++        else if (key == "unsafe_cpu" && number <= 1) value.unsafe_cpu = number;
++        else if (key == "unsafe_dma" && number <= 1) value.unsafe_dma = number;
++        else if (key == "reactive_flushing" && number <= 1) value.reactive_flushing = number;
++        else if (key == "skip_invalidation" && number <= 1) value.skip_invalidation = number;
 +        else if (key == "controller" && number <= int(std::size(kControllerKeys))) value.controller = number - 1;
 +    }
 +    ActiveSessionPreferenceOverrides() = value;
@@ -1033,3 +1042,39 @@ index e683812..9d113c0 100644
  ])
  adapt('src/video_core/renderer_vulkan/vk_blit_screen.cpp', 'vulkan_blit_screen.cpp', [
      ('VkFormat current_swapchain_view_format) {',
+
+diff --git a/headless/settings_store.h b/headless/settings_store.h
+index 0000000..0000000 100644
+--- a/headless/settings_store.h
++++ b/headless/settings_store.h
+@@ -632,4 +632,12 @@ inline PerformanceSettings LoadPerformance(uint64_t title_id, const std::string& file = SettingsFile()) {
+     read("");
+     if (title_id) read("/games/" + Settings::TitleKey(title_id));
++    const auto& session = ActiveSessionPreferenceOverrides();
++    if (session.block_list >= 0) result.block_list = session.block_list != 0;
++    if (session.async_shaders >= 0) result.async_shaders = session.async_shaders != 0;
++    if (session.fast_gpu >= 0) result.fast_gpu = session.fast_gpu != 0;
++    if (session.unsafe_cpu >= 0) result.unsafe_cpu = session.unsafe_cpu != 0;
++    if (session.unsafe_dma >= 0) result.unsafe_dma = session.unsafe_dma != 0;
++    if (session.reactive_flushing >= 0) result.reactive_flushing = session.reactive_flushing != 0;
++    if (session.skip_invalidation >= 0) result.skip_invalidation = session.skip_invalidation != 0;
+     return result;
+ }
+
+diff --git a/headless/preferences_check.cpp b/headless/preferences_check.cpp
+index 0000000..0000000 100644
+--- a/headless/preferences_check.cpp
++++ b/headless/preferences_check.cpp
+@@ -428,3 +428,12 @@ int main() {
+     }
+ 
++    // Playtendoh's child-session performance values override saved defaults without rewriting them.
++    Eden::SetSessionPreferenceOverrides({"block_list=1", "async_shaders=1", "fast_gpu=1",
++                                         "unsafe_cpu=1", "unsafe_dma=1", "reactive_flushing=0",
++                                         "skip_invalidation=1"});
++    const auto session = Eden::LoadPerformance(quest, file);
++    assert(session.block_list && session.async_shaders && session.fast_gpu && session.unsafe_cpu &&
++           session.unsafe_dma && !session.reactive_flushing && session.skip_invalidation);
++    Eden::SetSessionPreferenceOverrides({});
++
+     // Game files folder.

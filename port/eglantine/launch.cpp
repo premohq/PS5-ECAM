@@ -77,6 +77,7 @@ namespace ps5eglantine
 			"--ecam-setting", "deadzone=" + std::to_string(settings.nx.nxDeadzone),
 			"--ecam-setting", "language=" + std::to_string(settings.nx.nxLanguage + 1),
 			"--ecam-setting", "async_shaders=" + std::to_string(settings.nx.nxAsyncShaders ? 1 : 0),
+			"--ecam-setting", "block_list=" + std::to_string(settings.nx.nxBlockList ? 1 : 0),
 			"--ecam-setting", "fast_gpu=" + std::to_string(settings.nx.nxFastGpu ? 1 : 0),
 			"--ecam-setting", "unsafe_cpu=" + std::to_string(settings.nx.nxUnsafeCpu ? 1 : 0),
 			"--ecam-setting", "unsafe_dma=" + std::to_string(settings.nx.nxUnsafeDma ? 1 : 0),

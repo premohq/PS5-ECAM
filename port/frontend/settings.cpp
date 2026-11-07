@@ -731,6 +731,8 @@ namespace ps5settings
 				{"nxAstc", nullptr, nullptr, &N3ds::nxAstc, nullptr, 0, 1},
 				{"nxDocked", nullptr, nullptr, nullptr, &N3ds::nxDocked},
 				{"nxFrameGeneration", nullptr, nullptr, nullptr, &N3ds::nxFrameGeneration},
+				{"nxDeadzone", nullptr, nullptr, &N3ds::nxDeadzone, nullptr, 0, 30},
+				{"performance", nullptr, nullptr, nullptr, &N3ds::performance},
 				{"nxSpeedLimit", nullptr, nullptr, &N3ds::nxSpeedLimit, nullptr, 0, 4},
 				{"nxAntiAliasing", nullptr, nullptr, &N3ds::nxAntiAliasing, nullptr, 0, 2},
 				{"nxSharpening", nullptr, nullptr, &N3ds::nxSharpening, nullptr, 0, 200},
@@ -792,10 +794,11 @@ namespace ps5settings
 		static const std::vector<std::string> nds = {"dsFilter", "dsRotation", "screenGap", "hiddenTouch", "dsJit", "layout", "border", "volume", "language", "dsOwnBios",
 			"dsSlot2", "dsMicSource", "dsTouchX", "dsTouchY", "dsTouchScale", "dsStylus"};
 		static const std::vector<std::string> nx = {"nxResolution", "nxFilter", "nxAstc", "nxFrameGeneration", "nxDocked", "nxSpeedLimit", "volume",
-			"nxAntiAliasing", "nxSharpening", "nxController", "nxOutput", "nxHighRefresh", "nxLanguage", "nxMemory", "nxAsyncShaders", "nxFastGpu",
+			"nxAntiAliasing", "nxSharpening", "nxController", "nxDeadzone", "performance", "nxOutput", "nxHighRefresh", "nxLanguage", "nxMemory", "nxAsyncShaders", "nxFastGpu",
 			"nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation", "nxBlockList", "nxCompactMemory"};
-		static const std::vector<std::string> nx2 = {"nxResolution", "nxFilter", "nxFrameGeneration", "nxDocked", "volume", "nxController", "nxOutput",
-			"nxHighRefresh", "nxLanguage", "nxAsyncShaders", "nxFastGpu", "nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation"};
+		static const std::vector<std::string> nx2 = {"nxResolution", "nxFilter", "nxFrameGeneration", "nxDocked", "volume", "nxController", "nxDeadzone",
+			"performance", "nxOutput", "nxHighRefresh", "nxLanguage", "nxAsyncShaders", "nxBlockList", "nxFastGpu", "nxUnsafeCpu", "nxUnsafeDma",
+			"nxReactiveFlushing", "nxSkipInvalidation"};
 		// the other sides' (their in-game menu's, port/libretro)
 		static const std::vector<std::string> retro = {"dsFilter", "border", "volume"};
 		static const std::vector<std::string> none;
