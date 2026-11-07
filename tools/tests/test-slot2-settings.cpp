@@ -30,7 +30,7 @@ int main()
 	loaded.nx2.nxBlockList = false;
 	loaded.games[GameKey("switch2", title)]["nxBlockList"] = 1;
 	Check(Save(loaded), "Switch 2 precompilation setting serializes");
-	const auto switch2 = Load();
+	auto switch2 = Load();
 	Check(!switch2.nx2.nxBlockList && ForGame(switch2, "switch2", title).nx2.nxBlockList,
 		"Switch 2 game profile can override precompilation without changing the side default");
 	const auto& switch2Settings = GameSettingNames("switch2");
