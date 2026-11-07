@@ -795,7 +795,7 @@ namespace ps5settings
 			"nxAntiAliasing", "nxSharpening", "nxController", "nxOutput", "nxHighRefresh", "nxLanguage", "nxMemory", "nxAsyncShaders", "nxFastGpu",
 			"nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation", "nxBlockList", "nxCompactMemory"};
 		static const std::vector<std::string> nx2 = {"nxResolution", "nxFilter", "nxFrameGeneration", "nxDocked", "volume", "nxController", "nxOutput",
-			"nxHighRefresh", "nxLanguage", "nxAsyncShaders", "nxFastGpu", "nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation"};
+			"nxHighRefresh", "nxLanguage", "nxAsyncShaders", "nxBlockList", "nxFastGpu", "nxUnsafeCpu", "nxUnsafeDma", "nxReactiveFlushing", "nxSkipInvalidation"};
 		// the other sides' (their in-game menu's, port/libretro)
 		static const std::vector<std::string> retro = {"dsFilter", "border", "volume"};
 		static const std::vector<std::string> none;
