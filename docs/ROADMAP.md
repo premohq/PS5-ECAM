@@ -341,7 +341,8 @@ None of this has been built or run on the console yet.
 Still to do:
 
 - **Keep the Lichii-derived core working as a PS5 child runtime:** the pinned EglantinePS5 revision's
-  Eglantine submodule is Lichii source commit `3140648a668aaebf87bae2dea17512fdca125ba0`. Playtendoh
+  Eglantine submodule is [Lichii](https://github.com/zortos293/Lichii) source commit
+  `3140648a668aaebf87bae2dea17512fdca125ba0`. Playtendoh
   packages the PS5-targeted EglantinePS5 port, not Lichii's desktop Linux binary. Port upstream changes
   only through the PS5 toolchain and preserve Playtendoh's launch, settings, shared in-game menu, and
   return path. Keep the core and PS5-port revisions pinned; recheck compatibility when either pin moves.
