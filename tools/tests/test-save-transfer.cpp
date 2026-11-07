@@ -97,5 +97,24 @@ int main(int argc, char** argv)
 	Check(Choices((root / "ryu-linked").string(), id, error).empty(), "choice discovery rejects symlinked roots");
 	Put(ryujinx / "bis/system/save/8000000000000000/0/imkvdb.arc", "bad index");
 	Check(Discover(ryujinx.string(), id, error).empty(), "malformed Ryujinx index refused");
+	// A standalone ProsperoEden user/save tree: one title folder below each 32-hex profile ID.
+	const auto standalone = root / "prosperoeden" / "user/nand/user/save/0000000000000000";
+	const std::string profileA = "00112233445566778899AABBCCDDEEFF";
+	const std::string profileB = "FFEEDDCCBBAA99887766554433221100";
+	Put(standalone / profileA / "0100ABCDEF123000/main", "standalone player A");
+	Put(standalone / profileB / "0100ABCDEF124000/main", "other game");
+	const auto standaloneChoices = ProsperoEdenChoices(standalone.string(), id, error);
+	Check(standaloneChoices.size() == 1 && standaloneChoices[0].profileId == profileA,
+		"standalone ProsperoEden discovery lists only profiles with this game's save");
+	sources = standaloneChoices.empty() ? std::vector<Source>{} : Discover(standaloneChoices[0].folder, id, error);
+	Check(sources.size() == 1 && sources[0].kind == Kind::Account, "standalone profile save is imported as the account save");
+	Check(Import(sources, account.string(), device.string(), recovery.string(), kept, error) &&
+		Get(account / "main") == "standalone player A" && Get(device / "main") == "ryu device",
+		"standalone ProsperoEden account save imports without changing the device save");
+	Check(Get(standalone / profileA / "0100ABCDEF123000/main") == "standalone player A",
+		"standalone ProsperoEden source remains unchanged");
+	fs::create_directory_symlink(standalone / profileA, standalone / "11112222333344445555666677778888");
+	Check(ProsperoEdenChoices(standalone.string(), id, error).size() == 1,
+		"standalone save discovery skips symlinked profile folders");
 	return failures ? 1 : 0;
 }

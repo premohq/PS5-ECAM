@@ -428,6 +428,11 @@ namespace ps5eden
 		return ps5paths::Eden();
 	}
 
+	std::string StandaloneDataFolder()
+	{
+		return kStandaloneData;
+	}
+
 	std::string DefaultGamesFolder()
 	{
 		return DataFolder() + "/roms";

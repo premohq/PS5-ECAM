@@ -29,6 +29,8 @@ namespace ps5eden
 {
 	// Eden's data folder (keys/, firmware/, roms/, covers/, config/), as its program has it
 	std::string DataFolder();
+	// The standalone ProsperoEden installation's save tree, when it is present on the console.
+	std::string StandaloneDataFolder();
 	// The Switch side's default games folder: Eden's roms/
 	std::string DefaultGamesFolder();
 	// The game files folder Eden uses (keys/, firmware/, roms/): its saved choice, else ours, else a

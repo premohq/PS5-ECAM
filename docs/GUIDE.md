@@ -272,8 +272,9 @@ New in 5.0.0: a side of its own, in the Switch's red, to the right of the DS.
   Eden's user profiles, as it does every side's saves. A game's **Saves** backs up and restores that
   game's alone, and copies the chosen player's save to a USB drive (`PS5-ECAM-exports`, as folders
   another emulator can take) or takes one from it: `PS5-ECAM-imports/<title ID>` with the same
-  folders, or a copy of Ryujinx's folder in `Ryujinx` on the drive. Every file is copied and checked
-  before the save is replaced, and the save it replaces is kept in `/data/eden/save-transfer-recovery`.
+  folders, a copy of Ryujinx's folder in `Ryujinx` on the drive, or a matching profile save detected
+  from standalone ProsperoEden in `/data/prosperoeden`. Every file is copied and checked before the
+  save is replaced, and the save it replaces is kept in `/data/eden/save-transfer-recovery`.
 
 ## Game files
 
