@@ -1060,3 +1060,21 @@ index 0000000..0000000 100644
 +    if (session.skip_invalidation >= 0) result.skip_invalidation = session.skip_invalidation != 0;
      return result;
  }
+
+diff --git a/headless/preferences_check.cpp b/headless/preferences_check.cpp
+index 0000000..0000000 100644
+--- a/headless/preferences_check.cpp
++++ b/headless/preferences_check.cpp
+@@ -428,6 +428,15 @@ int main() {
+     }
+ 
++    // Playtendoh's child-session performance values override saved defaults without rewriting them.
++    Eden::SetSessionPreferenceOverrides({"block_list=1", "async_shaders=1", "fast_gpu=1",
++                                         "unsafe_cpu=1", "unsafe_dma=1", "reactive_flushing=0",
++                                         "skip_invalidation=1"});
++    const auto session = Eden::LoadPerformance(quest, file);
++    assert(session.block_list && session.async_shaders && session.fast_gpu && session.unsafe_cpu &&
++           session.unsafe_dma && !session.reactive_flushing && session.skip_invalidation);
++    Eden::SetSessionPreferenceOverrides({});
++
+     // Game files folder.
