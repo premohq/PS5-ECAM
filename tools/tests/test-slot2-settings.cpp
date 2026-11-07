@@ -1,5 +1,6 @@
 // SPDX-License-Identifier: GPL-3.0-or-later
 #include "frontend/settings.h"
+#include <algorithm>
 #include <filesystem>
 #include <iostream>
 static int failures = 0;
