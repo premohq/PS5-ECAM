@@ -1065,7 +1065,7 @@ diff --git a/headless/preferences_check.cpp b/headless/preferences_check.cpp
 index 0000000..0000000 100644
 --- a/headless/preferences_check.cpp
 +++ b/headless/preferences_check.cpp
-@@ -428,6 +428,15 @@ int main() {
+@@ -428,3 +428,12 @@ int main() {
      }
  
 +    // Playtendoh's child-session performance values override saved defaults without rewriting them.
